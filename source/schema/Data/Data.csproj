@@ -1,0 +1,95 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>EmptyProject</RootNamespace>
+    <ProjectGuid>{C4C3F5D0-2D5E-49AF-BE48-B833E7EC542B}</ProjectGuid>
+    <AssemblyName>EmptyProject</AssemblyName>
+    <LangVersion>12</LangVersion>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\..\binary\Debug\</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\..\binary\Debug\net8.0\EmptyProject.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\..\binary\Release\</OutputPath>
+    <DocumentationFile>..\..\..\binary\Release\net8.0\EmptyProject.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="8.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Extensions.Hosting">
+      <HintPath>..\..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.hosting\2.2.0\lib\netstandard2.0\Microsoft.Extensions.Hosting.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework">
+      <HintPath>..\Libraries\J.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Core">
+      <HintPath>..\Libraries\J.Framework.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Business">
+      <HintPath>..\Libraries\J.Framework.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Content">
+      <HintPath>..\Libraries\J.Framework.Content.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.EntityFrameworkCore">
+      <HintPath>..\Libraries\J.Framework.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Elasticsearch">
+      <HintPath>..\Libraries\J.Framework.Elasticsearch.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Manufacture">
+      <HintPath>..\Libraries\J.Framework.Manufacture.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Community">
+      <HintPath>..\Libraries\J.Framework.Community.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Sales">
+      <HintPath>..\Libraries\J.Framework.Sales.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Payment">
+      <HintPath>..\Libraries\J.Framework.Payment.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Streaming">
+      <HintPath>..\Libraries\J.Framework.Streaming.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="J.Framework" />
+    <None Remove="J.Framework.Core" />
+    <None Remove="J.Framework.Business" />
+    <None Remove="J.Framework.Content" />
+    <None Remove="J.Framework.EntityFrameworkCore" />
+    <None Remove="J.Framework.Elasticsearch" />
+    <None Remove="J.Framework.Manufacture" />
+    <None Remove="Community\" />
+    <None Remove="Sales\Taishin\" />
+    <None Remove="Streaming\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Community\" />
+    <Folder Include="Streaming\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="DataContextFactory.cs" />
+  </ItemGroup>
+</Project>

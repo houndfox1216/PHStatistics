@@ -1,0 +1,2948 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>J.Framework.Web</name>
+    </assembly>
+    <members>
+        <member name="T:System.Framework.Web.Application">
+            <summary>
+            網頁應用程式
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Application.Current">
+            <summary>
+            取得目前運行的網頁應用程式
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Application.Children">
+            <summary>
+            應用程式的子應用程式
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Application.Cultures">
+            <summary>
+            文化特性
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Application.Countries">
+            <summary>
+            各國相關資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Application.Localizations">
+            <summary>
+            本地化資源
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Application.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Application.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Application.Type">
+            <summary>
+            類型
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Application.Configuration">
+            <summary>
+            設定
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Application.Policy">
+            <summary>
+            安全政策，過濾可使用此程序的用戶、用戶端、網路位址，與使用權限
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Application.Logger">
+            <summary>
+            記錄器
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Application.Storage">
+            <summary>
+            儲存體
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Application.FileSystem">
+            <summary>
+            取得應用程式的檔案系統
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Application.Indexer">
+            <summary>
+            索引器
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Application.Listener">
+            <summary>
+            傾聽者，用來監聽指定的Socket
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Application.Item(System.String)">
+            <summary>
+            應用程式資料，用於在程序中傳遞
+            </summary>
+            <param name="name">資料名稱</param>
+            <returns>應用程式資料</returns>
+        </member>
+        <member name="P:System.Framework.Web.Application.Status">
+            <summary>
+            應用程式目前狀態
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Application.HasChild">
+            <summary>
+            判斷是否有子應用程式
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Application.StartupPath">
+            <summary>
+            取得組件開始路徑
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.Application.GetRealPath(System.String)">
+            <summary>
+            取得真實路徑，以 '~' 開頭視 WebRoot 為根目錄，以 '@' 開頭視 ContentRoot 為根目錄，其他視 Startup 為根目錄
+            </summary>
+            <param name="path">路徑</param>
+        </member>
+        <member name="M:System.Framework.Web.Application.#ctor(System.String,System.String[])">
+            <summary>
+            建構 WebApplication
+            </summary>
+            <param name="name">名稱</param>
+            <param name="args">參數</param>
+        </member>
+        <member name="M:System.Framework.Web.Application.AddChild(System.Framework.Application.IApplication)">
+            <summary>
+            增加子應用程式(不會改變子應用程式之狀態)
+            </summary>
+            <param name="application">子應用程式</param>
+        </member>
+        <member name="M:System.Framework.Web.Application.RemoveChild(System.Framework.Application.IApplication)">
+            <summary>
+            移除子應用程式(不會改變子應用程式之狀態)
+            </summary>
+            <param name="application">子應用程式</param>
+        </member>
+        <member name="M:System.Framework.Web.Application.ContainChild(System.Framework.Application.IApplication)">
+            <summary>
+            是否包含指定的應用程式
+            </summary>
+            <param name="application">應用程式</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Web.Application.RunAll">
+            <summary>
+            全部執行(包含子程序)
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.Application.StopAll">
+            <summary>
+            全部停止(包含子程序)
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.Application.Run">
+            <summary>
+            執行
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.Application.Stop">
+            <summary>
+            停止
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.Application.SendMessage(System.Framework.Data.IMessageData)">
+            <summary>
+            傳送訊息給應用程式
+            </summary>
+            <param name="message">訊息資料</param>
+            <returns>應用程式回傳之訊息</returns>
+        </member>
+        <member name="P:System.Framework.Web.Application.CriticalExecutionTime">
+            <summary>
+            臨界執行時間，當執行時間超過此值時，將於日誌中發出警示
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Application.IsCommandProfilerEnabled">
+            <summary>
+            取得是否啟用命令評測
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Application.ContentRootPath">
+            <summary>
+            應用程式內容路徑
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Application.WebRootPath">
+            <summary>
+            網站內容路徑
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Application.Services">
+            <summary>
+            The System.IServiceProvider for the host.
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.Application.UseLoggerContext``1(System.Func{System.Framework.Data.IConfiguration,System.String},System.Object)">
+            <summary>
+            設定記錄器脈絡型別
+            </summary>
+            <typeparam name="TContext">記錄器脈絡型別</typeparam>
+            <param name="assignPath">取得設定檔路徑之方法，如有值時將一併載入設定值</param>
+            <param name="builder">建立者</param>
+        </member>
+        <member name="M:System.Framework.Web.Application.UseConfiguration``1(System.Nullable{System.TimeSpan})">
+            <summary>
+            指定組態型別
+            </summary>
+            <typeparam name="TConfiguration">設定型別</typeparam>
+            <param name="syncSpan">同步週期，未設定時為一分鐘</param>
+        </member>
+        <member name="M:System.Framework.Web.Application.Configure(System.Action{Microsoft.AspNetCore.Builder.IApplicationBuilder})">
+            <summary>
+            Specify the startup method to be used to configure the web application.
+            </summary>
+            <param name="configureApp">The delegate that configures the Microsoft.AspNetCore.Builder.IApplicationBuilder.</param>
+            <returns>The Microsoft.AspNetCore.Hosting.IWebHostBuilder.</returns>
+        </member>
+        <member name="M:System.Framework.Web.Application.ConfigureAppConfiguration(System.Action{Microsoft.Extensions.Configuration.IConfigurationBuilder})">
+            <summary>
+            Adds a delegate for configuring the Microsoft.Extensions.Configuration.IConfigurationBuilder that will construct an Microsoft.Extensions.Configuration.IConfiguration.
+            </summary>
+            <param name="configureDelegate"> The delegate for configuring the Microsoft.Extensions.Configuration.IConfigurationBuilder that will be used to construct an Microsoft.Extensions.Configuration.IConfiguration.</param>
+            <returns>The Microsoft.AspNetCore.Hosting.IWebHostBuilder.</returns>
+        </member>
+        <member name="M:System.Framework.Web.Application.ConfigureLogging(System.Action{Microsoft.Extensions.Logging.ILoggingBuilder})">
+            <summary>
+            Adds a delegate for configuring the provided Microsoft.Extensions.Logging.LoggerFactory. This may be called multiple times.
+            </summary>
+            <param name="configureLogging">The delegate that configures the Microsoft.Extensions.Logging.ILoggingBuilder.</param>
+            <returns>The Microsoft.AspNetCore.Hosting.IWebHostBuilder.</returns>
+        </member>
+        <member name="M:System.Framework.Web.Application.ConfigureLogging(System.Action{Microsoft.AspNetCore.Hosting.WebHostBuilderContext,Microsoft.Extensions.Logging.ILoggingBuilder})">
+            <summary>
+            Adds a delegate for configuring the provided Microsoft.Extensions.Logging.LoggerFactory. This may be called multiple times.
+            </summary>
+            <param name="configureLogging">The delegate that configures the Microsoft.Extensions.Logging.LoggerFactory.</param>
+            <returns>The Microsoft.AspNetCore.Hosting.IWebHostBuilder.</returns>
+        </member>
+        <member name="M:System.Framework.Web.Application.UseDefaultServiceProvider(System.Action{Microsoft.Extensions.DependencyInjection.ServiceProviderOptions})">
+            <summary>
+            Configures the default service provider
+            </summary>
+            <param name="configure">A callback used to configure the Microsoft.Extensions.DependencyInjection.ServiceProviderOptions for the default System.IServiceProvider.</param>
+            <returns>The Microsoft.AspNetCore.Hosting.IWebHostBuilder.</returns>
+        </member>
+        <member name="M:System.Framework.Web.Application.UseDefaultServiceProvider(System.Action{Microsoft.AspNetCore.Hosting.WebHostBuilderContext,Microsoft.Extensions.DependencyInjection.ServiceProviderOptions})">
+            <summary>
+            Configures the default service provider
+            </summary>
+            <param name="configure">A callback used to configure the Microsoft.Extensions.DependencyInjection.ServiceProviderOptions for the default System.IServiceProvider.</param>
+            <returns>The Microsoft.AspNetCore.Hosting.IWebHostBuilder.</returns>
+        </member>
+        <member name="M:System.Framework.Web.Application.UseStartup``1">
+            <summary>
+            Specify the startup type to be used by the web host.
+            </summary>
+            <typeparam name="TStartup">The type containing the startup methods for the application.</typeparam>
+            <returns>The Microsoft.AspNetCore.Hosting.IWebHostBuilder.</returns>
+        </member>
+        <member name="M:System.Framework.Web.Application.UseStartup``2(System.Nullable{System.TimeSpan})">
+            <summary>
+            指定啟動型別與組態型別
+            </summary>
+            <typeparam name="TStartup">啟動型別</typeparam>
+            <typeparam name="TConfiguration">組態型別</typeparam>
+            <param name="syncSpan">同步週期，未設定時為一分鐘</param>
+        </member>
+        <member name="M:System.Framework.Web.Application.UseUuid(System.Nullable{System.Byte},System.Nullable{System.Int16},System.Nullable{System.Int32},System.Int16)">
+            <summary>
+            指定 UUID 參數，皆未指定時由應用程式參數或IP位址取得
+            </summary>
+            <param name="serviceId">服務ID</param>
+            <param name="deployId">部屬ID</param>
+            <param name="workerId">工作站ID</param>
+            <param name="sequence">目前序號</param>
+        </member>
+        <member name="M:System.Framework.Web.Application.UseStorageContext``1(System.Action{``0})">
+            <summary>
+            指定儲存體脈絡型別
+            </summary>
+            <typeparam name="TStorageContext">儲存體脈絡型別</typeparam>
+            <param name="preload">預載程序，預設為嘗試初始化資料</param>
+        </member>
+        <member name="M:System.Framework.Web.Application.UseFileSystemContext``1(System.Action{``0})">
+            <summary>
+            指定檔案系統脈絡型別
+            </summary>
+            <typeparam name="TFileSystemContext">檔案系統脈絡型別</typeparam>
+            <param name="preload">預載程序</param>
+        </member>
+        <member name="M:System.Framework.Web.Application.UseDataContext``1(System.Action{``0})">
+            <summary>
+            指定資料脈絡型別
+            </summary>
+            <typeparam name="TDataContext">資料脈絡型別</typeparam>
+            <param name="preload">預載程序，預設為嘗試初始化資料</param>
+        </member>
+        <member name="M:System.Framework.Web.Application.UseIndexContext``1(System.Action{``0})">
+            <summary>
+            指定索引脈絡型別
+            </summary>
+            <typeparam name="TIndexContext">索引脈絡型別</typeparam>
+            <param name="preload">預載程序，預設為嘗試初始化資料</param>
+        </member>
+        <member name="M:System.Framework.Web.Application.UseGlobalization(System.String)">
+            <summary>
+            使用全球化
+            <param name="path">全球化檔案目錄，不指定時預設為 Content Root</param>
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.Application.UseLocalization(System.String)">
+            <summary>
+            使用本地化
+            <param name="path">本地化檔案目錄，不指定時預設為 Content Root</param>
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.Application.UseContentRoot(System.String)">
+            <summary>
+            指定 Content Root
+            </summary>
+            <param name="contentRoot">內容根目錄</param>
+        </member>
+        <member name="M:System.Framework.Web.Application.UseWebRoot(System.String)">
+            <summary>
+            指定 Web Root
+            </summary>
+            <param name="webRoot">網站根目錄</param>
+        </member>
+        <member name="M:System.Framework.Web.Application.Dispose(System.Boolean)">
+            <summary>
+            釋放占用資源
+            </summary>
+            <param name="disposing">是否釋放受控資源</param>
+        </member>
+        <member name="M:System.Framework.Web.Application.Dispose">
+            <summary>
+            釋放資源
+            </summary>
+        </member>
+        <member name="T:System.Framework.Web.ApplicationHost">
+            <summary>
+            應用程式主持人
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApplicationHost.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApplicationHost.Type">
+            <summary>
+            類型
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApplicationHost.Status">
+            <summary>
+            應用程式目前狀態
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApplicationHost.Children">
+            <summary>
+            應用程式的子應用程式
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApplicationHost.Cultures">
+            <summary>
+            文化特性
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApplicationHost.Countries">
+            <summary>
+            各國相關資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApplicationHost.Localizations">
+            <summary>
+            本地化資源
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApplicationHost.Configuration">
+            <summary>
+            設定
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApplicationHost.Logger">
+            <summary>
+            記錄器
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApplicationHost.Policy">
+            <summary>
+            安全政策，過濾可使用此程序的用戶、用戶端、網路位址，與使用權限
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApplicationHost.Storage">
+            <summary>
+            取得應用程式的儲存體
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApplicationHost.FileSystem">
+            <summary>
+            取得應用程式的檔案系統
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApplicationHost.Indexer">
+            <summary>
+            取得應用程式的索引器
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApplicationHost.Listener">
+            <summary>
+            傾聽者，用來監聽指定的Socket
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApplicationHost.IsCommandProfilerEnabled">
+            <summary>
+            取得是否啟用命令評測
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApplicationHost.ContentRootPath">
+            <summary>
+            應用程式內容路徑
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApplicationHost.WebRootPath">
+            <summary>
+            網站內容路徑
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.ApplicationHost.GetRealPath(System.String)">
+            <summary>
+            取得真實路徑，以 '~' 開頭視 WebRoot 為根目錄，以 '@' 開頭視 ContentRoot 為根目錄，其他視 Startup 為根目錄
+            </summary>
+            <param name="path">路徑</param>
+        </member>
+        <member name="P:System.Framework.Web.ApplicationHost.Services">
+            <summary>
+             The System.IServiceProvider for the host.
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApplicationHost.ServerFeatures">
+            <summary>
+            The Microsoft.AspNetCore.Http.Features.IFeatureCollection exposed by the configured server.
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.ApplicationHost.#ctor(System.String,System.String[])">
+            <summary>
+            建構 ApplicationHost
+            </summary>
+            <param name="name">名稱</param>
+            <param name="args">參數</param>
+        </member>
+        <member name="M:System.Framework.Web.ApplicationHost.Run">
+            <summary>
+            執行，未提供實作
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.ApplicationHost.Stop">
+            <summary>
+            停止，未提供實作
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.ApplicationHost.Start">
+            <summary>
+            Starts listening on the configured addresses.
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.ApplicationHost.StartAsync(System.Threading.CancellationToken)">
+            <summary>
+            Starts listening on the configured addresses.
+            </summary>
+            <param name="cancellationToken">Used to abort program start.</param>
+            <returns>A System.Threading.Tasks.Task that completes when the Microsoft.AspNetCore.Hosting.IWebHost starts.</returns>
+        </member>
+        <member name="M:System.Framework.Web.ApplicationHost.StopAsync(System.Threading.CancellationToken)">
+            <summary>
+            Attempt to gracefully stop the host.
+            </summary>
+            <param name="cancellationToken">Used to indicate when stop should no longer be graceful.</param>
+            <returns>A System.Threading.Tasks.Task that completes when the Microsoft.AspNetCore.Hosting.IWebHost stops.</returns>
+        </member>
+        <member name="M:System.Framework.Web.ApplicationHost.SendMessage(System.Framework.Data.IMessageData)">
+            <summary>
+            發送訊息至應用程式
+            </summary>，未提供實作
+            <param name="message">請求訊息</param>
+            <returns>回應訊息</returns>
+        </member>
+        <member name="M:System.Framework.Web.ApplicationHost.Configure(System.Action{Microsoft.AspNetCore.Builder.IApplicationBuilder})">
+            <summary>
+            Specify the startup method to be used to configure the web application.
+            </summary>
+            <param name="configureApp">The delegate that configures the Microsoft.AspNetCore.Builder.IApplicationBuilder.</param>
+        </member>
+        <member name="M:System.Framework.Web.ApplicationHost.ConfigureAppConfiguration(System.Action{Microsoft.Extensions.Configuration.IConfigurationBuilder})">
+            <summary>
+            Adds a delegate for configuring the Microsoft.Extensions.Configuration.IConfigurationBuilder that will construct an Microsoft.Extensions.Configuration.IConfiguration.
+            </summary>
+            <param name="configureDelegate"> The delegate for configuring the Microsoft.Extensions.Configuration.IConfigurationBuilder that will be used to construct an Microsoft.Extensions.Configuration.IConfiguration.</param>
+        </member>
+        <member name="M:System.Framework.Web.ApplicationHost.ConfigureLogging(System.Action{Microsoft.Extensions.Logging.ILoggingBuilder})">
+            <summary>
+            Adds a delegate for configuring the provided Microsoft.Extensions.Logging.LoggerFactory. This may be called multiple times.
+            </summary>
+            <param name="configureLogging">The delegate that configures the Microsoft.Extensions.Logging.ILoggingBuilder.</param>
+            <returns>The Microsoft.AspNetCore.Hosting.IWebHostBuilder.</returns>
+        </member>
+        <member name="M:System.Framework.Web.ApplicationHost.ConfigureLogging(System.Action{Microsoft.AspNetCore.Hosting.WebHostBuilderContext,Microsoft.Extensions.Logging.ILoggingBuilder})">
+            <summary>
+            Adds a delegate for configuring the provided Microsoft.Extensions.Logging.LoggerFactory. This may be called multiple times.
+            </summary>
+            <param name="configureLogging">The delegate that configures the Microsoft.Extensions.Logging.LoggerFactory.</param>
+        </member>
+        <member name="M:System.Framework.Web.ApplicationHost.UseDefaultServiceProvider(System.Action{Microsoft.Extensions.DependencyInjection.ServiceProviderOptions})">
+            <summary>
+            Configures the default service provider
+            </summary>
+            <param name="configure">A callback used to configure the Microsoft.Extensions.DependencyInjection.ServiceProviderOptions for the default System.IServiceProvider.</param>
+        </member>
+        <member name="M:System.Framework.Web.ApplicationHost.UseDefaultServiceProvider(System.Action{Microsoft.AspNetCore.Hosting.WebHostBuilderContext,Microsoft.Extensions.DependencyInjection.ServiceProviderOptions})">
+            <summary>
+            Configures the default service provider
+            </summary>
+            <param name="configure">A callback used to configure the Microsoft.Extensions.DependencyInjection.ServiceProviderOptions for the default System.IServiceProvider.</param>
+        </member>
+        <member name="M:System.Framework.Web.ApplicationHost.UseStartup``1">
+            <summary>
+            Specify the startup type to be used by the web host.
+            </summary>
+            <typeparam name="TStartup">The type containing the startup methods for the application.</typeparam>
+        </member>
+        <member name="M:System.Framework.Web.ApplicationHost.UseStartup``2(System.Nullable{System.TimeSpan})">
+            <summary>
+            指定啟動型別與組態型別
+            </summary>
+            <typeparam name="TStartup">啟動型別</typeparam>
+            <typeparam name="TConfiguration">組態型別</typeparam>
+            <param name="syncSpan">同步週期，未設定時為一分鐘</param>
+        </member>
+        <member name="M:System.Framework.Web.ApplicationHost.UseLoggerContext``1(System.Func{System.Framework.Data.IConfiguration,System.String},System.Object)">
+            <summary>
+            設定記錄器脈絡型別
+            </summary>
+            <typeparam name="TContext">記錄器脈絡型別</typeparam>
+            <param name="assignPath">取得設定檔路徑之方法，如有值時將一併載入設定值</param>
+            <param name="builder">建立者</param>
+        </member>
+        <member name="M:System.Framework.Web.ApplicationHost.UseContentRoot(System.String)">
+            <summary>
+            指定 Content Root
+            </summary>
+            <param name="contentRoot">內容根目錄</param>
+        </member>
+        <member name="M:System.Framework.Web.ApplicationHost.UseWebRoot(System.String)">
+            <summary>
+            指定 Web Root
+            </summary>
+            <param name="webRoot">網站根目錄</param>
+        </member>
+        <member name="T:System.Framework.Web.HttpModelBase`1">
+            <summary>
+            資料模型的基礎類型
+            </summary>
+            <typeparam name="TDataContext">資料脈絡型別</typeparam>
+        </member>
+        <member name="M:System.Framework.Web.HttpModelBase`1.OnDataContextCreating">
+            <summary>
+            當未指定資料模型但卻使用到資料模型時，系統自行建立資料模型時觸發程序
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.HttpModelBase`1.#ctor(System.String,System.Framework.Application.IUser,`0)">
+            <summary>
+            建構資料模型
+            </summary>
+            <param name="name">名稱</param>
+            <param name="user">預設用戶</param>
+            <param name="context">預設資料脈絡</param>
+        </member>
+        <member name="T:System.Framework.Web.AuthorizeAttribute">
+            <summary>
+            表示用來限制呼叫端存取動作方法的屬性(支援Basic/Bearer Scheme)
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.AuthorizeAttribute.UserType">
+            <summary>
+            用戶類型
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.AuthorizeAttribute.AccessDeniedRoute">
+            <summary>
+            拒絕訪問時轉址路由
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.AuthorizeAttribute.ChangePasswordRoute">
+            <summary>
+            密碼變更時轉址路由
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.AuthorizeAttribute.ReturnUrlParameter">
+            <summary>
+            返回網址的參數名稱
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.AuthorizeAttribute.SecretKey">
+            <summary>
+            JWT金鑰
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.AuthorizeAttribute.#ctor(System.Type,System.String)">
+            <summary>
+            建構 UserAuthorizeAttribute
+            </summary>
+            <param name="userType">用戶類型</param>
+            <param name="anonymousId">如有設置，匿名者視同此ID身分</param>
+        </member>
+        <member name="M:System.Framework.Web.AuthorizeAttribute.OnAuthorization(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext)">
+            <summary>
+            Called early in the filter pipeline to confirm request is authorized.
+            </summary>
+            <param name="context">The Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext.</param>
+        </member>
+        <member name="T:System.Framework.Web.IPFilterAttribute">
+            <summary>
+            表示用來依IP位址限制用戶端存取動作方法的屬性(支援IPv4/IPv6)
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.IPFilterAttribute.systemAllowedNetworks">
+            <summary>
+            系統允許的網段
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.IPFilterAttribute.systemDeniedNetworks">
+            <summary>
+            系統拒絕的網段
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.IPFilterAttribute.allowedNetworks">
+            <summary>
+            允許的網段
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.IPFilterAttribute.deniedNetworks">
+            <summary>
+            拒絕的網段
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.IPFilterAttribute.#ctor(System.String[],System.String[])">
+            <summary>
+            建構IPFilterAttribute
+            </summary>
+            <param name="allowedNetworks">允許的網段</param>
+            <param name="deniedNetworks">拒絕的網段</param>
+        </member>
+        <member name="M:System.Framework.Web.IPFilterAttribute.OnAuthorization(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext)">
+            <summary>
+            Called early in the filter pipeline to confirm request is authorized.
+            </summary>
+            <param name="context">The Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext.</param>
+        </member>
+        <member name="T:System.Framework.Web.ContentSecurityPolicy">
+            <summary>
+            Content Security Policy
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.ContentSecurityPolicy.GoogleFontSources">
+            <summary>
+            Google 字型
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.ContentSecurityPolicy.GoogleTagManagerSources">
+            <summary>
+            Google 代碼管理工具
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.ContentSecurityPolicy.GoogleTagManagerPreviewSources">
+            <summary>
+            Google 代碼管理工具的預覽模式
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.ContentSecurityPolicy.GoogleAnalyticsSources">
+            <summary>
+            Google Analytics 4
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.ContentSecurityPolicy.GoogleAnalyticsWithSignalsSources">
+            <summary>
+            使用 Google 信號的 Google Analytics
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.ContentSecurityPolicy.GoogleOptimizeSources">
+            <summary>
+            Google 最佳化工具
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.ContentSecurityPolicy.GoogleAdsConversionsSources">
+            <summary>
+            Google Ads 轉換
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.ContentSecurityPolicy.GoogleAdsRemarketingSources">
+            <summary>
+            Google Ads 再行銷
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ContentSecurityPolicy.GoogleFontEnabled">
+            <summary>
+            啟用 Google 代碼管理工具
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ContentSecurityPolicy.GoogleTagManagerEnabled">
+            <summary>
+            啟用 Google 代碼管理工具
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ContentSecurityPolicy.GoogleTagManagerPreviewEnabled">
+            <summary>
+            啟用 Google 代碼管理工具的預覽模式
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ContentSecurityPolicy.GoogleAnalyticsEnabled">
+            <summary>
+            啟用 Google Analytics 4
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ContentSecurityPolicy.GoogleAnalyticsWithSignalsEnabled">
+            <summary>
+            啟用使用 Google 信號的 Google Analytics。
+            如為 True，GoogleAnalytics4Enabled 亦將為 True。 
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ContentSecurityPolicy.GoogleOptimizeEnabled">
+            <summary>
+            啟用 Google 最佳化工具
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ContentSecurityPolicy.GoogleAdsConversionsEnabled">
+            <summary>
+            啟用 Google Ads 轉換
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ContentSecurityPolicy.GoogleAdsRemarketingEnabled">
+            <summary>
+            啟用 Google Ads 再行銷
+            如為 True，GoogleAdsConversionsEnabled 亦將為 True。 
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ContentSecurityPolicy.FacebookShareButtonEnabled">
+            <summary>
+            啟用 Facebook Share Button
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ContentSecurityPolicy.DefaultSource">
+            <summary>
+            預設的可允許來源宣告，作為未定義種類來源的預設值
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ContentSecurityPolicy.NonceEnabled">
+            <summary>
+            啟用隨機碼，提供給單次呈現內容中的 inline 元素(style與script)佐證自己的安全性。
+            啟用後可透過 WebPolicy.CurrentNonce 取得隨機碼。
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ContentSecurityPolicy.ScriptInlineEnabled">
+            <summary>
+            啟用不安全的 Script inline 元素，如含程式碼的script，或含在 onclick 或 javascript: 的程式碼 
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ContentSecurityPolicy.StyleInlineEnabled">
+            <summary>
+            啟用不安全的 Style inline 元素 
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ContentSecurityPolicy.UnsafeEvalEnabled">
+            <summary>
+            允許 JavaScript 透過 eval 產生不安全的動態程式碼
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ContentSecurityPolicy.ScriptSource">
+            <summary>
+            定義 JavaScript 的有效來源
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ContentSecurityPolicy.StyleSource">
+            <summary>
+            定義樣式表(stylesheets) 或 CSS 的有效來源
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ContentSecurityPolicy.ImgSource">
+            <summary>
+            定義影像(eg img element)的有效來源
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ContentSecurityPolicy.ConnectSource">
+            <summary>
+            定義連線(AJAX、WebSocket、fetch、EventSource)的有效來源
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ContentSecurityPolicy.FontSource">
+            <summary>
+            定義字型(透過@font-face)的有效來源
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ContentSecurityPolicy.ObjectSource">
+            <summary>
+            定義物件(eg object, embed or applet elements)的有效來源
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ContentSecurityPolicy.MediaSource">
+            <summary>
+            定義物件(eg HTML5 audio, video elements)的有效來源
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ContentSecurityPolicy.FrameSource">
+            <summary>
+            定義框架(eg iframe element)的有效來源
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ContentSecurityPolicy.FormAction">
+            <summary>
+            定義表單(form)的有效action來源
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.ContentSecurityPolicy.MakeHeaderValue">
+            <summary>
+            產生 Header Value
+            </summary>
+            <returns>CSP Head Value</returns>
+        </member>
+        <member name="M:System.Framework.Web.ContentSecurityPolicy.AddSources(System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
+            <summary>
+            增加有效的來源
+            </summary>
+            <param name="sources">有效的來源</param>
+        </member>
+        <member name="T:System.Framework.Web.ApiController`3">
+            <summary>
+            控制器
+            </summary>
+            <typeparam name="TUser">登入用戶型別</typeparam>
+            <typeparam name="TModel">資料模型型別</typeparam>
+            <typeparam name="TCulture">文化特性型別</typeparam>
+        </member>
+        <member name="P:System.Framework.Web.ApiController`3.HttpContext">
+            <summary>
+            取得HTTP脈絡
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApiController`3.Request">
+            <summary>
+            取得HTTP請求
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApiController`3.Response">
+            <summary>
+            取得HTTP回應
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApiController`3.Application">
+            <summary>
+            應用程式
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApiController`3.Localizations">
+            <summary>
+            取得本地化資源
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApiController`3.Countries">
+            <summary>
+            取得各國相關資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApiController`3.Configuration">
+            <summary>
+            取得組態配置
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApiController`3.Logger">
+            <summary>
+            取得日誌記錄器
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApiController`3.Culture">
+            <summary>
+            目前文化特性
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApiController`3.Model">
+            <summary>
+            取得目前使用的Model
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ApiController`3.User">
+            <summary>
+            取得目前登入的用戶
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.ApiController`3.#ctor">
+            <summary>
+            建置 CloudfunController
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.ApiController`3.#ctor(System.String)">
+            <summary>
+            建置 CloudfunController 並將目前用戶視為指定用戶
+            </summary>
+            <param name="userId">指定用戶識別碼，如指定System代表視同系統用戶</param>
+        </member>
+        <member name="M:System.Framework.Web.ApiController`3.GetRouteData(System.String)">
+            <summary>
+            依指定的 URL 取得 RouteData
+            </summary>
+            <param name="url">指定的URL</param>
+        </member>
+        <member name="M:System.Framework.Web.ApiController`3.ExecuteAction(System.String,System.String,System.Object[])">
+            <summary>
+            執行指定的 Action 並回傳 ActionResult
+            </summary>
+            <param name="controller">控制器名稱</param>
+            <param name="actionOrRoute">動作或路由名稱</param>
+            <param name="parameters">參數</param>
+        </member>
+        <member name="M:System.Framework.Web.ApiController`3.ExecuteAction(System.String,System.Object[])">
+            <summary>
+            執行符合指定路由名稱的 Action Method 並回傳 ActionResult
+            </summary>
+            <param name="actionOrRoute">動作或路由名稱</param>
+            <param name="parameters">參數</param>
+        </member>
+        <member name="M:System.Framework.Web.ApiController`3.Json(System.Framework.ResponseStatus,System.Object,System.String)">
+            <summary>
+            將狀態、酬載、訊息包裹成標準JSON回應物件
+            </summary>
+            <param name="status">狀態</param>
+            <param name="payload">酬載</param>
+            <param name="message">訊息，未指定或空值(Null)時使用status之Description值作為訊息</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Web.ApiController`3.Json(System.Net.HttpStatusCode,System.Object,System.String)">
+            <summary>
+            將狀態、酬載、訊息包裹成標準JSON回應物件
+            </summary>
+            <param name="code">狀態碼</param>
+            <param name="payload">酬載</param>
+            <param name="message">訊息，未指定或空值(Null)時使用code所代表的ResponseStatus之Description值作為訊息</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Web.ApiController`3.Json``1(``0,System.Object,System.String)">
+            <summary>
+            將狀態、酬載、訊息包裹成標準JSON回應物件
+            </summary>
+            <param name="status">狀態</param>
+            <param name="payload">酬載</param>
+            <param name="message">訊息，未指定或空值(Null)時使用status之Description值作為訊息</param>
+            <returns></returns>
+        </member>
+        <member name="P:System.Framework.Web.ApiController`3.Parameters">
+            <summary>
+            請求參數
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.ApiController`3.GetParameter(System.String,System.Framework.Web.ParameterSource)">
+            <summary>
+            取得請求參數。未指定參數名稱時，將可取得參數視為屬性組成而成。如來源為複數時，同名參數依照權重(ParametersSource Enum Value)進行覆蓋。
+            </summary>
+            <param name="name">參數名稱</param>
+            <param name="source">請求來源</param>
+            <returns>參數值</returns>
+        </member>
+        <member name="M:System.Framework.Web.ApiController`3.GetParameters(System.Framework.Web.ParameterSource,System.String[])">
+            <summary>
+            取得請求參數。如來源為複數時，同名參數依照權重(ParametersSource Enum Value)進行覆蓋。
+            </summary>
+            <param name="source">請求來源</param>
+            <param name="includes">包含的參數名稱</param>
+            <returns>請求參數</returns>
+        </member>
+        <member name="M:System.Framework.Web.ApiController`3.GetParameters(System.Framework.Web.ParameterSource,System.Framework.Inclusion,System.String[])">
+            <summary>
+            取得請求參數。如來源為複數時，同名參數依照權重(ParametersSource Enum Value)進行覆蓋。
+            </summary>
+            <param name="source">請求來源</param>
+            <param name="inclusion">包容性</param>
+            <param name="names">參數名稱</param>
+            <returns>請求參數</returns>
+        </member>
+        <member name="M:System.Framework.Web.ApiController`3.GetParameter``1(System.String,System.Framework.Web.ParameterSource)">
+            <summary>
+            取得指定型別的請求參數，為指定參數名稱時，將回傳收集各參數來源
+            </summary>
+            <typeparam name="TParameter">參數型別</typeparam>
+            <param name="name">參數名稱</param>
+            <param name="source">請求來源</param>
+            <returns>指定型別的參數</returns>
+            <exception cref="T:System.InvalidCastException">當無法轉換型別時拋出</exception>
+        </member>
+        <member name="M:System.Framework.Web.ApiController`3.GetParameter``1(System.Framework.Web.ParameterSource,System.String[])">
+            <summary>
+            取得指定型別的請求參數，為指定參數名稱時，將回傳收集各參數來源
+            </summary>
+            <typeparam name="TParameter">參數型別</typeparam>
+            <param name="source">請求來源</param>
+            <param name="includes">包含的參數名稱</param>
+            <returns>指定型別的參數</returns>
+            <exception cref="T:System.InvalidCastException">當無法轉換型別時拋出</exception>
+        </member>
+        <member name="M:System.Framework.Web.ApiController`3.GetParameter``1(System.Framework.Web.ParameterSource,System.Framework.Inclusion,System.String[])">
+            <summary>
+            取得指定型別的請求參數，為指定參數名稱時，將回傳收集各參數來源
+            </summary>
+            <typeparam name="TParameter">參數型別</typeparam>
+            <param name="source">請求來源</param>
+            <param name="inclusion">包容性</param>
+            <param name="names">參數名稱</param>
+            <returns>指定型別的參數</returns>
+            <exception cref="T:System.InvalidCastException">當無法轉換型別時拋出</exception>
+        </member>
+        <member name="M:System.Framework.Web.ApiController`3.GetParameters``1(System.String,System.Framework.Web.ParameterSource)">
+            <summary>
+            取得指定型別的請求參數陣列，為指定參數名稱時，將回傳收集各參數來源
+            </summary>
+            <typeparam name="TParameter">參數型別</typeparam>
+            <param name="name">參數名稱</param>
+            <param name="source">請求來源</param>
+            <returns>指定型別的參數陣列</returns>
+            <exception cref="T:System.InvalidCastException">當無法轉換型別時拋出</exception>
+        </member>
+        <member name="T:System.Framework.Web.MvcController`3">
+            <summary>
+            控制器
+            </summary>
+            <typeparam name="TUser">登入用戶型別</typeparam>
+            <typeparam name="TModel">資料模型型別</typeparam>
+            <typeparam name="TCulture">文化特性型別</typeparam>
+        </member>
+        <member name="P:System.Framework.Web.MvcController`3.HttpContext">
+            <summary>
+            取得HTTP脈絡
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.MvcController`3.Request">
+            <summary>
+            取得HTTP請求
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.MvcController`3.Response">
+            <summary>
+            取得HTTP回應
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.MvcController`3.Application">
+            <summary>
+            應用程式
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.MvcController`3.Localizations">
+            <summary>
+            取得本地化資源
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.MvcController`3.Countries">
+            <summary>
+            取得各國相關資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.MvcController`3.Configuration">
+            <summary>
+            取得組態配置
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.MvcController`3.Logger">
+            <summary>
+            取得日誌記錄器
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.MvcController`3.Culture">
+            <summary>
+            目前文化特性
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.MvcController`3.Model">
+            <summary>
+            取得目前使用的Model
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.MvcController`3.User">
+            <summary>
+            取得目前登入的用戶
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.MvcController`3.#ctor">
+            <summary>
+            建置 MvcController
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.MvcController`3.#ctor(System.String)">
+            <summary>
+            建置 MvcController 並將目前用戶視為指定用戶
+            </summary>
+            <param name="userId">指定用戶識別碼，如指定System代表視同系統用戶</param>
+        </member>
+        <member name="M:System.Framework.Web.MvcController`3.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            當執行Acton前呼叫此方法
+            </summary>
+            <param name="context">ActionExecutingContext</param>
+        </member>
+        <member name="M:System.Framework.Web.MvcController`3.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
+            <summary>
+            在 Action 執行後呼叫
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:System.Framework.Web.MvcController`3.RenderViewAsync(System.String,System.Object,System.Boolean)">
+            <summary>
+            呈現檢視並傳回文字結果
+            </summary>
+            <param name="viewName">檢視的名稱</param>
+            <param name="viewModel">與檢視資料相關的模型</param>
+            <param name="isPartial">是否為部分檢視</param>
+            <returns>檢視的文字結果</returns>
+        </member>
+        <member name="M:System.Framework.Web.MvcController`3.ExecuteAction(System.String,System.String,System.Object[])">
+            <summary>
+            執行指定的 Action 並回傳 ActionResult
+            </summary>
+            <param name="action">動作名稱</param>
+            <param name="controller">控制器名稱</param>
+            <param name="parameters">參數</param>
+        </member>
+        <member name="P:System.Framework.Web.MvcController`3.Parameters">
+            <summary>
+            請求參數
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.MvcController`3.GetParameter(System.String,System.Framework.Web.ParameterSource)">
+            <summary>
+            取得請求參數。未指定參數名稱時，將可取得參數視為屬性組成而成。如來源為複數時，同名參數依照權重(ParametersSource Enum Value)進行覆蓋。
+            </summary>
+            <param name="name">參數名稱</param>
+            <param name="source">請求來源</param>
+            <returns>參數值</returns>
+        </member>
+        <member name="M:System.Framework.Web.MvcController`3.GetParameters(System.Framework.Web.ParameterSource,System.String[])">
+            <summary>
+            取得請求參數。如來源為複數時，同名參數依照權重(ParametersSource Enum Value)進行覆蓋。
+            </summary>
+            <param name="source">請求來源</param>
+            <param name="includes">包含的參數名稱</param>
+            <returns>請求參數</returns>
+        </member>
+        <member name="M:System.Framework.Web.MvcController`3.GetParameters(System.Framework.Web.ParameterSource,System.Framework.Inclusion,System.String[])">
+            <summary>
+            取得請求參數。如來源為複數時，同名參數依照權重(ParametersSource Enum Value)進行覆蓋。
+            </summary>
+            <param name="source">請求來源</param>
+            <param name="inclusion">包容性</param>
+            <param name="names">參數名稱</param>
+            <returns>請求參數</returns>
+        </member>
+        <member name="M:System.Framework.Web.MvcController`3.GetParameter``1(System.String,System.Framework.Web.ParameterSource)">
+            <summary>
+            取得指定型別的請求參數，為指定參數名稱時，將回傳收集各參數來源
+            </summary>
+            <typeparam name="TParameter">參數型別</typeparam>
+            <param name="name">參數名稱</param>
+            <param name="source">請求來源</param>
+            <returns>指定型別的參數</returns>
+            <exception cref="T:System.InvalidCastException">當無法轉換型別時拋出</exception>
+        </member>
+        <member name="M:System.Framework.Web.MvcController`3.GetParameter``1(System.Framework.Web.ParameterSource,System.String[])">
+            <summary>
+            取得指定型別的請求參數，為指定參數名稱時，將回傳收集各參數來源
+            </summary>
+            <typeparam name="TParameter">參數型別</typeparam>
+            <param name="source">請求來源</param>
+            <param name="includes">包含的參數名稱</param>
+            <returns>指定型別的參數</returns>
+            <exception cref="T:System.InvalidCastException">當無法轉換型別時拋出</exception>
+        </member>
+        <member name="M:System.Framework.Web.MvcController`3.GetParameter``1(System.Framework.Web.ParameterSource,System.Framework.Inclusion,System.String[])">
+            <summary>
+            取得指定型別的請求參數，為指定參數名稱時，將回傳收集各參數來源
+            </summary>
+            <typeparam name="TParameter">參數型別</typeparam>
+            <param name="source">請求來源</param>
+            <param name="inclusion">包容性</param>
+            <param name="names">參數名稱</param>
+            <returns>指定型別的參數</returns>
+            <exception cref="T:System.InvalidCastException">當無法轉換型別時拋出</exception>
+        </member>
+        <member name="M:System.Framework.Web.MvcController`3.GetParameters``1(System.String,System.Framework.Web.ParameterSource)">
+            <summary>
+            取得指定型別的請求參數陣列，為指定參數名稱時，將回傳收集各參數來源
+            </summary>
+            <typeparam name="TParameter">參數型別</typeparam>
+            <param name="name">參數名稱</param>
+            <param name="source">請求來源</param>
+            <returns>指定型別的參數陣列</returns>
+            <exception cref="T:System.InvalidCastException">當無法轉換型別時拋出</exception>
+        </member>
+        <member name="M:System.Framework.Web.MvcController`3.Dispose(System.Boolean)">
+            <summary>
+            Releases unmanaged resources and optionally releases managed resources.
+            </summary>
+            <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
+        </member>
+        <member name="T:System.Framework.Web.MvcController`4">
+            <summary>
+            控制器
+            </summary>
+            <typeparam name="TUser">登入用戶型別</typeparam>
+            <typeparam name="TModel">資料模型型別</typeparam>
+            <typeparam name="TCulture">文化特性型別</typeparam>
+            <typeparam name="TUrlSegment">網址區段</typeparam>
+        </member>
+        <member name="M:System.Framework.Web.MvcController`4.#ctor">
+            <summary>
+            建置 MvcController
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.MvcController`4.#ctor(System.String)">
+            <summary>
+            建置 MvcController 並將目前用戶視為指定用戶
+            </summary>
+            <param name="userId">指定用戶識別碼，如指定System代表視同系統用戶</param>
+        </member>
+        <member name="P:System.Framework.Web.MvcController`4.UrlSegment">
+            <summary>
+            網址區段
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.MvcController`4.OnPageError(System.String,System.Exception)">
+            <summary>
+            當網頁初始化發生錯誤時將呼叫此方法並取得可替代的網頁內容
+            </summary>
+            <param name="content">目前的網頁內容</param>
+            <param name="error">錯誤</param>
+        </member>
+        <member name="M:System.Framework.Web.MvcController`4.OnPageInit(System.Framework.Web.PageInitEventArgs)">
+            <summary>
+            當網頁初始化時會呼叫此方法並取得傳入 Page 的 Model
+            </summary>
+            <param name="eventArgs">網頁初始化事件參數</param>
+        </member>
+        <member name="M:System.Framework.Web.MvcController`4.HandleUnknownAction">
+            <summary>
+            當要求符合這個控制器，但在控制器中找不到指定動作名稱的方法時呼叫。
+            </summary>
+        </member>
+        <member name="T:System.Framework.Web.CookieType">
+            <summary>
+            Cookie 類型
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.CookieType.Session">
+            <summary>
+            工作階段型Cookie
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.CookieType.Persistent">
+            <summary>
+            持久型Coookie
+            </summary>
+        </member>
+        <member name="T:System.Framework.Web.CrossSiteScriptingOptions">
+            <summary>
+            Content Security Policy
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.CrossSiteScriptingOptions.XContentTypeNoSniff">
+            <summary>
+            X-Content-Type-Options Header，告知直接使用 header 中的 Content-Type，勿猜測。預設為True
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.CrossSiteScriptingOptions.XFrame">
+            <summary>
+            X-Frame-Options Header，告知瀏覽器真的 iframe 的執行方針。預設為 SAMEORIGIN，同來源時允許
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.CrossSiteScriptingOptions.XXssProtection">
+            <summary>
+            X-Xss-Protection，告知是否啟用跨站Script保護。預設為啟動並阻斷頁面載入
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.CrossSiteScriptingOptions.ContentSecurityPolicy">
+            <summary>
+            Content Security Policy(CSP)
+            </summary>
+        </member>
+        <member name="T:System.Framework.Web.ApplicationBuilderExtensions">
+            <summary>
+            Application Builder 擴充方法
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.ApplicationBuilderExtensions.UseXssPrevention(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Framework.Web.CrossSiteScriptingOptions)">
+            <summary>
+            使用 Cross-site Scripting 防範
+            </summary>
+            <param name="app">應用程式建立者</param>
+            <param name="options">選項</param>
+        </member>
+        <member name="T:System.Framework.Web.ControllerExtensions">
+            <summary>
+            包含所有與Controller相關之擴充方法
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.ControllerExtensions.ToRouteValues(System.Collections.Specialized.NameValueCollection,System.Object)">
+            <summary>
+            轉換為 RouteValueDictionary
+            </summary>
+            <param name="col"></param>
+            <param name="otherValues">其他參數值</param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Framework.Web.HtmlHelperExtensions">
+            <summary>
+            HtmlHelper相關之擴充方法
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.HtmlHelperExtensions.Log(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Framework.MessageType)">
+            <summary>
+            將指定訊息內容記錄至日誌
+            </summary>
+            <param name="_"></param>
+            <param name="message">訊息內容</param>
+            <param name="type">訊息類型</param>
+        </member>
+        <member name="M:System.Framework.Web.HtmlHelperExtensions.Log(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.Exception)">
+            <summary>
+            將執行期間發生的錯誤記錄至日誌
+            </summary>
+            <param name="_"></param>
+            <param name="exception">執行期間發生的錯誤</param>
+        </member>
+        <member name="M:System.Framework.Web.HtmlHelperExtensions.Configuration``1(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper)">
+            <summary>
+            取得目前使用的系統配置
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.HtmlHelperExtensions.Culture``1(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper)">
+            <summary>
+            取得目前設定的文化特性
+            </summary>
+            <typeparam name="TCulture">文化特性型別</typeparam>
+        </member>
+        <member name="M:System.Framework.Web.HtmlHelperExtensions.Model``1(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.Framework.Application.IUser)">
+            <summary>
+            取得目前使用的Model並指定目前用戶
+            </summary>
+            <typeparam name="TModel">Model型別</typeparam>
+            <param name="helper">HTML Helper</param>
+            <param name="user">用戶</param>
+        </member>
+        <member name="M:System.Framework.Web.HtmlHelperExtensions.Model``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper)">
+            <summary>
+            取得目前使用的Model並代入目前用戶
+            </summary>
+            <typeparam name="TModel">Model型別</typeparam>
+            <typeparam name="TUser">用戶型別</typeparam>
+        </member>
+        <member name="M:System.Framework.Web.HtmlHelperExtensions.User``1(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper)">
+            <summary>
+            取得目前使用者
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.HtmlHelperExtensions.Localization(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary>
+            取得目前使用的系統配置
+            </summary>
+            <param name="helper">HTML Helper</param>
+            <param name="culture">文化特性。如未設定將自行判斷</param>
+        </member>
+        <member name="M:System.Framework.Web.HtmlHelperExtensions.Globalization(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.Framework.Globalization.CountryCode)">
+            <summary>
+            取得指定國家之國家資料
+            </summary>
+            <param name="_"></param>
+            <param name="country">國家。預設值為TW</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Web.HtmlHelperExtensions.Menu(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.Framework.Web.User)">
+            <summary>
+            取得指定用戶可使用的選單資料
+            </summary>
+            <param name="helper">HTML Helper</param>
+            <param name="user">指定用戶</param>
+        </member>
+        <member name="M:System.Framework.Web.HtmlHelperExtensions.Breadcrumb(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.Framework.SitemapNode[])">
+            <summary>
+            取得指定用戶可使用的麵包屑資料
+            </summary>
+            <param name="helper">HTML Helper</param>
+            <param name="menu">選單資料</param>
+        </member>
+        <member name="M:System.Framework.Web.HtmlHelperExtensions.Breadcrumb(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.Framework.Web.User)">
+            <summary>
+            取得指定用戶可使用的麵包屑資料
+            </summary>
+            <param name="helper">HTML Helper</param>
+            <param name="user">指定用戶</param>
+        </member>
+        <member name="M:System.Framework.Web.HtmlHelperExtensions.Menu``1(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.Framework.Web.User)">
+            <summary>
+            取得指定用戶可使用的選單資料
+            </summary>
+            <param name="helper">HTML Helper</param>
+            <param name="user">指定用戶</param>
+        </member>
+        <member name="M:System.Framework.Web.HtmlHelperExtensions.Breadcrumb``1(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.Framework.SitemapNode[])">
+            <summary>
+            取得指定用戶可使用的麵包屑資料
+            </summary>
+            <param name="helper">HTML Helper</param>
+            <param name="menu">選單資料</param>
+        </member>
+        <member name="M:System.Framework.Web.HtmlHelperExtensions.Breadcrumb``1(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.Framework.Web.User)">
+            <summary>
+            取得指定用戶可使用的麵包屑資料
+            </summary>
+            <param name="helper">HTML Helper</param>
+            <param name="user">指定用戶</param>
+        </member>
+        <member name="M:System.Framework.Web.HtmlHelperExtensions.ToI18n(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.String,System.Object[])">
+            <summary>
+            轉換成本地化文字
+            </summary>
+            <param name="_">HTML Helper</param>
+            <param name="name">資源名稱</param>
+            <param name="culture">文化特性</param>
+            <param name="args">須填空於文字格式的參數值，文字格式與用法請參考String.Format</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Web.HtmlHelperExtensions.ToI18n(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object[])">
+            <summary>
+            轉換成本地化文字
+            </summary>
+            <param name="helper">HTML Helper</param>
+            <param name="name">資源名稱</param>
+            <param name="args">須填空於文字格式的參數值，文字格式與用法請參考String.Format</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Web.HtmlHelperExtensions.ResizeImage(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.IO.Stream,System.String,System.String@,System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Single})">
+            <summary>
+            調整影像尺寸
+            </summary>
+            <param name="_"></param>
+            <param name="input">影像輸入串流</param>
+            <param name="path">檔案儲存路徑</param>
+            <param name="fileName">檔案名稱</param>
+            <param name="renameable">是否可依據尺寸更改檔名</param>
+            <param name="resizedWidth">調整後寬度</param>
+            <param name="resizedHeight">調整後高度</param>
+            <param name="dpi">圖像解析度</param>
+            <returns>內容類型</returns>
+        </member>
+        <member name="M:System.Framework.Web.HtmlHelperExtensions.Nonce(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper)">
+            <summary>
+            取得此次會談的Nonce值
+            </summary>
+            <param name="helper">HTML Helper</param>
+        </member>
+        <member name="T:System.Framework.Web.HttpExtensions">
+            <summary>
+            HTTP要求的相關擴充方法
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.HttpExtensions.GetCulture(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            HTTP指定的文化特性
+            </summary>
+            <param name="context">HTTP脈絡</param>
+        </member>
+        <member name="M:System.Framework.Web.HttpExtensions.SetCulture(Microsoft.AspNetCore.Http.HttpContext,System.Framework.Globalization.ICulture)">
+            <summary>
+            HTTP指定的文化特性
+            </summary>
+            <param name="value">值</param>
+            <param name="context">HTTP脈絡</param>
+        </member>
+        <member name="M:System.Framework.Web.HttpExtensions.DataContext``1(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            HTTP符合型別的資料脈絡(Singleton)
+            </summary>
+            <typeparam name="TDataContext">資料脈絡型別</typeparam>
+            <returns>資料脈絡</returns>
+        </member>
+        <member name="M:System.Framework.Web.HttpExtensions.GetJsonWebTokenPayLoad``1(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <summary>
+            取得JWT Payload
+            </summary>
+            <typeparam name="TPayload">酬載型別</typeparam>
+            <param name="context">HTTP脈絡</param>
+            <param name="secretKey">金鑰</param>
+            <returns>酬載</returns>
+        </member>
+        <member name="M:System.Framework.Web.HttpExtensions.User``1(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <summary>
+            HTTP符合型別的已登入用戶(Singleton)
+            </summary>
+            <typeparam name="TUser">用戶型別</typeparam>
+            <param name="secretKey">JWT金鑰</param>
+            <param name="context">HTTP脈絡</param>
+            <returns>已登入用戶</returns>
+        </member>
+        <member name="M:System.Framework.Web.HttpExtensions.User(Microsoft.AspNetCore.Http.HttpContext,System.Type,System.String)">
+            <summary>
+            HTTP符合型別的已登入用戶(Singleton)
+            </summary>
+            <param name="userType">用戶型別</param>
+            <param name="secretKey">JWT金鑰</param>
+            <param name="context">HTTP脈絡</param>
+            <returns>已登入用戶</returns>
+        </member>
+        <member name="M:System.Framework.Web.HttpExtensions.Model``1(Microsoft.AspNetCore.Http.HttpContext,System.Framework.Application.IUser)">
+            <summary>
+            HTTP符合型別的資料模型(Singleton)
+            </summary>
+            <typeparam name="TModel">Model型別</typeparam>
+            <param name="context">HTTP脈絡</param>
+            <param name="user">用戶</param>
+            <returns>資料模型</returns>
+        </member>
+        <member name="M:System.Framework.Web.HttpExtensions.Model``2(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            HTTP符合型別的資料模型(Singleton)
+            </summary>
+            <typeparam name="TModel">Model型別</typeparam>
+            <param name="context">HTTP脈絡</param>
+            <typeparam name="TUser">用戶型別</typeparam>
+            <returns>資料模型</returns>
+        </member>
+        <member name="M:System.Framework.Web.HttpExtensions.ToI18n(Microsoft.AspNetCore.Http.HttpContext,System.String,System.String,System.Object[])">
+            <summary>
+            轉換成本地化文字
+            </summary>
+            <param name="_">HTTP Context</param>
+            <param name="name">資源名稱</param>
+            <param name="culture">文化特性</param>
+            <param name="args">須填空於文字格式的參數值，文字格式與用法請參考String.Format</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Web.HttpExtensions.ToI18n(Microsoft.AspNetCore.Http.HttpContext,System.String,System.Object[])">
+            <summary>
+            轉換成本地化文字
+            </summary>
+            <param name="context">HTTP脈絡</param>
+            <param name="name">資源名稱</param>
+            <param name="args">須填空於文字格式的參數值，文字格式與用法請參考String.Format</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Web.HttpExtensions.Uri(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            HTTP請求的URI
+            </summary>
+            <param name="request">用戶請求</param>
+        </member>
+        <member name="M:System.Framework.Web.HttpExtensions.HtmlRedirect(Microsoft.AspNetCore.Http.HttpResponse,System.String)">
+            <summary>
+            重新導向至指定網址
+            </summary>
+            <param name="response">HTTP回應</param>
+            <param name="url">指定網址</param>
+        </member>
+        <member name="M:System.Framework.Web.HttpExtensions.GetJson(Microsoft.AspNetCore.Http.HttpRequest,System.Text.Encoding)">
+            <summary>
+            取得JSON資料
+            </summary>
+            <param name="request">用戶請求</param>
+            <param name="encoding">編碼方式，預設為UTF8</param>
+        </member>
+        <member name="M:System.Framework.Web.HttpExtensions.GetRemoteRealIPAddress(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            取得用戶端的真實IP主機位置
+            </summary>
+            <param name="request">用戶請求</param>
+            <returns>真實IP主機位置</returns>
+        </member>
+        <member name="M:System.Framework.Web.HttpExtensions.Set``1(Microsoft.AspNetCore.Http.ISession,System.String,``0)">
+            <summary>
+            設定Session值
+            </summary>
+            <typeparam name="T">值型別</typeparam>
+            <param name="session">Session</param>
+            <param name="key">索引值</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:System.Framework.Web.HttpExtensions.Get``1(Microsoft.AspNetCore.Http.ISession,System.String)">
+            <summary>
+            取得Session值
+            </summary>
+            <typeparam name="T">值型別</typeparam>
+            <param name="session">Session</param>
+            <param name="key">索引值</param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Framework.Web.WebEntityExtensions">
+            <summary>
+            MultilingualText 相關之擴充方法
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.WebEntityExtensions.GetText``1(System.Framework.Globalization.IMultilingualTextData,Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            依語言代碼取得語言文本
+            </summary>
+            <param name="source">多語言文本</param>
+            <param name="context">資料脈絡</param>
+            <returns>語言文本</returns>
+        </member>
+        <member name="T:System.Framework.Web.WebLocalizationExtensions">
+            <summary>
+            提供本地化的擴充方法。
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.WebLocalizationExtensions.GetLocalizeEnu``1(System.String,Microsoft.AspNetCore.Http.HttpContext,System.Func{System.String,``0})">
+            <summary>
+            取得本地化列舉
+            </summary>
+            <typeparam name="T">列舉值之型別</typeparam>
+            <param name="name">列舉名稱</param>
+            <param name="context">HTTP脈絡</param>
+            <param name="changeType">將字串改變成列舉值之方法，如為實作 IConvertable 之型別可忽略</param>
+            <returns>指定列舉名稱知本地化列舉值</returns>
+        </member>
+        <member name="M:System.Framework.Web.WebLocalizationExtensions.ToChinese(System.String,Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            自動轉換成目前文化特性的(簡體/繁體)中文
+            </summary>
+            <param name="source">原始文字</param>
+            <param name="context">HTTP脈絡</param>
+            <returns>(簡體/繁體)中文</returns>
+        </member>
+        <member name="T:System.Framework.Web.Http">
+            <summary>
+            HTTP協作工具
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Http.Context">
+            <summary>
+            HTTP Context
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.Http.SetCookie(System.String,System.Framework.Web.CookieType,System.Security.Claims.ClaimsPrincipal,Microsoft.AspNetCore.Http.CookieOptions,Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            設定 Authentication Cookie
+            </summary>
+            <param name="cookieName">Cookie名稱</param>
+            <param name="type">Cookie類型</param>
+            <param name="principal">ClaimsPrincipal</param>
+            <param name="options">選項</param>
+            <param name="context">HTTP脈絡</param>
+        </member>
+        <member name="M:System.Framework.Web.Http.SetEncryptedCookie(System.String,System.Nullable{System.TimeSpan},System.Byte[],Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            設定(非對稱)加密Cookie
+            </summary>
+            <param name="cookieName">Cookie名稱</param>
+            <param name="lifeSpan">生命週期</param>
+            <param name="data">要加密的資料</param>
+            <param name="context">HTTP脈絡</param>
+        </member>
+        <member name="M:System.Framework.Web.Http.GetEncryptedCookieValue(System.String,Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            取得(非對稱)加密Cookie之值(已解密)
+            </summary>
+            <param name="cookieName">Cookie名稱</param>
+            <param name="context">HTTP脈絡</param>
+        </member>
+        <member name="M:System.Framework.Web.Http.GenerateJsonWebToken``1(``0,System.String)">
+            <summary>
+            生成JWT
+            </summary>
+            <typeparam name="TPayload">酬載型別</typeparam>
+            <param name="payload">酬載</param>
+            <param name="secretKey">金鑰</param>
+            <returns>Json Web Token(JWT)</returns>
+        </member>
+        <member name="M:System.Framework.Web.Http.GetJsonWebTokenPayLoad``1(System.String,Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            取得JWT Payload
+            </summary>
+            <typeparam name="TPayload">酬載型別</typeparam>
+            <param name="secretKey">金鑰</param>
+            <param name="context">HTTP脈絡</param>
+            <returns>酬載</returns>
+        </member>
+        <member name="T:System.Framework.Web.MicrosoftContext">
+            <summary>
+            Microsoft 紀錄器脈絡
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.MicrosoftContext.GetGlobalProperty(System.String)">
+            <summary>
+            取得全域特性(永遠傳回NULL)
+            </summary>
+            <param name="key">索引值</param>
+        </member>
+        <member name="M:System.Framework.Web.MicrosoftContext.SetGlobalProperty(System.String,System.Object)">
+            <summary>
+            設定全域特性(無作用)
+            </summary>
+            <param name="key">索引值</param>
+            <param name="value">特性值</param>
+        </member>
+        <member name="M:System.Framework.Web.MicrosoftContext.RemoveGlobalProperty(System.String)">
+            <summary>
+            移除全域特性(無作用)
+            </summary>
+            <param name="key">索引值</param>
+        </member>
+        <member name="M:System.Framework.Web.MicrosoftContext.ClearGlobalProperties">
+            <summary>
+            清除全域特性(無作用)
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.MicrosoftContext.ThreadPropertyKeys">
+            <summary>
+            所有線程特性索引值(永遠傳回空陣列)
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.MicrosoftContext.GetThreadProperty(System.String)">
+            <summary>
+            取得線程特性(永遠傳回NULL)
+            </summary>
+            <param name="key">索引值</param>
+        </member>
+        <member name="M:System.Framework.Web.MicrosoftContext.SetThreadProperty(System.String,System.Object)">
+            <summary>
+            設定線程特性(無作用)
+            </summary>
+            <param name="key">索引值</param>
+            <param name="value">特性值</param>
+        </member>
+        <member name="M:System.Framework.Web.MicrosoftContext.RemoveThreadProperty(System.String)">
+            <summary>
+            移除線程特性(無作用)
+            </summary>
+            <param name="key">索引值</param>
+        </member>
+        <member name="M:System.Framework.Web.MicrosoftContext.ClearThreadProperties">
+            <summary>
+            清除線程特性(無作用)
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.MicrosoftContext.GetLogger``1">
+            <summary>
+            取得負責指定型別的記錄器
+            </summary>
+            <typeparam name="T">型別</typeparam>
+            <returns>指定型別的記錄器</returns>
+        </member>
+        <member name="M:System.Framework.Web.MicrosoftContext.GetLogger(System.Type)">
+            <summary>
+            取得負責指定型別的記錄器
+            </summary>
+            <param name="type">型別</param>
+            <returns>指定型別的記錄器</returns>
+        </member>
+        <member name="M:System.Framework.Web.MicrosoftContext.GetLogger(System.String)">
+            <summary>
+            取得符合指定名稱的記錄器
+            </summary>
+            <param name="name">指定名稱</param>
+            <returns>指定名稱的記錄器</returns>
+        </member>
+        <member name="M:System.Framework.Web.MicrosoftContext.LoadConfiguration(System.String,System.Object)">
+            <summary>
+            載入設定檔(無作用)
+            </summary>
+            <param name="path">設定檔路徑</param>
+            <param name="builder">建立者</param>
+        </member>
+        <member name="T:System.Framework.Web.MicrosoftLogger">
+            <summary>
+            作為 Microsoft 自帶的 Logger 之 Middleware 使用
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.MicrosoftLogger.#ctor(Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            建構 MicrosoftLogger
+            </summary>
+            <param name="logger">Microsoft自帶的Logger</param>
+        </member>
+        <member name="M:System.Framework.Web.MicrosoftLogger.BeginScope``1(``0)">
+            <summary>
+            Begins a logical operation scope. always return null
+            </summary>
+            <typeparam name="TState">The scope CLR type</typeparam>
+            <param name="state">The identifier for the scope.</param>
+            <returns>An IDisposable that ends the logical operation scope on dispose.</returns>
+        </member>
+        <member name="M:System.Framework.Web.MicrosoftLogger.IsEnabled(Microsoft.Extensions.Logging.LogLevel)">
+            <summary>
+            Checks if the given logLevel is enabled.
+            </summary>
+            <param name="logLevel">level to be checked.</param>
+            <returns>true if enabled.</returns>
+        </member>
+        <member name="M:System.Framework.Web.MicrosoftLogger.Log``1(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,``0,System.Exception,System.Func{``0,System.Exception,System.String})">
+            <summary>
+            Writes a log entry.
+            </summary>
+            <typeparam name="TState"></typeparam>
+            <param name="logLevel">Entry will be written on this level.</param>
+            <param name="eventId">Id of the event.</param>
+            <param name="state">The entry to be written. Can be also an object.</param>
+            <param name="exception">The exception related to this entry.</param>
+            <param name="formatter">Function to create a string message of the state and exception.</param>
+        </member>
+        <member name="T:System.Framework.Web.Message">
+            <summary>
+            訊息資料，用以表示互通的訊息
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.Message.#ctor">
+            <summary>
+            初始化 Message。
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Message.Id">
+            <summary>
+            編號
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Message.Type">
+            <summary>
+            類型。
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Message.Sender">
+            <summary>
+            寄件者。
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Message.Recipient">
+            <summary>
+            收件者。
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Message.Subject">
+            <summary>
+            主旨。
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Message.Content">
+            <summary>
+            內容。
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Message.CreatedTime">
+            <summary>
+            建立時間(UTC)
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Message.UpdatedTime">
+            <summary>
+            更新時間(UTC)
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Message.DeletedOnUtc">
+            <summary>
+            刪除時間(UTC)
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Message.IsReaded">
+            <summary>
+            判斷訊息是否已讀取
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Message.IsDeletedBySender">
+            <summary>
+            已由寄件人刪除
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Message.IsDeletedByRecipient">
+            <summary>
+            已由收件人刪除
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.Message.ToString">
+            <summary>
+            轉換訊息為字串形式。
+            </summary>
+            <returns>訊息字串</returns>
+        </member>
+        <member name="T:System.Framework.Web.PageInitEventArgs">
+            <summary>
+            表示網頁初始化事件的參數
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.PageInitEventArgs.PageModel">
+            <summary>
+            傳入網頁的資料模型
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.PageInitEventArgs.PageContentId">
+            <summary>
+            網頁內容編號
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.PageInitEventArgs.PageUpdatedTime">
+            <summary>
+            網頁更新時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.PageInitEventArgs.PageContent">
+            <summary>
+            網頁內容
+            </summary>
+        </member>
+        <member name="T:System.Framework.Web.ParameterSource">
+            <summary>
+            參數來源
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.ParameterSource.Router">
+            <summary>
+            路由
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.ParameterSource.QueryString">
+            <summary>
+            查詢字串
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.ParameterSource.Form">
+            <summary>
+            表單
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.ParameterSource.Body">
+            <summary>
+            主體
+            </summary>
+        </member>
+        <member name="T:System.Framework.Web.Policy">
+            <summary>
+            安全策略的基礎類別。
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Policy.Application">
+            <summary>
+            目前使用的網頁應用程式
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.Policy.Sitemap">
+            <summary>
+            網站地圖
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.Policy.#ctor(System.Framework.Application.IWebApplication)">
+            <summary>
+            初始化 WebPolicy
+            </summary>
+            <param name="application">網頁應用程式</param>
+        </member>
+        <member name="M:System.Framework.Web.Policy.Login``1(``0,System.Boolean)">
+            <summary>
+            用戶登入
+            </summary>
+            <param name="user">用戶資料</param>
+            <param name="tokenRenewable">可更新Token</param>
+            <returns>此次登入的Token，如為null則表示登入失敗</returns>
+        </member>
+        <member name="M:System.Framework.Web.Policy.Login``1(``0,System.Net.IPAddress,System.Framework.Application.IApplicationStub)">
+            <summary>
+            用戶登入
+            </summary>
+            <typeparam name="TUser">用戶型別</typeparam>
+            <param name="user">用戶</param>
+            <param name="ip">IP位址</param>
+            <param name="stub">用戶端</param>
+        </member>
+        <member name="M:System.Framework.Web.Policy.Login``1(``0,System.Framework.Web.CookieType,System.Net.IPAddress,System.Framework.Application.IApplicationStub,System.Boolean,Microsoft.AspNetCore.Http.CookieOptions)">
+            <summary>
+            用戶登入
+            </summary>
+            <param name="user">用戶資料</param>
+            <param name="cookieType">Cookie類型</param>
+            <param name="ip">IP資料</param>
+            <param name="stub">用戶端資料</param>
+            <param name="tokenRenewable">可更新Token</param>
+            <param name="options">選項</param>
+            <returns>此次登入的Token，如為null則表示登入失敗</returns>
+        </member>
+        <member name="M:System.Framework.Web.Policy.Logout``1">
+            <summary>
+            登出目前的使用者
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.Policy.GetNonce(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            取得此次會談的隨機數
+            </summary>
+            <param name="context">HTTP脈絡</param>
+        </member>
+        <member name="M:System.Framework.Web.Policy.ModifySitemap``1(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            修改網站地圖，之後產生的選單與麵包屑將以此為主。當需要自行修改網站地圖時請覆蓋此方法
+            </summary>
+            <param name="context">資料脈絡</param>
+            <returns>修改後的網站地圖</returns>
+        </member>
+        <member name="M:System.Framework.Web.Policy.MakeMenu(System.Framework.Application.IUser,Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            取得指定用戶可使用的選單資料
+            </summary>
+            <param name="user">指定用戶</param>
+            <param name="context">HTTP脈絡</param>
+        </member>
+        <member name="M:System.Framework.Web.Policy.MakeMenu``1(System.Framework.Application.IUser,Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            取得指定用戶可使用的選單資料
+            </summary>
+            <param name="user">指定用戶</param>
+            <param name="context">HTTP脈絡</param>
+            <typeparam name="TDataContext">資料脈絡型別</typeparam>
+        </member>
+        <member name="M:System.Framework.Web.Policy.MakeBreadcrumb(System.Framework.SitemapNode[])">
+            <summary>
+            產生指定用戶可使用的麵包屑資料
+            </summary>
+            <param name="menu">選單資料</param>
+        </member>
+        <member name="M:System.Framework.Web.Policy.MakeBreadcrumb(System.Framework.Application.IUser,Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            產生指定用戶可使用的麵包屑資料
+            </summary>
+            <param name="user">指定用戶</param>
+            <param name="context">HTTP脈絡</param>
+        </member>
+        <member name="M:System.Framework.Web.Policy.MakeBreadcrumb``1(System.Framework.SitemapNode[])">
+            <summary>
+            產生指定用戶可使用的麵包屑資料
+            </summary>
+            <param name="menu">選單資料</param>
+            <typeparam name="TDataContext">資料脈絡型別</typeparam>
+        </member>
+        <member name="M:System.Framework.Web.Policy.MakeBreadcrumb``1(System.Framework.Application.IUser,Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            產生指定用戶可使用的麵包屑資料
+            </summary>
+            <param name="user">指定用戶</param>
+            <param name="context">HTTP脈絡</param>
+            <typeparam name="TDataContext">資料脈絡型別</typeparam>
+        </member>
+        <member name="T:System.Framework.Web.Providers.ConditionBinderProvider">
+            <summary>
+            條件繫結提供者
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.Providers.ConditionBinderProvider.GetBinder(Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderProviderContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Framework.Web.Providers.ConditionBinder">
+            <summary>
+            條件繫結器
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.Providers.ConditionBinder.BindModelAsync(Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext)">
+            <summary>
+            
+            </summary>
+            <param name="bindingContext"></param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Framework.Web.Providers.JsonBinderProvider">
+            <summary>
+            條件繫結提供者
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.Providers.JsonBinderProvider.GetBinder(Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderProviderContext)">
+            <summary>
+            Creates a <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.IModelBinder" /> based on <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderProviderContext" />.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderProviderContext" />.</param>
+            <returns>An <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.IModelBinder" />.</returns>
+        </member>
+        <member name="T:System.Framework.Web.Providers.JsonBinder">
+            <summary>
+            JSON binders.
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.Providers.JsonBinder.BindModelAsync(Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext)">
+            <summary>
+            Attempts to bind a model.
+            </summary>
+            <param name="bindingContext">The <see cref="T:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext" />.</param>
+            <returns>
+            <para>
+            A <see cref="T:System.Threading.Tasks.Task" /> which will complete when the model binding process completes.
+            </para>
+            <para>
+            If model binding was successful, the <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext.Result" /> should have
+            <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingResult.IsModelSet" /> set to <c>true</c>.
+            </para>
+            <para>
+            A model binder that completes successfully should set <see cref="P:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext.Result" /> to
+            a value returned from <see cref="M:Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingResult.Success(System.Object)" />.
+            </para>
+            </returns>
+        </member>
+        <member name="T:System.Framework.Web.Providers.RazorViewProvider">
+            <summary>
+            Razor View Service
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.Providers.RazorViewProvider.SetTemplateSynchronizer``1(System.Guid,System.Guid,System.Nullable{System.TimeSpan})">
+            <summary>
+            設定樣板同步器
+            </summary>
+            <typeparam name="TSynchronizationRecord">同步紀錄型別</typeparam>
+            <param name="serviceGuid">服務GUID</param>
+            <param name="applicationGuid">應用程式GUID</param>
+            <param name="span">同步時間間隔</param>
+        </member>
+        <member name="M:System.Framework.Web.Providers.RazorViewProvider.SetPageSynchronizer``1(System.Guid,System.Guid,System.Nullable{System.TimeSpan})">
+            <summary>
+            設定網頁同步器
+            </summary>
+            <typeparam name="TSynchronizationRecord">同步紀錄型別</typeparam>
+            <param name="serviceGuid">服務GUID</param>
+            <param name="applicationGuid">應用程式GUID</param>
+            <param name="span">同步時間間隔</param>
+        </member>
+        <member name="M:System.Framework.Web.Providers.RazorViewProvider.IsCached(System.String,System.String,System.Framework.Data.IDataContext,System.Nullable{System.DateTime})">
+            <summary>
+            判斷檢視是否已緩衝
+            </summary>
+            <param name="type">類型</param>
+            <param name="name">檢視名稱</param>
+            <param name="context">資料脈絡</param>
+            <param name="updatedTime">更新時間</param>
+            <returns>是否已被緩衝</returns>
+        </member>
+        <member name="M:System.Framework.Web.Providers.RazorViewProvider.IsCached(System.String,System.Framework.Data.IDataContext,System.Nullable{System.DateTime})">
+            <summary>
+            判斷檢視是否已緩衝
+            </summary>
+            <param name="name">檢視名稱</param>
+            <param name="context">資料脈絡</param>
+            <param name="updatedTime">更新時間</param>
+            <returns>是否已被緩衝</returns>
+        </member>
+        <member name="M:System.Framework.Web.Providers.RazorViewProvider.IsTemplateCached(System.String,System.Framework.Data.IDataContext,System.Nullable{System.DateTime})">
+            <summary>
+            判斷樣板檢視是否已緩衝
+            </summary>
+            <param name="name">檢視名稱</param>
+            <param name="context">資料脈絡</param>
+            <param name="updatedTime">更新時間</param>
+            <returns>是否已被緩衝</returns>
+        </member>
+        <member name="M:System.Framework.Web.Providers.RazorViewProvider.IsPageCached(System.String,System.Framework.Data.IDataContext,System.Nullable{System.DateTime})">
+            <summary>
+            判斷網頁檢視是否已緩衝
+            </summary>
+            <param name="name">檢視名稱</param>
+            <param name="context">資料脈絡</param>
+            <param name="updatedTime">更新時間</param>
+            <returns>是否已被緩衝</returns>
+        </member>
+        <member name="M:System.Framework.Web.Providers.RazorViewProvider.AddView(System.String,System.String,System.String,System.Framework.Data.IDataContext)">
+            <summary>
+            增加檢視
+            </summary>
+            <param name="type">類型</param>
+            <param name="name">檢視名稱</param>
+            <param name="content">檢視內容</param>
+            <param name="context">資料脈絡</param>
+        </member>
+        <member name="M:System.Framework.Web.Providers.RazorViewProvider.AddView(System.String,System.String,System.Framework.Data.IDataContext)">
+            <summary>
+            增加檢視
+            </summary>
+            <param name="name">檢視名稱</param>
+            <param name="content">檢視內容</param>
+            <param name="context">資料脈絡</param>
+        </member>
+        <member name="M:System.Framework.Web.Providers.RazorViewProvider.AddTemplateView(System.String,System.String,System.Framework.Data.IDataContext)">
+            <summary>
+            增加樣板檢視，如啟用緩衝並進行同步時將自動重新載入這些樣板
+            </summary>
+            <param name="name">檢視名稱</param>
+            <param name="content">檢視內容</param>
+            <param name="context">資料脈絡</param>
+        </member>
+        <member name="M:System.Framework.Web.Providers.RazorViewProvider.AddPageView(System.String,System.String,System.Framework.Data.IDataContext)">
+            <summary>
+            增加網頁檢視
+            </summary>
+            <param name="name">檢視名稱</param>
+            <param name="content">檢視內容</param>
+            <param name="context">資料脈絡</param>
+        </member>
+        <member name="M:System.Framework.Web.Providers.RazorViewProvider.GetPath(System.String,System.String)">
+            <summary>
+            取得檢視檔案路徑
+            </summary>
+            <param name="type">類型</param>
+            <param name="name">檢視名稱</param>
+            <returns>檢視路徑</returns>
+        </member>
+        <member name="M:System.Framework.Web.Providers.RazorViewProvider.GetTemplatePath(System.String)">
+            <summary>
+            取得樣板檢視檔案路徑
+            </summary>
+            <param name="name">檢視名稱</param>
+            <returns>檢視路徑</returns>
+        </member>
+        <member name="M:System.Framework.Web.Providers.RazorViewProvider.GetPagePath(System.String)">
+            <summary>
+            取得網頁檢視檔案路徑
+            </summary>
+            <param name="name">檢視名稱</param>
+            <returns>檢視路徑</returns>
+        </member>
+        <member name="T:System.Framework.Web.Providers.SortingBinderProvider">
+            <summary>
+            排序繫結提供者
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.Providers.SortingBinderProvider.GetBinder(Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderProviderContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Framework.Web.Providers.SortingBinder">
+            <summary>
+            排序繫結器
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.Providers.SortingBinder.BindModelAsync(Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext)">
+            <summary>
+            
+            </summary>
+            <param name="bindingContext"></param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Framework.Web.Sitemap">
+            <summary>
+            網誌地圖
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.Sitemap.#ctor">
+            <summary>
+            建構 Sitemap
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.Sitemap.#ctor(System.String,System.Framework.Web.SitemapUrl[])">
+            <summary>
+            建構 Sitemap
+            </summary>
+            <param name="virtualPath">可於網站中存取的虛擬路徑，根目錄為WebRoot</param>
+            <param name="urls">須加入的URLs</param>
+        </member>
+        <member name="M:System.Framework.Web.Sitemap.#ctor(System.String,System.Framework.SitemapNode[])">
+            <summary>
+            建構 Sitemap
+            </summary>
+            <param name="virtualPath">可於網站中存取的虛擬路徑，根目錄為WebRoot</param>
+            <param name="nodes">網站節點</param>
+        </member>
+        <member name="M:System.Framework.Web.Sitemap.AddSitemapNode(System.Framework.SitemapNode[])">
+            <summary>
+            增加 SitemapNode 成為 SitemapUrl 項目
+            </summary>
+            <param name="nodes">網站節點</param>
+        </member>
+        <member name="M:System.Framework.Web.Sitemap.SplitSitemap">
+            <summary>
+            分割 Sitemap
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.Sitemap.ToXml">
+            <summary>
+            產生XML
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.Sitemap.Save(System.String)">
+            <summary>
+            儲存至指定目錄路徑
+            </summary>
+            <param name="fileName">檔名，不包含路徑</param>
+            <exception cref="T:System.OverflowException">當URL數量超出限制時拋出</exception>
+        </member>
+        <member name="M:System.Framework.Web.Sitemap.Save">
+            <summary>
+            儲存至指定目錄路徑。如超過Sitemap上限(50000 URLs)將拆分成多個檔案。
+            </summary>
+        </member>
+        <member name="T:System.Framework.Web.SitemapFile">
+            <summary>
+            網站地圖檔案
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.SitemapFile.LocationUri">
+            <summary>
+            Required: The location URI of a document.
+            The URI must conform to RFC 2396 (http://www.ietf.org/rfc/rfc2396.txt).
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.SitemapFile.LastModified">
+            <summary>
+            OPTIONAL: The date the document was last modified.
+            The date must conform to the W3C DATETIME format (http://www.w3.org/TR/NOTE-datetime).
+            Example: 2005-05-10 Lastmod may also contain a timestamp.
+            Example: 2005-05-10T17:33:30+08:00
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.SitemapFile.SetLastModified(System.DateTime)">
+            <summary>
+            已指定日期或時間設定最後修改時間
+            </summary>
+            <param name="time">日期或時間</param>
+        </member>
+        <member name="T:System.Framework.Web.SitemapFrequency">
+            <summary>
+            Indicates how frequently the content at a particular URL is likely to change.
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.SitemapFrequency.Always">
+            <summary>
+            The value "always" should be used to describe documents that change each time they are accessed.
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.SitemapFrequency.Hourly">
+            <summary>
+            The value "always" should be used to describe documents that change per hour
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.SitemapFrequency.Daily">
+            <summary>
+            The value "always" should be used to describe documents that change per day
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.SitemapFrequency.Weekly">
+            <summary>
+            The value "always" should be used to describe documents that change per week
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.SitemapFrequency.Monthly">
+            <summary>
+            The value "always" should be used to describe documents that change per month
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.SitemapFrequency.Yearly">
+            <summary>
+            The value "always" should be used to describe documents that change per year
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.SitemapFrequency.Never">
+            <summary>
+            The value "never" should be used to describe archived URLs.
+            </summary>
+        </member>
+        <member name="T:System.Framework.Web.SitemapIndex">
+            <summary>
+            網誌地圖
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.SitemapIndex.VirtualPath">
+            <summary>
+            Sitemap index 存放的虛擬路徑
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.SitemapIndex.Sitemaps">
+            <summary>
+            包含的網站地圖
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.SitemapIndex.#ctor">
+            <summary>
+            建構 Sitemap Index
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.SitemapIndex.#ctor(System.String,System.Framework.Web.SitemapFile[])">
+            <summary>
+            建構 Sitemap Index
+            </summary>
+            <param name="virtualPath">可於網站中存取的虛擬路徑，根目錄為WebRoot</param>
+            <param name="sitemaps">須加入的網路地圖檔案</param>
+        </member>
+        <member name="M:System.Framework.Web.SitemapIndex.#ctor(System.String,System.Framework.Web.Sitemap[])">
+            <summary>
+            建構 Sitemap Index
+            </summary>
+            <param name="virtualPath">可於網站中存取的虛擬路徑，根目錄為WebRoot</param>
+            <param name="sitemaps">須加入的網站地圖</param>
+        </member>
+        <member name="M:System.Framework.Web.SitemapIndex.ToXml">
+            <summary>
+            產生XML
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.SitemapIndex.Save(System.String)">
+            <summary>
+            儲存至指定目錄路徑。如超過Sitemap上限(50000 URLs)將拆分成多個檔案。
+            </summary>
+            <param name="fileName">檔案名稱，預設為 sitemap_index.xml</param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Framework.Web.SitemapUrl">
+            <summary>
+            網站地圖網址
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.SitemapUrl.LocationUri">
+            <summary>
+            Required: The location URI of a document.
+            The URI must conform to RFC 2396 (http://www.ietf.org/rfc/rfc2396.txt).
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.SitemapUrl.Images">
+            <summary>
+            Encloses all information about a single image. Each URL (&lt;loc&gt; tag) can include up to 1,000 &lt;image:image&gt; tags.
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.SitemapUrl.LastModified">
+            <summary>
+            OPTIONAL: The date the document was last modified.
+            The date must conform to the W3C DATETIME format (http://www.w3.org/TR/NOTE-datetime).
+            Example: 2005-05-10 Lastmod may also contain a timestamp.
+            Example: 2005-05-10T17:33:30+08:00
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.SitemapUrl.ChangeFrequency">
+            <summary>
+            OPTIONAL: Indicates how frequently the content at a particular URL is likely to change.
+            The value "always" should be used to describe documents that change each time they are accessed.
+            The value "never" should be used to describe archived URLs.
+            Please note that web crawlers may not necessarily crawl pages marked "always" more often.
+            Consider this element as a friendly suggestion and not a command.
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.SitemapUrl.Priority">
+            <summary>
+            OPTIONAL: The priority of a particular URL relative to other pages on the same site.
+            The value for this element is a number between 0.0 and 1.0 where 0.0 identifies the lowest priority page(s).
+            The default priority of a page is 0.5.
+            Priority is used to select between pages on your site.
+            Setting a priority of 1.0 for all URLs will not help you, as the relative priority of pages on your site is what will be considered.
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.SitemapUrl.SetLastModified(System.DateTime)">
+            <summary>
+            已指定日期或時間設定最後修改時間
+            </summary>
+            <param name="time">日期或時間</param>
+        </member>
+        <member name="T:System.Framework.Web.SitemapUrlImage">
+            <summary>
+            網站地圖圖像
+            Encloses all information about a single image. Each URL &lt;loc&gt; tag) can include up to 1,000 &lt;image:image&gt; tags.
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.SitemapUrlImage.LocationUri">
+            <summary>
+            The URL of the image.
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.SitemapUrlImage.Caption">
+            <summary>
+            The caption of the image.
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.SitemapUrlImage.GeoLocation">
+            <summary>
+            The geographic location of the image. For example, "Limerick, Ireland".
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.SitemapUrlImage.title">
+            <summary>
+            The title of the image.
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.SitemapUrlImage.License">
+            <summary>
+            A URL to the license of the image.
+            </summary>
+        </member>
+        <member name="T:System.Framework.Web.WebDirectory">
+            <summary>
+            網路目錄
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.WebDirectory.#ctor(System.Framework.Web.WebFileSystemContext,System.IO.DirectoryInfo)">
+            <summary>
+            建構網路目錄
+            </summary>
+            <param name="context">檔案系統脈絡</param>
+            <param name="localDirectory">本地路徑資訊</param>
+        </member>
+        <member name="M:System.Framework.Web.WebDirectory.#ctor(System.Framework.Web.WebFileSystemContext,System.String)">
+            <summary>
+            建構網路目錄
+            </summary>
+            <param name="context">檔案系統脈絡</param>
+            <param name="path">代表此目錄之路徑</param>
+        </member>
+        <member name="P:System.Framework.Web.WebDirectory.Path">
+            <summary>
+            完整名稱，包含路徑與名稱
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.WebDirectory.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.WebDirectory.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.WebDirectory.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.WebDirectory.Parent">
+            <summary>
+            上層目錄
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.WebDirectory.SearchDirectories(System.String,System.Boolean)">
+            <summary>
+            搜尋符合正規表示式之目錄
+            </summary>
+            <param name="pattern">正規表示式</param>
+            <param name="deepable">是否做深度搜尋(包含子目錄)</param>
+            <returns>符合正規表示式之目錄</returns>
+        </member>
+        <member name="P:System.Framework.Web.WebDirectory.Children">
+            <summary>
+            所有子目錄
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.WebDirectory.SearchFiles(System.String,System.Boolean)">
+            <summary>
+            搜尋符合正規表示式之檔案
+            </summary>
+            <param name="pattern">正規表示式</param>
+            <param name="deepable">是否做深度搜尋(包含子目錄)</param>
+            <returns>符合正規表示式之檔案</returns>
+        </member>
+        <member name="P:System.Framework.Web.WebDirectory.Files">
+            <summary>
+            所有檔案
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.WebDirectory.Uri">
+            <summary>
+            網址
+            </summary>
+        </member>
+        <member name="T:System.Framework.Web.WebFile">
+            <summary>
+            網路檔案
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.WebFile.#ctor(System.Framework.Web.WebFileSystemContext,System.IO.FileInfo)">
+            <summary>
+            建構網路檔案
+            </summary>
+            <param name="context">檔案系統脈絡</param>
+            <param name="localFile"></param>
+            <exception cref="T:System.Framework.OperationException"></exception>
+        </member>
+        <member name="M:System.Framework.Web.WebFile.#ctor(System.Framework.Web.WebFileSystemContext,System.String)">
+            <summary>
+            建構網路檔案
+            </summary>
+            <param name="context"></param>
+            <param name="path"></param>
+            <exception cref="T:System.Framework.OperationException"></exception>
+        </member>
+        <member name="P:System.Framework.Web.WebFile.Path">
+            <summary>
+            路徑
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.WebFile.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.WebFile.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.WebFile.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.WebFile.Extension">
+            <summary>
+            附檔名
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.WebFile.Size">
+            <summary>
+            檔案容量
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.WebFile.ContentType">
+            <summary>
+            內容型態
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.WebFile.Uri">
+            <summary>
+            網址
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.WebFile.Directory">
+            <summary>
+            目錄資訊
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.WebFile.Bytes">
+            <summary>
+            位元組資料
+            </summary>
+        </member>
+        <member name="T:System.Framework.Web.WebFileSystemContext">
+            <summary>
+            網路檔案系統脈絡
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.WebFileSystemContext.#ctor">
+            <summary>
+            網路檔案系統脈絡
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.WebFileSystemContext.Initialize">
+            <summary>
+            初始化
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.WebFileSystemContext.GetFileSystemInfo(System.String,System.Nullable{System.Boolean})">
+            <summary>
+            取得檔案系統資訊
+            </summary>
+            <param name="path">路徑</param>
+            <param name="isDirectory">是否為目錄，預設為NULL，表示自行判斷</param>
+            <returns>本地路經</returns>
+            <exception cref="T:System.Framework.OperationException">如本地路徑不在安全範圍內將拋出例外</exception>
+        </member>
+        <member name="M:System.Framework.Web.WebFileSystemContext.GetPath(System.String)">
+            <summary>
+            取得路徑
+            </summary>
+            <param name="localPath">本地路徑</param>
+            <returns>檔案總管使用之路徑</returns>
+            <exception cref="T:System.Framework.OperationException">如本地路徑不在安全範圍內將拋出例外</exception>
+        </member>
+        <member name="M:System.Framework.Web.WebFileSystemContext.Create(System.String)">
+            <summary>
+            建立目錄
+            </summary>
+            <param name="directoryPath">目錄路徑</param>
+            <returns>目錄資訊</returns>
+            <exception cref="T:System.Framework.OperationException">目錄路徑不被允許時拋出此例外</exception>
+        </member>
+        <member name="M:System.Framework.Web.WebFileSystemContext.Create(System.IO.Stream,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            建立檔案
+            </summary>
+            <param name="stream">串流</param>
+            <param name="directory">目錄路徑</param>
+            <param name="filename">檔案名稱(含附檔名)</param>
+            <param name="contentType">內容型別</param>
+            <param name="overridable">是否允許覆蓋</param>
+            <returns>檔案資訊</returns>
+            <exception cref="T:System.Framework.OperationException">檔案路徑不被允許時拋出此例外</exception>
+        </member>
+        <member name="M:System.Framework.Web.WebFileSystemContext.Create(Microsoft.AspNetCore.Http.IFormFile,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            建立檔案
+            </summary>
+            <param name="formFile">HTTP請求的檔案</param>
+            <param name="directory">目錄路徑</param>
+            <param name="filename">檔案名稱(含附檔名)</param>
+            <param name="contentType">內容型別</param>
+            <param name="overridable">是否允許覆蓋</param>
+            <returns>檔案資訊</returns>
+            <exception cref="T:System.Framework.OperationException">檔案路徑不被允許時拋出此例外</exception>
+        </member>
+        <member name="M:System.Framework.Web.WebFileSystemContext.Create(System.Byte[],System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            建立檔案
+            </summary>
+            <param name="binary">二進制資料</param>
+            <param name="directory">目錄路徑</param>
+            <param name="filename">檔案名稱(含附檔名)</param>
+            <param name="contentType">內容型別</param>
+            <param name="overridable">是否允許覆蓋</param>
+            <returns>檔案資訊</returns>
+            <exception cref="T:System.Framework.OperationException">檔案路徑不被允許時拋出此例外</exception>
+        </member>
+        <member name="M:System.Framework.Web.WebFileSystemContext.Exists(System.String)">
+            <summary>
+            判斷檔案或目錄是否存在
+            </summary>
+            <param name="path">路徑</param>
+        </member>
+        <member name="M:System.Framework.Web.WebFileSystemContext.Get(System.String)">
+            <summary>
+            依指定路徑取得檔案或目錄
+            </summary>
+            <param name="path">路徑</param>
+            <returns>檔案系統資料</returns>
+        </member>
+        <member name="M:System.Framework.Web.WebFileSystemContext.Search(System.String,System.String,System.Boolean,System.Framework.Data.Sorting[])">
+            <summary>
+            搜尋指定目錄下符合正規表示式的檔案並進行排序
+            </summary>
+            <param name="path">目錄路徑</param>
+            <param name="pattern">搜尋正規表示式</param>
+            <param name="includeSubdirectories">是否包含子目錄</param>
+            <param name="sortings">排序方式</param>
+            <returns>目錄中已排序的檔案資訊</returns>
+            <exception cref="T:System.NotImplementedException">當搜尋路徑不存在時拋出例外</exception>
+        </member>
+        <member name="M:System.Framework.Web.WebFileSystemContext.Copy(System.String,System.String,System.Boolean)">
+            <summary>
+            複製檔案或目錄
+            </summary>
+            <param name="source">來源路徑</param>
+            <param name="destination">目的路徑</param>
+            <param name="overwrite">是否允許覆蓋</param>
+            <returns>成功與否</returns>
+            <exception cref="T:System.NotImplementedException">當來源路徑不存在時拋出例外</exception>
+        </member>
+        <member name="M:System.Framework.Web.WebFileSystemContext.Move(System.String,System.String,System.Boolean)">
+            <summary>
+            移動檔案或目錄
+            </summary>
+            <param name="source">來源路徑</param>
+            <param name="destination">目的路徑</param>
+            <param name="overwrite">是否允許覆蓋</param>
+            <exception cref="T:System.Framework.OperationException">當來源不存在時拋出例外</exception>
+        </member>
+        <member name="M:System.Framework.Web.WebFileSystemContext.Delete(System.String)">
+            <summary>
+            刪除目錄或檔案
+            </summary>
+            <param name="path">路徑</param>
+        </member>
+        <member name="T:System.Framework.Web.ITokenPayload">
+            <summary>
+            令牌酬載之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ITokenPayload.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.ITokenPayload.Token">
+            <summary>
+            令牌
+            </summary>
+        </member>
+        <member name="T:System.Framework.Web.TokenPayload">
+            <summary>
+            令牌酬載
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.TokenPayload.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.TokenPayload.Token">
+            <summary>
+            令牌
+            </summary>
+        </member>
+        <member name="T:System.Framework.Web.User">
+            <summary>
+            所有會員的基礎類別
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.User.AuthorizationScheme">
+            <summary>
+            Authorization Scheme
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.User.Data">
+            <summary>
+            取得用戶資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.User.DataProtector">
+            <summary>
+            取得或設定使用的DataProtector
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.User.Id">
+            <summary>
+            編號。當設定編號時，用戶資料將同步更新。
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.User.Account">
+            <summary>
+            帳號
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.User.Email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="P:System.Framework.Web.User.Permissions">
+            <summary>
+            取得用戶權限
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.User.IsApproved``1(``0)">
+            <summary>
+            判斷用戶是否具備指定的系統權限
+            </summary>
+            <typeparam name="TSystemPermission"></typeparam>
+            <param name="permission"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Web.User.SetPassword(System.String)">
+            <summary>
+            設定密碼
+            </summary>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Web.User.CheckPassword(System.String)">
+            <summary>
+            檢查密碼是否相同
+            </summary>
+            <param name="password">輸入的密碼</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Web.User.Login">
+            <summary>
+            登入系統
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.User.Login(System.Nullable{System.Framework.Web.CookieType},System.Boolean,Microsoft.AspNetCore.Http.CookieOptions)">
+            <summary>
+            登入系統
+            </summary>
+            <param name="cookieType">Cookie類型</param>
+            <param name="tokenRenewable">可更新Token</param>
+            <param name="options">選項</param>
+        </member>
+        <member name="M:System.Framework.Web.User.Logout">
+            <summary>
+            登出
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.User.Logout(System.Boolean)">
+            <summary>
+            登出
+            </summary>
+            <param name="tokenRemovable">可移除Token</param>
+        </member>
+        <member name="M:System.Framework.Web.User.Commit">
+            <summary>
+            提交資料
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.User.Dispose">
+            <summary>
+            處置已被使用之資源
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.User.Finalize">
+            <summary>
+            解構 WebUser
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.User.Dispose(System.Boolean)">
+            <summary>
+            處置已被使用之資源
+            </summary>
+            <param name="disposing">是否包含 Managed Resource</param>
+        </member>
+        <member name="P:System.Framework.Web.User.Identity">
+            <summary>
+            取得目前主要物件的識別。
+            </summary>
+        </member>
+        <member name="M:System.Framework.Web.User.IsInRole(System.String)">
+            <summary>
+            判斷目前的原則物件是否屬於指定的角色。
+            </summary>
+            <param name="role">用來檢查成員資格的角色名稱。</param>
+            <returns>如果目前的原則物件是指定角色的成員，則為 true，否則為 false。</returns>
+        </member>
+        <member name="M:System.Framework.Web.User.OnVisiting(System.DateTime,System.String)">
+            <summary>
+            當訪問網頁時呼叫此方法
+            </summary>
+            <param name="time">訪問時間</param>
+            <param name="pageUrl">訪問網頁的URL</param>
+        </member>
+        <member name="T:System.Framework.Web.XFrameOptions">
+            <summary>
+            X-Frame-Options Header Value
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.XFrameOptions.DENY">
+            <summary>
+            The page cannot be displayed in a frame, regardless of the site attempting to do so.
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.XFrameOptions.SAMEORIGIN">
+            <summary>
+            The page can only be displayed if all ancestor frames are same origin to the page itself.
+            </summary>
+        </member>
+        <member name="T:System.Framework.Web.XXssProtection">
+            <summary>
+            X-Xss-Protection Header Value
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.XXssProtection.Disabled">
+            <summary>
+            不啟用
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.XXssProtection.Enabled">
+            <summary>
+            啟用
+            </summary>
+        </member>
+        <member name="F:System.Framework.Web.XXssProtection.Blocked">
+            <summary>
+            啟用，如偵測到停止頁面載入
+            </summary>
+        </member>
+    </members>
+</doc>

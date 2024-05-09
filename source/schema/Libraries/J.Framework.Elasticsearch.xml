@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>J.Framework.Elasticsearch</name>
+    </assembly>
+    <members>
+        <member name="T:System.Framework.Elasticsearch.ElasticsearchContext">
+            <summary>
+            Elasticsearch脈絡
+            </summary>
+        </member>
+        <member name="P:System.Framework.Elasticsearch.ElasticsearchContext.Uri">
+            <summary>
+             URI
+            </summary>
+        </member>
+        <member name="P:System.Framework.Elasticsearch.ElasticsearchContext.Index">
+            <summary>
+            Index，第一個字母須為小寫英文
+            </summary>
+        </member>
+        <member name="P:System.Framework.Elasticsearch.ElasticsearchContext.Settings">
+            <summary>
+            連線設定
+            </summary>
+        </member>
+        <member name="P:System.Framework.Elasticsearch.ElasticsearchContext.Client">
+            <summary>
+            Elasticsearch 客戶端
+            </summary>
+        </member>
+        <member name="M:System.Framework.Elasticsearch.ElasticsearchContext.InitClient">
+            <summary>
+            初始化客戶端
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Elasticsearch.ElasticsearchContext.#ctor(System.String,System.String)">
+            <summary>
+            建構 ElasticsearchContext
+            </summary>
+            <param name="uri">Elasticsearch URI</param>
+            <param name="index">索引名稱</param>
+        </member>
+        <member name="M:System.Framework.Elasticsearch.ElasticsearchContext.OnIndexCreating(Nest.ConnectionSettings)">
+            <summary>
+            當創建索引時需要執行的內容
+            </summary>
+            <param name="settings">連線設定</param>
+        </member>
+        <member name="M:System.Framework.Elasticsearch.ElasticsearchContext.ExitstAsync(System.String)">
+            <summary>
+            指定名稱的索引是否存在
+            </summary>
+            <param name="index">索引名稱</param>
+        </member>
+        <member name="M:System.Framework.Elasticsearch.ElasticsearchContext.IndexAsync``1(``0,System.String)">
+            <summary>
+            將文件進行索引
+            </summary>
+            <param name="document">須索引文件</param>
+            <param name="index">索引名稱</param>
+        </member>
+        <member name="M:System.Framework.Elasticsearch.ElasticsearchContext.IndexAsync``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>
+            批量將文件進行索引
+            </summary>
+            <param name="documents">須索引文件</param>
+            <param name="index">索引名稱</param>
+        </member>
+        <member name="M:System.Framework.Elasticsearch.ElasticsearchContext.UpdateAsync``1(``0,System.String)">
+            <summary>
+            將文件進行索引並更新索引中的數據
+            </summary>
+            <param name="document">須索引文件</param>
+            <param name="index">索引名稱</param>
+        </member>
+        <member name="M:System.Framework.Elasticsearch.ElasticsearchContext.RemoveAsync``1(``0,System.String)">
+            <summary>
+            從索引中移除指定的文件
+            </summary>
+            <param name="document">已索引文件</param>
+            <param name="index">索引名稱</param>
+        </member>
+        <member name="M:System.Framework.Elasticsearch.ElasticsearchContext.SearchAsync``1(System.String,System.String)">
+            <summary>
+            搜尋符合關鍵字的文件
+            </summary>
+            <typeparam name="TDocument">文件型別</typeparam>
+            <param name="keyword">關鍵字</param>
+            <param name="index">索引名稱</param>
+        </member>
+        <member name="T:System.Framework.Elasticsearch.ElasticsearchExtensions">
+            <summary>
+            IEntityData 相關之擴充方法
+            </summary>
+        </member>
+        <member name="M:System.Framework.Elasticsearch.ElasticsearchExtensions.AddElasticsearch``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            增加 ElasticsearchContext
+            </summary>
+            <typeparam name="TElasticsearchContext">ElasticsearchContext型別</typeparam>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,726 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>J.Framework.Sales</name>
+    </assembly>
+    <members>
+        <member name="T:System.Framework.Sales.IChargeItemData">
+            <summary>
+            收費項目資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IChargeItemData.Optional">
+            <summary>
+            是否為選配
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IChargeItemData.Materials">
+            <summary>
+            使用的物料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IChargeItemData.Quantity">
+            <summary>
+            數量
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IChargeItemData.Amount">
+            <summary>
+            金額
+            </summary>
+        </member>
+        <member name="T:System.Framework.Sales.IOrderData">
+            <summary>
+            訂單資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IOrderData.Number">
+            <summary>
+            編號
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IOrderData.Terminal">
+            <summary>
+            終端設備
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IOrderData.TerminalBatchNo">
+            <summary>
+            終端機批次編號
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IOrderData.Operator">
+            <summary>
+            操作員
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IOrderData.Customer">
+            <summary>
+            顧客
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IOrderData.Time">
+            <summary>
+            訂購時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IOrderData.Items">
+            <summary>
+            訂單明細
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IOrderData.Payments">
+            <summary>
+            支付明細
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IOrderData.ShoppingSubtotal">
+            <summary>
+            購物金額
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IOrderData.PaymentFeeSubtotal">
+            <summary>
+            金流費用
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IOrderData.ShippingSubtotal">
+            <summary>
+            運送費用
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IOrderData.DiscountSubtotal">
+            <summary>
+            折扣金額
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IOrderData.TaxSubtotal">
+            <summary>
+            繳稅金額
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IOrderData.Amount">
+            <summary>
+            金額
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IOrderData.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IOrderData.Status">
+            <summary>
+            訂單狀態
+            </summary>
+        </member>
+        <member name="T:System.Framework.Sales.IOrderItemData">
+            <summary>
+            訂單項目之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IOrderItemData.Product">
+            <summary>
+            商品資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IOrderItemData.IsGift">
+            <summary>
+            贈品
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IOrderItemData.Price">
+            <summary>
+            單價 
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IOrderItemData.Quantity">
+            <summary>
+            商品數量
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IOrderItemData.TaxAmount">
+            <summary>
+            稅金
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IOrderItemData.Amount">
+            <summary>
+            合計金額(含稅)
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IOrderItemData.ChargItems">
+            <summary>
+            收費項目
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IOrderItemData.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="T:System.Framework.Sales.IPaymentData">
+            <summary>
+            支付資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IPaymentData.Order">
+            <summary>
+            訂單資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IPaymentData.Type">
+            <summary>
+            付款方式，請使用PaymentType列舉
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IPaymentData.Acquier">
+            <summary>
+            收單行
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IPaymentData.Deadline">
+            <summary>
+            最後期限
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IPaymentData.Currency">
+            <summary>
+            貨幣
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IPaymentData.Amount">
+            <summary>
+            總金額
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IPaymentData.Token">
+            <summary>
+            PAN 或 Tokenization 後之 Token
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IPaymentData.Time">
+            <summary>
+            時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IPaymentData.SettlementDate">
+            <summary>
+            結算日期
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IPaymentData.RemittanceDate">
+            <summary>
+            匯款日期
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IPaymentData.Confirmor">
+            <summary>
+            確認者
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IPaymentData.ConfirmTime">
+            <summary>
+            確認時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IPaymentData.Status">
+            <summary>
+            付款狀態，請使用PaymentStatus列舉
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IPaymentData.Records">
+            <summary>
+            交易紀錄
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IPaymentData.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="M:System.Framework.Sales.IPaymentData.GetAcquierOrderNo">
+            <summary>
+            取得收單行訂單編號
+            </summary>
+        </member>
+        <member name="M:System.Framework.Sales.IPaymentData.GetRetrievalReferenceNo">
+            <summary>
+            取得調閱編號
+            </summary>
+        </member>
+        <member name="M:System.Framework.Sales.IPaymentData.GetAuthCode">
+            <summary>
+            取得授權碼
+            </summary>
+        </member>
+        <member name="M:System.Framework.Sales.IPaymentData.GetTraceNo">
+            <summary>
+            取得查詢號
+            </summary>
+        </member>
+        <member name="M:System.Framework.Sales.IPaymentData.GetBatchNo(System.Framework.Sales.PaymentTransactionType)">
+            <summary>
+            取得批次編號
+            </summary>
+            <param name="type">行為類型</param>
+        </member>
+        <member name="T:System.Framework.Sales.IPaymentRecordData">
+            <summary>
+            支付紀錄之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IPaymentRecordData.Payment">
+            <summary>
+            支付資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IPaymentRecordData.Type">
+            <summary>
+            行為類型
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IPaymentRecordData.Number">
+            <summary>
+            編號
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IPaymentRecordData.RequestType">
+            <summary>
+            請求之型別(用於反序列化)
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IPaymentRecordData.Request">
+            <summary>
+            請求之序列化資料(XML)
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IPaymentRecordData.ResponseType">
+            <summary>
+            回應之型別(用於反序列化)
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IPaymentRecordData.Response">
+            <summary>
+            回應之序列化資料(XML)
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IPaymentRecordData.Time">
+            <summary>
+            時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IPaymentRecordData.Success">
+            <summary>
+            是否成功
+            </summary>
+        </member>
+        <member name="T:System.Framework.Sales.IQuotationData">
+            <summary>
+            報價資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IQuotationData.Customer">
+            <summary>
+            客戶資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IQuotationData.Time">
+            <summary>
+            時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IQuotationData.Operator">
+            <summary>
+            操作員
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IQuotationData.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IQuotationData.Items">
+            <summary>
+            報價項目
+            </summary>
+        </member>
+        <member name="T:System.Framework.Sales.IQuotationItemData">
+            <summary>
+            報價項目之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IQuotationItemData.Product">
+            <summary>
+            產品
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IQuotationItemData.Quantity">
+            <summary>
+            數量
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IQuotationItemData.Price">
+            <summary>
+            單價
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IQuotationItemData.Amount">
+            <summary>
+            金額
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.IQuotationItemData.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="T:System.Framework.Sales.ISalableProductData">
+            <summary>
+            可銷售商品資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.ISalableProductData.MinimumOrderQuantity">
+            <summary>
+            最低訂購量
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.ISalableProductData.Price">
+            <summary>
+            售價
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.ISalableProductData.Status">
+            <summary>
+            狀態
+            </summary>
+        </member>
+        <member name="T:System.Framework.Sales.ISalePriceData">
+            <summary>
+            銷售價格
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.ISalePriceData.Product">
+            <summary>
+            產品資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.ISalePriceData.Enabled">
+            <summary>
+            已啟用
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.ISalePriceData.StartTime">
+            <summary>
+            開始時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.ISalePriceData.EndTime">
+            <summary>
+            結束時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.ISalePriceData.Priority">
+            <summary>
+            優先權，數值越高越優先
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.ISalePriceData.Price">
+            <summary>
+            售價
+            </summary>
+        </member>
+        <member name="T:System.Framework.Sales.ISaleRecordData">
+            <summary>
+            銷售紀錄
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.ISaleRecordData.Product">
+            <summary>
+            商品資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.ISaleRecordData.Price">
+            <summary>
+            單價
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.ISaleRecordData.Quantity">
+            <summary>
+            數量
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.ISaleRecordData.Amount">
+            <summary>
+            金額
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.ISaleRecordData.SerialNo">
+            <summary>
+            商品序號，多個序號時請用逗號區隔
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.ISaleRecordData.Customer">
+            <summary>
+            客戶資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Sales.ISaleRecordData.Order">
+            <summary>
+            訂單資料
+            </summary>
+        </member>
+        <member name="T:System.Framework.Sales.OrderStatus">
+            <summary>
+            訂單狀態
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.OrderStatus.Pendding">
+            <summary>
+            閒置中
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.OrderStatus.Approved">
+            <summary>
+            已核准
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.OrderStatus.Refused">
+            <summary>
+            已否決
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.OrderStatus.InProgress">
+            <summary>
+            進行中
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.OrderStatus.PaymentConfirming">
+            <summary>
+            款項待確認
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.OrderStatus.PaymentConfirmed">
+            <summary>
+            款項已確認
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.OrderStatus.InventoryConfirming">
+            <summary>
+            庫存待確認
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.OrderStatus.VendorConfirming">
+            <summary>
+            廠商待確認
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.OrderStatus.ScheduleConfirming">
+            <summary>
+            排程待確認
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.OrderStatus.ScheduleConfirmed">
+            <summary>
+            排程已確認
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.OrderStatus.Confirmed">
+            <summary>
+            已確認
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.OrderStatus.Established">
+            <summary>
+            已成立
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.OrderStatus.Preparing">
+            <summary>
+            已備貨
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.OrderStatus.DeliveryConfirming">
+            <summary>
+            貨運待確認
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.OrderStatus.InTransit">
+            <summary>
+            運輸中
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.OrderStatus.Arrived">
+            <summary>
+            已抵達
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.OrderStatus.Canceled">
+            <summary>
+            已取消
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.OrderStatus.Finished">
+            <summary>
+            已完成
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.OrderStatus.ReturnRequested">
+            <summary>
+            要求退貨
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.OrderStatus.Returning">
+            <summary>
+            退貨中
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.OrderStatus.ReturnGoodsConfirming">
+            <summary>
+            退貨待確認
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.OrderStatus.Returned">
+            <summary>
+            退貨完成
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.OrderStatus.Refunding">
+            <summary>
+            退款中
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.OrderStatus.Refunded">
+            <summary>
+            已退款
+            </summary>
+        </member>
+        <member name="T:System.Framework.Sales.PaymentStatus">
+            <summary>
+            支付狀態
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.PaymentStatus.Pending">
+            <summary>
+            閒置中
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.PaymentStatus.Authorizing">
+            <summary>
+            授權中
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.PaymentStatus.Confirming">
+            <summary>
+            款項待確認
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.PaymentStatus.Voided">
+            <summary>
+            款項已廢止
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.PaymentStatus.Expired">
+            <summary>
+            款項已逾期
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.PaymentStatus.Confirmed">
+            <summary>
+            款項已確認
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.PaymentStatus.Invoiced">
+            <summary>
+            款項已開發票
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.PaymentStatus.Captured">
+            <summary>
+            款項已請款
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.PaymentStatus.Refunding">
+            <summary>
+            款項退回中
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.PaymentStatus.Refunded">
+            <summary>
+            款項已退回
+            </summary>
+        </member>
+        <member name="T:System.Framework.Sales.PaymentTransactionType">
+            <summary>
+            支付交易類型
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.PaymentTransactionType.Auth">
+            <summary>
+            授權
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.PaymentTransactionType.Void">
+            <summary>
+            廢止
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.PaymentTransactionType.Capture">
+            <summary>
+            請款
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.PaymentTransactionType.Refund">
+            <summary>
+            退款
+            </summary>
+        </member>
+        <member name="T:System.Framework.Sales.ProuductStatus">
+            <summary>
+            商品狀態
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.ProuductStatus.Pendding">
+            <summary>
+            閒置中
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.ProuductStatus.Sales">
+            <summary>
+            銷售中
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.ProuductStatus.Preorder">
+            <summary>
+            預購中
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.ProuductStatus.MakeOnTheSpot">
+            <summary>
+            現場製作
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.ProuductStatus.SoldOut">
+            <summary>
+            已售完
+            </summary>
+        </member>
+        <member name="F:System.Framework.Sales.ProuductStatus.Discontinued">
+            <summary>
+            已停售
+            </summary>
+        </member>
+        <member name="T:System.Framework.Sales.PaymentExtensions">
+            <summary>
+            支付相關之擴充方法
+            </summary>
+        </member>
+        <member name="M:System.Framework.Sales.PaymentExtensions.CheckCardNumber(System.Framework.Sales.IPaymentData)">
+            <summary>
+            檢驗卡號，請確認你的 Token 未經過 Tokenization 再使用
+            </summary>
+            <param name="payment">付款資料</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
