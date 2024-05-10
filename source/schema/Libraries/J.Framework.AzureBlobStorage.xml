@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>J.Framework.AzureBlobStorage</name>
+    </assembly>
+    <members>
+        <member name="T:System.Framework.AzureBlobStorage.AzureBlobStorageContext">
+            <summary>
+            Azure Blob Service
+            </summary>
+        </member>
+        <member name="P:System.Framework.AzureBlobStorage.AzureBlobStorageContext.Service">
+            <summary>
+            服務
+            </summary>
+        </member>
+        <member name="P:System.Framework.AzureBlobStorage.AzureBlobStorageContext.TemporaryContainer">
+            <summary>
+            暫存容器
+            </summary>
+        </member>
+        <member name="P:System.Framework.AzureBlobStorage.AzureBlobStorageContext.TemporaryBlobLifeCycle">
+            <summary>
+            暫存物件之生命週期
+            </summary>
+        </member>
+        <member name="P:System.Framework.AzureBlobStorage.AzureBlobStorageContext.ClearTemporaryTime">
+            <summary>
+            清除暫存之時間
+            </summary>
+        </member>
+        <member name="M:System.Framework.AzureBlobStorage.AzureBlobStorageContext.#ctor(System.String,System.String,System.Nullable{System.TimeSpan})">
+            <summary>
+            建構 AzureBlobStorageContext
+            </summary>
+            <param name="name">名稱，將以此名稱取得連線字串，未提供時使用型別名稱</param>
+            <param name="temporaryContainer">暫存容器名稱</param>
+            <param name="lifeCycle">暫存物件之生命週期，預設值為一分鐘</param>
+        </member>
+        <member name="M:System.Framework.AzureBlobStorage.AzureBlobStorageContext.#ctor(Azure.Storage.Blobs.BlobServiceClient,System.String,System.Nullable{System.TimeSpan})">
+            <summary>
+            以現有服務建構 AzureBlobStorageContext
+            </summary>
+            <param name="service">現有服務</param>
+            <param name="temporaryContainer">暫存容器名稱</param>
+            <param name="lifeCycle">暫存物件之生命週期，預設值為一分鐘</param>
+        </member>
+        <member name="M:System.Framework.AzureBlobStorage.AzureBlobStorageContext.ParseUri(System.Uri)">
+            <summary>
+            解析物件或容器網址為物件資訊
+            </summary>
+            <param name="blobOrContainer">物件或容器名稱</param>
+            <returns>物件資訊</returns>
+        </member>
+        <member name="M:System.Framework.AzureBlobStorage.AzureBlobStorageContext.Exists(System.Uri)">
+            <summary>
+            判斷物件或容器是否存在
+            </summary>
+            <param name="blobOrContainer">物件或容器名稱</param>
+        </member>
+        <member name="M:System.Framework.AzureBlobStorage.AzureBlobStorageContext.GetContainer(System.String,System.Boolean)">
+            <summary>
+            取得容器網址
+            </summary>
+            <param name="container">容器名稱</param>
+            <param name="generatable">如不存在時自動生成</param>
+        </member>
+        <member name="M:System.Framework.AzureBlobStorage.AzureBlobStorageContext.GetBlob(System.String,System.String)">
+            <summary>
+            取得物件網址
+            </summary>
+            <param name="container">容器名稱</param>
+            <param name="blob">物件名稱</param>
+            <returns>物件網址</returns>
+        </member>
+        <member name="M:System.Framework.AzureBlobStorage.AzureBlobStorageContext.Create(System.IO.Stream,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            建立物件
+            </summary>
+            <param name="stream">串流</param>
+            <param name="contentType">內容型別</param>
+            <param name="container">容器名稱</param>
+            <param name="blob">物件名稱</param>
+            <param name="overridable">是否允許覆蓋</param>
+            <returns>物件網址</returns>
+        </member>
+        <member name="M:System.Framework.AzureBlobStorage.AzureBlobStorageContext.Create(Microsoft.AspNetCore.Http.IFormFile,System.String,System.String,System.Boolean)">
+            <summary>
+            建立物件，以指定檔案產生
+            </summary>
+            <param name="file">檔案</param>
+            <param name="container">容器名稱</param>
+            <param name="blob">物件名稱</param>
+            <param name="overridable">是否允許覆蓋</param>
+            <returns>物件網址</returns>
+        </member>
+        <member name="M:System.Framework.AzureBlobStorage.AzureBlobStorageContext.Create(System.Byte[],System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            建立物件，以指定的二進制資料產生
+            </summary>
+            <param name="binary">二進制資料</param>
+            <param name="contentType">內容型別</param>
+            <param name="container">容器名稱</param>
+            <param name="blob">物件名稱</param>
+            <param name="overridable">是否允許覆蓋</param>
+            <returns>物件網址</returns>
+        </member>
+        <member name="M:System.Framework.AzureBlobStorage.AzureBlobStorageContext.Create(System.Uri,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            建立物件，由指定網址讀取資料並產生
+            </summary>
+            <param name="uri">網址</param>
+            <param name="contentType">內容型別</param>
+            <param name="container">容器名稱</param>
+            <param name="blob">物件名稱</param>
+            <param name="overridable">是否允許覆蓋</param>
+            <returns>物件網址</returns>
+        </member>
+        <member name="M:System.Framework.AzureBlobStorage.AzureBlobStorageContext.List(System.String,System.String)">
+            <summary>
+            列出容器中的物件
+            </summary>
+            <param name="container">容器名稱</param>
+            <param name="prefix">前綴(虛擬路徑)</param>
+            <returns>物件網址</returns>
+        </member>
+        <member name="M:System.Framework.AzureBlobStorage.AzureBlobStorageContext.List(System.String,System.Int32,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            列出容器中的物件
+            </summary>
+            <param name="container">容器名稱</param>
+            <param name="page">頁數</param>
+            <param name="prefix">前綴(虛擬路徑)</param>
+            <param name="continuationToken">延續之前取得資料所用令牌，如為空值或未使用過的令牌表示從頭取得</param>
+            <param name="pageSize">每頁筆數</param>
+            <param name="initialPage">初始頁數</param>
+            <returns>物件網址</returns>
+        </member>
+        <member name="M:System.Framework.AzureBlobStorage.AzureBlobStorageContext.Copy(System.Uri,System.Uri,System.Boolean)">
+            <summary>
+            複製物件
+            </summary>
+            <param name="source">來源物件</param>
+            <param name="destination">目的物件</param>
+            <param name="overridable">是否允許覆蓋</param>
+            <returns>成功與否</returns>
+        </member>
+        <member name="M:System.Framework.AzureBlobStorage.AzureBlobStorageContext.Move(System.Uri,System.Uri,System.Boolean)">
+            <summary>
+            移動物件
+            </summary>
+            <param name="source">來源物件</param>
+            <param name="destination">目的物件</param>
+            <param name="overridable">是否允許覆蓋</param>
+            <returns>成功與否</returns>
+        </member>
+        <member name="M:System.Framework.AzureBlobStorage.AzureBlobStorageContext.Delete(System.Uri)">
+            <summary>
+            刪除物件或容器
+            </summary>
+            <param name="blobOrContainer">物件或容器名稱</param>
+            <returns>成功與否</returns>
+        </member>
+        <member name="M:System.Framework.AzureBlobStorage.AzureBlobStorageContext.ClearTemporary(System.Nullable{System.TimeSpan},System.String)">
+            <summary>
+            清除暫存檔案
+            </summary>
+            <param name="lifeCycle">生命週期，未指定時使用 LifeCycle</param>
+            <param name="container">容器名稱，未指定時使用 TemporaryContainer</param>
+            <returns>成功與否</returns>
+        </member>
+        <member name="M:System.Framework.AzureBlobStorage.AzureBlobStorageContext.InitializeStorage">
+            <summary>
+            初始化儲存體
+            </summary>
+        </member>
+    </members>
+</doc>

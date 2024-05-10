@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>J.Framework.Manufacture</name>
+    </assembly>
+    <members>
+        <member name="T:System.Framework.Manufacture.BomType">
+            <summary>
+            物料清單類型
+            </summary>
+        </member>
+        <member name="F:System.Framework.Manufacture.BomType.StandardBillOfMaterial">
+            <summary>
+            標準物料清單
+            </summary>
+        </member>
+        <member name="F:System.Framework.Manufacture.BomType.PlanningBillOfMaterial">
+            <summary>
+            計畫物料清單
+            </summary>
+        </member>
+        <member name="F:System.Framework.Manufacture.BomType.ModelBillOfMaterial">
+            <summary>
+            模具物料清單
+            </summary>
+        </member>
+        <member name="F:System.Framework.Manufacture.BomType.ManufacturingBillOfMaterial">
+            <summary>
+            生產物料清單
+            </summary>
+        </member>
+        <member name="F:System.Framework.Manufacture.BomType.CostedBillOfMaterial">
+            <summary>
+            成本物料清單
+            </summary>
+        </member>
+        <member name="T:System.Framework.Manufacture.IBillOfMaterialData">
+            <summary>
+            物料清單
+            </summary>
+        </member>
+        <member name="P:System.Framework.Manufacture.IBillOfMaterialData.Type">
+            <summary>
+            物料清單類型
+            </summary>
+        </member>
+        <member name="P:System.Framework.Manufacture.IBillOfMaterialData.Process">
+            <summary>
+            製程
+            </summary>
+        </member>
+        <member name="P:System.Framework.Manufacture.IBillOfMaterialData.Items">
+            <summary>
+            物料項目
+            </summary>
+        </member>
+        <member name="T:System.Framework.Manufacture.IBillOfMaterialItemData">
+            <summary>
+            物料清單項目
+            </summary>
+        </member>
+        <member name="P:System.Framework.Manufacture.IBillOfMaterialItemData.ProcessOrder">
+            <summary>
+            製程順序
+            </summary>
+        </member>
+        <member name="P:System.Framework.Manufacture.IBillOfMaterialItemData.Process">
+            <summary>
+            製程
+            </summary>
+        </member>
+        <member name="P:System.Framework.Manufacture.IBillOfMaterialItemData.Material">
+            <summary>
+            物料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Manufacture.IBillOfMaterialItemData.Quantity">
+            <summary>
+            數量
+            </summary>
+        </member>
+        <member name="T:System.Framework.Manufacture.IManufacturingProcess">
+            <summary>
+            製程
+            </summary>
+        </member>
+        <member name="P:System.Framework.Manufacture.IManufacturingProcess.Product">
+            <summary>
+            產品
+            </summary>
+        </member>
+        <member name="P:System.Framework.Manufacture.IManufacturingProcess.OutputQuantity">
+            <summary>
+            輸出量
+            </summary>
+        </member>
+        <member name="T:System.Framework.Manufacture.IPackedContentData">
+            <summary>
+            包裝內容物
+            </summary>
+        </member>
+        <member name="P:System.Framework.Manufacture.IPackedContentData.Product">
+            <summary>
+            商品
+            </summary>
+        </member>
+        <member name="P:System.Framework.Manufacture.IPackedContentData.Content">
+            <summary>
+            內容物
+            </summary>
+        </member>
+        <member name="P:System.Framework.Manufacture.IPackedContentData.Quantity">
+            <summary>
+            數量
+            </summary>
+        </member>
+        <member name="T:System.Framework.Manufacture.IProductData">
+            <summary>
+            商品資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Manufacture.IProductData.Manufacturer">
+            <summary>
+            製造商
+            </summary>
+        </member>
+        <member name="P:System.Framework.Manufacture.IProductData.Base">
+            <summary>
+            基本款
+            </summary>
+        </member>
+        <member name="P:System.Framework.Manufacture.IProductData.Mixed">
+            <summary>
+            是否為組合商品
+            </summary>
+        </member>
+        <member name="P:System.Framework.Manufacture.IProductData.PackedContents">
+            <summary>
+            包裝內容物
+            </summary>
+        </member>
+        <member name="P:System.Framework.Manufacture.IProductData.Unit">
+            <summary>
+            單位
+            </summary>
+        </member>
+        <member name="T:System.Framework.Manufacture.IProductionBomData">
+            <summary>
+            物料清單之介面
+            </summary>
+        </member>
+    </members>
+</doc>

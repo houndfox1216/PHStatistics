@@ -1,0 +1,113 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <UserSecretsId>a4341346-db5c-46f7-b2b9-51ca6558ee31</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <AssemblyName>EmptyProject.Services.Admin</AssemblyName>
+    <RootNamespace>EmptyProject.Services.Admin</RootNamespace>
+    <Version>0.1</Version>
+    <LangVersion>12</LangVersion>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\..\binary\Debug\</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>../../../binary/Debug/net8.0/EmptyProject.Services.Admin.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\..\binary\Release\</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>../../../binary/Release/net8.0/EmptyProject.Services.Admin.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Kestrel' " />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+    <PackageReference Include="NLog.Targets.ElasticSearch" Version="7.7.0" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="5.3.8" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Google.Analytics.Data.V1Beta" Version="2.0.0-beta03" />
+    <PackageReference Include="DevExtreme.AspNet.Core" Version="23.1.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="J.Framework.Core">
+      <HintPath>..\..\schema\Libraries\J.Framework.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework">
+      <HintPath>..\..\schema\Libraries\J.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Content">
+      <HintPath>..\..\schema\Libraries\J.Framework.Content.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Elasticsearch">
+      <HintPath>..\..\schema\Libraries\J.Framework.Elasticsearch.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.EntityFrameworkCore">
+      <HintPath>..\..\schema\Libraries\J.Framework.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Manufacture">
+      <HintPath>..\..\schema\Libraries\J.Framework.Manufacture.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Log4net">
+      <HintPath>..\..\schema\Libraries\J.Framework.Log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.NLog">
+      <HintPath>..\..\schema\Libraries\J.Framework.NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Web">
+      <HintPath>..\..\schema\Libraries\J.Framework.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Streaming">
+      <HintPath>..\..\schema\Libraries\J.Framework.Streaming.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Business">
+      <HintPath>..\..\schema\Libraries\J.Framework.Business.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="J.Framework.Core" />
+    <None Remove="J.Framework" />
+    <None Remove="J.Framework.Business" />
+    <None Remove="J.Framework.Content" />
+    <None Remove="J.Framework.Elasticsearch" />
+    <None Remove="J.Framework.EntityFrameworkCore" />
+    <None Remove="J.Framework.Manufacture" />
+    <None Remove="J.Framework.Log4net" />
+    <None Remove="J.Framework.NLog" />
+    <None Remove="J.Framework.Web" />
+    <None Remove="Controllers\Streaming\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\schema\Core\Core.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\..\schema\Data\Data.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\Streaming\" />
+  </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
+</Project>

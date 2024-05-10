@@ -1,0 +1,8 @@
+# Ignore Other Branch Remain Directories
+*/
+
+# Branch Directories and Files
+!schema/
+!schema/**/*
+!services/
+!services/**/*

@@ -1,0 +1,80 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <UserSecretsId>07c81aba-1075-4845-8d5d-3a885c67ff76</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <AssemblyName>EmptyProject.Services.Storage</AssemblyName>
+    <RootNamespace>EmptyProject.Services.Storage</RootNamespace>
+    <Configurations>Release;Debug</Configurations>
+    <LangVersion>12</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\..\binary\Release\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\..\binary\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Kestrel' " />
+  <ItemGroup>
+    <Content Remove="appsettings.local.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NLog.Targets.ElasticSearch" Version="7.7.0" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="5.3.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\schema\Data\Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="J.Framework.AzureBlobStorage">
+      <HintPath>..\..\schema\Libraries\J.Framework.AzureBlobStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Core">
+      <HintPath>..\..\schema\Libraries\J.Framework.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.EntityFrameworkCore">
+      <HintPath>..\..\schema\Libraries\J.Framework.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework">
+      <HintPath>..\..\schema\Libraries\J.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.NLog">
+      <HintPath>..\..\schema\Libraries\J.Framework.NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Web">
+      <HintPath>..\..\schema\Libraries\J.Framework.Web.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="J.Framework.AzureBlobStorage" />
+    <None Remove="J.Framework.Core" />
+    <None Remove="J.Framework.EntityFrameworkCore" />
+    <None Remove="J.Framework" />
+    <None Remove="J.Framework.NLog" />
+    <None Remove="J.Framework.Web" />
+    <None Remove="J.Framework.Log4net" />
+  </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
+</Project>

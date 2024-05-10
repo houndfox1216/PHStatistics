@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>J.Framework.Payment</name>
+    </assembly>
+    <members>
+        <member name="T:System.Framework.Payment.IAuthData">
+            <summary>
+            授權資料之介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Payment.IAuthData.Token">
+            <summary>
+            安全令牌。以信用卡而言為PAN
+            </summary>
+        </member>
+        <member name="P:System.Framework.Payment.IAuthData.ValidationCode">
+            <summary>
+            驗證碼。以信用卡而言為CVV2或CVC2
+            </summary>
+        </member>
+        <member name="P:System.Framework.Payment.IAuthData.Expiry">
+            <summary>
+            到期日期
+            </summary>
+        </member>
+        <member name="P:System.Framework.Payment.IAuthData.Currency">
+            <summary>
+            貨幣
+            </summary>
+        </member>
+        <member name="P:System.Framework.Payment.IAuthData.Amount">
+            <summary>
+            金額
+            </summary>
+        </member>
+        <member name="T:System.Framework.Payment.PaymentService">
+            <summary>
+            支付服務的基礎類別
+            </summary>
+        </member>
+        <member name="P:System.Framework.Payment.PaymentService.DataContext">
+            <summary>
+            資料脈絡
+            </summary>
+        </member>
+        <member name="P:System.Framework.Payment.PaymentService.PaymentTypes">
+            <summary>
+            具備的支付類型
+            </summary>
+        </member>
+        <member name="P:System.Framework.Payment.PaymentService.TransactionTypes">
+            <summary>
+            具備的交易類型
+            </summary>
+        </member>
+        <member name="M:System.Framework.Payment.PaymentService.GetService(System.Framework.Data.PaymentType,System.String)">
+            <summary>
+            取得適用的服務，如多個服務符合將隨機取回
+            </summary>
+            <param name="type">支付方式</param>
+            <param name="provider">提供者名稱，可作為篩選條件</param>
+            <returns>適用支付方式的服務</returns>
+        </member>
+        <member name="M:System.Framework.Payment.PaymentService.#ctor(System.Framework.Data.IDataContext,System.Framework.Data.PaymentType[],System.Framework.Sales.PaymentTransactionType[])">
+            <summary>
+            建構 PaymentService
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="types">具備的支付類型</param>
+            <param name="transactionTypes">具備的交易類型</param>
+        </member>
+        <member name="M:System.Framework.Payment.PaymentService.Auth``2(``0,``1)">
+            <summary>
+            授權，完成動作後將修改支付資料狀態並傳回支付紀錄(皆未實體化)
+            </summary>
+            <typeparam name="TPayment">支付資料型別</typeparam>
+            <typeparam name="TAuthData">授權資料型別</typeparam>
+            <param name="payment">支付資料</param>
+            <param name="authData">授權資料</param>
+            <returns>授權後之支付資料</returns>
+        </member>
+        <member name="M:System.Framework.Payment.PaymentService.Capture``1(``0)">
+            <summary>
+            請款，完成動作後將修改支付資料狀態並傳回支付紀錄(皆未實體化)
+            </summary>
+            <typeparam name="TPayment">支付資料型別</typeparam>
+            <param name="payment">支付資料</param>
+            <returns>請款後之支付資料</returns>
+        </member>
+        <member name="M:System.Framework.Payment.PaymentService.Void``1(``0)">
+            <summary>
+            廢止，完成動作後將修改支付資料狀態並傳回支付紀錄(皆未實體化)
+            </summary>
+            <typeparam name="TPayment">支付資料型別</typeparam>
+            <param name="payment">支付資料</param>
+            <returns>廢止後之支付資料</returns>
+        </member>
+        <member name="M:System.Framework.Payment.PaymentService.Refund``2(``0,``1)">
+            <summary>
+            退款，完成動作後將修改支付資料狀態並傳回支付紀錄(皆未實體化)
+            </summary>
+            <typeparam name="TPayment">支付資料型別</typeparam>
+            <typeparam name="TAuthData">授權資料型別</typeparam>
+            <param name="payment">支付資料</param>
+            <param name="authData">授權資料</param>
+            <returns>退款後之支付資料</returns>
+        </member>
+        <member name="M:System.Framework.Payment.PaymentService.Continue``1(``0,System.Framework.Parameters)">
+            <summary>
+            繼續，當前一個動作尚未完成時，提供後續參數繼續完成動作(皆未實體化)
+            </summary>
+            <typeparam name="TPaymentRecord">支付紀錄型別</typeparam>
+            <param name="record">支付資料</param>
+            <param name="parameters">後續提供的參數</param>
+            <returns>繼續處理後的支付資料</returns>
+        </member>
+        <member name="M:System.Framework.Payment.PaymentService.Query``1(System.Framework.Parameters)">
+            <summary>
+            查詢
+            </summary>
+            <typeparam name="TResult">結果型別</typeparam>
+            <param name="parameters">查詢參數</param>
+            <returns>查詢結果</returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,718 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>J.Framework.Community</name>
+    </assembly>
+    <members>
+        <member name="T:System.Framework.Community.IAnswerData">
+            <summary>
+            問題回應的基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IAnswerData.Answerer">
+            <summary>
+            回應者
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IAnswerData.Content">
+            <summary>
+            內容
+            </summary>
+        </member>
+        <member name="T:System.Framework.Community.ICommentData">
+            <summary>
+            評論資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.ICommentData.Entity">
+            <summary>
+            受評實體
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.ICommentData.Commenter">
+            <summary>
+            評論者
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.ICommentData.Score">
+            <summary>
+            評分
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.ICommentData.Culture">
+            <summary>
+            文化特性(代碼)
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.ICommentData.Title">
+            <summary>
+            標題
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.ICommentData.Content">
+            <summary>
+            內容
+            </summary>
+        </member>
+        <member name="T:System.Framework.Community.IForumData">
+            <summary>
+            論壇資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumData.Group">
+            <summary>
+            討論區群組
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumData.Introduction">
+            <summary>
+            簡介
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumData.Description">
+            <summary>
+            說明
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumData.TopicCount">
+            <summary>
+            主題數量
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumData.Topics">
+            <summary>
+            所有主題
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumData.PostCount">
+            <summary>
+            貼文數量
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumData.LastTopic">
+            <summary>
+            最新主題
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumData.LastPost">
+            <summary>
+            最新貼文
+            </summary>
+        </member>
+        <member name="T:System.Framework.Community.IForumGroupData">
+            <summary>
+            論壇群組之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumGroupData.Introduction">
+            <summary>
+            簡介
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumGroupData.Description">
+            <summary>
+            說明
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumGroupData.Forums">
+            <summary>
+            所有論壇
+            </summary>
+        </member>
+        <member name="T:System.Framework.Community.IForumPostData">
+            <summary>
+            論壇貼文之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumPostData.Author">
+            <summary>
+            作者
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumPostData.Topic">
+            <summary>
+            主題
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumPostData.ReplyTo">
+            <summary>
+            被回覆貼文
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumPostData.Content">
+            <summary>
+            內容
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumPostData.ReplyCount">
+            <summary>
+            回覆數量
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumPostData.Replies">
+            <summary>
+            回覆貼文
+            </summary>
+        </member>
+        <member name="T:System.Framework.Community.IForumSubscriptionData">
+            <summary>
+            論壇訂閱之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumSubscriptionData.Subscriber">
+            <summary>
+            訂閱者
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumSubscriptionData.Group">
+            <summary>
+            訂閱群組
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumSubscriptionData.Topic">
+            <summary>
+            訂閱主題
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumSubscriptionData.Post">
+            <summary>
+            訂閱貼文
+            </summary>
+        </member>
+        <member name="T:System.Framework.Community.IForumTopicData">
+            <summary>
+            論壇主題之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumTopicData.Author">
+            <summary>
+            作者
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumTopicData.Forum">
+            <summary>
+            論壇
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumTopicData.Type">
+            <summary>
+            類型
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumTopicData.Subject">
+            <summary>
+            主旨
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumTopicData.PostCount">
+            <summary>
+            貼文數量
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumTopicData.LastPost">
+            <summary>
+            最新貼文
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IForumTopicData.Posts">
+            <summary>
+            所有貼文
+            </summary>
+        </member>
+        <member name="T:System.Framework.Community.IMemberData">
+            <summary>
+            會員資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IMemberData.Number">
+            <summary>
+            編號
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IMemberData.Person">
+            <summary>
+            個人資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IMemberData.Email">
+            <summary>
+            電子信箱
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IMemberData.Bonus">
+            <summary>
+            紅利積點
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IMemberData.Status">
+            <summary>
+            狀態
+            </summary>
+        </member>
+        <member name="T:System.Framework.Community.INewsLetterData">
+            <summary>
+            刊物資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.INewsLetterData.Topic">
+            <summary>
+            主題
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.INewsLetterData.Title">
+            <summary>
+            標題
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.INewsLetterData.Content">
+            <summary>
+            文章內容
+            </summary>
+        </member>
+        <member name="T:System.Framework.Community.INewsLetterTopicData">
+            <summary>
+            刊物主題之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.INewsLetterTopicData.Enabled">
+            <summary>
+            已啟用
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.INewsLetterTopicData.SmtpAccounts">
+            <summary>
+            可用SMTP帳號
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.INewsLetterTopicData.Subscribers">
+            <summary>
+            訂閱用戶
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.INewsLetterTopicData.AnonymousEmails">
+            <summary>
+            匿名Email
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.INewsLetterTopicData.Template">
+            <summary>
+            樣板，自動產生電子報時使用
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.INewsLetterTopicData.Letters">
+            <summary>
+            所有電子報
+            </summary>
+        </member>
+        <member name="T:System.Framework.Community.IOAuthRecordData">
+            <summary>
+            開放授權紀錄之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IOAuthRecordData.User">
+            <summary>
+            用戶
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IOAuthRecordData.Email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IOAuthRecordData.ExternalId">
+            <summary>
+            開放授權識別碼
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IOAuthRecordData.ExternalDisplayName">
+            <summary>
+            開放授權顯示名稱
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IOAuthRecordData.Token">
+            <summary>
+            令牌
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IOAuthRecordData.AccessToken">
+            <summary>
+            訪問令牌
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IOAuthRecordData.ProviderSystemName">
+            <summary>
+            系統提供者名稱
+            </summary>
+        </member>
+        <member name="T:System.Framework.Community.IPollData">
+            <summary>
+            投票資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IPollData.Type">
+            <summary>
+            類型
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IPollData.Title">
+            <summary>
+            標題
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IPollData.Introduction">
+            <summary>
+            簡介
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IPollData.Description">
+            <summary>
+            說明
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IPollData.Counts">
+            <summary>
+            次數
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IPollData.Pictures">
+            <summary>
+            圖片
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IPollData.Options">
+            <summary>
+            所有選項
+            </summary>
+        </member>
+        <member name="T:System.Framework.Community.IPollOptionData">
+            <summary>
+            民調選項
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IPollOptionData.Title">
+            <summary>
+            標題
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IPollOptionData.Content">
+            <summary>
+            內容
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IPollOptionData.Pictures">
+            <summary>
+            圖片
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IPollOptionData.Counts">
+            <summary>
+            次數
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IPollOptionData.Comments">
+            <summary>
+            所有評論
+            </summary>
+        </member>
+        <member name="T:System.Framework.Community.IQuestionData">
+            <summary>
+            問題資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IQuestionData.Entity">
+            <summary>
+            與問題關聯之實體，可能是試卷或被諮詢的個體
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IQuestionData.Questioner">
+            <summary>
+            提問者
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IQuestionData.Type">
+            <summary>
+            類型
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IQuestionData.Number">
+            <summary>
+            題號
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IQuestionData.Score">
+            <summary>
+            配分
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IQuestionData.Subject">
+            <summary>
+            主旨
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IQuestionData.Content">
+            <summary>
+            內容
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IQuestionData.Pictures">
+            <summary>
+            圖片
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IQuestionData.Options">
+            <summary>
+            選項
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IQuestionData.Answer">
+            <summary>
+            回覆
+            </summary>
+        </member>
+        <member name="T:System.Framework.Community.IQuestionnaireData">
+            <summary>
+            問卷資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IQuestionnaireData.Number">
+            <summary>
+            編號
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IQuestionnaireData.Title">
+            <summary>
+            標題
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IQuestionnaireData.Introduction">
+            <summary>
+            簡介
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IQuestionnaireData.Description">
+            <summary>
+            說明
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IQuestionnaireData.Questions">
+            <summary>
+            題目
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IQuestionnaireData.Counts">
+            <summary>
+            次數
+            </summary>
+        </member>
+        <member name="T:System.Framework.Community.IQuestionnaireFeedbackData">
+            <summary>
+            問卷反饋
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IQuestionnaireFeedbackData.Questionnaire">
+            <summary>
+            問卷
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IQuestionnaireFeedbackData.Answerer">
+            <summary>
+            回應者
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IQuestionnaireFeedbackData.Content">
+            <summary>
+            內容，為可自行解析的XML或JSON。ex: [{ question: "dd1d0289-ffa6-4aa2-a923-eb738c7fda95", answer: "My Answer" }]
+            </summary>
+        </member>
+        <member name="T:System.Framework.Community.IQuestionOptionData">
+            <summary>
+            問題選項
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IQuestionOptionData.Title">
+            <summary>
+            標題
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IQuestionOptionData.Content">
+            <summary>
+            內容
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IQuestionOptionData.Pictures">
+            <summary>
+            圖片
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.IQuestionOptionData.IsAnswer">
+            <summary>
+            是否為答案(選擇題使用)
+            </summary>
+        </member>
+        <member name="T:System.Framework.Community.ISmtpAccountData">
+            <summary>
+            寄件帳號之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.ISmtpAccountData.Host">
+            <summary>
+            主機名稱/IP
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.ISmtpAccountData.Port">
+            <summary>
+            連接埠
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.ISmtpAccountData.Username">
+            <summary>
+            使用者名稱
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.ISmtpAccountData.Password">
+            <summary>
+            密碼
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.ISmtpAccountData.EnableSsl">
+            <summary>
+            啟用SSL/TLS
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.ISmtpAccountData.UseDefaultCredentials">
+            <summary>
+            使用預設憑證
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.ISmtpAccountData.Timeout">
+            <summary>
+            逾時時間(ms)
+            </summary>
+        </member>
+        <member name="T:System.Framework.Community.MemberStatus">
+            <summary>
+            會員狀態
+            </summary>
+        </member>
+        <member name="F:System.Framework.Community.MemberStatus.Confirming">
+            <summary>
+            確認中
+            </summary>
+        </member>
+        <member name="F:System.Framework.Community.MemberStatus.Enabled">
+            <summary>
+            已啟用
+            </summary>
+        </member>
+        <member name="F:System.Framework.Community.MemberStatus.Disabled">
+            <summary>
+            已禁用
+            </summary>
+        </member>
+        <member name="F:System.Framework.Community.MemberStatus.Expired">
+            <summary>
+            已失效
+            </summary>
+        </member>
+        <member name="F:System.Framework.Community.MemberStatus.Other">
+            <summary>
+            其他
+            </summary>
+        </member>
+        <member name="T:System.Framework.Community.OptionType">
+            <summary>
+            選項類型
+            </summary>
+        </member>
+        <member name="F:System.Framework.Community.OptionType.ShortAnswer">
+            <summary>
+            簡答題
+            </summary>
+        </member>
+        <member name="F:System.Framework.Community.OptionType.Answer">
+            <summary>
+            詳答題
+            </summary>
+        </member>
+        <member name="F:System.Framework.Community.OptionType.TrueFalse">
+            <summary>
+            是非題
+            </summary>
+        </member>
+        <member name="F:System.Framework.Community.OptionType.Multichoice">
+            <summary>
+            單選題
+            </summary>
+        </member>
+        <member name="F:System.Framework.Community.OptionType.MultiSelection">
+            <summary>
+            複選題
+            </summary>
+        </member>
+        <member name="F:System.Framework.Community.OptionType.Header">
+            <summary>
+            標題(純顯示)
+            </summary>
+        </member>
+        <member name="F:System.Framework.Community.OptionType.Video">
+            <summary>
+            影像(純顯示)
+            </summary>
+        </member>
+        <member name="F:System.Framework.Community.OptionType.Audio">
+            <summary>
+            聲音(純顯示)
+            </summary>
+        </member>
+        <member name="F:System.Framework.Community.OptionType.Html">
+            <summary>
+            HTML(純顯示)
+            </summary>
+        </member>
+        <member name="T:System.Framework.Community.TopicType">
+            <summary>
+            主題類型
+            </summary>
+        </member>
+        <member name="F:System.Framework.Community.TopicType.Normal">
+            <summary>
+            普通
+            </summary>
+        </member>
+        <member name="F:System.Framework.Community.TopicType.Sticky">
+            <summary>
+            置頂
+            </summary>
+        </member>
+        <member name="F:System.Framework.Community.TopicType.Announcement">
+            <summary>
+            公告
+            </summary>
+        </member>
+        <member name="T:System.Framework.Community.ICommentable">
+            <summary>
+            用以表示可進行評論資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.ICommentable.AllowComments">
+            <summary>
+            允許評論
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.ICommentable.TotalScore">
+            <summary>
+            評論總分
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.ICommentable.Counts">
+            <summary>
+            評論次數
+            </summary>
+        </member>
+        <member name="P:System.Framework.Community.ICommentable.Comments">
+            <summary>
+            所有評論
+            </summary>
+        </member>
+    </members>
+</doc>
