@@ -1,0 +1,38 @@
+
+
+
+.master-wrap {
+    background-color: #fff;
+    border-radius: 7px;
+    .job-title {
+        text-align: center;
+        background-color: #d8e5c8;
+        padding: 6px auto;
+        font-weight: bold;
+        margin: .5rem auto;
+    }
+    .name {
+        text-align: center;
+        letter-spacing: 15px;
+        font-weight: normal;
+        margin: 1rem auto;
+        padding-left: 15px;
+    }
+    .company {
+        text-align: center;
+        color: $gray-500;
+    }
+}
+
+.work-img-wrap {
+    overflow: hidden;
+    img {
+        transition: all .3s;
+    }
+    &:hover {
+        img {
+            transform: scale(1.2);
+            opacity: .8;
+        }
+    }
+}

@@ -1,0 +1,259 @@
+
+.index-banner {
+    background-image: url(/Content/images/index/img01.png);
+    background-repeat: no-repeat;
+    background-position: center 60%;
+    background-size: cover;
+    opacity: .9;
+    height: 250px;
+    width: 100%;
+    box-shadow:  0 9px 0px rgba($primary, .9);
+    @media (max-width:992px) {
+        height: 150px;
+    }
+    @media (max-width:576px) {
+        height: 100px;
+    }
+}
+.bg-plate {
+    background-image: url(/Content/images/index/bgplate.png);
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    background-size: 40%;
+    border-bottom:  9px solid rgba($primary, .9);
+
+    @media (max-width:992px) {
+        background-size: 60%;
+    }
+}
+.main-section {
+    img.title {
+        width: 350px;
+        margin-bottom: 1rem;
+    }
+    .main-info-wrap {
+        background-color: #f2f2f2;
+        padding: 1.5rem 1.5rem 2rem 1.5rem;
+        line-height: 1.75rem;
+        border-radius: 7px;
+        font-size: 17px;
+        font-weight: bold;
+        color: $gray-700;
+        position: relative;
+        margin-bottom: 5rem;
+        .span-tag {
+            margin: 6px 0;
+            display: flex;
+            align-items: center;
+            span {
+                display: block;
+                background-color: $primary;
+                padding: 4px 18px;
+                border-radius: 999px;
+                color: white;
+                font-size: 18px;
+                margin: 6px;
+            }
+            @media (max-width:500px) {
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
+        ul {
+            padding-left: 13px;
+            list-style: none;
+            margin-top: 1rem;
+            li {
+                position: relative;
+                margin-bottom: .5rem;
+                color: $gray-500;
+                &::before {
+                    position: absolute;
+                    content: '';
+                    left: -12px;
+                    display: block;
+                    width: 3px;
+                    height: 100%;
+                    background-color: $primary;
+                }
+                &:last-child {
+                    color: black;
+                }
+            }
+        }
+        &::after {
+            position: absolute;
+            right: 0;
+            bottom: -3rem;
+            content: '';
+            display: block;
+            background-image: url(/Content/images/index/plate-2.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+            width: 100px;
+            height: 100px;
+        }
+        &::before {
+            position: absolute;
+            left: 1rem;
+            bottom: -4rem;
+            content: '';
+            display: block;
+            background-image: url(/Content/images/index/plate-1.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+            width: 100px;
+            height: 100px;
+        }
+    }
+}
+
+.company1-wrap.main-section {
+    background-color: #e8f2f9;
+    .main-info-wrap {
+        background-color: #fff;
+        margin-bottom: 5rem;
+        ul {
+            li {
+                &:last-child {
+                    color: $gray-500;
+                }
+            }
+        }
+        &::after {
+            right: 0;
+            bottom: -3rem;
+            background-image: url(/Content/images/index/plate-3.png);
+            width: 150px;
+            height: 100px;
+        }
+        &::before {
+            display: none;
+        }
+    }
+}
+@keyframes zoominout {
+    0% {
+        transform: scale(1) rotateZ(0);
+    }
+    100% {
+        transform: scale(1.1) rotateZ(10deg);
+    }
+}
+.hotel-ani-wrap {
+    position: relative;
+    display: flex;
+    height: 620px;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    .sun {
+        width: 200px;
+        position: absolute;
+        right: 0;
+        top: 2rem;
+        animation: zoominout 2s ease-in-out infinite alternate ;
+    }
+    @media (max-width:992px) {
+        height: auto;
+        .sun {
+            width: 100px;
+        }
+    }
+    @media (max-width:576px) {
+        .sun {
+            top: .5rem;
+            width: 90px;
+        }
+    }
+}
+
+img.title2 {
+    width: 400px;
+}
+
+.corporate-item {
+    margin-bottom: 4rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 280px;
+    max-width: 100%;
+    text-align: center;
+    .img-wrap {
+        margin-bottom: 1.75rem;
+        margin-left: auto;
+        margin-right: auto;
+        height: 140px;
+        width: 140px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    h3 {
+        color: $primary;
+    }
+    h5 {
+        line-height: 1.5;
+        text-align: justify;
+        background-color: #fff;
+        padding: .5rem 1rem;
+        border-radius: 7px;
+        border: 2px solid #858585;
+    }
+    @media (max-width:992px) {
+        width: 90%;
+        .img-wrap {
+            width: 70%;
+        }
+    }
+    @media (max-width:500px) {
+        width: 90%;
+        .img-wrap {
+            width: 70%;
+            height: 120px;
+
+        }
+    }
+}
+
+.building-plate {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    img {
+        width: 340px;
+    }
+    @media (max-width:1400px) {
+        img {
+            width: 300px;
+        }
+    }
+}
+
+.corporation-info {
+    h2 {
+        font-size: 48px;
+        color: $primary;
+        font-weight: 500;
+        @media (min-width:576px) {
+            font-size: 68px;
+        }
+        @media (min-width:1200px) {
+            font-size: 78px;
+        }
+    }
+    h4 {
+        color: gray;
+        font-weight: normal;
+        i {
+            color: #f4b01d;
+        }
+    }
+    .text-wrap {
+        color: $gray-700;
+        font-size: 18px;
+        line-height: 1.75;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+}

@@ -1,0 +1,132 @@
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    letter-spacing: 1.5px;
+    line-height: 1.5;
+}
+
+
+.contents-wrap {
+    // height: calc(100% - 298px);
+    padding-top: 126px;
+    overflow-x: hidden;
+    @media (max-width:992px) {
+        padding-top: 86px;
+        // height: calc(100% - 80px);
+    }
+}
+
+a {
+    transition: all .3s;
+}
+// 增加手機左右padding
+// New added
+@include media-breakpoint-down(sm) {
+    .container, .container-fluid {
+        padding-left: ($spacer * 1.5);
+        padding-right: ($spacer * 1.5);
+    }
+}
+
+.w-auto {
+    width: auto !important;
+}
+
+
+//圖片在chrome瀏覽器模糊
+@media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
+
+    img {
+        image-rendering: -webkit-optimize-contrast;
+    }
+        
+}
+// img {
+//     image-rendering: -webkit-optimize-contrast;
+// }
+
+.form-control, .form-select {
+    border-radius: 5px;
+    border: 2px solid #000000;
+    padding: 12px;
+    &::placeholder {
+        color: #a7a7a7;
+    }
+}
+.position-relative {
+    position: relative;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.line-clamp1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.bg-light-them2 {
+    background-color: #f9f7f4;
+}
+.bottom-grass {
+    border-bottom: 16px solid #6dba53;
+    &::after {
+        content: '';
+        display: block;
+        background-image: url(/Content/images/index/grass.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 150px;
+        max-width: 100%;
+        height: 60px;
+        position: absolute;
+        bottom: 0;
+        left: 3rem;
+    }
+}
+
+.bg-light-blue {
+    background-color: #e5f4ff;
+}
+
+
+.breadcrumb {
+    .breadcrumb-item {
+        a {
+            color: $gray-700;
+            &:hover {
+                color: #000;
+            }
+        }
+    }
+    .breadcrumb-item.active {
+        color: $primary;
+    }
+}
+
+.btn-primary {
+    color: white;
+    &:hover, &:active, &:focus {
+        color: white;
+    }
+}
+.btn-outline-primary {
+    &:hover, &:active {
+        color: white !important;
+    }
+}
+
+.modal .modal-content {
+    border: 3px solid #f3863d;
+}
+
+.form-group {
+    margin-bottom: .75rem;
+}
+
+.opacity-75 {
+    opacity: .75;
+}

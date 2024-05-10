@@ -1,0 +1,64 @@
+
+.carousel {
+    position: relative;
+    button[data-action="stop"],
+    button[data-action="start"],
+    button[data-controls="prev"],
+    button[data-controls="next"] {
+        display: none;
+        visibility: hidden;
+    }
+    .customize-controls {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        pointer-events: none;
+
+        .btn-chevron {
+            i.fa-chevron-right {
+                margin-left: 13px;
+            }
+            pointer-events: all;
+            font-size: 30px;
+            color: $gray-400;
+            // text-shadow: 0 2px 4px rgba(#000, .5);
+            opacity: 1;
+            width: 40px;
+            height: 50px;
+            position: relative;
+            transition: all .3s;
+            &:hover,
+            &:focus,
+            &:active {
+                outline: 0;
+                opacity: 1;
+                cursor: pointer;
+            }
+            &::after {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                // background-color: rgba(#000eee, .5);
+                width: 50px;
+                height: 120px;
+            }
+        }
+    }
+}
+
+.work-wrap, .news-wrap {
+    .customize-controls {
+        width: 110%;
+        @media (max-width:400px) {
+            width: 115%;
+        }
+    }
+}

@@ -1,0 +1,53 @@
+
+
+.fix-item {
+    margin-bottom: 2rem;
+    .fix-list-card {
+        width: 280px;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        border-bottom: 4px solid $gray-300;
+        padding-bottom: 1rem;
+        &:hover {
+            border-bottom: 4px solid $secondary;
+            .more-link {
+                color: $primary;
+            }
+            .img-wrap {
+                opacity: .7;
+            }
+        }
+    }
+}
+.schedule-item {
+    margin-bottom: 2rem;
+    .schedule-card {
+        width: 280px;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        &:hover {
+            .more-link {
+                color: $primary;
+            }
+            .img-wrap {
+                opacity: .7;
+            }
+        }
+    }
+}
+
+.fileupload-buttonbar {
+    .fileinput-button {
+        position: absolute;
+        background-color: #fff;
+        pointer-events: none;
+        &:hover {
+            background-color: $primary;
+        }
+    }
+    .file-input {
+        padding-left: 45px;
+    }
+}

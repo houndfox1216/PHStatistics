@@ -1,0 +1,181 @@
+.header {
+    ul.nav {
+        align-items: center;
+        li.nav-item {
+            // margin-right: 12px;
+            a.nav-link {
+                padding: 10px 18px;
+                text-align: center;
+                font-size: 17px;
+                color: $gray-600;
+                display: inline-block;
+                position: relative;
+                @media (max-width:1335px) {
+                    padding: 10px 10px;
+                }
+                // .small {
+                //     font-size: 12px;
+                //     font-family: Helvetica;
+                //     font-weight: 300;
+                //     letter-spacing: normal;
+                // }
+                &::after {
+                    content: '';
+                    position: absolute;
+                    width: 100%;
+                    transform: scaleX(0);
+                    height: 2px;
+                    bottom: 4px;
+                    left: 0;
+                    background-color: $primary;
+                    transform-origin: bottom center;
+                    transition: transform 0.25s ease-out;
+                }
+            }
+            &:last-child {
+                margin-right: 0;
+            }
+            &:hover {
+                a.nav-link {
+                    color: $black;
+                    &::after {
+                        transform: scaleX(.55);
+                        transform-origin: bottom center;
+                    }
+                }
+            }
+        }
+        li.nav-item.dropdown {
+            position: relative;
+            &::after {
+                position: absolute;
+                top: 50%;
+                transition: all .3s;
+                transform: translateY(-50%);
+                right: 0;
+                content: '';
+                display: block;
+                width: 14px;
+                height: 14px;
+                background-image: url(/Content/images/icons/caret-down-solid.svg);
+                background-repeat: no-repeat;
+                background-position: center;
+                opacity: .4;
+            }
+            &:hover {
+                &::after {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    ul.dropdown-menu {
+        left: 50%;
+        transform: translateX(-50%);
+        border: 1px solid #dcdcdc;
+        padding: 10px 0;
+        opacity: 0;
+        pointer-events: none;
+        a.dropdown-item {
+            padding: 8px 0;
+            font-size: 18px;
+            text-align: center;
+            &:hover {
+                background-color: $secondary;
+            }
+        }
+    }
+
+    li.nav-item.dropdown:hover {
+        ul.dropdown-menu {
+            opacity: 1;
+            pointer-events: all;
+        }
+    }
+}
+
+.collapse {
+    max-height: 80vh;
+    overflow-y: auto;
+    .card.card-body {
+        border-radius: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+#collapseMenu {
+    ul.nav {
+        flex-direction: column;
+        align-items: center;
+        li.nav-item {
+            border-bottom: 1px solid $gray-300;
+            width: 100%;
+            .nav-link {
+                padding: 20px 30px;
+                letter-spacing: 2px;
+                border: 0;
+                background-color: transparent;
+                width: 100%;
+                text-align: center;
+                font-size: 18px;
+                color: $gray-600;
+                display: inline-block;
+                position: relative;
+                // .small {
+                //     font-size: 12px;
+                //     letter-spacing: normal;
+                // }
+            }
+            &:last-child {
+                border-bottom: 0;
+            }
+            &:first-child {
+                .nav-link {
+                    padding-top: 10px;
+                }
+            }
+            &:hover {
+                .nav-link {
+                    color: $black;
+                }
+            }
+        }
+        li.nav-item.dropdown {
+            button {
+                position: relative;
+                &::after {
+                    position: absolute;
+                    top: 50%;
+                    transition: all .3s;
+                    transform: translateY(-50%);
+                    right: 3rem;
+                    content: '';
+                    display: block;
+                    width: 14px;
+                    height: 14px;
+                    background-image: url(/Content/images/icons/caret-down-solid.svg);
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    opacity: .4;
+                }
+                &:hover {
+                    &::after {
+                        opacity: 1;
+                    }
+                }
+            }
+            ul {
+                list-style: none;
+                padding-left: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                li {
+                    margin-bottom: 1rem;
+                }
+            }
+        }
+
+    }
+}

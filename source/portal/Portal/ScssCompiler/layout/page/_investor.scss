@@ -1,0 +1,194 @@
+
+.investor-wrap {
+    margin-bottom: 5rem;
+    overflow-y: hidden;
+    .title-numbers {
+        font-size: 50px;
+        color: #e7834a;
+        line-height: 1;
+    }
+    .title-zh {
+        border-bottom: 5px solid #f07934;
+        width: 100%;
+        margin-left: 1rem;
+        color: #555555;
+        .typo {
+            margin-bottom: 0;
+        }
+    }
+    .section-bg-light {
+        background-color: #f7f3ee;
+        padding: 1rem 1rem 1rem 5rem;
+        @media (max-width:576px) {
+            padding: 1rem;
+        }
+    }
+    .investor-items {
+        ol.ol-style.decimal {
+            margin-bottom: 0;
+            padding-left: 0;
+            list-style: none;
+            li {
+                padding-top: 10px;
+                padding-bottom: 10px;
+                font-size: 18px;
+                line-height: 1.5;
+                a {
+                    display: block;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+    .accordion-item {
+        background-color: transparent;
+        border: 0;
+    }
+    .accordion-btn {
+        border: 0;
+        background-color: transparent;
+        padding-left: 0;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: 18px;
+        line-height: 1.5;
+        outline: 0;
+        letter-spacing: inherit;
+        position: relative;
+        &::after {
+            position: absolute;
+            transition: all .3s;
+            right: -2rem;
+            top: 30%;
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url(/Content/images/icons/minus-solid.svg);
+            background-repeat: no-repeat;
+
+        }
+    }
+
+    // .accordion-sub {
+    //     font-size: 16px;
+    //     padding-left: 15px;
+    // }
+    
+    // ul.sub-list-style {
+    //     padding-left: 0;
+    // }
+
+    .accordion-btn.collapsed {
+        &::after {
+            background-image: url(/Content/images/icons/plus-solid.svg);
+            transform: rotateZ(-90deg);
+        }
+    }
+    ol.list-style-upper-latin {
+        list-style: upper-latin;
+        border-left: 2px solid #eeeeee;
+        .nav-link {
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .list-unstyled {
+        padding-left: 0;
+        list-style: none;
+    }
+    .list-slash {
+        padding-left: 0;
+        list-style: none;
+        li {
+            display: flex;
+            align-items: center;
+            .nav-link {
+                padding: 0px 8px;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+    .list-slash::before {
+        content: ' ● ';
+    }
+    .list-slash li::after {
+        content: " / ";
+    }
+    .list-slash li:last-child::after {
+        content: "";
+    }
+    .investor-table {
+        thead {
+            tr {
+                th {
+                    padding: 16px 16px;
+                    background-color: #e28843;
+                    color: #ffffff;
+                    font-size: 18px;
+                    font-weight: normal;
+                }
+            }
+        }
+        .nav-link {
+            display: flex;
+            padding: 0px 8px;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.vertical-middle {
+    vertical-align: middle;
+}
+
+.dropdown-menu.esg-menu {
+    width: 250px;
+    background-color: rgba($gray, .2);
+    .dropdown-item {
+        &:hover, &:active, &:focus {
+            background-color: $gray-300;
+        }
+    }
+}
+
+.bg-dot {
+    background-image: url(/Content/images/page/bg-dot.png);
+    background-repeat: no-repeat;
+    background-size: 16%;
+    background-position: left top;
+    @media (max-width:992px) {
+        background-size: 40%;
+    }
+}
+.bg-dot-right {
+    background-image: url(/Content/images/page/bg-dot.png);
+    background-repeat: no-repeat;
+    background-size: 13%;
+    background-position: right top;
+    @media (max-width:992px) {
+        background-size: 40%;
+    }
+}
+.stake-card {
+    background-color: rgba($white, .93);
+    border: 3px solid #333;
+    border-radius: 16px;
+    padding: 16px;
+    text-align: center;
+    min-height: 294px;
+    height: 100%;
+    ul {
+        padding-left: 20px;
+        li {
+            margin-bottom: 8px;
+        }
+    }
+}

@@ -1,0 +1,92 @@
+﻿@using Policy = System.Framework.Web.Policy
+@{
+    ViewData["Title"] = Html.ToI18n("page.member.login");
+    Layout = "_Layout";
+}
+
+<section>
+    <div class="pageTitle">
+        <div class="title">
+            <h2>@Html.ToI18n("page.member.login")</h2>
+        </div>
+    </div>
+</section>
+
+<section class="bg-light-them2">
+    <div class="container py-5">
+        <div class="row justify-content-center mb-6">
+            <div class="col-12 col-sm-10 col-md-8 col-xl-6">
+                <div class="bg-white rounded p-4 shadow-sm">
+                    <form action="/Member/Login?returnUrl=@ViewBag.ReturnUrl" method="post" role="form" id="formLogin">
+                     @if (ViewBag.ErrorMessage != null) {
+                        <div class="mt-3 mb-3">
+                            <button type="button" class="btn w-100 btn-primary btn-lg btn-round">
+                                @ViewBag.ErrorMessage
+                            </button>
+                        </div>
+                      }
+                        <div class="form-group">
+                            <label for="">
+                                帳號 <small class="text-primary">＊必填</small>
+                            </label>
+                            <input class="form-control validate[required]" type="text" name="account" placeholder="輸入帳號">
+                        </div>
+                        <div class="form-group">
+                            <label for="">
+                                密碼 <small class="text-primary">＊必填</small>
+                            </label>
+                            <input class="form-control validate[required]" type="password" name="password" placeholder="輸入密碼">
+                        </div>
+                        <div class="form-group">
+                            <label for="">
+                                驗證碼 <small class="text-primary">＊必填</small>
+                            </label>
+                            <div class="input-group">
+                                <input id="token" type="hidden" name="token">
+                                <input class="form-control validate[required]" type="text" name="captcha" placeholder="輸入驗證碼">
+                                <button type="button" class="btn btn-link p-0">
+                                    <img id="captcha" height="48" alt="點我變更驗證碼" onclick="refreshCaptcha()" />
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mt-3 mb-4">
+                            <button type="submit" class="btn w-100 btn-primary btn-lg btn-round">
+                                登入
+                            </button>
+                        </div>
+                        <hr>
+                        <div class="d-flex flex-wrap justify-content-between align-items-center">
+                            <a class="btn btn-link px-0 text-primary" href="#">
+                                忘記密碼
+                            </a>
+                            <div class="text-muted">
+                                不是會員嗎？
+                                <a class="btn btn-link px-0 text-primary" href="#">
+                                    我要註冊
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script nonce="@Policy.GetNonce(Context)">onclick
+    const captcha = document.getElementById("captcha");
+    var token = document.getElementById("token");
+    const request = new XMLHttpRequest();
+    request.responseType = "blob";
+    request.onload = () => {
+        captcha.src = URL.createObjectURL(request.response);
+        token.value = request.getResponseHeader('content-disposition').split('filename=')[1].split(';')[0];
+    };
+    function refreshCaptcha() {
+        request.open("GET", "/api/Captcha");
+        request.send();
+    }
+    $(document).ready(function () {
+        $("#formLogin").validationEngine();
+        refreshCaptcha();
+    });</script>

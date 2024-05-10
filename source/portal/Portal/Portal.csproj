@@ -1,0 +1,109 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+    <AssemblyName>EmptyProject.Portal</AssemblyName>
+    <RootNamespace>EmptyProject.Portal</RootNamespace>
+    <Version>1.0.0</Version>
+    <LangVersion>12</LangVersion>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>../../../binary/Debug</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>../../../binary/Release</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Kestrel' " />
+  <ItemGroup>
+    <PackageReference Include="AspNetCore.SassCompiler" Version="1.69.7" />
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.1" />
+    <PackageReference Include="NLog.Targets.ElasticSearch" Version="7.7.0" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="5.3.8" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="J.Framework.AzureBlobStorage">
+      <HintPath>..\..\schema\Libraries\J.Framework.AzureBlobStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.NLog">
+      <HintPath>..\..\schema\Libraries\J.Framework.NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Web">
+      <HintPath>..\..\schema\Libraries\J.Framework.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Log4net">
+      <HintPath>..\..\schema\Libraries\J.Framework.Log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Core">
+      <HintPath>..\..\schema\Libraries\J.Framework.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Elasticsearch">
+      <HintPath>..\..\schema\Libraries\J.Framework.Elasticsearch.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.EntityFrameworkCore">
+      <HintPath>..\..\schema\Libraries\J.Framework.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework">
+      <HintPath>..\..\schema\Libraries\J.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Content">
+      <HintPath>..\..\schema\Libraries\J.Framework.Content.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Business">
+      <HintPath>..\..\schema\Libraries\J.Framework.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.Community">
+      <HintPath>..\..\schema\Libraries\J.Framework.Community.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="J.Framework.AzureBlobStorage" />
+    <None Remove="J.Framework.NLog" />
+    <None Remove="J.Framework.Web" />
+    <None Remove="J.Framework.Log4net" />
+    <None Remove="J.Framework.Core" />
+    <None Remove="J.Framework.Elasticsearch" />
+    <None Remove="J.Framework.EntityFrameworkCore" />
+    <None Remove="J.Framework" />
+    <None Remove="Sitemap.xml" />
+    <None Remove="Localizations\en-US.xml" />
+    <None Remove="Localizations\zh-TW.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Sitemap.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Localizations\en-US.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Localizations\zh-TW.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\schema\Core\Core.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\..\schema\Data\Data.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\resources\" />
+  </ItemGroup>
+</Project>

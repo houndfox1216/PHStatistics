@@ -1,0 +1,153 @@
+﻿@using Policy = System.Framework.Web.Policy
+
+@{
+    ViewData["Title"] = "聯絡我們";
+}
+
+<section>
+    <div class="pageTitle">
+        <div class="title">
+            <h2>@Html.ToI18n("page.member.contact")</h2>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="bg-light-them2 rounded px-3 py-4">
+                    <form action="/Member/Contact" method="post" role="form" id="formContact" method="get">
+                        <div class="form-group selectpickerwrap">
+                            <label for="">
+                                問題類型 <small class="text-primary">＊必填</small>
+                            </label>
+                            <select class="form-select validate[required]">
+                                <option selected disabled>選擇類型</option>
+                                <option value="visit">我要看屋</option>
+                                <option value="service">售後服務</option>
+                                <option value="message">我要留言</option>
+                                <option value="joint-venture-building">合建詢問</option>
+                                <option value="introduce">土地介紹</option>
+                                <option value="mutual-benefit-and-collaboration">互惠合作</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">
+                                姓名 <small class="text-primary">＊必填</small>
+                            </label>
+                            <input type="text" class="form-control validate[required]" placeholder="例：李曉明" id="">
+                        </div>
+                        <div class="form-group">
+                            <label for="">
+                                Email <small class="text-primary">＊必填</small>
+                            </label>
+                            <input class="form-control validate[required,custom[email]]" type="email" name="" value="" placeholder="例：example@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="">
+                                聯絡電話 <small class="text-primary">＊必填</small>
+                            </label>
+                            <input class="form-control validate[required,custom[cellPhone]]" type="text" name="" value="" placeholder="例：0987654321">
+                        </div>
+                        <div class="form-group">
+                            <label for="">
+                                方便聯繫時間 <small class="text-primary">＊必填</small>
+                            </label>
+                            <input class="form-control contactSelect validate[required]" data-toggle="datepicker" placeholder="請選擇日期">
+                        </div>
+                        <div class="form-group">
+                            <label for="">
+                                建案名稱 <small class="text-primary">＊必填</small>
+                            </label>
+                            <input class="form-control validate[required] contactCaseName" type="text" name="" value="" placeholder="例：三發晶沙">
+                        </div>
+                        <div class="form-group">
+                            <label for="">
+                                主旨 <small class="text-primary">＊必填</small>
+                            </label>
+                            <input type="text" class="form-control validate[required] contactTitle" placeholder="" id="" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="">
+                                留言 <small class="text-primary">＊必填</small>
+                            </label>
+                            <textarea class="form-control validate[required] contactMsg" name="" id="" rows="3"></textarea>
+                        </div>
+                        <div class="my-3">
+                            <div class="checkbox checkbox-primary">
+                                <input id="agree" type="checkbox" class="validate[required]"
+                                       data-prompt-position="topRight">
+                                <label for="agree">
+                                    本人知悉並同意
+                                    <button type="button" class="btn btn-link p-0 text-primary" data-bs-toggle="modal" data-bs-target="#privacyModal">
+                                        『隱私權政策規範』
+                                    </button>
+                                    內容
+                                </label>
+                            </div>
+                        </div>
+                        <div class="">
+                            <button type="submit" class="btn w-100 btn-primary btn-lg btn-round">
+                                送出 <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="img-wrap px-6 py-4">
+                    <img class="img-fluid" src="~/Content/images/page/contact.png" alt="contactus">
+                </div>
+                <div class="d-flex justify-content-center">
+                    <h4 class="h4 bg-secondary px-2 py-1 mx-1">
+                        貼心售服
+                    </h4>
+                    <h4 class="h4 bg-secondary px-2 py-1 mx-1">
+                        永續服務
+                    </h4>
+                </div>
+                <p class="text-center my-2 text-gray">
+                    若您的房屋急需修繕，請利用LINE私訊給我們，報修省時又便利！
+                </p>
+                <hr class="horizontal-divider white">
+                <div class="d-flex justify-content-center flex-column align-items-center">
+                    <a class="btn btn-outline-primary btn-round btn-block mb-3" href="tel:02-2570-9988">
+                        <i class="fas fa-phone"></i> 服務專線: (02)2570-9988
+                    </a>
+                    <p class="">FAX:(02)2570-6985</p>
+                    <p class="">地址：台北市八德路三段30號12樓</p>
+                </div>
+
+                <div class="">
+                    <div class="contact-social-box">
+                        <a class="social-btn" href="https://goo.gl/rFlZfW" target="_blank" rel="noopener noreferrer">
+                            <img class="img-circle img-responsive" src="~/Content/images/icons/fb.svg" alt="FACEBOOK">
+                        </a>
+                        <a class="social-btn" href="#" target="_blank" rel="noopener noreferrer">
+                            <img class="img-circle img-responsive" src="~/Content/images/icons/line.svg" alt="LINE">
+                        </a>
+                        <a class="social-btn" href="mailto:contact@sanfar.com.tw">
+                            <img class="img-circle img-responsive" src="~/Content/images/icons/email.svg" alt="EMAIL">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@await Html.PartialAsync("~/Views/Shared/Components/Privacy.cshtml")
+
+
+<script nonce="@Policy.GetNonce(Context)">
+    $(document).ready(function () {
+        var date = new Date();
+        $('[data-toggle="datepicker"]').datepicker({
+            language: 'zh-CN',
+            format: "yyyy年mm月dd日",
+            startDate: date.setDate(date.getDate() + 1),
+        });
+        $("#formContact").validationEngine();
+    });
+</script>

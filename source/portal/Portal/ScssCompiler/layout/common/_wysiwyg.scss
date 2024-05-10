@@ -1,0 +1,43 @@
+.wysiwyg {
+    line-height: 30px;
+    figure.image {
+        text-align: center;
+        clear: both;
+    }
+    figure.image.image-style-side {
+        float: right;
+        margin-left: 1.5rem;
+        max-width: 50%;
+    }
+    figure.image.image-style-align-left {
+        float: left;
+        margin-right: 1.5rem;
+    }
+    figure.image.image-style-align-right {
+        float: right;
+        margin-left: 1.5rem;
+    }
+    p {
+        margin: 0 0 30px 0;
+        color: #333;
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    .text-tiny {
+        font-size: .7em;
+    }
+    .text-small  {
+        font-size: .85em;
+    }
+    .text-big {
+        font-size: 1.4em;
+    }
+    .text-huge {
+        font-size: 1.8em;
+    }
+    .keep-all {
+        word-break: keep-all;
+    }
+}
