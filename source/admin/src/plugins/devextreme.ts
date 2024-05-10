@@ -1,0 +1,3 @@
+import './devextreme.css';
+
+export { };

@@ -1,0 +1,63 @@
+<template>
+  <Chart
+    type="doughnut"
+    :width="width"
+    :height="height"
+    :data="data"
+    :options="options"
+  />
+</template>
+
+<script setup>
+import context, { computed } from "@cloudfun/core";
+import { colors } from "@/utils/colors";
+
+const props = defineProps({
+  width: {
+    type: [Number, String],
+    default: "auto",
+  },
+  height: {
+    type: [Number, String],
+    default: "auto",
+  },
+});
+
+const model = context.current.model;
+const darkMode = computed(() => model.getters["midone/darkMode"]);
+const colorScheme = computed(() => model.getters["midone/colorScheme"]);
+
+const chartData = [15, 10, 65];
+const chartColors = () => [
+  colors.pending(0.9),
+  colors.warning(0.9),
+  colors.primary(0.9),
+];
+
+const data = computed(() => {
+  return {
+    labels: ["31 - 50 Years old", ">= 50 Years old", "17 - 30 Years old"],
+    datasets: [
+      {
+        data: chartData,
+        backgroundColor: colorScheme.value ? chartColors() : "",
+        hoverBackgroundColor: colorScheme.value ? chartColors() : "",
+        borderWidth: 5,
+        borderColor: darkMode.value ? colors.darkmode[700]() : colors.white,
+      },
+    ],
+  };
+});
+
+const options = computed(() => {
+  return {
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    cutout: "80%",
+  };
+});
+</script>
