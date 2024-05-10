@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Framework.Data;
 using System.Runtime.Serialization;
 
-namespace EmptyProject {
+namespace PHStatistics {
     /// <summary>
     /// 類別資訊
     /// </summary>

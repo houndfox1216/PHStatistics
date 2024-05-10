@@ -8,7 +8,7 @@ using System.Linq;
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
 // ReSharper disable once CheckNamespace
-namespace EmptyProject;
+namespace PHStatistics;
 
 /// <summary>
 /// 系統配置
@@ -104,11 +104,11 @@ public sealed class Configuration : ConfigurationBase {
     /// <summary>
     /// 建構 Configuration
     /// </summary>
-    public Configuration() : base(null, "cloudfun://EmptyProject/configuration") {
-        AdminTitle = "EmptyProject後台";
-        PortalTitle = "EmptyProject";
+    public Configuration() : base(null, "cloudfun://PHStatistics/configuration") {
+        AdminTitle = "PHStatistics後台";
+        PortalTitle = "PHStatistics";
         PortalMetaKeywords = "empty,project,sample,prototype";
-        PortalMetaDescription = "EmptyProject入口網站";
+        PortalMetaDescription = "PHStatistics入口網站";
         ServicePhone = "+886-7-226-9166";
         CompanyFax = "+886-7-226-9266";
         CompanyAddress = "800 高雄市新興區民生一路56號23F-1";

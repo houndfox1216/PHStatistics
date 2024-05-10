@@ -3,7 +3,7 @@ using System.Framework;
 using System.Framework.Application;
 using System.IO;
 
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 新增廣告資料

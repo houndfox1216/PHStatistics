@@ -6,7 +6,7 @@ using System.Framework.Security;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 讀取用戶資料之操作。

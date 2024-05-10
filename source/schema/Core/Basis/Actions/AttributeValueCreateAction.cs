@@ -2,7 +2,7 @@
 using System.Framework;
 using System.Framework.Application;
 
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 新增屬性值之操作。

@@ -1,10 +1,11 @@
 ﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using PHStatistics.Content;
 
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
 // ReSharper disable once CheckNamespace
-namespace EmptyProject;
+namespace PHStatistics;
 
 /// <summary>
 /// 資料脈絡
@@ -37,6 +38,42 @@ public partial class DataContext {
     /// </summary>
     public DbSet<UrlSegment> UrlSegment { get; set; }
 
+    /// <summary>
+    /// 分校
+    /// </summary>
+    public DbSet<School> School { get; set; }
+
+    /// <summary>
+    /// 班系
+    /// </summary>
+    public DbSet<CourseDepartment> CourseDepartment { get; set; }
+
+    /// <summary>
+    /// 課程
+    /// </summary>
+    public DbSet<Course> Course { get; set; }
+
+    /// <summary>
+    /// 班級
+    /// </summary>
+    public DbSet<Class> Class { get; set; }
+
+    /// <summary>
+    /// 人數表
+    /// </summary>
+    public DbSet<StudentPopulation> StudentPopulation { get; set; }
+
+    /// <summary>
+    /// 人數表
+    /// </summary>
+    public DbSet<StudentPopulationItem> StudentPopulationItem { get; set; }
+
+
+    /// <summary>
+    /// 分校人員指派
+    /// </summary>
+    public DbSet<SchoolAssignment> SchoolAssignment { get; set; }
+
     #endregion
 
     /// <summary>
@@ -57,6 +94,14 @@ public partial class DataContext {
         modelBuilder.Entity<NewsTag>().HasOne(e => e.Tag).WithMany().HasForeignKey(e => e.TagId);
 
         modelBuilder.Entity<UrlSegment>().HasOne(e => e.Page).WithMany().HasForeignKey(e => e.PageId).OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Course>().HasOne(e => e.Department).WithMany().HasForeignKey(e => e.DepartmentId);
+        modelBuilder.Entity<Class>().HasOne(e => e.School).WithMany().HasForeignKey(e => e.SchoolId);
+        modelBuilder.Entity<Class>().HasOne(e => e.Course).WithMany().HasForeignKey(e => e.CourseId);
+        modelBuilder.Entity<StudentPopulationItem>().HasOne(e => e.Class).WithMany().HasForeignKey(e => e.ClassId);
+        modelBuilder.Entity<StudentPopulationItem>().HasOne(e => e.StudentPopulation).WithMany().HasForeignKey(e => e.StudentPopulationId);
+
+        modelBuilder.Entity<School>().HasMany(e => e.SchoolAssignment).WithOne(e => e.School).HasForeignKey(e => e.SchoolId).OnDelete(DeleteBehavior.Cascade);
     }
 
     private partial void InitializeContentData() {

@@ -3,7 +3,7 @@ using System.Framework.Application;
 using System.Framework.EntityFrameworkCore;
 
 // ReSharper disable once CheckNamespace
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 刪除新聞資料之操作。

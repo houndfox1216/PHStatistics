@@ -6,7 +6,7 @@ using System.Framework.Content;
 using System.Framework.Data;
 using System.Runtime.Serialization;
 
-namespace EmptyProject {
+namespace PHStatistics {
     /// <summary>
     /// 廣告位置
     /// </summary>

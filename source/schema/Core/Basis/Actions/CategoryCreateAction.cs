@@ -4,7 +4,7 @@ using System.Framework.Application;
 using System.Framework.EntityFrameworkCore;
 using System.Linq;
 
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 新增類別資訊之操作。

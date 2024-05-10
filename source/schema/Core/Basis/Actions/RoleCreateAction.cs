@@ -3,7 +3,7 @@ using System.Framework;
 using System.Framework.Application;
 using System.Framework.EntityFrameworkCore;
 
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 新增角色資料之操作。

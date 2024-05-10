@@ -2,7 +2,7 @@
 using System.Framework;
 using System.Framework.Application;
 
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 讀取會員級距之操作。

@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>EmptyProject.Core</RootNamespace>
-    <AssemblyName>EmptyProject.Core</AssemblyName>
+    <RootNamespace>PHStatistics.Core</RootNamespace>
+    <AssemblyName>PHStatistics.Core</AssemblyName>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <FileVersion>1.0.0</FileVersion>
   </PropertyGroup>
@@ -68,12 +68,9 @@
     <None Remove="J.Framework" />
     <None Remove="System.Data.SqlClient" />
     <None Remove="Streaming\" />
-    <None Remove="Streaming\Actions\" />
-    <None Remove="Streaming\Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Streaming\" />
-    <Folder Include="Streaming\Actions\" />
-    <Folder Include="Streaming\Models\" />
+    <Folder Include="Community\Models\" />
+    <Folder Include="Community\Actions\" />
   </ItemGroup>
 </Project>

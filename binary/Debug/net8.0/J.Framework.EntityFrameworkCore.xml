@@ -1,0 +1,503 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>J.Framework.EntityFrameworkCore</name>
+    </assembly>
+    <members>
+        <member name="T:System.Framework.EntityFrameworkCore.ActionLogCommand`2">
+            <summary>
+            操作記錄命令
+            </summary>
+            <typeparam name="TActionLog">操作記錄類型</typeparam>
+            <typeparam name="TDataContext">資料脈絡類型</typeparam>
+        </member>
+        <member name="F:System.Framework.EntityFrameworkCore.ActionLogCommand`2.logs">
+            <summary>
+            用來儲存已產生的操作記錄
+            </summary>
+        </member>
+        <member name="P:System.Framework.EntityFrameworkCore.ActionLogCommand`2.AutoGenerateIdByUuid">
+            <summary>
+            自動產生 UUID 識別碼
+            </summary>
+        </member>
+        <member name="F:System.Framework.EntityFrameworkCore.ActionLogCommand`2.autoCommit">
+            <summary>
+            是否自動提交
+            </summary>
+        </member>
+        <member name="P:System.Framework.EntityFrameworkCore.ActionLogCommand`2.DataContext">
+            <summary>
+            資料脈絡
+            </summary>
+        </member>
+        <member name="P:System.Framework.EntityFrameworkCore.ActionLogCommand`2.HasActionLog">
+            <summary>
+            是否有已已生成的操作紀錄
+            </summary>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.ActionLogCommand`2.#ctor">
+            <summary>
+            建構 EntityFrameworkActionLogCommand
+            </summary>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.ActionLogCommand`2.#ctor(`1,System.Boolean)">
+            <summary>
+            建構 EntityFrameworkActionLogCommand
+            </summary>
+            <param name="dataContext">資料脈絡</param>
+            <param name="autoCommit">自動提交</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.ActionLogCommand`2.GenerateXml(System.Framework.Application.IAction)">
+            <summary>
+            生成XML
+            <param name="action">用戶操作</param>
+            </summary>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.ActionLogCommand`2.GenerateXml``1(System.Framework.Application.IAction,``0,``0)">
+            <summary>
+            生成XML
+            </summary>
+            <typeparam name="TEntity">實體資料類型</typeparam>
+            <param name="action">用戶操作</param>
+            <param name="current">目前資料</param>
+            <param name="original">原始資料</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.ActionLogCommand`2.CompareData``1(System.Framework.Application.IAction,``0,``0)">
+            <summary>
+            比較目前資料與原始資料之差異，並產生異動欄位項目
+            </summary>
+            <typeparam name="TEntity">實體資料類型</typeparam>
+            <param name="action">用戶操作</param>
+            <param name="current">目前資料</param>
+            <param name="original">原始資料</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.ActionLogCommand`2.Commit(System.Framework.Application.ActionDelta,System.Action{`0})">
+            <summary>
+            提交記錄，將指定交易記錄存入資料庫
+            </summary>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.ActionLogCommand`2.Commit(System.Action{System.Framework.Data.IActionLogData})">
+            <summary>
+            提交記錄，將所有交易記錄存入資料庫
+            <param name="processor">加工處理器，用來做其他資訊的添加或加工</param>
+            </summary>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.ActionLogCommand`2.OnExecuting">
+            <summary>
+            當執行時呼叫
+            </summary>
+        </member>
+        <member name="T:System.Framework.EntityFrameworkCore.EntityFrameworkContext">
+            <summary>
+            資料脈絡
+            </summary>
+        </member>
+        <member name="P:System.Framework.EntityFrameworkCore.EntityFrameworkContext.UtcOffset">
+            <summary>
+            與UTC Time的偏差時間
+            </summary>
+        </member>
+        <member name="F:System.Framework.EntityFrameworkCore.EntityFrameworkContext.unhandledQueue">
+            <summary>
+            待處理資料集合
+            </summary>
+        </member>
+        <member name="F:System.Framework.EntityFrameworkCore.EntityFrameworkContext.deletedQueue">
+            <summary>
+            已刪除資料集合
+            </summary>
+        </member>
+        <member name="P:System.Framework.EntityFrameworkCore.EntityFrameworkContext.TrackingEnabled">
+            <summary>
+            取得或設定實體資料保持追蹤之行為是否已啟用。預設為啟用
+            </summary>
+        </member>
+        <member name="P:System.Framework.EntityFrameworkCore.EntityFrameworkContext.LazyLoadingEnabled">
+            <summary>
+            取得或設定延遲載入是否已啟用。預設為不啟用
+            </summary>
+        </member>
+        <member name="P:System.Framework.EntityFrameworkCore.EntityFrameworkContext.ValidateOnSaveEnabled">
+            <summary>
+            取得或設定值，此值表示是否應在叫用 SaveChanges() 時自動驗證追蹤的實體。預設值為 false。
+            </summary>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.#ctor">
+            <summary>
+            建構 EntityFrameworkContext
+            </summary>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions)">
+            <summary>
+            建構 EntityFrameworkContext，並自訂選項
+            </summary>
+            <param name="options">選項</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.#ctor(System.String)">
+            <summary>
+            建構 EntityFrameworkContext，提供給連線字串名稱與型別名稱不同時使用
+            </summary>
+            <param name="name">名稱，將以此名稱取得連線字串</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
+            <summary>
+            當資料脈絡被建立時會被呼叫，請複寫此方法來自訂選項
+            </summary>
+            <param name="optionsBuilder">選項建立者</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            當須衍生模型(Model)時執行此方法，因其中包含特定規則而不再允許覆寫，如須於 Model 做調整請覆寫 OnMigrationCreating。
+            </summary>
+            <param name="modelBuilder">針對建立的內容定義模型的產生器</param>
+            <remarks>如果透過 UseModel 指定 Model 則因為不須建立 Model 而不會執行此方法</remarks>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.OnMigrationCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            當建立遷移(Migration)時執行。 此方法的預設實作不會做任何事，但是可以在衍生類別中覆寫它，以便可以進一步設定此模型然後再將它鎖定。
+            </summary>
+            <param name="modelBuilder">針對建立的內容定義模型的產生器</param>
+            <remarks>如果透過 UseModel 指定 Model 則因為不須建立 Model 而不會執行此方法</remarks>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.SaveChanges">
+            <summary>
+            將此內容中所有的變更儲存到基礎資料庫
+            </summary>
+            <returns>寫入基礎資料庫的物件數目</returns>
+            <exception cref="T:Microsoft.EntityFrameworkCore.DbUpdateException" />
+            <exception cref="T:Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException" />
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.SaveChanges(System.Boolean)">
+            <summary>
+            將所有變更保存至資料庫，並且選擇性地重設物件內容中的變更追蹤
+            </summary>
+            <param name="acceptAllChangesOnSuccess">成功時是否接受所有的改變</param>
+            <exception cref="T:Microsoft.EntityFrameworkCore.DbUpdateException" />
+            <exception cref="T:Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException" />
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.SaveChangesAsync(System.Threading.CancellationToken)">
+            <summary>
+            非同步將此內容中所有的變更儲存到基礎資料庫
+            </summary>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+            <returns>寫入基礎資料庫的物件數目</returns>
+            <exception cref="T:Microsoft.EntityFrameworkCore.DbUpdateException" />
+            <exception cref="T:Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException" />
+            <exception cref="T:System.OperationCanceledException" />
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.SaveChangesAsync(System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            非同步將所有變更保存至資料庫，並且選擇性地重設物件內容中的變更追蹤
+            </summary>
+            <param name="acceptAllChangesOnSuccess">成功時是否接受所有的改變</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+            <exception cref="T:Microsoft.EntityFrameworkCore.DbUpdateException" />
+            <exception cref="T:Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException" />
+            <exception cref="T:System.OperationCanceledException" />
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.GetEntityType``1(``0)">
+            <summary>
+            取得實體資料類型
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.CheckValidationError">
+            <summary>
+            檢查是否驗證錯誤結果，當錯誤發生時，拋出 DataException
+            </summary>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.UpdateIEntityDataProperty">
+            <summary>
+            更新 IEntityData 相關特性
+            </summary>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.Add``1(``0)">
+            <summary>
+            新增資料為實體資料
+            </summary>
+            <typeparam name="TEntity">實體資料型別</typeparam>
+            <param name="data">資料</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.AddAsync``1(``0,System.Threading.CancellationToken)">
+            <summary>
+            非同步新增資料為實體資料
+            </summary>
+            <typeparam name="TEntity">實體資料型別</typeparam>
+            <param name="data">資料</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.Remove``1(``0)">
+            <summary>
+            移除實體資料
+            </summary>
+            <typeparam name="TEntity">實體資料型別</typeparam>
+            <param name="entity">實體資料</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.Attach``1(``0)">
+            <summary>
+            將資料視同實體資料加入監控
+            </summary>
+            <typeparam name="TEntity">實體資料型別</typeparam>
+            <param name="data">資料</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.FindById``1(System.Object,System.Boolean,System.String[])">
+            <summary>
+            以識別碼尋找實體資料
+            </summary>
+            <typeparam name="TEntity">實體型別</typeparam>
+            <param name="id">識別碼</param>
+            <param name="trackEnabled">啟用追蹤</param>
+            <param name="includes">須包含的欄位資料</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.FindByIdAsync``1(System.Object,System.Boolean,System.Threading.CancellationToken,System.String[])">
+            <summary>
+            以識別碼尋找實體資料
+            </summary>
+            <typeparam name="TEntity">實體型別</typeparam>
+            <param name="id">識別碼</param>
+            <param name="trackEnabled">啟用追蹤</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+            <param name="includes">須包含的欄位資料</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.ToList``1(System.Boolean)">
+            <summary>
+            取得所有實體型別的資料
+            </summary>
+            <typeparam name="TEntity">實體型別</typeparam>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.ToListAsync``1(System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            取得所有實體型別的資料
+            </summary>
+            <typeparam name="TEntity">實體型別</typeparam>
+            <param name="trackEnabled">啟用追蹤</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.Query``1(System.Boolean,System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.String[])">
+            <summary>
+            取得所有實體型別的資料
+            </summary>
+            <typeparam name="TEntity">實體型別</typeparam>
+            <param name="trackEnabled">啟用追蹤</param>
+            <param name="predicate">是否啟用NoTracking</param>
+            <param name="includes">須包含的欄位資料</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.Reload(System.Object)">
+            <summary>
+            從資料庫重新載入實體，以資料庫中的值覆寫任何屬性值。在呼叫此方法之後，此實體將會處於 Unchanged 狀態
+            </summary>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.SetCurrentValues``1(``0,``0)">
+            <summary>
+            將目前的欄位值依資料範本之實質型態屬性進行設定
+            </summary>
+            <typeparam name="TEntity">實體型別</typeparam>
+            <param name="data">資料範本</param>
+            <param name="entity">實體資料</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.GetState``1(``0)">
+            <summary>
+            取得實體參考之狀態
+            </summary>
+            <typeparam name="TEntity">實體型別</typeparam>
+            <param name="entity">實體資料</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.SetState``1(``0,System.Framework.Data.EntityState)">
+            <summary>
+            設定實體參考之狀態
+            </summary>
+            <typeparam name="TEntity">實體型別</typeparam>
+            <param name="entity">實體資料</param>
+            <param name="state">實體狀態</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.NewPredicate``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            產生新的表達式
+            </summary>
+            <typeparam name="T">型別</typeparam>
+            <param name="expression">表達式</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.PredicateTrue``1">
+            <summary>
+            產生結果為TRUE之表達式
+            </summary>
+            <typeparam name="T">型別</typeparam>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.PredicateFalse``1">
+            <summary>
+            產生結果為FALSE之表達式
+            </summary>
+            <typeparam name="T">型別</typeparam>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.PredicateAnd``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            產生兩個表達式進行AND運算後的新表達式
+            </summary>
+            <typeparam name="T">型別</typeparam>
+            <param name="left">左表達式</param>
+            <param name="right">右表達式</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.PredicateOr``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            產生兩個表達式進行OR運算後的新表達式
+            </summary>
+            <typeparam name="T">型別</typeparam>
+            <param name="left">左表達式</param>
+            <param name="right">右表達式</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.GetKeyColumnNames``1">
+            <summary>
+            取得實體型別的主索引欄位名稱
+            </summary>
+            <typeparam name="TEntity">實體型別</typeparam>
+            <returns>主索引欄位名稱</returns>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.Dispose">
+            <summary>
+            處置內容。如果基礎 System.Data.Entity.Core.Objects.ObjectContext 是由此內容所建立，或者當建立此內容時將擁有權傳給此內容，則也會處置它。如果資料庫的連接 (System.Data.Common.DbConnection 物件) 是由此內容所建立，或者當建立此內容時將擁有權傳給此內容，則也會處置此連接。
+            </summary>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkContext.InitializeData">
+            <summary>
+            初始化資料
+            </summary>
+        </member>
+        <member name="T:System.Framework.EntityFrameworkCore.EntityFrameworkExtension">
+            <summary>
+            IEntityData 相關之擴充方法
+            </summary>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkExtension.IncludeEagerProperties``1(Microsoft.EntityFrameworkCore.DbSet{``0})">
+            <summary>
+            使查詢結果包含所有 Eager Load 欄位
+            </summary>
+            <typeparam name="TEntity">實體資料類型</typeparam>
+            <param name="source">實體來源</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkExtension.IncludeLazyProperties``1(Microsoft.EntityFrameworkCore.DbSet{``0})">
+            <summary>
+            使查詢結果包含所有 Lazy Load 欄位
+            </summary>
+            <typeparam name="TEntity">實體資料類型</typeparam>
+            <param name="source">實體來源</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkExtension.IncludeAll``1(Microsoft.EntityFrameworkCore.DbSet{``0})">
+            <summary>
+            使查詢結果包含所有欄位
+            </summary>
+            <typeparam name="TEntity">實體資料類型</typeparam>
+            <param name="source">實體來源</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkExtension.Include``1(Microsoft.EntityFrameworkCore.DbSet{``0},System.String[])">
+            <summary>
+            使查詢結果包含所有欄位
+            </summary>
+            <typeparam name="TEntity">實體資料類型</typeparam>
+            <param name="source">實體來源</param>
+            <param name="navigationPropertyPaths">須包含的導覽屬性路徑</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkExtension.Select``2(System.Linq.IQueryable{``0},System.String[])">
+            <summary>
+            將序列的每個元素規劃成一個新的表單
+            </summary>
+            <typeparam name="TSource">原始型別</typeparam>
+            <typeparam name="TTarget">目的型別</typeparam>
+            <param name="source">實體來源</param>
+            <param name="columns">查詢欄位</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.EntityFrameworkExtension.Select``1(System.Linq.IQueryable{``0},System.String[])">
+            <summary>
+            將序列的每個元素規劃成一個新的表單
+            </summary>
+            <typeparam name="T">型別</typeparam>
+            <param name="source">實體來源</param>
+            <param name="columns">查詢欄位</param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Framework.EntityFrameworkCore.SequenceGenerateCommand`1">
+            <summary>
+            序號生成命令
+            </summary>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.SequenceGenerateCommand`1.Dispose">
+            <summary>
+            處置並釋放資源
+            </summary>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.SequenceGenerateCommand`1.Dispose(System.Boolean)">
+            <summary>
+            處置並釋放資源
+            </summary>
+            <param name="disposing">是否釋放受控資源</param>
+        </member>
+        <member name="P:System.Framework.EntityFrameworkCore.SequenceGenerateCommand`1.Parameters">
+            <summary>
+            取得操作參數
+            </summary>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.SequenceGenerateCommand`1.GetResult``1">
+            <summary>
+            取得執行結果
+            </summary>
+            <typeparam name="TResult">執行結果型別</typeparam>
+            <returns>執行結果</returns>
+        </member>
+        <member name="P:System.Framework.EntityFrameworkCore.SequenceGenerateCommand`1.Calendar">
+            <summary>
+            用以計算本地日期的日期劃分
+            </summary>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.SequenceGenerateCommand`1.#ctor(System.Framework.Data.IEntityFrameworkContext,System.Globalization.Calendar,System.Int32)">
+            <summary>
+            建置 SequenceGenerateCommand
+            </summary>
+            <param name="dataContext">資料脈絡</param>
+            <param name="calendar">用以計算本地日期的日期劃分方式，預設為西曆(GregorianCalendar)</param>
+            <param name="maxRetryCount">最大重試次數，如在Transaction範圍內會取消重試(因任何錯誤皆會造成交易中斷)</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.SequenceGenerateCommand`1.Generate(System.Func{System.Framework.EntityFrameworkCore.SequenceGenerateCommand{`0}.SequenceValue,System.DateTime,System.Boolean},System.Framework.Data.EntityType,System.Object,System.Object,System.String)">
+            <summary>
+            產生序列號
+            </summary>
+            <param name="type">實體資料類型，系統將帶入此類型代碼為主碼</param>
+            <param name="subCode">子碼，表示由系統規劃的實體資料在細分之類型</param>
+            <param name="extendCode">擴充碼，不限長度，表示類型再依照不同用途分類，可取得不同的序列號</param>
+            <param name="format">序列號格式，參數0: 主碼，參數1: 子碼，參數2: 擴充碼，參數3: 日期，參數4: 序列號</param>
+            <param name="resetDecider">序列號重置判斷函式，傳入產生時間與目前序號資料並回傳是否重置</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.SequenceGenerateCommand`1.Generate(System.Framework.Data.EntityType,System.Object,System.Object,System.String,System.Framework.Application.SequenceResetType)">
+            <summary>
+            產生序列號
+            </summary>
+            <param name="type">實體資料類型，系統將帶入此類型代碼為主碼</param>
+            <param name="subCode">子碼，表示由系統規劃的實體資料在細分之類型</param>
+            <param name="extendCode">擴充碼，不限長度，表示類型再依照不同用途分類，可取得不同的序列號</param>
+            <param name="format">序列號格式，參數0: 主碼，參數1: 子碼，參數2: 擴充碼，參數3: 日期，參數4: 序列號</param>
+            <param name="resetType">序列號重置類型</param>
+        </member>
+        <member name="M:System.Framework.EntityFrameworkCore.SequenceGenerateCommand`1.Execute">
+            <summary>
+            執行，等同已預設參數執行Generate
+            </summary>
+        </member>
+        <member name="T:System.Framework.EntityFrameworkCore.SequenceGenerateCommand`1.SequenceValue">
+            <summary>
+            序號值
+            </summary>
+        </member>
+        <member name="P:System.Framework.EntityFrameworkCore.SequenceGenerateCommand`1.SequenceValue.Number">
+            <summary>
+            號碼
+            </summary>
+        </member>
+        <member name="P:System.Framework.EntityFrameworkCore.SequenceGenerateCommand`1.SequenceValue.LastUpdateTime">
+            <summary>
+            最後更新時間 
+            </summary>
+        </member>
+    </members>
+</doc>

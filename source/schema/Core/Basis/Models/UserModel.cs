@@ -5,9 +5,9 @@ using System.Framework.Data;
 using System.Framework.Security;
 using System.Framework.Web;
 using System.Linq;
-using EmptyProject.Actions;
+using PHStatistics.Actions;
 
-namespace EmptyProject.Models;
+namespace PHStatistics.Models;
 
 /// <summary>
 /// 用戶資料模型

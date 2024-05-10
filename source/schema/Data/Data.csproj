@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>EmptyProject</RootNamespace>
+    <RootNamespace>PHStatistics</RootNamespace>
     <ProjectGuid>{C4C3F5D0-2D5E-49AF-BE48-B833E7EC542B}</ProjectGuid>
-    <AssemblyName>EmptyProject</AssemblyName>
+    <AssemblyName>PHStatistics</AssemblyName>
     <LangVersion>12</LangVersion>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <FileVersion>1.0.0</FileVersion>
@@ -13,12 +13,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\..\..\binary\Debug\</OutputPath>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\..\binary\Debug\net8.0\EmptyProject.xml</DocumentationFile>
+    <DocumentationFile>..\..\..\binary\Debug\net8.0\PHStatistics.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\..\..\binary\Release\</OutputPath>
-    <DocumentationFile>..\..\..\binary\Release\net8.0\EmptyProject.xml</DocumentationFile>
+    <DocumentationFile>..\..\..\binary\Release\net8.0\PHStatistics.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -82,12 +82,10 @@
     <None Remove="J.Framework.Elasticsearch" />
     <None Remove="J.Framework.Manufacture" />
     <None Remove="Community\" />
-    <None Remove="Sales\Taishin\" />
     <None Remove="Streaming\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Community\" />
-    <Folder Include="Streaming\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="DataContextFactory.cs" />

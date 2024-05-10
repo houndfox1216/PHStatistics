@@ -4,7 +4,7 @@ using System.Framework.EntityFrameworkCore;
 using System.Linq;
 
 // ReSharper disable once CheckNamespace
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 更新新聞資料之操作。

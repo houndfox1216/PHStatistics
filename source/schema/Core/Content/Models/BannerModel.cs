@@ -3,9 +3,9 @@ using System.Framework.Application;
 using System.Framework.Data;
 using System.Framework.Web;
 using System.Linq;
-using EmptyProject.Actions;
+using PHStatistics.Actions;
 
-namespace EmptyProject.Models;
+namespace PHStatistics.Models;
 
 public class BannerModel : HttpModelBase<DataContext> {
     /// <summary>

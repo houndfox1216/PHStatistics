@@ -4,7 +4,7 @@ using System.Framework;
 using System.Framework.Application;
 using System.Linq;
 
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 用以表示讀取屬性資料之行為。

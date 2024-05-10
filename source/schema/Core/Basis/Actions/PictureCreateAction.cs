@@ -4,7 +4,7 @@ using System.Framework.Application;
 using System.Framework.EntityFrameworkCore;
 using System.IO;
 
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 新增圖片資料

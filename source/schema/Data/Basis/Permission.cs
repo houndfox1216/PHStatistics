@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Framework.Data;
 using System.Runtime.Serialization;
 
-namespace EmptyProject {
+namespace PHStatistics {
     /// <summary>
     /// 權限資料
     /// </summary>

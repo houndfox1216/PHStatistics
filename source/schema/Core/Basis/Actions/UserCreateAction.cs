@@ -8,7 +8,7 @@ using System.Framework.Security;
 using System.IO;
 using System.Linq;
 
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 新增用戶資料之操作。

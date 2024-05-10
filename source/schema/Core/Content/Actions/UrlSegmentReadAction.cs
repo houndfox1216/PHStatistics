@@ -8,7 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 
 // ReSharper disable once CheckNamespace
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 讀取新聞資料之操作。

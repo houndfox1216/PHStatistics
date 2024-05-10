@@ -9,10 +9,11 @@ using System.Framework.Data;
 using System.Runtime.Serialization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using PHStatistics.Content;
 
 using IndexAttribute = System.Framework.Data.IndexAttribute;
 
-namespace EmptyProject {
+namespace PHStatistics {
     /// <summary>
     /// 會員資料
     /// </summary>
@@ -104,6 +105,13 @@ namespace EmptyProject {
         public string Email { get; set; }
 
         /// <summary>
+        /// 帳號
+        /// </summary>
+        [Display(Name = "帳號"), DataMember]
+        [MaxLength(32)]
+        public string Account { get; set; }
+
+        /// <summary>
         /// 密碼
         /// </summary>
         [Display(Name = "密碼"), DataMember, DataType(DataType.Password)]
@@ -191,5 +199,11 @@ namespace EmptyProject {
         [Display(Name = "備註"), DataMember]
         [MaxLength(512)]
         public string Remark { get; set; }
+
+        /// <summary>
+        /// 分校操作人員
+        /// </summary>
+        [Display(Name = "分校操作人員"), DataMember]
+        public ICollection<SchoolAssignment> SchoolAssignment { get; set; }
     }
 }

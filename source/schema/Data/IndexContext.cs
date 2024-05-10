@@ -1,6 +1,6 @@
 ﻿using System.Framework.Elasticsearch;
 
-namespace EmptyProject; 
+namespace PHStatistics; 
 
 /// <summary>
 /// 全文索引脈絡

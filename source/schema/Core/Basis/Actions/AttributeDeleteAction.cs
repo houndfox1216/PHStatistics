@@ -3,7 +3,7 @@ using System.Framework;
 using System.Framework.Application;
 using System.IO;
 
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 刪除屬性資料之操作。

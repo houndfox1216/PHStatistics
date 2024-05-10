@@ -7,7 +7,7 @@ using System.Framework.Globalization;
 using System.Linq;
 using System.Runtime.Serialization;
 
-namespace EmptyProject {
+namespace PHStatistics {
     /// <summary>
     /// 多語言文本
     /// </summary>

@@ -6,7 +6,7 @@ using System.Framework.Application;
 using System.Framework.Data;
 using System.Framework.Security;
 
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 讀取個人資料之操作。

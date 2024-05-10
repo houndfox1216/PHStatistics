@@ -6,7 +6,7 @@ using System.Framework.Data;
 using System.Linq;
 using System.Transactions;
 
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 排序屬性資料之操作。

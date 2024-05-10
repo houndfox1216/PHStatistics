@@ -11,7 +11,7 @@ using System.Runtime.Serialization;
 
 // ReSharper disable once CheckNamespace
 
-namespace EmptyProject;
+namespace PHStatistics;
 
 /// <summary>
 /// 網址區段

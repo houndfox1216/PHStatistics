@@ -4,7 +4,7 @@ using System.Framework.Application;
 using System.Framework.EntityFrameworkCore;
 using System.IO;
 
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 刪除圖片資料之操作。

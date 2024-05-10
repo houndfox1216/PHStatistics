@@ -8,7 +8,7 @@ using System.Framework.Logging;
 using System.Runtime.Serialization;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmptyProject {
+namespace PHStatistics {
     /// <summary>
     /// 操作紀錄
     /// </summary>

@@ -6,7 +6,7 @@ using System.Framework.Application;
 using System.Framework.Data;
 using System.Linq.Expressions;
 
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 讀取類別資訊之操作。

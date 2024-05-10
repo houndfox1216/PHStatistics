@@ -5,7 +5,7 @@ using System.Framework.EntityFrameworkCore;
 using System.IO;
 using System.Linq;
 
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 刪除用戶資料之操作。

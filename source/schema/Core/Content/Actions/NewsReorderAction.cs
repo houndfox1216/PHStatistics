@@ -7,7 +7,7 @@ using System.Linq;
 using System.Transactions;
 
 // ReSharper disable once CheckNamespace
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 排序屬性資料之操作。

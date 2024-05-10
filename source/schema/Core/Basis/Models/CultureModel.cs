@@ -3,10 +3,10 @@ using System.Framework.Application;
 using System.Framework.Data;
 using System.Framework.Web;
 using System.Linq;
-using EmptyProject.Actions;
+using PHStatistics.Actions;
 
 // ReSharper disable once CheckNamespace
-namespace EmptyProject.Models;
+namespace PHStatistics.Models;
 
 public class CultureModel : HttpModelBase<DataContext> {
     /// <summary>

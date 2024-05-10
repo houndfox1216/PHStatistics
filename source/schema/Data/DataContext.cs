@@ -2,7 +2,7 @@
 using System.Framework.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmptyProject {
+namespace PHStatistics {
     /// <summary>
     /// 資料脈絡
     /// </summary>
@@ -43,24 +43,6 @@ namespace EmptyProject {
         private static partial void OnCommunityModelCreating(ModelBuilder modelBuilder);
 
         /// <summary>
-        /// 當建立遷移(Migration)時執行，產生與 Manufacture Module 相關規則
-        /// </summary>
-        /// <param name="modelBuilder">針對建立的內容定義模型的產生器</param>
-        private static partial void OnManufactureModelCreating(ModelBuilder modelBuilder);
-
-        /// <summary>
-        /// 當建立遷移(Migration)時執行，產生與 Sales Module 相關規則
-        /// </summary>
-        /// <param name="modelBuilder">針對建立的內容定義模型的產生器</param>
-        private static partial void OnSalesModelCreating(ModelBuilder modelBuilder);
-
-        /// <summary>
-        /// 當建立遷移(Migration)時執行，產生與 Straming Module 相關規則
-        /// </summary>
-        /// <param name="modelBuilder">針對建立的內容定義模型的產生器</param>
-        private static partial void OnStreamingModelCreating(ModelBuilder modelBuilder);
-
-        /// <summary>
         /// 當建立遷移(Migration)時執行。 此方法的預設實作不會做任何事，但是可以在衍生類別中覆寫它，以便可以進一步設定此模型然後再將它鎖定。
         /// </summary>
         /// <param name="modelBuilder">針對建立的內容定義模型的產生器</param>
@@ -71,9 +53,6 @@ namespace EmptyProject {
             OnBasisMigrationCreating(modelBuilder);
             OnContentModelCreating(modelBuilder);
             OnCommunityModelCreating(modelBuilder);
-            OnManufactureModelCreating(modelBuilder);
-            OnSalesModelCreating(modelBuilder);
-            OnStreamingModelCreating(modelBuilder);
         }
 
         #endregion
@@ -96,30 +75,12 @@ namespace EmptyProject {
         private partial void InitializeCommunityData();
 
         /// <summary>
-        /// 建立 Manufacture Module 之基本資料
-        /// </summary>
-        private partial void InitializeManufactureData();
-
-        /// <summary>
-        /// 建立 Sales Module 之基本資料
-        /// </summary>
-        private partial void InitializeSalesData();
-
-        /// <summary>
-        /// 建立 Streaming Module 之基本資料
-        /// </summary>
-        private partial void InitializeStreamingData();
-
-        /// <summary>
         /// 建立基本資料
         /// </summary>
         public override void InitializeData() {
             InitializeBasisData();
             InitializeContentData();
             InitializeCommunityData();
-            InitializeManufactureData();
-            InitializeSalesData();
-            InitializeStreamingData();
         }
 
         #endregion

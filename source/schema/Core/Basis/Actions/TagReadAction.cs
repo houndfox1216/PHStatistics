@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Framework;
 using System.Framework.Application;
 
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 讀取標籤資料之操作。

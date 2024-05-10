@@ -5,7 +5,7 @@ using System.Framework.Data;
 using System.Framework.EntityFrameworkCore;
 using System.Linq;
 
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 刪除角色資料之操作。

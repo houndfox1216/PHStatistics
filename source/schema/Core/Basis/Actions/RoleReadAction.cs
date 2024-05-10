@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Framework;
 using System.Framework.Application;
 
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 用以表示讀取角色資料之行為。

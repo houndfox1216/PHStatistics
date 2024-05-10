@@ -7,7 +7,7 @@ using System.Framework.Security;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmptyProject {
+namespace PHStatistics {
     /// <summary>
     /// 資料脈絡
     /// </summary>

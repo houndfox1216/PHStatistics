@@ -7,7 +7,7 @@ using System.Linq;
 using System.Transactions;
 
 // ReSharper disable once CheckNamespace
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 排序網址區段之操作。

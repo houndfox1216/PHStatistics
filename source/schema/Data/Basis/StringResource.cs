@@ -5,7 +5,7 @@ using System.Framework.Data;
 using System.Runtime.Serialization;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmptyProject {
+namespace PHStatistics {
     /// <summary>
     /// 文字資源
     /// </summary>

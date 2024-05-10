@@ -10,7 +10,7 @@ using System.Linq;
 
 using Environment = System.Framework.Environment;
 
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 更新用戶資料之操作。

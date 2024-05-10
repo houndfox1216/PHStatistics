@@ -7,7 +7,7 @@ using System.Framework.Globalization;
 using System.Linq;
 
 // ReSharper disable once CheckNamespace
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 新增新聞資料之操作。

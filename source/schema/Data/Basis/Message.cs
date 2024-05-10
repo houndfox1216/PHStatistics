@@ -6,7 +6,7 @@ using System.Framework.Data;
 using System.Framework.Logging;
 using System.Runtime.Serialization;
 
-namespace EmptyProject {
+namespace PHStatistics {
     /// <summary>
     /// 訊息
     /// </summary>

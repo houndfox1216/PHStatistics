@@ -6,7 +6,7 @@ using System.Framework.EntityFrameworkCore;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace EmptyProject.Actions;
+namespace PHStatistics.Actions;
 
 /// <summary>
 /// 新增個人資料之操作。

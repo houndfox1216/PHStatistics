@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 
 using Environment = System.Framework.Environment;
 
-namespace EmptyProject {
+namespace PHStatistics {
     /// <summary>
     /// 圖片資料
     /// </summary>

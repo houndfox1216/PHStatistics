@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Framework.Data;
 
-namespace EmptyProject;
+namespace PHStatistics;
 
 /// <summary>
 /// 系統權限
