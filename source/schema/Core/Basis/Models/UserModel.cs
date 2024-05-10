@@ -5,9 +5,15 @@ using System.Framework.Data;
 using System.Framework.Security;
 using System.Framework.Web;
 using System.Linq;
+<<<<<<< HEAD
 using EmptyProject.Actions;
 
 namespace EmptyProject.Models;
+=======
+using PHStatistics.Actions;
+
+namespace PHStatistics.Models;
+>>>>>>> origin/develop/schema
 
 /// <summary>
 /// 用戶資料模型

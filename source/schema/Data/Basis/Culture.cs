@@ -5,7 +5,11 @@ using System.Framework.Data;
 using System.Framework.Globalization;
 using System.Runtime.Serialization;
 
+<<<<<<< HEAD
 namespace EmptyProject {
+=======
+namespace PHStatistics {
+>>>>>>> origin/develop/schema
     /// <summary>
     /// 文化特性
     /// </summary>

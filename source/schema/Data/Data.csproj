@@ -2,9 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+<<<<<<< HEAD
     <RootNamespace>EmptyProject</RootNamespace>
     <ProjectGuid>{C4C3F5D0-2D5E-49AF-BE48-B833E7EC542B}</ProjectGuid>
     <AssemblyName>EmptyProject</AssemblyName>
+=======
+    <RootNamespace>PHStatistics</RootNamespace>
+    <ProjectGuid>{C4C3F5D0-2D5E-49AF-BE48-B833E7EC542B}</ProjectGuid>
+    <AssemblyName>PHStatistics</AssemblyName>
+>>>>>>> origin/develop/schema
     <LangVersion>12</LangVersion>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <FileVersion>1.0.0</FileVersion>
@@ -13,12 +19,20 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\..\..\binary\Debug\</OutputPath>
     <WarningLevel>4</WarningLevel>
+<<<<<<< HEAD
     <DocumentationFile>..\..\..\binary\Debug\net8.0\EmptyProject.xml</DocumentationFile>
+=======
+    <DocumentationFile>..\..\..\binary\Debug\net8.0\PHStatistics.xml</DocumentationFile>
+>>>>>>> origin/develop/schema
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\..\..\binary\Release\</OutputPath>
+<<<<<<< HEAD
     <DocumentationFile>..\..\..\binary\Release\net8.0\EmptyProject.xml</DocumentationFile>
+=======
+    <DocumentationFile>..\..\..\binary\Release\net8.0\PHStatistics.xml</DocumentationFile>
+>>>>>>> origin/develop/schema
   </PropertyGroup>
 
   <ItemGroup>
@@ -82,12 +96,18 @@
     <None Remove="J.Framework.Elasticsearch" />
     <None Remove="J.Framework.Manufacture" />
     <None Remove="Community\" />
+<<<<<<< HEAD
     <None Remove="Sales\Taishin\" />
+=======
+>>>>>>> origin/develop/schema
     <None Remove="Streaming\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Community\" />
+<<<<<<< HEAD
     <Folder Include="Streaming\" />
+=======
+>>>>>>> origin/develop/schema
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="DataContextFactory.cs" />

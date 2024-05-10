@@ -4,7 +4,11 @@ using System.Framework.Application;
 using System.Framework.EntityFrameworkCore;
 using System.Linq;
 
+<<<<<<< HEAD
 namespace EmptyProject.Actions;
+=======
+namespace PHStatistics.Actions;
+>>>>>>> origin/develop/schema
 
 /// <summary>
 /// 更新新聞資料之操作。

@@ -4,5 +4,8 @@
 # Branch Directories and Files
 !schema/
 !schema/**/*
+<<<<<<< HEAD
 !portal/
 !portal/**/*
+=======
+>>>>>>> origin/develop/schema

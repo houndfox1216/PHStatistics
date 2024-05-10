@@ -3,7 +3,11 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
+<<<<<<< HEAD
 namespace EmptyProject {
+=======
+namespace PHStatistics {
+>>>>>>> origin/develop/schema
     /// <summary>
     /// 用戶與角色之關聯
     /// </summary>

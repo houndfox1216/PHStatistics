@@ -6,7 +6,11 @@ using System.Framework.Data;
 using System.Linq;
 using System.Transactions;
 
+<<<<<<< HEAD
 namespace EmptyProject.Actions;
+=======
+namespace PHStatistics.Actions;
+>>>>>>> origin/develop/schema
 
 /// <summary>
 /// 排序標籤資料之操作。

@@ -2,7 +2,11 @@
 using System.Framework.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
+<<<<<<< HEAD
 namespace EmptyProject {
+=======
+namespace PHStatistics {
+>>>>>>> origin/develop/schema
     /// <summary>
     /// 資料脈絡
     /// </summary>
@@ -43,6 +47,7 @@ namespace EmptyProject {
         private static partial void OnCommunityModelCreating(ModelBuilder modelBuilder);
 
         /// <summary>
+<<<<<<< HEAD
         /// 當建立遷移(Migration)時執行，產生與 Manufacture Module 相關規則
         /// </summary>
         /// <param name="modelBuilder">針對建立的內容定義模型的產生器</param>
@@ -61,6 +66,8 @@ namespace EmptyProject {
         private static partial void OnStreamingModelCreating(ModelBuilder modelBuilder);
 
         /// <summary>
+=======
+>>>>>>> origin/develop/schema
         /// 當建立遷移(Migration)時執行。 此方法的預設實作不會做任何事，但是可以在衍生類別中覆寫它，以便可以進一步設定此模型然後再將它鎖定。
         /// </summary>
         /// <param name="modelBuilder">針對建立的內容定義模型的產生器</param>
@@ -71,9 +78,12 @@ namespace EmptyProject {
             OnBasisMigrationCreating(modelBuilder);
             OnContentModelCreating(modelBuilder);
             OnCommunityModelCreating(modelBuilder);
+<<<<<<< HEAD
             OnManufactureModelCreating(modelBuilder);
             OnSalesModelCreating(modelBuilder);
             OnStreamingModelCreating(modelBuilder);
+=======
+>>>>>>> origin/develop/schema
         }
 
         #endregion
@@ -96,6 +106,7 @@ namespace EmptyProject {
         private partial void InitializeCommunityData();
 
         /// <summary>
+<<<<<<< HEAD
         /// 建立 Manufacture Module 之基本資料
         /// </summary>
         private partial void InitializeManufactureData();
@@ -111,15 +122,20 @@ namespace EmptyProject {
         private partial void InitializeStreamingData();
 
         /// <summary>
+=======
+>>>>>>> origin/develop/schema
         /// 建立基本資料
         /// </summary>
         public override void InitializeData() {
             InitializeBasisData();
             InitializeContentData();
             InitializeCommunityData();
+<<<<<<< HEAD
             InitializeManufactureData();
             InitializeSalesData();
             InitializeStreamingData();
+=======
+>>>>>>> origin/develop/schema
         }
 
         #endregion

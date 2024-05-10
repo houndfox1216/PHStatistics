@@ -6,7 +6,11 @@ using System.Framework.Security;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
+<<<<<<< HEAD
 namespace EmptyProject {
+=======
+namespace PHStatistics {
+>>>>>>> origin/develop/schema
     /// <summary>
     /// 資料脈絡
     /// </summary>
@@ -26,6 +30,10 @@ namespace EmptyProject {
         /// <param name="modelBuilder">針對建立的內容定義模型的產生器</param>
         private static partial void OnCommunityModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<Member>().HasOne(e => e.Person).WithMany().HasForeignKey(e => e.PersonId);
+<<<<<<< HEAD
+=======
+            modelBuilder.Entity<Member>().HasMany(e => e.SchoolAssignment).WithOne(e => e.Member).HasForeignKey(e => e.MemberId).OnDelete(DeleteBehavior.Cascade);
+>>>>>>> origin/develop/schema
         }
 
         private partial void InitializeCommunityData() {

@@ -3,10 +3,17 @@ using System.Framework.Application;
 using System.Framework.Data;
 using System.Framework.Web;
 using System.Linq;
+<<<<<<< HEAD
 using EmptyProject.Actions;
 
 // ReSharper disable once CheckNamespace
 namespace EmptyProject.Models;
+=======
+using PHStatistics.Actions;
+
+// ReSharper disable once CheckNamespace
+namespace PHStatistics.Models;
+>>>>>>> origin/develop/schema
 
 /// <summary>
 /// 會員資料模型，用以存取會員相關資料

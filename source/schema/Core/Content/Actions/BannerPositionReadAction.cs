@@ -5,7 +5,11 @@ using System.Framework.Application;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
+<<<<<<< HEAD
 namespace EmptyProject.Actions;
+=======
+namespace PHStatistics.Actions;
+>>>>>>> origin/develop/schema
 
 /// <summary>
 /// 用以表示讀取廣告位置之行為。

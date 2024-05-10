@@ -3,7 +3,11 @@ using System.Framework;
 using System.Framework.Application;
 using System.IO;
 
+<<<<<<< HEAD
 namespace EmptyProject.Actions;
+=======
+namespace PHStatistics.Actions;
+>>>>>>> origin/develop/schema
 
 /// <summary>
 /// 刪除廣告位置之操作。

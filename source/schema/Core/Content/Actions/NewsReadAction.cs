@@ -7,7 +7,11 @@ using System.Framework.Data;
 using System.Linq;
 using System.Linq.Expressions;
 
+<<<<<<< HEAD
 namespace EmptyProject.Actions;
+=======
+namespace PHStatistics.Actions;
+>>>>>>> origin/develop/schema
 
 /// <summary>
 /// 讀取新聞資料之操作。

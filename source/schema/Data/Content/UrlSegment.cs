@@ -11,7 +11,11 @@ using System.Runtime.Serialization;
 
 // ReSharper disable once CheckNamespace
 
+<<<<<<< HEAD
 namespace EmptyProject;
+=======
+namespace PHStatistics;
+>>>>>>> origin/develop/schema
 
 /// <summary>
 /// 網址區段
