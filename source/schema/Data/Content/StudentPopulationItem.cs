@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PHStatistics.Content {
     /// <summary>
@@ -90,5 +91,11 @@ namespace PHStatistics.Content {
         /// </summary>
         [Display(Name = "備註"), DataMember]
         public string Remark { get; set; }
+
+        /// <summary>
+        /// 新增項目
+        /// </summary>
+        [Display(Name = "新增項目"), DataMember, NotMapped]
+        public bool IsNew { get; set; }
     }
 }
