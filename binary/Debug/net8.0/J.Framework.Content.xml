@@ -1,0 +1,567 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>J.Framework.Content</name>
+    </assembly>
+    <members>
+        <member name="T:System.Framework.Content.IActivityData">
+            <summary>
+            活動資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IActivityData.Picture">
+            <summary>
+            圖片
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IActivityData.Introduction">
+            <summary>
+            簡介
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IActivityData.Content">
+            <summary>
+            內容
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IActivityData.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="T:System.Framework.Content.IArticleData">
+            <summary>
+            文章資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IArticleData.Author">
+            <summary>
+            作者
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IArticleData.Title">
+            <summary>
+            標題
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IArticleData.Introduction">
+            <summary>
+            簡介
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IArticleData.Content">
+            <summary>
+            文章內容
+            </summary>
+        </member>
+        <member name="T:System.Framework.Content.IBannerContractData">
+            <summary>
+            廣告契約之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IBannerContractData.Position">
+            <summary>
+            位置
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IBannerContractData.RemainingViewTimes">
+            <summary>
+            剩餘閱覽數
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IBannerContractData.RemainingClickTimes">
+            <summary>
+            剩餘點擊數
+            </summary>
+        </member>
+        <member name="T:System.Framework.Content.IBannerData">
+            <summary>
+            廣告資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IBannerData.Contract">
+            <summary>
+            廣告契約
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IBannerData.LinkUrl">
+            <summary>
+            鏈結網址
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IBannerData.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="T:System.Framework.Content.IBannerPositionData">
+            <summary>
+            廣告位置之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IBannerPositionData.Width">
+            <summary>
+            寬度(像素)
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IBannerPositionData.Height">
+            <summary>
+            高度(像素)
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IBannerPositionData.ViewUnitPrice">
+            <summary>
+            閱覽單價(元/次)
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IBannerPositionData.ClickUnitPrice">
+            <summary>
+            點擊單價(元/次)
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IBannerPositionData.TimeSpanUnitPrice">
+            <summary>
+            時間單價(元/分)
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IBannerPositionData.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="T:System.Framework.Content.IBannerRecordData">
+            <summary>
+            廣告記錄之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IBannerRecordData.Referrer">
+            <summary>
+            參照網址
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IBannerRecordData.User">
+            <summary>
+            用戶
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IBannerRecordData.Banner">
+            <summary>
+            廣告
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IBannerRecordData.IsClicked">
+            <summary>
+            是否被點擊
+            </summary>
+        </member>
+        <member name="T:System.Framework.Content.IMetaData">
+            <summary>
+            中繼資料，用以描述資料的資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IMetaData.CanonicalUrl">
+            <summary>
+            正規URL
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IMetaData.MetaTitle">
+            <summary>
+            標題
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IMetaData.MetaKeywords">
+            <summary>
+            關鍵字
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IMetaData.MetaDescription">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="T:System.Framework.Content.IMultilingualUrlSegmentData">
+            <summary>
+            網址區段之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IMultilingualUrlSegmentData.Title">
+            <summary>
+            標題
+            </summary>
+        </member>
+        <member name="T:System.Framework.Content.IMultilingualPageData">
+            <summary>
+            多語系網頁資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IMultilingualPageData.Content">
+            <summary>
+            內容
+            </summary>
+        </member>
+        <member name="T:System.Framework.Content.IMultilingualTemplateData">
+            <summary>
+            多語言樣板資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IMultilingualTemplateData.Content">
+            <summary>
+            內容
+            </summary>
+        </member>
+        <member name="T:System.Framework.Content.INewsData">
+            <summary>
+            新聞資料之基本介面
+            </summary>
+        </member>
+        <member name="T:System.Framework.Content.IPageData">
+            <summary>
+            網頁資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IPageData.IsPartial">
+            <summary>
+            是否不完整(部分檢視)
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IPageData.Content">
+            <summary>
+            內容
+            </summary>
+        </member>
+        <member name="T:System.Framework.Content.IRankingItemData">
+            <summary>
+            排行項目的基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IRankingItemData.Type">
+            <summary>
+            排行類型
+            </summary>
+        </member>
+        <member name="T:System.Framework.Content.ITemplateData">
+            <summary>
+            樣板資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.ITemplateData.Type">
+            <summary>
+            類型
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.ITemplateData.Category">
+            <summary>
+            類別
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.ITemplateData.Thumbnail">
+            <summary>
+            縮圖
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.ITemplateData.Description">
+            <summary>
+            說明
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.ITemplateData.Content">
+            <summary>
+            內容
+            </summary>
+        </member>
+        <member name="T:System.Framework.Content.IUrlSegmentData">
+            <summary>
+            網址區段之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IUrlSegmentData.Title">
+            <summary>
+            標題
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IUrlSegmentData.Parent">
+            <summary>
+            上層區段
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IUrlSegmentData.HasChild">
+            <summary>
+            是否擁有子節點
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IUrlSegmentData.Children">
+            <summary>
+            下層區段集合
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IUrlSegmentData.PageId">
+            <summary>
+            網頁識別碼
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IUrlSegmentData.Page">
+            <summary>
+            網頁
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IUrlSegmentData.Url">
+            <summary>
+            網址
+            </summary>
+        </member>
+        <member name="P:System.Framework.Content.IUrlSegmentData.LinkUrl">
+            <summary>
+            鏈結網址
+            </summary>
+        </member>
+        <member name="T:System.Framework.Content.RankingType">
+            <summary>
+            排行類型
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.RankingType.SalesRanking">
+            <summary>
+            總銷售排行
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.RankingType.ViewsRanking">
+            <summary>
+            總閱覽排行
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.RankingType.TracksRanking">
+            <summary>
+            總閱覽排行
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.RankingType.SalesRankingYearly">
+            <summary>
+            年銷售排行
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.RankingType.ViewsRankingYearly">
+            <summary>
+            年閱覽排行
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.RankingType.TracksRankingYearly">
+            <summary>
+            年追蹤排行
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.RankingType.SalesRankingMonthly">
+            <summary>
+            月銷售排行
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.RankingType.ViewsRankingMonthly">
+            <summary>
+            月閱覽排行
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.RankingType.TracksRankingMonthly">
+            <summary>
+            月追蹤排行
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.RankingType.SalesRankingDaily">
+            <summary>
+            日銷售排行
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.RankingType.ViewsRankingDaily">
+            <summary>
+            日閱覽排行
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.RankingType.TracksRankingDaily">
+            <summary>
+            日追蹤排行
+            </summary>
+        </member>
+        <member name="T:System.Framework.Content.TemplateCategory">
+            <summary>
+            樣板類別，自定義之列舉值須大於等於100
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.TemplateCategory.Page">
+            <summary>
+            網頁
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.TemplateCategory.Category">
+            <summary>
+            類別
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.TemplateCategory.Product">
+            <summary>
+            商品
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.TemplateCategory.Activity">
+            <summary>
+            活動
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.TemplateCategory.News">
+            <summary>
+            新聞
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.TemplateCategory.Article">
+            <summary>
+            文章
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.TemplateCategory.Email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.TemplateCategory.NewsLetter">
+            <summary>
+            電子報
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.TemplateCategory.Custom">
+            <summary>
+            自定義
+            </summary>
+        </member>
+        <member name="T:System.Framework.Content.TemplateType">
+            <summary>
+            樣板類型
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.TemplateType.PlainTextPattern">
+            <summary>
+            純文字模式
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.TemplateType.HtmlPattern">
+            <summary>
+            HTML模式
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.TemplateType.View">
+            <summary>
+            檢視
+            </summary>
+        </member>
+        <member name="F:System.Framework.Content.TemplateType.PartialView">
+            <summary>
+            部分檢視
+            </summary>
+        </member>
+        <member name="T:System.Framework.Content.PageExtensions">
+            <summary>
+            IEntityData 相關之擴充方法
+            </summary>
+        </member>
+        <member name="M:System.Framework.Content.PageExtensions.GetPath(System.Framework.Content.IPageData,System.String)">
+            <summary>
+            取得網頁路徑
+            </summary>
+            <param name="page">網頁資料</param>
+            <param name="culture">文化特性</param>
+            <returns>樣板路徑</returns>
+        </member>
+        <member name="M:System.Framework.Content.PageExtensions.GetFullPath(System.Framework.Content.IPageData,System.String)">
+            <summary>
+            取得網頁完整路徑
+            </summary>
+            <param name="page">網頁資料</param>
+            <param name="culture">文化特性</param>
+            <returns>樣板完整路徑</returns>
+        </member>
+        <member name="M:System.Framework.Content.PageExtensions.IsNewestContent(System.Framework.Content.IPageData,System.DateTime)">
+            <summary>
+            檢查網頁內容是否為最新
+            </summary>
+            <param name="template">網頁資料</param>
+            <param name="contentTime">取得內容的時間</param>
+            <returns>內容是否為最新</returns>
+        </member>
+        <member name="M:System.Framework.Content.PageExtensions.GetContents(System.Framework.Content.IPageData)">
+            <summary>
+            取得各個語言之網頁內容
+            </summary>
+            <param name="page">網頁資料</param>
+            <returns>語言代碼/網頁內容之集合</returns>
+        </member>
+        <member name="M:System.Framework.Content.PageExtensions.Persist(System.Framework.Content.IPageData)">
+            <summary>
+            將內容實體化
+            </summary>
+            <param name="page">網頁資料</param>
+        </member>
+        <member name="M:System.Framework.Content.PageExtensions.DeleteFiles(System.Framework.Content.IPageData)">
+            <summary>
+            刪除與網頁相關之檔案
+            </summary>
+            <param name="page">網頁資料</param>
+        </member>
+        <member name="T:System.Framework.Content.TemplateExtensions">
+            <summary>
+            IEntityData 相關之擴充方法
+            </summary>
+        </member>
+        <member name="M:System.Framework.Content.TemplateExtensions.GetPath(System.Framework.Content.ITemplateData,System.String)">
+            <summary>
+            取得樣板路徑
+            </summary>
+            <param name="template">樣板資料</param>
+            <param name="culture">文化特性</param>
+            <returns>樣板路徑</returns>
+        </member>
+        <member name="M:System.Framework.Content.TemplateExtensions.GetFullPath(System.Framework.Content.ITemplateData,System.String)">
+            <summary>
+            取得樣板完整路徑
+            </summary>
+            <param name="template">樣板資料</param>
+            <param name="culture">文化特性</param>
+            <returns>樣板完整路徑</returns>
+        </member>
+        <member name="M:System.Framework.Content.TemplateExtensions.IsNewestContent(System.Framework.Content.ITemplateData,System.DateTime)">
+            <summary>
+            檢查樣版內容是否為最新
+            </summary>
+            <param name="template">樣板資料</param>
+            <param name="contentTime">取得內容的時間</param>
+            <returns>內容是否為最新</returns>
+        </member>
+        <member name="M:System.Framework.Content.TemplateExtensions.GetContents(System.Framework.Content.ITemplateData)">
+            <summary>
+            取得各個語言之樣板內容
+            </summary>
+            <param name="template">樣板資料</param>
+            <returns>語言識別碼/樣版內容之集合</returns>
+        </member>
+        <member name="M:System.Framework.Content.TemplateExtensions.Persist(System.Framework.Content.ITemplateData)">
+            <summary>
+            將內容實體化
+            </summary>
+            <param name="template">樣板資料</param>
+        </member>
+        <member name="M:System.Framework.Content.TemplateExtensions.DeleteFiles(System.Framework.Content.ITemplateData)">
+            <summary>
+            刪除與樣板相關之檔案
+            </summary>
+            <param name="template">樣板資料</param>
+        </member>
+        <member name="T:System.Framework.Content.UrlSegmentExtensions">
+            <summary>
+            IEntityData 相關之擴充方法
+            </summary>
+        </member>
+        <member name="M:System.Framework.Content.UrlSegmentExtensions.ToSitemapNode(System.Framework.Content.IUrlSegmentData,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="segment"></param>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

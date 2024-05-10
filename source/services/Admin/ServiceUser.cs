@@ -9,7 +9,7 @@ using System.Framework.Web;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmptyProject.Services.Admin;
+namespace PHStatistics.Services.Admin;
 
 /// <summary>
 /// 後台服務用戶

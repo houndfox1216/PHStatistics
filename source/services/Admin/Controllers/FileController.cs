@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using DevExtreme.AspNet.Mvc.FileManagement;
-using EmptyProject.Models;
+using PHStatistics.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +16,7 @@ using Newtonsoft.Json.Linq;
 using SixLabors.ImageSharp;
 using Environment = System.Framework.Environment;
 
-namespace EmptyProject.Services.Admin.Controllers;
+namespace PHStatistics.Services.Admin.Controllers;
 
 /// <summary>
 /// File API

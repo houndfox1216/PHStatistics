@@ -9,7 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 
-namespace EmptyProject.Services.Admin {
+namespace PHStatistics.Services.Admin {
     /// <summary>
     /// 啟動
     /// </summary>
@@ -38,8 +38,8 @@ namespace EmptyProject.Services.Admin {
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo {
                     Version = "v1",
-                    Title = "EmptyProject Admin API",
-                    Description = "提供 EmptyProject 後台使用的 API"
+                    Title = "PHStatistics Admin API",
+                    Description = "提供 PHStatistics 後台使用的 API"
                 });
 
                 # region 如果專案 XML 文件存在時，引用 XML 註解
@@ -48,7 +48,7 @@ namespace EmptyProject.Services.Admin {
                 if (File.Exists(path)) c.IncludeXmlComments(path);
                 path = Path.Combine(AppContext.BaseDirectory, "J.Framework.Core.xml");
                 if (File.Exists(path)) c.IncludeXmlComments(path);
-                path = Path.Combine(AppContext.BaseDirectory, "EmptyProject.xml");
+                path = Path.Combine(AppContext.BaseDirectory, "PHStatistics.xml");
                 if (File.Exists(path)) c.IncludeXmlComments(path);
                 path = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
                 if (File.Exists(path)) c.IncludeXmlComments(path);

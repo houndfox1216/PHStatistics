@@ -1,8 +1,8 @@
 ﻿using System.Framework.Application;
 using System.Framework.Web;
-using EmptyProject.Models;
+using PHStatistics.Models;
 
-namespace EmptyProject.Services.Admin.Models {
+namespace PHStatistics.Services.Admin.Models {
     /// <summary>
     /// 領域模型
     /// </summary>

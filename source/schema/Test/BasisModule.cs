@@ -5,8 +5,8 @@ using System.Framework.Application;
 using System.Framework.Data;
 using System.Framework.Logging;
 using System.Framework.Security;
-using EmptyProject;
-using EmptyProject.Actions;
+using PHStatistics;
+using PHStatistics.Actions;
 
 /// <summary>
 /// 測試基礎模組

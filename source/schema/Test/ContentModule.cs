@@ -3,8 +3,8 @@
 using System.Framework;
 using System.Framework.Application;
 using System.Framework.Logging;
-using EmptyProject;
-using EmptyProject.Actions;
+using PHStatistics;
+using PHStatistics.Actions;
 
 /// <summary>
 /// 測試內容模組

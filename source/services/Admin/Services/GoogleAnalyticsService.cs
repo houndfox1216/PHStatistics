@@ -12,7 +12,7 @@ using Google.Apis.Services;
 using Org.BouncyCastle.Asn1.X509;
 
 
-namespace EmptyProject.Services.Admin.Services {
+namespace PHStatistics.Services.Admin.Services {
     /// <summary>
     /// Google Analytics Service
     /// </summary>

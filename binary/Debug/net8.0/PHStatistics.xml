@@ -1,0 +1,2641 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PHStatistics</name>
+    </assembly>
+    <members>
+        <member name="T:PHStatistics.ActionLog">
+            <summary>
+            操作紀錄
+            </summary>
+        </member>
+        <member name="P:PHStatistics.ActionLog.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.ActionLog.CreatedTime">
+            <summary>
+            時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.ActionLog.ActionType">
+            <summary>
+            操作型別
+            </summary>
+        </member>
+        <member name="P:PHStatistics.ActionLog.ActionName">
+            <summary>
+            操作名稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.ActionLog.UserType">
+            <summary>
+            用戶型別
+            </summary>
+        </member>
+        <member name="P:PHStatistics.ActionLog.UserTypeName">
+            <summary>
+            用戶類型
+            </summary>
+        </member>
+        <member name="P:PHStatistics.ActionLog.UserDataType">
+            <summary>
+            用戶資料型別
+            </summary>
+        </member>
+        <member name="P:PHStatistics.ActionLog.UserDataTypeName">
+            <summary>
+            用戶資料類型
+            </summary>
+        </member>
+        <member name="P:PHStatistics.ActionLog.UserId">
+            <summary>
+            用戶代號
+            </summary>
+        </member>
+        <member name="P:PHStatistics.ActionLog.UserName">
+            <summary>
+            用戶名稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.ActionLog.EntityType">
+            <summary>
+            資料型別
+            </summary>
+        </member>
+        <member name="P:PHStatistics.ActionLog.EntityTypeName">
+            <summary>
+            資料類型
+            </summary>
+        </member>
+        <member name="P:PHStatistics.ActionLog.EntityId">
+            <summary>
+            資料編號
+            </summary>
+        </member>
+        <member name="P:PHStatistics.ActionLog.EntityName">
+            <summary>
+            資料名稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.ActionLog.Xml">
+            <summary>
+            詳細資料
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Address">
+            <summary>
+            地址資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Address.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Address.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Address.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Address.Type">
+            <summary>
+            類型
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Address.PostalCode">
+            <summary>
+            郵遞區號
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Address.Region">
+            <summary>
+            區域
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Address.City">
+            <summary>
+            城市
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Address.District">
+            <summary>
+            地區
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Address.Line">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Address.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Address.Full">
+            <summary>
+            完整地址
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Address.FullAddress">
+            <summary>
+            完整地址
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Album">
+            <summary>
+            相簿
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Album.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Album.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Album.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Album.DataMode">
+            <summary>
+            資料模式
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Album.Number">
+            <summary>
+            編號
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Album.Title">
+            <summary>
+            標題
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Album.Published">
+            <summary>
+            已發佈
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Album.StartDate">
+            <summary>
+            開始時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Album.EndDate">
+            <summary>
+            結束時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Album.Ordinal">
+            <summary>
+            排序值
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Album.Cover">
+            <summary>
+            封面
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Album.Pictures">
+            <summary>
+            所有圖片
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Attribute">
+            <summary>
+            屬性資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Attribute.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Attribute.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Attribute.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Attribute.CategoryId">
+            <summary>
+            類別識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Attribute.Category">
+            <summary>
+            類別
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Attribute.Code">
+            <summary>
+            代碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Attribute.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Attribute.Selectable">
+            <summary>
+            可選擇
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Attribute.Multiple">
+            <summary>
+            可複選，須同時為可選擇
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Attribute.Required">
+            <summary>
+            此屬性是否為必填屬性
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Attribute.Ordinal">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Attribute.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Attribute.Values">
+            <summary>
+            屬性值
+            </summary>
+        </member>
+        <member name="T:PHStatistics.AttributeValue">
+            <summary>
+            屬性資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.AttributeValue.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.AttributeValue.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.AttributeValue.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.AttributeValue.AttributeId">
+            <summary>
+            屬性識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.AttributeValue.Attribute">
+            <summary>
+            屬性
+            </summary>
+        </member>
+        <member name="P:PHStatistics.AttributeValue.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="P:PHStatistics.AttributeValue.TextValue">
+            <summary>
+            文字
+            </summary>
+        </member>
+        <member name="P:PHStatistics.AttributeValue.DecimalValue">
+            <summary>
+            數值
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Category">
+            <summary>
+            類別資訊
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Category.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Category.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Category.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Category.DataMode">
+            <summary>
+            資料模式
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Category.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Category.Published">
+            <summary>
+            已發布
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Category.Ordinal">
+            <summary>
+            排列順序
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Category.ParentId">
+            <summary>
+            父類別外鍵
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Category.Parent">
+            <summary>
+            父類別
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Category.HasChild">
+            <summary>
+            擁有子類別
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Category.Children">
+            <summary>
+            子類別
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Category.Picture">
+            <summary>
+            圖片
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Category.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Configuration">
+            <summary>
+            系統配置
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Configuration.PortalTitle">
+            <summary>
+            入口網站標題
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Configuration.PortalMetaKeywords">
+            <summary>
+            入口網站關鍵字
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Configuration.PortalMetaDescription">
+            <summary>
+            入口網站描述
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Configuration.ServicePhone">
+            <summary>
+            服務電話
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Configuration.CompanyFax">
+            <summary>
+            公司傳真
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Configuration.CompanyAddress">
+            <summary>
+            公司地址
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Configuration.ServiceEmail">
+            <summary>
+            服務信箱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Configuration.Facebook">
+            <summary>
+            Facebook
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Configuration.Instagram">
+            <summary>
+            Instagram
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Configuration.Twitter">
+            <summary>
+            Twitter
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Configuration.Line">
+            <summary>
+            LINE
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Configuration.TrackingCode">
+            <summary>
+            追蹤代碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Configuration.AdminTitle">
+            <summary>
+            後台網站標題
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Configuration.#ctor">
+            <summary>
+            建構 Configuration
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Configuration.Reload``1">
+            <summary>
+            重新載入
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Configuration.Persist">
+            <summary>
+            將此配置進行留存
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Culture">
+            <summary>
+            文化特性
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Culture.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Culture.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Culture.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Culture.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Culture.Codes">
+            <summary>
+            相關代碼，包含所有符合此此文化特性的已登記代碼(IANA registry)，並以逗號隔開
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Culture.Language">
+            <summary>
+            語言代碼，參照ISO 639，可利用LanguageCode代入
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Culture.Script">
+            <summary>
+            書寫代碼，參照ISO 15924，可利用ScriptCode代入
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Culture.ScriptDirection">
+            <summary>
+            書寫方向
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Culture.Region">
+            <summary>
+            地域代碼，參照ISO 1366，可利用CountrtCode(ISO 1366-1)代入
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Culture.Currency">
+            <summary>
+            貨幣代碼，參照ISO ISO 4217，可利用CurrencyCode代入
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Culture.DateFormat">
+            <summary>
+            日期格式
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Culture.TimeFormat">
+            <summary>
+            時間格式
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Culture.NumberFormat">
+            <summary>
+            數值格式
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Culture.CurrencyFormat">
+            <summary>
+            貨幣格式
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Culture.Ordinal">
+            <summary>
+            排列順序
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Culture.Picture">
+            <summary>
+            圖片
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Culture.IsDefault">
+            <summary>
+            是否為預設值
+            </summary>
+        </member>
+        <member name="T:PHStatistics.DataContext">
+            <summary>
+            資料脈絡
+            </summary>
+            <summary>
+            資料脈絡
+            </summary>
+            <summary>
+            資料脈絡
+            </summary>
+            <summary>
+            資料脈絡
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.Sequence">
+            <summary>
+            序號資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.ActionLog">
+            <summary>
+            操作紀錄
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.Resource">
+            <summary>
+            系統資源
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.StringResource">
+            <summary>
+            文字資源
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.Culture">
+            <summary>
+            文化特性
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.MultilingualText">
+            <summary>
+            多語言文本
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.Picture">
+            <summary>
+            圖片資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.MultilingualImage">
+            <summary>
+            多語言圖像
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.Album">
+            <summary>
+            圖片集
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.Address">
+            <summary>
+            地址資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.Person">
+            <summary>
+            人務資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.User">
+            <summary>
+            用戶資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.Role">
+            <summary>
+            角色資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.UserRole">
+            <summary>
+            用戶角色對應資料集合
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.Attribute">
+            <summary>
+            屬性資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.AttributeValue">
+            <summary>
+            屬性值
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.Category">
+            <summary>
+            類別資訊
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.Tag">
+            <summary>
+            標籤資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.Member">
+            <summary>
+            會員資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.BannerPosition">
+            <summary>
+            廣告位置
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.Banner">
+            <summary>
+            廣告資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.News">
+            <summary>
+            新聞資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.NewsTag">
+            <summary>
+            新聞標籤
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.UrlSegment">
+            <summary>
+            網址區段
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.School">
+            <summary>
+            分校
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.CourseDepartment">
+            <summary>
+            班系
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.Course">
+            <summary>
+            課程
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.Class">
+            <summary>
+            班級
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.StudentPopulation">
+            <summary>
+            人數表
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.StudentPopulationItem">
+            <summary>
+            人數表
+            </summary>
+        </member>
+        <member name="P:PHStatistics.DataContext.SchoolAssignment">
+            <summary>
+            分校人員指派
+            </summary>
+        </member>
+        <member name="M:PHStatistics.DataContext.#ctor">
+            <summary>
+            建構資料脈絡
+            </summary>
+        </member>
+        <member name="M:PHStatistics.DataContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{PHStatistics.DataContext})">
+            <summary>
+            建構資料脈絡
+            </summary>
+            <param name="options">選項</param>
+        </member>
+        <member name="M:PHStatistics.DataContext.OnBasisMigrationCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            當產生內容模組之資料模型時需要執行的內容
+            </summary>
+            <param name="modelBuilder">針對建立的內容定義模型的產生器</param>
+        </member>
+        <member name="M:PHStatistics.DataContext.OnContentModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            當產生內容模組之資料模型時需要執行的內容
+            </summary>
+            <param name="modelBuilder">針對建立的內容定義模型的產生器</param>
+        </member>
+        <member name="M:PHStatistics.DataContext.OnCommunityModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            當產生內容模組之資料模型時需要執行的內容
+            </summary>
+            <param name="modelBuilder">針對建立的內容定義模型的產生器</param>
+        </member>
+        <member name="M:PHStatistics.DataContext.OnMigrationCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            當建立遷移(Migration)時執行。 此方法的預設實作不會做任何事，但是可以在衍生類別中覆寫它，以便可以進一步設定此模型然後再將它鎖定。
+            </summary>
+            <param name="modelBuilder">針對建立的內容定義模型的產生器</param>
+            <remarks>如果透過 UseModel 指定 Model 則因為不須建立 Model 而不會執行此方法</remarks>
+        </member>
+        <member name="M:PHStatistics.DataContext.InitializeBasisData">
+            <summary>
+            建立 Basis Module 之基本資料
+            </summary>
+        </member>
+        <member name="M:PHStatistics.DataContext.InitializeContentData">
+            <summary>
+            建立 Content Module 之基本資料
+            </summary>
+        </member>
+        <member name="M:PHStatistics.DataContext.InitializeCommunityData">
+            <summary>
+            建立 Content Module 之基本資料
+            </summary>
+        </member>
+        <member name="M:PHStatistics.DataContext.InitializeData">
+            <summary>
+            建立基本資料
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Message">
+            <summary>
+            訊息
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Message.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Message.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Message.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Message.Type">
+            <summary>
+            類型
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Message.Subject">
+            <summary>
+            主旨
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Message.Content">
+            <summary>
+            內容
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Message.Sender">
+            <summary>
+            寄件人
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Message.Recipient">
+            <summary>
+            收件人
+            </summary>
+        </member>
+        <member name="T:PHStatistics.MultilingualImage">
+            <summary>
+            多語言圖像
+            </summary>
+        </member>
+        <member name="P:PHStatistics.MultilingualImage.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.MultilingualImage.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.MultilingualImage.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.MultilingualImage.Images">
+            <summary>
+            多語言圖像集合
+            </summary>
+        </member>
+        <member name="P:PHStatistics.MultilingualImage.DefaultImageUri">
+            <summary>
+            預設圖像URI
+            </summary>
+        </member>
+        <member name="M:PHStatistics.MultilingualImage.GetImage(System.String)">
+            <summary>
+             取得以指定文字代碼呈現的圖像
+            </summary>
+            <param name="culture">文化特性</param>
+            <returns>以指定文化特性呈現的圖像</returns>
+        </member>
+        <member name="T:PHStatistics.MultilingualText">
+            <summary>
+            多語言文本
+            </summary>
+        </member>
+        <member name="P:PHStatistics.MultilingualText.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.MultilingualText.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.MultilingualText.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.MultilingualText.Texts">
+            <summary>
+            多語言文本集合
+            </summary>
+        </member>
+        <member name="P:PHStatistics.MultilingualText.DefaultText">
+            <summary>
+            預設文本
+            </summary>
+        </member>
+        <member name="M:PHStatistics.MultilingualText.GetText(System.String)">
+            <summary>
+             取得以指定文字代碼呈現的文本
+            </summary>
+            <param name="culture">文化特性</param>
+            <returns>以指定文化特性呈現的文本</returns>
+        </member>
+        <member name="T:PHStatistics.Permission">
+            <summary>
+            權限資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Permission.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Permission.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Permission.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Permission.DataMode">
+            <summary>
+            資料模式
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Permission.Value">
+            <summary>
+            數值
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Permission.EnumName">
+            <summary>
+            列舉名稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Permission.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Permission.Description">
+            <summary>
+            說明
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Person">
+            <summary>
+            個人資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Person.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Person.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Person.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Person.DataMode">
+            <summary>
+            資料模式
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Person.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Person.Nickname">
+            <summary>
+            暱稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Person.Photo">
+            <summary>
+            照片
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Person.Sex">
+            <summary>
+            性別
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Person.PersonalId">
+            <summary>
+            護照號碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Person.BirthDate">
+            <summary>
+            出生日期
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Person.Phone">
+            <summary>
+            電話號碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Person.Fax">
+            <summary>
+            傳真號碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Person.MobilePhone">
+            <summary>
+            行動電話
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Person.Email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Person.Address">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Person.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Picture">
+            <summary>
+            圖片資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Picture.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Picture.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Picture.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Picture.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Picture.Culture">
+            <summary>
+            文化特性
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Picture.Type">
+            <summary>
+            類型
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Picture.ContentType">
+            <summary>
+            內容類型
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Picture.Uri">
+            <summary>
+            網址
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Picture.ThumbnailUri">
+            <summary>
+            縮圖網址
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Picture.LinkUrl">
+            <summary>
+            鏈結網址
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Picture.Published">
+            <summary>
+            已發佈
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Picture.StartDate">
+            <summary>
+            開始時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Picture.EndDate">
+            <summary>
+            結束時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Picture.Ordinal">
+            <summary>
+            排列順序
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Picture.Height">
+            <summary>
+            高度(Pixel)
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Picture.Width">
+            <summary>
+            寬度(Pixel)
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Picture.Dpi">
+            <summary>
+            解析度
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Picture.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Picture.AlbumId">
+            <summary>
+            相簿識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Picture.Album">
+            <summary>
+            相簿
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Picture.Directory">
+            <summary>
+            目錄
+            </summary>
+        </member>
+        <member name="T:PHStatistics.PictureAlbum">
+            <summary>
+            相簿
+            </summary>
+        </member>
+        <member name="P:PHStatistics.PictureAlbum.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.PictureAlbum.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.PictureAlbum.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.PictureAlbum.DataMode">
+            <summary>
+            資料模式
+            </summary>
+        </member>
+        <member name="P:PHStatistics.PictureAlbum.Number">
+            <summary>
+            編號
+            </summary>
+        </member>
+        <member name="P:PHStatistics.PictureAlbum.Published">
+            <summary>
+            已發佈
+            </summary>
+        </member>
+        <member name="P:PHStatistics.PictureAlbum.StartDate">
+            <summary>
+            開始時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.PictureAlbum.EndDate">
+            <summary>
+            結束時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.PictureAlbum.Ordinal">
+            <summary>
+            排列順序
+            </summary>
+        </member>
+        <member name="P:PHStatistics.PictureAlbum.Cover">
+            <summary>
+            封面
+            </summary>
+        </member>
+        <member name="P:PHStatistics.PictureAlbum.Title">
+            <summary>
+            標題
+            </summary>
+        </member>
+        <member name="P:PHStatistics.PictureAlbum.Pictures">
+            <summary>
+            所有圖片。刪除圖片集時請一併刪除
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Resource">
+            <summary>
+            資源
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Resource.Uri">
+            <summary>
+            URI
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Resource.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Resource.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Resource.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Resource.ContentType">
+            <summary>
+            內容類型
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Resource.Content">
+            <summary>
+            內容
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Role">
+            <summary>
+            角色資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Role.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Role.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Role.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Role.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Role.DataMode">
+            <summary>
+            資料模式
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Role.Description">
+            <summary>
+            說明
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Role.PermissionValue">
+            <summary>
+            權限值
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Role.Permissions">
+            <summary>
+            權限
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Role.PermissionValues">
+            <summary>
+            權限值
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Sequence">
+            <summary>
+            序號資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Sequence.EntityType">
+            <summary>
+            實體類型
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Sequence.SubCode">
+            <summary>
+            子碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Sequence.ExtendCode">
+            <summary>
+            擴充碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Sequence.Number">
+            <summary>
+            序號
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Sequence.LastUpdateTime">
+            <summary>
+            最後更新時間
+            </summary>
+        </member>
+        <member name="T:PHStatistics.StringResource">
+            <summary>
+            文字資源
+            </summary>
+        </member>
+        <member name="P:PHStatistics.StringResource.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.StringResource.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.StringResource.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.StringResource.Culture">
+            <summary>
+            文化特性(代碼)
+            </summary>
+        </member>
+        <member name="P:PHStatistics.StringResource.ContentType">
+            <summary>
+            內容類型
+            </summary>
+        </member>
+        <member name="P:PHStatistics.StringResource.Content">
+            <summary>
+            內容
+            </summary>
+        </member>
+        <member name="P:PHStatistics.StringResource.Uri">
+            <summary>
+            可代表此資源之URI
+            </summary>
+        </member>
+        <member name="P:PHStatistics.StringResource.IsDefault">
+            <summary>
+            是否為預設值
+            </summary>
+        </member>
+        <member name="P:PHStatistics.StringResource.Downloadable">
+            <summary>
+            可下載
+            </summary>
+        </member>
+        <member name="P:PHStatistics.StringResource.IsNew">
+            <summary>
+            新資源
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Tag">
+            <summary>
+            標籤資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Tag.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Tag.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Tag.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Tag.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Tag.Ordinal">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="T:PHStatistics.User">
+            <summary>
+            用戶資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.User.UserRoles">
+            <summary>
+            用戶與角色之關聯
+            </summary>
+        </member>
+        <member name="M:PHStatistics.User.LoadRoles(PHStatistics.DataContext)">
+            <summary>
+            載入相關角色
+            </summary>
+            <param name="context">資料脈絡</param>
+        </member>
+        <member name="P:PHStatistics.User.Roles">
+            <summary>
+            相關角色
+            </summary>
+        </member>
+        <member name="P:PHStatistics.User.RoleIds">
+            <summary>
+            相關角色
+            </summary>
+        </member>
+        <member name="P:PHStatistics.User.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.User.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.User.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.User.DataMode">
+            <summary>
+            資料模式
+            </summary>
+        </member>
+        <member name="P:PHStatistics.User.Photo">
+            <summary>
+            照片
+            </summary>
+        </member>
+        <member name="P:PHStatistics.User.PersonId">
+            <summary>
+            個資識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.User.Person">
+            <summary>
+            個人資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.User.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.User.Account">
+            <summary>
+            帳號
+            </summary>
+        </member>
+        <member name="P:PHStatistics.User.Password">
+            <summary>
+            密碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.User.PasswordExpirationPolicy">
+            <summary>
+            密碼變更策略
+            </summary>
+        </member>
+        <member name="P:PHStatistics.User.PasswordChangedTime">
+            <summary>
+            密碼變更時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.User.Email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="P:PHStatistics.User.Token">
+            <summary>
+            通行令牌
+            </summary>
+        </member>
+        <member name="P:PHStatistics.User.LoginTime">
+            <summary>
+            登入時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.User.LogoutTime">
+            <summary>
+            登出時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.User.LastVisitedTime">
+            <summary>
+            訪問時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.User.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="P:PHStatistics.User.Status">
+            <summary>
+            狀態
+            </summary>
+        </member>
+        <member name="P:PHStatistics.User.Online">
+            <summary>
+            登入狀態
+            </summary>
+        </member>
+        <member name="T:PHStatistics.UserRole">
+            <summary>
+            用戶與角色之關聯
+            </summary>
+        </member>
+        <member name="P:PHStatistics.UserRole.UserId">
+            <summary>
+            用戶識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.UserRole.User">
+            <summary>
+            用戶
+            </summary>
+        </member>
+        <member name="P:PHStatistics.UserRole.RoleId">
+            <summary>
+            角色識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.UserRole.Role">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Member">
+            <summary>
+            會員資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Member.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Member.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Member.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Member.DataMode">
+            <summary>
+            資料模式
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Member.Number">
+            <summary>
+            編號
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Member.Nickname">
+            <summary>
+            暱稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Member.Email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Member.Account">
+            <summary>
+            帳號
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Member.Password">
+            <summary>
+            密碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Member.PasswordExpirationPolicy">
+            <summary>
+            密碼變更策略
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Member.PasswordChangedTime">
+            <summary>
+            密碼變更時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Member.Token">
+            <summary>
+            令牌
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Member.LoginTime">
+            <summary>
+            登入時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Member.LogoutTime">
+            <summary>
+            登出時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Member.LastVisitedTime">
+            <summary>
+            最後訪問時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Member.FacebookId">
+            <summary>
+            Facebook ID
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Member.GoogleId">
+            <summary>
+            Google ID
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Member.Photo">
+            <summary>
+            照片
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Member.PersonId">
+            <summary>
+            個資外鍵
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Member.Person">
+            <summary>
+            個人資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Member.Status">
+            <summary>
+            狀態
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Member.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Member.SchoolAssignment">
+            <summary>
+            分校操作人員
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Banner">
+            <summary>
+            廣告資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Banner.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Banner.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Banner.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Banner.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Banner.ContentType">
+            <summary>
+            內容類型
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Banner.Uri">
+            <summary>
+            網址
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Banner.LinkUrl">
+            <summary>
+            鏈結網址
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Banner.ClickCount">
+            <summary>
+            點擊數
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Banner.ViewCount">
+            <summary>
+            閱覽數
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Banner.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Banner.PositionId">
+            <summary>
+            位置識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Banner.Position">
+            <summary>
+            位置
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Banner.Directory">
+            <summary>
+            目錄
+            </summary>
+        </member>
+        <member name="T:PHStatistics.BannerPosition">
+            <summary>
+            廣告位置
+            </summary>
+        </member>
+        <member name="P:PHStatistics.BannerPosition.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.BannerPosition.Code">
+            <summary>
+            代碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.BannerPosition.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.BannerPosition.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.BannerPosition.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.BannerPosition.DataMode">
+            <summary>
+            資料模式
+            </summary>
+        </member>
+        <member name="P:PHStatistics.BannerPosition.Width">
+            <summary>
+            寬度(像素)
+            </summary>
+        </member>
+        <member name="P:PHStatistics.BannerPosition.Height">
+            <summary>
+            高度(像素)
+            </summary>
+        </member>
+        <member name="P:PHStatistics.BannerPosition.ViewUnitPrice">
+            <summary>
+            閱覽單價(元/次)
+            </summary>
+        </member>
+        <member name="P:PHStatistics.BannerPosition.ClickUnitPrice">
+            <summary>
+            點擊單價(元/次)
+            </summary>
+        </member>
+        <member name="P:PHStatistics.BannerPosition.TimeSpanUnitPrice">
+            <summary>
+            時間單價(元/分)
+            </summary>
+        </member>
+        <member name="P:PHStatistics.BannerPosition.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="P:PHStatistics.BannerPosition.Banners">
+            <summary>
+            所有廣告
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Content.Class">
+            <summary>
+            班級資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.Class.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.Class.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.Class.DataMode">
+            <summary>
+            資料模式
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.Class.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.Class.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.Class.SchoolId">
+            <summary>
+            分校資料識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.Class.School">
+            <summary>
+            分校
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.Class.CourseId">
+            <summary>
+            課程資料識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.Class.Course">
+            <summary>
+            課程
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.Class.Type">
+            <summary>
+            類型
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Content.ClassType">
+            <summary>
+            班級類型
+            </summary>
+        </member>
+        <member name="F:PHStatistics.Content.ClassType.Group">
+            <summary>
+            團體
+            </summary>
+        </member>
+        <member name="F:PHStatistics.Content.ClassType.Personal">
+            <summary>
+            三
+            </summary>
+        </member>
+        <member name="F:PHStatistics.Content.ClassType.SubGroup">
+            <summary>
+            小
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Content.Course">
+            <summary>
+            課程資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.Course.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.Course.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.Course.DataMode">
+            <summary>
+            資料模式
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.Course.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.Course.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.Course.DepartmentId">
+            <summary>
+            班系資料識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.Course.Department">
+            <summary>
+            班系
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.Course.IsSum">
+            <summary>
+            加總
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Content.CourseDepartment">
+            <summary>
+            班系
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.CourseDepartment.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.CourseDepartment.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.CourseDepartment.DataMode">
+            <summary>
+            資料模式
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.CourseDepartment.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.CourseDepartment.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Content.School">
+            <summary>
+            分校資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.School.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.School.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.School.DataMode">
+            <summary>
+            資料模式
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.School.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.School.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.School.Published">
+            <summary>
+            已發佈
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.School.StartDate">
+            <summary>
+            發佈開始日
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.School.EndDate">
+            <summary>
+            發佈結束日
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.School.Ordinal">
+            <summary>
+            排列順序
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.School.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.School.SchoolAssignment">
+            <summary>
+            分校操作人員
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Content.SchoolAssignment">
+            <summary>
+            分校指派資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.SchoolAssignment.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.SchoolAssignment.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.SchoolAssignment.DataMode">
+            <summary>
+            資料模式
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.SchoolAssignment.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.SchoolAssignment.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.SchoolAssignment.MemberId">
+            <summary>
+            分校人員識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.SchoolAssignment.Member">
+            <summary>
+            分校人員資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.SchoolAssignment.SchoolId">
+            <summary>
+            分校識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.SchoolAssignment.School">
+            <summary>
+            分校資料
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Content.StudentPopulation">
+            <summary>
+            人數表
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.StudentPopulation.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.StudentPopulation.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.StudentPopulation.DataMode">
+            <summary>
+            資料模式
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.StudentPopulation.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.StudentPopulation.Year">
+            <summary>
+            年度
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.StudentPopulation.Week">
+            <summary>
+            週次
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.StudentPopulation.WeekDate">
+            <summary>
+            週次起日
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.StudentPopulation.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.StudentPopulation.Items">
+            <summary>
+            人數表項目
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.StudentPopulation.Status">
+            <summary>
+            人數表狀態
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.StudentPopulation.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Content.StudentPopulationItem">
+            <summary>
+            人數表項目
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.StudentPopulationItem.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.StudentPopulationItem.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.StudentPopulationItem.DataMode">
+            <summary>
+            資料模式
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.StudentPopulationItem.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.StudentPopulationItem.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.StudentPopulationItem.StudentPopulationId">
+            <summary>
+            人數表識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.StudentPopulationItem.StudentPopulation">
+            <summary>
+            人數表資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.StudentPopulationItem.ClassId">
+            <summary>
+            班級資料識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.StudentPopulationItem.Class">
+            <summary>
+            班級
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.StudentPopulationItem.Number">
+            <summary>
+            人數
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.StudentPopulationItem.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Content.StudentPopulationStatus">
+            <summary>
+            人數表狀態
+            </summary>
+        </member>
+        <member name="F:PHStatistics.Content.StudentPopulationStatus.Documented">
+            <summary>
+            已建檔
+            </summary>
+        </member>
+        <member name="F:PHStatistics.Content.StudentPopulationStatus.Pending">
+            <summary>
+            已送出
+            </summary>
+        </member>
+        <member name="F:PHStatistics.Content.StudentPopulationStatus.Approved">
+            <summary>
+            已審核(樣品單使用)
+            </summary>
+        </member>
+        <member name="F:PHStatistics.Content.StudentPopulationStatus.Rejected">
+            <summary>
+            已否決
+            </summary>
+        </member>
+        <member name="F:PHStatistics.Content.StudentPopulationStatus.Finished">
+            <summary>
+            已完成
+            </summary>
+        </member>
+        <member name="T:PHStatistics.News">
+            <summary>
+            新聞資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.News.NewsTags">
+            <summary>
+            新聞與標籤之關聯
+            </summary>
+        </member>
+        <member name="M:PHStatistics.News.LoadTags(PHStatistics.DataContext)">
+            <summary>
+            載入相關角色
+            </summary>
+            <param name="context">資料脈絡</param>
+        </member>
+        <member name="P:PHStatistics.News.Tags">
+            <summary>
+            相關標籤
+            </summary>
+        </member>
+        <member name="P:PHStatistics.News.TagIds">
+            <summary>
+            相關標籤
+            </summary>
+        </member>
+        <member name="P:PHStatistics.News.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.News.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.News.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.News.StartDate">
+            <summary>
+            發佈開始日期
+            </summary>
+        </member>
+        <member name="P:PHStatistics.News.EndDate">
+            <summary>
+            發佈結束日期
+            </summary>
+        </member>
+        <member name="P:PHStatistics.News.Published">
+            <summary>
+            已發布
+            </summary>
+        </member>
+        <member name="P:PHStatistics.News.Ordinal">
+            <summary>
+            排列順序
+            </summary>
+        </member>
+        <member name="P:PHStatistics.News.Title">
+            <summary>
+            標題
+            </summary>
+        </member>
+        <member name="P:PHStatistics.News.Introduction">
+            <summary>
+            簡介
+            </summary>
+        </member>
+        <member name="P:PHStatistics.News.Content">
+            <summary>
+            內容
+            </summary>
+        </member>
+        <member name="P:PHStatistics.News.CategoryId">
+            <summary>
+            類別識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.News.Category">
+            <summary>
+            類別
+            </summary>
+        </member>
+        <member name="P:PHStatistics.News.Picture">
+            <summary>
+            圖片
+            </summary>
+        </member>
+        <member name="T:PHStatistics.NewsTag">
+            <summary>
+            新聞與標籤之關聯
+            </summary>
+        </member>
+        <member name="P:PHStatistics.NewsTag.NewsId">
+            <summary>
+            新聞識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.NewsTag.News">
+            <summary>
+            新聞
+            </summary>
+        </member>
+        <member name="P:PHStatistics.NewsTag.TagId">
+            <summary>
+            標籤識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.NewsTag.Tag">
+            <summary>
+            標籤
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Page">
+            <summary>
+            網頁
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Page.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Page.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Page.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Page.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Page.StartDate">
+            <summary>
+            發佈開始日期
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Page.EndDate">
+            <summary>
+            發佈結束日期
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Page.Published">
+            <summary>
+            已發布
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Page.CanonicalUrl">
+            <summary>
+            正規URL
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Page.MetaTitle">
+            <summary>
+            SEO標題
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Page.MetaKeywords">
+            <summary>
+            SEO關鍵字
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Page.MetaDescription">
+            <summary>
+            SEO描述
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Page.Content">
+            <summary>
+            內容
+            </summary>
+        </member>
+        <member name="T:PHStatistics.UrlSegment">
+            <summary>
+            網址區段
+            </summary>
+        </member>
+        <member name="P:PHStatistics.UrlSegment.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.UrlSegment.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.UrlSegment.CreatedTime">
+            <summary>
+            建立時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.UrlSegment.UpdatedTime">
+            <summary>
+            更新時間
+            </summary>
+        </member>
+        <member name="P:PHStatistics.UrlSegment.DataMode">
+            <summary>
+            資料模式
+            </summary>
+        </member>
+        <member name="P:PHStatistics.UrlSegment.Ordinal">
+            <summary>
+            排列順序
+            </summary>
+        </member>
+        <member name="P:PHStatistics.UrlSegment.ParentId">
+            <summary>
+            父區段識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.UrlSegment.Parent">
+            <summary>
+            父區段
+            </summary>
+        </member>
+        <member name="P:PHStatistics.UrlSegment.HasChild">
+            <summary>
+            擁有子區段
+            </summary>
+        </member>
+        <member name="P:PHStatistics.UrlSegment.Children">
+            <summary>
+            子區段
+            </summary>
+        </member>
+        <member name="P:PHStatistics.UrlSegment.Title">
+            <summary>
+            標題
+            </summary>
+        </member>
+        <member name="P:PHStatistics.UrlSegment.LinkUrl">
+            <summary>
+            鏈結網址
+            </summary>
+        </member>
+        <member name="P:PHStatistics.UrlSegment.PageId">
+            <summary>
+            網頁識別碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.UrlSegment.Page">
+            <summary>
+            網頁
+            </summary>
+        </member>
+        <member name="P:PHStatistics.UrlSegment.Url">
+            <summary>
+            網址
+            </summary>
+        </member>
+        <member name="T:PHStatistics.ImportRow.ImportRow">
+            <summary>
+            來料檢驗
+            </summary>
+        </member>
+        <member name="P:PHStatistics.ImportRow.ImportRow.RowNo">
+            <summary>
+            行數
+            </summary>
+        </member>
+        <member name="P:PHStatistics.ImportRow.ImportRow.CellsNo">
+            <summary>
+            欄數
+            </summary>
+        </member>
+        <member name="P:PHStatistics.ImportRow.ImportRow.CellsContent">
+            <summary>
+            內容
+            </summary>
+        </member>
+        <member name="T:PHStatistics.IndexContext">
+            <summary>
+            全文索引脈絡
+            </summary>
+        </member>
+        <member name="M:PHStatistics.IndexContext.#ctor">
+            <summary>
+            建構 IndexContext
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Migrations.Initial_Schema">
+            <inheritdoc />
+        </member>
+        <member name="M:PHStatistics.Migrations.Initial_Schema.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:PHStatistics.Migrations.Initial_Schema.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:PHStatistics.Migrations.Initial_Schema.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:PHStatistics.SystemPermission">
+            <summary>
+            系統權限
+            </summary>
+        </member>
+        <member name="F:PHStatistics.SystemPermission.Administrator">
+            <summary>
+            系統管理員
+            </summary>
+        </member>
+        <member name="F:PHStatistics.SystemPermission.Configuration">
+            <summary>
+            系統配置
+            </summary>
+        </member>
+        <member name="F:PHStatistics.SystemPermission.Person">
+            <summary>
+            個資管理
+            </summary>
+        </member>
+        <member name="F:PHStatistics.SystemPermission.Role">
+            <summary>
+            角色管理
+            </summary>
+        </member>
+        <member name="F:PHStatistics.SystemPermission.User">
+            <summary>
+            用戶管理
+            </summary>
+        </member>
+        <member name="F:PHStatistics.SystemPermission.ActionLog">
+            <summary>
+            操作紀錄
+            </summary>
+        </member>
+        <member name="F:PHStatistics.SystemPermission.Attribute">
+            <summary>
+            屬性管理
+            </summary>
+        </member>
+        <member name="F:PHStatistics.SystemPermission.Album">
+            <summary>
+            相簿管理
+            </summary>
+        </member>
+        <member name="F:PHStatistics.SystemPermission.Category">
+            <summary>
+            類別管理
+            </summary>
+        </member>
+        <member name="F:PHStatistics.SystemPermission.Tag">
+            <summary>
+            標籤管理
+            </summary>
+        </member>
+        <member name="F:PHStatistics.SystemPermission.Banner">
+            <summary>
+            廣告管理
+            </summary>
+        </member>
+        <member name="F:PHStatistics.SystemPermission.News">
+            <summary>
+            新聞管理
+            </summary>
+        </member>
+        <member name="F:PHStatistics.SystemPermission.Product">
+            <summary>
+            商品管理
+            </summary>
+        </member>
+        <member name="F:PHStatistics.SystemPermission.MediaFile">
+            <summary>
+            媒體管理
+            </summary>
+        </member>
+        <member name="F:PHStatistics.SystemPermission.LiveSource">
+            <summary>
+            直播管理
+            </summary>
+        </member>
+        <member name="F:PHStatistics.SystemPermission.UrlSegment">
+            <summary>
+            網址管理
+            </summary>
+        </member>
+        <member name="F:PHStatistics.SystemPermission.Page">
+            <summary>
+            網頁管理
+            </summary>
+        </member>
+    </members>
+</doc>

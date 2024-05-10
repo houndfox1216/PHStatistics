@@ -5,7 +5,7 @@ using NLog;
 
 using Environment = System.Framework.Environment;
 
-namespace EmptyProject.Services.Admin {
+namespace PHStatistics.Services.Admin {
     /// <summary>
     /// 主程式
     /// </summary>
@@ -15,7 +15,7 @@ namespace EmptyProject.Services.Admin {
         /// </summary>
         /// <param name="args">參數</param>
         // ReSharper disable once MemberCanBePrivate.Global
-        public Program(params string[] args) : base("EmptyProject.Services.Admin", args) { }
+        public Program(params string[] args) : base("PHStatistics.Services.Admin", args) { }
 
         /// <summary>
         /// 主程序

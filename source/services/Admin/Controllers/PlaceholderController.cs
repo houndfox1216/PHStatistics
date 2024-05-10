@@ -1,13 +1,13 @@
 ﻿using System.Framework;
 using System.Framework.Web;
 using System.IO;
-using EmptyProject.Models;
+using PHStatistics.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
 
-namespace EmptyProject.Services.Admin.Controllers {
+namespace PHStatistics.Services.Admin.Controllers {
     /// <summary>
     /// Placeholder API
     /// </summary>

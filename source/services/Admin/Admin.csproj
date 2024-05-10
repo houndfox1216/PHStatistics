@@ -4,8 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <UserSecretsId>a4341346-db5c-46f7-b2b9-51ca6558ee31</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <AssemblyName>EmptyProject.Services.Admin</AssemblyName>
-    <RootNamespace>EmptyProject.Services.Admin</RootNamespace>
+    <AssemblyName>PHStatistics.Services.Admin</AssemblyName>
+    <RootNamespace>PHStatistics.Services.Admin</RootNamespace>
     <Version>0.1</Version>
     <LangVersion>12</LangVersion>
     <AssemblyVersion>1.0.0</AssemblyVersion>
@@ -15,13 +15,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\..\..\binary\Debug\</OutputPath>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>../../../binary/Debug/net8.0/EmptyProject.Services.Admin.xml</DocumentationFile>
+    <DocumentationFile>../../../binary/Debug/net8.0/PHStatistics.Services.Admin.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\..\..\binary\Release\</OutputPath>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>../../../binary/Release/net8.0/EmptyProject.Services.Admin.xml</DocumentationFile>
+    <DocumentationFile>../../../binary/Release/net8.0/PHStatistics.Services.Admin.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Kestrel' " />
@@ -104,9 +104,6 @@
     <ProjectReference Include="..\..\schema\Data\Data.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\Streaming\" />
   </ItemGroup>
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 

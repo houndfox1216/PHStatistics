@@ -1,11 +1,11 @@
 ﻿using System.Framework.Web;
 using System.IO;
-using EmptyProject.Models;
+using PHStatistics.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using SixLabors.ImageSharp;
 
-namespace EmptyProject.Services.Admin.Controllers {
+namespace PHStatistics.Services.Admin.Controllers {
     /// <summary>
     /// Captcha API
     /// </summary>

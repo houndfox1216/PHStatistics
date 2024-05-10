@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace EmptyProject.Services.Admin.Models {
+namespace PHStatistics.Services.Admin.Models {
     /// <summary>
     /// 授權資料
     /// </summary>

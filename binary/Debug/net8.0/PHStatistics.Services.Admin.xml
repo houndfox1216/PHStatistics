@@ -1,0 +1,1464 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PHStatistics.Services.Admin</name>
+    </assembly>
+    <members>
+        <member name="T:PHStatistics.Services.Admin.CaptchaProvider">
+            <summary>
+            驗證碼提供者
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.CaptchaProvider.GetCaptcha(System.Int32,System.Single,System.Single,System.String)">
+            <summary>
+            取得驗證碼
+            </summary>
+            <param name="length">驗證碼長度</param>
+            <param name="maxFontSize">最大字型尺寸</param>
+            <param name="minFontSize">最小字型尺寸</param>
+            <param name="token">令牌，可自行指定或由系統產生長度256以內的字串</param>
+            <returns>驗證碼</returns>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.CaptchaProvider.GetCaptcha(System.Int32,System.String)">
+            <summary>
+            取得驗證碼
+            </summary>
+            <param name="length">產生的驗證碼長度</param>
+            <param name="token">檢驗令牌，檢查時需提供</param>
+            <returns></returns>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.CaptchaProvider.Check(System.String,System.String)">
+            <summary>
+            檢查驗證碼
+            </summary>
+            <param name="token">檢驗令牌，需與取得驗證碼時相同</param>
+            <param name="captchaCode">用戶輸入的驗證碼</param>
+            <returns></returns>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Controllers.ActionLogController">
+            <summary>
+            ActionLog API
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.ActionLogController.#ctor">
+            <summary>
+            建構
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.ActionLogController.Load(System.String)">
+            <summary>
+            載入操作記錄資料來源
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.ActionLogController.Query(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Int32)">
+            <summary>
+            查詢操作記錄
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <param name="page">當前頁碼</param>
+            <param name="pageSize">每頁顯示數量</param>
+            <param name="initialPage">起始頁碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.ActionLogController.Find(System.Int32)">
+            <summary>
+            尋找操作記錄
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Controllers.AlbumController">
+            <summary>
+            Album API
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.AlbumController.#ctor">
+            <summary>
+            建構
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.AlbumController.Load(System.String)">
+            <summary>
+            載入相簿資料來源
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.AlbumController.Query(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Int32)">
+            <summary>
+            查詢相簿
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <param name="page">當前頁碼</param>
+            <param name="pageSize">每頁顯示數量</param>
+            <param name="initialPage">起始頁碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.AlbumController.Find(System.Int32)">
+            <summary>
+            尋找相簿
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.AlbumController.Create(System.String)">
+            <summary>
+            建立相簿
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.AlbumController.Reorder(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            重新排序相簿
+            </summary>
+            <param name="source">拖曳位置的識別碼</param>
+            <param name="target">放置位置的識別碼</param>
+            <param name="isAfter">是否重新排序到目的之後</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.AlbumController.Update(System.String)">
+            <summary>
+            更新相簿
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.AlbumController.Delete(System.Int32)">
+            <summary>
+            刪除相簿
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Controllers.AttributeController">
+            <summary>
+            Attribute API
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.AttributeController.#ctor">
+            <summary>
+            建構
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.AttributeController.Load(System.String)">
+            <summary>
+            載入屬性資料來源
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.AttributeController.Query(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Int32)">
+            <summary>
+            查詢屬性
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <param name="page">當前頁碼</param>
+            <param name="pageSize">每頁顯示數量</param>
+            <param name="initialPage">起始頁碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.AttributeController.Find(System.Int32)">
+            <summary>
+            尋找屬性
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.AttributeController.Create(System.String)">
+            <summary>
+            建立屬性
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.AttributeController.Reorder(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            重新排序屬性
+            </summary>
+            <param name="source">拖曳位置的識別碼</param>
+            <param name="target">放置位置的識別碼</param>
+            <param name="isAfter">是否重新排序到目的之後</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.AttributeController.Update(System.String)">
+            <summary>
+            更新屬性
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.AttributeController.Delete(System.Int32)">
+            <summary>
+            刪除屬性
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Controllers.AttributeValueController">
+            <summary>
+            AttributeValue API
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.AttributeValueController.#ctor">
+            <summary>
+            建構
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.AttributeValueController.Load(System.String)">
+            <summary>
+            載入屬性值資料來源
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.AttributeValueController.Query(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Int32)">
+            <summary>
+            查詢屬性值
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <param name="page">當前頁碼</param>
+            <param name="pageSize">每頁顯示數量</param>
+            <param name="initialPage">起始頁碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.AttributeValueController.Find(System.Int32)">
+            <summary>
+            尋找屬性值
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.AttributeValueController.Create(System.String)">
+            <summary>
+            建立屬性值
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.AttributeValueController.Update(System.String)">
+            <summary>
+            更新屬性值
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.AttributeValueController.Delete(System.Int32)">
+            <summary>
+            刪除屬性值
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Controllers.CategoryController">
+            <summary>
+            Category API
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.CategoryController.#ctor">
+            <summary>
+            建構
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.CategoryController.Load(System.String)">
+            <summary>
+            載入類別資料來源
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.CategoryController.Query(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Int32)">
+            <summary>
+            查詢類別
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <param name="page">當前頁碼</param>
+            <param name="pageSize">每頁顯示數量</param>
+            <param name="initialPage">起始頁碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.CategoryController.Find(System.Int32)">
+            <summary>
+            尋找類別
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.CategoryController.Create(System.String)">
+            <summary>
+            建立類別
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.CategoryController.Reorder(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            重新排序類別
+            </summary>
+            <param name="source">拖曳位置的識別碼</param>
+            <param name="target">放置位置的識別碼</param>
+            <param name="isAfter">是否重新排序到目的之後</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.CategoryController.Update(System.String)">
+            <summary>
+            更新類別
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.CategoryController.Delete(System.Int32)">
+            <summary>
+            刪除類別
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Controllers.ConfigurationController">
+            <summary>
+            Configuration API
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.ConfigurationController.Read">
+            <summary>
+            讀取系統組態
+            </summary>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.ConfigurationController.Update">
+            <summary>
+            更新系統組態
+            </summary>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Controllers.CultureController">
+            <summary>
+            Culture API
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.CultureController.#ctor">
+            <summary>
+            建構
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.CultureController.Load(System.String)">
+            <summary>
+            載入文化特性資料來源
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.CultureController.Query(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Int32)">
+            <summary>
+            查詢文化特性
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <param name="page">當前頁碼</param>
+            <param name="pageSize">每頁顯示數量</param>
+            <param name="initialPage">起始頁碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.CultureController.Find(System.String)">
+            <summary>
+            尋找文化特性
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Controllers.PersonController">
+            <summary>
+            Person API
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.PersonController.#ctor">
+            <summary>
+            建構
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.PersonController.Load(System.String)">
+            <summary>
+            載入個人資料來源
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.PersonController.Query(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Int32)">
+            <summary>
+            查詢個人資料
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <param name="page">當前頁碼</param>
+            <param name="pageSize">每頁顯示數量</param>
+            <param name="initialPage">起始頁碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.PersonController.Find(System.String)">
+            <summary>
+            尋找個人資料
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.PersonController.Create(System.String)">
+            <summary>
+            建立個人資料
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.PersonController.Update(System.String)">
+            <summary>
+            更新個人資料
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.PersonController.Delete(System.Guid)">
+            <summary>
+            刪除個人資料
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Controllers.PictureController">
+            <summary>
+            Picture API
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.PictureController.#ctor">
+            <summary>
+            建構
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.PictureController.Load(System.String)">
+            <summary>
+            載入圖片資料來源
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.PictureController.Query(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Int32)">
+            <summary>
+            查詢圖片
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <param name="page">當前頁碼</param>
+            <param name="pageSize">每頁顯示數量</param>
+            <param name="initialPage">起始頁碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.PictureController.Find(System.Int32)">
+            <summary>
+            尋找圖片
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.PictureController.Create(System.String)">
+            <summary>
+            建立圖片
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.PictureController.Update(System.String)">
+            <summary>
+            更新圖片
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.PictureController.Delete(System.Int32)">
+            <summary>
+            刪除圖片
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Controllers.RoleController">
+            <summary>
+            Role API
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.RoleController.#ctor">
+            <summary>
+            建構
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.RoleController.Load(System.String)">
+            <summary>
+            載入角色資料來源
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.RoleController.Query(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Int32)">
+            <summary>
+            查詢角色
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <param name="page">當前頁碼</param>
+            <param name="pageSize">每頁顯示數量</param>
+            <param name="initialPage">起始頁碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.RoleController.Find(System.String)">
+            <summary>
+            尋找角色
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.RoleController.Create(System.String)">
+            <summary>
+            建立角色
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.RoleController.Update(System.String)">
+            <summary>
+            更新屬性
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.RoleController.Delete(System.Guid)">
+            <summary>
+            刪除角色
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Controllers.TagController">
+            <summary>
+            Tag API
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.TagController.#ctor">
+            <summary>
+            建構
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.TagController.Load(System.String)">
+            <summary>
+            載入標籤資料來源
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.TagController.Query(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Int32)">
+            <summary>
+            查詢標籤
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <param name="page">當前頁碼</param>
+            <param name="pageSize">每頁顯示數量</param>
+            <param name="initialPage">起始頁碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.TagController.Find(System.Int32)">
+            <summary>
+            尋找標籤
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.TagController.Create(System.String)">
+            <summary>
+            建立標籤
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.TagController.Reorder(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            重新排序標籤
+            </summary>
+            <param name="source">拖曳位置的識別碼</param>
+            <param name="target">放置位置的識別碼</param>
+            <param name="isAfter">是否重新排序到目的之後</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.TagController.Update(System.String)">
+            <summary>
+            更新標籤
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.TagController.Delete(System.Int32)">
+            <summary>
+            刪除標籤
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Controllers.UserController">
+            <summary>
+            User API
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.UserController.#ctor">
+            <summary>
+            建構
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.UserController.Load(System.String)">
+            <summary>
+            載入用戶資料來源
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.UserController.Query(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Int32)">
+            <summary>
+            查詢用戶
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <param name="page">當前頁碼</param>
+            <param name="pageSize">每頁顯示數量</param>
+            <param name="initialPage">起始頁碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.UserController.Find(System.String)">
+            <summary>
+            尋找用戶
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.UserController.Create(System.String)">
+            <summary>
+            建立用戶
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.UserController.Update(System.String)">
+            <summary>
+            更新用戶
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.UserController.Delete(System.Guid)">
+            <summary>
+            刪除用戶
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.UserController.ChangePassword(System.String,System.String)">
+            <summary>
+            變更密碼
+            </summary>
+            <param name="oldPassword">舊密碼</param>
+            <param name="newPassword">新密碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Controllers.CaptchaController">
+            <summary>
+            Captcha API
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.CaptchaController.#ctor">
+            <summary>
+            建構
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.CaptchaController.Get(System.Int32,System.String)">
+            <summary>
+            取得驗證碼
+            </summary>
+            <param name="length">驗證碼長度。預設長度為4</param>
+            <param name="token">令牌。未指定表示由系統產生，可於檔名或Header取得</param>
+            <response code="200">回應驗證碼PNG圖檔，檔名為指定或自動產生的token值</response>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Controllers.BannerController">
+            <summary>
+            Banner API
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.BannerController.#ctor">
+            <summary>
+            建構
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.BannerController.Load(System.String)">
+            <summary>
+            載入廣告資料來源
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.BannerController.Query(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Int32)">
+            <summary>
+            查詢廣告
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <param name="page">當前頁碼</param>
+            <param name="pageSize">每頁顯示數量</param>
+            <param name="initialPage">起始頁碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.BannerController.Find(System.Int32)">
+            <summary>
+            尋找廣告
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.BannerController.Create(System.String)">
+            <summary>
+            建立廣告
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.BannerController.Update(System.String)">
+            <summary>
+            更新廣告
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.BannerController.Delete(System.Int32)">
+            <summary>
+            刪除廣告
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Controllers.BannerPositionController">
+            <summary>
+            BannerPosition API
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.BannerPositionController.#ctor">
+            <summary>
+            建構
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.BannerPositionController.Load(System.String)">
+            <summary>
+            載入廣告位置資料來源
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.BannerPositionController.Query(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Int32)">
+            <summary>
+            查詢廣告位置
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <param name="page">當前頁碼</param>
+            <param name="pageSize">每頁顯示數量</param>
+            <param name="initialPage">起始頁碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.BannerPositionController.Find(System.Int32)">
+            <summary>
+            尋找廣告位置
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.BannerPositionController.Create(System.String)">
+            <summary>
+            建立廣告位置
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.BannerPositionController.Update(System.String)">
+            <summary>
+            更新廣告位置
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.BannerPositionController.Delete(System.Int32)">
+            <summary>
+            刪除廣告位置
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Controllers.NewsController">
+            <summary>
+            News API
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.NewsController.#ctor">
+            <summary>
+            建構
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.NewsController.Load(System.String)">
+            <summary>
+            載入新聞資料來源
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.NewsController.Query(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Int32)">
+            <summary>
+            查詢新聞
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <param name="page">當前頁碼</param>
+            <param name="pageSize">每頁顯示數量</param>
+            <param name="initialPage">起始頁碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.NewsController.Find(System.Int32)">
+            <summary>
+            尋找新聞
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.NewsController.Create(System.String)">
+            <summary>
+            建立新聞
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.NewsController.Reorder(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            重新排序新聞
+            </summary>
+            <param name="source">拖曳位置的識別碼</param>
+            <param name="target">放置位置的識別碼</param>
+            <param name="isAfter">是否重新排序到目的之後</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.NewsController.Update(System.String)">
+            <summary>
+            更新新聞
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.NewsController.Delete(System.Int32)">
+            <summary>
+            刪除新聞
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Controllers.PageController">
+            <summary>
+            Page API
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.PageController.#ctor">
+            <summary>
+            建構
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.PageController.Load(System.String)">
+            <summary>
+            載入網頁資料來源
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.PageController.Query(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Int32)">
+            <summary>
+            查詢網頁
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <param name="page">當前頁碼</param>
+            <param name="pageSize">每頁顯示數量</param>
+            <param name="initialPage">起始頁碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.PageController.Find(System.Int32)">
+            <summary>
+            尋找網頁
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.PageController.Create(System.String)">
+            <summary>
+            建立網頁
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.PageController.Update(System.String)">
+            <summary>
+            更新網頁
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.PageController.Delete(System.Int32)">
+            <summary>
+            刪除網頁
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Controllers.UrlSegmentController">
+            <summary>
+            UrlSegment API
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.UrlSegmentController.#ctor">
+            <summary>
+            建構 UrlSegmentController
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.UrlSegmentController.Load(System.String)">
+            <summary>
+            載入網址區段資料來源
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.UrlSegmentController.Query(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Int32)">
+            <summary>
+            查詢網址區段
+            </summary>
+            <param name="keyword">關鍵字</param>
+            <param name="page">當前頁碼</param>
+            <param name="pageSize">每頁顯示數量</param>
+            <param name="initialPage">起始頁碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.UrlSegmentController.Find(System.Int32)">
+            <summary>
+            尋找網址區段
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.UrlSegmentController.Create(System.String)">
+            <summary>
+            建立網址區段
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.UrlSegmentController.Reorder(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            重新排序網址區段
+            </summary>
+            <param name="source">拖曳位置的識別碼</param>
+            <param name="target">放置位置的識別碼</param>
+            <param name="isAfter">是否重新排序到目的之後</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.UrlSegmentController.Update(System.String)">
+            <summary>
+            更新網址區段
+            </summary>
+            <param name="values">值</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.UrlSegmentController.Delete(System.Int32)">
+            <summary>
+            刪除網址區段
+            </summary>
+            <param name="id">識別碼</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Controllers.FileController">
+            <summary>
+            File API
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.FileController.#ctor">
+            <summary>
+            建構
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.FileController.Execute(System.String,System.String,System.String,System.Nullable{System.Int32})">
+            <summary>
+            執行命令
+            </summary>
+            <param name="command">命令</param>
+            <param name="arguments">參數</param>
+            <param name="limited">限制</param>
+            <param name="dpi">DPI</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.FileController.Find(System.String)">
+            <summary>
+            尋找檔案
+            </summary>
+            <param name="path">路徑。根目錄為 WebRoot</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.FileController.Search(System.String,System.String,System.Boolean)">
+            <summary>
+            搜尋檔案
+            </summary>
+            <param name="path">搜尋路徑</param>
+            <param name="pattern">搜尋格式</param>
+            <param name="includeSubdirectories">包含子目錄</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.FileController.Create(System.Collections.Generic.IList{Microsoft.AspNetCore.Http.IFormFile},System.String,System.String,System.String,System.String)">
+            <summary>
+            建立檔案
+            </summary>
+            <param name="files">檔案</param>
+            <param name="mode">模式。當模式為 wysiwyg 時，不需指定目錄，固定存放於 /files/images 目錄下供網路讀取</param>
+            <param name="directory">存放目錄</param>
+            <param name="filename">檔名</param>
+            <param name="contentType">內容類型</param>
+            <response code="200">請求已被處理，回應各檔案網址</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.FileController.Delete(System.String)">
+            <summary>
+            刪除檔案或目錄
+            </summary>
+            <param name="path">檔案或目錄的路徑</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.FileController.Move(System.String,System.String)">
+            <summary>
+            移動檔案或目錄
+            </summary>
+            <param name="source">移動的來源目錄或檔案路徑</param>
+            <param name="destination">移動的目的目錄或檔案路徑</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.FileController.Copy(System.String,System.String)">
+            <summary>
+            複製檔案或目錄
+            </summary>
+            <param name="source">複製的來源目錄或檔案路徑</param>
+            <param name="destination">複製的目的目錄或檔案路徑</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.FileController.CreateDirectory(System.String)">
+            <summary>
+            建立目錄
+            </summary>
+            <param name="path">路徑</param>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Controllers.PlaceholderController">
+            <summary>
+            Placeholder API
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.PlaceholderController.#ctor">
+            <summary>
+            建構
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.PlaceholderController.Get(System.Int32,System.Int32,System.String,System.String,System.String,System.Nullable{System.Int32},System.Single)">
+            <summary>
+            產生佔位符
+            </summary>
+            <param name="width">寬度</param>
+            <param name="height">高度</param>
+            <param name="text">文字</param>
+            <param name="bgColor">背景的HTML色碼</param>
+            <param name="textColor">文字的HTML色碼</param>
+            <param name="fontSize">字體大小(em)</param>
+            <param name="dpi">DPI</param>
+            <response code="200">回應驗證碼PNG圖檔，檔名為指定或自動產生的token值</response>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Controllers.SystemController">
+            <summary>
+            System API
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Services.Admin.Controllers.SystemController.GoogleAnalyticsReportTask">
+            <summary>
+            GA4程序
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.SystemController.#ctor">
+            <summary>
+            建構
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.SystemController.Login">
+            <summary>
+            登入
+            </summary>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.SystemController.Logout">
+            <summary>
+            登入
+            </summary>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.SystemController.CurrentUser">
+            <summary>
+            取得目前登入的用戶
+            </summary>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.SystemController.Enumerations">
+            <summary>
+            取得供後台使用的列舉
+            </summary>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.SystemController.Log">
+            <summary>
+            紀錄訊息
+            </summary>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.SystemController.GoogleAnalytics">
+            <summary>
+            取得 Google Analytics 報告
+            </summary>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.SystemController.Information">
+            <summary>
+            取得服務資訊
+            </summary>
+            <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Controllers.SystemController.EncryptConfigurationValue(System.String)">
+            <summary>
+            加密組態值
+            </summary>
+            <param name="value">組態值</param>
+            <response code="200">請求已被處理，回應加密後的組態值</response>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Models.AuthorizeData">
+            <summary>
+            授權資料
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Services.Admin.Models.AuthorizeData.Account">
+            <summary>
+            帳號
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Services.Admin.Models.AuthorizeData.Password">
+            <summary>
+            密碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Services.Admin.Models.AuthorizeData.Captcha">
+            <summary>
+            驗證碼
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Services.Admin.Models.AuthorizeData.CaptchaToken">
+            <summary>
+            驗證碼令牌
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Models.Model">
+            <summary>
+            領域模型
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Models.Model.#ctor">
+            <summary>
+            建構領域模型
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Services.Admin.Models.Model.User">
+            <summary>
+            用戶領域模型
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Program">
+            <summary>
+            主程式
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Program.#ctor(System.String[])">
+            <summary>
+            建構
+            </summary>
+            <param name="args">參數</param>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Program.Main(System.String[])">
+            <summary>
+            主程序
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Services.GoogleAnalyticsReport">
+            <summary>
+            Google Analytics Report
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Services.Admin.Services.GoogleAnalyticsReport.BounceRate">
+            <summary>
+            Bounce Rate
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Services.Admin.Services.GoogleAnalyticsReport.AvgSessionDuration">
+            <summary>
+            Avg Session Duration
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Services.Admin.Services.GoogleAnalyticsReport.Sessions">
+            <summary>
+            Sessions
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Services.Admin.Services.GoogleAnalyticsReport.Users">
+            <summary>
+            Users
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Services.Admin.Services.GoogleAnalyticsReport.NewUsers">
+            <summary>
+            New Users
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Services.Admin.Services.GoogleAnalyticsReport.Pageviews">
+            <summary>
+            Pageviews
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Services.Admin.Services.GoogleAnalyticsReport.PageviewsPerSession">
+            <summary>
+            Pageviews per Session
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Services.Admin.Services.GoogleAnalyticsReport.UsersByCountry">
+            <summary>
+            Users by Country
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Services.Admin.Services.GoogleAnalyticsReport.UsersByDeviceCategory">
+            <summary>
+            Users by Device Category
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Services.Admin.Services.GoogleAnalyticsReport.UsersByBrowser">
+            <summary>
+            Users by Browser
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Services.Admin.Services.GoogleAnalyticsReport.UsersByLanguage">
+            <summary>
+            Users by Language
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Services.Admin.Services.GoogleAnalyticsReport.UsersByDate">
+            <summary>
+            Users by Date
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Services.Admin.Services.GoogleAnalyticsReport.NewUsersByDate">
+            <summary>
+            New Users by Date
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Services.ChartDataItem">
+            <summary>
+            圖表數據項目
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Services.ChartDataItem.#ctor">
+            <summary>
+            建構
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Services.ChartDataItem.#ctor(System.String,System.Decimal)">
+            <summary>
+            建構
+            </summary>
+            <param name="name">名稱</param>
+            <param name="value">數值</param>
+        </member>
+        <member name="P:PHStatistics.Services.Admin.Services.ChartDataItem.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Services.Admin.Services.ChartDataItem.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Services.GoogleAnalyticsService">
+            <summary>
+            Google Analytics Service
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Services.GoogleAnalyticsService.#ctor(System.String,System.IO.FileInfo)">
+            <summary>
+            建構
+            </summary>
+            <param name="property">屬性</param>
+            <param name="credential">憑證</param>
+            <exception cref="T:System.ArgumentException"></exception>
+            <exception cref="T:System.IO.FileNotFoundException">找不到憑證時拋出</exception>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Services.GoogleAnalyticsService.ExecuteRequest(System.DateTime,System.DateTime,System.String,System.String)">
+            <summary>
+            執行請求
+            </summary>
+            <param name="startDate">起始時間</param>
+            <param name="endDate">結束時間</param>
+            <param name="metric">指標</param>
+            <param name="dimension">維度</param>
+            <returns>回應</returns>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Services.GoogleAnalyticsService.GetBounceRate(System.DateTime,System.DateTime)">
+            <summary>
+            跳出率
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Services.GoogleAnalyticsService.GetAvgSessionDuration(System.DateTime,System.DateTime)">
+            <summary>
+            平均工作階段停留時間
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Services.GoogleAnalyticsService.GetSessions(System.DateTime,System.DateTime)">
+            <summary>
+            工作階段
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Services.GoogleAnalyticsService.GetUsers(System.DateTime,System.DateTime)">
+            <summary>
+            訪客數量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Services.GoogleAnalyticsService.GetNewUsers(System.DateTime,System.DateTime)">
+            <summary>
+            新訪客數量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Services.GoogleAnalyticsService.GetPageviews(System.DateTime,System.DateTime)">
+            <summary>
+            瀏覽量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Services.GoogleAnalyticsService.GetPageviewsPerSession(System.DateTime,System.DateTime)">
+            <summary>
+            平均每連接階段瀏覽頁數
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Services.GoogleAnalyticsService.GetVisitorDeviceCategeory(System.DateTime,System.DateTime)">
+            <summary>
+            取得裝置類型
+            </summary>
+            <returns>訪客裝置類型數據(裝置類型、人數)</returns>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Services.GoogleAnalyticsService.GetVisitorBrowser(System.DateTime,System.DateTime)">
+            <summary>
+            取得瀏覽器
+            </summary>
+            <returns>訪客瀏覽器數據(瀏覽器、人數)</returns>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Services.GoogleAnalyticsService.GetVisitorCountry(System.DateTime,System.DateTime)">
+            <summary>
+            取得訪客國別
+            </summary>
+            <returns>訪客國別數據(國別、人數)</returns>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Services.GoogleAnalyticsService.GetVisitorLanguage(System.DateTime,System.DateTime)">
+            <summary>
+            取得訪客使用語系
+            </summary>
+            <returns>訪客國別數據(語系、人數)</returns>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Services.GoogleAnalyticsService.GetVisitsCount(System.DateTime,System.DateTime)">
+            <summary>
+            取得訪問數
+            </summary>
+            <param name="startDate">開始日期</param>
+            <param name="endDate">結束日期</param>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Services.GoogleAnalyticsService.GetNewVisitsCount(System.DateTime,System.DateTime)">
+            <summary>
+            取得新客訪問數
+            </summary>
+            <param name="startDate">開始日期</param>
+            <param name="endDate">結束日期</param>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Services.GoogleAnalyticsService.Report(System.DateTime,System.DateTime)">
+            <summary>
+            報告
+            </summary>
+            <param name="startDate">開始日期</param>
+            <param name="endDate">結束日期</param>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.ServiceUser">
+            <summary>
+            後台服務用戶
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.ServiceUser.#ctor">
+            <summary>
+            初始化系統用戶
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.ServiceUser.#ctor(System.Framework.Data.IUserData)">
+            <summary>
+            初始化系統用戶，並使用此用戶資料。
+            </summary>
+            <param name="userData">用戶資料</param>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.ServiceUser.#ctor(System.String)">
+            <summary>
+            初始化系統用戶，並以此用戶編號搜尋用戶資料。
+            </summary>
+            <param name="id">用戶編號</param>
+        </member>
+        <member name="P:PHStatistics.Services.Admin.ServiceUser.Id">
+            <summary>
+            取得或設定用戶編號。設定用戶編號時用戶資料將一併變更為該用戶之資料。
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.ServiceUser.Commit">
+            <summary>
+            提交用戶資料
+            </summary>
+        </member>
+        <member name="T:PHStatistics.Services.Admin.Startup">
+            <summary>
+            啟動
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Services.Admin.Startup.Configuration">
+            <summary>
+            系統組態
+            </summary>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            建構
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services">服務集</param>
+        </member>
+        <member name="M:PHStatistics.Services.Admin.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app">建造者</param>
+            <param name="env">環境</param>
+        </member>
+    </members>
+</doc>

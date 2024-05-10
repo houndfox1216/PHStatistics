@@ -9,12 +9,12 @@ using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Data.Helpers;
 using DevExtreme.AspNet.Data.ResponseModel;
 using DevExtreme.AspNet.Mvc;
-using EmptyProject.Models;
+using PHStatistics.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace EmptyProject.Services.Admin.Controllers {
+namespace PHStatistics.Services.Admin.Controllers {
     /// <summary>
     /// Banner API
     /// </summary>

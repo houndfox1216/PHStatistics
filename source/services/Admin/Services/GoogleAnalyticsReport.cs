@@ -1,4 +1,4 @@
-﻿namespace EmptyProject.Services.Admin.Services {
+﻿namespace PHStatistics.Services.Admin.Services {
     /// <summary>
     /// Google Analytics Report
     /// </summary>

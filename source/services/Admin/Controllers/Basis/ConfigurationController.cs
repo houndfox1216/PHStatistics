@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Framework;
 using System.Framework.Web;
-using EmptyProject.Services.Admin.Models;
+using PHStatistics.Services.Admin.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EmptyProject.Services.Admin.Controllers {
+namespace PHStatistics.Services.Admin.Controllers {
     /// <summary>
     /// Configuration API
     /// </summary>

@@ -1,5 +1,5 @@
 ﻿// ReSharper disable CheckNamespace
 
-using EmptyProject;
+using PHStatistics;
 
 public class TestDataContext : DataContext;

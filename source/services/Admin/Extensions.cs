@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace EmptyProject.Services.Admin {
+namespace PHStatistics.Services.Admin {
     static class Extensions {
 
         public static string GetFullErrorMessage(this ModelStateDictionary modelState) {

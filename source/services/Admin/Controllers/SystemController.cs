@@ -8,15 +8,15 @@ using System.Framework.Web;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using EmptyProject.Models;
-using EmptyProject.Services.Admin.Models;
-using EmptyProject.Services.Admin.Services;
+using PHStatistics.Models;
+using PHStatistics.Services.Admin.Models;
+using PHStatistics.Services.Admin.Services;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
-using User = EmptyProject.User;
+using User = PHStatistics.User;
 
-namespace EmptyProject.Services.Admin.Controllers
+namespace PHStatistics.Services.Admin.Controllers
 {
     /// <summary>
     /// System API

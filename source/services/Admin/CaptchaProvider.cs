@@ -5,7 +5,7 @@ using SixLabors.Fonts;
 
 // ReSharper disable StringLiteralTypo
 
-namespace EmptyProject.Services.Admin {
+namespace PHStatistics.Services.Admin {
     /// <summary>
     /// 驗證碼提供者
     /// </summary>
