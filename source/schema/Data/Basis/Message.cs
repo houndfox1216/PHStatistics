@@ -6,11 +6,7 @@ using System.Framework.Data;
 using System.Framework.Logging;
 using System.Runtime.Serialization;
 
-<<<<<<< HEAD
-namespace EmptyProject {
-=======
 namespace PHStatistics {
->>>>>>> origin/develop/schema
     /// <summary>
     /// 訊息
     /// </summary>

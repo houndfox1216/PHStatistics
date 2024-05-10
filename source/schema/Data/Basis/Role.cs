@@ -10,11 +10,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using Microsoft.EntityFrameworkCore;
 
-<<<<<<< HEAD
-namespace EmptyProject {
-=======
 namespace PHStatistics {
->>>>>>> origin/develop/schema
     /// <summary>
     /// 角色資料
     /// </summary>

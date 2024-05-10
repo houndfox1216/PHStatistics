@@ -1,18 +1,11 @@
 ﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
-<<<<<<< HEAD
-=======
 using PHStatistics.Content;
->>>>>>> origin/develop/schema
 
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
 // ReSharper disable once CheckNamespace
-<<<<<<< HEAD
-namespace EmptyProject;
-=======
 namespace PHStatistics;
->>>>>>> origin/develop/schema
 
 /// <summary>
 /// 資料脈絡
@@ -45,8 +38,6 @@ public partial class DataContext {
     /// </summary>
     public DbSet<UrlSegment> UrlSegment { get; set; }
 
-<<<<<<< HEAD
-=======
     /// <summary>
     /// 分校
     /// </summary>
@@ -83,7 +74,6 @@ public partial class DataContext {
     /// </summary>
     public DbSet<SchoolAssignment> SchoolAssignment { get; set; }
 
->>>>>>> origin/develop/schema
     #endregion
 
     /// <summary>
@@ -104,8 +94,6 @@ public partial class DataContext {
         modelBuilder.Entity<NewsTag>().HasOne(e => e.Tag).WithMany().HasForeignKey(e => e.TagId);
 
         modelBuilder.Entity<UrlSegment>().HasOne(e => e.Page).WithMany().HasForeignKey(e => e.PageId).OnDelete(DeleteBehavior.Restrict);
-<<<<<<< HEAD
-=======
 
         modelBuilder.Entity<Course>().HasOne(e => e.Department).WithMany().HasForeignKey(e => e.DepartmentId);
         modelBuilder.Entity<Class>().HasOne(e => e.School).WithMany().HasForeignKey(e => e.SchoolId);
@@ -114,7 +102,6 @@ public partial class DataContext {
         modelBuilder.Entity<StudentPopulationItem>().HasOne(e => e.StudentPopulation).WithMany().HasForeignKey(e => e.StudentPopulationId);
 
         modelBuilder.Entity<School>().HasMany(e => e.SchoolAssignment).WithOne(e => e.School).HasForeignKey(e => e.SchoolId).OnDelete(DeleteBehavior.Cascade);
->>>>>>> origin/develop/schema
     }
 
     private partial void InitializeContentData() {

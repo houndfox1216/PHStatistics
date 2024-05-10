@@ -5,11 +5,7 @@ using System.Framework.Application;
 using System.Framework.EntityFrameworkCore;
 using System.Framework.Security;
 
-<<<<<<< HEAD
-namespace EmptyProject.Actions;
-=======
 namespace PHStatistics.Actions;
->>>>>>> origin/develop/schema
 
 /// <summary>
 /// 變更用戶密碼之操作。

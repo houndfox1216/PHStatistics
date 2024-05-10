@@ -7,11 +7,7 @@ using System.Linq;
 using System.Transactions;
 
 // ReSharper disable once CheckNamespace
-<<<<<<< HEAD
-namespace EmptyProject.Actions;
-=======
 namespace PHStatistics.Actions;
->>>>>>> origin/develop/schema
 
 /// <summary>
 /// 排序屬性資料之操作。

@@ -7,11 +7,7 @@ using System.Runtime.Serialization;
 
 // ReSharper disable CheckNamespace
 
-<<<<<<< HEAD
-namespace EmptyProject;
-=======
 namespace PHStatistics;
->>>>>>> origin/develop/schema
 
 /// <summary>
 /// 網頁

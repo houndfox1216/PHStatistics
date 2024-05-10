@@ -8,11 +8,7 @@ using System.Framework.Security;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-<<<<<<< HEAD
-namespace EmptyProject.Actions;
-=======
 namespace PHStatistics.Actions;
->>>>>>> origin/develop/schema
 
 /// <summary>
 /// 更新個人資料之操作。

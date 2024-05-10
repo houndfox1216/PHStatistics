@@ -6,11 +6,7 @@ using System.Framework.EntityFrameworkCore;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-<<<<<<< HEAD
-namespace EmptyProject.Actions;
-=======
 namespace PHStatistics.Actions;
->>>>>>> origin/develop/schema
 
 /// <summary>
 /// 新增個人資料之操作。

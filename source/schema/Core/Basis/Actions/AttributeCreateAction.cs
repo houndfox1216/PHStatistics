@@ -3,11 +3,7 @@ using System.Framework;
 using System.Framework.Application;
 using System.Linq;
 
-<<<<<<< HEAD
-namespace EmptyProject.Actions;
-=======
 namespace PHStatistics.Actions;
->>>>>>> origin/develop/schema
 
 /// <summary>
 /// 新增屬性資料之操作。

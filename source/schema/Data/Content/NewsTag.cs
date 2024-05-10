@@ -2,11 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
-<<<<<<< HEAD
-namespace EmptyProject {
-=======
 namespace PHStatistics {
->>>>>>> origin/develop/schema
     /// <summary>
     /// 新聞與標籤之關聯
     /// </summary>

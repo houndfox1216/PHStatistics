@@ -8,11 +8,7 @@ using System.Framework.Security;
 using System.IO;
 using System.Linq;
 
-<<<<<<< HEAD
-namespace EmptyProject.Actions;
-=======
 namespace PHStatistics.Actions;
->>>>>>> origin/develop/schema
 
 /// <summary>
 /// 新增用戶資料之操作。

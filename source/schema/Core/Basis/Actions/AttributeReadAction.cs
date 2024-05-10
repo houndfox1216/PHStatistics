@@ -4,11 +4,7 @@ using System.Framework;
 using System.Framework.Application;
 using System.Linq;
 
-<<<<<<< HEAD
-namespace EmptyProject.Actions;
-=======
 namespace PHStatistics.Actions;
->>>>>>> origin/develop/schema
 
 /// <summary>
 /// 用以表示讀取屬性資料之行為。

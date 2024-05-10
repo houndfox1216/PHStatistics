@@ -7,11 +7,7 @@ using System.Framework.Globalization;
 using System.Linq;
 using System.Runtime.Serialization;
 
-<<<<<<< HEAD
-namespace EmptyProject {
-=======
 namespace PHStatistics {
->>>>>>> origin/develop/schema
     /// <summary>
     /// 多語言文本
     /// </summary>

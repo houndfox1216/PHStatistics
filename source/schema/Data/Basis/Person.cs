@@ -7,11 +7,7 @@ using System.Runtime.Serialization;
 using Microsoft.EntityFrameworkCore;
 using IndexAttribute = System.Framework.Data.IndexAttribute;
 
-<<<<<<< HEAD
-namespace EmptyProject {
-=======
 namespace PHStatistics {
->>>>>>> origin/develop/schema
     /// <summary>
     /// 個人資料
     /// </summary>

@@ -4,11 +4,7 @@ using System.Framework.Application;
 using System.Framework.EntityFrameworkCore;
 using System.IO;
 
-<<<<<<< HEAD
-namespace EmptyProject.Actions;
-=======
 namespace PHStatistics.Actions;
->>>>>>> origin/develop/schema
 
 /// <summary>
 /// 更新圖片資料之操作。

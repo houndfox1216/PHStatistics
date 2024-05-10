@@ -6,11 +6,7 @@ using System.Framework.Data;
 using System.Linq;
 using System.Transactions;
 
-<<<<<<< HEAD
-namespace EmptyProject.Actions;
-=======
 namespace PHStatistics.Actions;
->>>>>>> origin/develop/schema
 
 /// <summary>
 /// 排序相簿資料之操作。

@@ -4,15 +4,9 @@ using System.Framework.Application;
 using System.Framework.Data;
 using System.Framework.Web;
 using System.Linq;
-<<<<<<< HEAD
-using EmptyProject.Actions;
-
-namespace EmptyProject.Models;
-=======
 using PHStatistics.Actions;
 
 namespace PHStatistics.Models;
->>>>>>> origin/develop/schema
 
 public class RoleModel : HttpModelBase<DataContext> {
     /// <summary>

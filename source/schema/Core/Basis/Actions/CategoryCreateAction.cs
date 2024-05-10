@@ -4,11 +4,7 @@ using System.Framework.Application;
 using System.Framework.EntityFrameworkCore;
 using System.Linq;
 
-<<<<<<< HEAD
-namespace EmptyProject.Actions;
-=======
 namespace PHStatistics.Actions;
->>>>>>> origin/develop/schema
 
 /// <summary>
 /// 新增類別資訊之操作。

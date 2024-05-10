@@ -10,11 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 using Environment = System.Framework.Environment;
 
-<<<<<<< HEAD
-namespace EmptyProject {
-=======
 namespace PHStatistics {
->>>>>>> origin/develop/schema
     /// <summary>
     /// 用戶資料
     /// </summary>

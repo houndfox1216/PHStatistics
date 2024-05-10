@@ -2,11 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Framework.Data;
 
-<<<<<<< HEAD
-namespace EmptyProject;
-=======
 namespace PHStatistics;
->>>>>>> origin/develop/schema
 
 /// <summary>
 /// 系統權限

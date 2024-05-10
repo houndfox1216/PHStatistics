@@ -5,11 +5,7 @@ using System.Framework.EntityFrameworkCore;
 using System.Linq;
 
 // ReSharper disable once CheckNamespace
-<<<<<<< HEAD
-namespace EmptyProject.Actions;
-=======
 namespace PHStatistics.Actions;
->>>>>>> origin/develop/schema
 
 /// <summary>
 /// 新增相簿資料

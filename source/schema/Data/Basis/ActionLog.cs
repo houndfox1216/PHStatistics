@@ -8,11 +8,7 @@ using System.Framework.Logging;
 using System.Runtime.Serialization;
 using Microsoft.EntityFrameworkCore;
 
-<<<<<<< HEAD
-namespace EmptyProject {
-=======
 namespace PHStatistics {
->>>>>>> origin/develop/schema
     /// <summary>
     /// 操作紀錄
     /// </summary>

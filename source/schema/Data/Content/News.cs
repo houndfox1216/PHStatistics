@@ -9,11 +9,7 @@ using System.Framework.Data;
 using System.Linq;
 using System.Runtime.Serialization;
 
-<<<<<<< HEAD
-namespace EmptyProject {
-=======
 namespace PHStatistics {
->>>>>>> origin/develop/schema
     /// <summary>
     /// 新聞資料
     /// </summary>

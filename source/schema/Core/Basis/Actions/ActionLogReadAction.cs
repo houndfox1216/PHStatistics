@@ -2,11 +2,7 @@
 using System.Framework;
 using System.Framework.Application;
 
-<<<<<<< HEAD
-namespace EmptyProject.Actions;
-=======
 namespace PHStatistics.Actions;
->>>>>>> origin/develop/schema
 
 /// <summary>
 /// 讀取操作記錄

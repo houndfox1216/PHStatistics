@@ -5,11 +5,7 @@ using System.Framework.Application;
 using System.Framework.EntityFrameworkCore;
 using System.Framework.Security;
 
-<<<<<<< HEAD
-namespace EmptyProject.Actions;
-=======
 namespace PHStatistics.Actions;
->>>>>>> origin/develop/schema
 
 /// <summary>
 /// 刪除個人資料之操作。

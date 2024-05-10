@@ -5,11 +5,7 @@ using System.Framework.Data;
 using System.Framework.EntityFrameworkCore;
 using System.Linq;
 
-<<<<<<< HEAD
-namespace EmptyProject.Actions;
-=======
 namespace PHStatistics.Actions;
->>>>>>> origin/develop/schema
 
 /// <summary>
 /// 刪除角色資料之操作。
