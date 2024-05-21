@@ -8,9 +8,9 @@ using PHStatistics.Content;
 namespace PHStatistics.Actions;
 
 /// <summary>
-/// 刪除新聞資料之操作。
+/// 刪除分校資料之操作。
 /// </summary>
-[Description("刪除新聞資料")]
+[Description("刪除分校資料")]
 public class SchoolDeleteAction : DeleteActionBase<School, DataContext, SystemPermission> {
     /// <summary>
     /// 必須具備的系統權限
@@ -21,7 +21,7 @@ public class SchoolDeleteAction : DeleteActionBase<School, DataContext, SystemPe
     /// 初始化 SchoolCreateAction。
     /// </summary>
     /// <param name="user">請求操作的用戶</param>
-    public SchoolDeleteAction(IUser user, DataContext dbContext = null) : base("刪除新聞資料", user, dbContext) { 
+    public SchoolDeleteAction(IUser user, DataContext dbContext = null) : base("刪除分校資料", user, dbContext) { 
             SetActionLog<ActionLogCommand<ActionLog, DataContext>>(dbContext); 
         }
 
