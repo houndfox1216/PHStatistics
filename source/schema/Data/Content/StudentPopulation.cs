@@ -48,6 +48,18 @@ namespace PHStatistics.Content {
         public long Id { get; set; }
 
         /// <summary>
+        /// 分校識別碼
+        /// </summary>
+        [Display(Name = "分校識別碼"), DataMember]
+        public int? SchoolId { get; set; }
+
+        /// <summary>
+        /// 分校識別碼
+        /// </summary>
+        [Display(Name = "分校識別碼"), DataMember]
+        public School School { get; set; }
+
+        /// <summary>
         /// 年度
         /// </summary>
         [Display(Name = "年度"), DataMember]

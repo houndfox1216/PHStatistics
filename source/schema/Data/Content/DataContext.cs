@@ -89,6 +89,7 @@ public partial class DataContext {
         modelBuilder.Entity<Course>().HasOne(e => e.Department).WithMany().HasForeignKey(e => e.DepartmentId);
         modelBuilder.Entity<Class>().HasOne(e => e.School).WithMany().HasForeignKey(e => e.SchoolId);
         modelBuilder.Entity<Class>().HasOne(e => e.Course).WithMany().HasForeignKey(e => e.CourseId);
+        modelBuilder.Entity<StudentPopulation>().HasOne(e => e.School).WithMany().HasForeignKey(e => e.SchoolId);
         modelBuilder.Entity<StudentPopulationItem>().HasOne(e => e.Class).WithMany().HasForeignKey(e => e.ClassId);
         modelBuilder.Entity<StudentPopulationItem>().HasOne(e => e.StudentPopulation).WithMany().HasForeignKey(e => e.StudentPopulationId);
 
