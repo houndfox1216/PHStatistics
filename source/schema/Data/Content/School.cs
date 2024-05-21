@@ -55,6 +55,20 @@ namespace PHStatistics.Content {
         public string Name { get; set; }
 
         /// <summary>
+        /// 分校編號
+        /// </summary>
+        [Display(Name = "分校編號"), DataMember]
+        [MaxLength(16)]
+        public string Number { get; set; }
+
+        /// <summary>
+        /// 分校代碼
+        /// </summary>
+        [Display(Name = "分校代碼"), DataMember]
+        [MaxLength(16)]
+        public string Code { get; set; }
+
+        /// <summary>
         /// 已發佈
         /// </summary>
         [Display(Name = "已發佈"), DataMember]

@@ -13,7 +13,7 @@ using PHStatistics.Content;
 
 using IndexAttribute = System.Framework.Data.IndexAttribute;
 
-namespace PHStatistics {
+namespace PHStatistics.Community {
     /// <summary>
     /// 會員資料
     /// </summary>

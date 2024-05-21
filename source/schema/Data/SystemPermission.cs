@@ -82,32 +82,46 @@ public enum SystemPermission : short {
     News,
 
     /// <summary>
-    /// 商品管理
-    /// </summary>
-    [Display(Name = "商品管理")]
-    Product,
-
-    /// <summary>
-    /// 媒體管理
-    /// </summary>
-    [Display(Name = "媒體管理")]
-    MediaFile,
-
-    /// <summary>
-    /// 直播管理
-    /// </summary>
-    [Display(Name = "直播管理")]
-    LiveSource,
-
-    /// <summary>
-    /// 網址管理
-    /// </summary>
-    [Display(Name = "網址管理")]
-    UrlSegment,
-
-    /// <summary>
     /// 網頁管理
     /// </summary>
     [Display(Name = "網頁管理")]
-    Page
+    Page,
+
+    /// <summary>
+    /// 分校管理
+    /// </summary>
+    [Display(Name = "分校管理")]
+    School,
+
+    /// <summary>
+    /// 班系管理
+    /// </summary>
+    [Display(Name = "班系管理")]
+    CourseDepartment,
+
+
+    /// <summary>
+    /// 課程管理
+    /// </summary>
+    [Display(Name = "課程管理")]
+    Course,
+
+    /// <summary>
+    /// 班級管理
+    /// </summary>
+    [Display(Name = "班級管理")]
+    Class,
+
+    /// <summary>
+    /// 班級管理
+    /// </summary>
+    [Display(Name = "分校人員")]
+    Member,
+
+    /// <summary>
+    /// 人數表管理
+    /// </summary>
+    [Display(Name = "人數表管理")]
+    StudentPopulation,
+
 }
