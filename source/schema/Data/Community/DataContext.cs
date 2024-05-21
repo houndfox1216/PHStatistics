@@ -5,6 +5,7 @@ using System.Framework.EntityFrameworkCore;
 using System.Framework.Security;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using PHStatistics.Community;
 
 namespace PHStatistics {
     /// <summary>
@@ -35,7 +36,7 @@ namespace PHStatistics {
             if (!Member.Any()) {
                 Add(new Member {
                     DataMode = DataMode.System,
-                    Nickname = "雲方客服",
+                    Nickname = "測試帳號",
                     Email = "service@cloudfun.com.tw",
                     Password = "cloudfun".ComputeHashStringWithSha().ToBase64(),
                     Token = ShortUid.NewId,

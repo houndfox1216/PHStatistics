@@ -36,6 +36,9 @@
     <Reference Include="J.Framework.Business">
       <HintPath>..\Libraries\J.Framework.Business.dll</HintPath>
     </Reference>
+    <Reference Include="J.Framework.Community">
+      <HintPath>..\Libraries\J.Framework.Community.dll</HintPath>
+    </Reference>
     <Reference Include="J.Framework.Content">
       <HintPath>..\Libraries\J.Framework.Content.dll</HintPath>
     </Reference>
@@ -68,9 +71,5 @@
     <None Remove="J.Framework" />
     <None Remove="System.Data.SqlClient" />
     <None Remove="Streaming\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Community\Models\" />
-    <Folder Include="Community\Actions\" />
   </ItemGroup>
 </Project>

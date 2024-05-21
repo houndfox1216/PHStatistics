@@ -703,11 +703,6 @@
             新聞標籤
             </summary>
         </member>
-        <member name="P:PHStatistics.DataContext.UrlSegment">
-            <summary>
-            網址區段
-            </summary>
-        </member>
         <member name="P:PHStatistics.DataContext.School">
             <summary>
             分校
@@ -1574,122 +1569,122 @@
             角色
             </summary>
         </member>
-        <member name="T:PHStatistics.Member">
+        <member name="T:PHStatistics.Community.Member">
             <summary>
             會員資料
             </summary>
         </member>
-        <member name="P:PHStatistics.Member.Id">
+        <member name="P:PHStatistics.Community.Member.Id">
             <summary>
             識別碼
             </summary>
         </member>
-        <member name="P:PHStatistics.Member.CreatedTime">
+        <member name="P:PHStatistics.Community.Member.CreatedTime">
             <summary>
             建立時間
             </summary>
         </member>
-        <member name="P:PHStatistics.Member.UpdatedTime">
+        <member name="P:PHStatistics.Community.Member.UpdatedTime">
             <summary>
             更新時間
             </summary>
         </member>
-        <member name="P:PHStatistics.Member.DataMode">
+        <member name="P:PHStatistics.Community.Member.DataMode">
             <summary>
             資料模式
             </summary>
         </member>
-        <member name="P:PHStatistics.Member.Number">
+        <member name="P:PHStatistics.Community.Member.Number">
             <summary>
             編號
             </summary>
         </member>
-        <member name="P:PHStatistics.Member.Nickname">
+        <member name="P:PHStatistics.Community.Member.Nickname">
             <summary>
             暱稱
             </summary>
         </member>
-        <member name="P:PHStatistics.Member.Email">
+        <member name="P:PHStatistics.Community.Member.Email">
             <summary>
             Email
             </summary>
         </member>
-        <member name="P:PHStatistics.Member.Account">
+        <member name="P:PHStatistics.Community.Member.Account">
             <summary>
             帳號
             </summary>
         </member>
-        <member name="P:PHStatistics.Member.Password">
+        <member name="P:PHStatistics.Community.Member.Password">
             <summary>
             密碼
             </summary>
         </member>
-        <member name="P:PHStatistics.Member.PasswordExpirationPolicy">
+        <member name="P:PHStatistics.Community.Member.PasswordExpirationPolicy">
             <summary>
             密碼變更策略
             </summary>
         </member>
-        <member name="P:PHStatistics.Member.PasswordChangedTime">
+        <member name="P:PHStatistics.Community.Member.PasswordChangedTime">
             <summary>
             密碼變更時間
             </summary>
         </member>
-        <member name="P:PHStatistics.Member.Token">
+        <member name="P:PHStatistics.Community.Member.Token">
             <summary>
             令牌
             </summary>
         </member>
-        <member name="P:PHStatistics.Member.LoginTime">
+        <member name="P:PHStatistics.Community.Member.LoginTime">
             <summary>
             登入時間
             </summary>
         </member>
-        <member name="P:PHStatistics.Member.LogoutTime">
+        <member name="P:PHStatistics.Community.Member.LogoutTime">
             <summary>
             登出時間
             </summary>
         </member>
-        <member name="P:PHStatistics.Member.LastVisitedTime">
+        <member name="P:PHStatistics.Community.Member.LastVisitedTime">
             <summary>
             最後訪問時間
             </summary>
         </member>
-        <member name="P:PHStatistics.Member.FacebookId">
+        <member name="P:PHStatistics.Community.Member.FacebookId">
             <summary>
             Facebook ID
             </summary>
         </member>
-        <member name="P:PHStatistics.Member.GoogleId">
+        <member name="P:PHStatistics.Community.Member.GoogleId">
             <summary>
             Google ID
             </summary>
         </member>
-        <member name="P:PHStatistics.Member.Photo">
+        <member name="P:PHStatistics.Community.Member.Photo">
             <summary>
             照片
             </summary>
         </member>
-        <member name="P:PHStatistics.Member.PersonId">
+        <member name="P:PHStatistics.Community.Member.PersonId">
             <summary>
             個資外鍵
             </summary>
         </member>
-        <member name="P:PHStatistics.Member.Person">
+        <member name="P:PHStatistics.Community.Member.Person">
             <summary>
             個人資料
             </summary>
         </member>
-        <member name="P:PHStatistics.Member.Status">
+        <member name="P:PHStatistics.Community.Member.Status">
             <summary>
             狀態
             </summary>
         </member>
-        <member name="P:PHStatistics.Member.Remark">
+        <member name="P:PHStatistics.Community.Member.Remark">
             <summary>
             備註
             </summary>
         </member>
-        <member name="P:PHStatistics.Member.SchoolAssignment">
+        <member name="P:PHStatistics.Community.Member.SchoolAssignment">
             <summary>
             分校操作人員
             </summary>
@@ -2014,6 +2009,16 @@
             名稱
             </summary>
         </member>
+        <member name="P:PHStatistics.Content.School.Number">
+            <summary>
+            分校編號
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.School.Code">
+            <summary>
+            分校代碼
+            </summary>
+        </member>
         <member name="P:PHStatistics.Content.School.Published">
             <summary>
             已發佈
@@ -2212,6 +2217,11 @@
         <member name="P:PHStatistics.Content.StudentPopulationItem.Remark">
             <summary>
             備註
+            </summary>
+        </member>
+        <member name="P:PHStatistics.Content.StudentPopulationItem.IsNew">
+            <summary>
+            新增項目
             </summary>
         </member>
         <member name="T:PHStatistics.Content.StudentPopulationStatus">
@@ -2425,86 +2435,6 @@
             內容
             </summary>
         </member>
-        <member name="T:PHStatistics.UrlSegment">
-            <summary>
-            網址區段
-            </summary>
-        </member>
-        <member name="P:PHStatistics.UrlSegment.Id">
-            <summary>
-            識別碼
-            </summary>
-        </member>
-        <member name="P:PHStatistics.UrlSegment.Name">
-            <summary>
-            名稱
-            </summary>
-        </member>
-        <member name="P:PHStatistics.UrlSegment.CreatedTime">
-            <summary>
-            建立時間
-            </summary>
-        </member>
-        <member name="P:PHStatistics.UrlSegment.UpdatedTime">
-            <summary>
-            更新時間
-            </summary>
-        </member>
-        <member name="P:PHStatistics.UrlSegment.DataMode">
-            <summary>
-            資料模式
-            </summary>
-        </member>
-        <member name="P:PHStatistics.UrlSegment.Ordinal">
-            <summary>
-            排列順序
-            </summary>
-        </member>
-        <member name="P:PHStatistics.UrlSegment.ParentId">
-            <summary>
-            父區段識別碼
-            </summary>
-        </member>
-        <member name="P:PHStatistics.UrlSegment.Parent">
-            <summary>
-            父區段
-            </summary>
-        </member>
-        <member name="P:PHStatistics.UrlSegment.HasChild">
-            <summary>
-            擁有子區段
-            </summary>
-        </member>
-        <member name="P:PHStatistics.UrlSegment.Children">
-            <summary>
-            子區段
-            </summary>
-        </member>
-        <member name="P:PHStatistics.UrlSegment.Title">
-            <summary>
-            標題
-            </summary>
-        </member>
-        <member name="P:PHStatistics.UrlSegment.LinkUrl">
-            <summary>
-            鏈結網址
-            </summary>
-        </member>
-        <member name="P:PHStatistics.UrlSegment.PageId">
-            <summary>
-            網頁識別碼
-            </summary>
-        </member>
-        <member name="P:PHStatistics.UrlSegment.Page">
-            <summary>
-            網頁
-            </summary>
-        </member>
-        <member name="P:PHStatistics.UrlSegment.Url">
-            <summary>
-            網址
-            </summary>
-        </member>
         <member name="T:PHStatistics.ImportRow.ImportRow">
             <summary>
             來料檢驗
@@ -2612,29 +2542,39 @@
             新聞管理
             </summary>
         </member>
-        <member name="F:PHStatistics.SystemPermission.Product">
-            <summary>
-            商品管理
-            </summary>
-        </member>
-        <member name="F:PHStatistics.SystemPermission.MediaFile">
-            <summary>
-            媒體管理
-            </summary>
-        </member>
-        <member name="F:PHStatistics.SystemPermission.LiveSource">
-            <summary>
-            直播管理
-            </summary>
-        </member>
-        <member name="F:PHStatistics.SystemPermission.UrlSegment">
-            <summary>
-            網址管理
-            </summary>
-        </member>
         <member name="F:PHStatistics.SystemPermission.Page">
             <summary>
             網頁管理
+            </summary>
+        </member>
+        <member name="F:PHStatistics.SystemPermission.School">
+            <summary>
+            分校管理
+            </summary>
+        </member>
+        <member name="F:PHStatistics.SystemPermission.CourseDepartment">
+            <summary>
+            班系管理
+            </summary>
+        </member>
+        <member name="F:PHStatistics.SystemPermission.Course">
+            <summary>
+            課程管理
+            </summary>
+        </member>
+        <member name="F:PHStatistics.SystemPermission.Class">
+            <summary>
+            班級管理
+            </summary>
+        </member>
+        <member name="F:PHStatistics.SystemPermission.Member">
+            <summary>
+            班級管理
+            </summary>
+        </member>
+        <member name="F:PHStatistics.SystemPermission.StudentPopulation">
+            <summary>
+            人數表管理
             </summary>
         </member>
     </members>
