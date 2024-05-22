@@ -124,4 +124,10 @@ public enum SystemPermission : short {
     [Display(Name = "人數表管理")]
     StudentPopulation,
 
+    /// <summary>
+    /// 網址管理
+    /// </summary>
+    [Display(Name = "網址管理")]
+    UrlSegment,
+
 }
