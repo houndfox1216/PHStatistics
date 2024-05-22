@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PHStatistics;
 
@@ -11,9 +12,11 @@ using PHStatistics;
 namespace PHStatistics.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240522105248_remove_items")]
+    partial class remove_items
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -777,7 +780,7 @@ namespace PHStatistics.Migrations
                     b.Property<string>("Remark")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("StudentPopulationId")
+                    b.Property<long?>("StudentPopulationId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("UpdatedTime")
@@ -1616,15 +1619,11 @@ namespace PHStatistics.Migrations
                         .WithMany()
                         .HasForeignKey("ClassId");
 
-                    b.HasOne("PHStatistics.Content.StudentPopulation", "StudentPopulation")
+                    b.HasOne("PHStatistics.Content.StudentPopulation", null)
                         .WithMany("Items")
-                        .HasForeignKey("StudentPopulationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StudentPopulationId");
 
                     b.Navigation("Class");
-
-                    b.Navigation("StudentPopulation");
                 });
 
             modelBuilder.Entity("PHStatistics.Content.UrlSegment", b =>
