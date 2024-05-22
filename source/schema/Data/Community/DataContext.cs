@@ -44,6 +44,7 @@ namespace PHStatistics {
                     Photo = new Picture { Uri = "/resources/cloudfun.png" },
                     Status = MemberStatus.Enabled,
                 });
+                SaveChanges();
             }
 
             #endregion
