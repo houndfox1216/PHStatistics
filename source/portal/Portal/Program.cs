@@ -3,10 +3,10 @@ using System.Framework.Web;
 using Newtonsoft.Json;
 using Environment = System.Framework.Environment;
 
-namespace EmptyProject.Portal;
+namespace PHStatistics.Portal;
 
 public class Program : Application {
-    private Program(params string[] args) : base("EmptyProject.Portal", args) {
+    private Program(params string[] args) : base("PHStatistics.Portal", args) {
         Policy = new Policy(this);
     }
 

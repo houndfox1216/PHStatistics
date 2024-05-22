@@ -1,11 +1,11 @@
 ﻿using System.Framework.Web;
 using System.IO;
-using EmptyProject.Models;
+using PHStatistics.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using SixLabors.ImageSharp;
 
-namespace EmptyProject.Portal.Controllers {
+namespace PHStatistics.Portal.Controllers {
     [Route("api/[controller]")]
     [EnableCors("AllPassOrigins")]
     public class CaptchaController : ApiController<PortalUser, UserModel, Culture> {

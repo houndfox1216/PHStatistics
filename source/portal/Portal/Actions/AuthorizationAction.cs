@@ -4,7 +4,7 @@ using System.Framework.Application;
 using System.Framework.Security;
 using System.Linq;
 
-namespace EmptyProject.Portal.Actions {
+namespace PHStatistics.Portal.Actions {
     /// <summary>
     /// 認證用戶之操作。
     /// </summary>
@@ -20,7 +20,7 @@ namespace EmptyProject.Portal.Actions {
             var password = Parameters.GetValue<string>("password");
             if (!account.HasValue() || !password.HasValue()) throw new OperationException("帳號或密碼不可空白");
             var hashedPassword = password.ComputeHashStringWithSha().ToBase64();
-            var member = context.Member.SingleOrDefault(e => e.Email == account && e.Password == hashedPassword) ?? throw new SecurityException("帳號或密碼不正確");
+            var member = context.Member.SingleOrDefault(e => e.Account == account && e.Password == hashedPassword) ?? throw new SecurityException("帳號或密碼不正確");
             Result = member;
         }
     }

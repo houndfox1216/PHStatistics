@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PHStatistics.Community;
+using System;
 using System.Framework;
 using System.Framework.Application;
 using System.Framework.Community;
@@ -8,7 +9,7 @@ using System.Framework.Web;
 using System.Linq;
 using Environment = System.Framework.Environment;
 
-namespace EmptyProject.Portal;
+namespace PHStatistics.Portal;
 
 /// <summary>
 /// 服務用戶

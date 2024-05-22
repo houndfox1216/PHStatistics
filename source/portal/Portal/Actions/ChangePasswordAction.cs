@@ -1,10 +1,11 @@
-﻿using System;
+﻿using PHStatistics.Community;
+using System;
 using System.ComponentModel;
 using System.Framework;
 using System.Framework.Application;
 using System.Framework.Security;
 
-namespace EmptyProject.Portal.Actions {
+namespace PHStatistics.Portal.Actions {
     /// <summary>
     /// 變更密碼之操作。
     /// </summary>

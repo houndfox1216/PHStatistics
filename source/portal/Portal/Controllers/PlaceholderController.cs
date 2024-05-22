@@ -1,13 +1,13 @@
 ﻿using System.Framework;
 using System.Framework.Web;
 using System.IO;
-using EmptyProject.Models;
+using PHStatistics.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
 
-namespace EmptyProject.Portal.Controllers {
+namespace PHStatistics.Portal.Controllers {
     [Route("api/[controller]")]
     [EnableCors("AllPassOrigins")]
     public class PlaceholderController : ApiController<PortalUser, UserModel, Culture> {

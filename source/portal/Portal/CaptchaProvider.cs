@@ -3,7 +3,7 @@ using System.Framework.Security;
 using System.Linq;
 using SixLabors.Fonts;
 
-namespace EmptyProject.Portal;
+namespace PHStatistics.Portal;
 
 /// <summary>
 /// 驗證碼提供者

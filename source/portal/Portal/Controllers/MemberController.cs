@@ -2,10 +2,10 @@
 using System.Framework;
 using System.Framework.Logging;
 using System.Framework.Web;
-using EmptyProject.Portal.Models;
+using PHStatistics.Portal.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EmptyProject.Portal.Controllers {
+namespace PHStatistics.Portal.Controllers {
     public class MemberController : MvcController<PortalUser, Model, Culture> {
         public MemberController() : base("System") { }
 

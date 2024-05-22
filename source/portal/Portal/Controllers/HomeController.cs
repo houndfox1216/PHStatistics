@@ -6,15 +6,16 @@ using System.Framework.Globalization;
 using System.Framework.Web;
 using System.IO;
 using System.Reflection;
-using EmptyProject.Portal.Models;
+using PHStatistics.Portal.Models;
 using Microsoft.AspNetCore.Mvc;
 
 using Environment = System.Framework.Environment;
 
-namespace EmptyProject.Portal.Controllers {
+namespace PHStatistics.Portal.Controllers {
     [Route("/")]
     public class HomeController() : MvcController<PortalUser, Model, Culture>("System") {
         [Route("")]
+        [Authorize(typeof(PortalUser))]
         public IActionResult Index() {
             ViewBag.Title = "Home Page".ToI18n(Culture.GetCode());
             ViewBag.BannerPositions = new List<BannerPosition>();

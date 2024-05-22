@@ -1,7 +1,7 @@
 ﻿@model Configuration
 
 @{
-    var culture = Html.Culture<EmptyProject.Culture>();
+    var culture = Html.Culture<PHStatistics.Culture>();
     var sitemap = Application.Current.Policy.Sitemap;
     ViewBag.Menu ??= Html.Menu<DataContext>(Html.User<PortalUser>()).ToArray();;
     var menu = ViewBag.Menu as SitemapNode[];
@@ -16,12 +16,12 @@
             <img class="img-fluid h-64" src="/Content/images/logo.svg" alt="@Model.PortalTitle">
         </a>
         <!-- mobile-nav-button -->
-        <button class="me-0 me-sm-3 btn btn-link d-xl-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMenu" aria-expanded="false" aria-controls="collapseMenu">
+@*         <button class="me-0 me-sm-3 btn btn-link d-xl-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMenu" aria-expanded="false" aria-controls="collapseMenu">
             <i class="fas fa-bars h1 mb-0 text-primary"></i>
-        </button>
+        </button> *@
         <!-- web-nav -->
         <ul class="nav d-none d-xl-flex">
-            <li class="nav-item">
+@*             <li class="nav-item">
                 @if (culture.Codes.Contains("zh-TW")) {
                     <a class="nav-link bg-warning rounded-pill" href="/Culture/en-US">
                         <b>中文</b>
@@ -31,11 +31,11 @@
                         <b>EN</b>
                     </a>
                 }
-            </li>
+            </li> *@
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("Index", "Home")">@Html.ToI18n(sitemap.Title)</a>
             </li>
-            @foreach (var node in menu) {
+@*             @foreach (var node in menu) {
                 <li class="nav-item @(node.Expandable && node.SubNodes != null && node.SubNodes.Any() ? "dropdown" : "")">
                     @if (node.To != null) {
                         <a class="nav-link" href="@node.To">@Html.ToI18n(node.Title)</a>
@@ -52,12 +52,12 @@
                         </ul>
                     }
                 </li>
-            }
+            } *@
         </ul>
     </div>
 
     <!-- mobile-nav -->
-    <div class="collapse d-xl-none" id="collapseMenu">
+    @* <div class="collapse d-xl-none" id="collapseMenu">
         <div class="card card-body" id="accordionItems">
             <ul class="nav">
                 <li class="nav-item">
@@ -103,5 +103,5 @@
 
             </ul>
         </div>
-    </div>
+    </div> *@
 </header>

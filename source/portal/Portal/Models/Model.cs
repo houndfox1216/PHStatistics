@@ -1,11 +1,17 @@
-﻿using System.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Framework;
 using System.Framework.Data;
+using System.Framework.EntityFrameworkCore;
 using System.Framework.Web;
 using System.Linq;
-using EmptyProject.Models;
-using EmptyProject.Portal.Actions;
+using Microsoft.EntityFrameworkCore;
+using PHStatistics.Community;
+using PHStatistics.Content;
+using PHStatistics.Models;
+using PHStatistics.Portal.Actions;
 
-namespace EmptyProject.Portal.Models {
+namespace PHStatistics.Portal.Models {
     public class Model : HttpModelBase<DataContext> {
         /// <summary>
         /// 過濾條件，Model取回資料時的過濾條件(除了Find)。
@@ -59,6 +65,27 @@ namespace EmptyProject.Portal.Models {
         public Culture GetCulture(string code = null) {
             if (!DataContext.Culture.Any()) return new Culture { Id = "zh-TW", Codes = "zh-TW" };
             return DataContext.Culture.Find(code) ?? DataContext.Culture.FirstOrDefault(e => e.IsDefault) ?? DataContext.Culture.First();
+        }
+
+        /// <summary>
+        /// 取得使用者分校資料
+        /// </summary>
+        /// <param name="mId">分校人員識別碼</param>
+        /// <returns></returns>
+        public List<SchoolAssignment> GetMemberSchool(string mId) {
+            Guid checkId = Guid.Parse(mId);
+            return DataContext.SchoolAssignment.Include("School").Include("Member").Where(e => e.Member.Id == checkId).ToList();
+        }
+
+
+        /// <summary>
+        /// 變更目前用戶的密碼
+        /// </summary>
+        /// <param name="oldPassword">舊密碼</param>
+        /// <param name="newPassword">新密碼</param>
+        /// <returns></returns>
+        public StudentPopulation GetStudentPopulation(int SchoolId, int year, int week) {
+            return DataContext.StudentPopulation.Include("Items").Where(e => e.School.Id == SchoolId && e.Year == year && e.Week == week).FirstOrDefault();
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System.Framework.Web;
-using EmptyProject.Portal.Models;
+using PHStatistics.Portal.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EmptyProject.Portal.Controllers {
+namespace PHStatistics.Portal.Controllers {
     [Authorize(typeof(PortalUser))]
     public class EventsController : MvcController<PortalUser, Model, Culture> {
         public EventsController() : base("System") { }

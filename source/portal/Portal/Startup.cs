@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
 
-namespace EmptyProject.Portal {
+namespace PHStatistics.Portal {
     public class Startup(IConfiguration configuration) {
         public IConfiguration Configuration { get; } = configuration;
 

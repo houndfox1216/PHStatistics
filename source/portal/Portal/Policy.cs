@@ -6,8 +6,9 @@ using System.Framework.Web;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using PHStatistics;
 
-namespace EmptyProject.Portal;
+namespace PHStatistics.Portal;
 
 /// <summary>
 /// 安全策略

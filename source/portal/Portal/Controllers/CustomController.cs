@@ -2,13 +2,14 @@
 using System.Framework;
 using System.Framework.Web;
 using System.Linq;
-using EmptyProject.Portal.Models;
+using PHStatistics.Portal.Models;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.EntityFrameworkCore;
+using PHStatistics.Content;
 
 // ReSharper disable RedundantOverriddenMember
 
-namespace EmptyProject.Portal.Controllers;
+namespace PHStatistics.Portal.Controllers;
 
 public class CustomController() : MvcController<PortalUser, Model, Culture, UrlSegment>("System") {
     private UrlSegment _urlSegment;
