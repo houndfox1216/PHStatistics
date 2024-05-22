@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using PHStatistics.Community;
 using PHStatistics.Content;
 
 // ReSharper disable UnusedAutoPropertyAccessor.Global
@@ -98,8 +99,9 @@ public partial class DataContext {
         modelBuilder.Entity<Class>().HasOne(e => e.School).WithMany().HasForeignKey(e => e.SchoolId);
         modelBuilder.Entity<Class>().HasOne(e => e.Course).WithMany().HasForeignKey(e => e.CourseId);
         modelBuilder.Entity<StudentPopulation>().HasOne(e => e.School).WithMany().HasForeignKey(e => e.SchoolId);
+        modelBuilder.Entity<StudentPopulation>().HasMany(e => e.Items).WithOne(e => e.StudentPopulation).HasForeignKey(e => e.StudentPopulationId).OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<StudentPopulationItem>().HasOne(e => e.Class).WithMany().HasForeignKey(e => e.ClassId);
-        modelBuilder.Entity<StudentPopulationItem>().HasOne(e => e.StudentPopulation).WithMany().HasForeignKey(e => e.StudentPopulationId);
+        //modelBuilder.Entity<StudentPopulationItem>().HasOne(e => e.StudentPopulation).WithMany().HasForeignKey(e => e.StudentPopulationId);
 
         modelBuilder.Entity<School>().HasMany(e => e.SchoolAssignment).WithOne(e => e.School).HasForeignKey(e => e.SchoolId).OnDelete(DeleteBehavior.Cascade);
     }

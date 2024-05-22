@@ -60,7 +60,7 @@ namespace PHStatistics.Content {
         /// 人數表識別碼
         /// </summary>
         [Display(Name = "人數表識別碼"), DataMember]
-        public long? StudentPopulationId { get; set; }
+        public long StudentPopulationId { get; set; }
 
         /// <summary>
         /// 人數表資料
