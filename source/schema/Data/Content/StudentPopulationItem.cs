@@ -55,6 +55,12 @@ namespace PHStatistics.Content {
         [MaxLength(128)]
         public string Name { get; set; }
 
+        /// <summary>
+        /// 分校名稱
+        /// </summary>
+        [Display(Name = "分校名稱"), DataMember]
+        [MaxLength(128)]
+        public string SchoolName { get; set; }
 
         /// <summary>
         /// 人數表識別碼
@@ -93,9 +99,21 @@ namespace PHStatistics.Content {
         public string Remark { get; set; }
 
         /// <summary>
+        /// 學生備註
+        /// </summary>
+        [Display(Name = "學生備註"), DataMember]
+        public string StudentRemark { get; set; }
+
+        /// <summary>
         /// 新增項目
         /// </summary>
         [Display(Name = "新增項目"), DataMember, NotMapped]
         public bool IsNew { get; set; }
+
+        /// <summary>
+        /// 新增項目
+        /// </summary>
+        [Display(Name = "新增項目"), DataMember, NotMapped]
+        public bool LastWeekNumber { get; set; }
     }
 }
