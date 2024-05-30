@@ -72,5 +72,11 @@ namespace PHStatistics.Content {
         [Display(Name = "加總"), DataMember]
         public bool IsSum { get; set; }
 
+        /// <summary>
+        /// 排列順序
+        /// </summary>
+        [Display(Name = "排列順序"), DataMember]
+        public int Ordinal { get; set; }
+
     }
 }
