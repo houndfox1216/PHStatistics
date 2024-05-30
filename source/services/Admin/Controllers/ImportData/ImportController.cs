@@ -452,6 +452,7 @@ namespace PHStatistics.Services.Admin.Controllers.ImportData {
                             #endregion
                             #region 新增班系課程資料
                             //List<ImportRow> ss = RowData.Where(p => p.RowNo == 1).ToList();
+                            int orderId = 1;
                             for (int i = 1; i < 4; i++) {
                                 //班系
                                 if (i == 1) {
@@ -465,20 +466,21 @@ namespace PHStatistics.Services.Admin.Controllers.ImportData {
                                         else {
                                             dataContext.CourseDepartment.Add(new CourseDepartment { DataMode = DataMode.Normal, Name = rItem.CellsContent });
                                             dataContext.SaveChanges();
-                                            if (rItem.CellsContent.Equals("總人數") || rItem.CellsContent.Equals("Elite/英檢/sat班系") || rItem.CellsContent.Equals("本週總詢問(填單)人數")) {
-                                                CourseDepartment cDep = dataContext.CourseDepartment.FirstOrDefault(e => e.Name == rItem.CellsContent);
-                                                if (dataContext.Course.Any(p => p.Name == cDep.Name)) {
-                                                    continue;
-                                                }
-                                                else {
-                                                    dataContext.Course.Add(new Course { DataMode = DataMode.Normal, Name = cDep.Name, Department = cDep });
-                                                    dataContext.SaveChanges();
-                                                }
-                                            }
+                                            //if (rItem.CellsContent.Equals("總人數") || rItem.CellsContent.Equals("Elite/英檢/sat班系") || rItem.CellsContent.Equals("本週總詢問(填單)人數")) {
+                                            //    CourseDepartment cDep = dataContext.CourseDepartment.FirstOrDefault(e => e.Name == rItem.CellsContent);
+                                            //    if (dataContext.Course.Any(p => p.Name == cDep.Name)) {
+                                            //        continue;
+                                            //    }
+                                            //    else {
+                                            //        dataContext.Course.Add(new Course { DataMode = DataMode.Normal, Name = cDep.Name, Department = cDep });
+                                            //        dataContext.SaveChanges();
+                                            //    }
+                                            //}
                                         }
                                     }
                                 }
                                 //課程
+                                
                                 if (i == 2) {
                                     foreach (PHStatistics.ImportRow.ImportRow rItem in RowData.Where(p => p.RowNo == i).ToList()) {
                                         PHStatistics.ImportRow.ImportRow cDepRow = RowData.FirstOrDefault(p => p.RowNo == 1 && p.CellsNo == rItem.CellsNo);
@@ -523,6 +525,32 @@ namespace PHStatistics.Services.Admin.Controllers.ImportData {
                                         }
                                     }
                                 }
+                            }
+                            CourseDepartment sumDep01 = dataContext.CourseDepartment.FirstOrDefault(e => e.Name == "總人數");
+                            if (dataContext.Course.Any(p => p.Name == sumDep01.Name)) {
+                                continue;
+                            }
+                            else {
+                                dataContext.Course.Add(new Course { DataMode = DataMode.Normal, Name = sumDep01.Name, Department = sumDep01 });
+                                dataContext.SaveChanges();
+                            }
+
+                            CourseDepartment sumDep02 = dataContext.CourseDepartment.FirstOrDefault(e => e.Name == "Elite/英檢/sat班系");
+                            if (dataContext.Course.Any(p => p.Name == sumDep02.Name)) {
+                                continue;
+                            }
+                            else {
+                                dataContext.Course.Add(new Course { DataMode = DataMode.Normal, Name = sumDep02.Name, Department = sumDep02 });
+                                dataContext.SaveChanges();
+                            }
+
+                            CourseDepartment sumDep03 = dataContext.CourseDepartment.FirstOrDefault(e => e.Name == "本週總詢問(填單)人數");
+                            if (dataContext.Course.Any(p => p.Name == sumDep03.Name)) {
+                                continue;
+                            }
+                            else {
+                                dataContext.Course.Add(new Course { DataMode = DataMode.Normal, Name = sumDep03.Name, Department = sumDep03 });
+                                dataContext.SaveChanges();
                             }
 
                             #endregion
@@ -645,6 +673,21 @@ namespace PHStatistics.Services.Admin.Controllers.ImportData {
                                     for (int c = 3; c < dataColCount; c++) {
                                         Class newClass = new Class();
                                         Course checkCourse = new Course();
+                                        int count = 0;
+                                        if (sheet.GetRow(drNo).Cells[c].HasValue() && !string.IsNullOrEmpty(sheet.GetRow(drNo).Cells[c].ToString())) {
+                                            try {
+                                                count = int.Parse(sheet.GetRow(drNo).Cells[c].NumericCellValue.ToString());
+                                            }
+                                            catch {
+                                                count = 0;
+                                            }
+                                        }
+                                        else {
+                                            continue;
+                                        }
+                                        if (count == 0) {
+                                            continue;
+                                        }
                                         try {
                                             if (sheet.GetRow(1).Cells[c].HasValue() && !string.IsNullOrEmpty(sheet.GetRow(1).Cells[c].ToString())) {
                                                 cdStr = sheet.GetRow(1).Cells[c].ToString().Trim().Replace("　", "").Replace(" ", "");
@@ -673,62 +716,70 @@ namespace PHStatistics.Services.Admin.Controllers.ImportData {
                                             if (!checkCourse.HasValue()) {
                                                 continue;
                                             }
-                                            if (checkCourse.Name.Equals("本週總詢問(填單)人數") || checkCourse.Name.Equals("本週英語文總人數") || checkCourse.Name.Equals("本週英語文新生") ||
-                                                checkCourse.Name.Equals("本週英語文流失") || checkCourse.Name.Equals("本週國語文總人數") || checkCourse.Name.Equals("本週國語文新生人數") ||
-                                                checkCourse.Name.Equals("本週國語文流失人數") || checkCourse.Name.Equals("本週新增/流失") || checkCourse.Name.Equals("總人數")) {
-                                                if (course.Id != checkCourse.Id) {
-                                                    course = checkCourse;
-                                                    classNo = 1;
-                                                }
-                                                else {
-                                                    classNo++;
-                                                }
-
-                                                if (courseDep.HasValue() && course.HasValue()) {
-                                                    string className = string.Format("{0}_{1}", course.Name, classNo.ToString("00"));
-                                                    if (dataContext.Class.Any(p => p.Course.Id == course.Id && p.Name == className && p.Type == cType && p.School.Id == newSchool.Id)) {
-                                                        newClass = dataContext.Class.FirstOrDefault(p => p.Course.Id == course.Id && p.Name == className && p.Type == cType && p.School.Id == newSchool.Id);
-                                                    }
-                                                    else {
-                                                        newClass.Course = course;
-                                                        newClass.Name = className;
-                                                        newClass.School = newSchool;
-                                                        newClass.Type = cType;
-                                                        dataContext.Class.Add(newClass);
-                                                        dataContext.SaveChanges();
-                                                    }
-                                                }
+                                             if (course.Id != checkCourse.Id) {
+                                                course = checkCourse;
+                                                classNo = 1;
                                             }
                                             else {
-                                                continue;
+                                                classNo++;
                                             }
+
+                                            if (courseDep.HasValue() && course.HasValue()) {
+                                                string className = string.Format("{0}_{1}", course.Name, classNo.ToString("00"));
+                                                if (dataContext.Class.Any(p => p.Course.Id == course.Id && p.Name == className && p.Type == cType && p.School.Id == newSchool.Id)) {
+                                                    newClass = dataContext.Class.FirstOrDefault(p => p.Course.Id == course.Id && p.Name == className && p.Type == cType && p.School.Id == newSchool.Id);
+                                                }
+                                                else {
+                                                    newClass.Course = course;
+                                                    newClass.Name = className;
+                                                    newClass.School = newSchool;
+                                                    newClass.Type = cType;
+                                                    dataContext.Class.Add(newClass);
+                                                    dataContext.SaveChanges();
+                                                }
+                                            }
+
+                                            #region 只匯入總計班級
+                                            //if (checkCourse.Name.Equals("本週總詢問(填單)人數") || checkCourse.Name.Equals("本週英語文總人數") || checkCourse.Name.Equals("本週英語文新生") ||
+                                            //    checkCourse.Name.Equals("本週英語文流失") || checkCourse.Name.Equals("本週國語文總人數") || checkCourse.Name.Equals("本週國語文新生人數") ||
+                                            //    checkCourse.Name.Equals("本週國語文流失人數") || checkCourse.Name.Equals("本週新增/流失") || checkCourse.Name.Equals("總人數")) {
+                                            //    if (course.Id != checkCourse.Id) {
+                                            //        course = checkCourse;
+                                            //        classNo = 1;
+                                            //    }
+                                            //    else {
+                                            //        classNo++;
+                                            //    }
+
+                                            //    if (courseDep.HasValue() && course.HasValue()) {
+                                            //        string className = string.Format("{0}_{1}", course.Name, classNo.ToString("00"));
+                                            //        if (dataContext.Class.Any(p => p.Course.Id == course.Id && p.Name == className && p.Type == cType && p.School.Id == newSchool.Id)) {
+                                            //            newClass = dataContext.Class.FirstOrDefault(p => p.Course.Id == course.Id && p.Name == className && p.Type == cType && p.School.Id == newSchool.Id);
+                                            //        }
+                                            //        else {
+                                            //            newClass.Course = course;
+                                            //            newClass.Name = className;
+                                            //            newClass.School = newSchool;
+                                            //            newClass.Type = cType;
+                                            //            dataContext.Class.Add(newClass);
+                                            //            dataContext.SaveChanges();
+                                            //        }
+                                            //    }
+                                            //}
+                                            //else {
+                                            //    continue;
+                                            //}
+                                            #endregion
                                         }
                                         catch (Exception ex) {
                                             string ds = ex.Message;
                                         }
                                         StudentPopulationItem newItem = new StudentPopulationItem();
-
                                         newItem.StudentPopulation = newStudentPopulation;
                                         newItem.Class = newClass;
-                                        int count = 0;
-                                        if (sheet.GetRow(drNo).Cells[c].HasValue() && !string.IsNullOrEmpty(sheet.GetRow(drNo).Cells[c].ToString())) {
-                                            try {
-                                                count = int.Parse(sheet.GetRow(drNo).Cells[c].NumericCellValue.ToString());
-                                            }
-                                            catch {
-                                                count = 0;
-                                            }
-                                        }
-                                        else {
-                                            continue;
-                                        }
                                         newItem.Number = count;
-                                        if (count == 0) {
-                                            continue;
-                                        }
                                         dataContext.StudentPopulationItem.Add(newItem);
                                         dataContext.SaveChanges();
-
                                     }
                                 }
                                 catch (Exception ex) {
