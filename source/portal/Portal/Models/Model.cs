@@ -85,7 +85,7 @@ namespace PHStatistics.Portal.Models {
         /// <param name="newPassword">新密碼</param>
         /// <returns></returns>
         public StudentPopulation GetStudentPopulation(int SchoolId, int year, int week) {
-            return DataContext.StudentPopulation.Include("Items").Where(e => e.School.Id == SchoolId && e.Year == year && e.Week == week).FirstOrDefault();
+            return DataContext.StudentPopulation.Include("Items.Class.Course").Where(e => e.School.Id == SchoolId && e.Year == year && e.Week == week).FirstOrDefault();
         }
     }
 }
