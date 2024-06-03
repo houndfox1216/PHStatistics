@@ -531,39 +531,25 @@ namespace PHStatistics.Services.Admin.Controllers.ImportData {
                             }
                             ordinal = dataContext.Course.Count();
                             CourseDepartment sumDep02 = dataContext.CourseDepartment.FirstOrDefault(e => e.Name == "Elite/英檢/sat班系");
-                            if (dataContext.Course.Any(p => p.Name == sumDep02.Name)) {
-                                continue;
-                            }
-                            else {
+                            if (!dataContext.Course.Any(p => p.Name == sumDep02.Name)) {
                                 dataContext.Course.Add(new Course { DataMode = DataMode.Normal, Name = sumDep02.Name, Department = sumDep02, Ordinal = ordinal });
                                 dataContext.SaveChanges();
                                 ordinal++;
                             }
 
                             CourseDepartment sumDep03 = dataContext.CourseDepartment.FirstOrDefault(e => e.Name == "本週總詢問(填單)人數");
-                            if (dataContext.Course.Any(p => p.Name == sumDep03.Name)) {
-                                continue;
-                            }
-                            else {
+                            if (!dataContext.Course.Any(p => p.Name == sumDep03.Name)) {
                                 dataContext.Course.Add(new Course { DataMode = DataMode.Normal, Name = sumDep03.Name, Department = sumDep03, Ordinal = ordinal });
                                 dataContext.SaveChanges();
                                 ordinal++;
                             }
 
                             CourseDepartment sumDep01 = dataContext.CourseDepartment.FirstOrDefault(e => e.Name == "總人數");
-                            if (dataContext.Course.Any(p => p.Name == sumDep01.Name)) {
-                                continue;
-                            }
-                            else {
+                            if (!dataContext.Course.Any(p => p.Name == sumDep01.Name)) {
                                 dataContext.Course.Add(new Course { DataMode = DataMode.Normal, Name = sumDep01.Name, Department = sumDep01, Ordinal = ordinal });
                                 dataContext.SaveChanges();
                                 ordinal++;
                             }
-
-
-
-
-
                             #endregion
 
                             //讀取人數資料
@@ -630,9 +616,9 @@ namespace PHStatistics.Services.Admin.Controllers.ImportData {
                                 try {
 
                                     //取得週別
-                                    if (sheet.GetRow(4).Cells[0].HasValue() && !string.IsNullOrEmpty(sheet.GetRow(4).Cells[0].ToString())) {
+                                    if (sheet.GetRow(drNo).Cells[0].HasValue() && !string.IsNullOrEmpty(sheet.GetRow(drNo).Cells[0].ToString())) {
                                         try {
-                                            week = int.Parse(sheet.GetRow(4).Cells[0].ToString());
+                                            week = int.Parse(sheet.GetRow(drNo).Cells[0].ToString());
                                         }
                                         catch {
                                             continue;
@@ -693,6 +679,9 @@ namespace PHStatistics.Services.Admin.Controllers.ImportData {
                                         Class newClass = new Class();
                                         Course checkCourse = new Course();
                                         int count = 0;
+                                        if (sheet.GetRow(1).Cells[c].HasValue() && !string.IsNullOrEmpty(sheet.GetRow(1).Cells[c].ToString())) {
+                                            cdStr = sheet.GetRow(1).Cells[c].ToString().Trim().Replace("　", "").Replace(" ", "");
+                                        }
                                         if (sheet.GetRow(drNo).Cells[c].HasValue() && !string.IsNullOrEmpty(sheet.GetRow(drNo).Cells[c].ToString())) {
                                             try {
                                                 count = int.Parse(sheet.GetRow(drNo).Cells[c].NumericCellValue.ToString());
@@ -708,9 +697,7 @@ namespace PHStatistics.Services.Admin.Controllers.ImportData {
                                             continue;
                                         }
                                         try {
-                                            if (sheet.GetRow(1).Cells[c].HasValue() && !string.IsNullOrEmpty(sheet.GetRow(1).Cells[c].ToString())) {
-                                                cdStr = sheet.GetRow(1).Cells[c].ToString().Trim().Replace("　", "").Replace(" ", "");
-                                            }
+
                                             if (sheet.GetRow(2).Cells[c].HasValue() && !string.IsNullOrEmpty(sheet.GetRow(2).Cells[c].ToString())) {
                                                 cStr = sheet.GetRow(2).Cells[c].ToString().Trim().Replace("　", "").Replace(" ", "");
                                             }
@@ -723,7 +710,7 @@ namespace PHStatistics.Services.Admin.Controllers.ImportData {
                                             if (courseDep == null) {
                                                 continue;
                                             }
-                                            if (courseDep.Name.Equals("總人數") || courseDep.Name.Equals(@"Elite/英檢/sat班系") || courseDep.Name.Equals(@"本週總詢問(填單)人數")) {
+                                            if (courseDep != null && (courseDep.Name.Equals("總人數") || courseDep.Name.Equals(@"Elite/英檢/sat班系") || courseDep.Name.Equals(@"本週總詢問(填單)人數"))) {
                                                 checkCourse = dataContext.Course.FirstOrDefault(p => p.Department.Id == courseDep.Id && p.Name == courseDep.Name);
                                             }
                                             else {
@@ -735,7 +722,7 @@ namespace PHStatistics.Services.Admin.Controllers.ImportData {
                                             if (!checkCourse.HasValue()) {
                                                 continue;
                                             }
-                                             if (course.Id != checkCourse.Id) {
+                                            if (course.Id != checkCourse.Id) {
                                                 course = checkCourse;
                                                 classNo = 1;
                                             }
