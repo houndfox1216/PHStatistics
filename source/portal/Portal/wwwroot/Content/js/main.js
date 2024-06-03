@@ -26,6 +26,24 @@ $(document).ready(() => {
     for (var i = 0; i < lineclamps.length; i++) $clamp(lineclamps[i], { clamp: 4 });
     lineclamps = document.getElementsByClassName('line-clamp5');
     for (var i = 0; i < lineclamps.length; i++) $clamp(lineclamps[i], { clamp: 5 });
+
+    //function addClass(cId) {
+    //    alert(cId);
+    //    //$.ajax({
+    //    //    url: '@Url.Action("AddClass", "StudentPopulation")',
+    //    //    cache: false,
+    //    //    data: { $("#formPopulation").serialize(), coursesId: cId },
+    //    //    dataType: 'json',
+    //    //    type: 'POST',
+    //    //    success: function (data) {
+    //    //        $('.item-quantity, .btn-minus, .btn-pluus').attr('disabled', false);
+    //    //        countSelected();
+    //    //    },
+    //    //    error: function () {
+
+    //    //    }
+    //    //})
+    //}
 });
 
 
