@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using PHStatistics.Community;
 
 namespace PHStatistics.Content {
     /// <summary>
@@ -91,6 +92,12 @@ namespace PHStatistics.Content {
         public ICollection<StudentPopulationItem> Items { get; set; }
 
         /// <summary>
+        /// 人數表項目Log
+        /// </summary>
+        [Display(Name = "人數表項目Log"), DataMember]
+        public ICollection<StudentPopulationItemLog> ItemsLog { get; set; }
+
+        /// <summary>
         /// 人數表狀態
         /// </summary>
         [Display(Name = "人數表狀態"), DataMember]
@@ -101,5 +108,43 @@ namespace PHStatistics.Content {
         /// </summary>
         [Display(Name = "備註"), DataMember]
         public string Remark { get; set; }
+
+        /// <summary>
+        /// 送出時間
+        /// </summary>
+        [Display(Name = "送出時間")]
+        public DateTime? SubmitterTime { get; set; }
+
+        /// <summary>
+        /// 使用者(填寫人)識別碼
+        /// </summary>
+        [Display(Name = " 使用者(申請人)識別碼"), DataMember]
+        public Guid? SubmitterId { get; set; }
+
+        /// <summary>
+        ///  使用者(填寫人)
+        /// </summary>
+        [Display(Name = "使用者(申請人)"), DataMember]
+        public Member Submitter { get; set; }
+
+
+        /// <summary>
+        /// 確認時間
+        /// </summary>
+        [Display(Name = "確認時間")]
+        public DateTime? ConfirmTime { get; set; }
+
+
+        /// <summary>
+        /// 使用者(確認者)識別碼
+        /// </summary>
+        [Display(Name = " 使用者(確認者)識別碼"), DataMember]
+        public Guid? ConfirmerId { get; set; }
+
+        /// <summary>
+        ///  使用者(確認者)
+        /// </summary>
+        [Display(Name = "使用者(確認者)"), DataMember]
+        public User Confirmer { get; set; }
     }
 }
