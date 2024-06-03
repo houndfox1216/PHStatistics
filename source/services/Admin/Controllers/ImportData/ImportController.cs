@@ -452,7 +452,7 @@ namespace PHStatistics.Services.Admin.Controllers.ImportData {
                             #endregion
                             #region 新增班系課程資料
                             //List<ImportRow> ss = RowData.Where(p => p.RowNo == 1).ToList();
-                            int orderId = 1;
+                            int ordinal = 1;
                             for (int i = 1; i < 4; i++) {
                                 //班系
                                 if (i == 1) {
@@ -464,8 +464,9 @@ namespace PHStatistics.Services.Admin.Controllers.ImportData {
                                             continue;
                                         }
                                         else {
-                                            dataContext.CourseDepartment.Add(new CourseDepartment { DataMode = DataMode.Normal, Name = rItem.CellsContent });
+                                            dataContext.CourseDepartment.Add(new CourseDepartment { DataMode = DataMode.Normal, Name = rItem.CellsContent, Ordinal = ordinal });
                                             dataContext.SaveChanges();
+                                            ordinal++;
                                             //if (rItem.CellsContent.Equals("總人數") || rItem.CellsContent.Equals("Elite/英檢/sat班系") || rItem.CellsContent.Equals("本週總詢問(填單)人數")) {
                                             //    CourseDepartment cDep = dataContext.CourseDepartment.FirstOrDefault(e => e.Name == rItem.CellsContent);
                                             //    if (dataContext.Course.Any(p => p.Name == cDep.Name)) {
@@ -480,7 +481,7 @@ namespace PHStatistics.Services.Admin.Controllers.ImportData {
                                     }
                                 }
                                 //課程
-                                
+                                ordinal = 1;
                                 if (i == 2) {
                                     foreach (PHStatistics.ImportRow.ImportRow rItem in RowData.Where(p => p.RowNo == i).ToList()) {
                                         PHStatistics.ImportRow.ImportRow cDepRow = RowData.FirstOrDefault(p => p.RowNo == 1 && p.CellsNo == rItem.CellsNo);
@@ -513,35 +514,30 @@ namespace PHStatistics.Services.Admin.Controllers.ImportData {
                                             if (RowData.Any(p => p.RowNo == 3 && p.CellsNo >= rItem.CellsNo && p.CellsNo < nextCoueseCNo)) {
                                                 foreach (PHStatistics.ImportRow.ImportRow cItem in RowData.Where(p => p.RowNo == 3 && p.CellsNo >= rItem.CellsNo && p.CellsNo < nextCoueseCNo).ToList()) {
                                                     if (!dataContext.Course.Any(p => p.Name.Equals(courseTitle + cItem.CellsContent) && p.Department.Id == cDep.Id)) {
-                                                        dataContext.Course.Add(new Course { DataMode = DataMode.Normal, Name = courseTitle + cItem.CellsContent, Department = cDep });
+                                                        dataContext.Course.Add(new Course { DataMode = DataMode.Normal, Name = courseTitle + cItem.CellsContent, Department = cDep, Ordinal = ordinal });
                                                         dataContext.SaveChanges();
+                                                        ordinal++;
                                                     }
                                                 }
                                             }
                                             else {
-                                                dataContext.Course.Add(new Course { DataMode = DataMode.Normal, Name = courseTitle, Department = cDep });
+                                                dataContext.Course.Add(new Course { DataMode = DataMode.Normal, Name = courseTitle, Department = cDep, Ordinal = ordinal });
                                                 dataContext.SaveChanges();
+                                                ordinal++;
                                             }
                                         }
                                     }
                                 }
                             }
-                            CourseDepartment sumDep01 = dataContext.CourseDepartment.FirstOrDefault(e => e.Name == "總人數");
-                            if (dataContext.Course.Any(p => p.Name == sumDep01.Name)) {
-                                continue;
-                            }
-                            else {
-                                dataContext.Course.Add(new Course { DataMode = DataMode.Normal, Name = sumDep01.Name, Department = sumDep01 });
-                                dataContext.SaveChanges();
-                            }
-
+                            ordinal = dataContext.Course.Count();
                             CourseDepartment sumDep02 = dataContext.CourseDepartment.FirstOrDefault(e => e.Name == "Elite/英檢/sat班系");
                             if (dataContext.Course.Any(p => p.Name == sumDep02.Name)) {
                                 continue;
                             }
                             else {
-                                dataContext.Course.Add(new Course { DataMode = DataMode.Normal, Name = sumDep02.Name, Department = sumDep02 });
+                                dataContext.Course.Add(new Course { DataMode = DataMode.Normal, Name = sumDep02.Name, Department = sumDep02, Ordinal = ordinal });
                                 dataContext.SaveChanges();
+                                ordinal++;
                             }
 
                             CourseDepartment sumDep03 = dataContext.CourseDepartment.FirstOrDefault(e => e.Name == "本週總詢問(填單)人數");
@@ -549,9 +545,24 @@ namespace PHStatistics.Services.Admin.Controllers.ImportData {
                                 continue;
                             }
                             else {
-                                dataContext.Course.Add(new Course { DataMode = DataMode.Normal, Name = sumDep03.Name, Department = sumDep03 });
+                                dataContext.Course.Add(new Course { DataMode = DataMode.Normal, Name = sumDep03.Name, Department = sumDep03, Ordinal = ordinal });
                                 dataContext.SaveChanges();
+                                ordinal++;
                             }
+
+                            CourseDepartment sumDep01 = dataContext.CourseDepartment.FirstOrDefault(e => e.Name == "總人數");
+                            if (dataContext.Course.Any(p => p.Name == sumDep01.Name)) {
+                                continue;
+                            }
+                            else {
+                                dataContext.Course.Add(new Course { DataMode = DataMode.Normal, Name = sumDep01.Name, Department = sumDep01, Ordinal = ordinal });
+                                dataContext.SaveChanges();
+                                ordinal++;
+                            }
+
+
+
+
 
                             #endregion
 
@@ -572,84 +583,92 @@ namespace PHStatistics.Services.Admin.Controllers.ImportData {
                             int week = 0;
                             DateTime weekDate = new DateTime();
 
-                            //取得週別
-                            if (sheet.GetRow(4).Cells[0].HasValue() && !string.IsNullOrEmpty(sheet.GetRow(4).Cells[0].ToString())) {
-                                try {
-                                    week = int.Parse(sheet.GetRow(4).Cells[0].ToString());
-                                }
-                                catch {
-                                    continue;
-                                }
+                            ////取得週別
+                            //if (sheet.GetRow(4).Cells[0].HasValue() && !string.IsNullOrEmpty(sheet.GetRow(4).Cells[0].ToString())) {
+                            //    try {
+                            //        week = int.Parse(sheet.GetRow(4).Cells[0].ToString());
+                            //    }
+                            //    catch {
+                            //        continue;
+                            //    }
 
-                            }
-                            else {
+                            //}
+                            //else {
 
-                            }
-                            //取得週日期
-                            if (sheet.GetRow(4).Cells[1].HasValue() && !string.IsNullOrEmpty(sheet.GetRow(4).Cells[0].ToString())) {
-                                weekDate = DateTime.Parse(string.Format("{0}/{1}", year, sheet.GetRow(4).Cells[1].ToString()));
-                            }
+                            //}
+                            ////取得週日期
+                            //if (sheet.GetRow(4).Cells[1].HasValue() && !string.IsNullOrEmpty(sheet.GetRow(4).Cells[0].ToString())) {
+                            //    weekDate = DateTime.Parse(string.Format("{0}/{1}", year, sheet.GetRow(4).Cells[1].ToString()));
+                            //}
 
-                            //增加人數表主表
-                            StudentPopulation newStudentPopulation = new StudentPopulation();
-                            if (dataContext.StudentPopulation.Any(e => e.School.Id == newSchool.Id && e.Year == yearInt && e.Week == week)) {
-                                newStudentPopulation = dataContext.StudentPopulation.FirstOrDefault(e => e.School.Id == newSchool.Id && e.Year == yearInt && e.Week == week);
-                            }
-                            else {
-                                newStudentPopulation = new StudentPopulation();
-                                newStudentPopulation.Status = StudentPopulationStatus.Approved;
-                                newStudentPopulation.School = newSchool;
-                                newStudentPopulation.Year = yearInt;
-                                newStudentPopulation.Week = week;
-                                newStudentPopulation.WeekDate = weekDate;
-                                newStudentPopulation.Remark = "匯入";
-                                newStudentPopulation.Name = string.Format("{0}-{1}年度-{2}週-人數表", newSchool.Name, year, week.ToString("00"));
-                                dataContext.StudentPopulation.Add(newStudentPopulation);
-                                dataContext.SaveChanges();
-                            }
-                            if(newStudentPopulation.Items.HasValue() && newStudentPopulation.Items.Count () > 0) {
-                                dataContext.StudentPopulationItem.RemoveRange(dataContext.StudentPopulationItem.Where(e => e.StudentPopulation.Id == newStudentPopulation.Id).ToList());
-                                dataContext.SaveChanges();
-                            }
-                            newStudentPopulation.Items = new List<StudentPopulationItem>(); 
+                            ////增加人數表主表
+                            //StudentPopulation newStudentPopulation = new StudentPopulation();
+                            //if (dataContext.StudentPopulation.Any(e => e.School.Id == newSchool.Id && e.Year == yearInt && e.Week == week)) {
+                            //    newStudentPopulation = dataContext.StudentPopulation.FirstOrDefault(e => e.School.Id == newSchool.Id && e.Year == yearInt && e.Week == week);
+                            //}
+                            //else {
+                            //    newStudentPopulation = new StudentPopulation();
+                            //    newStudentPopulation.Status = StudentPopulationStatus.Approved;
+                            //    newStudentPopulation.School = newSchool;
+                            //    newStudentPopulation.Year = yearInt;
+                            //    newStudentPopulation.Week = week;
+                            //    newStudentPopulation.WeekDate = weekDate;
+                            //    newStudentPopulation.Remark = "匯入";
+                            //    newStudentPopulation.Name = string.Format("{0}-{1}年度-{2}週-人數表", newSchool.Name, year, week.ToString("00"));
+                            //    dataContext.StudentPopulation.Add(newStudentPopulation);
+                            //    dataContext.SaveChanges();
+                            //}
+                            //if(newStudentPopulation.Items.HasValue() && newStudentPopulation.Items.Count () > 0) {
+                            //    dataContext.StudentPopulationItem.RemoveRange(dataContext.StudentPopulationItem.Where(e => e.StudentPopulation.Id == newStudentPopulation.Id).ToList());
+                            //    dataContext.SaveChanges();
+                            //}
+                            //newStudentPopulation.Items = new List<StudentPopulationItem>(); 
+
+
+
                             for (int drNo = 4; drNo < rowCount; drNo++) {
                                 try {
-                                    ////取得週別
-                                    //if (sheet.GetRow(drNo).Cells[0].HasValue() && !string.IsNullOrEmpty(sheet.GetRow(drNo).Cells[0].ToString())) {
-                                    //    try {
-                                    //        week = int.Parse(sheet.GetRow(drNo).Cells[0].ToString());
-                                    //    }
-                                    //    catch {
-                                    //        continue;
-                                    //    }
 
-                                    //}
-                                    //else {
+                                    //取得週別
+                                    if (sheet.GetRow(4).Cells[0].HasValue() && !string.IsNullOrEmpty(sheet.GetRow(4).Cells[0].ToString())) {
+                                        try {
+                                            week = int.Parse(sheet.GetRow(4).Cells[0].ToString());
+                                        }
+                                        catch {
+                                            continue;
+                                        }
 
-                                    //}
-                                    ////取得週日期
-                                    //if (sheet.GetRow(drNo).Cells[1].HasValue() && !string.IsNullOrEmpty(sheet.GetRow(drNo).Cells[0].ToString())) {
-                                    //    weekDate = DateTime.Parse(string.Format("{0}/{1}", year, sheet.GetRow(drNo).Cells[1].ToString()));
-                                    //}
+                                    }
+                                    else {
 
-                                    ////增加人數表主表
-                                    //StudentPopulation newStudentPopulation = new StudentPopulation();
-                                    //if(dataContext.StudentPopulation.Any(e => e.School.Id == newSchool.Id && e.Year == yearInt && e.Week == week)) {
-                                    //    newStudentPopulation = dataContext.StudentPopulation.FirstOrDefault(e => e.School.Id == newSchool.Id && e.Year == yearInt && e.Week == week);
-                                    //}
-                                    //else {
-                                    //    newStudentPopulation = new StudentPopulation();
-                                    //    newStudentPopulation.Status = StudentPopulationStatus.Approved;
-                                    //    newStudentPopulation.School = newSchool;
-                                    //    newStudentPopulation.Year = yearInt;
-                                    //    newStudentPopulation.Week = week;
-                                    //    newStudentPopulation.WeekDate = weekDate;
-                                    //    newStudentPopulation.Remark = "匯入";
-                                    //    newStudentPopulation.Name = string.Format("{0}-{1}年度-{2}週-人數表", newSchool.Name, year, week.ToString("00"));
-                                    //    dataContext.StudentPopulation.Add(newStudentPopulation);
-                                    //    dataContext.SaveChanges();
-                                    //}
+                                    }
+                                    //取得週日期
+                                    if (sheet.GetRow(drNo).Cells[1].HasValue() && !string.IsNullOrEmpty(sheet.GetRow(drNo).Cells[0].ToString())) {
+                                        weekDate = DateTime.Parse(string.Format("{0}/{1}", year, sheet.GetRow(drNo).Cells[1].ToString()));
+                                    }
 
+                                    //增加人數表主表
+                                    StudentPopulation newStudentPopulation = new StudentPopulation();
+                                    if (dataContext.StudentPopulation.Any(e => e.School.Id == newSchool.Id && e.Year == yearInt && e.Week == week)) {
+                                        newStudentPopulation = dataContext.StudentPopulation.FirstOrDefault(e => e.School.Id == newSchool.Id && e.Year == yearInt && e.Week == week);
+                                    }
+                                    else {
+                                        newStudentPopulation = new StudentPopulation();
+                                        newStudentPopulation.Status = StudentPopulationStatus.Approved;
+                                        newStudentPopulation.School = newSchool;
+                                        newStudentPopulation.Year = yearInt;
+                                        newStudentPopulation.Week = week;
+                                        newStudentPopulation.WeekDate = weekDate;
+                                        newStudentPopulation.Remark = "匯入";
+                                        newStudentPopulation.Name = string.Format("{0}-{1}年度-{2}週-人數表", newSchool.Name, year, week.ToString("00"));
+                                        dataContext.StudentPopulation.Add(newStudentPopulation);
+                                        dataContext.SaveChanges();
+                                    }
+                                    if (newStudentPopulation.Items.HasValue() && newStudentPopulation.Items.Count() > 0) {
+                                        dataContext.StudentPopulationItem.RemoveRange(dataContext.StudentPopulationItem.Where(e => e.StudentPopulation.Id == newStudentPopulation.Id).ToList());
+                                        dataContext.SaveChanges();
+                                    }
+                                    newStudentPopulation.Items = new List<StudentPopulationItem>();
 
                                     //取得班別
                                     ClassType cType = new ClassType();
