@@ -114,6 +114,6 @@ namespace PHStatistics.Content {
         /// 上週人數
         /// </summary>
         [Display(Name = "上週人數"), DataMember]
-        public bool LastWeekNumber { get; set; }
+        public int LastWeekNumber { get; set; }
     }
 }
