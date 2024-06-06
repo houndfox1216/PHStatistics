@@ -75,6 +75,16 @@ public partial class DataContext {
     /// </summary>
     public DbSet<UrlSegment> UrlSegment { get; set; }
 
+    /// <summary>
+    /// 人數表Log
+    /// </summary>
+    public DbSet<StudentPopulationItemLog> StudentPopulationItemLog { get; set; }
+
+    /// <summary>
+    /// 學年度
+    /// </summary>
+    public DbSet<SchoolYear> SchoolYear { get; set; }
+
     #endregion
 
     /// <summary>
@@ -100,6 +110,7 @@ public partial class DataContext {
         modelBuilder.Entity<Class>().HasOne(e => e.Course).WithMany().HasForeignKey(e => e.CourseId);
         modelBuilder.Entity<StudentPopulation>().HasOne(e => e.School).WithMany().HasForeignKey(e => e.SchoolId);
         modelBuilder.Entity<StudentPopulation>().HasMany(e => e.Items).WithOne(e => e.StudentPopulation).HasForeignKey(e => e.StudentPopulationId).OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<StudentPopulation>().HasMany(e => e.ItemsLog).WithOne(e => e.StudentPopulation).HasForeignKey(e => e.StudentPopulationId).OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<StudentPopulationItem>().HasOne(e => e.Class).WithMany().HasForeignKey(e => e.ClassId);
         //modelBuilder.Entity<StudentPopulationItem>().HasOne(e => e.StudentPopulation).WithMany().HasForeignKey(e => e.StudentPopulationId);
 
