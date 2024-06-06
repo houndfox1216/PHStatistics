@@ -1,0 +1,42 @@
+﻿@using PHStatistics.Content
+@{
+    List<SchoolAssignment> schools = new List<SchoolAssignment>();
+    if(ViewBag.Schools != null) {
+        schools = (List<SchoolAssignment>)ViewBag.Schools;
+    }
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center mb-6">
+        <div class="col-12 col-sm-10 col-md-8 col-xl-6">
+            <div class="mt-3 mb-4">
+                @if (schools != null) {
+                    <label for="">
+                        分校 <small class="text-primary">＊必填</small>
+                    </label>
+                    <select class="form-select validate[required]" id="schoolSelect">
+                        <option selected disabled>選擇分校</option>
+                        @foreach (SchoolAssignment assignment in schools) {
+                            <option value=@assignment.School.Id>@assignment.School.Name</option>
+                        }
+                    </select>
+                }
+            </div>
+            <div class="">
+                <button type="button" class="btn btn-primary btn-lg btn-round" id="addBtn">
+                    開始輸入 <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () { 
+        $('#addBtn').on('click', function () {
+            //alert($('#schoolSelect').val());
+            var location = "/StudentPopulation/CreatePopulation?schoolId=" + $('#schoolSelect').val();
+            window.location.href = location;
+        })
+    })
+
+</script>

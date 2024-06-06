@@ -81,8 +81,9 @@ namespace PHStatistics.Portal.Models {
         /// <summary>
         /// 變更目前用戶的密碼
         /// </summary>
-        /// <param name="oldPassword">舊密碼</param>
-        /// <param name="newPassword">新密碼</param>
+        /// <param name="SchoolId">分校代碼</param>
+        /// <param name="year">學年度</param>
+        /// <param name="week">週次</param>
         /// <returns></returns>
         public StudentPopulation GetStudentPopulation(int SchoolId, int year, int week) {
             return DataContext.StudentPopulation.Include("Items.Class.Course").Where(e => e.School.Id == SchoolId && e.Year == year && e.Week == week).FirstOrDefault();
