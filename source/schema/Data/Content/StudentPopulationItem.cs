@@ -111,9 +111,9 @@ namespace PHStatistics.Content {
         public bool IsNew { get; set; }
 
         /// <summary>
-        /// 新增項目
+        /// 上週人數
         /// </summary>
-        [Display(Name = "新增項目"), DataMember, NotMapped]
+        [Display(Name = "上週人數"), DataMember]
         public bool LastWeekNumber { get; set; }
     }
 }
