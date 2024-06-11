@@ -6,10 +6,10 @@
         schools = (List<SchoolAssignment>)ViewBag.Schools;
     }
     List<Course> courses = (List<Course>)ViewBag.Courses;
-    StudentPopulation studentPopulation = (StudentPopulation)ViewBag.LastWeekData;
+    int itemRowNo = 0;
 }
 @foreach (Course cItem in courses) {
-    if (studentPopulation.Items.Any(e => e.Class.Course.Id == cItem.Id)) {
+    if (Model.Items.Any(e => e.Class.Course.Id == cItem.Id)) {
         <div class="row mx-0">
             <div class="col-2 mb-3">
                 <label>
@@ -17,17 +17,20 @@
                 </label>
             </div>
             <div class="col-2 mb-3">
-                <button type="button" class="btn btn-primary btn-sm btn-round" id="add-@cItem.Id" onclick="addClass(@cItem.Id)">
+                <button type="button" class="btn btn-primary btn-sm btn-round" id="add-@cItem.Id" onclick="addClassItem(@cItem.Id)">
                     +
                 </button>
             </div>
         </div>
         <div class="row mx-0">
             <div class="col-2 mb-3">
-                班級名稱
+                系統班級名稱
             </div>
             <div class="col-2 mb-3">
-                類別
+                班別
+            </div>
+            <div class="col-2 mb-3">
+                分校班級名稱
             </div>
             <div class="col-2 mb-3">
                 上週人數
@@ -39,24 +42,43 @@
                 學生備註
             </div>
         </div>
-        foreach (StudentPopulationItem sItem in studentPopulation.Items.Where(e => e.Class.Course.Id == cItem.Id)) {
+        foreach (StudentPopulationItem sItem in Model.Items.Where(e => e.Class.Course.Id == cItem.Id)) {
             <div class="row mx-0">
                 <div class="col-2 mb-3">
-                    <input type="text" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Name">
+                    <input type="hidden" class="form-control" name="Items[@itemRowNo].ClassId" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Id">
+                    <input type="text" class="form-control" name="Items[@itemRowNo].Class.Id" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Name">
                 </div>
                 <div class="col-2 mb-3">
-                    <input type="text" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Name">
+                    <select class="form-select validate[required]" id="class_type_@sItem.Class.Id.ToString()">
+                        <option selected disabled>選擇班別</option>
+                        @if (sItem.Class.Type == ClassType.Personal) {
+                            <option value=1 selected="selected">三</option>
+                        }
+                        else {
+                            <option value=1>三</option>
+                        }
+                        @if (sItem.Class.Type == ClassType.SubGroup) {
+                            <option value=2 selected="selected">小</option>
+                        }
+                        else {
+                            <option value=2>小</option>
+                        }                      
+                    </select>
                 </div>
                 <div class="col-2 mb-3">
-                    @sItem.Number
+                    <input type="text" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.SchoolName">
                 </div>
                 <div class="col-2 mb-3">
-                    <input type="number" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()_count" value="@sItem.Number">
+                    @sItem.LastWeekNumber
                 </div>
                 <div class="col-2 mb-3">
-                    <input type="text" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()_remark" value="@sItem.StudentRemark">
+                    <input type="number" class="form-control" placeholder="請輸入人數" name="Items[@itemRowNo].Number" id="class_@sItem.Class.Id.ToString()_count" value="@sItem.Number" data-course="@cItem.Id" data-class="@sItem.Class.Id">
+                </div>
+                <div class="col-2 mb-3">
+                    <input type="text" class="form-control" placeholder="" name="Items[@itemRowNo].StudentRemark" id="class_@sItem.Class.Id.ToString()_remark" value="@sItem.StudentRemark">
                 </div>
             </div>
+            itemRowNo++;
         }
     }
 }

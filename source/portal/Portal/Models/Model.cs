@@ -86,7 +86,18 @@ namespace PHStatistics.Portal.Models {
         /// <param name="week">週次</param>
         /// <returns></returns>
         public StudentPopulation GetStudentPopulation(int SchoolId, int year, int week) {
-            return DataContext.StudentPopulation.Include("Items.Class.Course").Where(e => e.School.Id == SchoolId && e.Year == year && e.Week == week).FirstOrDefault();
+            return DataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").Where(e => e.School.Id == SchoolId && e.Year == year && e.Week == week).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// 變更目前用戶的密碼
+        /// </summary>
+        /// <param name="SchoolId">分校代碼</param>
+        /// <param name="year">學年度</param>
+        /// <param name="week">週次</param>
+        /// <returns></returns>
+        public StudentPopulation GetLastStudentPopulation(int SchoolId, int year) {
+            return DataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").Where(e => e.School.Id == SchoolId && e.Year == year).OrderByDescending(e => e.Year).OrderByDescending(e => e.Week).FirstOrDefault();
         }
     }
 }
