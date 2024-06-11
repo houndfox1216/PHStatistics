@@ -61,6 +61,12 @@ namespace PHStatistics.Content {
         public int? Year { get; set; }
 
         /// <summary>
+        /// 西元年
+        /// </summary>
+        [Display(Name = "西元年"), DataMember]
+        public int? ADYear { get; set; }
+
+        /// <summary>
         /// 週次
         /// </summary>
         [Display(Name = "週次"), DataMember]
