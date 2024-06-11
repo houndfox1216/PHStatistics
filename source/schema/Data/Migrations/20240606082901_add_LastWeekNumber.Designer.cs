@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PHStatistics;
 
@@ -11,9 +12,11 @@ using PHStatistics;
 namespace PHStatistics.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240606082901_add_LastWeekNumber")]
+    partial class add_LastWeekNumber
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -834,8 +837,8 @@ namespace PHStatistics.Migrations
                     b.Property<short>("DataMode")
                         .HasColumnType("smallint");
 
-                    b.Property<int>("LastWeekNumber")
-                        .HasColumnType("int");
+                    b.Property<bool>("LastWeekNumber")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasMaxLength(128)

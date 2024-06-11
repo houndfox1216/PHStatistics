@@ -7,14 +7,13 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PHStatistics.Content {
     /// <summary>
-    /// 人數表項目
+    /// 學年度資料
     /// </summary>
-    [Description("人數表項目"), DataContract(IsReference = true)]
-    public class StudentPopulationItem : IEntityData, IOperability {
+    [Description("學年度資料"), DataContract(IsReference = true)]
+    public class SchoolYear : IEntityData, IOperability {
         #region IEntityData 成員
 
         object IEntityData.Id { get { return Id; } }
@@ -46,7 +45,7 @@ namespace PHStatistics.Content {
         /// 識別碼
         /// </summary>
         [Display(Name = "識別碼"), DataMember]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// 名稱
@@ -56,64 +55,35 @@ namespace PHStatistics.Content {
         public string Name { get; set; }
 
         /// <summary>
-        /// 分校名稱
+        /// 學年度
         /// </summary>
-        [Display(Name = "分校名稱"), DataMember]
-        [MaxLength(128)]
-        public string SchoolName { get; set; }
+        [Display(Name = "學年度"), DataMember]
+        public int? Year { get; set; }
 
         /// <summary>
-        /// 人數表識別碼
+        /// 週次
         /// </summary>
-        [Display(Name = "人數表識別碼"), DataMember]
-        public long StudentPopulationId { get; set; }
+        [Display(Name = "週次"), DataMember]
+        public int? Week { get; set; }
 
         /// <summary>
-        /// 人數表資料
+        /// 週次起始日
         /// </summary>
-        [Display(Name = "人數表資料"), DataMember]
-        public StudentPopulation StudentPopulation { get; set; }
+        [Display(Name = "週次起始日"), DataMember]
+        public DateTime WeekStartDate { get; set; }
 
         /// <summary>
-        /// 班級資料識別碼
+        /// 週次起始日
         /// </summary>
-        [Display(Name = "班級資料識別碼"), DataMember]
-        public int? ClassId { get; set; }
-
-        /// <summary>
-        /// 班級
-        /// </summary>
-        [Display(Name = "班級"), DataMember]
-        public Class Class { get; set; }
-
-        /// <summary>
-        /// 人數
-        /// </summary>
-        [Display(Name = "人數"), DataMember]
-        public int Number { get; set; }
+        [Display(Name = "週次起始日"), DataMember]
+        public DateTime WeekEndDate { get; set; }
 
         /// <summary>
         /// 備註
         /// </summary>
         [Display(Name = "備註"), DataMember]
+        [MaxLength(128)]
         public string Remark { get; set; }
-
-        /// <summary>
-        /// 學生備註
-        /// </summary>
-        [Display(Name = "學生備註"), DataMember]
-        public string StudentRemark { get; set; }
-
-        /// <summary>
-        /// 新增項目
-        /// </summary>
-        [Display(Name = "新增項目"), DataMember, NotMapped]
-        public bool IsNew { get; set; }
-
-        /// <summary>
-        /// 上週人數
-        /// </summary>
-        [Display(Name = "上週人數"), DataMember]
-        public int LastWeekNumber { get; set; }
     }
 }
+

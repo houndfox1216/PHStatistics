@@ -80,7 +80,10 @@ public partial class DataContext {
     /// </summary>
     public DbSet<StudentPopulationItemLog> StudentPopulationItemLog { get; set; }
 
-    
+    /// <summary>
+    /// 學年度
+    /// </summary>
+    public DbSet<SchoolYear> SchoolYear { get; set; }
 
     #endregion
 
