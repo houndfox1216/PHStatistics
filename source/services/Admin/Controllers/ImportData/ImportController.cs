@@ -812,5 +812,40 @@ namespace PHStatistics.Services.Admin.Controllers.ImportData {
                 return Json(ResponseStatus.InternalServerError, e, "系統忙碌中，請稍後再試");
             }
         }
+
+        /// <summary>
+        /// 匯入人數資料
+        /// </summary>
+        /// <param name="keyword">關鍵字</param>
+        /// <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        [HttpGet("CreatSchoolYear")]
+        [Produces("application/json", Type = typeof(JsonResponse<ResponseStatus, LoadResult>))]
+        public JsonResponse CreatSchoolYear(int? year) {
+            try {
+                DataContext dataContext = new DataContext();
+                if(year == null) {
+                    year = DateTime.UtcNow.ToTaipeiTime().Year;
+                }
+                DateTime sDate = DateTime.UtcNow;
+                sDate = DateTime.UtcNow.ToTaipeiTime().GetFirstDayOfTheYear();
+                sDate = DateTime.UtcNow.ToTaipeiTime().GetFirstDayOfTheYear().GetFirstDayOfTheWeek().AddDays(1);
+                int week = (int)sDate.DayOfWeek;
+                for (int i = 1; i < 53; i++) {
+                    if(dataContext.SchoolYear.Any(e =>e.Year == year && e.Week == i)) {
+                        continue;
+                    }
+                    else {
+                        SchoolYear newItem = new SchoolYear();
+                        newItem.Year = year;
+                        newItem.Week = i;
+                        newItem.WeekStartDate = sDate;
+                    }
+                }
+                
+            }catch (Exception ex) {
+                Logger.LogError(ex);
+            }
+            return Json(ResponseStatus.OK);
+        }
     }
 }
