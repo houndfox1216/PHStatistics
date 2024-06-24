@@ -823,26 +823,29 @@ namespace PHStatistics.Services.Admin.Controllers.ImportData {
         public JsonResponse CreatSchoolYear(int? year) {
             try {
                 DataContext dataContext = new DataContext();
-                if(year == null) {
+                if (year == null) {
                     year = DateTime.UtcNow.ToTaipeiTime().Year;
                 }
-                DateTime sDate = DateTime.UtcNow;
-                sDate = DateTime.UtcNow.ToTaipeiTime().GetFirstDayOfTheYear();
-                sDate = DateTime.UtcNow.ToTaipeiTime().GetFirstDayOfTheYear().GetFirstDayOfTheWeek().AddDays(1);
-                int week = (int)sDate.DayOfWeek;
-                for (int i = 1; i < 53; i++) {
-                    if(dataContext.SchoolYear.Any(e =>e.Year == year && e.Week == i)) {
+                DateTime sDate = new DateTime(year.Value, 7, 1);
+                DateTime eDate = new DateTime(year.Value + 1, 6, 30);
+                sDate = sDate.GetEndTimeOfTheWeek();
+                int week = 1;
+                while (sDate < eDate)
+                    if (dataContext.SchoolYear.Any(e => e.Year == year - 1911 && e.Week == week)) {
                         continue;
                     }
                     else {
                         SchoolYear newItem = new SchoolYear();
-                        newItem.Year = year;
-                        newItem.Week = i;
+                        newItem.Year = year - 1911;
+                        newItem.ADYear = sDate.Year;
+                        newItem.Week = week;
                         newItem.WeekStartDate = sDate;
+                        newItem.WeekEndDate = sDate.AddDays(7);
+                        sDate = sDate.AddDays(7);
+                        week++;
                     }
-                }
-                
-            }catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 Logger.LogError(ex);
             }
             return Json(ResponseStatus.OK);
