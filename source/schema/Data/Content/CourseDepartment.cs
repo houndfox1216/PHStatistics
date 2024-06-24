@@ -48,6 +48,12 @@ namespace PHStatistics.Content {
         public int Id { get; set; }
 
         /// <summary>
+        /// 學科
+        /// </summary>
+        [Display(Name = "學科"), DataMember]
+        public CourseSubject? Subject { get; set; }
+
+        /// <summary>
         /// 名稱
         /// </summary>
         [Display(Name = "名稱"), DataMember]
@@ -59,5 +65,11 @@ namespace PHStatistics.Content {
         /// </summary>
         [Display(Name = "排列順序"), DataMember]
         public int Ordinal { get; set; }
+
+        /// <summary>
+        /// 加總
+        /// </summary>
+        [Display(Name = "加總"), DataMember]
+        public bool IsSum { get; set; }
     }
 }
