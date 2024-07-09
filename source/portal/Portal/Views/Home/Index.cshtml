@@ -1,26 +1,28 @@
 ﻿@{
     List<BannerPosition> positions = ViewBag.BannerPositions;
+    bool canEdit = (bool)ViewBag.CanEdit;
 }
 
 <div class="container py-5">
     <div class="row justify-content-center mb-6">
         <div class="col-12 col-sm-10 col-md-8 col-xl-6">
-                @if (ViewBag.ErrorMessage != null) {
+            @if (ViewBag.ErrorMessage != null) {
                 <div class="mt-3 mb-3 content">
-                        <button type="button" class="btn btn-primary btn-lg btn-round">
-                            @ViewBag.ErrorMessage
-                        </button>
-                    </div>
-                }
-                <div class="mt-3 mb-4">
+                    <button type="button" class="btn btn-primary btn-lg btn-round">
+                        @ViewBag.ErrorMessage
+                    </button>
+                </div>
+            }
+            <div class="mt-3 mb-4">
+                @if (canEdit) {
                     <button type="button" class="btn btn-primary btn-lg btn-round" id="addNew">
                         輸入資料
                     </button>
-
+                }
                 <button type="button" class="btn btn-primary btn-lg btn-round" id="query">
-                        查詢資料
-                    </button>
-                </div>
+                    查詢資料
+                </button>
+            </div>
 
         </div>
     </div>

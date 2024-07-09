@@ -8,8 +8,16 @@ using System.IO;
 using System.Reflection;
 using PHStatistics.Portal.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Framework.Logging;
+using PHStatistics.Content;
+using System.Linq;
+using System.Framework.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Nest;
+using FluentFTP.Helpers;
 
 using Environment = System.Framework.Environment;
+using System.Framework.Data;
 
 namespace PHStatistics.Portal.Controllers {
     [Route("/")]
@@ -17,6 +25,11 @@ namespace PHStatistics.Portal.Controllers {
         [Route("")]
         [Authorize(typeof(PortalUser))]
         public IActionResult Index() {
+            DataContext dataContext = new DataContext();
+            //取得維護年度週次
+            DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
+            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.WeekEndDate >= dateTime).FirstOrDefault();
+            ViewBag.CanEdit = schoolYear != null;
             ViewBag.Title = "Home Page".ToI18n(Culture.GetCode());
             ViewBag.BannerPositions = new List<BannerPosition>();
             ViewBag.BannerPositions.Add(Model.BannerPosition.FindByCode("Home.Slider"));

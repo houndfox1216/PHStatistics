@@ -97,7 +97,7 @@ namespace PHStatistics.Portal.Models {
         /// <param name="week">週次</param>
         /// <returns></returns>
         public StudentPopulation GetLastStudentPopulation(int SchoolId, int year) {
-            return DataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").Where(e => e.School.Id == SchoolId && e.Year == year).OrderByDescending(e => e.Year).OrderByDescending(e => e.Week).FirstOrDefault();
+            return DataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").Where(e => e.School.Id == SchoolId && e.Year == year ).OrderByDescending(e => e.Year).OrderByDescending(e => e.Week).FirstOrDefault();
         }
     }
 }

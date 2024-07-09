@@ -6,16 +6,68 @@
         schools = (List<SchoolAssignment>)ViewBag.Schools;
     }
     List<Course> courses = (List<Course>)ViewBag.Courses;
+    int yearStr = (int)ViewBag.Year;
+    int weekStr = (int)ViewBag.Week;
 }
 
 <section>
     <div class="py-5 bg-lightbg">
         <div class="container mb-3">
             <form action="/StudentPopulation/CreatePopulation" method="post" role="form" id="formPopulation">
-                <fieldset class="mb-3">人數表輸入</fieldset>
+                <fieldset class="center"><h1>@yearStr 年第 @weekStr 週人數表輸入</h1></fieldset>
                 <input type="hidden" name="SchoolId" id="SchoolId" value="@Model.School.Id" />
                 <input type="hidden" name="Week" id="Week" value="@Model.Week" />
                 <input type="hidden" name="Name" id="Name" value="@Model.Name" />
+                <div class="row mx-0" style="background-color:#b2dd6e">
+                    <div class="col-2 mb-3">
+                        課程名稱
+                    </div>
+                    <div class="col-2 mb-3">
+                        班別
+                    </div>
+                    <div class="col-2 mb-3">
+                        分校班級名稱
+                    </div>
+                    <div class="col-2 mb-3">
+                        本週人數
+                    </div>
+                    <div class="col-2 mb-3">
+                        學生備註
+                    </div>
+                    <div class="col-2 mb-3">
+                    </div>
+                </div>
+                <div class="row mx-0" style="background-color:#b2dd6e">
+                    <div class="col-2 mb-3">
+                        <select class="form-select" id="new_courses">
+                            <option selected disabled>選擇課程</option>
+                            @foreach (Course cItem in courses.Where(e => e.IsSum == false)) {
+                                <option value=@cItem.Id>@cItem.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-2 mb-3">
+                        <select class="form-select validate[required]" id="new_class_type">
+                            <option selected selected="selected">選擇班別</option>
+                            <option value=1>三</option>
+                            <option value=2>小</option>
+                        </select>
+                    </div>
+                    <div class="col-2 mb-3">
+                        <input type="text" class="form-control" placeholder="" id="new_class_name" value="">
+                    </div>
+                    <div class="col-2 mb-3">
+                        <input type="number" class="form-control" placeholder="請輸入人數" name="new_number" id="new_number" value="0">
+                    </div>
+                    <div class="col-2 mb-3">
+                        <input type="text" class="form-control" placeholder="" name="new_studentremark" id="new_studentremark" value="">
+                    </div>
+                    <div class="col-2 mb-3">
+                        <button type="button" class="btn btn-primary btn-sm btn-round" id="add-new" onclick="addNewClassItem()">
+                            +
+                        </button>
+                    </div>
+                </div>
                 @*                 <div id="formContent">
                 @await Html.PartialAsync("PopulationPartialView", Model)
                 </div> *@
@@ -25,58 +77,58 @@
                 <div id="contentItem">
                     @await Html.PartialAsync("PopulationPartialView", Model)
                     @* @foreach (Course cItem in courses) {
-                        if (Model.Items.Any(e => e.Class.Course.Id == cItem.Id)) {
-                            <div class="row mx-0">
-                                <div class="col-2 mb-3">
-                                    <label>
-                                        @cItem.Name
-                                    </label>
-                                </div>
-                                <div class="col-2 mb-3">
-                                    <button type="button" class="btn btn-primary btn-sm btn-round" id="add-@cItem.Id" onclick="addClassItem(@cItem.Id)">
-                                        +
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="row mx-0">
-                                <div class="col-2 mb-3">
-                                    班級名稱
-                                </div>
-                                <div class="col-2 mb-3">
-                                    類別
-                                </div>
-                                <div class="col-2 mb-3">
-                                    上週人數
-                                </div>
-                                <div class="col-2 mb-3">
-                                    本週人數
-                                </div>
-                                <div class="col-2 mb-3">
-                                    學生備註
-                                </div>
-                            </div>
-                            foreach (StudentPopulationItem sItem in Model.Items.Where(e => e.Class.Course.Id == cItem.Id)) {
-                                <div class="row mx-0">
-                                    <div class="col-2 mb-3">
-                                        <input type="hidden" class="form-control" name="Items[@itemRowNo].ClassId" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Id">
-                                        <input type="text" class="form-control" name="Items[@itemRowNo].Class.Id" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Name">
-                                    </div>
-                                    <div class="col-2 mb-3">
-                                        <input type="text" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Name">
-                                    </div>
-                                    <div class="col-2 mb-3">
-                                        @sItem.Number
-                                    </div>
-                                    <div class="col-2 mb-3">
-                                        <input type="number" class="form-control" placeholder="請輸入人數" name="Items[@itemRowNo].Number" id="class_@sItem.Class.Id.ToString()_count" value="@sItem.Number" data-course="@cItem.Id" data-class="@sItem.Class.Id">
-                                    </div>
-                                    <div class="col-2 mb-3">
-                                        <input type="text" class="form-control" placeholder="" name="Items[@itemRowNo].StudentRemark" id="class_@sItem.Class.Id.ToString()_remark" value="@sItem.StudentRemark">
-                                    </div>
-                                </div>
-                                itemRowNo++;
-                            }
-                        }
+                    if (Model.Items.Any(e => e.Class.Course.Id == cItem.Id)) {
+                    <div class="row mx-0">
+                    <div class="col-2 mb-3">
+                    <label>
+                    @cItem.Name
+                    </label>
+                    </div>
+                    <div class="col-2 mb-3">
+                    <button type="button" class="btn btn-primary btn-sm btn-round" id="add-@cItem.Id" onclick="addClassItem(@cItem.Id)">
+                    +
+                    </button>
+                    </div>
+                    </div>
+                    <div class="row mx-0">
+                    <div class="col-2 mb-3">
+                    班級名稱
+                    </div>
+                    <div class="col-2 mb-3">
+                    類別
+                    </div>
+                    <div class="col-2 mb-3">
+                    上週人數
+                    </div>
+                    <div class="col-2 mb-3">
+                    本週人數
+                    </div>
+                    <div class="col-2 mb-3">
+                    學生備註
+                    </div>
+                    </div>
+                    foreach (StudentPopulationItem sItem in Model.Items.Where(e => e.Class.Course.Id == cItem.Id)) {
+                    <div class="row mx-0">
+                    <div class="col-2 mb-3">
+                    <input type="hidden" class="form-control" name="Items[@itemRowNo].ClassId" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Id">
+                    <input type="text" class="form-control" name="Items[@itemRowNo].Class.Id" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Name">
+                    </div>
+                    <div class="col-2 mb-3">
+                    <input type="text" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Name">
+                    </div>
+                    <div class="col-2 mb-3">
+                    @sItem.Number
+                    </div>
+                    <div class="col-2 mb-3">
+                    <input type="number" class="form-control" placeholder="請輸入人數" name="Items[@itemRowNo].Number" id="class_@sItem.Class.Id.ToString()_count" value="@sItem.Number" data-course="@cItem.Id" data-class="@sItem.Class.Id">
+                    </div>
+                    <div class="col-2 mb-3">
+                    <input type="text" class="form-control" placeholder="" name="Items[@itemRowNo].StudentRemark" id="class_@sItem.Class.Id.ToString()_remark" value="@sItem.StudentRemark">
+                    </div>
+                    </div>
+                    itemRowNo++;
+                    }
+                    }
                     } *@
                 </div>
                 <div>
@@ -117,12 +169,14 @@
         var week = @Model.Week;
         var testArr = [];
         var classData = document.querySelectorAll('[data-course]');
-        for (var i = 0; i < classData.length; i++) {
-            var classItem = classData[i];
-            var typeSelect = document.getElementById("class_type_" + classItem.dataset.class);
-            console.log(typeSelect);
-            console.log(typeSelect.value);
-            testArr.push([classItem.dataset.course, classItem.dataset.class, classItem.value]);
+        if (classData && classData.length > 0) {
+            for (var i = 0; i < classData.length; i++) {
+                var classItem = classData[i];
+                var typeSelect = document.getElementById("class_type_" + classItem.dataset.class);
+                console.log(typeSelect);
+                console.log(typeSelect.value);
+                testArr.push([classItem.dataset.course, classItem.dataset.class, classItem.value]);
+            }
         }
         // $.post("demo_ajax_gethint.asp", { 'schoolId': schoolId, 'courseId': cId, 'week': week, 'year': year, 'itemArr': testArr }, function (result) {
         //     $("#contentItem").html(result);
@@ -131,10 +185,69 @@
             url: '@Url.Action("AddClass", "StudentPopulation")',
             cache: false,
             data: { 'schoolId': schoolId, 'courseId': cId, 'week': week, 'year': year, 'itemArr': testArr },
-           // dataType: 'application/json',
+            // dataType: 'application/json',
             type: 'POST',
             dataType: "html",
-            success: function (data) {                
+            success: function (data) {
+                $("#contentItem").html(data);
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+    function addNewClassItem() {
+        var schoolId = @Model.School.Id;
+        var year = @Model.Year;
+        var week = @Model.Week;
+        var newCourses = document.getElementById("new_courses");
+        var newClassType = document.getElementById("new_class_type");
+        var newClassName = document.getElementById("new_class_name");
+        var newNumber = document.getElementById("new_number");
+        var newStudentremark = document.getElementById("new_studentremark");
+        var itemArr = [];
+        var classData = document.querySelectorAll('[data-course]');
+        console.log('classData', classData);
+        if (classData && classData.length > 0){
+            for (var i = 0; i < classData.length; i++) {
+                var classItem = classData[i];
+                var typeSelect = document.getElementById("class_type_" + classItem.dataset.class);
+                console.log(typeSelect);
+                console.log(typeSelect.value);
+                itemArr.push([classItem.dataset.course, classItem.dataset.class, classItem.value]);
+            }
+        }
+
+        console.log('newCourses', newCourses.value);
+        console.log('newClassType', newClassType.value);
+        console.log('newClassName', newClassName.value);
+        console.log('newNumber', newNumber.value);
+        console.log('newStudentremark', newStudentremark.value);
+        console.log('itemArr', itemArr);
+        // $.ajax({
+        //     url: '@Url.Action("AddNewClass", "StudentPopulation")',
+        //     cache: false,
+        //     data: { 'schoolId': schoolId, 'courseId': newCourses.value, 'week': week, 'year': year, 'newClassType': newClassType, 'newClassName': newClassName, 'newNumber': newNumber, 'newStudentremark': newStudentremark },
+        //     // dataType: 'application/json',
+        //     type: 'POST',
+        //     dataType: "html",
+        //     success: function (data) {
+        //         $("#contentItem").html(data);
+        //     },
+        //     error: function () {
+
+        //     }
+        // });
+
+        $.ajax({
+            url: '@Url.Action("AddNewClass", "StudentPopulation")',
+            cache: false,
+            data: { 'schoolId': schoolId, 'courseId': newCourses.value, 'week': week, 'year': year, 'itemArr': itemArr, 'newClassType': newClassType.value, 'newClassName': newClassName.value, 'newNumber': newNumber.value, 'newStudentremark': newStudentremark.value },
+            // dataType: 'application/json',
+            type: 'POST',
+            dataType: "html",
+            success: function (data) {
                 $("#contentItem").html(data);
             },
             error: function () {
