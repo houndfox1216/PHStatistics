@@ -115,5 +115,11 @@ namespace PHStatistics.Content {
         /// </summary>
         [Display(Name = "上週人數"), DataMember]
         public int LastWeekNumber { get; set; }
+
+        /// <summary>
+        /// 加總項目
+        /// </summary>
+        [Display(Name = "加總項目"), DataMember]
+        public bool IsSum { get; set; }
     }
 }
