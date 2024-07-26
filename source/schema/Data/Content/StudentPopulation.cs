@@ -79,6 +79,12 @@ namespace PHStatistics.Content {
         public DateTime WeekDate { get; set; }
 
         /// <summary>
+        /// 類型
+        /// </summary>
+        [Display(Name = "類型"), DefaultValue(ClassType.Group), DataMember]
+        public StudentPopulationType Type { get; set; }
+
+        /// <summary>
         /// 名稱
         /// </summary>
         [Display(Name = "名稱"), DataMember]
@@ -146,5 +152,59 @@ namespace PHStatistics.Content {
         /// </summary>
         [Display(Name = "使用者(確認者)"), DataMember]
         public User Confirmer { get; set; }
+
+        #region 統計
+       
+
+        /// <summary>
+        ///  本周英文人數
+        /// </summary>
+        [Display(Name = "本周英文人數"), DataMember]
+        public int ThisWeekEnglishCount { get; set; }
+        /// <summary>
+        ///  上週英文人數
+        /// </summary>
+        [Display(Name = "上週英文人數"), DataMember]
+        public int LastWeekEnglishCount { get; set; }
+        /// <summary>
+        ///  本周國文人數
+        /// </summary>
+        [Display(Name = "本周國文人數"), DataMember]
+        public int ThisWeekChineseCount { get; set; }
+        /// <summary>
+        ///  上週國文人數
+        /// </summary>
+        [Display(Name = "上週國文人數"), DataMember]
+        public int LastWeekChineseCount { get; set; }
+        /// <summary>
+        ///  本周新增人數
+        /// </summary>
+        [Display(Name = "本周新增人數"), DataMember]
+        public int ThisWeekNewCount { get; set; }
+        /// <summary>
+        ///  上週流失人數
+        /// </summary>
+        [Display(Name = "上週流失人數"), DataMember]
+        public int LastWeekLostCount { get; set; }
+
+        /// <summary>
+        ///  本周總人數
+        /// </summary>
+        [Display(Name = "本周總人數"), DataMember]
+        public int ThisWeekCount { get; set; }
+
+        /// <summary>
+        ///  本周總班數
+        /// </summary>
+        [Display(Name = "本周總班數"), DataMember]
+        public int ThisWeekClassCount { get; set; }
+
+        /// <summary>
+        ///  本周總班數
+        /// </summary>
+        [Display(Name = "本周總班數"), DataMember]
+        public int TotalInquiryCount { get; set; }
+        
+        #endregion
     }
 }
