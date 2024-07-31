@@ -20,8 +20,10 @@
         <div class="row mx-0" style="background-color:@color">
             <div class="col-12 mb-3">
                 @if (cItem.IsSum) {
+                    StudentPopulationItem sumItem = Model.Items.Where(e => e.Class.Course.Id == cItem.Id).FirstOrDefault();
+                    string displayStr = string.Format("{0} {1} 人", cItem.Name, (sumItem != null ? sumItem.Number : 0).ToString());
                     <label>
-                        <h2>@cItem.Name</h2>
+                        <h2>@displayStr</h2>                        
                     </label>
                 }
                 else {

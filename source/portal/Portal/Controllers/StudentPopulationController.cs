@@ -11,6 +11,7 @@ using System.Framework.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Nest;
 using FluentFTP.Helpers;
+using NuGet.Configuration;
 
 namespace PHStatistics.Portal.Controllers {
     public class StudentPopulationController : MvcController<PortalUser, Model, Culture> {
@@ -83,30 +84,47 @@ namespace PHStatistics.Portal.Controllers {
                 returnData.WeekDate = schoolYear.WeekStartDate;
                 returnData.Items = new List<StudentPopulationItem>();
                 returnData.Submitter = dataContext.Member.Find(Guid.Parse(User.Id));
-                if(lastWeekData != null && lastWeekData.Items.Any()) {
-                    foreach (StudentPopulationItem sItem in lastWeekData.Items) {
-                        StudentPopulationItem newSItem = new StudentPopulationItem();
-                        newSItem.Class = sItem.Class;
-                        newSItem.Name = sItem.Name;
-                        newSItem.Number = sItem.Number;
-                        newSItem.LastWeekNumber = sItem.Number;
-                        newSItem.StudentRemark = sItem.StudentRemark;
-                        newSItem.Remark = sItem.Remark;
-                        newSItem.IsNew = false;
-                        returnData.Items.Add(newSItem);
-                    }
-                }
-                else {
-                    foreach(Course courseItem in dataContext.Course.Where(e => e.IsSum == true)) {
-                        StudentPopulationItem newSItem = new StudentPopulationItem();
-                        newSItem.Class = new Class() { Course = courseItem, Name = courseItem.Name };
-                        newSItem.Name = courseItem.Name;
-                        newSItem.Number = 0;
-                        newSItem.LastWeekNumber = 0;
-                        newSItem.IsNew = false;
-                        returnData.Items.Add(newSItem);
-                    }
-                }
+                //if(lastWeekData != null && lastWeekData.Items.Any()) {
+                //    foreach (StudentPopulationItem sItem in lastWeekData.Items) {
+                //        StudentPopulationItem newSItem = new StudentPopulationItem();
+                //        newSItem.Class = sItem.Class;
+                //        newSItem.Name = sItem.Name;
+                //        newSItem.Number = sItem.Number;
+                //        newSItem.LastWeekNumber = sItem.Number;
+                //        newSItem.StudentRemark = sItem.StudentRemark;
+                //        newSItem.Remark = sItem.Remark;
+                //        newSItem.IsNew = false;
+                //        returnData.Items.Add(newSItem);
+                //    }
+                //}
+                //else {
+                //    //新增總計欄位只新增班系及流失
+                //    Course course = dataContext.Course.FirstOrDefault(e => e.Id == 1);
+                //    StudentPopulationItem newSItem = new StudentPopulationItem();
+                //    Class sumClass = new Class();
+                //    if (dataContext.Class.Any(e => e.School.Id == schoolId && e.Course.Id == course.Id)) {
+                //        sumClass = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == course.Id);
+                //    }
+                //    else {
+                //        sumClass = new Class() { CourseId = 1, SchoolId = schoolId, Name = course.Name };
+                //    }
+                    
+                //    newSItem.Class = sumClass;
+                //    newSItem.Name = course.Name;
+                //    newSItem.Number = 0;
+                //    newSItem.LastWeekNumber = 0;
+                //    newSItem.IsNew = false;
+                //    returnData.Items.Add(newSItem);
+                //    //foreach(Course courseItem in dataContext.Course.Where(e => e.IsSum == true)) {
+                //    //    StudentPopulationItem newSItem = new StudentPopulationItem();
+                //    //    newSItem.Class = new Class() { Course = courseItem, Name = courseItem.Name };
+                //    //    newSItem.Name = courseItem.Name;
+                //    //    newSItem.Number = 0;
+                //    //    newSItem.LastWeekNumber = 0;
+                //    //    newSItem.IsNew = false;
+                //    //    returnData.Items.Add(newSItem);
+                //    //}
+                //}
                 dataContext.StudentPopulation.Add(returnData);
                 dataContext.SaveChanges();
             }
@@ -136,7 +154,7 @@ namespace PHStatistics.Portal.Controllers {
                     else {
                         continue;
                     }
-                }                
+                }
             }
             catch (Exception ex) {
                 string e = ex.Message;
@@ -175,6 +193,9 @@ namespace PHStatistics.Portal.Controllers {
             catch (Exception ex) {
                 string e = ex.Message;
             }
+
+            //檢查及加總
+            
             studentPopulationData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").Where(e => e.School.Id == schoolId && e.Year == year && e.Week == week).FirstOrDefault();// Model.GetStudentPopulation(schoolId, year, week);
             return PartialView("PopulationPartialView", studentPopulationData);
         }
@@ -243,6 +264,112 @@ namespace PHStatistics.Portal.Controllers {
                 addItem.StudentPopulation = null;
                 addItem.StudentPopulationId = studentPopulationData.Id;
                 dataContext.StudentPopulationItem.Add(addItem);
+                dataContext.SaveChanges();
+
+                //加總
+                //取得上周資料
+                StudentPopulation lastStudentPopulationData = dataContext.StudentPopulation.Include("Items").Where(e => e.School.Id == schoolId && week < studentPopulationData.Week).OrderByDescending(e => e.Id).FirstOrDefault();
+                List<StudentPopulationItem> lastsumItem = new List<StudentPopulationItem>();
+                if(lastStudentPopulationData != null && lastStudentPopulationData.HasValue()) {
+                    lastsumItem = dataContext.StudentPopulationItem.Include("Class.Course.Department").Where(e => e.StudentPopulationId == lastStudentPopulationData.Id).ToList();
+                }                
+                List<StudentPopulationItem> sumItem = dataContext.StudentPopulationItem.Include("Class.Course.Department").Where(e => e.StudentPopulationId == studentPopulationData.Id).ToList(); 
+                var departmentGroup = sumItem.GroupBy(e => new { e.Class.Course.Department.Id }).Select(group => new { depId = group.Key.Id });
+                int lastWeekCount = 0;
+                foreach ( var department in departmentGroup) {
+                    Course sumCourse = dataContext.Course.Where(e => e.Department.Id == department.depId && e.IsSum == true).FirstOrDefault();
+                    Class sumClass = new Class();
+                    if(dataContext.Class.Any(e => e.School.Id == schoolId && e.Course.Id == sumCourse.Id)) {
+                        sumClass = dataContext.Class.Include("Course.Department").Where(e => e.School.Id == schoolId && e.Course.Id == sumCourse.Id).FirstOrDefault();
+                    }
+                    else {
+                        sumClass = new Class() { SchoolId = schoolId, CourseId = sumCourse.Id, Name = sumCourse.Name };
+                        dataContext.Class.Add(sumClass);
+                        dataContext.SaveChanges();
+                    }
+                    //新增班系合計
+                    bool itemIsNew = true;
+                    StudentPopulationItem newSumItem = new StudentPopulationItem();
+                    if(dataContext.StudentPopulationItem.Any(e => e.Class.Id == sumClass.Id && e.StudentPopulation.Id == studentPopulationData.Id)) {
+                        itemIsNew = false;
+                        newSumItem = dataContext.StudentPopulationItem.Where(e => e.Class.Id == sumClass.Id && e.StudentPopulation.Id == studentPopulationData.Id).FirstOrDefault();
+                    }
+                    else {
+                        itemIsNew = true;
+                        newSumItem = new StudentPopulationItem();
+                    }
+                    newSumItem.ClassId = sumClass.Id;
+                    newSumItem.Name = sumClass.Name;
+                    newSumItem.Number = sumItem.Where(e => e.Class.Course.Department.Id == department.depId).Sum(e => e.Number);
+                    newSumItem.LastWeekNumber = lastsumItem.Count > 0 ? lastsumItem.Where(e => e.Class.Course.Department.Id == department.depId).Sum(e => e.Number) : 0;
+                    if (itemIsNew) {
+                        newSumItem.StudentPopulationId = studentPopulationData.Id;
+                        dataContext.StudentPopulationItem.Add(newSumItem);
+                    }
+                    dataContext.SaveChanges();
+                    
+                }
+                //新增英文合計
+                Course sumenCourse = dataContext.Course.Where(e => e.Department.Id == 163 && e.Department.Subject == CourseSubject.English && e.IsSum == true).FirstOrDefault();
+                Class sumenClass = new Class();
+                if (dataContext.Class.Any(e => e.School.Id == schoolId && e.Course.Id == sumenCourse.Id)) {
+                    sumenClass = dataContext.Class.Include("Course.Department").Where(e => e.School.Id == schoolId && e.Course.Id == sumenCourse.Id).FirstOrDefault();
+                }
+                else {
+                    sumenClass = new Class() { SchoolId = schoolId, CourseId = sumenCourse.Id, Name = sumenCourse.Name };
+                    dataContext.Class.Add(sumenClass);
+                    dataContext.SaveChanges();
+                }
+                bool sumItemIsNew = true;
+                StudentPopulationItem newEnSumItem = new StudentPopulationItem();
+                if (dataContext.StudentPopulationItem.Any(e => e.Class.Id == sumenClass.Id && e.StudentPopulation.Id == studentPopulationData.Id)) {
+                    sumItemIsNew = false;
+                    newEnSumItem = dataContext.StudentPopulationItem.Where(e => e.Class.Id == sumenClass.Id && e.StudentPopulation.Id == studentPopulationData.Id).FirstOrDefault();
+                }
+                else {
+                    sumItemIsNew = true;
+                    newEnSumItem = new StudentPopulationItem();
+                }
+                newEnSumItem.ClassId = sumenClass.Id;
+                newEnSumItem.Name = sumenClass.Name;
+                int[] departmentIds = dataContext.CourseDepartment.Where(p => p.Subject == CourseSubject.English && p.IsSum == false).Select(p => p.Id).ToArray();
+                newEnSumItem.Number = sumItem.Where(e => departmentIds.Contains(e.Class.Course.Department.Id)).Sum(e => e.Number);
+                newEnSumItem.LastWeekNumber = lastsumItem.Count > 0 ? lastsumItem.Where(e => e.Class.Id == sumenClass.Id).FirstOrDefault().Number : 0;
+                if (sumItemIsNew) {
+                    newEnSumItem.StudentPopulationId = studentPopulationData.Id;
+                    dataContext.StudentPopulationItem.Add(newEnSumItem);
+                }
+                dataContext.SaveChanges();
+                //新增國文合計
+                Course sumchCourse = dataContext.Course.Where(e => e.Department.Id == 169 && e.Department.Subject == CourseSubject.Chinese && e.IsSum == true).FirstOrDefault();
+                Class sumchClass = new Class();
+                if (dataContext.Class.Any(e => e.School.Id == schoolId && e.Course.Id == sumchCourse.Id)) {
+                    sumchClass = dataContext.Class.Include("Course.Department").Where(e => e.School.Id == schoolId && e.Course.Id == sumchCourse.Id).FirstOrDefault();
+                }
+                else {
+                    sumchClass = new Class() { SchoolId = schoolId, CourseId = sumchCourse.Id, Name = sumchCourse.Name };
+                    dataContext.Class.Add(sumchClass);
+                    dataContext.SaveChanges();
+                }
+                sumItemIsNew = true;
+                StudentPopulationItem newChSumItem = new StudentPopulationItem();
+                if (dataContext.StudentPopulationItem.Any(e => e.Class.Id == sumenClass.Id && e.StudentPopulation.Id == studentPopulationData.Id)) {
+                    sumItemIsNew = false;
+                    newChSumItem = dataContext.StudentPopulationItem.Where(e => e.Class.Id == sumenClass.Id && e.StudentPopulation.Id == studentPopulationData.Id).FirstOrDefault();
+                }
+                else {
+                    sumItemIsNew = true;
+                    newChSumItem = new StudentPopulationItem();
+                }
+                newChSumItem.ClassId = sumchClass.Id;
+                newChSumItem.Name = sumchClass.Name;
+                int[] chDepartmentIds = dataContext.CourseDepartment.Where(p => p.Subject == CourseSubject.Chinese && p.IsSum == false).Select(p => p.Id).ToArray();
+                newChSumItem.Number = sumItem.Where(e => chDepartmentIds.Contains(e.Class.Course.Department.Id)).Sum(e => e.Number);
+                newChSumItem.LastWeekNumber = lastsumItem.Count > 0 ? lastsumItem.Where(e => e.Class.Id == sumenClass.Id).FirstOrDefault().Number : 0;
+                if (sumItemIsNew) {
+                    newChSumItem.StudentPopulationId = studentPopulationData.Id;
+                    dataContext.StudentPopulationItem.Add(newChSumItem);
+                }
                 dataContext.SaveChanges();
             }
             catch (Exception ex) {
