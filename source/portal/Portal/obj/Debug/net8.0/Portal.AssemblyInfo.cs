@@ -17,7 +17,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PHStatistics.Portal")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d68cd840c1ad8b6dbba58e189ca9f97160d16bb3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("PHStatistics.Portal")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PHStatistics.Portal")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0")]

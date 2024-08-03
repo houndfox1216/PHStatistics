@@ -1,0 +1,14 @@
+﻿@{
+    @model StudentPopulation
+}
+
+
+@Html.DevExtreme().Form<PHStatistics.Portal.Controllers.DevTestController>()
+    .Items(items => {
+         items.a
+    })
+@Html.DevExpress().TextBoxFor(model => model.PhoneNumber,
+        settings => {
+            settings.Width = 170;
+            settings.Properties.DisplayFormatString = "[ 00 - 00 - 00 ]";
+        }).GetHtml()

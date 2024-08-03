@@ -26,6 +26,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes = true
 build_property.MSBuildProjectDirectory = C:\Company\PHStatistics.portal\source\portal\Portal
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Company/PHStatistics.portal/source/portal/Portal/Views/DevTest/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGV2VGVzdFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Company/PHStatistics.portal/source/portal/Portal/Views/Events/Detail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRzXERldGFpbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

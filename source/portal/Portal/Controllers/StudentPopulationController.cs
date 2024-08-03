@@ -64,7 +64,6 @@ namespace PHStatistics.Portal.Controllers {
             List<Course> courses = Model.DataContext.Course.ToList();
             ViewBag.Year = schoolYear.Year;
             ViewBag.Week = schoolYear.Week;
-
             ViewBag.Courses = courses;
             if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value)) {
                 returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value);
@@ -379,5 +378,22 @@ namespace PHStatistics.Portal.Controllers {
             return PartialView("PopulationPartialView", studentPopulationData);
         }
 
+        [HttpPost("DevTestForm")]
+        public IActionResult DevTestForm(StudentPopulation data, int schoolId) {
+            DataContext dataContext = new DataContext();
+            //取得維護年度週次
+            DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
+            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.WeekEndDate >= dateTime).FirstOrDefault();
+            SchoolYear lastschoolYear = dataContext.SchoolYear.Where(e => e.Id < schoolYear.Id).OrderByDescending(e => e.Id).FirstOrDefault();
+            StudentPopulation lastWeekData = new StudentPopulation();
+            lastWeekData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").Where(e => e.School.Id == schoolId && e.Year == lastschoolYear.Year && e.Week == lastschoolYear.Week).FirstOrDefault();
+
+            StudentPopulation returnData = new StudentPopulation();
+            List<Course> courses = Model.DataContext.Course.ToList();
+            ViewBag.Year = schoolYear.Year;
+            ViewBag.Week = schoolYear.Week;
+            ViewBag.Courses = courses;
+            return View(returnData);
+        }
     }
 }
