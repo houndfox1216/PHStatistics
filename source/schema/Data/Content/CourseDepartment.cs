@@ -54,6 +54,12 @@ namespace PHStatistics.Content {
         public CourseSubject? Subject { get; set; }
 
         /// <summary>
+        /// 班系所屬公司
+        /// </summary>
+        [Display(Name = "班系所屬公司"), DataMember]
+        public Company? Company { get; set; }
+
+        /// <summary>
         /// 名稱
         /// </summary>
         [Display(Name = "名稱"), DataMember]

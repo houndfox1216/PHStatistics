@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PHStatistics;
 
@@ -11,9 +12,11 @@ using PHStatistics;
 namespace PHStatistics.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240726021014_add_item_issum")]
+    partial class add_item_issum
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -607,9 +610,6 @@ namespace PHStatistics.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<short?>("Company")
-                        .HasColumnType("smallint");
-
                     b.Property<DateTime?>("CreatedTime")
                         .HasColumnType("datetime2");
 
@@ -787,15 +787,6 @@ namespace PHStatistics.Migrations
                     b.Property<short>("DataMode")
                         .HasColumnType("smallint");
 
-                    b.Property<int>("LastWeekChineseCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LastWeekEnglishCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LastWeekLostCount")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
@@ -814,27 +805,6 @@ namespace PHStatistics.Migrations
 
                     b.Property<DateTime?>("SubmitterTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("ThisWeekChineseCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ThisWeekClassCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ThisWeekCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ThisWeekEnglishCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ThisWeekNewCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalInquiryCount")
-                        .HasColumnType("int");
-
-                    b.Property<short>("Type")
-                        .HasColumnType("smallint");
 
                     b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("datetime2");
