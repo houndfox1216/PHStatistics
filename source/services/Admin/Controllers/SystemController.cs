@@ -240,5 +240,26 @@ namespace PHStatistics.Services.Admin.Controllers
                 return Json(ResponseStatus.InternalServerError, e, e.Message);
             }
         }
+
+        /// <summary>
+        /// 紀錄訊息
+        /// </summary>
+        /// <response code="200">請求已被處理，處理結果以 JSON 型態回應</response>
+        [HttpGet("CreatSchoolYear")]
+        [Produces("application/json", Type = typeof(JsonResponse<ResponseStatus>))]
+        public JsonResponse CreatSchoolYear() {
+            try {
+                DataContext dataContext = new DataContext();
+                for (int i = 0;)
+                return Json(ResponseStatus.OK);
+            }
+            catch (FrameworkException fe) {
+                return Json(ResponseStatus.InternalServerError, fe, fe.Message);
+            }
+            catch (Exception e) {
+                Logger.LogError(e);
+                return Json(ResponseStatus.InternalServerError, e, e.Message);
+            }
+        }
     }
 }
