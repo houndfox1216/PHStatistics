@@ -78,5 +78,11 @@ namespace PHStatistics.Content {
         [Display(Name = "排列順序"), DataMember]
         public int Ordinal { get; set; }
 
+        /// <summary>
+        /// 所屬單位
+        /// </summary>
+        [Display(Name = "所屬單位"), DefaultValue(StudentPopulationType.PH), DataMember]
+        public StudentPopulationType Type { get; set; }
+
     }
 }

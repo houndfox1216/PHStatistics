@@ -81,7 +81,7 @@ namespace PHStatistics.Content {
         /// <summary>
         /// 類型
         /// </summary>
-        [Display(Name = "類型"), DefaultValue(ClassType.Group), DataMember]
+        [Display(Name = "類型"), DefaultValue(StudentPopulationType.PH), DataMember]
         public StudentPopulationType Type { get; set; }
 
         /// <summary>
