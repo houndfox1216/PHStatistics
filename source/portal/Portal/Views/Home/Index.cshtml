@@ -5,7 +5,7 @@
 
 <div class="container py-5">
     <div class="row justify-content-center mb-6">
-        <div class="col-12 col-sm-10 col-md-8 col-xl-6">
+        <div class="col-12 col-sm-10 col-md-8 col-xl-6 align-self-center">
             @if (ViewBag.ErrorMessage != null) {
                 <div class="mt-3 mb-3 content">
                     <button type="button" class="btn btn-primary btn-lg btn-round">
@@ -13,9 +13,13 @@
                     </button>
                 </div>
             }
-            <div class="mt-3 mb-4">
+            <div class="mt-3 mb-4 ">
                 @if (canEdit) {
                     <button type="button" class="btn btn-primary btn-lg btn-round" id="addNew">
+                        輸入資料
+                    </button>
+                }else{
+                    <button type="button" class="btn btn-primary btn-lg btn-round" onclick="#" disabled="true">
                         輸入資料
                     </button>
                 }
@@ -31,6 +35,4 @@
     $('#addNew').on('click', function () {
         window.location.href = "/StudentPopulation/Index";
     })
-
 </script>
-

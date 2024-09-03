@@ -68,5 +68,21 @@ namespace PHStatistics.Portal.Controllers {
             var appVersion = Application.Configuration["Version"].ToString();
             return Content(new { assemblyVersion, appVersion }.ToJson(), "text/json");
         }
+
+        #region 資料匯入處理
+        [Route("ImportCourse")]
+        public IActionResult ImportCourse() {
+            DataContext dataContext = new DataContext();
+            //取得維護年度週次
+            DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
+            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.WeekEndDate >= dateTime).FirstOrDefault();
+            ViewBag.CanEdit = schoolYear != null;
+            ViewBag.Title = "Home Page".ToI18n(Culture.GetCode());
+            ViewBag.BannerPositions = new List<BannerPosition>();
+            ViewBag.BannerPositions.Add(Model.BannerPosition.FindByCode("Home.Slider"));
+
+            return View();
+        }
+        #endregion
     }
 }

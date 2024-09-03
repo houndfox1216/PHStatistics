@@ -184,7 +184,7 @@
         $.ajax({
             url: '@Url.Action("AddClass", "StudentPopulation")',
             cache: false,
-            data: { 'schoolId': schoolId, 'courseId': cId, 'week': week, 'year': year, 'itemArr': testArr },
+            data: { 'schoolId': schoolId, 'courseId': cId, 'week': week, 'year': year, 'itemArr': testArr, 'type': 'PH' },
             // dataType: 'application/json',
             type: 'POST',
             dataType: "html",
@@ -243,7 +243,7 @@
         $.ajax({
             url: '@Url.Action("AddNewClass", "StudentPopulation")',
             cache: false,
-            data: { 'schoolId': schoolId, 'courseId': newCourses.value, 'week': week, 'year': year, 'itemArr': itemArr, 'newClassType': newClassType.value, 'newClassName': newClassName.value, 'newNumber': newNumber.value, 'newStudentremark': newStudentremark.value },
+            data: { 'schoolId': schoolId, 'courseId': newCourses.value, 'week': week, 'year': year, 'itemArr': itemArr, 'newClassType': newClassType.value, 'newClassName': newClassName.value, 'newNumber': newNumber.value, 'newStudentremark': newStudentremark.value, 'type': 'PH' },
             // dataType: 'application/json',
             type: 'POST',
             dataType: "html",

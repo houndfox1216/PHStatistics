@@ -58,7 +58,7 @@ namespace PHStatistics.Portal.Controllers {
             SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.WeekEndDate >= dateTime).FirstOrDefault();
             SchoolYear lastschoolYear = dataContext.SchoolYear.Where(e => e.Id < schoolYear.Id).OrderByDescending(e => e.Id).FirstOrDefault();
             StudentPopulation lastWeekData = new StudentPopulation();
-            lastWeekData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").Where(e => e.School.Id == schoolId && e.Year == lastschoolYear.Year && e.Week == lastschoolYear.Week).FirstOrDefault();
+            lastWeekData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").Where(e => e.School.Id == schoolId && e.Year == lastschoolYear.Year && e.Week == lastschoolYear.Week && e.Type == StudentPopulationType.PH).FirstOrDefault();
 
             StudentPopulation returnData = new StudentPopulation();
             List<Course> courses = Model.DataContext.Course.ToList();
@@ -67,7 +67,7 @@ namespace PHStatistics.Portal.Controllers {
 
             ViewBag.Courses = courses;
             if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value)) {
-                returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value);
+                returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == StudentPopulationType.PH);
                 foreach (StudentPopulationItem sItem in returnData.Items) {
                     if (lastWeekData != null && lastWeekData.Items.Any(e => e.Class.Id == sItem.Class.Id)) {
                         sItem.LastWeekNumber = lastWeekData.Items.FirstOrDefault(e => e.Class.Id == sItem.Class.Id).Number;
@@ -84,6 +84,7 @@ namespace PHStatistics.Portal.Controllers {
                 returnData.WeekDate = schoolYear.WeekStartDate;
                 returnData.Items = new List<StudentPopulationItem>();
                 returnData.Submitter = dataContext.Member.Find(Guid.Parse(User.Id));
+                returnData.Type = StudentPopulationType.PH;
                 //if(lastWeekData != null && lastWeekData.Items.Any()) {
                 //    foreach (StudentPopulationItem sItem in lastWeekData.Items) {
                 //        StudentPopulationItem newSItem = new StudentPopulationItem();
@@ -136,11 +137,17 @@ namespace PHStatistics.Portal.Controllers {
 
         [Authorize(typeof(PortalUser))]
         [HttpPost("AddClass")]
-        public IActionResult AddClass(int courseId, int schoolId, int year, int week, string[][] itemArr) {
-            List<Course> courses = Model.DataContext.Course.ToList();
+        public IActionResult AddClass(int courseId, int schoolId, int year, int week, string[][] itemArr, string type) {
+            List<Course> courses = Model.DataContext.Course.Include("Department").Where(e => e.Department.Company == Company.PH ).ToList();
             ViewBag.Courses = courses;
             DataContext dataContext = new DataContext();
-            StudentPopulation studentPopulationData = Model.GetStudentPopulation(schoolId, year, week);
+            var seleceedType = type switch {
+                "PH" => StudentPopulationType.PH,
+                "PS" => StudentPopulationType.PS,
+                "PHM" => StudentPopulationType.PHM,
+                _ => StudentPopulationType.AfterSchool
+            };
+            StudentPopulation studentPopulationData = Model.GetStudentPopulation(schoolId, year, week, seleceedType);
             //更新人數表資料
             try {
                 foreach (string[] updateItem in itemArr) {
@@ -203,11 +210,18 @@ namespace PHStatistics.Portal.Controllers {
         [Authorize(typeof(PortalUser))]
         [HttpPost("AddNewClass")]
         // data: { 'schoolId': schoolId, 'courseId': newCourses.value, 'week': week, 'year': year, 'newClassType': newClassType, 'newClassName': newClassName, 'newNumber': newNumber, 'newStudentremark':newStudentremark },
-        public IActionResult AddNewClass(int courseId, int schoolId, int year, int week, string[][] itemArr, int newClassType, string newClassName, int newNumber, string newStudentremark) {
+        public IActionResult AddNewClass(int courseId, int schoolId, int year, int week, string[][] itemArr, int newClassType, string newClassName, int newNumber, string newStudentremark, string type) {
+            
             List<Course> courses = Model.DataContext.Course.ToList();
             ViewBag.Courses = courses;
             DataContext dataContext = new DataContext();
-            StudentPopulation studentPopulationData = Model.GetStudentPopulation(schoolId, year, week);
+            var seleceedType = type switch {
+                "PH" => StudentPopulationType.PH,
+                "PS" => StudentPopulationType.PS,
+                "PHM" => StudentPopulationType.PHM,
+                _ => StudentPopulationType.AfterSchool
+            };
+            StudentPopulation studentPopulationData = Model.GetStudentPopulation(schoolId, year, week, seleceedType);
             //更新人數表資料
             try {
                 foreach (string[] updateItem in itemArr) {
@@ -297,10 +311,12 @@ namespace PHStatistics.Portal.Controllers {
                     else {
                         itemIsNew = true;
                         newSumItem = new StudentPopulationItem();
+                        newSumItem.IsSum = true;
                     }
                     newSumItem.ClassId = sumClass.Id;
                     newSumItem.Name = sumClass.Name;
-                    newSumItem.Number = sumItem.Where(e => e.Class.Course.Department.Id == department.depId).Sum(e => e.Number);
+                    var ff = sumItem.Where(e => e.Class.Course.Department.Id == department.depId && e.IsSum == false).ToList();
+                    newSumItem.Number = sumItem.Where(e => e.Class.Course.Department.Id == department.depId && e.IsSum == false).Sum(e => e.Number);
                     newSumItem.LastWeekNumber = lastsumItem.Count > 0 ? lastsumItem.Where(e => e.Class.Course.Department.Id == department.depId).Sum(e => e.Number) : 0;
                     if (itemIsNew) {
                         newSumItem.StudentPopulationId = studentPopulationData.Id;
@@ -329,11 +345,12 @@ namespace PHStatistics.Portal.Controllers {
                 else {
                     sumItemIsNew = true;
                     newEnSumItem = new StudentPopulationItem();
+                    newEnSumItem.IsSum = true;
                 }
                 newEnSumItem.ClassId = sumenClass.Id;
                 newEnSumItem.Name = sumenClass.Name;
                 int[] departmentIds = dataContext.CourseDepartment.Where(p => p.Subject == CourseSubject.English && p.IsSum == false).Select(p => p.Id).ToArray();
-                newEnSumItem.Number = sumItem.Where(e => departmentIds.Contains(e.Class.Course.Department.Id)).Sum(e => e.Number);
+                newEnSumItem.Number = sumItem.Where(e => departmentIds.Contains(e.Class.Course.Department.Id) && e.IsSum == false).Sum(e => e.Number);
                 newEnSumItem.LastWeekNumber = lastsumItem.Count > 0 ? lastsumItem.Where(e => e.Class.Id == sumenClass.Id).FirstOrDefault().Number : 0;
                 if (sumItemIsNew) {
                     newEnSumItem.StudentPopulationId = studentPopulationData.Id;
@@ -353,18 +370,19 @@ namespace PHStatistics.Portal.Controllers {
                 }
                 sumItemIsNew = true;
                 StudentPopulationItem newChSumItem = new StudentPopulationItem();
-                if (dataContext.StudentPopulationItem.Any(e => e.Class.Id == sumenClass.Id && e.StudentPopulation.Id == studentPopulationData.Id)) {
+                if (dataContext.StudentPopulationItem.Any(e => e.Class.Id == sumchClass.Id && e.StudentPopulation.Id == studentPopulationData.Id)) {
                     sumItemIsNew = false;
-                    newChSumItem = dataContext.StudentPopulationItem.Where(e => e.Class.Id == sumenClass.Id && e.StudentPopulation.Id == studentPopulationData.Id).FirstOrDefault();
+                    newChSumItem = dataContext.StudentPopulationItem.Where(e => e.Class.Id == sumchClass.Id && e.StudentPopulation.Id == studentPopulationData.Id).FirstOrDefault();
                 }
                 else {
                     sumItemIsNew = true;
                     newChSumItem = new StudentPopulationItem();
+                    newChSumItem.IsSum = true;
                 }
                 newChSumItem.ClassId = sumchClass.Id;
                 newChSumItem.Name = sumchClass.Name;
                 int[] chDepartmentIds = dataContext.CourseDepartment.Where(p => p.Subject == CourseSubject.Chinese && p.IsSum == false).Select(p => p.Id).ToArray();
-                newChSumItem.Number = sumItem.Where(e => chDepartmentIds.Contains(e.Class.Course.Department.Id)).Sum(e => e.Number);
+                newChSumItem.Number = sumItem.Where(e => chDepartmentIds.Contains(e.Class.Course.Department.Id) && e.IsSum == false).Sum(e => e.Number);
                 newChSumItem.LastWeekNumber = lastsumItem.Count > 0 ? lastsumItem.Where(e => e.Class.Id == sumenClass.Id).FirstOrDefault().Number : 0;
                 if (sumItemIsNew) {
                     newChSumItem.StudentPopulationId = studentPopulationData.Id;
