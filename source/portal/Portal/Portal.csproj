@@ -1,5 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
@@ -10,15 +9,12 @@
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <FileVersion>1.0.0</FileVersion>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>../../../binary/Debug</OutputPath>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>../../../binary/Release</OutputPath>
   </PropertyGroup>
-
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Kestrel' " />
   <ItemGroup>
     <PackageReference Include="AspNetCore.SassCompiler" Version="1.69.7" />
@@ -33,7 +29,6 @@
     <PackageReference Include="NPOI" Version="2.7.1" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.7" />
   </ItemGroup>
-
   <ItemGroup>
     <Reference Include="J.Framework.AzureBlobStorage">
       <HintPath>..\..\schema\Libraries\J.Framework.AzureBlobStorage.dll</HintPath>
@@ -69,7 +64,6 @@
       <HintPath>..\..\schema\Libraries\J.Framework.Community.dll</HintPath>
     </Reference>
   </ItemGroup>
-
   <ItemGroup>
     <None Remove="J.Framework.AzureBlobStorage" />
     <None Remove="J.Framework.NLog" />
@@ -83,7 +77,6 @@
     <None Remove="Localizations\en-US.xml" />
     <None Remove="Localizations\zh-TW.xml" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Remove="wwwroot\resources\" />
   </ItemGroup>
@@ -100,13 +93,18 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\schema\Core\Core.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+      <GlobalPropertiesToRemove>
+      </GlobalPropertiesToRemove>
     </ProjectReference>
     <ProjectReference Include="..\..\schema\Data\Data.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+      <GlobalPropertiesToRemove>
+      </GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="wwwroot\files\reports\" />
     <Folder Include="wwwroot\resources\" />
+    <PackageReference Include="DevExtreme.AspNet.Core" Version="24.1.4" />
+    <PackageReference Include="DevExtreme.AspNet.Data" Version="4.0.0" />
   </ItemGroup>
 </Project>

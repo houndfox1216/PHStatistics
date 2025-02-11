@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\Deploy\PHStatistics.portal</_PublishTargetUrl>
-    <History>True|2024-08-14T07:48:06.5349620Z;True|2024-08-06T18:07:08.3245680+08:00;</History>
+    <History>True|2025-02-10T08:47:02.1562744Z;True|2025-02-10T16:11:36.6633196+08:00;True|2024-12-21T18:47:10.4552784+08:00;True|2024-12-20T15:57:05.2203334+08:00;True|2024-09-21T17:39:58.3804418+08:00;True|2024-08-14T15:48:06.5349620+08:00;True|2024-08-06T18:07:08.3245680+08:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
 </Project>

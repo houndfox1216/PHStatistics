@@ -70,6 +70,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9CYW5uZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Company/PHStatistics.portal/source/portal/Portal/Views/Shared/_DevExtremeLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9EZXZFeHRyZW1lTGF5b3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Company/PHStatistics.portal/source/portal/Portal/Views/Shared/_Footer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Gb290ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -86,12 +90,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFBvcHVsYXRpb25cQ3JlYXRlUG9wdWxhdGlvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Company/PHStatistics.portal/source/portal/Portal/Views/StudentPopulation/CreatePSJPopulation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFBvcHVsYXRpb25cQ3JlYXRlUFNKUG9wdWxhdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Company/PHStatistics.portal/source/portal/Portal/Views/StudentPopulation/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFBvcHVsYXRpb25cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Company/PHStatistics.portal/source/portal/Portal/Views/StudentPopulation/PopulationPartialView.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFBvcHVsYXRpb25cUG9wdWxhdGlvblBhcnRpYWxWaWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Company/PHStatistics.portal/source/portal/Portal/Views/StudentPopulation/PSJPopulationPartialView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFBvcHVsYXRpb25cUFNKUG9wdWxhdGlvblBhcnRpYWxWaWV3LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Company/PHStatistics.portal/source/portal/Portal/Views/_ViewImports.cshtml]

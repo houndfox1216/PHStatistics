@@ -9,14 +9,17 @@ namespace PHStatistics.Portal.Controllers {
     public class MemberController : MvcController<PortalUser, Model, Culture> {
         public MemberController() : base("System") { }
 
-        public IActionResult Login(string account, string password, string captcha, string token, string returnUrl = "/") {
+        public IActionResult Login(string account, string password, string captcha, string token, string returnUrl = "/Index") {
+            Logger.LogInformation($"Member Login account:{account} password:{password} ");
             if (captcha != null && token != null) {
                 if (CaptchaProvider.Check(token, captcha)) {
                     try {
                         var entity = Model.Authorize(account, password);
                         var user = new PortalUser(entity);
+                        Logger.LogInformation($"進行登入 ");
                         user.Login();
-                        return Redirect(returnUrl);
+                        Logger.LogInformation($"進行登入完成 導入 {returnUrl} ");
+                        return Redirect("/Index");
                     } catch (FrameworkException fe) {
                         ViewBag.ErrorMessage = fe.Message;
                     } catch (Exception e) {
@@ -47,6 +50,11 @@ namespace PHStatistics.Portal.Controllers {
             }
             ViewBag.ReturnUrl = returnUrl;
             return View();
+        }
+        [Authorize(typeof(PortalUser))]
+        public IActionResult LogOut() {
+            User.Logout();
+            return Redirect("/Member/Login");
         }
 
         public IActionResult Contact() {

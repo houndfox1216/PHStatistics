@@ -1,0 +1,18 @@
+2025-02-11 16:33:07.2642[11]  INFO MemberController  Member Login account: password: 
+2025-02-11 16:33:35.5944[34]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-02-11 16:33:47.6242[41]  INFO MemberController  Member Login account:neihu password:26271038 
+2025-02-11 16:33:47.7047[41]  INFO MemberController  進行登入 
+2025-02-11 16:33:47.8252[41]  INFO MemberController  進行登入完成 導入 / 
+2025-02-11 16:33:47.9442[44]  INFO HomeController  進入首頁
+2025-02-11 16:44:57.6629[11]  INFO HomeController  進入首頁
+2025-02-11 16:54:09.0718[7]  INFO HomeController  進入首頁
+2025-02-11 16:58:29.6855[11]  INFO HomeController  進入首頁
+2025-02-11 17:09:24.4559[11]  INFO HomeController  進入首頁
+2025-02-11 17:10:54.3756[10]  INFO HomeController  進入首頁
+2025-02-11 17:12:04.0804[10]  INFO HomeController  進入首頁
+2025-02-11 17:16:50.3522[46]  INFO HomeController  進入首頁
+2025-02-11 17:22:17.9365[10]  INFO HomeController  進入首頁
+2025-02-11 17:27:21.1249[10]  INFO HomeController  進入首頁
+2025-02-11 17:52:27.8647[7]  INFO HomeController  進入首頁
+2025-02-11 18:02:47.0253[7]  INFO HomeController  進入首頁
+2025-02-11 18:07:31.4498[36]  INFO HomeController  進入首頁

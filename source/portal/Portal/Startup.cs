@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Framework.Web;
 using System.Globalization;
 using Microsoft.AspNetCore.Builder;
@@ -19,7 +19,7 @@ namespace PHStatistics.Portal {
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
             services.AddCors(options => options.AddPolicy("AllPassOrigins", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
-            services.AddControllersWithViews().AddNewtonsoftJson(options => { // for circular json
+            services.AddControllersWithViews().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null).AddNewtonsoftJson(options => { // for circular json
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
