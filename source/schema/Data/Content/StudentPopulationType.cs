@@ -31,6 +31,18 @@ namespace PHStatistics.Content {
         PS,
 
         /// <summary>
+        /// PSJ
+        /// </summary>
+        [Display(Name = "PSJ")]
+        PSJ,
+
+        /// <summary>
+        /// 英檢班
+        /// </summary>
+        [Display(Name = "英檢班")]
+        GEPT,
+
+        /// <summary>
         /// 安親課輔
         /// </summary>
         [Display(Name = "安親課輔")]
