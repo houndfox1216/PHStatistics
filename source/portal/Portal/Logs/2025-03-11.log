@@ -1,0 +1,7 @@
+2025-03-11 08:50:28.8943[5]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-03-11 08:50:32.3259[7]  INFO MemberController  Member Login account: password: 
+2025-03-11 08:51:07.1581[21]  INFO MemberController  Member Login account:nczs password:29526818 
+2025-03-11 08:51:10.4717[21]  INFO MemberController  進行登入 
+2025-03-11 08:51:11.2590[21]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-03-11 08:51:15.0287[19]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-03-11 08:51:15.0287[19]  INFO HomeController  進入首頁

@@ -44,6 +44,19 @@ namespace PHStatistics.Portal.Models {
         }
 
         /// <summary>
+        /// 透過帳號與密碼認證用戶
+        /// </summary>
+        /// <param name="account">帳號</param>
+        /// <param name="password">密碼</param>
+        /// <returns>經過認證的用戶資料，當認證失敗時為空值</returns>
+        public Member SessionAuthorizationAction(string account) {
+            var action = new SessionAuthorizationAction(CurrentUser, DataContext);
+            action.Parameters["account"] = account;
+            action.Execute();
+            return action.GetResult<Member>();
+        }
+
+        /// <summary>
         /// 變更目前用戶的密碼
         /// </summary>
         /// <param name="oldPassword">舊密碼</param>

@@ -1,9 +1,10 @@
 ﻿@using PHStatistics.Content
 @{
     List<SchoolAssignment> schools = new List<SchoolAssignment>();
-    if(ViewBag.Schools != null) {
+    if (ViewBag.Schools != null) {
         schools = (List<SchoolAssignment>)ViewBag.Schools;
     }
+    string addType = ViewBag.Type;
 }
 
 <div class="container py-5">
@@ -23,20 +24,58 @@
                 }
             </div>
             <div class="">
-                <button type="button" class="btn btn-primary btn-lg btn-round" id="addBtn">
-                    開始輸入 <i class="fas fa-paper-plane"></i>
-                </button>
+                @if (addType.Equals("PH")) {
+                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addPHBtn">
+                        開始輸入 <i class="fas fa-paper-plane"></i>
+                    </button>
+                }
+                else if (addType.Equals("PSJ")) {
+                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addPSJBtn">
+                        開始輸入 <i class="fas fa-paper-plane"></i>
+                    </button>
+                }
+                else if (addType.Equals("Gept")) {
+                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addGeptBtn">
+                        開始輸入 <i class="fas fa-paper-plane"></i>
+                    </button>
+                }
+                else if (addType.Equals("PS")) {
+                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addPSBtn">
+                        開始輸入 <i class="fas fa-paper-plane"></i>
+                    </button>
+                }
+                else {
+                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addPHBtn">
+                        開始輸入 <i class="fas fa-paper-plane"></i>
+                    </button>
+                }
+
             </div>
         </div>
     </div>
 </div>
 <script>
-    $(function () { 
-        $('#addBtn').on('click', function () {
+    $(function () {
+        $('#addPHBtn').on('click', function () {
             //alert($('#schoolSelect').val());
-            var location = "/StudentPopulation/CreatePopulation?schoolId=" + $('#schoolSelect').val();
+            var location = "/StudentPopulation/CreatePopulation?schoolId=" + $('#schoolSelect').val() + "&type=PH";
             window.location.href = location;
-        })
+        });
+                $('#addPSJBtn').on('click', function () {
+            //alert($('#schoolSelect').val());
+            var location = "/StudentPopulation/CreatePSJPopulation?schoolId=" + $('#schoolSelect').val() + "&type=PSJ";
+            window.location.href = location;
+        });
+                $('#addGeptBtn').on('click', function () {
+            //alert($('#schoolSelect').val());
+            var location = "/StudentPopulation/CreateGeptPopulation?schoolId=" + $('#schoolSelect').val() + "&type=Gept";
+            window.location.href = location;
+        });
+                $('#addPSBtn').on('click', function () {
+            //alert($('#schoolSelect').val());
+            var location = "/StudentPopulation/CreatePSPopulation?schoolId=" + $('#schoolSelect').val() + "&type=PS";
+            window.location.href = location;
+        });
     })
 
 </script>

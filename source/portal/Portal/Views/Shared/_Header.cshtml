@@ -13,7 +13,7 @@
         <!-- LOGO -->
         <h1 class="visually-hidden">@Model.PortalTitle)</h1>
         <a href="@Url.Action("Index", "Home")" class="logo-wrap">
-            <img class="img-fluid h-64" src="/Content/images/logo.svg" alt="@Model.PortalTitle">
+            <img class="img-fluid h-64" src="/Content/images/logo.svg" alt="@Model.PortalTitle" style="max-width:40%">
         </a>
         <!-- mobile-nav-button -->
 @*         <button class="me-0 me-sm-3 btn btn-link d-xl-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMenu" aria-expanded="false" aria-controls="collapseMenu">
@@ -34,6 +34,9 @@
             </li> *@
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("Index", "Home")">@Html.ToI18n(sitemap.Title)</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("LogOut", "Member")">登出</a>
             </li>
 @*             @foreach (var node in menu) {
                 <li class="nav-item @(node.Expandable && node.SubNodes != null && node.SubNodes.Any() ? "dropdown" : "")">

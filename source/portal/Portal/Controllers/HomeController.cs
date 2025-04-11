@@ -28,6 +28,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using PHStatistics.Community;
 using System.Framework.Security;
+using System.Framework.Application;
+using Microsoft.AspNetCore.Http;
 
 
 
@@ -36,8 +38,32 @@ namespace PHStatistics.Portal.Controllers {
     public class HomeController() : MvcController<PortalUser, Model, Culture>("System") {
         [Route("/")]
         [Route("Index")]
-        [Authorize(typeof(PortalUser))]
+        //[Authorize(typeof(PortalUser))]
         public IActionResult Index() {
+            Logger.LogInformation($"進入首頁 IsGuest:{User.IsGuest()} IsAuthenticated:{User.Identity.IsAuthenticated}");
+            if (User.IsGuest()) {
+                // 讀取 Session
+                string account = string.Empty;
+                string login = string.Empty;
+                //try {
+                //    account = HttpContext.Session.GetString("Account") ?? "";
+                //    login = HttpContext.Session.GetString("UserLogin") ?? "0";
+                //}
+                //catch (Exception ex) {
+                //    try {
+                //        account = HttpContext.Request.Cookies["Account"] ?? "";
+                //        login = HttpContext.Request.Cookies["UserLogin"] ?? "0";
+                //    }
+                //    catch {
+                //        account = string.Empty;
+                //        login = string.Empty;
+                //    }
+                //}
+                Logger.LogInformation($"進入首頁 讀取 Session account:{account} login:{login}");
+                if (string.IsNullOrEmpty(account) || string.IsNullOrEmpty(login)) {
+                    return Redirect("/Member/Login");
+                }
+            }
             Logger.LogInformation("進入首頁");
             DataContext dataContext = new DataContext();
             //取得維護年度週次
@@ -136,7 +162,7 @@ namespace PHStatistics.Portal.Controllers {
                                 }
 
                                 if (k == 0) {
-                                    if(newItem.Department != null && !string.IsNullOrEmpty(newItem.Department) && newItem.Course != null && !string.IsNullOrEmpty(newItem.Course)) {
+                                    if (newItem.Department != null && !string.IsNullOrEmpty(newItem.Department) && newItem.Course != null && !string.IsNullOrEmpty(newItem.Course)) {
                                         ph.Add(newItem);
                                     }
                                 }
@@ -190,9 +216,9 @@ namespace PHStatistics.Portal.Controllers {
                                 }
                             }
 
-                            
-                            
-                            
+
+
+
                             foreach (ImportData phItem in gept) {
                                 if (phItem != null) {
                                     CourseDepartment courseDepartment = new CourseDepartment();
@@ -215,7 +241,7 @@ namespace PHStatistics.Portal.Controllers {
                                         course.Name = phItem.Course;
                                         course.Ordinal = courseOrdinal;
                                         course.Department = courseDepartment;
-                                        course.Type = StudentPopulationType.PHM;
+                                        course.Type = StudentPopulationType.GEPT;
                                         dataContext.Course.Add(course);
                                         dataContext.SaveChanges();
                                         courseOrdinal++;
@@ -275,7 +301,7 @@ namespace PHStatistics.Portal.Controllers {
                                         course.Name = phItem.Course;
                                         course.Ordinal = courseOrdinal;
                                         course.Department = courseDepartment;
-                                        course.Type = StudentPopulationType.PS;
+                                        course.Type = StudentPopulationType.PSJ;
                                         dataContext.Course.Add(course);
                                         dataContext.SaveChanges();
                                         courseOrdinal++;
@@ -382,7 +408,7 @@ namespace PHStatistics.Portal.Controllers {
                                         dataContext.SaveChanges();
                                     }
                                     //增加分校所屬成員
-                                    if(!dataContext.SchoolAssignment.Any(e => e.School.Id == school.Id && e.Member.Id == newMember.Id)) {
+                                    if (!dataContext.SchoolAssignment.Any(e => e.School.Id == school.Id && e.Member.Id == newMember.Id)) {
                                         SchoolAssignment newAss = new SchoolAssignment();
                                         newAss.School = school;
                                         newAss.Member = newMember;
@@ -416,15 +442,47 @@ namespace PHStatistics.Portal.Controllers {
             }
         }
 
+        [HttpGet("CreateAdmin")]
+        public IActionResult CreateAdmin(string type) {
+            try {
+                using (DataContext dataContext = new DataContext()) {
+                    //確認會員資料
+                    Member newMember = new Member();
+                    newMember.Account = "sysadmin";
+                    newMember.Password = "53906052".ComputeHashStringWithSha().ToBase64();
+                    newMember.Status = System.Framework.Community.MemberStatus.Enabled;
+                    dataContext.Member.Add(newMember);
+                    dataContext.SaveChanges();
+
+                    //增加分校所屬成員
+                    foreach(School school in dataContext.School.ToList()) {
+                        if (!dataContext.SchoolAssignment.Any(e => e.School.Id == school.Id && e.Member.Id == newMember.Id)) {
+                            SchoolAssignment newAss = new SchoolAssignment();
+                            newAss.School = school;
+                            newAss.Member = newMember;
+                            dataContext.SchoolAssignment.Add(newAss);
+                            dataContext.SaveChanges();
+                        }
+                        else {
+                            continue;
+                        }
+                    }
+
+                }
+                return Json(ResponseStatus.OK, 1);
+            }
+            catch (Exception e) {
+                Logger.LogError(e, e.Message);
+                return Json(ResponseStatus.OK, 1);
+            }
+        }
+
         public class ImportData {
             public string Course { get; set; }
             public string Department { get; set; }
-
             public string SchoolName { get; set; }
             public string Account { get; set; }
-
             public string PassWord { get; set; }
-
         }
 
         [HttpGet("AddSchoolYear")]

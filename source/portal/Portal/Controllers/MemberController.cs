@@ -4,6 +4,9 @@ using System.Framework.Logging;
 using System.Framework.Web;
 using PHStatistics.Portal.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Framework.Application;
+using Microsoft.AspNetCore.Http;
+using System.Linq;
 
 namespace PHStatistics.Portal.Controllers {
     public class MemberController : MvcController<PortalUser, Model, Culture> {
@@ -18,9 +21,19 @@ namespace PHStatistics.Portal.Controllers {
                         var user = new PortalUser(entity);
                         Logger.LogInformation($"進行登入 ");
                         user.Login();
-                        Logger.LogInformation($"進行登入完成 導入 {returnUrl} ");
-                        return Redirect("/Index");
+                        // 設定 Session
+                        HttpContext.Session.SetString("Account", entity.Account);
+                        HttpContext.Session.SetString("UserLogin", "1");
+                        //設定cookie
+                        HttpContext.Response.Cookies.Append("Account", entity.Account);
+                        HttpContext.Response.Cookies.Append("UserLogin", "1");
+                        Logger.LogInformation($"進行登入完成 導入 {returnUrl} {user.IsGuest()} ");
+                        return Redirect("/");
                     } catch (FrameworkException fe) {
+                        HttpContext.Session.SetString("Account", string.Empty);
+                        HttpContext.Session.SetString("UserLogin", "0");
+                        HttpContext.Response.Cookies.Append("Account", string.Empty);
+                        HttpContext.Response.Cookies.Append("UserLogin", "0");
                         ViewBag.ErrorMessage = fe.Message;
                     } catch (Exception e) {
                         Logger.LogError(e);
@@ -28,10 +41,65 @@ namespace PHStatistics.Portal.Controllers {
                     }
                 } else ViewBag.ErrorMessage = "驗證碼錯誤";
             }
+            else {
+                if (User.IsGuest()) {
+                    // 讀取 Session
+                    string sAccount = string.Empty;
+                    int? login = 0;
+                    string cAcount = string.Empty;
+                    string cLogin = string.Empty;
+                    //try {
+                    //    sAccount = HttpContext.Session.GetString("Account") ?? "";
+                    //    login = HttpContext.Session.GetInt32("UserLogin");
+                    //}
+                    //catch(Exception ex) {
+                    //    sAccount = string.Empty;
+                    //    login = 0;
+                    //}
+                    //try {
+                    //    cAcount = HttpContext.Request.Cookies["Account"].ToString();
+                    //    cLogin = HttpContext.Request.Cookies["UserLogin"].ToString();
+                    //}
+                    //catch (Exception ex) {
+                    //    cAcount = string.Empty;
+                    //    cLogin = string.Empty;
+                    //}
+
+                    if (!string.IsNullOrEmpty(sAccount) && (login.HasValue && login.Value == 1)) {
+                        var entity = Model.SessionAuthorizationAction(sAccount);
+                        var user = new PortalUser(entity);
+                        Logger.LogInformation($"進行Session登入 ");
+                        user.Login();
+                        // 設定 Session
+                        HttpContext.Session.SetString("Account", entity.Account);
+                        HttpContext.Session.SetInt32("UserLogin", 1);
+                        Logger.LogInformation($"進行登入完成 導入 {returnUrl} {user.IsGuest()} ");
+                        return Redirect("/");
+                    }
+                }
+            }
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
+        [HttpPost]
+        public IActionResult MemberTestSession() {
+            HttpContext.Session.SetString("Account", "TestSession");
+            HttpContext.Session.SetString("UserLogin", "TestSession");
+            return View("Login");
+        }
+
+        [HttpPost]
+        public IActionResult MemberTestCookie() {
+            var options = new CookieOptions {
+                Expires = DateTime.UtcNow.AddDays(1), // 設置Cookie過期時間
+                HttpOnly = true, // 增強安全性，防止客戶端腳本訪問
+                Secure = false // 確保在非HTTPS環境下也可以傳輸
+            };
+            HttpContext.Response.Cookies.Append("Account", DateTime.UtcNow.ToTaipeiTime().ToString("yyyy/MM/dd HH:mm.ss"));
+            HttpContext.Response.Cookies.Append("UserLogin", "TestCookie", options);
+            return View("Login");
+        }
         [Authorize(typeof(PortalUser))]
         public IActionResult ChangePassword(string oldPassword, string newPassword, string captcha, string token, string returnUrl = null) {
             if (captcha != null && token != null) {

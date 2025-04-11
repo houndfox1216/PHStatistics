@@ -1085,6 +1085,14 @@
       "PackagePath": "staticwebassets\\js\\site.js"
     },
     {
+      "Id": "C:\\Company\\PHStatistics.portal\\source\\portal\\Portal\\wwwroot\\js\\validations.js",
+      "PackagePath": "staticwebassets\\js\\validations.js"
+    },
+    {
+      "Id": "C:\\Company\\PHStatistics.portal\\source\\portal\\Portal\\wwwroot\\js\\validations.min.js",
+      "PackagePath": "staticwebassets\\js\\validations.min.js"
+    },
+    {
       "Id": "C:\\Company\\PHStatistics.portal\\source\\portal\\Portal\\wwwroot\\lib\\bootstrap\\LICENSE",
       "PackagePath": "staticwebassets\\lib\\bootstrap"
     },
@@ -1235,6 +1243,10 @@
     {
       "Id": "C:\\Company\\PHStatistics.portal\\source\\portal\\Portal\\wwwroot\\resources\\sample-esg.png",
       "PackagePath": "staticwebassets\\resources\\sample-esg.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.PHStatistics.Portal.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.PHStatistics.Portal.Microsoft.AspNetCore.StaticWebAssets.props",
