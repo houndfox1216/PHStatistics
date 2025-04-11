@@ -21,8 +21,20 @@ namespace PHStatistics.Content {
         /// <summary>
         /// 三
         /// </summary>
-        [Display(Name = "三")]
+        [Display(Name = "1V1")]
         Personal,
+
+        /// <summary>
+        /// 三
+        /// </summary>
+        [Display(Name = "1V2")]
+        V2,
+
+        /// <summary>
+        /// 三
+        /// </summary>
+        [Display(Name = "1V3")]
+        V3,
 
         /// <summary>
         /// 小
