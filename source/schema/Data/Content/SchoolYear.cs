@@ -81,8 +81,14 @@ namespace PHStatistics.Content {
         /// <summary>
         /// 週次起始日
         /// </summary>
-        [Display(Name = "週次起始日"), DataMember]
+        [Display(Name = "週次結束日"), DataMember]
         public DateTime WeekEndDate { get; set; }
+
+        /// <summary>
+        /// 週次起始日
+        /// </summary>
+        [Display(Name = "輸入結束日"), DataMember]
+        public DateTime ImportEndDate { get; set; }
 
         /// <summary>
         /// 備註
