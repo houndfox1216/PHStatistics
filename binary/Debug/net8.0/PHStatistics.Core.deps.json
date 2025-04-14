@@ -1318,7 +1318,9 @@
           "Newtonsoft.Json": "13.0.3"
         },
         "runtime": {
-          "PHStatistics.dll": {}
+          "PHStatistics.dll": {
+            "fileVersion": "0.0.0.0"
+          }
         }
       },
       "J.Framework.Business/8.0.1.0": {
