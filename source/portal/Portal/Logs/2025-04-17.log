@@ -1,0 +1,24 @@
+2025-04-17 08:40:24.2576[5]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-17 08:40:24.2738[5]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-17 08:40:24.5577[10]  INFO MemberController  Member Login account: password: 
+2025-04-17 08:44:30.9979[5]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-17 08:44:31.0037[5]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-17 08:44:31.0756[11]  INFO MemberController  Member Login account: password: 
+2025-04-17 08:52:25.9633[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-17 08:52:25.9633[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-17 08:52:26.0825[10]  INFO MemberController  Member Login account: password: 
+2025-04-17 09:03:18.4255[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-17 09:03:18.4255[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-17 09:03:18.4990[18]  INFO MemberController  Member Login account: password: 
+2025-04-17 09:03:53.1180[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-17 09:03:53.1180[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-17 09:03:53.1909[17]  INFO MemberController  Member Login account: password: 
+2025-04-17 09:11:33.7334[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-17 09:11:33.7393[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-17 09:11:33.8157[5]  INFO MemberController  Member Login account: password: 
+2025-04-17 09:14:14.5193[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-17 09:14:14.5193[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-17 09:14:14.6433[18]  INFO MemberController  Member Login account: password: 
+2025-04-17 09:29:45.2426[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-17 09:29:45.2426[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-17 09:29:45.3165[11]  INFO MemberController  Member Login account: password: 

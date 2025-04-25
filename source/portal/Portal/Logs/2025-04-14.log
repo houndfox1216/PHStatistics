@@ -1,0 +1,37 @@
+2025-04-14 18:08:28.1019[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-14 18:08:28.1153[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-14 18:08:28.2811[11]  INFO MemberController  Member Login account: password: 
+2025-04-14 18:09:33.6757[37]  INFO MemberController  Member Login account:neihu password:26271038 
+2025-04-14 18:09:33.8002[37]  INFO MemberController  進行登入 
+2025-04-14 18:09:33.9388[37]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-04-14 18:09:34.0849[29]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-04-14 18:09:34.0849[29]  INFO HomeController  進入首頁
+2025-04-14 18:38:46.2972[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-14 18:38:46.2972[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-14 18:38:46.4064[10]  INFO MemberController  Member Login account: password: 
+2025-04-14 18:40:27.0893[31] ERROR HomeController  匯入EXCEL錯誤The input string '年度' was not in a correct format.
+2025-04-14 18:40:27.1161[31] ERROR HomeController  系統忙碌中，請稍後再試
+System.Exception: 系統忙碌中，請稍後再試
+   at PHStatistics.Portal.Controllers.HomeController.ImportSchoolYearData() in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\HomeController.cs:line 533
+2025-04-14 18:41:53.7547[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-14 18:41:53.7681[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-14 18:41:53.9448[10]  INFO MemberController  Member Login account: password: 
+2025-04-14 18:42:47.8969[19] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-04-14 18:42:51.3257[19] ERROR HomeController  系統忙碌中，請稍後再試
+System.Exception: 系統忙碌中，請稍後再試
+   at PHStatistics.Portal.Controllers.HomeController.ImportSchoolYearData() in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\HomeController.cs:line 539
+2025-04-14 18:44:14.8203[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-14 18:44:14.8276[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-14 18:44:14.8961[7]  INFO MemberController  Member Login account: password: 
+2025-04-14 18:47:46.8636[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-14 18:47:46.8636[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-14 18:47:46.9811[19]  INFO MemberController  Member Login account: password: 
+2025-04-14 18:48:04.8342[12]  INFO MemberController  Member Login account:neihu password:26271038 
+2025-04-14 18:48:04.9128[12]  INFO MemberController  進行登入 
+2025-04-14 18:48:05.1342[12]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-04-14 18:48:05.1678[12]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-04-14 18:48:05.1678[12]  INFO HomeController  進入首頁
+2025-04-14 18:52:54.0811[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-04-14 18:52:54.0811[11]  INFO HomeController  進入首頁
+2025-04-14 18:53:53.4817[17]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-04-14 18:53:53.4817[17]  INFO HomeController  進入首頁
