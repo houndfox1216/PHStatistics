@@ -1,0 +1,88 @@
+﻿@using PHStatistics.Content
+@{
+    List<SchoolAssignment> schools = new List<SchoolAssignment>();
+    if (ViewBag.Schools != null) {
+        schools = (List<SchoolAssignment>)ViewBag.Schools;
+    }
+
+    if (ViewBag.Weeks != null) {
+        schools = (List<SchoolAssignment>)ViewBag.Schools;
+    }
+    string addType = ViewBag.Type;
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center mb-6">
+        <div class="col-12 col-sm-10 col-md-8 col-xl-6">
+            <div class="mt-3 mb-4">
+                @if (schools != null) {
+                    <label for="">
+                        分校 <small class="text-primary">＊必填</small>
+                    </label>
+                    <select class="form-select validate[required]" id="schoolSelect">
+                        <option selected disabled>選擇分校</option>
+                        @foreach (SchoolAssignment assignment in schools) {
+                            <option value=@assignment.School.Id>@assignment.School.Name</option>
+                        }
+                    </select>
+                    if (ViewBag.Years != null) {
+                        int[] years = (int[])ViewBag.Years;
+                        <label for="">
+                            年度
+                        </label>
+                        <select class="form-select " id="queryYear">
+                            <option selected disabled>選擇年度</option>
+                            <option value=0>全部</option>
+                            @foreach (int yearItem in years) {
+                                <option value=@yearItem>@yearItem.ToString()</option>
+                            }
+                        </select>
+                    }
+                    if (ViewBag.Weeks != null) {
+                        int[] weeks = (int[])ViewBag.Weeks;
+                        <label for="">
+                            年度
+                        </label>
+                        <select class="form-select " id="queryWeek">
+                            <option selected disabled>選擇週次</option>
+                            <option value=0>全部</option>
+                            @foreach (int weeekItem in weeks) {
+                                <option value=@weeekItem>@weeekItem.ToString()</option>
+                            }
+                        </select>
+                    }
+                }
+            </div>
+            <div class="">
+                <button type="button" class="btn btn-primary btn-lg btn-round" id="addPHBtn">
+                    查詢 <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('#addPHBtn').on('click', function () {
+            //alert($('#schoolSelect').val());
+            var location = "/StudentPopulation/CreatePopulation?schoolId=" + $('#schoolSelect').val() + "&type=PH";
+            window.location.href = location;
+        });
+                $('#addPSJBtn').on('click', function () {
+            //alert($('#schoolSelect').val());
+            var location = "/StudentPopulation/CreatePSJPopulation?schoolId=" + $('#schoolSelect').val() + "&type=PSJ";
+            window.location.href = location;
+        });
+                $('#addGeptBtn').on('click', function () {
+            //alert($('#schoolSelect').val());
+            var location = "/StudentPopulation/CreateGeptPopulation?schoolId=" + $('#schoolSelect').val() + "&type=Gept";
+            window.location.href = location;
+        });
+                $('#addPSBtn').on('click', function () {
+            //alert($('#schoolSelect').val());
+            var location = "/StudentPopulation/CreatePSPopulation?schoolId=" + $('#schoolSelect').val() + "&type=PS";
+            window.location.href = location;
+        });
+    })
+
+</script>

@@ -306,6 +306,7 @@ namespace PHStatistics.Portal.Controllers {
                                     int classNo = 1;
                                     //判斷班系課程
                                     //取得班系
+                                    int chId = 0;
                                     string cdStr = string.Empty;
                                     string cStr = string.Empty;
                                     string c2Str = string.Empty;
@@ -354,6 +355,9 @@ namespace PHStatistics.Portal.Controllers {
                                                 c2Str = sheet.GetRow(3).Cells[c].ToString().Trim().Replace("　", "").Replace(" ", "");
                                             }
                                         }
+                                        if (cdStr.Equals("國語文")) {
+                                            chId = c;
+                                        }
                                         //檢查該格人數為零不進行處理
                                         if (sheet.GetRow(drNo).Cells[c].CellType != CellType.Formula) {
                                             if (sheet.GetRow(drNo).Cells[c].HasValue() && !string.IsNullOrEmpty(sheet.GetRow(drNo).Cells[c].ToString())) {
@@ -381,10 +385,13 @@ namespace PHStatistics.Portal.Controllers {
                                             continue;
 
                                         try {
-
                                             int checkCount = 0;
                                             if (cdStr.Equals("兒美系列")) {
                                                 cdStr = "國小班";
+                                            }
+                                            if (cdStr.Equals("總人數")) {
+                                                cdStr = "總人數";
+                                                cStr = "總人數";
                                             }
                                             if (cStr.Equals("人數合計")) {
                                                 cdStr = "國小班";
@@ -398,26 +405,81 @@ namespace PHStatistics.Portal.Controllers {
                                                 cdStr = "英文合計";
                                                 cStr = "上週英語文總人數";
                                             }
+                                            else if (cStr.Equals("本週英語文新生")) {
+                                                cdStr = "英文分析";
+                                                cStr = "本週英語文新生";
+                                            }
+                                            else if (cStr.Equals("本週英語文流失")) {
+                                                cdStr = "英文分析";
+                                                cStr = "本週英語文流失";
+                                            }
                                             else if (cStr.Equals("本週國語文總人數")) {
-                                                cdStr = "國文合計";
+                                                cdStr = "國文總計";
                                                 cStr = "本週國語文總人數";
                                             }
                                             else if (cStr.Equals("上週國語文總人數")) {
-                                                cdStr = "國文合計";
+                                                cdStr = "國文總計";
                                                 cStr = "上週國語文總人數";
+                                            }
+                                            else if (cStr.Equals("本週國語文新生人數")) {
+                                                cdStr = "國文分析";
+                                                cStr = "本週國語文新生人數";
+                                            }
+                                            else if (cStr.Equals("本週國語文流失人數")) {
+                                                cdStr = "國文分析";
+                                                cStr = "本週國語文流失人數";
                                             }
                                             else if (cStr.Equals("與上週相比")) {
                                                 if (cdStr.Equals("總計")) {
                                                     cdStr = "國文總計";
                                                     cStr = "與上週相比";
                                                 }
-
                                             }
-
-                                            //
                                             else if (cStr.Equals("總班數")) {
-                                                cdStr = "國小班";
+                                                if (chId != 0 && c >= chId) {
+                                                    cdStr = "國語文";
+                                                }
+                                                else {
+                                                    cdStr = "高中課程";
+                                                }
+                                                
                                             }
+                                            else if (cStr.Equals("去年同期 / 比") || cStr.Equals("去年同期/比")) {
+                                                cdStr = "英文分析";
+                                                cStr = "去年同期/比";
+                                            }
+
+                                            if (cdStr.Contains("Elite/英檢/sat")) {
+                                                cdStr = "高中課程";
+                                                cStr = "Elite/英檢/sat";
+                                            }
+
+                                            if (cdStr.Equals("個別指導")) {
+                                                if (chId != 0 && c > chId) {
+                                                    cdStr = "國語個別指導";
+                                                }
+                                                else {
+                                                    cdStr = "英文個別指導";
+                                                }
+                                            }
+
+                                            if (cStr.Equals("(EM1)高一&高二")) {
+                                                cdStr = "英文個別指導";
+                                            }
+                                            if (cStr.Equals("總班數")) {
+                                                if (chId != 0 && c >= chId) {
+                                                    cdStr = "國語文";
+                                                }
+                                                else {
+                                                    cdStr = "高中課程";
+                                                }
+
+                                            }
+                                            if (cStr.Equals("總人數")) {
+                                                cdStr = "總人數";
+                                                cStr = "總人數";
+                                            }
+
                                             courseDep = dataContext.CourseDepartment.FirstOrDefault(p => p.Name == cdStr);
                                             if (courseDep.Name.Equals("總人數") || courseDep.Name.Equals(@"Elite/英檢/sat班系") || courseDep.Name.Equals(@"本週總詢問(填單)人數")) {
                                                 checkCourse = dataContext.Course.FirstOrDefault(p => p.Department.Id == courseDep.Id && p.Name == courseDep.Name);
@@ -461,7 +523,7 @@ namespace PHStatistics.Portal.Controllers {
 
                                             if (courseDep.HasValue() && course.HasValue()) {
                                                 string className = string.Format("{0}_{2}_{1}", course.Name, classNo.ToString("00"), classType);
-                                                if (dataContext.Class.Any(p => p.Course.Id == course.Id && p.Name == className && p.Type == cType && p.School.Id == newSchool.Id)) {
+                                                if (dataContext.Class.Any(p => p.Course.DepartmentId == courseDep.Id && p.Course.Id == course.Id && p.Name == className && p.Type == cType && p.School.Id == newSchool.Id)) {
                                                     newClass = dataContext.Class.FirstOrDefault(p => p.Course.Id == course.Id && p.Name == className && p.Type == cType && p.School.Id == newSchool.Id);
                                                 }
                                                 else {
@@ -483,14 +545,15 @@ namespace PHStatistics.Portal.Controllers {
                                         if (dataContext.StudentPopulationItem.Any(e => e.StudentPopulation.Id == studentPopulation.Id && e.Class.Id == newClass.Id)) {
                                             StudentPopulationItem item = dataContext.StudentPopulationItem.FirstOrDefault(e => e.StudentPopulation.Id == studentPopulation.Id && e.Class.Id == newClass.Id);
                                             if (item != null) {
-                                                item.Number = item.Number + newItem.Number;
+                                                item.Number = newItem.Number;
                                             }
                                         }
                                         else {
                                             studentPopulation.Items.Add(new StudentPopulationItem() { ClassId = newClass.Id, Number = count });
                                         }
+                                        dataContext.SaveChanges();
                                     }
-                                    dataContext.SaveChanges();
+
                                 }
                                 catch (Exception ex) {
                                     continue;
@@ -514,9 +577,9 @@ namespace PHStatistics.Portal.Controllers {
         [HttpGet("ImportCourseData")]
         public IActionResult ImportCourseData() {
             try {
-                using (var connection = new SqlConnection("Server=CLOUDFUN-MSI-LE\\SQLEXPRESS;Database=Course;User=sa;Pwd=cloudfun@12;Encrypt=false;MultipleActiveResultSets=true")) {
+                using (DataContext dataContext = new DataContext()) {
                     XSSFWorkbook xssfworkbook;
-                    using (FileStream file = new FileStream("C:\\Leo\\其他\\Kuri\\人數表\\20250415\\匯入測試\\", FileMode.Open, FileAccess.Read)) {
+                    using (FileStream file = new FileStream("C:\\Leo\\其他\\Kuri\\人數表\\分校班系課程開班資料_20250425.xlsx", FileMode.Open, FileAccess.Read)) {
                         xssfworkbook = new XSSFWorkbook(file);
                     }
                     ISheet sheet = xssfworkbook.GetSheetAt(0);
@@ -528,11 +591,42 @@ namespace PHStatistics.Portal.Controllers {
                     decimal pics = 0;
                     string sizeStr = string.Empty;
                     string exNo = string.Empty;
-                    for (int drNo = 4; drNo < rowCount; drNo++) {
-                        for (int c = 0; c < 3; c++) {
+                    for (int drNo = 1; drNo < rowCount; drNo++) {
+                        SchoolClass schoolClass = new SchoolClass();
+                        if (sheet.GetRow(drNo).Cells[0].HasValue() && !string.IsNullOrEmpty(sheet.GetRow(drNo).Cells[0].ToString())) {
+                            if (!string.IsNullOrEmpty(sheet.GetRow(drNo).Cells[0].ToString().Trim().Replace("　", "").Replace(" ", ""))) {
+                                schoolClass.CourseDepartment = sheet.GetRow(drNo).Cells[0].ToString().Trim().Replace("　", "").Replace(" ", "");
+                            }
+                        }
 
+                        if (sheet.GetRow(drNo).Cells[1].HasValue() && !string.IsNullOrEmpty(sheet.GetRow(drNo).Cells[1].ToString())) {
+                            if (!string.IsNullOrEmpty(sheet.GetRow(drNo).Cells[1].ToString().Trim().Replace("　", "").Replace(" ", ""))) {
+                                schoolClass.Course = sheet.GetRow(drNo).Cells[1].ToString().Trim().Replace("　", "").Replace(" ", "");
+                            }
+                        }
+
+                        if (sheet.GetRow(drNo).Cells[2].HasValue() && !string.IsNullOrEmpty(sheet.GetRow(drNo).Cells[2].ToString())) {
+                            if (!string.IsNullOrEmpty(sheet.GetRow(drNo).Cells[2].ToString().Trim().Replace("　", "").Replace(" ", ""))) {
+                                schoolClass.Class = sheet.GetRow(drNo).Cells[2].ToString().Trim().Replace("　", "").Replace(" ", "");
+                            }
+                        }
+
+                        if (sheet.GetRow(drNo).Cells[3].HasValue() && !string.IsNullOrEmpty(sheet.GetRow(drNo).Cells[3].ToString())) {
+                            if (!string.IsNullOrEmpty(sheet.GetRow(drNo).Cells[3].ToString().Trim().Replace("　", "").Replace(" ", ""))) {
+                                schoolClass.School = sheet.GetRow(drNo).Cells[3].ToString().Trim().Replace("　", "").Replace(" ", "");
+                            }
+                        }
+                        if (!dataContext.SchoolClass.Any(e => e.CourseDepartment == schoolClass.CourseDepartment && e.Course == schoolClass.Course && e.Class == schoolClass.Class && e.School == schoolClass.School)) {
+                            if (string.IsNullOrEmpty(schoolClass.CourseDepartment) ||
+                                string.IsNullOrEmpty(schoolClass.Course) ||
+                                string.IsNullOrEmpty(schoolClass.Class) ||
+                                string.IsNullOrEmpty(schoolClass.School)) {
+                                continue;
+                            }
+                            dataContext.SchoolClass.Add(schoolClass);
                         }
                     }
+                    dataContext.SaveChanges();
                 }
                 return Json(ResponseStatus.OK);
             }

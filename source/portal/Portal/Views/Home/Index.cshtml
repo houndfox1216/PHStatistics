@@ -27,7 +27,8 @@
                     <button type="button" class="btn btn-primary btn-lg btn-round" id="addNewPS">
                         輸入資料-百世
                     </button>
-                }else{
+                }
+                else {
                     <button type="button" class="btn btn-primary btn-lg btn-round" id="addNew" disabled="true">
                         輸入資料-百瀚
                     </button>
@@ -40,7 +41,7 @@
                     <button type="button" class="btn btn-primary btn-lg btn-round" id="addNewPS" disabled="true">
                         輸入資料-百世
                     </button>
-@* 
+                    @* 
                     <button type="button" class="btn btn-primary btn-lg btn-round" onclick="#" disabled="true">
                         輸入資料
                     </button> *@
@@ -65,5 +66,8 @@
     })
     $('#addNewPS').on('click', function () {
         window.location.href = "/StudentPopulation/Index?type=PS";
+    })
+    $('#query').on('click', function () {
+        window.location.href = "/StudentPopulation/Query";
     })
 </script>

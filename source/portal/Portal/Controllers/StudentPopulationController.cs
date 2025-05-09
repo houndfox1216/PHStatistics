@@ -72,6 +72,28 @@ namespace PHStatistics.Portal.Controllers {
             return View();
         }
 
+        public IActionResult Query() {
+            Logger.LogInformation("進入首頁(MainMenu)");
+            try {
+                Logger.LogInformation($"進入首頁確認使用者 User.IsGuest {User.IsGuest()} User.Id {User.Id}");
+            }
+            catch (Exception ex) {
+
+            }
+            DataContext dataContext = new DataContext();
+            //取得維護年度週次
+            DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
+            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.WeekEndDate >= dateTime).FirstOrDefault();
+            List<SchoolAssignment> schools = Model.GetMemberSchool(User.Id);
+            int[] years = dataContext.StudentPopulation.GroupBy(e => e.Year).Select(e => e.Key).ToArray();
+            int[] weeks = dataContext.StudentPopulation.GroupBy(e => e.Week).Select(e => e.Key).ToArray();
+            ViewBag.Schools = schools;
+            ViewBag.Years = years;
+            ViewBag.Weeks = weeks;
+            ViewBag.CanEdit = schoolYear != null;
+            return View();
+        }
+
         [Authorize(typeof(PortalUser))]
         public IActionResult CreatePopulation(StudentPopulation data, int schoolId, string type) {
             DataContext dataContext = new DataContext();
@@ -694,6 +716,9 @@ namespace PHStatistics.Portal.Controllers {
                 dataContext.SaveChanges();
                 //新增國文合計
                 Course sumchCourse = dataContext.Course.Where(e => e.Department.Id == 169 && e.Department.Subject == CourseSubject.Chinese && e.IsSum == true).FirstOrDefault();
+                if(sumchCourse == null) {
+                    sumchCourse = dataContext.Course.Where(e => e.Department.Id == 165 && e.Department.Subject == CourseSubject.Chinese && e.IsSum == false).FirstOrDefault();
+                }
                 Class sumchClass = new Class();
                 if (dataContext.Class.Any(e => e.School.Id == schoolId && e.Course.Id == sumchCourse.Id)) {
                     sumchClass = dataContext.Class.Include("Course.Department").Where(e => e.School.Id == schoolId && e.Course.Id == sumchCourse.Id).FirstOrDefault();

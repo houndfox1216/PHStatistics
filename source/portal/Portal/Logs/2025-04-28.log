@@ -1,0 +1,5 @@
+2025-04-28 12:18:40.6740[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-28 12:18:40.6740[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-28 12:38:20.9606[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-28 12:38:20.9724[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-28 12:38:21.2312[10]  INFO MemberController  Member Login account: password: 
