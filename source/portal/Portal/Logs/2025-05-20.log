@@ -1,0 +1,135 @@
+2025-05-20 05:21:06.5347[25] ERROR HomeController  匯入仁武資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-20 05:21:27.8787[25] ERROR HomeController  匯入仁武資料失敗 ex An exception has been raised that is likely due to a transient failure. Consider enabling transient error resiliency by adding 'EnableRetryOnFailure' to the 'UseSqlServer' call.  ex.InnerException A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: TCP Provider, error: 0 - 連線嘗試失敗，因為連線對象有一段時間並未正確回應，或是連線建立失敗，因為連線的主機無法回應。)
+2025-05-20 14:06:21.2965[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-20 14:06:21.3061[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-20 14:06:21.4126[10]  INFO MemberController  Member Login account: password: 
+2025-05-20 14:07:36.1899[18]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-05-20 14:07:36.2627[18]  INFO MemberController  進行登入 
+2025-05-20 14:07:36.4036[18]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-05-20 14:07:36.5306[26]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-05-20 14:07:36.5306[26]  INFO HomeController  進入首頁
+2025-05-20 14:07:39.0741[25]  INFO StudentPopulationController  進入首頁(MainMenu)
+2025-05-20 14:07:39.0741[25]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2025-05-20 21:09:40.3473[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-20 21:09:40.3691[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-20 21:09:40.6285[5]  INFO MemberController  Member Login account: password: 
+2025-05-20 21:10:23.6702[5]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-05-20 21:10:24.0267[5]  INFO MemberController  進行登入 
+2025-05-20 21:10:24.3472[5]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-05-20 21:10:24.5502[19]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-05-20 21:10:24.5502[19]  INFO HomeController  進入首頁
+2025-05-20 21:10:30.8888[5]  INFO StudentPopulationController  進入首頁(MainMenu)
+2025-05-20 21:10:30.8888[5]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2025-05-20 21:11:45.6832[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-20 21:11:45.6832[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-20 21:11:45.8488[17]  INFO MemberController  Member Login account: password: 
+2025-05-20 21:12:50.1017[26]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-05-20 21:12:50.2244[26]  INFO MemberController  進行登入 
+2025-05-20 21:12:50.3552[26]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-05-20 21:12:50.4671[26]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-05-20 21:12:50.4671[26]  INFO HomeController  進入首頁
+2025-05-20 21:13:28.5094[26]  INFO StudentPopulationController  進入首頁(MainMenu)
+2025-05-20 21:13:28.5094[26]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2025-05-20 21:14:47.5803[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-20 21:14:47.5892[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-20 21:14:47.6751[16]  INFO MemberController  Member Login account: password: 
+2025-05-20 21:15:08.3879[16]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-05-20 21:15:08.4531[16]  INFO MemberController  進行登入 
+2025-05-20 21:15:08.5601[16]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-05-20 21:15:08.6357[16]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-05-20 21:15:08.6357[16]  INFO HomeController  進入首頁
+2025-05-20 21:23:33.0228[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-20 21:23:33.0228[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-20 21:23:33.1662[10]  INFO MemberController  Member Login account: password: 
+2025-05-20 21:23:50.0344[18]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-05-20 21:23:50.1047[18]  INFO MemberController  進行登入 
+2025-05-20 21:23:50.2290[18]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-05-20 21:23:50.3362[7]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-05-20 21:23:50.3362[7]  INFO HomeController  進入首頁
+2025-05-20 21:23:55.8503[17]  INFO StudentPopulationController  進入首頁(MainMenu)
+2025-05-20 21:23:55.8503[17]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2025-05-20 21:25:28.3039[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-20 21:25:28.3039[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-20 21:25:28.4167[11]  INFO MemberController  Member Login account: password: 
+2025-05-20 21:25:50.1448[14]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-05-20 21:25:50.2086[14]  INFO MemberController  進行登入 
+2025-05-20 21:25:50.3370[14]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-05-20 21:25:50.4470[14]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-05-20 21:25:50.4470[14]  INFO HomeController  進入首頁
+2025-05-20 21:25:57.2187[5]  INFO StudentPopulationController  進入首頁(MainMenu)
+2025-05-20 21:25:57.2187[5]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2025-05-20 21:26:45.6958[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-20 21:26:45.7174[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-20 21:26:46.0058[10]  INFO MemberController  Member Login account: password: 
+2025-05-20 21:27:22.8931[19]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-05-20 21:27:23.0976[19]  INFO MemberController  進行登入 
+2025-05-20 21:27:23.4970[19]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-05-20 21:27:23.6812[10]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-05-20 21:27:23.6812[10]  INFO HomeController  進入首頁
+2025-05-20 21:27:30.3151[26]  INFO StudentPopulationController  進入首頁(MainMenu)
+2025-05-20 21:27:30.3151[26]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2025-05-20 21:31:41.4176[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-20 21:31:41.4389[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-20 21:31:41.6583[10]  INFO MemberController  Member Login account: password: 
+2025-05-20 21:32:14.2949[21]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-05-20 21:32:14.5056[21]  INFO MemberController  進行登入 
+2025-05-20 21:32:14.8779[21]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-05-20 21:32:15.0866[10]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-05-20 21:32:15.0866[10]  INFO HomeController  進入首頁
+2025-05-20 21:32:28.8466[21]  INFO StudentPopulationController  進入首頁(MainMenu)
+2025-05-20 21:32:28.8466[21]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2025-05-20 21:38:23.0656[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-20 21:38:23.0894[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-20 21:38:23.3705[18]  INFO MemberController  Member Login account: password: 
+2025-05-20 21:39:40.4688[20]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-20 21:39:40.4688[20]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-20 21:39:40.4926[23]  INFO MemberController  Member Login account: password: 
+2025-05-20 21:39:50.0736[18]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-05-20 21:39:50.1478[18]  INFO MemberController  進行登入 
+2025-05-20 21:39:50.2142[18]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-05-20 21:39:50.4023[18]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-05-20 21:39:50.4023[18]  INFO HomeController  進入首頁
+2025-05-20 21:39:58.1032[18]  INFO StudentPopulationController  進入首頁(MainMenu)
+2025-05-20 21:39:58.1032[18]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2025-05-20 21:41:25.0339[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-20 21:41:25.0585[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-20 21:41:25.2942[5]  INFO MemberController  Member Login account: password: 
+2025-05-20 21:41:53.5676[17]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-05-20 21:42:05.1885[10]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-05-20 21:42:05.4152[10]  INFO MemberController  進行登入 
+2025-05-20 21:42:05.8077[10]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-05-20 21:42:06.0438[19]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-05-20 21:42:06.0438[19]  INFO HomeController  進入首頁
+2025-05-20 21:42:10.2891[19]  INFO StudentPopulationController  進入首頁(MainMenu)
+2025-05-20 21:42:10.2891[19]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2025-05-20 21:44:01.8948[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-20 21:44:01.9215[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-20 21:44:02.1671[18]  INFO MemberController  Member Login account: password: 
+2025-05-20 21:44:35.1124[10]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-05-20 21:44:35.2646[10]  INFO MemberController  進行登入 
+2025-05-20 21:44:35.6754[10]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-05-20 21:44:35.8653[5]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-05-20 21:44:35.8653[5]  INFO HomeController  進入首頁
+2025-05-20 21:44:39.4939[5]  INFO StudentPopulationController  進入首頁(MainMenu)
+2025-05-20 21:44:39.4939[5]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2025-05-20 21:46:54.4931[27]  INFO StudentPopulationController  進入首頁(MainMenu)
+2025-05-20 21:46:54.4931[27]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2025-05-20 21:47:08.1774[20]  INFO StudentPopulationController  進入首頁(MainMenu)
+2025-05-20 21:47:08.1774[20]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2025-05-20 21:50:05.9236[18]  INFO StudentPopulationController  進入首頁(MainMenu)
+2025-05-20 21:50:05.9236[18]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2025-05-20 21:51:51.2420[37]  INFO StudentPopulationController  進入首頁(MainMenu)
+2025-05-20 21:51:51.2420[37]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2025-05-20 21:53:08.1666[39]  INFO StudentPopulationController  進入首頁(MainMenu)
+2025-05-20 21:53:08.1666[39]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2025-05-20 23:13:38.9195[5]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-20 23:13:38.9272[5]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-20 23:13:39.0195[10]  INFO MemberController  Member Login account: password: 
+2025-05-20 23:13:46.6461[20]  INFO HomeController  進入ImportExcelData
+2025-05-20 23:13:46.6461[20]  INFO HomeController  讀取路徑 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\
+2025-05-20 23:13:46.6461[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\中正.xlsx
+2025-05-20 23:22:29.6709[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\仁武.xlsx
+2025-05-20 23:22:30.5848[20] ERROR HomeController  匯入仁武資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-20 23:23:34.3264[20] ERROR HomeController  匯入仁武資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-20 23:29:10.8210[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\內湖.xlsx
+2025-05-20 23:49:33.6319[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\南京.xlsx

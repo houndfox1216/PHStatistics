@@ -91,7 +91,13 @@ namespace PHStatistics.Portal.Controllers {
             ViewBag.Years = years;
             ViewBag.Weeks = weeks;
             ViewBag.CanEdit = schoolYear != null;
-            return View();
+            ViewBag.Courses = Model.DataContext.Course.ToList();
+            int memberSchool = schools.FirstOrDefault().School.Id;
+            int year = years[years.Length - 1];
+            int week = weeks[weeks.Length - 1];
+            StudentPopulation studentPopulationData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").Where(e => e.School.Id == memberSchool && e.Year == year && e.Week == week).FirstOrDefault();
+
+            return View(studentPopulationData);
         }
 
         [Authorize(typeof(PortalUser))]
@@ -455,9 +461,6 @@ namespace PHStatistics.Portal.Controllers {
             return View(returnData);
         }
 
-
-
-
         [Authorize(typeof(PortalUser))]
         [HttpPost("AddClass")]
         public IActionResult AddClass(int courseId, int schoolId, int year, int week, string[][] itemArr, string type) {
@@ -755,6 +758,27 @@ namespace PHStatistics.Portal.Controllers {
             }
             studentPopulationData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").Where(e => e.School.Id == schoolId && e.Year == year && e.Week == week).FirstOrDefault();// Model.GetStudentPopulation(schoolId, year, week);
             return PartialView("PopulationPartialView", studentPopulationData);
+        }
+
+        [Authorize(typeof(PortalUser))]
+        [HttpPost("QueryPopulationPartial")]
+        // data: { 'schoolId': schoolId, 'courseId': newCourses.value, 'week': week, 'year': year, 'newClassType': newClassType, 'newClassName': newClassName, 'newNumber': newNumber, 'newStudentremark':newStudentremark },
+        public IActionResult QueryPopulationPartial(int schoolId, int year, int week) {
+
+            List<Course> courses = Model.DataContext.Course.ToList();
+            ViewBag.Courses = courses;
+            DataContext dataContext = new DataContext();
+            var seleceedType = StudentPopulationType.PH;
+            //var seleceedType = type switch {
+            //    "PH" => StudentPopulationType.PH,
+            //    "PS" => StudentPopulationType.PS,
+            //    "PHM" => StudentPopulationType.PHM,
+            //    _ => StudentPopulationType.AfterSchool
+            //};
+
+           
+            StudentPopulation studentPopulationData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").Where(e => e.School.Id == schoolId && e.Year == year && e.Week == week).FirstOrDefault();
+            return PartialView("QueryPopulationPartialView", studentPopulationData);
         }
 
     }

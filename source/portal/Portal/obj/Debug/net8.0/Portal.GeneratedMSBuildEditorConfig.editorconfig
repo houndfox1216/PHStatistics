@@ -128,6 +128,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFBvcHVsYXRpb25cUXVlcnkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Company/PHStatistics.portal/source/portal/Portal/Views/StudentPopulation/QueryPopulationPartialView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFBvcHVsYXRpb25cUXVlcnlQb3B1bGF0aW9uUGFydGlhbFZpZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Company/PHStatistics.portal/source/portal/Portal/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

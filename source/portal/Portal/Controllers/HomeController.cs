@@ -32,6 +32,7 @@ using System.Framework.Application;
 using Microsoft.AspNetCore.Http;
 using System.Data;
 using System.Data.SqlClient;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 
 
 
@@ -113,14 +114,18 @@ namespace PHStatistics.Portal.Controllers {
         #region 資料匯入處理
         [HttpGet("ImportExcelData")]
         public IActionResult ImportExcelData() {
+            string schooleName = string.Empty;
             try {
+                Logger.LogInformation($"進入ImportExcelData");
                 using (DataContext dataContext = new DataContext()) {
-
                     //取得資料夾資料
-                    string sourceDirectory = "C:\\Leo\\其他\\Kuri\\人數表\\20250415\\匯入測試\\";
-                    string schooleName = string.Empty;
+                    string sourceDirectory = "C:\\Leo\\其他\\Kuri\\人數表\\20250519\\0519匯入_TEST\\";
+                    //C:\Leo\其他\Kuri\人數表\20250515\0519匯入_TEST
+                    //"F:\\WEB\\PCM_FTP\\NewPAS\\匯入\\"                   
                     var xlsxFiles = Directory.EnumerateFiles(sourceDirectory, "*.xlsx");
+                    Logger.LogInformation($"讀取路徑 {sourceDirectory}");
                     foreach (string currentFile in xlsxFiles) {
+                        Logger.LogInformation($"讀取檔案 {currentFile}");
                         try {
                             schooleName = currentFile.Substring(sourceDirectory.Length);
                             schooleName = schooleName.Replace(".xlsx", "");
@@ -138,8 +143,8 @@ namespace PHStatistics.Portal.Controllers {
                                 dataContext.School.Add(newSchool);
                                 dataContext.SaveChanges();
                             }
-                            string year = "2024";
-                            int yearInt = 113;
+                            string year = "2025";
+                            int yearInt = 114;
                             using (FileStream file = new FileStream(currentFile, FileMode.Open, FileAccess.Read)) {
                                 xssfworkbook = new XSSFWorkbook(file);
                             }
@@ -556,12 +561,14 @@ namespace PHStatistics.Portal.Controllers {
 
                                 }
                                 catch (Exception ex) {
+                                    Logger.LogError($"匯入{schooleName}資料失敗 ex {ex.Message}  ex.InnerException {ex.InnerException?.Message}", ex.Message);
                                     continue;
                                     //string f = ex.Message;
                                 }
                             }
                         }
                         catch (Exception ex) {
+                            Logger.LogInformation($"解析 {schooleName} 檔案失敗 ex{ex.Message} ex.InnerException {ex.InnerException?.Message}");
                             string f = ex.Message;
                             continue;
                         }
@@ -570,6 +577,7 @@ namespace PHStatistics.Portal.Controllers {
                 return Json(ResponseStatus.OK);
             }
             catch (FrameworkException fe) {
+                Logger.LogInformation($"讀取檔案 {schooleName} 失敗 fe{fe.Message} fe.InnerException {fe.InnerException?.Message}");
                 return Json(ResponseStatus.InternalServerError);
             }
         }
@@ -992,7 +1000,36 @@ namespace PHStatistics.Portal.Controllers {
                             continue;
                         }
                     }
+                }
+                return Json(ResponseStatus.OK, 1);
+            }
+            catch (Exception e) {
+                Logger.LogError(e, e.Message);
+                return Json(ResponseStatus.OK, 1);
+            }
+        }
 
+        [HttpGet("SetMemberSchool")]
+        public IActionResult SetMemberSchool(string memberAcc) {
+            try {
+                using (DataContext dataContext = new DataContext()) {
+                    //確認會員資料
+                    Member member = dataContext.Member.FirstOrDefault(e => e.Account == memberAcc);
+                    if(member != null) {
+                        //增加分校所屬成員
+                        foreach (School school in dataContext.School.ToList()) {
+                            if (!dataContext.SchoolAssignment.Any(e => e.School.Id == school.Id && e.Member.Id == member.Id)) {
+                                SchoolAssignment newAss = new SchoolAssignment();
+                                newAss.School = school;
+                                newAss.Member = member;
+                                dataContext.SchoolAssignment.Add(newAss);
+                                dataContext.SaveChanges();
+                            }
+                            else {
+                                continue;
+                            }
+                        }
+                    }
                 }
                 return Json(ResponseStatus.OK, 1);
             }

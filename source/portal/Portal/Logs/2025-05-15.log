@@ -1,0 +1,87 @@
+2025-05-15 15:18:25.8157[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-15 15:18:25.8157[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-15 15:18:25.9225[7]  INFO MemberController  Member Login account: password: 
+2025-05-15 15:29:11.2371[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-15 15:29:11.2371[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-15 15:29:11.3579[16]  INFO MemberController  Member Login account: password: 
+2025-05-15 15:30:05.8888[16] ERROR HomeController  匯入仁武資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:30:08.4426[16] ERROR HomeController  匯入仁武資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:33:25.1498[5]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-15 15:33:25.1498[5]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-15 15:33:25.2341[7]  INFO MemberController  Member Login account: password: 
+2025-05-15 15:34:37.8568[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-15 15:34:37.8643[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-15 15:34:37.9512[5]  INFO MemberController  Member Login account: password: 
+2025-05-15 15:35:26.2651[11] ERROR HomeController  匯入仁武資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:35:31.6361[11] ERROR HomeController  匯入仁武資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:43:36.0094[11] ERROR HomeController  匯入向上資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:45:45.2825[11] ERROR HomeController  匯入大安資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:45:47.2887[11] ERROR HomeController  匯入大安資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:45:48.2746[11] ERROR HomeController  匯入大安資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:46:24.7983[11] ERROR HomeController  匯入大安資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:46:50.6301[11] ERROR HomeController  匯入大安資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:46:55.3633[11] ERROR HomeController  匯入大安資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:47:09.2398[11] ERROR HomeController  匯入大安資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:49:34.7395[11] ERROR HomeController  匯入崇明資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:52:02.2189[11] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:52:07.4361[11] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:52:11.4806[11] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:52:15.8942[11] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:52:20.2321[11] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:52:25.1666[11] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:52:29.4888[11] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:52:33.6236[11] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:52:38.4169[11] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:52:44.5691[11] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:52:49.1216[11] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:52:53.1275[11] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:52:57.4423[11] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:54:04.7402[11] ERROR HomeController  匯入敦南資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:54:46.9814[11] ERROR HomeController  匯入敦南資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:55:12.0898[11] ERROR HomeController  匯入敦南資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:55:13.4225[11] ERROR HomeController  匯入敦南資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 15:55:13.9146[11] ERROR HomeController  匯入敦南資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:02:26.2582[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:02:32.4094[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:02:39.1815[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:02:44.3756[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:02:49.0887[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:02:53.6004[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:02:58.3212[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:03:05.5114[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:03:12.0744[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:03:18.5334[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:03:24.6070[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:03:29.9848[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:03:35.3787[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:03:40.7254[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:03:44.7691[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:03:48.6979[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:03:51.4268[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:03:54.3258[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:03:56.7018[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:03:59.8475[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:04:02.6591[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:04:05.2946[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:04:08.4283[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:04:11.8946[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:04:14.1930[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:04:16.7081[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:04:18.7789[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:04:21.7302[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:04:24.1222[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:04:26.7276[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:04:29.1838[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:04:31.6053[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:04:33.9282[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:04:36.6140[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:04:39.0492[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:04:41.3871[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:04:43.9417[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:04:46.4440[11] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:10:59.6277[11] ERROR HomeController  匯入板橋陽明資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:11:00.9192[11] ERROR HomeController  匯入板橋陽明資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:32:34.0351[11] ERROR HomeController  匯入秀朗資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:58:57.8469[11] ERROR HomeController  匯入龍華資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:59:00.6999[11] ERROR HomeController  匯入龍華資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-15 16:59:11.5780[11] ERROR HomeController  匯入龍華資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 

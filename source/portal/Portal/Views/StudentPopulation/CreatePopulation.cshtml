@@ -180,9 +180,6 @@
                 testArr.push([classItem.dataset.course, classItem.dataset.class, classItem.value]);
             }
         }
-        // $.post("demo_ajax_gethint.asp", { 'schoolId': schoolId, 'courseId': cId, 'week': week, 'year': year, 'itemArr': testArr }, function (result) {
-        //     $("#contentItem").html(result);
-        // });
         $.ajax({
             url: '@Url.Action("AddClass", "StudentPopulation")',
             cache: false,
@@ -220,28 +217,6 @@
                 itemArr.push([classItem.dataset.course, classItem.dataset.class, classItem.value]);
             }
         }
-
-        // console.log('newCourses', newCourses.value);
-        // console.log('newClassType', newClassType.value);
-        // console.log('newClassName', newClassName.value);
-        // console.log('newNumber', newNumber.value);
-        // console.log('newStudentremark', newStudentremark.value);
-        // console.log('itemArr', itemArr);
-        // $.ajax({
-        //     url: '@Url.Action("AddNewClass", "StudentPopulation")',
-        //     cache: false,
-        //     data: { 'schoolId': schoolId, 'courseId': newCourses.value, 'week': week, 'year': year, 'newClassType': newClassType, 'newClassName': newClassName, 'newNumber': newNumber, 'newStudentremark': newStudentremark },
-        //     // dataType: 'application/json',
-        //     type: 'POST',
-        //     dataType: "html",
-        //     success: function (data) {
-        //         $("#contentItem").html(data);
-        //     },
-        //     error: function () {
-
-        //     }
-        // });
-
         $.ajax({
             url: '@Url.Action("AddNewClass", "StudentPopulation")',
             cache: false,
