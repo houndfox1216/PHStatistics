@@ -71,7 +71,7 @@ namespace PHStatistics.Portal.Controllers {
             DataContext dataContext = new DataContext();
             //取得維護年度週次
             DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
-            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.WeekEndDate >= dateTime).FirstOrDefault();
+            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).FirstOrDefault();
             ViewBag.CanEdit = schoolYear != null;
             ViewBag.Title = "Home Page".ToI18n(Culture.GetCode());
             ViewBag.BannerPositions = new List<BannerPosition>();
@@ -447,7 +447,7 @@ namespace PHStatistics.Portal.Controllers {
                                                 else {
                                                     cdStr = "高中課程";
                                                 }
-                                                
+
                                             }
                                             else if (cStr.Equals("去年同期 / 比") || cStr.Equals("去年同期/比")) {
                                                 cdStr = "英文分析";
@@ -863,6 +863,113 @@ namespace PHStatistics.Portal.Controllers {
             }
         }
 
+        [HttpGet("ImportPIData2")]
+        public IActionResult ImportPIData2() {
+            try {
+                using (FileStream file = new FileStream(@"C:\Leo\其他\Kuri\人數表\班系課程整理20240729-修改20240902-GEPT.xlsx", FileMode.Open, FileAccess.Read)) {
+                    if (!file.HasValue())
+                        throw new System.Data.DataException("取得資料發生錯誤");
+                    try {
+                        var workbook = new XSSFWorkbook(file);
+                        ISheet sheet1 = workbook.GetSheetAt(0);
+                        List<ImportData> psj = new List<ImportData>();
+
+                        var list = new List<ISheet>() { sheet1 };
+                        var count = 0;
+                        for (int k = 0; k < workbook.NumberOfSheets; k++) {
+                            string[] input = new string[2];
+                            var sheet = workbook.GetSheetAt(k); ;
+                            string comName = sheet.SheetName;
+                            for (int row = 0; row <= sheet.LastRowNum; row++) {
+                                XSSFRow xlRow = sheet.GetRow(row) as XSSFRow; //取得每一列
+                                ImportData newItem = new ImportData();
+                                if (xlRow != null) {
+                                    for (int col = 0; col < xlRow.LastCellNum; col++) {
+                                        XSSFCell xlCell = xlRow.GetCell(col) as XSSFCell; //取得目前列的每個儲存格
+                                        string value = string.Empty;
+                                        //取得儲存格的值
+                                        if (xlCell.CellType == CellType.Numeric) {
+                                            if (DateUtil.IsCellDateFormatted(xlCell))
+                                                value = xlCell.DateCellValue.ToString(); //日期格式
+                                            else
+                                                value = xlCell.NumericCellValue.ToString(); //數值格式
+                                        }
+                                        else if (xlCell.CellType == CellType.String) {
+                                            value = xlCell.StringCellValue; //字串格式
+                                        }
+                                        if (col == 0) {
+                                            newItem.Department = value;
+                                        }
+                                        else {
+                                            newItem.Course = value;
+                                        }
+                                    }
+                                }
+                                else {
+                                    continue;
+                                }
+
+                                if (k == 0) {
+                                    if (newItem.Department != null && !string.IsNullOrEmpty(newItem.Department) && newItem.Course != null && !string.IsNullOrEmpty(newItem.Course)) {
+                                        psj.Add(newItem);
+                                    }
+                                }   
+                            }
+                        }
+                        using (DataContext dataContext = new DataContext()) {
+                            int departmentOrdinal = 0;
+                            int courseOrdinal = 0;                         
+                            foreach (ImportData phItem in psj) {
+                                if (phItem != null) {
+                                    CourseDepartment courseDepartment = new CourseDepartment();
+                                    if (dataContext.CourseDepartment.Any(e => e.Name == phItem.Department)) {
+                                        courseDepartment = dataContext.CourseDepartment.FirstOrDefault(e => e.Name == phItem.Department);
+                                    }
+                                    else {
+                                        courseDepartment.Name = phItem.Department;
+                                        courseDepartment.Ordinal = departmentOrdinal;
+                                        courseDepartment.Company = Company.PH;
+                                        dataContext.CourseDepartment.Add(courseDepartment);
+                                        dataContext.SaveChanges();
+                                        departmentOrdinal++;
+                                    }
+                                    Course course = new Course();
+                                    if (dataContext.Course.Any(e => e.Name == phItem.Course)) {
+                                        continue;
+                                    }
+                                    else {
+                                        course.Name = phItem.Course.ToUpper();
+                                        course.Ordinal = courseOrdinal;
+                                        course.Department = courseDepartment;
+                                        course.Type = StudentPopulationType.GEPT;
+                                        dataContext.Course.Add(course);
+                                        dataContext.SaveChanges();
+                                        courseOrdinal++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    catch (FrameworkException ex) {
+                        Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                        throw new FrameworkException(ex.Message);
+                    }
+                    catch (Exception ex) {
+                        Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                        throw new Exception("系統忙碌中，請稍後再試");
+                    }
+                    return Json(ResponseStatus.OK, 1);
+                }
+            }
+            catch (FrameworkException fe) {
+                return Json(ResponseStatus.OK, 1);
+            }
+            catch (Exception e) {
+                Logger.LogError(e, e.Message);
+                return Json(ResponseStatus.OK, 1);
+            }
+        }
+
         [HttpGet("ImportMemberData")]
         public IActionResult ImportMemberData(string type) {
             try {
@@ -940,6 +1047,13 @@ namespace PHStatistics.Portal.Controllers {
                                         dataContext.Member.Add(newMember);
                                         dataContext.SaveChanges();
                                     }
+                                    else {
+                                        newMember = dataContext.Member.FirstOrDefault(e => e.Account == memberItem.Account);
+                                        //if (newMember.Password != memberItem.PassWord.ComputeHashStringWithSha().ToBase64()) {
+                                        //    newMember.Password = memberItem.PassWord.ComputeHashStringWithSha().ToBase64();
+                                        //    dataContext.SaveChanges();
+                                        //}
+                                    }
                                     //增加分校所屬成員
                                     if (!dataContext.SchoolAssignment.Any(e => e.School.Id == school.Id && e.Member.Id == newMember.Id)) {
                                         SchoolAssignment newAss = new SchoolAssignment();
@@ -1015,7 +1129,7 @@ namespace PHStatistics.Portal.Controllers {
                 using (DataContext dataContext = new DataContext()) {
                     //確認會員資料
                     Member member = dataContext.Member.FirstOrDefault(e => e.Account == memberAcc);
-                    if(member != null) {
+                    if (member != null) {
                         //增加分校所屬成員
                         foreach (School school in dataContext.School.ToList()) {
                             if (!dataContext.SchoolAssignment.Any(e => e.School.Id == school.Id && e.Member.Id == member.Id)) {
@@ -1042,7 +1156,7 @@ namespace PHStatistics.Portal.Controllers {
         [HttpGet("ImportSchoolYearData")]
         public IActionResult ImportSchoolYearData() {
             try {
-                using (FileStream file = new FileStream(@"C:\Leo\其他\Kuri\人數表\週次校正20250401_匯入.xlsx", FileMode.Open, FileAccess.Read)) {
+                using (FileStream file = new FileStream(@"C:\Leo\其他\Kuri\人數表\2025年周次_匯入.xlsx", FileMode.Open, FileAccess.Read)) {
                     if (!file.HasValue())
                         throw new System.Data.DataException("取得資料發生錯誤");
                     try {
@@ -1052,45 +1166,50 @@ namespace PHStatistics.Portal.Controllers {
 
                         var list = new List<ISheet>() { sheet1 };
                         var count = 0;
-                        for (int k = 0; k < workbook.NumberOfSheets; k++) {
-                            string[] input = new string[3];
-                            var sheet = workbook.GetSheetAt(k); ;
-                            for (int row = 0; row <= sheet.LastRowNum; row++) {
-                                XSSFRow xlRow = sheet.GetRow(row) as XSSFRow; //取得每一列
-                                ImportData newItem = new ImportData();
-                                if (xlRow != null) {
-                                    if (xlRow.Cells[1] != null && xlRow.Cells[2] != null && xlRow.Cells[3] != null
-                                        && xlRow.Cells[4] != null && xlRow.Cells[5] != null && xlRow.Cells[6] != null) {
-                                        try {
-                                            using (DataContext dataContext = new DataContext()) {
-                                                SchoolYear schoolYear = new SchoolYear();
-                                                schoolYear.Year = int.Parse(xlRow.Cells[1].ToString());
-                                                schoolYear.Week = int.Parse(xlRow.Cells[2].ToString());
-                                                schoolYear.WeekStartDate = xlRow.Cells[3].DateCellValue.Value;
-                                                schoolYear.WeekEndDate = xlRow.Cells[4].DateCellValue.Value;
-                                                schoolYear.ImportEndDate = xlRow.Cells[5].DateCellValue.Value;
-                                                schoolYear.ADYear = int.Parse(xlRow.Cells[6].ToString());
-                                                dataContext.SchoolYear.Add(schoolYear);
-                                                dataContext.SaveChanges();
-                                            }
+                        string[] input = new string[3];
+                        var sheet = workbook.GetSheetAt(0); ;
+                        for (int row = 1; row <= sheet.LastRowNum; row++) {
+                            XSSFRow xlRow = sheet.GetRow(row) as XSSFRow; //取得每一列
+                            if (xlRow != null) {
+                                /* if (xlRow.Cells[1] != null && xlRow.Cells[2] != null && xlRow.Cells[3] != null
+                                    && xlRow.Cells[4] != null && xlRow.Cells[5] != null && xlRow.Cells[6] != null)
+                                 * 
+                                 */
+                                if (xlRow.Cells[1] != null && xlRow.Cells[2] != null
+                                    && xlRow.Cells[4] != null ) {
+                                    try {
+                                        DateTime weeksDate = xlRow.Cells[4].DateCellValue.Value;
+                                        DateTime weekeDate = xlRow.Cells[4].DateCellValue.Value;
+                                        if (xlRow.Cells[3].DateCellValue.Value == xlRow.Cells[4].DateCellValue.Value) {
+                                            weeksDate = weeksDate.GetFirstDayOfTheWeek();
                                         }
-                                        catch {
-                                            continue;
+                                        DateTime importEndDate = weekeDate.AddDays(2);
+                                        if (xlRow.Cells[5].DateCellValue.Value == xlRow.Cells[4].DateCellValue.Value) {
+                                            importEndDate = importEndDate.GetEndTimeOfTheDay();
                                         }
-
+                                        using (DataContext dataContext = new DataContext()) {
+                                            SchoolYear schoolYear = new SchoolYear();
+                                            schoolYear.Year = int.Parse(xlRow.Cells[1].ToString());
+                                            schoolYear.Week = int.Parse(xlRow.Cells[2].ToString());
+                                            schoolYear.WeekStartDate = weeksDate;
+                                            schoolYear.WeekEndDate = weekeDate;
+                                            schoolYear.ImportEndDate = importEndDate;
+                                            schoolYear.ADYear = int.Parse(xlRow.Cells[6].ToString());
+                                            dataContext.SchoolYear.Add(schoolYear);
+                                            dataContext.SaveChanges();
+                                        }
+                                    }
+                                    catch {
+                                        continue;
                                     }
 
                                 }
-                                else {
-                                    continue;
-                                }
 
-                                if (k == 0) {
-                                    member.Add(newItem);
-                                }
+                            }
+                            else {
+                                continue;
                             }
                         }
-
                     }
                     catch (FrameworkException ex) {
                         Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);

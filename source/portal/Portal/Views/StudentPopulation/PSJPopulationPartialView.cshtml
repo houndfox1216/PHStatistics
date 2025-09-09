@@ -46,9 +46,9 @@
                 @*             <div class="col-2 mb-3">
     系統班級名稱
     </div> *@
-                <div class="col-2 mb-3">
+@*                 <div class="col-2 mb-3">
                     班別
-                </div>
+                </div> *@
                 <div class="col-4 mb-3">
                     分校班級名稱
                 </div>
@@ -68,7 +68,7 @@
     <input type="hidden" class="form-control" name="Items[@itemRowNo].ClassId" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Id">
     <input type="text" class="form-control" name="Items[@itemRowNo].Class.Id" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Name">
     </div> *@
-                    <div class="col-2 mb-3">
+@*                     <div class="col-2 mb-3">
                         <select class="form-select validate[required]" id="class_type_@sItem.Class.Id.ToString()" data-live-search="true">
                             <option selected disabled>選擇班別</option>
                             @if (sItem.Class.Type == ClassType.Personal) {
@@ -84,7 +84,7 @@
                                 <option value=2>小</option>
                             }
                         </select>
-                    </div>
+                    </div> *@
                     <div class="col-4 mb-3">
                         <input type="text" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.SchoolName">
                     </div>
