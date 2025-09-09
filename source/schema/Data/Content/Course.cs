@@ -84,5 +84,13 @@ namespace PHStatistics.Content {
         [Display(Name = "所屬單位"), DefaultValue(StudentPopulationType.PH), DataMember]
         public StudentPopulationType Type { get; set; }
 
+
+        /// <summary>
+        /// 適用班別
+        /// </summary>
+        [Display(Name = "適用班別"), DataMember]
+        [MaxLength(128)]
+        public string ClassType { get; set; }
+
     }
 }
