@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace PHStatistics.Content {
     /// <summary>
-    /// 學年度資料
+    /// 分校開班狀況
     /// </summary>
-    [Description("學年度資料"), DataContract(IsReference = true)]
-    public class SchoolYear : IEntityData, IOperability {
+    [Description("分校開班狀況"), DataContract(IsReference = true)]
+    public class SchoolClass : IEntityData, IOperability {
         #region IEntityData 成員
 
         object IEntityData.Id { get { return Id; } }
-        string IEntityData.Name { get { return this.Name; } }
+        string IEntityData.Name { get { return string.Empty; } }
 
         #endregion
 
@@ -48,54 +48,31 @@ namespace PHStatistics.Content {
         public int Id { get; set; }
 
         /// <summary>
-        /// 名稱
+        /// 班系
         /// </summary>
-        [Display(Name = "名稱"), DataMember]
+        [Display(Name = "班系"), DataMember]
         [MaxLength(128)]
-        public string Name { get; set; }
+        public string CourseDepartment { get; set; }
 
         /// <summary>
-        /// 學年度
+        /// 課程
         /// </summary>
-        [Display(Name = "學年度"), DataMember]
-        public int? Year { get; set; }
-
-        /// <summary>
-        /// 西元年
-        /// </summary>
-        [Display(Name = "西元年"), DataMember]
-        public int? ADYear { get; set; }
-
-        /// <summary>
-        /// 週次
-        /// </summary>
-        [Display(Name = "週次"), DataMember]
-        public int? Week { get; set; }
-
-        /// <summary>
-        /// 週次起始日
-        /// </summary>
-        [Display(Name = "週次起始日"), DataMember]
-        public DateTime WeekStartDate { get; set; }
-
-        /// <summary>
-        /// 週次起始日
-        /// </summary>
-        [Display(Name = "週次結束日"), DataMember]
-        public DateTime WeekEndDate { get; set; }
-
-        /// <summary>
-        /// 週次起始日
-        /// </summary>
-        [Display(Name = "輸入結束日"), DataMember]
-        public DateTime ImportEndDate { get; set; }
-
-        /// <summary>
-        /// 備註
-        /// </summary>
-        [Display(Name = "備註"), DataMember]
+        [Display(Name = "課程"), DataMember]
         [MaxLength(128)]
-        public string Remark { get; set; }
+        public string Course { get; set; }
+
+        /// <summary>
+        /// 班級
+        /// </summary>
+        [Display(Name = "班級"), DataMember]
+        [MaxLength(128)]
+        public string Class { get; set; }
+
+        /// <summary>
+        /// 分校
+        /// </summary>
+        [Display(Name = "分校"), DataMember]
+        [MaxLength(128)]
+        public string School { get; set; }
     }
 }
-

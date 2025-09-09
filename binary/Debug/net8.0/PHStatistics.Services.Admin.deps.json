@@ -1800,7 +1800,9 @@
           "Newtonsoft.Json": "13.0.3"
         },
         "runtime": {
-          "PHStatistics.dll": {}
+          "PHStatistics.dll": {
+            "fileVersion": "0.0.0.0"
+          }
         }
       },
       "PHStatistics.Core/1.0.0": {
