@@ -91,5 +91,11 @@ namespace PHStatistics.Content {
         [Display(Name = "排列順序"), DataMember]
         public int Ordinal { get; set; }
 
+        /// <summary>
+        /// 班級備註
+        /// </summary>
+        [Display(Name = "班級備註"), DataMember]
+        public string Remark { get; set; }
+
     }
 }
