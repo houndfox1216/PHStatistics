@@ -1,0 +1,80 @@
+2025-07-12 15:52:05.9816[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-07-12 15:52:05.9876[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-07-12 15:52:06.1173[19]  INFO MemberController  Member Login account: password: 
+2025-07-12 15:55:33.4816[39]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-07-12 15:55:43.8524[39]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-07-12 15:55:43.9362[39]  INFO MemberController  進行登入 
+2025-07-12 15:55:44.0559[39]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-07-12 15:55:44.1350[39]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 15:55:44.1350[39]  INFO HomeController  進入首頁
+2025-07-12 15:56:18.1925[41]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 15:56:18.1925[41]  INFO HomeController  進入首頁
+2025-07-12 15:57:04.3474[16]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 15:57:04.3474[16]  INFO HomeController  進入首頁
+2025-07-12 16:08:29.8881[10]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 16:08:29.8946[10]  INFO HomeController  進入首頁
+2025-07-12 16:09:37.3850[5]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 16:09:37.3938[5]  INFO HomeController  進入首頁
+2025-07-12 16:14:02.3447[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 16:14:02.3514[11]  INFO HomeController  進入首頁
+2025-07-12 16:15:27.5778[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 16:15:27.5839[11]  INFO HomeController  進入首頁
+2025-07-12 16:17:04.9415[5]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 16:17:04.9415[5]  INFO HomeController  進入首頁
+2025-07-12 18:17:26.3541[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-07-12 18:17:26.3541[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-07-12 18:17:26.4215[7]  INFO MemberController  Member Login account: password: 
+2025-07-12 18:17:51.1837[18]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-07-12 18:17:51.2068[18]  INFO MemberController  進行登入 
+2025-07-12 18:17:51.2068[18]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-07-12 18:17:51.2367[18]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 18:17:51.2367[18]  INFO HomeController  進入首頁
+2025-07-12 18:18:41.3279[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 18:18:41.3343[11]  INFO HomeController  進入首頁
+2025-07-12 18:21:04.6360[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 18:21:04.6360[11]  INFO HomeController  進入首頁
+2025-07-12 18:21:37.9260[16]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 18:21:37.9260[16]  INFO HomeController  進入首頁
+2025-07-12 18:21:40.5842[17]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 18:21:40.5842[17]  INFO HomeController  進入首頁
+2025-07-12 18:24:51.4241[5]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 18:24:51.4312[5]  INFO HomeController  進入首頁
+2025-07-12 18:26:26.6784[7]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 18:26:26.6784[7]  INFO HomeController  進入首頁
+2025-07-12 18:29:33.1285[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 18:29:33.1285[11]  INFO HomeController  進入首頁
+2025-07-12 18:31:29.6557[5]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 18:31:29.6624[5]  INFO HomeController  進入首頁
+2025-07-12 18:31:34.6456[7]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 18:31:34.6456[7]  INFO HomeController  進入首頁
+2025-07-12 18:33:43.7638[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 18:33:43.7702[11]  INFO HomeController  進入首頁
+2025-07-12 18:35:50.5251[10]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 18:35:50.5251[10]  INFO HomeController  進入首頁
+2025-07-12 18:45:06.6790[14]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 18:45:06.6790[14]  INFO HomeController  進入首頁
+2025-07-12 18:50:06.4884[10]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 18:50:06.4884[10]  INFO HomeController  進入首頁
+2025-07-12 18:51:32.3179[10]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 18:51:32.3179[10]  INFO HomeController  進入首頁
+2025-07-12 19:07:15.5256[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-07-12 19:07:15.5256[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-07-12 19:07:15.6036[5]  INFO MemberController  Member Login account: password: 
+2025-07-12 19:07:42.4223[21]  INFO MemberController  Member Login account: password: 
+2025-07-12 19:07:51.5727[21]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-07-12 19:07:51.5986[21]  INFO MemberController  進行登入 
+2025-07-12 19:07:51.5986[21]  INFO MemberController  進行登入完成 導入 /StudentPopulation/CreatePopulation?schoolId=1 False 
+2025-07-12 19:07:51.6263[20]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 19:07:51.6263[20]  INFO HomeController  進入首頁
+2025-07-12 19:10:32.8380[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 19:10:32.8380[11]  INFO HomeController  進入首頁
+2025-07-12 19:23:23.3812[10]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 19:23:23.3812[10]  INFO HomeController  進入首頁
+2025-07-12 19:37:56.7461[10]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 19:37:56.7461[10]  INFO HomeController  進入首頁
+2025-07-12 19:40:27.2218[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 19:40:27.2218[11]  INFO HomeController  進入首頁
+2025-07-12 19:41:46.3661[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 19:41:46.3661[11]  INFO HomeController  進入首頁
+2025-07-12 19:50:29.2868[10]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-12 19:50:29.2868[10]  INFO HomeController  進入首頁

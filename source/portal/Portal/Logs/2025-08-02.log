@@ -1,0 +1,53 @@
+2025-08-02 15:31:18.5899[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-08-02 15:31:18.6026[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-08-02 15:31:18.7461[11]  INFO MemberController  Member Login account: password: 
+2025-08-02 15:53:13.1475[32]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-08-02 15:53:13.3311[32]  INFO MemberController  進行登入 
+2025-08-02 15:53:13.4732[32]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-08-02 15:53:13.6531[32]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-08-02 15:53:13.6531[32]  INFO HomeController  進入首頁
+2025-08-02 15:56:09.2697[46]  INFO StudentPopulationController  進入首頁(MainMenu)
+2025-08-02 15:56:09.2697[46]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2025-08-02 15:56:12.7726[46]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-08-02 15:56:12.7726[46]  INFO HomeController  進入首頁
+2025-08-02 15:56:38.3382[48]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-08-02 15:56:38.3382[48]  INFO HomeController  進入首頁
+2025-08-02 15:56:55.6531[46]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-08-02 15:56:55.6531[46]  INFO HomeController  進入首頁
+2025-08-02 15:57:56.3661[5]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-08-02 15:57:56.3661[5]  INFO HomeController  進入首頁
+2025-08-02 15:58:45.6810[10]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-08-02 15:58:45.6810[10]  INFO HomeController  進入首頁
+2025-08-02 16:01:43.5099[32]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-08-02 16:01:43.5099[32]  INFO HomeController  進入首頁
+2025-08-02 16:02:07.5666[32]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-08-02 16:02:07.5666[32]  INFO HomeController  進入首頁
+2025-08-02 16:04:31.2179[10]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-08-02 16:04:31.2251[10]  INFO HomeController  進入首頁
+2025-08-02 17:04:47.0918[19]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-08-02 17:04:47.1415[19]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-08-02 17:04:47.2092[16] ERROR HomeController  The process cannot access the file 'C:\Leo\其他\Kuri\人數表\班系課程整理20240729-修改20240902-PSJ.xlsx' because it is being used by another process.
+System.IO.IOException: The process cannot access the file 'C:\Leo\其他\Kuri\人數表\班系課程整理20240729-修改20240902-PSJ.xlsx' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access)
+   at PHStatistics.Portal.Controllers.HomeController.ImportPIData2() in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\HomeController.cs:line 869
+2025-08-02 17:12:16.5587[15]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-08-02 17:12:16.5769[15]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-08-02 17:12:16.6556[21]  INFO MemberController  Member Login account: password: 
+2025-08-02 17:14:04.5210[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-08-02 17:14:04.5270[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-08-02 17:14:04.6011[5]  INFO MemberController  Member Login account: password: 
+2025-08-02 17:21:05.0374[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-08-02 17:21:05.0374[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-08-02 17:21:05.1128[14]  INFO MemberController  Member Login account: password: 
+2025-08-02 17:39:25.5444[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-08-02 17:39:25.5570[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-08-02 17:39:25.6863[17]  INFO MemberController  Member Login account: password: 
+2025-08-02 17:39:42.6737[20]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-08-02 17:39:42.7561[20]  INFO MemberController  進行登入 
+2025-08-02 17:39:42.9060[20]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-08-02 17:39:43.0126[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-08-02 17:39:43.0126[11]  INFO HomeController  進入首頁

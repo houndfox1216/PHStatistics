@@ -225,10 +225,12 @@
             type: 'POST',
             dataType: "html",
             success: function (data) {
+                alert("班級已新增!!");
                 $("#contentItem").html(data);
             },
             error: function () {
-
+                 alert("班級新增失敗!!");
+                 return false;
             }
         });
     }

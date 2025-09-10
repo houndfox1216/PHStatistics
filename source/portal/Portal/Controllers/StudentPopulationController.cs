@@ -801,7 +801,7 @@ namespace PHStatistics.Portal.Controllers {
 
         [Authorize(typeof(PortalUser))]
         [HttpPost("AddClass")]
-        public IActionResult AddClass(int courseId, int schoolId, int year, int week, string[][] itemArr, string type) {
+        public IActionResult AddClass(int courseId, int schoolId, int year, int week, string[][] itemArr, int newClassType, string newClassName, int newNumber, string newStudentremark, string type) {
             List<Course> courses = Model.DataContext.Course.Include("Department").Where(e => e.Department.Company == Company.PH).OrderBy(e => e.Ordinal).ToList();
             ViewBag.Courses = courses;
             DataContext dataContext = new DataContext();
@@ -842,7 +842,7 @@ namespace PHStatistics.Portal.Controllers {
                     newClass.Course = null;
                     newClass.CourseId = course.Id;
                     newClass.SchoolId = schoolId;
-                    newClass.Name = string.Format("{0}_{1}", course.Name, (classCount + 1).ToString("00"));
+                    newClass.Name = string.IsNullOrEmpty(newClassName) ? string.Format("{0}_{1}", course.Name, (classCount + 1).ToString("00")) : newClassName;
                     dataContext.Class.Add(newClass);
                     dataContext.SaveChanges();
                 }
@@ -934,7 +934,8 @@ namespace PHStatistics.Portal.Controllers {
                         else if (newClassType == 4) {
                             newClass.Type = ClassType.SubGroup;
                         }
-                        newClass.Name = string.Format("{0}_{1}", course.Name, (classCount + 1).ToString("00"));
+                        newClass.Name = string.IsNullOrEmpty(newClassName) ? string.Format("{0}_{1}", course.Name, (classCount + 1).ToString("00")) : newClassName;
+                        newClass.
                         dataContext.Class.Add(newClass);
                         dataContext.SaveChanges();
                     }
@@ -979,7 +980,7 @@ namespace PHStatistics.Portal.Controllers {
                         else if (newClassType == 2) {
                             newClass.Type = ClassType.SubGroup;
                         }
-                        newClass.Name = string.Format("{0}_{1}", course.Name, (classCount + 1).ToString("00"));
+                        newClass.Name = string.IsNullOrEmpty(newClassName) ? string.Format("{0}_{1}", course.Name, (classCount + 1).ToString("00")) : newClassName;
                         dataContext.Class.Add(newClass);
                         dataContext.SaveChanges();
                     }

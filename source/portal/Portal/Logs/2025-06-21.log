@@ -1,0 +1,33 @@
+2025-06-21 18:00:32.2869[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-06-21 18:00:32.2869[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-06-21 18:00:32.4144[5]  INFO MemberController  Member Login account: password: 
+2025-06-21 18:00:46.6711[30]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-06-21 18:00:46.7389[30]  INFO MemberController  進行登入 
+2025-06-21 18:00:46.8796[30]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-06-21 18:00:46.9793[20]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-06-21 18:00:46.9793[20]  INFO HomeController  進入首頁
+2025-06-21 18:02:27.4516[30]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-06-21 18:02:27.4516[30]  INFO HomeController  進入首頁
+2025-06-21 18:03:38.6520[41]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-06-21 18:03:38.6520[41]  INFO HomeController  進入首頁
+2025-06-21 18:05:48.1807[10]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-06-21 18:05:48.1807[10]  INFO HomeController  進入首頁
+2025-06-21 18:12:26.0101[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-06-21 18:12:26.0101[11]  INFO HomeController  進入首頁
+2025-06-21 18:13:51.4620[10]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-06-21 18:13:51.4620[10]  INFO HomeController  進入首頁
+2025-06-21 18:27:51.8165[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-06-21 18:27:51.8229[11]  INFO HomeController  進入首頁
+2025-06-21 18:31:17.6171[7]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-06-21 18:31:17.6171[7]  INFO HomeController  進入首頁
+2025-06-21 18:31:32.8812[5]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-06-21 18:31:32.8812[5]  INFO HomeController  進入首頁
+2025-06-21 19:01:05.9488[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-06-21 19:01:05.9488[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-06-21 19:01:06.0168[18]  INFO MemberController  Member Login account: password: 
+2025-06-21 19:04:08.7355[32]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-06-21 19:04:20.6185[32]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-06-21 19:04:20.6185[32]  INFO MemberController  進行登入 
+2025-06-21 19:04:20.6520[32]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-06-21 19:04:20.6695[30]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-06-21 19:04:20.6695[30]  INFO HomeController  進入首頁
