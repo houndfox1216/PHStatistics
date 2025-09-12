@@ -6,8 +6,10 @@
         schools = (List<SchoolAssignment>)ViewBag.Schools;
     }
     List<Course> courses = (List<Course>)ViewBag.Courses;
+    // List<CourseDepartment> department = (List<CourseDepartment>)ViewBag.CourseDepartment;
     int yearStr = (int)ViewBag.Year;
     int weekStr = (int)ViewBag.Week;
+    SchoolYear schoolYear = (SchoolYear)ViewBag.SelectedYear;
 }
 
 <section>
@@ -15,10 +17,16 @@
         <div class="container mb-3">
             <form action="/StudentPopulation/CreatePopulation" method="post" role="form" id="formPopulation">
                 <fieldset class="center"><h1>@yearStr 年第 @weekStr 週百瀚人數表輸入</h1></fieldset>
+                @if (schoolYear != null) {
+                    <fieldset class="center"><h1>@schoolYear.WeekStartDate.ToString("yyyy/MM/dd") ~ @schoolYear.WeekEndDate.ToString("yyyy/MM/dd")</h1></fieldset>
+                }
                 <input type="hidden" name="SchoolId" id="SchoolId" value="@Model.School.Id" />
                 <input type="hidden" name="Week" id="Week" value="@Model.Week" />
                 <input type="hidden" name="Name" id="Name" value="@Model.Name" />
                 <div class="row mx-0" style="background-color:#b2dd6e">
+            @*         <div class="col-2 mb-3">
+                        班系
+                    </div> *@
                     <div class="col-2 mb-3">
                         課程名稱
                     </div>
@@ -38,6 +46,14 @@
                     </div>
                 </div>
                 <div class="row mx-0" style="background-color:#b2dd6e">
+@*                     <div class="col-2 mb-3">
+                        <select class="form-select" id="new_department">
+                            <option selected disabled>選擇班系</option>
+                            @foreach (Course cItem in courses.Where(e => e.IsSum == false)) {
+                                <option value=@cItem.Id>@cItem.Name</option>
+                            }
+                        </select>
+                    </div> *@
                     <div class="col-2 mb-3">
                         <select class="form-select" id="new_courses">
                             <option selected disabled>選擇課程</option>
@@ -175,8 +191,8 @@
             for (var i = 0; i < classData.length; i++) {
                 var classItem = classData[i];
                 var typeSelect = document.getElementById("class_type_" + classItem.dataset.class);
-                console.log(typeSelect);
-                console.log(typeSelect.value);
+                // console.log(typeSelect);
+                // console.log(typeSelect.value);
                 testArr.push([classItem.dataset.course, classItem.dataset.class, classItem.value]);
             }
         }
@@ -212,8 +228,8 @@
             for (var i = 0; i < classData.length; i++) {
                 var classItem = classData[i];
                 var typeSelect = document.getElementById("class_type_" + classItem.dataset.class);
-                console.log(typeSelect);
-                console.log(typeSelect.value);
+                // console.log(typeSelect);
+                // console.log(typeSelect.value);
                 itemArr.push([classItem.dataset.course, classItem.dataset.class, classItem.value]);
             }
         }

@@ -8,6 +8,7 @@
     List<Course> courses = (List<Course>)ViewBag.Courses;
     int yearStr = (int)ViewBag.Year;
     int weekStr = (int)ViewBag.Week;
+    SchoolYear schoolYear = (SchoolYear)ViewBag.SelectedYear;
 }
 
 <section>
@@ -51,7 +52,7 @@
                             <option selected selected="selected">選擇班別</option>
                             <option value=1>1V1</option>
                             <option value=2>1V2</option>
-                            <option value=3>1V3</option>
+                            <option value=3>三</option>
                             <option value=4>小</option>
                         </select>
                     </div>

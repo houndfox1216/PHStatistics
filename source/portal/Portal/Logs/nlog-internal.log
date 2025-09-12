@@ -3477,3 +3477,73 @@
 2025-09-11 21:04:40.4658 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
 2025-09-11 21:04:40.4658 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Debug\net8.0\NLog.config
 2025-09-11 21:04:40.4832 Info Configuration initialized.
+2025-09-12 11:42:30.7594 Info Loading assembly name: NLog.Web.AspNetCore
+2025-09-12 11:42:30.7880 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2025-09-12 11:42:30.8393 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2025-09-12 11:42:30.8514 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2025-09-12 11:42:30.8514 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2025-09-12 11:42:30.8514 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Debug\net8.0\NLog.config
+2025-09-12 11:42:30.8755 Info Configuration initialized.
+2025-09-12 11:55:42.2998 Info Loading assembly name: NLog.Web.AspNetCore
+2025-09-12 11:55:42.3267 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2025-09-12 11:55:42.3648 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2025-09-12 11:55:42.3648 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2025-09-12 11:55:42.3835 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2025-09-12 11:55:42.3835 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Debug\net8.0\NLog.config
+2025-09-12 11:55:42.4068 Info Configuration initialized.
+2025-09-12 11:58:56.3213 Info Loading assembly name: NLog.Web.AspNetCore
+2025-09-12 11:58:56.3435 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2025-09-12 11:58:56.3810 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2025-09-12 11:58:56.3810 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2025-09-12 11:58:56.3984 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2025-09-12 11:58:56.3984 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Debug\net8.0\NLog.config
+2025-09-12 11:58:56.4156 Info Configuration initialized.
+2025-09-12 14:37:07.9081 Info Loading assembly name: NLog.Web.AspNetCore
+2025-09-12 14:37:07.9480 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2025-09-12 14:37:08.0237 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2025-09-12 14:37:08.0391 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2025-09-12 14:37:08.0391 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2025-09-12 14:37:08.0391 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Debug\net8.0\NLog.config
+2025-09-12 14:37:08.0681 Info Configuration initialized.
+2025-09-12 14:38:53.1952 Info Loading assembly name: NLog.Web.AspNetCore
+2025-09-12 14:38:53.2199 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2025-09-12 14:38:53.2605 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2025-09-12 14:38:53.2733 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2025-09-12 14:38:53.2733 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2025-09-12 14:38:53.2869 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Debug\net8.0\NLog.config
+2025-09-12 14:38:53.3042 Info Configuration initialized.
+2025-09-12 14:41:53.3839 Info Loading assembly name: NLog.Web.AspNetCore
+2025-09-12 14:41:53.4072 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2025-09-12 14:41:53.4461 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2025-09-12 14:41:53.4578 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2025-09-12 14:41:53.4578 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2025-09-12 14:41:53.4578 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Debug\net8.0\NLog.config
+2025-09-12 14:41:53.4814 Info Configuration initialized.
+2025-09-12 14:43:55.1333 Info Loading assembly name: NLog.Web.AspNetCore
+2025-09-12 14:43:55.1557 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2025-09-12 14:43:55.1919 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2025-09-12 14:43:55.1919 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2025-09-12 14:43:55.2101 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2025-09-12 14:43:55.2101 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Debug\net8.0\NLog.config
+2025-09-12 14:43:55.2283 Info Configuration initialized.
+2025-09-12 14:44:28.9912 Info Loading assembly name: NLog.Web.AspNetCore
+2025-09-12 14:44:29.0140 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2025-09-12 14:44:29.0527 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2025-09-12 14:44:29.0527 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2025-09-12 14:44:29.0723 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2025-09-12 14:44:29.0723 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Debug\net8.0\NLog.config
+2025-09-12 14:44:29.0910 Info Configuration initialized.
+2025-09-12 14:45:01.7338 Info Loading assembly name: NLog.Web.AspNetCore
+2025-09-12 14:45:01.7558 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2025-09-12 14:45:01.8025 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2025-09-12 14:45:01.8025 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2025-09-12 14:45:01.8164 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2025-09-12 14:45:01.8164 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Debug\net8.0\NLog.config
+2025-09-12 14:45:01.8381 Info Configuration initialized.
+2025-09-12 14:47:49.2692 Info Loading assembly name: NLog.Web.AspNetCore
+2025-09-12 14:47:49.2921 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2025-09-12 14:47:49.3334 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2025-09-12 14:47:49.3334 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2025-09-12 14:47:49.3560 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2025-09-12 14:47:49.3652 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Debug\net8.0\NLog.config
+2025-09-12 14:47:49.3807 Info Configuration initialized.

@@ -31,7 +31,8 @@
                         //displayStr = string.Format("{0} {1} 人", cItem.Name, (sumItem != null ? sumItem.Number : 0).ToString());
                     } *@
                     <label>
-                        <h2>@cItem.Department.Name @cItem.Name</h2>
+                        @*  <h2>@cItem.Department.Name @cItem.Name</h2> *@
+                        <h2>@cItem.Name</h2>
                     </label>
                 }
                 else {
@@ -50,7 +51,7 @@
             } *@
         </div>
         @*if (!cItem.IsSum) {*@ 
-                    <div class="row mx-0">
+                <div class="row mx-0">
             @*             <div class="col-2 mb-3">
     系統班級名稱
     </div> *@
@@ -92,7 +93,7 @@
                             <option value=2>1V2</option>
                         }
                         @if (sItem.Class.Type == ClassType.V3) {
-                            <option value=3 selected="selected">1V3</option>
+                            <option value=3 selected="selected">三</option>
                         }
                         else {
                             <option value=3>三</option>
@@ -119,7 +120,13 @@
                     @sItem.LastWeekNumber
                 </div>
                 <div class="col-2 mb-3">
-                    <input type="number" class="form-control" placeholder="請輸入人數" name="Items[@itemRowNo].Number" id="class_@sItem.Class.Id.ToString()_count" value="@sItem.Number" data-course="@cItem.Id" data-class="@sItem.Class.Id">
+                    @if (sItem.IsSum) {
+                        @sItem.Number
+                    }
+                    else {
+                        <input type="number" class="form-control" placeholder="請輸入人數" name="Items[@itemRowNo].Number" id="class_@sItem.Class.Id.ToString()_count" value="@sItem.Number" data-course="@cItem.Id" data-class="@sItem.Class.Id ">
+                    }
+
                 </div>
                 <div class="col-2 mb-3">
                     <input type="text" class="form-control" placeholder="" name="Items[@itemRowNo].StudentRemark" id="class_@sItem.Class.Id.ToString()_remark" value="@sItem.StudentRemark">

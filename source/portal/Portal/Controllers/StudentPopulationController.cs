@@ -91,6 +91,7 @@ namespace PHStatistics.Portal.Controllers {
             ViewBag.Schools = schools;
             ViewBag.Years = years;
             ViewBag.Weeks = weeks;
+            ViewBag.SelectedYear = schoolYear;
             ViewBag.CanEdit = schoolYear != null;
             ViewBag.Courses = Model.DataContext.Course.OrderBy(e => e.Ordinal).ToList();
             int memberSchool = schools.FirstOrDefault().School.Id;
@@ -105,7 +106,7 @@ namespace PHStatistics.Portal.Controllers {
         public IActionResult CreatePopulation(StudentPopulation data, int schoolId, string type) {
             if (Request.Method == "POST") {
                 //進行人數表新增或更新
-                SumPHPopulation(data.Id);
+              //  SumPHPopulation(data.Id);
             }
             else {
                 DataContext dataContext = new DataContext();
@@ -132,10 +133,11 @@ namespace PHStatistics.Portal.Controllers {
 
                 StudentPopulation returnData = new StudentPopulation();
                 List<Course> courses = Model.DataContext.Course.Include("Department").Where(e => e.Type == populationType).OrderBy(e => e.Ordinal).ToList();
+               // List<CourseDepartment> department = Model.DataContext.CourseDepartment.Where(e => e.Company == populationType).OrderBy(e => e.Ordinal).ToList();
                 ViewBag.Year = schoolYear.Year;
                 ViewBag.Week = schoolYear.Week;
                 ViewBag.Courses = courses;
-
+                ViewBag.SelectedYear = schoolYear;
                 if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType)) {
                     returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType);
                     //foreach (StudentPopulationItem sItem in returnData.Items) {
@@ -825,7 +827,7 @@ namespace PHStatistics.Portal.Controllers {
             ViewBag.Year = schoolYear.Year;
             ViewBag.Week = schoolYear.Week;
             ViewBag.Courses = courses;
-
+            ViewBag.SelectedYear = schoolYear;
             if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType)) {
                 returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType);
                 foreach (StudentPopulationItem sItem in returnData.Items) {
@@ -976,7 +978,7 @@ namespace PHStatistics.Portal.Controllers {
             ViewBag.Year = schoolYear.Year;
             ViewBag.Week = schoolYear.Week;
             ViewBag.Courses = courses;
-
+            ViewBag.SelectedYear = schoolYear;
             if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType)) {
                 returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType);
                 foreach (StudentPopulationItem sItem in returnData.Items) {
@@ -1111,7 +1113,7 @@ namespace PHStatistics.Portal.Controllers {
             ViewBag.Year = schoolYear.Year;
             ViewBag.Week = schoolYear.Week;
             ViewBag.Courses = courses;
-
+            ViewBag.SelectedYear = schoolYear;
             if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType)) {
                 returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType);
                 foreach (StudentPopulationItem sItem in returnData.Items) {
@@ -1340,7 +1342,7 @@ namespace PHStatistics.Portal.Controllers {
                         newClass.CourseId = course.Id;
                         newClass.SchoolId = schoolId;
                         if (newClassType == 0) {
-                            newClass.Type = ClassType.Group;
+                            newClass.Type = ClassType.Personal;
                         }
                         else if (newClassType == 1) {
                             newClass.Type = ClassType.Personal;
@@ -1375,7 +1377,7 @@ namespace PHStatistics.Portal.Controllers {
                     addItem.StudentRemark = newStudentremark;
                     dataContext.StudentPopulationItem.Add(addItem);
                     dataContext.SaveChanges();
-                    SumPHPopulation(studentPopulationData.Id);
+                    //SumPHPopulation(studentPopulationData.Id);
                 }
                 catch (Exception ex) {
                     string e = ex.Message;
@@ -1639,10 +1641,10 @@ namespace PHStatistics.Portal.Controllers {
 
             //英文國小人數合計 班系 國小班 158 課程 674 國小人數合計  681
             //團                    
-            StudentPopulationItem sumEnElementaryGItem = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Class.Course.Name.Equals("英文國小人數合計") && e.Class.Type == ClassType.Group && e.StudentPopulation.Id == studentPopulationData.Id);
-            sumEnElementaryGItem.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department.Name.Equals("英文國小班") && e.Class.Type == ClassType.Group && e.Class.Course.IsSum == false).Sum(e => e.Number);
-            eNCount = eNCount + sumEnElementaryGItem.Number;
-            dataContext.StudentPopulationItem.Update(sumEnElementaryGItem);
+            //StudentPopulationItem sumEnElementaryGItem = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Class.Course.Name.Equals("英文國小人數合計") && e.Class.Type == ClassType.Group && e.StudentPopulation.Id == studentPopulationData.Id);
+            //sumEnElementaryGItem.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department.Name.Equals("英文國小班") && e.Class.Type == ClassType.Group && e.Class.Course.IsSum == false).Sum(e => e.Number);
+            //eNCount = eNCount + sumEnElementaryGItem.Number;
+            //dataContext.StudentPopulationItem.Update(sumEnElementaryGItem);
             //小組班 EV3
             StudentPopulationItem sumEnElementarySGItem = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Class.Course.Name.Equals("英文國小人數合計") && e.Class.Type == ClassType.SubGroup && e.StudentPopulation.Id == studentPopulationData.Id);
             sumEnElementarySGItem.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department.Name.Equals("英文國小班") && e.Class.Type == ClassType.SubGroup && e.Class.Course.IsSum == false).Sum(e => e.Number);
@@ -1657,9 +1659,9 @@ namespace PHStatistics.Portal.Controllers {
 
             //英文國中人數合計 班系 國中班 159 課程 國中人數合計 681
             //團                    
-            StudentPopulationItem sumEnJuniorHighGItem = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Class.Course.Name.Equals("英文國中人數合計") && e.Class.Type == ClassType.Group);
-            sumEnJuniorHighGItem.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department.Name.Equals("英文國中班") && e.Class.Type == ClassType.Group && e.Class.Course.IsSum == false).Sum(e => e.Number);
-            eNCount = eNCount + sumEnJuniorHighGItem.Number;
+            //StudentPopulationItem sumEnJuniorHighGItem = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Class.Course.Name.Equals("英文國中人數合計") && e.Class.Type == ClassType.Group);
+            //sumEnJuniorHighGItem.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department.Name.Equals("英文國中班") && e.Class.Type == ClassType.Group && e.Class.Course.IsSum == false).Sum(e => e.Number);
+            //eNCount = eNCount + sumEnJuniorHighGItem.Number;
 
             //小組班 EV3
             StudentPopulationItem sumEnJuniorHighSGItem = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Class.Course.Name.Equals("英文國中人數合計") && e.Class.Type == ClassType.SubGroup);
@@ -1688,9 +1690,9 @@ namespace PHStatistics.Portal.Controllers {
 
             //英文高中人數合計 班系 高中課程 161 課程 高中人數合計 685
             //團                    
-            StudentPopulationItem sumEnHighGItem = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Class.Course.Name.Equals("英文高中人數合計") && e.Class.Type == ClassType.Group);
-            sumEnHighGItem.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department.Name.Equals("英文高中班") && e.Class.Type == ClassType.Group && e.Class.Course.IsSum == false).Sum(e => e.Number);
-            eNCount = eNCount + sumEnHighGItem.Number;
+            //StudentPopulationItem sumEnHighGItem = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Class.Course.Name.Equals("英文高中人數合計") && e.Class.Type == ClassType.Group);
+            //sumEnHighGItem.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department.Name.Equals("英文高中班") && e.Class.Type == ClassType.Group && e.Class.Course.IsSum == false).Sum(e => e.Number);
+            //eNCount = eNCount + sumEnHighGItem.Number;
 
             //小組班 EV3
             StudentPopulationItem sumEnHighSGItem = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Class.Course.Name.Equals("英文高中人數合計") && e.Class.Type == ClassType.SubGroup);
@@ -1707,12 +1709,12 @@ namespace PHStatistics.Portal.Controllers {
             //英文總班數統計 班系 英文合計 163 課程 英文總班數 686
             //團                    
             int[] docIds = new int[] { 158, 159, 173 };
-            StudentPopulationItem allEnHighGClass = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Class.Course.Name.Equals("英文總班數統計") && e.Class.Type == ClassType.Group);
-            //if (studentPopulationData.Items.Any(e => docIds.Contains(e.Class.Course.Department.Id) && e.Class.Type == ClassType.Group && e.IsSum == false)) {
-            //    allEnHighGClass.Number = studentPopulationData.Items.Where(e => docIds.Contains(e.Class.Course.Department.Id) && e.Class.Course.Id != 162 && e.Class.Type == ClassType.Group && e.Class.Course.IsSum == false).Count();
-            //}
-            //else {
-            allEnHighGClass.Number = 0;
+            //StudentPopulationItem allEnHighGClass = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Class.Course.Name.Equals("英文總班數統計") && e.Class.Type == ClassType.Group);
+            ////if (studentPopulationData.Items.Any(e => docIds.Contains(e.Class.Course.Department.Id) && e.Class.Type == ClassType.Group && e.IsSum == false)) {
+            ////    allEnHighGClass.Number = studentPopulationData.Items.Where(e => docIds.Contains(e.Class.Course.Department.Id) && e.Class.Course.Id != 162 && e.Class.Type == ClassType.Group && e.Class.Course.IsSum == false).Count();
+            ////}
+            ////else {
+            //allEnHighGClass.Number = 0;
             //}
 
             //小組班 EV3
@@ -1734,9 +1736,9 @@ namespace PHStatistics.Portal.Controllers {
             //}
 
             //英文個別指導人數合計 英文個別指導 162 個別指導人數合計 840
-            StudentPopulationItem personalItem = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Class.Course.Name.Equals("英文個別指導人數合計") && e.Class.Type == ClassType.Personal);
-            personalItem.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department.Name.Equals("英文個別指導") && e.Class.Course.IsSum == false).Sum(e => e.Number);
-            eNCount = eNCount + personalItem.Number;
+            //StudentPopulationItem personalItem = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Class.Course.Name.Equals("英文個別指導人數合計") && e.Class.Type == ClassType.Personal);
+            //personalItem.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department.Name.Equals("英文個別指導") && e.Class.Course.IsSum == false).Sum(e => e.Number);
+            //eNCount = eNCount + personalItem.Number;
 
             //本週英語文總人數 691
             StudentPopulationItem thisWeekEnCount = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Class.Course.Name.Equals("本週英語文總人數"));
@@ -1759,9 +1761,9 @@ namespace PHStatistics.Portal.Controllers {
             //國語文人數合計 班系 國語文 165 課程 國語文人數合計 719
             //團                    
             int cHCount = 0;
-            StudentPopulationItem allChHighGClass = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Class.Course.Name.Equals("國語文人數合計") && e.Class.Type == ClassType.Group);
-            allChHighGClass.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department.Name.Equals("國語文") && e.Class.Type == ClassType.Group && e.Class.Course.IsSum == false).Sum(e => e.Number);
-            cHCount = cHCount + allChHighGClass.Number;
+            //StudentPopulationItem allChHighGClass = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Class.Course.Name.Equals("國語文人數合計") && e.Class.Type == ClassType.Group);
+            //allChHighGClass.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department.Name.Equals("國語文") && e.Class.Type == ClassType.Group && e.Class.Course.IsSum == false).Sum(e => e.Number);
+            //cHCount = cHCount + allChHighGClass.Number;
 
             //小組班 EV3
             StudentPopulationItem allChHighSGClass = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Class.Course.Name.Equals("國語文人數合計") && e.Class.Type == ClassType.SubGroup);
@@ -1775,18 +1777,18 @@ namespace PHStatistics.Portal.Controllers {
 
             //國語文班數合計 班系 國語文 165 課程 總班數 718
             //團                                        
-            StudentPopulationItem allChHighGCount = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Class.Course.Name.Equals("國語文人數合計") && e.Class.Type == ClassType.Group);
-            allChHighGCount.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department.Name.Equals("國語文") && e.Class.Type == ClassType.Group && e.Class.Course.IsSum == false).Count();
+            //StudentPopulationItem allChHighGCount = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Class.Course.Name.Equals("國語文人數合計") && e.Class.Type == ClassType.Group);
+            //allChHighGCount.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department.Name.Equals("國語文") && e.Class.Type == ClassType.Group && e.Class.Course.IsSum == false).Count();
 
 
             //小組班 EV3
-            StudentPopulationItem allChHighSGCount = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Class.Course.Id == 718 && e.Class.Type == ClassType.SubGroup);
-            allChHighSGCount.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department.Name.Equals("國語文") && e.Class.Type == ClassType.SubGroup && e.Class.Course.IsSum == false).Count();
+            //StudentPopulationItem allChHighSGCount = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Class.Course.Id == 718 && e.Class.Type == ClassType.SubGroup);
+            //allChHighSGCount.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department.Name.Equals("國語文") && e.Class.Type == ClassType.SubGroup && e.Class.Course.IsSum == false).Count();
 
 
             //三
-            StudentPopulationItem allChHighV3Count = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Class.Course.Id == 718 && e.Class.Type == ClassType.V3);
-            allChHighV3Count.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department.Name.Equals("國語文") && e.Class.Type == ClassType.V3 && e.Class.Course.IsSum == false).Count();
+            //StudentPopulationItem allChHighV3Count = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Class.Course.Id == 718 && e.Class.Type == ClassType.V3);
+            //allChHighV3Count.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department.Name.Equals("國語文") && e.Class.Type == ClassType.V3 && e.Class.Course.IsSum == false).Count();
 
             //本週國語文總人數 708
             StudentPopulationItem thisWeekChCount = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Class.Course.Name.Equals("本週國語文總人數"));
