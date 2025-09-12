@@ -645,7 +645,7 @@ namespace PHStatistics.Portal.Controllers {
         [HttpGet("ImportPIData")]
         public IActionResult ImportPIData(string type) {
             try {
-                using (FileStream file = new FileStream(@"C:\Leo\其他\Kuri\人數表\班系課程整理20240729-修改20240902-匯入.xlsx", FileMode.Open, FileAccess.Read)) {
+                using (FileStream file = new FileStream(@"C:\Leo\其他\Kuri\人數表\班系課程整理20250909V2.xlsx", FileMode.Open, FileAccess.Read)) {
                     if (!file.HasValue())
                         throw new System.Data.DataException("取得資料發生錯誤");
                     try {
@@ -665,13 +665,16 @@ namespace PHStatistics.Portal.Controllers {
                             string[] input = new string[2];
                             var sheet = workbook.GetSheetAt(k); ;
                             string comName = sheet.SheetName;
-                            for (int row = 0; row <= sheet.LastRowNum; row++) {
+                            for (int row = 1; row <= sheet.LastRowNum; row++) {
                                 XSSFRow xlRow = sheet.GetRow(row) as XSSFRow; //取得每一列
                                 ImportData newItem = new ImportData();
                                 if (xlRow != null) {
                                     for (int col = 0; col < xlRow.LastCellNum; col++) {
                                         XSSFCell xlCell = xlRow.GetCell(col) as XSSFCell; //取得目前列的每個儲存格
                                         string value = string.Empty;
+                                        if(xlCell == null) {
+                                            continue;
+                                        }
                                         //取得儲存格的值
                                         if (xlCell.CellType == CellType.Numeric) {
                                             if (DateUtil.IsCellDateFormatted(xlCell))
@@ -685,8 +688,13 @@ namespace PHStatistics.Portal.Controllers {
                                         if (col == 0) {
                                             newItem.Department = value;
                                         }
-                                        else {
+                                        else if (col == 1) {
                                             newItem.Course = value;
+                                        }
+                                        else if(col == 2) {
+                                            newItem.SchoolName = value;
+                                        }else if (col == 3) {
+                                            newItem.Account = value;
                                         }
                                     }
                                 }
@@ -728,7 +736,7 @@ namespace PHStatistics.Portal.Controllers {
                                     else {
                                         courseDepartment.Name = phItem.Department;
                                         courseDepartment.Ordinal = departmentOrdinal;
-                                        courseDepartment.Company = Company.PH;
+                                        courseDepartment.Company = Company.PH;                                        
                                         dataContext.CourseDepartment.Add(courseDepartment);
                                         dataContext.SaveChanges();
                                         departmentOrdinal++;
@@ -742,16 +750,14 @@ namespace PHStatistics.Portal.Controllers {
                                         course.Ordinal = courseOrdinal;
                                         course.Department = courseDepartment;
                                         course.Type = StudentPopulationType.PH;
+                                        course.ClassType = string.IsNullOrEmpty(phItem.SchoolName) ? null : phItem.SchoolName;
+                                        course.IsSum = string.IsNullOrEmpty(phItem.Account) ? false : (phItem.Account == "X" ? true : false);
                                         dataContext.Course.Add(course);
                                         dataContext.SaveChanges();
                                         courseOrdinal++;
                                     }
                                 }
                             }
-
-
-
-
                             foreach (ImportData phItem in gept) {
                                 if (phItem != null) {
                                     CourseDepartment courseDepartment = new CourseDepartment();
@@ -775,13 +781,14 @@ namespace PHStatistics.Portal.Controllers {
                                         course.Ordinal = courseOrdinal;
                                         course.Department = courseDepartment;
                                         course.Type = StudentPopulationType.GEPT;
+                                        course.ClassType = string.IsNullOrEmpty(phItem.SchoolName) ? null : phItem.SchoolName;
+                                        course.IsSum = string.IsNullOrEmpty(phItem.Account) ? false : (phItem.Account == "X" ? true : false);
                                         dataContext.Course.Add(course);
                                         dataContext.SaveChanges();
                                         courseOrdinal++;
                                     }
                                 }
                             }
-
                             foreach (ImportData phItem in ps) {
                                 if (phItem != null) {
                                     CourseDepartment courseDepartment = new CourseDepartment();
@@ -805,13 +812,14 @@ namespace PHStatistics.Portal.Controllers {
                                         course.Ordinal = courseOrdinal;
                                         course.Department = courseDepartment;
                                         course.Type = StudentPopulationType.PS;
+                                        course.ClassType = string.IsNullOrEmpty(phItem.SchoolName) ? null : phItem.SchoolName;
+                                        course.IsSum = string.IsNullOrEmpty(phItem.Account) ? false : (phItem.Account == "X" ? true : false);
                                         dataContext.Course.Add(course);
                                         dataContext.SaveChanges();
                                         courseOrdinal++;
                                     }
                                 }
                             }
-
                             foreach (ImportData phItem in psj) {
                                 if (phItem != null) {
                                     CourseDepartment courseDepartment = new CourseDepartment();
@@ -835,6 +843,8 @@ namespace PHStatistics.Portal.Controllers {
                                         course.Ordinal = courseOrdinal;
                                         course.Department = courseDepartment;
                                         course.Type = StudentPopulationType.PSJ;
+                                        course.ClassType = string.IsNullOrEmpty(phItem.SchoolName) ? null : phItem.SchoolName;
+                                        course.IsSum = string.IsNullOrEmpty(phItem.Account) ? false : (phItem.Account == "X" ? true : false);
                                         dataContext.Course.Add(course);
                                         dataContext.SaveChanges();
                                         courseOrdinal++;

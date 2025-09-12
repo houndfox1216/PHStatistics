@@ -83,7 +83,7 @@
                             <option value=1 selected="selected">1V1</option>
                         }
                         else {
-                            <option value=1>1V1</option>
+                            <option value=1>EM1</option>
                         }
                         @if (sItem.Class.Type == ClassType.V2) {
                             <option value=2 selected="selected">1V2</option>
@@ -95,7 +95,7 @@
                             <option value=3 selected="selected">1V3</option>
                         }
                         else {
-                            <option value=3>1V3</option>
+                            <option value=3>三</option>
                         }
                         @if (sItem.Class.Type == ClassType.SubGroup) {
                             <option value=2 selected="selected">小</option>
@@ -112,7 +112,8 @@
                     </select>
                 </div>
                 <div class="col-4 mb-3">
-                    <input type="text" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.Id.ToString() @sItem.Name">
+                    @* <input type="text" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.Id.ToString() @sItem.Name"> *@
+                    <input type="text" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.Name">
                 </div>
                 <div class="col-2 mb-3">
                     @sItem.LastWeekNumber
