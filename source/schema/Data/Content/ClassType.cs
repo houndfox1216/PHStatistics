@@ -40,6 +40,12 @@ namespace PHStatistics.Content {
         /// 小
         /// </summary>
         [Display(Name = "小")]
-        SubGroup
+        SubGroup,
+
+        /// <summary>
+        /// 小
+        /// </summary>
+        [Display(Name = "一般")]
+        General
     }
 }
