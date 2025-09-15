@@ -121,5 +121,11 @@ namespace PHStatistics.Content {
         /// </summary>
         [Display(Name = "加總項目"), DataMember]
         public bool IsSum { get; set; }
+
+        /// <summary>
+        /// 本週人數變化
+        /// </summary>
+        [Display(Name = "人數"), DataMember, NotMapped]
+        public int WeekNumber { get; set; }
     }
 }
