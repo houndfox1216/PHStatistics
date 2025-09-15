@@ -742,7 +742,7 @@ namespace PHStatistics.Portal.Controllers {
                                         departmentOrdinal++;
                                     }
                                     Course course = new Course();
-                                    if (dataContext.Course.Any(e => e.Name == phItem.Course)) {
+                                    if (dataContext.Course.Any(e => e.Name == phItem.Course && e.Department.Name == courseDepartment.Name)) {
                                         continue;
                                     }
                                     else {
@@ -773,7 +773,7 @@ namespace PHStatistics.Portal.Controllers {
                                         departmentOrdinal++;
                                     }
                                     Course course = new Course();
-                                    if (dataContext.Course.Any(e => e.Name == phItem.Course)) {
+                                    if (dataContext.Course.Any(e => e.Name == phItem.Course && e.Department.Name == courseDepartment.Name)) {
                                         continue;
                                     }
                                     else {
@@ -804,7 +804,7 @@ namespace PHStatistics.Portal.Controllers {
                                         departmentOrdinal++;
                                     }
                                     Course course = new Course();
-                                    if (dataContext.Course.Any(e => e.Name == phItem.Course)) {
+                                    if (dataContext.Course.Any(e => e.Name == phItem.Course && e.Department.Name == courseDepartment.Name)) {
                                         continue;
                                     }
                                     else {
@@ -835,7 +835,7 @@ namespace PHStatistics.Portal.Controllers {
                                         departmentOrdinal++;
                                     }
                                     Course course = new Course();
-                                    if (dataContext.Course.Any(e => e.Name == phItem.Course)) {
+                                    if (dataContext.Course.Any(e => e.Name == phItem.Course && e.Department.Name == courseDepartment.Name)) {
                                         continue;
                                     }
                                     else {
@@ -944,7 +944,7 @@ namespace PHStatistics.Portal.Controllers {
                                         departmentOrdinal++;
                                     }
                                     Course course = new Course();
-                                    if (dataContext.Course.Any(e => e.Name == phItem.Course)) {
+                                    if (dataContext.Course.Any(e => e.Name == phItem.Course && e.Department.Name == courseDepartment.Name)) {
                                         continue;
                                     }
                                     else {
@@ -983,7 +983,7 @@ namespace PHStatistics.Portal.Controllers {
         [HttpGet("ImportMemberData")]
         public IActionResult ImportMemberData(string type) {
             try {
-                using (FileStream file = new FileStream(@"C:\Leo\其他\Kuri\人數表\人數統計表網站帳密資料_20241218.xlsx", FileMode.Open, FileAccess.Read)) {
+                using (FileStream file = new FileStream(@"C:\Leo\其他\Kuri\人數表\人數統計表網站帳密資料_20250910.xlsx", FileMode.Open, FileAccess.Read)) {
                     if (!file.HasValue())
                         throw new System.Data.DataException("取得資料發生錯誤");
                     try {
@@ -1059,10 +1059,10 @@ namespace PHStatistics.Portal.Controllers {
                                     }
                                     else {
                                         newMember = dataContext.Member.FirstOrDefault(e => e.Account == memberItem.Account);
-                                        //if (newMember.Password != memberItem.PassWord.ComputeHashStringWithSha().ToBase64()) {
-                                        //    newMember.Password = memberItem.PassWord.ComputeHashStringWithSha().ToBase64();
-                                        //    dataContext.SaveChanges();
-                                        //}
+                                        if (newMember.Password != memberItem.PassWord.ComputeHashStringWithSha().ToBase64()) {
+                                            newMember.Password = memberItem.PassWord.ComputeHashStringWithSha().ToBase64();
+                                            dataContext.SaveChanges();
+                                        }
                                     }
                                     //增加分校所屬成員
                                     if (!dataContext.SchoolAssignment.Any(e => e.School.Id == school.Id && e.Member.Id == newMember.Id)) {

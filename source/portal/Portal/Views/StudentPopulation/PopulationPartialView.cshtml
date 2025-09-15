@@ -22,16 +22,7 @@
                 @if (cItem.IsSum) {
                     StudentPopulationItem sumItem = Model.Items.Where(e => e.Class.Course.Id == cItem.Id).FirstOrDefault();
                     string displayStr = string.Empty;
-                    @*                     if (cItem.Name.Equals("總班數"))
-                    {
-                        //displayStr = string.Format("{0} {1} 班", cItem.Name, (sumItem != null ? sumItem.Number : 0).ToString());
-                    }
-                    else
-                    {
-                        //displayStr = string.Format("{0} {1} 人", cItem.Name, (sumItem != null ? sumItem.Number : 0).ToString());
-                    } *@
                     <label>
-                        @*  <h2>@cItem.Department.Name @cItem.Name</h2> *@
                         <h2>@cItem.Name</h2>
                     </label>
                 }
@@ -42,22 +33,15 @@
                 }
 
             </div>
-            @*             @if (!cItem.IsSum) {
-                <div class="col-2 mb-3">
-                    <button type="button" class="btn btn-primary btn-sm btn-round" id="add-@cItem.Id" onclick="addClassItem(@cItem.Id)">
-                        +
-                    </button>
-                </div>
-            } *@
         </div>
-        @*if (!cItem.IsSum) {*@ 
-                <div class="row mx-0">
-            @*             <div class="col-2 mb-3">
-    系統班級名稱
-    </div> *@
-            <div class="col-2 mb-3">
-                班別
-            </div>
+
+        <div class="row mx-0">
+            @if (Model.Type == StudentPopulationType.PH || Model.Type == StudentPopulationType.PSJ)
+            {
+                <div class="col-2 mb-3">
+                    班別
+                </div>
+            }
             <div class="col-4 mb-3">
                 分校班級名稱
             </div>
@@ -77,41 +61,49 @@
     <input type="hidden" class="form-control" name="Items[@itemRowNo].ClassId" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Id">
     <input type="text" class="form-control" name="Items[@itemRowNo].Class.Id" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Name">
     </div> *@
-                <div class="col-2 mb-3">
-                    <select class="form-select validate[required]" id="class_type_@sItem.Class.Id.ToString()" data-live-search="true">
-                        <option selected disabled>選擇班別</option>
-                        @if (sItem.Class.Type == ClassType.Personal) {
-                            <option value=1 selected="selected">1V1</option>
-                        }
-                        else {
-                            <option value=1>EM1</option>
-                        }
-                        @if (sItem.Class.Type == ClassType.V2) {
-                            <option value=2 selected="selected">1V2</option>
-                        }
-                        else {
-                            <option value=2>1V2</option>
-                        }
-                        @if (sItem.Class.Type == ClassType.V3) {
-                            <option value=3 selected="selected">三</option>
-                        }
-                        else {
-                            <option value=3>三</option>
-                        }
-                        @if (sItem.Class.Type == ClassType.SubGroup) {
-                            <option value=2 selected="selected">小</option>
-                        }
-                        else {
-                            <option value=2>小</option>
-                        }
-                        @if (sItem.Class.Type == ClassType.Group) {
-                            <option value=0 selected="selected">團</option>
-                        }
-                        else {
-                            <option value=0>團</option>
-                        }
-                    </select>
-                </div>
+                @if (Model.Type == StudentPopulationType.PH || Model.Type == StudentPopulationType.PSJ) {
+                    if (Model.Type == StudentPopulationType.PH) {
+                        <div class="col-2 mb-3">
+                            <select class="form-select validate[required]" id="class_type_@sItem.Class.Id.ToString()" data-live-search="true">
+                                <option selected disabled>選擇班別</option>
+                                @if (sItem.Class.Type == ClassType.SubGroup) {
+                                    <option value=2 selected="selected">小</option>
+                                }
+                                else {
+                                    <option value=2>小</option>
+                                }
+                                @if (sItem.Class.Type == ClassType.V3) {
+                                    <option value=3 selected="selected">三</option>
+                                }
+                                else {
+                                    <option value=3>三</option>
+                                }
+
+                            </select>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-2 mb-3">
+                            <select class="form-select validate[required]" id="class_type_@sItem.Class.Id.ToString()" data-live-search="true">
+                                <option selected disabled>選擇班別</option>
+                                @if (sItem.Class.Type == ClassType.Personal) {
+                                    <option value=1 selected="selected">EM1</option>
+                                }
+                                else {
+                                    <option value=1>EM1</option>
+                                }                               
+                                @if (sItem.Class.Type == ClassType.Group) {
+                                    <option value=0 selected="selected">團</option>
+                                }
+                                else {
+                                    <option value=0>團</option>
+                                }
+                            </select>
+                        </div>
+                    }
+                }
+            
                 <div class="col-4 mb-3">
                     @* <input type="text" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.Id.ToString() @sItem.Name"> *@
                     <input type="text" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.Name">

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ITagHWAClgXcbzetn6XvDhiy+PP/rDOUiOq1Y1x0gDY=",
+  "Hash": "vNPcOf63b6FC3ibyMaj8sdVbD5bielDBgcAolb4MsTg=",
   "Source": "PHStatistics.Portal",
   "BasePath": "_content/PHStatistics.Portal",
   "Mode": "Default",
@@ -1774,8 +1774,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "tevwmi37sy",
-      "Integrity": "BbX/NKvcHMcZQZwuFS8jln0oCrL+RDg4vvp8Khc+3Xc=",
+      "Fingerprint": "b0i1556yzw",
+      "Integrity": "a0q4B/5MTCYIZ+HNwgLuVM/z/CpJIiGVqIVt7hrr0zE=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Content\\images\\logo.svg"
@@ -13374,6 +13374,51 @@
       ]
     },
     {
+      "Route": "Content/images/logo.b0i1556yzw.svg",
+      "AssetFile": "C:\\Company\\PHStatistics.portal\\source\\portal\\Portal\\wwwroot\\Content\\images\\logo.svg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "30169"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/svg+xml"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"a0q4B/5MTCYIZ+HNwgLuVM/z/CpJIiGVqIVt7hrr0zE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 12 Sep 2025 10:16:04 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "b0i1556yzw"
+        },
+        {
+          "Name": "label",
+          "Value": "Content/images/logo.svg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-a0q4B/5MTCYIZ+HNwgLuVM/z/CpJIiGVqIVt7hrr0zE="
+        }
+      ]
+    },
+    {
       "Route": "Content/images/logo.png",
       "AssetFile": "C:\\Company\\PHStatistics.portal\\source\\portal\\Portal\\wwwroot\\Content\\images\\logo.png",
       "Selectors": [],
@@ -13421,7 +13466,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "32128"
+          "Value": "30169"
         },
         {
           "Name": "Content-Type",
@@ -13429,11 +13474,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"BbX/NKvcHMcZQZwuFS8jln0oCrL+RDg4vvp8Khc+3Xc=\""
+          "Value": "\"a0q4B/5MTCYIZ+HNwgLuVM/z/CpJIiGVqIVt7hrr0zE=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 10 May 2024 09:50:20 GMT"
+          "Value": "Fri, 12 Sep 2025 10:16:04 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -13443,52 +13488,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-BbX/NKvcHMcZQZwuFS8jln0oCrL+RDg4vvp8Khc+3Xc="
-        }
-      ]
-    },
-    {
-      "Route": "Content/images/logo.tevwmi37sy.svg",
-      "AssetFile": "C:\\Company\\PHStatistics.portal\\source\\portal\\Portal\\wwwroot\\Content\\images\\logo.svg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "32128"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/svg+xml"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"BbX/NKvcHMcZQZwuFS8jln0oCrL+RDg4vvp8Khc+3Xc=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Fri, 10 May 2024 09:50:20 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "tevwmi37sy"
-        },
-        {
-          "Name": "label",
-          "Value": "Content/images/logo.svg"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-BbX/NKvcHMcZQZwuFS8jln0oCrL+RDg4vvp8Khc+3Xc="
+          "Value": "sha256-a0q4B/5MTCYIZ+HNwgLuVM/z/CpJIiGVqIVt7hrr0zE="
         }
       ]
     },

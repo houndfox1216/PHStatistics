@@ -1488,8 +1488,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>tevwmi37sy</Fingerprint>
-      <Integrity>BbX/NKvcHMcZQZwuFS8jln0oCrL+RDg4vvp8Khc+3Xc=</Integrity>
+      <Fingerprint>b0i1556yzw</Fingerprint>
+      <Integrity>a0q4B/5MTCYIZ+HNwgLuVM/z/CpJIiGVqIVt7hrr0zE=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Content\images\logo.svg'))</OriginalItemSpec>
