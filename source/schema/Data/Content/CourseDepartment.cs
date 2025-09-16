@@ -77,5 +77,11 @@ namespace PHStatistics.Content {
         /// </summary>
         [Display(Name = "加總"), DataMember]
         public bool IsSum { get; set; }
+
+        /// <summary>
+        /// 所屬單位
+        /// </summary>
+        [Display(Name = "所屬單位"), DefaultValue(StudentPopulationType.PH), DataMember]
+        public StudentPopulationType Type { get; set; }
     }
 }
