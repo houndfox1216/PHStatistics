@@ -36,8 +36,7 @@
         </div>
 
         <div class="row mx-0">
-            @if (Model.Type == StudentPopulationType.PH || Model.Type == StudentPopulationType.PSJ)
-            {
+            @if (Model.Type == StudentPopulationType.PH || Model.Type == StudentPopulationType.PSJ) {
                 <div class="col-2 mb-3">
                     班別
                 </div>
@@ -54,13 +53,15 @@
             <div class="col-2 mb-3">
                 學生備註
             </div>
+            <div class="col-2 mb-3">
+            </div>
         </div>
         foreach (StudentPopulationItem sItem in Model.Items.Where(e => e.Class.Course.Id == cItem.Id)) {
             <div class="row mx-0">
-                @*                 <div class="col-2 mb-3">
-    <input type="hidden" class="form-control" name="Items[@itemRowNo].ClassId" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Id">
-    <input type="text" class="form-control" name="Items[@itemRowNo].Class.Id" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Name">
-    </div> *@
+                @*<div class="col-2 mb-3">
+                     <input type="hidden" class="form-control" name="Items[@itemRowNo].ClassId" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Id">
+                     <input type="text" class="form-control" name="Items[@itemRowNo].Class.Id" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Name">
+                  </div> *@
                 @if (Model.Type == StudentPopulationType.PH || Model.Type == StudentPopulationType.PSJ) {
                     if (Model.Type == StudentPopulationType.PH) {
                         <div class="col-2 mb-3">
@@ -82,8 +83,7 @@
                             </select>
                         </div>
                     }
-                    else
-                    {
+                    else {
                         <div class="col-2 mb-3">
                             <select class="form-select validate[required]" id="class_type_@sItem.Class.Id.ToString()" data-live-search="true">
                                 <option selected disabled>選擇班別</option>
@@ -92,7 +92,7 @@
                                 }
                                 else {
                                     <option value=1>EM1</option>
-                                }                               
+                                }
                                 @if (sItem.Class.Type == ClassType.Group) {
                                     <option value=0 selected="selected">團</option>
                                 }
@@ -103,7 +103,7 @@
                         </div>
                     }
                 }
-            
+
                 <div class="col-4 mb-3">
                     @* <input type="text" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.Id.ToString() @sItem.Name"> *@
                     <input type="text" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.Name">
@@ -111,7 +111,7 @@
                 <div class="col-2 mb-3">
                     @sItem.LastWeekNumber
                 </div>
-                <div class="col-2 mb-3">
+                <div class="col-1 mb-3">
                     @if (sItem.IsSum) {
                         @sItem.Number
                     }
@@ -122,6 +122,11 @@
                 </div>
                 <div class="col-2 mb-3">
                     <input type="text" class="form-control" placeholder="" name="Items[@itemRowNo].StudentRemark" id="class_@sItem.Class.Id.ToString()_remark" value="@sItem.StudentRemark">
+                </div>
+                <div class="col-1 mb-3">
+                    <button type="button" class="btn btn-primary btn-sm btn-round" id="add-new" onclick="removeClassItem(@sItem.Id)">
+                       -
+                    </button>
                 </div>
             </div>
             itemRowNo++;

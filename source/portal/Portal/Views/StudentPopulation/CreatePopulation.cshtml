@@ -24,9 +24,9 @@
                 <input type="hidden" name="Week" id="Week" value="@Model.Week" />
                 <input type="hidden" name="Name" id="Name" value="@Model.Name" />
                 <div class="row mx-0" style="background-color:#b2dd6e">
-            @*         <div class="col-2 mb-3">
+                    <div class="col-2 mb-3">
                         班系
-                    </div> *@
+                    </div>
                     <div class="col-2 mb-3">
                         課程名稱
                     </div>
@@ -46,14 +46,14 @@
                     </div>
                 </div>
                 <div class="row mx-0" style="background-color:#b2dd6e">
-@*                     <div class="col-2 mb-3">
+                    <div class="col-2 mb-3">
                         <select class="form-select" id="new_department">
                             <option selected disabled>選擇班系</option>
                             @foreach (Course cItem in courses.Where(e => e.IsSum == false)) {
                                 <option value=@cItem.Id>@cItem.Name</option>
                             }
                         </select>
-                    </div> *@
+                    </div>
                     <div class="col-2 mb-3">
                         <select class="form-select" id="new_courses">
                             <option selected disabled>選擇課程</option>
@@ -94,60 +94,6 @@
                 }
                 <div id="contentItem">
                     @await Html.PartialAsync("PopulationPartialView", Model)
-                    @* @foreach (Course cItem in courses) {
-                    if (Model.Items.Any(e => e.Class.Course.Id == cItem.Id)) {
-                    <div class="row mx-0">
-                    <div class="col-2 mb-3">
-                    <label>
-                    @cItem.Name
-                    </label>
-                    </div>
-                    <div class="col-2 mb-3">
-                    <button type="button" class="btn btn-primary btn-sm btn-round" id="add-@cItem.Id" onclick="addClassItem(@cItem.Id)">
-                    +
-                    </button>
-                    </div>
-                    </div>
-                    <div class="row mx-0">
-                    <div class="col-2 mb-3">
-                    班級名稱
-                    </div>
-                    <div class="col-2 mb-3">
-                    類別
-                    </div>
-                    <div class="col-2 mb-3">
-                    上週人數
-                    </div>
-                    <div class="col-2 mb-3">
-                    本週人數
-                    </div>
-                    <div class="col-2 mb-3">
-                    學生備註
-                    </div>
-                    </div>
-                    foreach (StudentPopulationItem sItem in Model.Items.Where(e => e.Class.Course.Id == cItem.Id)) {
-                    <div class="row mx-0">
-                    <div class="col-2 mb-3">
-                    <input type="hidden" class="form-control" name="Items[@itemRowNo].ClassId" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Id">
-                    <input type="text" class="form-control" name="Items[@itemRowNo].Class.Id" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Name">
-                    </div>
-                    <div class="col-2 mb-3">
-                    <input type="text" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Name">
-                    </div>
-                    <div class="col-2 mb-3">
-                    @sItem.Number
-                    </div>
-                    <div class="col-2 mb-3">
-                    <input type="number" class="form-control" placeholder="請輸入人數" name="Items[@itemRowNo].Number" id="class_@sItem.Class.Id.ToString()_count" value="@sItem.Number" data-course="@cItem.Id" data-class="@sItem.Class.Id">
-                    </div>
-                    <div class="col-2 mb-3">
-                    <input type="text" class="form-control" placeholder="" name="Items[@itemRowNo].StudentRemark" id="class_@sItem.Class.Id.ToString()_remark" value="@sItem.StudentRemark">
-                    </div>
-                    </div>
-                    itemRowNo++;
-                    }
-                    }
-                    } *@
                 </div>
                 <div>
                     <button type="submit" class="btn w-100 btn-primary btn-lg btn-round">
@@ -161,57 +107,6 @@
 
 
 <script>
-    // $(document).ready(function () {
-    //     function addClass(cId) {
-    //         alert(cId);
-    //         $.ajax({
-    //             url: '@Url.Action("AddClass", "StudentPopulation")',
-    //             cache: false,
-    //             data: { $("#formPopulation").serialize(), coursesId: cId },
-    //             dataType: 'json',
-    //             type: 'POST',
-    //             success: function (data) {
-    //                 $('.item-quantity, .btn-minus, .btn-pluus').attr('disabled', false);
-    //                 countSelected();
-    //             },
-    //             error: function () {
-
-    //             }
-    //         })
-    //     }
-    // });
-
-    function addClassItem(cId) {
-        var schoolId = @Model.School.Id;
-        var year = @Model.Year;
-        var week = @Model.Week;
-        var testArr = [];
-        var classData = document.querySelectorAll('[data-course]');
-        if (classData && classData.length > 0) {
-            for (var i = 0; i < classData.length; i++) {
-                var classItem = classData[i];
-                var typeSelect = document.getElementById("class_type_" + classItem.dataset.class);
-                // console.log(typeSelect);
-                // console.log(typeSelect.value);
-                testArr.push([classItem.dataset.course, classItem.dataset.class, classItem.value]);
-            }
-        }
-        $.ajax({
-            url: '@Url.Action("AddClass", "StudentPopulation")',
-            cache: false,
-            data: { 'schoolId': schoolId, 'courseId': cId, 'week': week, 'year': year, 'itemArr': testArr, 'type': 'PH' },
-            // dataType: 'application/json',
-            type: 'POST',
-            dataType: "html",
-            success: function (data) {
-                $("#contentItem").html(data);
-            },
-            error: function () {
-
-            }
-        });
-    }
-
     function addNewClassItem() {
         var schoolId = @Model.School.Id;
         var year = @Model.Year;
@@ -250,4 +145,53 @@
             }
         });
     }
+
+    function removeClassItem(sId){
+            $.ajax({
+            url: '@Url.Action("RemoveClassItem", "StudentPopulation")',
+            cache: false,
+            data: { 'sId': sId },
+            // dataType: 'application/json',
+            type: 'POST',
+            dataType: "html",
+            success: function (data) {
+                $("#contentItem").html(data);
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+      $("#new_department").on('change', function() {
+            console.log("ExamCity");
+            const depId = $(this).val();
+            if (!depId) return;
+
+            $("#new_courses").html('<option selected disabled value="">選擇課程</option>');
+
+            $.ajax({
+                url: `/GetCourses?depId=${cityId}`,
+                type: 'GET',
+                success: function(response) {
+                    if (response.success && response.data) {
+                        const courses = response.data;
+                        if(courses.length < 1) {
+                            $("#new_courses").html('<option selected disabled value="">無對應課程</option>');
+                        }
+                        courses.forEach(cou => {
+                            const displayText = cou.Name;
+                            const option = $("<option>")
+                                .val(cou.Id)
+                                .text(displayText)
+                                .data('name', cou.Name);
+                            $("#new_courses").append(option);
+                        });
+                    }
+                },
+                error: function() {
+                    alert('無法取得課程資料，請稍後再試');
+                }
+            });
+        });
 </script>
