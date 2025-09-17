@@ -104,6 +104,7 @@ namespace PHStatistics.Portal.Controllers {
             return View(studentPopulationData);
         }
 
+        //百瀚
         [Authorize(typeof(PortalUser))]
         public IActionResult CreatePopulation(StudentPopulation data, int schoolId, string type) {
             if (Request.Method == "POST") {
@@ -135,10 +136,11 @@ namespace PHStatistics.Portal.Controllers {
 
                 StudentPopulation returnData = new StudentPopulation();
                 List<Course> courses = Model.DataContext.Course.Include("Department").Where(e => e.Type == populationType).OrderBy(e => e.Ordinal).ToList();
-                List<CourseDepartment> department = Model.DataContext.CourseDepartment.Where(e => e. == populationType).OrderBy(e => e.Ordinal).ToList();
+                List<CourseDepartment> department = Model.DataContext.CourseDepartment.Where(e => e.Type == populationType).OrderBy(e => e.Ordinal).ToList();
                 ViewBag.Year = schoolYear.Year;
                 ViewBag.Week = schoolYear.Week;
                 ViewBag.Courses = courses;
+                ViewBag.CourseDepartment = department;
                 ViewBag.SelectedYear = schoolYear;
                 if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType)) {
                     returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType);
@@ -763,9 +765,11 @@ namespace PHStatistics.Portal.Controllers {
 
             StudentPopulation returnData = new StudentPopulation();
             List<Course> courses = Model.DataContext.Course.Where(e => e.Type == populationType).OrderBy(e => e.Ordinal).ToList();
+            List<CourseDepartment> department = Model.DataContext.CourseDepartment.Where(e => e.Type == populationType).OrderBy(e => e.Ordinal).ToList();
             ViewBag.Year = schoolYear.Year;
             ViewBag.Week = schoolYear.Week;
             ViewBag.Courses = courses;
+            ViewBag.CourseDepartment = department;
             ViewBag.SelectedYear = schoolYear;
             if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType)) {
                 returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType);
@@ -914,9 +918,11 @@ namespace PHStatistics.Portal.Controllers {
 
             StudentPopulation returnData = new StudentPopulation();
             List<Course> courses = Model.DataContext.Course.Where(e => e.Type == populationType).OrderBy(e => e.Ordinal).ToList();
+            List<CourseDepartment> department = Model.DataContext.CourseDepartment.Where(e => e.Type == populationType).OrderBy(e => e.Ordinal).ToList();
             ViewBag.Year = schoolYear.Year;
             ViewBag.Week = schoolYear.Week;
             ViewBag.Courses = courses;
+            ViewBag.CourseDepartment = department;
             ViewBag.SelectedYear = schoolYear;
             if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType)) {
                 returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType);
@@ -967,7 +973,7 @@ namespace PHStatistics.Portal.Controllers {
                     returnData.Type = StudentPopulationType.PS;
                     returnData.Name = string.Format("{0}第{1}週百世人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
                 }
-                else if (type.Equals("GEPT")) {
+                else if (type.Equals("Gept")) {
                     returnData.Type = StudentPopulationType.GEPT;
                     returnData.Name = string.Format("{0}第{1}英檢週人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
                 }
@@ -1049,9 +1055,11 @@ namespace PHStatistics.Portal.Controllers {
 
             StudentPopulation returnData = new StudentPopulation();
             List<Course> courses = Model.DataContext.Course.Where(e => e.Type == populationType).OrderBy(e => e.Ordinal).ToList();
+            List<CourseDepartment> department = Model.DataContext.CourseDepartment.Where(e => e.Type == populationType).OrderBy(e => e.Ordinal).ToList();
             ViewBag.Year = schoolYear.Year;
             ViewBag.Week = schoolYear.Week;
             ViewBag.Courses = courses;
+            ViewBag.CourseDepartment = department;
             ViewBag.SelectedYear = schoolYear;
             if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType)) {
                 returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType);
@@ -1420,6 +1428,51 @@ namespace PHStatistics.Portal.Controllers {
                 return PartialView("PopulationPartialView", new StudentPopulation());
             }
         }
+
+        public IActionResult UpdateClassItem(long sId, int number) {
+            DataContext dataContext = new DataContext();
+            try {
+                StudentPopulationItem item = dataContext.StudentPopulationItem.Include("StudentPopulation").Where(e => e.Id == sId).FirstOrDefault();
+                List<Course> courses = Model.DataContext.Course.Where(e => e.Type == item.StudentPopulation.Type).OrderBy(e => e.Ordinal).ToList();
+                ViewBag.Courses = courses;
+                if (item != null) {
+                    item.Number = number;
+                    dataContext.StudentPopulationItem.Update(item);
+                    dataContext.SaveChanges();
+                    //進行加總
+                    SumPHPopulation(item.StudentPopulation.Id);
+                }
+                var returnData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").Where(e => e.Id == item.StudentPopulation.Id).FirstOrDefault();
+                return PartialView("PopulationPartialView", returnData);
+            }
+            catch (Exception ex) {
+                return PartialView("PopulationPartialView", new StudentPopulation());
+            }
+        }
+
+
+        //
+
+        /// <summary>
+        /// 區域取得考場
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
+        [HttpGet("GetCourses")]
+        public IActionResult GetCourses(int depId) {
+            try {
+                var courses = Model.DataContext.Course.Include("Department").Where(e => e.Department.Id == depId).OrderBy(e => e.Ordinal).ToList();
+                return Json(new { success = true, data = courses });
+            }
+            catch (FrameworkException fe) {
+                return Json(new { success = false, message = fe.Message.ToString() });
+            }
+            catch (Exception e) {
+                Logger.LogError(e.Message);
+                return Json(new { success = false, message = "系統忙碌中，請稍後再試" });
+            }
+        }
+
         [Authorize(typeof(PortalUser))]
         [HttpPost("QueryPopulationPartial")]
         // data: { 'schoolId': schoolId, 'courseId': newCourses.value, 'week': week, 'year': year, 'newClassType': newClassType, 'newClassName': newClassName, 'newNumber': newNumber, 'newStudentremark':newStudentremark },

@@ -6,7 +6,7 @@
         schools = (List<SchoolAssignment>)ViewBag.Schools;
     }
     List<Course> courses = (List<Course>)ViewBag.Courses;
-    // List<CourseDepartment> department = (List<CourseDepartment>)ViewBag.CourseDepartment;
+    List<CourseDepartment> department = (List<CourseDepartment>)ViewBag.CourseDepartment;
     int yearStr = (int)ViewBag.Year;
     int weekStr = (int)ViewBag.Week;
     SchoolYear schoolYear = (SchoolYear)ViewBag.SelectedYear;
@@ -24,37 +24,37 @@
                 <input type="hidden" name="Week" id="Week" value="@Model.Week" />
                 <input type="hidden" name="Name" id="Name" value="@Model.Name" />
                 <div class="row mx-0" style="background-color:#b2dd6e">
-                    <div class="col-2 mb-3">
+                    <div class="col-2 mb-2">
                         班系
                     </div>
-                    <div class="col-2 mb-3">
+                    <div class="col-3 mb-3">
                         課程名稱
                     </div>
-                    <div class="col-2 mb-3">
+                    <div class="col-1 mb-1">
                         班別
                     </div>
-                    <div class="col-2 mb-3">
+                    <div class="col-2 mb-2">
                         分校班級名稱
                     </div>
-                    <div class="col-2 mb-3">
+                    <div class="col-1 mb-1">
                         本週人數
                     </div>
-                    <div class="col-2 mb-3">
+                    <div class="col-2 mb-2">
                         學生備註
                     </div>
-                    <div class="col-2 mb-3">
+                    <div class="col-1 mb-1">
                     </div>
                 </div>
                 <div class="row mx-0" style="background-color:#b2dd6e">
-                    <div class="col-2 mb-3">
+                    <div class="col-2 mb-2">
                         <select class="form-select" id="new_department">
                             <option selected disabled>選擇班系</option>
-                            @foreach (Course cItem in courses.Where(e => e.IsSum == false)) {
-                                <option value=@cItem.Id>@cItem.Name</option>
+                            @foreach (CourseDepartment dItem in department) {
+                                <option value=@dItem.Id>@dItem.Name</option>
                             }
                         </select>
                     </div>
-                    <div class="col-2 mb-3">
+                    <div class="col-3 mb-3">
                         <select class="form-select" id="new_courses">
                             <option selected disabled>選擇課程</option>
                             @foreach (Course cItem in courses.Where(e => e.IsSum == false)) {
@@ -62,25 +62,25 @@
                             }
                         </select>
                     </div>
-                    <div class="col-2 mb-3">
+                    <div class="col-1 mb-1">
                         <select class="form-select validate[required]" id="new_class_type">
                             <option selected selected="selected">選擇班別</option>
-@*                             <option value=1>1V1</option>
+                            @*                             <option value=1>1V1</option>
                             <option value=2>1V2</option> *@
                             <option value=3>三</option>
                             <option value=4>小</option>
                         </select>
                     </div>
-                    <div class="col-2 mb-3">
+                    <div class="col-2 mb-2">
                         <input type="text" class="form-control" placeholder="" id="new_class_name" value="">
                     </div>
-                    <div class="col-2 mb-3">
+                    <div class="col-1 mb-1">
                         <input type="number" class="form-control" placeholder="請輸入人數" name="new_number" id="new_number" value="0">
                     </div>
-                    <div class="col-2 mb-3">
+                    <div class="col-2 mb-2">
                         <input type="text" class="form-control" placeholder="" name="new_studentremark" id="new_studentremark" value="">
                     </div>
-                    <div class="col-2 mb-3">
+                    <div class="col-1 mb-1">
                         <button type="button" class="btn btn-primary btn-sm btn-round" id="add-new" onclick="addNewClassItem()">
                             +
                         </button>
@@ -171,7 +171,7 @@
             $("#new_courses").html('<option selected disabled value="">選擇課程</option>');
 
             $.ajax({
-                url: `/GetCourses?depId=${cityId}`,
+                url: `/GetCourses?depId=${depId}`,
                 type: 'GET',
                 success: function(response) {
                     if (response.success && response.data) {
@@ -193,5 +193,27 @@
                     alert('無法取得課程資料，請稍後再試');
                 }
             });
+       });
+
+       function valueChange(sId){           
+            var updateCourses = document.getElementById(sId);
+             console.log('updateCourses',updateCourses.dataset);
+            console.log('updateCourses',updateCourses.value);
+            // console.log('updateCourses',updateCourses.data["sid"]);
+            $.ajax({
+            url: '@Url.Action("UpdateClassItem", "StudentPopulation")',
+            cache: false,
+            data: { 'sId': updateCourses.dataset.sitem, 'number': updateCourses.value },
+            // dataType: 'application/json',
+            type: 'POST',
+            dataType: "html",
+            success: function (data) {
+                $("#contentItem").html(data);
+            },
+            error: function () {
+
+            }
         });
+    }
+
 </script>
