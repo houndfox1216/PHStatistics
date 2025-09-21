@@ -103,7 +103,5 @@ namespace PHStatistics.Content {
         /// </summary>
         [Display(Name = "分校操作人員"), DataMember]
         public ICollection<SchoolAssignment> SchoolAssignment { get; set; }
-
-
     }
 }
