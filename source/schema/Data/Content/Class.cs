@@ -97,5 +97,11 @@ namespace PHStatistics.Content {
         [Display(Name = "班級備註"), DataMember]
         public string Remark { get; set; }
 
+        /// <summary>
+        /// 已發佈
+        /// </summary>
+        [Display(Name = "已發佈"), DataMember]
+        public bool Published { get; set; }
+
     }
 }

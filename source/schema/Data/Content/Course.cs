@@ -92,5 +92,11 @@ namespace PHStatistics.Content {
         [MaxLength(128)]
         public string ClassType { get; set; }
 
+        /// <summary>
+        /// 已發佈
+        /// </summary>
+        [Display(Name = "已發佈"), DataMember]
+        public bool Published { get; set; }
+
     }
 }

@@ -83,5 +83,11 @@ namespace PHStatistics.Content {
         /// </summary>
         [Display(Name = "所屬單位"), DefaultValue(StudentPopulationType.PH), DataMember]
         public StudentPopulationType Type { get; set; }
+
+        /// <summary>
+        /// 已發佈
+        /// </summary>
+        [Display(Name = "已發佈"), DataMember]
+        public bool Published { get; set; }
     }
 }
