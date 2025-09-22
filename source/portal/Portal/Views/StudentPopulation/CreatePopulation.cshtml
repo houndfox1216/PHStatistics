@@ -57,7 +57,7 @@
                     <div class="col-3 mb-3">
                         <select class="form-select" id="new_courses">
                             <option selected disabled>選擇課程</option>
-                            @foreach (Course cItem in courses.Where(e => e.IsSum == false)) {
+                            @foreach (Course cItem in courses.Where(e => e.IsSum == false && e.Published)) {
                                 <option value=@cItem.Id>@cItem.Name</option>
                             }
                         </select>
@@ -202,6 +202,25 @@
             // console.log('updateCourses',updateCourses.data["sid"]);
             $.ajax({
             url: '@Url.Action("UpdateClassItem", "StudentPopulation")',
+            cache: false,
+            data: { 'sId': updateCourses.dataset.sitem, 'number': updateCourses.value },
+            // dataType: 'application/json',
+            type: 'POST',
+            dataType: "html",
+            success: function (data) {
+                $("#contentItem").html(data);
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+    //sumValueChange
+    function sumValueChange(sId){
+            var updateCourses = document.getElementById(sId);
+            $.ajax({
+            url: '@Url.Action("UpdateSumClassItem", "StudentPopulation")',
             cache: false,
             data: { 'sId': updateCourses.dataset.sitem, 'number': updateCourses.value },
             // dataType: 'application/json',

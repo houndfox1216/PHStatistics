@@ -136,7 +136,7 @@ namespace PHStatistics.Portal.Controllers {
 
                 StudentPopulation returnData = new StudentPopulation();
                 List<Course> courses = Model.DataContext.Course.Include("Department").Where(e => e.Type == populationType).OrderBy(e => e.Ordinal).ToList();
-                List<CourseDepartment> department = Model.DataContext.CourseDepartment.Where(e => e.Type == populationType).OrderBy(e => e.Ordinal).ToList();
+                List<CourseDepartment> department = Model.DataContext.CourseDepartment.Where(e => e.Type == populationType && e.Published).OrderBy(e => e.Ordinal).ToList();
                 ViewBag.Year = schoolYear.Year;
                 ViewBag.Week = schoolYear.Week;
                 ViewBag.Courses = courses;
@@ -144,31 +144,31 @@ namespace PHStatistics.Portal.Controllers {
                 ViewBag.SelectedYear = schoolYear;
                 if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType)) {
                     returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType);
-                    //foreach (StudentPopulationItem sItem in returnData.Items) {
-                    //    if (lastWeekData != null && lastWeekData.Items.Any(e => e.Class.Id == sItem.Class.Id)) {
-                    //        sItem.LastWeekNumber = lastWeekData.Items.FirstOrDefault(e => e.Class.Id == sItem.Class.Id).Number;
-                    //    }
-                    //}
-                    //if (type.Equals("PH")) {
-                    //    returnData.Type = StudentPopulationType.PH;
-                    //    returnData.Name = string.Format("{0}第{1}週人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
-                    //}
-                    //else if (type.Equals("PSJ")) {
-                    //    returnData.Type = StudentPopulationType.PSJ;
-                    //    returnData.Name = string.Format("{0}第{1}週百倍速人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
-                    //}
-                    //else if (type.Equals("PHM")) {
-                    //    returnData.Type = StudentPopulationType.PHM;
-                    //    returnData.Name = string.Format("{0}第{1}週百世人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
-                    //}
-                    //else if (type.Equals("GEPT")) {
-                    //    returnData.Type = StudentPopulationType.GEPT;
-                    //    returnData.Name = string.Format("{0}第{1}英檢週人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
-                    //}
-                    //else {
-                    //    returnData.Type = StudentPopulationType.PH;
-                    //}
-                    //dataContext.SaveChanges();
+                    foreach (StudentPopulationItem sItem in returnData.Items) {
+                        if (lastWeekData != null && lastWeekData.Items.Any(e => e.Class.Id == sItem.Class.Id)) {
+                            sItem.LastWeekNumber = lastWeekData.Items.FirstOrDefault(e => e.Class.Id == sItem.Class.Id).Number;
+                        }
+                    }
+                    if (type.Equals("PH")) {
+                        returnData.Type = StudentPopulationType.PH;
+                        returnData.Name = string.Format("{0}第{1}週人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
+                    }
+                    else if (type.Equals("PSJ")) {
+                        returnData.Type = StudentPopulationType.PSJ;
+                        returnData.Name = string.Format("{0}第{1}週百倍速人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
+                    }
+                    else if (type.Equals("PHM")) {
+                        returnData.Type = StudentPopulationType.PS;
+                        returnData.Name = string.Format("{0}第{1}週百世人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
+                    }
+                    else if (type.Equals("GEPT")) {
+                        returnData.Type = StudentPopulationType.GEPT;
+                        returnData.Name = string.Format("{0}第{1}英檢週人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
+                    }
+                    else {
+                        returnData.Type = StudentPopulationType.PH;
+                    }
+                    dataContext.SaveChanges();
                 }
                 else {
                     returnData = new StudentPopulation();
@@ -202,7 +202,7 @@ namespace PHStatistics.Portal.Controllers {
                     dataContext.SaveChanges();
                     //增加上週資料
                     if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
-                        foreach(StudentPopulationItem lItem in lastWeekData.Items) {
+                        foreach (StudentPopulationItem lItem in lastWeekData.Items) {
                             if (!dataContext.StudentPopulationItem.Any(e => e.Class.Course.Id == lItem.Class.Course.Id && e.Class.Type == lItem.Class.Type && e.StudentPopulation.Id == returnData.Id)) {
                                 StudentPopulationItem item = new StudentPopulationItem();
                                 Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type);
@@ -216,6 +216,7 @@ namespace PHStatistics.Portal.Controllers {
                                 item.Class = classItem;
                                 item.Number = 0;
                                 item.LastWeekNumber = lItem.Number;
+                                item.StudentRemark = lItem.StudentRemark;
                                 returnData.Items.Add(item);
                             }
                         }
@@ -224,18 +225,18 @@ namespace PHStatistics.Portal.Controllers {
                     if (type.Equals("PH")) {
                         //英文個別指導 162 國文個別指導 172
                         foreach (Course course in dataContext.Course.Include("Department").Where(e => e.IsSum == true && e.Type == StudentPopulationType.PH).OrderBy(e => e.Ordinal).ToList()) {
-                            if (course.Department.Name.Equals("英文個別指導") || course.Department.Name.Equals("國語文個別指導") || course.Name.Equals("英文總班數統計") || 
+                            if (course.Department.Name.Equals("英文個別指導") || course.Department.Name.Equals("國語文個別指導") || course.Name.Equals("英文總班數統計") ||
                                 course.Name.Equals("英文總班數統計") || course.Name.Equals("英文合作開班人數合計") || course.Name.Equals("本週英語文新生") ||
                                 course.Name.Equals("上週英語文總人數") || course.Name.Equals("與上週相比") || course.Name.Equals("去年同期/比") ||
                                 course.Name.Equals("本週英語文新生") || course.Name.Equals("本週英語文流失") || course.Name.Equals("國語文個別指導人數合計") ||
                                 course.Name.Equals("本週國語文總人數") || course.Name.Equals("本週英語文流失") || course.Name.Equals("上週國語文總人數") ||
                                 course.Name.Equals("本週國語文新生人數") || course.Name.Equals("本週國語文流失人數") || course.Name.Equals("本週總詢問(填單)人數") ||
                                 course.Name.Equals("總人數")) {
-                                if (!dataContext.StudentPopulationItem.Any(e => e.Class.Course.Id == course.Id && e.Class.Type == ClassType.Personal && e.StudentPopulation.Id == returnData.Id)) {
+                                if (!dataContext.StudentPopulationItem.Any(e => e.Class.Course.Id == course.Id && e.Class.Type == ClassType.General && e.StudentPopulation.Id == returnData.Id)) {
                                     StudentPopulationItem item = new StudentPopulationItem();
-                                    Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == course.Id && e.Type == ClassType.Personal);
+                                    Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == course.Id && e.Type == ClassType.General);
                                     if (classItem == null) {
-                                        classItem = new Class() { SchoolId = schoolId, CourseId = course.Id, Name = course.Name, Type = ClassType.Personal };
+                                        classItem = new Class() { SchoolId = schoolId, CourseId = course.Id, Name = course.Name, Type = ClassType.General };
                                         dataContext.Class.Add(classItem);
                                         dataContext.SaveChanges();
                                     }
@@ -281,10 +282,9 @@ namespace PHStatistics.Portal.Controllers {
                                     returnData.Items.Add(item);
                                 }
                             }
-                            
+
                         }
                         dataContext.SaveChanges();
-
                         if (lastWeekData != null && (lastWeekData.Items != null && lastWeekData.Items.Count > 0)) {
                             foreach (StudentPopulationItem sItem in lastWeekData.Items) {
                                 if (sItem.Class == null || sItem.Class.Id <= 0) continue; //如果班級不存在則跳過
@@ -295,6 +295,8 @@ namespace PHStatistics.Portal.Controllers {
                                     item.Class = dataContext.Class.Find(sItem.Class.Id);
                                     item.Number = sItem.Number;
                                     item.LastWeekNumber = sItem.Number;
+                                    item.StudentRemark = sItem.StudentRemark;
+                                    item.Remark = sItem.Remark;
                                     returnData.Items.Add(item);
                                 }
                                 else {
@@ -461,22 +463,6 @@ namespace PHStatistics.Portal.Controllers {
                             if (sumIds.Contains(course.Department.Id)) {
                                 //1v1
                                 if (course.Id == 686) {
-                                    //團
-                                    //if (!dataContext.StudentPopulationItem.Any(e => e.Class.Course.Id == course.Id && e.Class.Type == ClassType.Group && e.StudentPopulation.Id == returnData.Id)) {
-                                    //    StudentPopulationItem item = new StudentPopulationItem();
-                                    //    Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == course.Id && e.Type == ClassType.Group);
-                                    //    if (classItem == null) {
-                                    //        classItem = new Class() { SchoolId = schoolId, CourseId = course.Id, Name = course.Name, Type = ClassType.Group };
-                                    //        dataContext.Class.Add(classItem);
-                                    //        dataContext.SaveChanges();
-                                    //    }
-                                    //    item.Name = course.Name;
-                                    //    item.SchoolName = course.Name;
-                                    //    item.Class = classItem;
-                                    //    item.Number = 0;
-                                    //    item.LastWeekNumber = 0;
-                                    //    returnData.Items.Add(item);
-                                    //}
                                     //小
                                     if (!dataContext.StudentPopulationItem.Any(e => e.Class.Course.Id == course.Id && e.Class.Type == ClassType.SubGroup && e.StudentPopulation.Id == returnData.Id)) {
                                         StudentPopulationItem item = new StudentPopulationItem();
@@ -530,22 +516,6 @@ namespace PHStatistics.Portal.Controllers {
 
                             }
                             else {
-                                //團
-                                //if (!dataContext.StudentPopulationItem.Any(e => e.Class.Course.Id == course.Id && e.Class.Type == ClassType.Group && e.StudentPopulation.Id == returnData.Id)) {
-                                //    StudentPopulationItem item = new StudentPopulationItem();
-                                //    Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == course.Id && e.Type == ClassType.Group);
-                                //    if (classItem == null) {
-                                //        classItem = new Class() { SchoolId = schoolId, CourseId = course.Id, Name = course.Name, Type = ClassType.Group };
-                                //        dataContext.Class.Add(classItem);
-                                //        dataContext.SaveChanges();
-                                //    }
-                                //    item.Name = course.Name;
-                                //    item.SchoolName = course.Name;
-                                //    item.Class = classItem;
-                                //    item.Number = 0;
-                                //    item.LastWeekNumber = 0;
-                                //    returnData.Items.Add(item);
-                                //}
                                 //小
                                 if (!dataContext.StudentPopulationItem.Any(e => e.Class.Course.Id == course.Id && e.Class.Type == ClassType.SubGroup && e.StudentPopulation.Id == returnData.Id)) {
                                     StudentPopulationItem item = new StudentPopulationItem();
@@ -765,7 +735,7 @@ namespace PHStatistics.Portal.Controllers {
 
             StudentPopulation returnData = new StudentPopulation();
             List<Course> courses = Model.DataContext.Course.Where(e => e.Type == populationType).OrderBy(e => e.Ordinal).ToList();
-            List<CourseDepartment> department = Model.DataContext.CourseDepartment.Where(e => e.Type == populationType).OrderBy(e => e.Ordinal).ToList();
+            List<CourseDepartment> department = Model.DataContext.CourseDepartment.Where(e => e.Type == populationType && e.Published).OrderBy(e => e.Ordinal).ToList();
             ViewBag.Year = schoolYear.Year;
             ViewBag.Week = schoolYear.Week;
             ViewBag.Courses = courses;
@@ -918,7 +888,7 @@ namespace PHStatistics.Portal.Controllers {
 
             StudentPopulation returnData = new StudentPopulation();
             List<Course> courses = Model.DataContext.Course.Where(e => e.Type == populationType).OrderBy(e => e.Ordinal).ToList();
-            List<CourseDepartment> department = Model.DataContext.CourseDepartment.Where(e => e.Type == populationType).OrderBy(e => e.Ordinal).ToList();
+            List<CourseDepartment> department = Model.DataContext.CourseDepartment.Where(e => e.Type == populationType && e.Published).OrderBy(e => e.Ordinal).ToList();
             ViewBag.Year = schoolYear.Year;
             ViewBag.Week = schoolYear.Week;
             ViewBag.Courses = courses;
@@ -1054,8 +1024,8 @@ namespace PHStatistics.Portal.Controllers {
             lastWeekData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").Where(e => e.School.Id == schoolId && e.Year == lastschoolYear.Year && e.Week == lastschoolYear.Week && e.Type == populationType).FirstOrDefault();
 
             StudentPopulation returnData = new StudentPopulation();
-            List<Course> courses = Model.DataContext.Course.Where(e => e.Type == populationType).OrderBy(e => e.Ordinal).ToList();
-            List<CourseDepartment> department = Model.DataContext.CourseDepartment.Where(e => e.Type == populationType).OrderBy(e => e.Ordinal).ToList();
+            List<Course> courses = Model.DataContext.Course.Where(e => e.Type == populationType && e.Published).OrderBy(e => e.Ordinal).ToList();
+            List<CourseDepartment> department = Model.DataContext.CourseDepartment.Where(e => e.Type == populationType && e.Published).OrderBy(e => e.Ordinal).ToList();
             ViewBag.Year = schoolYear.Year;
             ViewBag.Week = schoolYear.Week;
             ViewBag.Courses = courses;
@@ -1164,15 +1134,15 @@ namespace PHStatistics.Portal.Controllers {
                 //進行人數表新增或更新
             }
             return View(returnData);
-        }    
+        }
 
         [Authorize(typeof(PortalUser))]
         [HttpPost("AddNewClass")]
         // data: { 'schoolId': schoolId, 'courseId': newCourses.value, 'week': week, 'year': year, 'newClassType': newClassType, 'newClassName': newClassName, 'newNumber': newNumber, 'newStudentremark':newStudentremark },
         public IActionResult AddNewClass(int courseId, int schoolId, int year, int week, string[][] itemArr, int newClassType, string newClassName, int newNumber, string newStudentremark, string type) {
 
-            
-           
+
+
             DataContext dataContext = new DataContext();
             var seleceedType = type switch {
                 "PH" => StudentPopulationType.PH,
@@ -1299,7 +1269,7 @@ namespace PHStatistics.Portal.Controllers {
                     dataContext.StudentPopulationItem.Add(addItem);
                     dataContext.SaveChanges();
                     //進行加總
-                    SumPHPopulation(studentPopulationData.Id);                    
+                    SumPHPopulation(studentPopulationData.Id);
                 }
                 catch (Exception ex) {
                     string e = ex.Message;
@@ -1436,6 +1406,10 @@ namespace PHStatistics.Portal.Controllers {
                 List<Course> courses = Model.DataContext.Course.Where(e => e.Type == item.StudentPopulation.Type).OrderBy(e => e.Ordinal).ToList();
                 ViewBag.Courses = courses;
                 if (item != null) {
+                    if (item.Class.Course.Name.Equals("本週英語文新生") || item.Class.Course.Name.Equals("本週英語文流失") || 
+                        item.Class.Course.Name.Equals("本週國語文新生人數") || item.Class.Course.Name.Equals("本週國語文流失人數")) {
+                        item.IsManual = true;
+                    }
                     item.Number = number;
                     dataContext.StudentPopulationItem.Update(item);
                     dataContext.SaveChanges();
@@ -1526,43 +1500,79 @@ namespace PHStatistics.Portal.Controllers {
 
             //班系加總
             var classGroup = studentPopulationData.Items.Where(e => e.Class.Course.Department != null && e.Class.Course.IsSum).ToList();
+            int addEnStudent = 0;
+            int lostEnStudent = 0;
+            int addChStudent = 0;
+            int lostChStudent = 0;
             foreach (var group in classGroup) {
                 try {
                     //取得相同班系及班型的班級
                     var classItems = studentPopulationData.Items.Where(e => e.Class.Course.Department != null && e.Class.Course.Department.Id == group.Class.Course.Department.Id && e.Class.Type == group.Class.Type && !e.Class.Course.IsSum).ToList();
                     group.Number = classItems.Sum(e => e.Number);
+                    int lastWeekNumber = classItems.Sum(e => e.LastWeekNumber);
                     if (!group.Class.Course.Department.Name.Equals("個別指導")) {
                         if (group.Class.Course.Department.Name.Equals("英文國小班") || group.Class.Course.Department.Name.Equals("英文國中班") || group.Class.Course.Department.Name.Equals("英文高中班"))
                             eNCount = eNCount + studentPopulationData.Items.Where(e => e.Class.Course.Department != null && e.Class.Course.Department.Id == group.Class.Course.Department.Id && e.Class.Type == group.Class.Type && !e.Class.Course.IsSum).Count();
                     }
+                    if(group.Class.Course.Department.Subject == CourseSubject.English) {
+                        if (group.Number - lastWeekNumber > 0) {
+                            addEnStudent = addEnStudent + (group.Number - lastWeekNumber);
+                        }
+                        else if (group.Number - lastWeekNumber < 0) {
+                            lostEnStudent = lostEnStudent + (lastWeekNumber - group.Number);
+                        }
+                    }
+                    else if (group.Class.Course.Department.Subject == CourseSubject.Chinese) {
+                        if (group.Number - lastWeekNumber > 0) {
+                            addChStudent = addChStudent + (group.Number - lastWeekNumber);
+                        }
+                        else if (group.Number - lastWeekNumber < 0) {
+                            lostChStudent = lostChStudent + (lastWeekNumber - group.Number);
+                        }
+                    }                        
+
                     dataContext.StudentPopulationItem.Update(group);
                     dataContext.SaveChanges();
                 }
-                catch(Exception ex) {
+                catch (Exception ex) {
                     string e = ex.Message;
                 }
 
             }
 
-            if(studentPopulationData.Type == StudentPopulationType.PH) {
-                //總人數
-                //小
-                //StudentPopulationItem sumClassCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("英文總班數統計"));
-                //sumClassCount.Number = eNCount;
-                //dataContext.StudentPopulationItem.Update(sumClassCount);
-                //dataContext.SaveChanges();
-                ////三
-                //StudentPopulationItem sumClassCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("英文總班數統計"));
-                //sumClassCount.Number = eNCount;
-                //dataContext.StudentPopulationItem.Update(sumClassCount);
-                //dataContext.SaveChanges();
-
-
+            if (studentPopulationData.Type == StudentPopulationType.PH) {
                 //總班數
                 StudentPopulationItem sumClassCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("英文總班數統計"));
                 sumClassCount.Number = eNCount;
                 dataContext.StudentPopulationItem.Update(sumClassCount);
                 dataContext.SaveChanges();
+                //本周流失/新增 英文
+                StudentPopulationItem addCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("本週英語文新生"));
+                if (!addCount.IsManual) {
+                    addCount.Number = addCount.Number + addEnStudent;
+                    dataContext.StudentPopulationItem.Update(addCount);
+                    dataContext.SaveChanges();
+                }
+
+                StudentPopulationItem lostCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("本週英語文流失"));
+                if (!lostCount.IsManual) {
+                    lostCount.Number = lostCount.Number + lostEnStudent;
+                    dataContext.StudentPopulationItem.Update(lostCount);
+                    dataContext.SaveChanges();
+                }
+                //本周流失/新增 國語
+                StudentPopulationItem addChCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("本週國語文新生人數"));
+                if (!addChCount.IsManual) {
+                    addChCount.Number = addChCount.Number + addChStudent;
+                    dataContext.StudentPopulationItem.Update(addChCount);
+                    dataContext.SaveChanges();
+                }
+                StudentPopulationItem lostChCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("本週國語文流失人數"));
+                if (!lostChCount.IsManual) {
+                    lostChCount.Number = lostChCount.Number + lostChStudent;
+                    dataContext.StudentPopulationItem.Update(lostChCount);
+                    dataContext.SaveChanges();
+                }
             }
             else if (studentPopulationData.Type == StudentPopulationType.PSJ) {
 

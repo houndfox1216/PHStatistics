@@ -1376,6 +1376,7 @@ namespace PHStatistics.Portal.Controllers {
             FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write);
             wb.Write(fs);
             return Json(ResponseStatus.OK, 1);
+            //return File(fs.ToArray(), "application/octet-stream", "團體報名範例.xlsx");
         }
 
         #endregion

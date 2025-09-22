@@ -115,8 +115,13 @@
                     @if (sItem.IsSum) {
                         @sItem.Number
                     }
-                    else {
+                    else if (sItem.IsSum && !sItem.Class.Course.Name.Equals("本週英語文新生") && !sItem.Class.Course.Name.Equals("本週英語文流失") &&
+                    !sItem.Class.Course.Name.Equals("本週國語文新生人數") && !sItem.Class.Course.Name.Equals("本週國語文流失人數")) {
                         <input type="number" class="form-control" placeholder="請輸入人數" name="Items[@itemRowNo].Number" id="class_@sItem.Class.Id.ToString()_count" value="@sItem.Number" data-course="@cItem.Id" data-class="@sItem.Class.Id" data-sitem="@sItem.Id" onchange="valueChange('class_@sItem.Class.Id.ToString()_count')">
+                    }
+                    else if (sItem.IsSum && sItem.Class.Course.Name.Equals("本週英語文新生") && sItem.Class.Course.Name.Equals("本週英語文流失") &&
+                    sItem.Class.Course.Name.Equals("本週國語文新生人數") && sItem.Class.Course.Name.Equals("本週國語文流失人數")) {
+                        <input type="number" class="form-control" placeholder="請輸入人數" name="Items[@itemRowNo].Number" id="class_@sItem.Class.Id.ToString()_count" value="@sItem.Number" data-course="@cItem.Id" data-class="@sItem.Class.Id" data-sitem="@sItem.Id" onchange="sumValueChange('class_@sItem.Class.Id.ToString()_count')">
                     }
 
                 </div>
