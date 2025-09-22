@@ -127,5 +127,11 @@ namespace PHStatistics.Content {
         /// </summary>
         [Display(Name = "人數"), DataMember, NotMapped]
         public int WeekNumber { get; set; }
+
+        /// <summary>
+        /// 手動調整
+        /// </summary>
+        [Display(Name = "手動調整"), DataMember]
+        public bool IsManual { get; set; }
     }
 }
