@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PHStatistics;
 
@@ -11,9 +12,11 @@ using PHStatistics;
 namespace PHStatistics.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20250921013406_add_published")]
+    partial class add_published
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -938,9 +941,6 @@ namespace PHStatistics.Migrations
 
                     b.Property<short>("DataMode")
                         .HasColumnType("smallint");
-
-                    b.Property<bool>("IsManual")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("IsSum")
                         .HasColumnType("bit");
