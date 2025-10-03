@@ -46,7 +46,7 @@
                     <div class="col-2 mb-2">
                         <select class="form-select" id="new_department">
                             <option selected disabled>選擇班系</option>
-                            @foreach (CourseDepartment dItem in department) {
+                            @foreach (CourseDepartment dItem in department.Where(e => e.IsSum == false && e.Published)) {
                                 <option value=@dItem.Id>@dItem.Name</option>
                             }
                         </select>
@@ -54,7 +54,7 @@
                     <div class="col-3 mb-3">
                         <select class="form-select" id="new_courses">
                             <option selected disabled>選擇課程</option>
-                            @foreach (Course cItem in courses.Where(e => e.IsSum == false)) {
+                            @foreach (Course cItem in courses.Where(e => e.IsSum == false && e.Published)) {
                                 <option value=@cItem.Id>@cItem.Name</option>
                             }
                         </select>
@@ -146,11 +146,11 @@
                     }
                     } *@
                 </div>
-                <div>
+@*                 <div>
                     <button type="submit" class="btn w-100 btn-primary btn-lg btn-round">
                         確認 <i class="fas fa-paper-plane"></i>
                     </button>
-                </div>
+                </div> *@
             </form>
         </div>
     </div>
@@ -188,12 +188,36 @@
             type: 'POST',
             dataType: "html",
             success: function (data) {
+                 alert("班級已新增!!");
                 $("#contentItem").html(data);
             },
             error: function () {
-
+                   alert("班級新增失敗!!");
+                 return false;
             }
         });
+    }
+
+    function removeClassItem(sId){
+        if(confirm('確認要刪除班級資料!?')==true){
+            $.ajax({
+                url: '@Url.Action("RemoveClassItem", "StudentPopulation")',
+                cache: false,
+                data: { 'sId': sId },
+                // dataType: 'application/json',
+                type: 'POST',
+                dataType: "html",
+                success: function (data) {
+                    $("#contentItem").html(data);
+                },
+                error: function () {
+
+                }
+            });
+        }else{
+            return false;
+        }
+
     }
 
     $("#new_department").on('change', function() {
@@ -227,4 +251,25 @@
                 }
             });
      });
+
+     function valueChange(sId){
+            var updateCourses = document.getElementById(sId);
+             console.log('updateCourses',updateCourses.dataset);
+            console.log('updateCourses',updateCourses.value);
+            // console.log('updateCourses',updateCourses.data["sid"]);
+            $.ajax({
+            url: '@Url.Action("UpdateClassItem", "StudentPopulation")',
+            cache: false,
+            data: { 'sId': updateCourses.dataset.sitem, 'number': updateCourses.value },
+            // dataType: 'application/json',
+            type: 'POST',
+            dataType: "html",
+            success: function (data) {
+                $("#contentItem").html(data);
+            },
+            error: function () {
+
+            }
+        });
+    }
 </script>

@@ -3378,8 +3378,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>cwlnapa4hf</Fingerprint>
-      <Integrity>nLyXJR9HSnxc3wqUIy/OXkf16Ddw8mU7emBjtPK3WhE=</Integrity>
+      <Fingerprint>a9iusxjfxv</Fingerprint>
+      <Integrity>7mezff2L+ldSGFO0xQ8bI6apfAng6bwHA3sbBW/EWbI=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\files\reports\NewReport.xlsx'))</OriginalItemSpec>

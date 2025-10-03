@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "vNPcOf63b6FC3ibyMaj8sdVbD5bielDBgcAolb4MsTg=",
+  "Hash": "kHWfTYCzPUMAhQ99eWVg9e27hxvUWk/eNWy2fjcxKZw=",
   "Source": "PHStatistics.Portal",
   "BasePath": "_content/PHStatistics.Portal",
   "Mode": "Default",
@@ -3979,8 +3979,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "cwlnapa4hf",
-      "Integrity": "nLyXJR9HSnxc3wqUIy/OXkf16Ddw8mU7emBjtPK3WhE=",
+      "Fingerprint": "a9iusxjfxv",
+      "Integrity": "7mezff2L+ldSGFO0xQ8bI6apfAng6bwHA3sbBW/EWbI=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\files\\reports\\NewReport.xlsx"
@@ -22021,7 +22021,7 @@
       ]
     },
     {
-      "Route": "files/reports/NewReport.cwlnapa4hf.xlsx",
+      "Route": "files/reports/NewReport.a9iusxjfxv.xlsx",
       "AssetFile": "C:\\Company\\PHStatistics.portal\\source\\portal\\Portal\\wwwroot\\files\\reports\\NewReport.xlsx",
       "Selectors": [],
       "ResponseHeaders": [
@@ -22031,7 +22031,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "5438"
+          "Value": "9660"
         },
         {
           "Name": "Content-Type",
@@ -22039,11 +22039,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"nLyXJR9HSnxc3wqUIy/OXkf16Ddw8mU7emBjtPK3WhE=\""
+          "Value": "\"7mezff2L+ldSGFO0xQ8bI6apfAng6bwHA3sbBW/EWbI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 13 Sep 2024 09:49:08 GMT"
+          "Value": "Sun, 21 Sep 2025 04:31:50 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -22053,7 +22053,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "cwlnapa4hf"
+          "Value": "a9iusxjfxv"
         },
         {
           "Name": "label",
@@ -22061,7 +22061,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-nLyXJR9HSnxc3wqUIy/OXkf16Ddw8mU7emBjtPK3WhE="
+          "Value": "sha256-7mezff2L+ldSGFO0xQ8bI6apfAng6bwHA3sbBW/EWbI="
         }
       ]
     },
@@ -22076,7 +22076,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "5438"
+          "Value": "9660"
         },
         {
           "Name": "Content-Type",
@@ -22084,11 +22084,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"nLyXJR9HSnxc3wqUIy/OXkf16Ddw8mU7emBjtPK3WhE=\""
+          "Value": "\"7mezff2L+ldSGFO0xQ8bI6apfAng6bwHA3sbBW/EWbI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 13 Sep 2024 09:49:08 GMT"
+          "Value": "Sun, 21 Sep 2025 04:31:50 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -22098,7 +22098,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-nLyXJR9HSnxc3wqUIy/OXkf16Ddw8mU7emBjtPK3WhE="
+          "Value": "sha256-7mezff2L+ldSGFO0xQ8bI6apfAng6bwHA3sbBW/EWbI="
         }
       ]
     },

@@ -33,6 +33,8 @@ using Microsoft.AspNetCore.Http;
 using System.Data;
 using System.Data.SqlClient;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using NPOI.HSSF.Record;
+using NPOI.XSSF.Streaming;
 
 
 
@@ -162,7 +164,6 @@ namespace PHStatistics.Portal.Controllers {
                             #region 解析表頭
                             for (int rNo = 0; rNo <= 3; rNo++) {
                                 try {
-                                    // foreach (int cNo = 1; cNo <= colCount; cNo++ )
                                     string colSrt = string.Empty;
                                     for (int cNo = 3; cNo <= colCount; cNo++) {
                                         ImportRow newRow = new ImportRow();
@@ -645,7 +646,7 @@ namespace PHStatistics.Portal.Controllers {
         [HttpGet("ImportPIData")]
         public IActionResult ImportPIData(string type) {
             try {
-                using (FileStream file = new FileStream(@"C:\Leo\其他\Kuri\人數表\班系課程整理20250909V2.xlsx", FileMode.Open, FileAccess.Read)) {
+                using (FileStream file = new FileStream(@"C:\Leo\其他\Kuri\人數表\班系課程整理20250926_調整.xlsx", FileMode.Open, FileAccess.Read)) {
                     if (!file.HasValue())
                         throw new System.Data.DataException("取得資料發生錯誤");
                     try {
@@ -654,10 +655,12 @@ namespace PHStatistics.Portal.Controllers {
                         ISheet sheet2 = workbook.GetSheetAt(1);
                         ISheet sheet3 = workbook.GetSheetAt(2);
                         ISheet sheet4 = workbook.GetSheetAt(3);
+                        ISheet sheet5 = workbook.GetSheetAt(4);
                         List<ImportData> ph = new List<ImportData>();
                         List<ImportData> gept = new List<ImportData>();
                         List<ImportData> ps = new List<ImportData>();
                         List<ImportData> psj = new List<ImportData>();
+                        List<ImportData> aft = new List<ImportData>();
 
                         var list = new List<ISheet>() { sheet1, sheet2, sheet3, sheet4 };
                         var count = 0;
@@ -722,6 +725,11 @@ namespace PHStatistics.Portal.Controllers {
                                         psj.Add(newItem);
                                     }
                                 }
+                                else if (k == 4) {
+                                    if (newItem.Department != null && !string.IsNullOrEmpty(newItem.Department) && newItem.Course != null && !string.IsNullOrEmpty(newItem.Course)) {
+                                        aft.Add(newItem);
+                                    }
+                                }
                             }
                         }
                         using (DataContext dataContext = new DataContext()) {
@@ -736,7 +744,8 @@ namespace PHStatistics.Portal.Controllers {
                                     else {
                                         courseDepartment.Name = phItem.Department;
                                         courseDepartment.Ordinal = departmentOrdinal;
-                                        courseDepartment.Company = Company.PH;                                        
+                                        courseDepartment.Company = Company.PH;                 
+                                        courseDepartment.Type = StudentPopulationType.PH;
                                         dataContext.CourseDepartment.Add(courseDepartment);
                                         dataContext.SaveChanges();
                                         departmentOrdinal++;
@@ -768,6 +777,7 @@ namespace PHStatistics.Portal.Controllers {
                                         courseDepartment.Name = phItem.Department;
                                         courseDepartment.Ordinal = departmentOrdinal;
                                         courseDepartment.Company = Company.PH;
+                                        courseDepartment.Type = StudentPopulationType.GEPT;
                                         dataContext.CourseDepartment.Add(courseDepartment);
                                         dataContext.SaveChanges();
                                         departmentOrdinal++;
@@ -799,6 +809,7 @@ namespace PHStatistics.Portal.Controllers {
                                         courseDepartment.Name = phItem.Department;
                                         courseDepartment.Ordinal = departmentOrdinal;
                                         courseDepartment.Company = Company.PH;
+                                        courseDepartment.Type = StudentPopulationType.PS;
                                         dataContext.CourseDepartment.Add(courseDepartment);
                                         dataContext.SaveChanges();
                                         departmentOrdinal++;
@@ -830,6 +841,7 @@ namespace PHStatistics.Portal.Controllers {
                                         courseDepartment.Name = phItem.Department;
                                         courseDepartment.Ordinal = departmentOrdinal;
                                         courseDepartment.Company = Company.PH;
+                                        courseDepartment.Type = StudentPopulationType.PSJ;
                                         dataContext.CourseDepartment.Add(courseDepartment);
                                         dataContext.SaveChanges();
                                         departmentOrdinal++;
@@ -843,6 +855,38 @@ namespace PHStatistics.Portal.Controllers {
                                         course.Ordinal = courseOrdinal;
                                         course.Department = courseDepartment;
                                         course.Type = StudentPopulationType.PSJ;
+                                        course.ClassType = string.IsNullOrEmpty(phItem.SchoolName) ? null : phItem.SchoolName;
+                                        course.IsSum = string.IsNullOrEmpty(phItem.Account) ? false : (phItem.Account == "X" ? true : false);
+                                        dataContext.Course.Add(course);
+                                        dataContext.SaveChanges();
+                                        courseOrdinal++;
+                                    }
+                                }
+                            }
+                            foreach (ImportData phItem in aft) {
+                                if (phItem != null) {
+                                    CourseDepartment courseDepartment = new CourseDepartment();
+                                    if (dataContext.CourseDepartment.Any(e => e.Name == phItem.Department)) {
+                                        courseDepartment = dataContext.CourseDepartment.FirstOrDefault(e => e.Name == phItem.Department);
+                                    }
+                                    else {
+                                        courseDepartment.Name = phItem.Department;
+                                        courseDepartment.Ordinal = departmentOrdinal;
+                                        courseDepartment.Company = Company.PH;
+                                        courseDepartment.Type = StudentPopulationType.AfterSchool;
+                                        dataContext.CourseDepartment.Add(courseDepartment);
+                                        dataContext.SaveChanges();
+                                        departmentOrdinal++;
+                                    }
+                                    Course course = new Course();
+                                    if (dataContext.Course.Any(e => e.Name == phItem.Course && e.Department.Name == courseDepartment.Name)) {
+                                        continue;
+                                    }
+                                    else {
+                                        course.Name = phItem.Course;
+                                        course.Ordinal = courseOrdinal;
+                                        course.Department = courseDepartment;
+                                        course.Type = StudentPopulationType.AfterSchool;
                                         course.ClassType = string.IsNullOrEmpty(phItem.SchoolName) ? null : phItem.SchoolName;
                                         course.IsSum = string.IsNullOrEmpty(phItem.Account) ? false : (phItem.Account == "X" ? true : false);
                                         dataContext.Course.Add(course);
@@ -1277,13 +1321,25 @@ namespace PHStatistics.Portal.Controllers {
             /// 班系
             /// </summary>
             [Display(Name = "班系")]
-            public string CourseDepartment { get; set; }
+            public string CourseDepartmentName { get; set; }
+
+            /// <summary>
+            /// 班系
+            /// </summary>
+            [Display(Name = "班系")]
+            public CourseDepartment Department { get; set; }
 
             /// <summary>
             /// 課程
             /// </summary>
             [Display(Name = "課程")]
-            public string Course { get; set; }
+            public string CourseName { get; set; }
+
+            /// <summary>
+            /// 班系
+            /// </summary>
+            [Display(Name = "班系")]
+            public Course Course { get; set; }
 
             /// <summary>
             /// 班級
@@ -1296,6 +1352,26 @@ namespace PHStatistics.Portal.Controllers {
             /// </summary>
             [Display(Name = "分校")]
             public string School { get; set; }
+        }
+
+        public class ImportMapping {
+            /// <summary>
+            /// 班系
+            /// </summary>
+            [Display(Name = "班系")]
+            public string CourseDepartmentName { get; set; }
+
+            /// <summary>
+            /// 課程
+            /// </summary>
+            [Display(Name = "課程")]
+            public string CourseName { get; set; }
+
+            /// <summary>
+            /// 課程編號
+            /// </summary>
+            [Display(Name = "課程編號")]
+            public int CourseId { get; set; }
         }
 
         [HttpGet("AddSchoolYear")]
@@ -1327,6 +1403,184 @@ namespace PHStatistics.Portal.Controllers {
                 return Json(ResponseStatus.OK, 1);
             }
         }
+
+
+        [HttpGet("ImportExcelData2")]
+        public IActionResult ImportExcelData2() {
+            try {
+                DataContext dataContext = new DataContext();
+                //載入Mapping
+                List<ImportMapping> mappings = LoadHeaderMapFromCsv(@"C:\Users\hound\Downloads\課程對照20250929.csv");
+
+                using (
+                    FileStream file = new FileStream(@"C:\Users\hound\Downloads\人數表系統\人數表系統\\2025 07(全國人數表第12週)_匯入.xlsx", FileMode.Open, FileAccess.Read)) {
+                    if (!file.HasValue())
+                        throw new System.Data.DataException("取得資料發生錯誤");
+                    try {
+                        var workbook = new XSSFWorkbook(file);
+                        ISheet sheet1 = workbook.GetSheetAt(0);
+                        var list = new List<ISheet>() { sheet1 };
+                        var count = 0;
+                        string[] input = new string[3];
+                        var sheet = workbook.GetSheetAt(0);
+                        IRow headerRow = sheet.GetRow(1);
+                        string year = "2025";
+                        int yearInt = 114;                                                
+                        int colCount = headerRow.Cells.Count();
+                        int rowCount = sheet.LastRowNum;
+                        string countryName = string.Empty;
+                        string brandName = string.Empty;
+                        decimal pics = 0;
+                        string sizeStr = string.Empty;
+                        string exNo = string.Empty;
+                        List<ImportCourse> courseData = new List<ImportCourse>();
+                        //List<ImportMapping> mappings = new List<ImportMapping>();
+                        for (int k = 0; k < workbook.NumberOfSheets; k++) {
+                            try {
+                                //第三個Sheet為英檢
+                                var readSheet = workbook.GetSheetAt(k);
+                                if (k < 2) {
+                                    #region 解析表頭
+                                    IRow row0 = readSheet.GetRow(0);
+                                    IRow row1 = readSheet.GetRow(1);
+                                    IRow row2 = readSheet.GetRow(2);
+                                    IRow row3 = readSheet.GetRow(3);
+                                    IRow row4 = readSheet.GetRow(4);
+                                    IRow row5 = readSheet.GetRow(5);
+                                    IRow row6 = readSheet.GetRow(6);
+                                    IRow row7 = readSheet.GetRow(7);
+                                    string depName = string.Empty;
+                                    string courseName = string.Empty;
+                                    string courseName2 = string.Empty;
+                                    string itemCourseName = string.Empty;
+                                    for (int rNo = 0; rNo < row0.Cells.Count; rNo++) {
+
+                                    }
+                                    for (int cNo = 0; cNo < row0.Cells.Count; cNo++) {
+                                        try {
+                                            if (!string.IsNullOrEmpty(row1.Cells[cNo].ToString()) && !depName.Equals(row1.Cells[cNo].ToString())) {
+                                                depName = row1.Cells[cNo].ToString().Trim();
+                                                courseName = string.Empty;
+                                                courseName2 = string.Empty;
+                                            }
+                                            if (!string.IsNullOrEmpty(row2.Cells[cNo].ToString()) && !courseName.Equals(row2.Cells[cNo].ToString())) {
+                                                courseName = row2.Cells[cNo].ToString().Trim();
+                                                courseName2 = string.Empty;
+                                            }
+                                            if (!string.IsNullOrEmpty(row3.Cells[cNo].ToString()) && !courseName2.Equals(row3.Cells[cNo].ToString())) {
+                                                courseName2 = row3.Cells[cNo].ToString().Trim();
+                                            }
+                                            //確認班系課程資料
+                                            if (!string.IsNullOrEmpty(courseName2)) {
+                                                if (courseName2.Equals("A") || courseName2.Equals("B")) {
+                                                    itemCourseName = courseName.Trim() + courseName2.Trim();
+                                                }
+                                                else {
+                                                    itemCourseName = courseName.Trim() + "-" + courseName2.Trim();
+                                                }
+                                            }
+                                            else {
+                                                itemCourseName = courseName.Trim();
+                                            }
+
+                                            //if (mappings.Any(e => e.CourseDepartmentName == depName && e.CourseName == itemCourseName)) {
+                                            //    continue;
+                                            //}
+                                            //else {
+                                            //    ImportMapping mappingItem = new ImportMapping();
+                                            //    mappingItem.CourseDepartmentName = depName;
+                                            //    mappingItem.CourseName = itemCourseName;
+                                            //    if (mappingItem.CourseDepartmentName != null && mappingItem.CourseName != null) {
+                                            //        mappings.Add(mappingItem);
+                                            //    }
+                                            //}
+
+                                            if (courseData.Any(e => e.CourseDepartmentName == depName && e.CourseName == itemCourseName)) {
+                                                continue;
+                                            }
+                                            else {
+                                                if (dataContext.Course.Any(e => e.Name == itemCourseName)) {
+                                                    ImportCourse newCourseItem = new ImportCourse();
+                                                    newCourseItem.CourseDepartmentName = depName;
+                                                    newCourseItem.Department = dataContext.CourseDepartment.FirstOrDefault(e => e.Name == newCourseItem.CourseDepartmentName);
+                                                    newCourseItem.CourseName = itemCourseName;
+                                                    newCourseItem.Course = dataContext.Course.FirstOrDefault(e => e.Name == newCourseItem.CourseName); ;
+                                                    if (newCourseItem.Department != null && newCourseItem.Course != null) {
+                                                        courseData.Add(newCourseItem);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        catch(Exception ex) {
+                                            Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                                            throw new FrameworkException(ex.Message);
+                                        }
+                                    }
+                                    #endregion
+                                    #region 解析資料列
+                                    string schoolName = string.Empty;
+
+                                    #endregion
+                                }
+                                else {
+
+                                }
+                            }
+                            catch(Exception ex) {
+                                Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                                throw new FrameworkException(ex.Message);
+                            }
+                            
+                        }
+                    }
+                    catch (FrameworkException ex) {
+                        Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                        throw new FrameworkException(ex.Message);
+                    }
+                    catch (Exception ex) {
+                        Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                        throw new Exception("系統忙碌中，請稍後再試");
+                    }
+                    return Json(ResponseStatus.OK, 1);
+                }
+            }
+            catch (FrameworkException fe) {
+                return Json(ResponseStatus.OK, 1);
+            }
+            catch (Exception e) {
+                Logger.LogError(e, e.Message);
+                return Json(ResponseStatus.OK, 1);
+            }
+        }
+
+        public static List<ImportMapping> LoadHeaderMapFromCsv(string path) {
+            
+            var map = new List<ImportMapping>();
+            using var sr = new StreamReader(path, System.Text.Encoding.UTF8, detectEncodingFromByteOrderMarks: true);
+            string? header = sr.ReadLine();
+            if (header is null) return new List<ImportMapping>();
+
+            var cols = header.Split(',');
+            //int idxHeader = Array.FindIndex(cols, c => c.Trim().Equals(headerColName, StringComparison.OrdinalIgnoreCase));
+            //int idxTarget = Array.FindIndex(cols, c => c.Trim().Equals(targetColName, StringComparison.OrdinalIgnoreCase));
+            //if (idxHeader < 0 || idxTarget < 0) return map;
+
+            string? line;
+            while ((line = sr.ReadLine()) != null) {
+                var parts = line.Split(',');
+                map.Add(new ImportMapping() {
+                    CourseDepartmentName = parts[0],
+                    CourseName = string.IsNullOrEmpty(parts[1]) ? parts[0] : parts[1],
+                    CourseId = int.Parse(parts[2])
+                });
+                //if (parts.Length <= Math.Max(idxHeader, idxTarget)) continue;
+                //var key = parts[idxHeader].Trim();
+                //var val = parts[idxTarget].Trim();
+
+            }
+            return map;
+        }
+
 
         #endregion
 
@@ -1373,10 +1627,11 @@ namespace PHStatistics.Portal.Controllers {
             }
             var path = Path.Combine($"{System.Framework.Environment.Directory.WebRootPath}", "files", "reports", "NewReport.xlsx");
             //var fs = new FileStream(path, FileMode.Open, FileAccess.Read);
-            FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write);
-            wb.Write(fs);
-            return Json(ResponseStatus.OK, 1);
-            //return File(fs.ToArray(), "application/octet-stream", "團體報名範例.xlsx");
+            var memoryStream = new MemoryStream();
+          //  FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write);
+            wb.Write(memoryStream);
+            //return Json(ResponseStatus.OK, 1);
+            return File(memoryStream.ToArray(), "application/octet-stream", "團體報名範例.xlsx");
         }
 
         #endregion
