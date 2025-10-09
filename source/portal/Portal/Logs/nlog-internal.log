@@ -4471,3 +4471,17 @@
 2025-10-03 08:35:32.2547 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
 2025-10-03 08:35:32.2694 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Debug\net8.0\NLog.config
 2025-10-03 08:35:32.2858 Info Configuration initialized.
+2025-10-07 18:36:51.3177 Info Loading assembly name: NLog.Web.AspNetCore
+2025-10-07 18:36:51.3405 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2025-10-07 18:36:51.3962 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2025-10-07 18:36:51.3962 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2025-10-07 18:36:51.4137 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2025-10-07 18:36:51.4137 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Debug\net8.0\NLog.config
+2025-10-07 18:36:51.4275 Info Configuration initialized.
+2025-10-09 18:01:19.5892 Info Loading assembly name: NLog.Web.AspNetCore
+2025-10-09 18:01:19.6261 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2025-10-09 18:01:19.7063 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2025-10-09 18:01:19.7063 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2025-10-09 18:01:19.7188 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2025-10-09 18:01:19.7188 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Debug\net8.0\NLog.config
+2025-10-09 18:01:19.7358 Info Configuration initialized.

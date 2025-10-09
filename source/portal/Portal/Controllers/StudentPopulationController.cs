@@ -17,6 +17,7 @@ using System.Framework.Application;
 using DevExpress.Data.Browsing;
 using static NPOI.HSSF.Util.HSSFColor;
 using Humanizer;
+using NPOI.SS.Formula.Functions;
 
 namespace PHStatistics.Portal.Controllers {
     public class StudentPopulationController : MvcController<PortalUser, Model, Culture> {
@@ -1567,7 +1568,8 @@ namespace PHStatistics.Portal.Controllers {
             if (studentPopulationData.Type == StudentPopulationType.PH) {
                 //總班數
                 StudentPopulationItem sumClassCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("英文總班數統計"));
-                sumClassCount.Number = eNCount;
+                int[] countIds = dataContext.Course.Where(e => e.Type == StudentPopulationType.PH && !e.IsSum && (e.Department.Name.Equals("英文國小班") || e.Department.Name.Equals("英文國中班") || e.Department.Name.Equals("英文高中班"))).Select(e => e.Id).ToArray();
+                sumClassCount.Number = studentPopulationData.Items.Where(e => e.Class.Course != null && countIds.Contains(e.Class.Course.Id) && e.Class.Type == group.Class.Type && !e.Class.Course.IsSum).Count(); ;
                 dataContext.StudentPopulationItem.Update(sumClassCount);
                 dataContext.SaveChanges();
 
