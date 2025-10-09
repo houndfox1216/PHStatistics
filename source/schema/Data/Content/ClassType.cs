@@ -19,15 +19,15 @@ namespace PHStatistics.Content {
         Group,
 
         /// <summary>
-        /// 三
+        /// EM1
         /// </summary>
-        [Display(Name = "1V1")]
+        [Display(Name = "EM1")]
         Personal,
 
         /// <summary>
-        /// 三
+        /// EM2
         /// </summary>
-        [Display(Name = "1V2")]
+        [Display(Name = "EM2")]
         V2,
 
         /// <summary>
