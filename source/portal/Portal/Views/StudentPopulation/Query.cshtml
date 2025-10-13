@@ -52,11 +52,25 @@
                             }
                         </select>
                     }
+                    <label for="">
+                        類型 <small class="text-primary">＊必填</small>
+                    </label>
+                    <select class="form-select validate[required]" id="reportType">
+                        <option selected disabled>選擇類型</option>
+                        <option value="PH">百瀚</option>
+                        <option value="GEPG">英檢</option>
+                        <option value="PSJ">百倍速</option>
+                        <option value="PS">百世</option>
+                        <option value="AS">課輔班</option>
+                    </select>
                 }
             </div>
             <div class="">
                 <button type="button" class="btn btn-primary btn-lg btn-round" id="queryPHBtn">
                     查詢 <i class="fas fa-paper-plane"></i>
+                </button>
+                <button type="button" class="btn btn-primary btn-lg btn-round" id="exportBtn">
+                    匯出 <i class="fas fa-paper-plane"></i>
                 </button>
             </div>
             <div id="contentItem">
@@ -66,15 +80,16 @@
     </div>
 </div>
 <script>
-    $(function () {
-         $('#queryPHBtn').on('click', function () {
+
+            $('#queryPHBtn').on('click', function () {
              console.log('schoolSelect', $('#schoolSelect').val());
              console.log('queryYear', $('#queryYear').val());
              console.log('queryWeek', $('#queryWeek').val());
+              console.log('reportType', $('#reportType').val());
             $.ajax({
                    url: '@Url.Action("QueryPopulationPartial", "StudentPopulation")',
                    cache: false,
-                   data: { 'schoolId': $('#schoolSelect').val(), 'week': $('#queryWeek').val(), 'year': $('#queryYear').val() },
+                   data: { 'schoolId': $('#schoolSelect').val(), 'week': $('#queryWeek').val(), 'year': $('#queryYear').val(), 'reportType':  $('#reportType').val() },
                    // dataType: 'application/json',
                    type: 'POST',
                    dataType: "html",
@@ -82,10 +97,77 @@
                        $("#contentItem").html(data);
                    },
                    error: function () {
-                   
+
                    }
             });
         });
-    })
+
+            $('#exportBtn').on('click', function () {
+             console.log('schoolSelect', $('#schoolSelect').val());
+             console.log('queryYear', $('#queryYear').val());
+             console.log('queryWeek', $('#queryWeek').val());
+              console.log('reportType', $('#reportType').val());
+              window.open('@Url.Action("ExportPopulationPartial", "StudentPopulation")?schoolId=' + $('#schoolSelect').val() + '&week=' + $('#queryWeek').val() + '&year=' +  $('#queryYear').val() + '&reportType=' +$('#reportType').val()  );
+            // $.ajax({
+            //        url: '@Url.Action("ExportPopulationPartial", "StudentPopulation")',
+            //        cache: false,
+            //        data: { 'schoolId': $('#schoolSelect').val(), 'week': $('#queryWeek').val(), 'year': $('#queryYear').val(), 'reportType':  $('#reportType').val() },
+            //        // dataType: 'application/json',
+            //        type: 'GET',
+            //        dataType: "html",
+            //        success: function (data) {
+            //            alert("匯出完畢");
+            //        },
+            //        error: function () {
+
+            //        }
+            // });
+        });
+
+    // $(function () {
+    //      $('#queryPHBtn').on('click', function () {
+    //          console.log('schoolSelect', $('#schoolSelect').val());
+    //          console.log('queryYear', $('#queryYear').val());
+    //          console.log('queryWeek', $('#queryWeek').val());
+    //         $.ajax({
+    //                url: '@Url.Action("QueryPopulationPartial", "StudentPopulation")',
+    //                cache: false,
+    //                data: { 'schoolId': $('#schoolSelect').val(), 'week': $('#queryWeek').val(), 'year': $('#queryYear').val(), 'reportType':  $('#reportType').val() },
+    //                // dataType: 'application/json',
+    //                type: 'POST',
+    //                dataType: "html",
+    //                success: function (data) {
+    //                    $("#contentItem").html(data);
+    //                },
+    //                error: function () {
+
+    //                }
+    //         });
+    //     });
+    // },
+
+    //     function () {
+    //      $('#queryPHBtn').on('click', function () {
+    //          console.log('schoolSelect', $('#schoolSelect').val());
+    //          console.log('queryYear', $('#queryYear').val());
+    //          console.log('queryWeek', $('#queryWeek').val());
+    //         $.ajax({
+    //                url: '@Url.Action("QueryPopulationPartial", "StudentPopulation")',
+    //                cache: false,
+    //                data: { 'schoolId': $('#schoolSelect').val(), 'week': $('#queryWeek').val(), 'year': $('#queryYear').val(), 'reportType':  $('#reportType').val() },
+    //                // dataType: 'application/json',
+    //                type: 'POST',
+    //                dataType: "html",
+    //                success: function (data) {
+    //                    $("#contentItem").html(data);
+    //                },
+    //                error: function () {
+
+    //                }
+    //         });
+    //     });
+    // }
+
+    // )
 
 </script>

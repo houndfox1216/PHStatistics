@@ -18,6 +18,10 @@ using DevExpress.Data.Browsing;
 using static NPOI.HSSF.Util.HSSFColor;
 using Humanizer;
 using NPOI.SS.Formula.Functions;
+using NPOI.SS.UserModel;
+using NPOI.SS.Util;
+using NPOI.XSSF.UserModel;
+using System.IO;
 
 namespace PHStatistics.Portal.Controllers {
     public class StudentPopulationController : MvcController<PortalUser, Model, Culture> {
@@ -225,10 +229,9 @@ namespace PHStatistics.Portal.Controllers {
                     dataContext.SaveChanges();
                     //增加固定總計項目
                     if (type.Equals("PH")) {
-                        //英文個別指導 162 國文個別指導 172
+                        //英文個別指導 162 國文個別指導 172 course.Name.Equals("英文總班數統計")
                         foreach (Course course in dataContext.Course.Include("Department").Where(e => e.IsSum == true && e.Type == StudentPopulationType.PH).OrderBy(e => e.Ordinal).ToList()) {
-                            if (course.Department.Name.Equals("英文個別指導") || course.Department.Name.Equals("國語文個別指導") || course.Name.Equals("英文總班數統計") ||
-                                course.Name.Equals("英文總班數統計") || course.Name.Equals("英文合作開班人數合計") || course.Name.Equals("本週英語文新生") ||
+                            if (course.Department.Name.Equals("英文個別指導") || course.Department.Name.Equals("國語文個別指導") || course.Name.Equals("英文合作開班人數合計") || course.Name.Equals("本週英語文新生") ||
                                 course.Name.Equals("上週英語文總人數") || course.Name.Equals("與上週相比") || course.Name.Equals("去年同期/比") ||
                                 course.Name.Equals("本週英語文新生") || course.Name.Equals("本週英語文流失") || course.Name.Equals("國語文個別指導人數合計") ||
                                 course.Name.Equals("本週國語文總人數") || course.Name.Equals("本週英語文流失") || course.Name.Equals("上週國語文總人數") ||
@@ -237,6 +240,15 @@ namespace PHStatistics.Portal.Controllers {
                                 if (!dataContext.StudentPopulationItem.Any(e => e.Class.Course.Id == course.Id && e.Class.Type == ClassType.General && e.StudentPopulation.Id == returnData.Id)) {
                                     StudentPopulationItem item = new StudentPopulationItem();
                                     Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == course.Id && e.Type == ClassType.General);
+                                    if(course.Department.Name.Equals("英文個別指導") || course.Department.Name.Equals("國語文個別指導") || course.Name.Equals("國語文個別指導人數合計")) {
+                                        classItem.Type = ClassType.Personal;
+                                    }
+                                    //else if (course.Department.Name.Equals("英文合作開班人數合計") || course.Department.Name.Equals("國語文合作開班人數合計")) {
+                                    //    classItem.Type = ClassType.General;
+                                    //}
+                                    else {
+                                        classItem.Type = ClassType.General;
+                                    }
                                     if (classItem == null) {
                                         classItem = new Class() { SchoolId = schoolId, CourseId = course.Id, Name = course.Name, Type = ClassType.General };
                                         dataContext.Class.Add(classItem);
@@ -736,8 +748,8 @@ namespace PHStatistics.Portal.Controllers {
             lastWeekData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").Where(e => e.School.Id == schoolId && e.Year == lastschoolYear.Year && e.Week == lastschoolYear.Week && e.Type == populationType).FirstOrDefault();
 
             StudentPopulation returnData = new StudentPopulation();
-            List<Course> courses = Model.DataContext.Course.Where(e => e.Type == populationType ).OrderBy(e => e.Ordinal).ToList();
-            List<CourseDepartment> department = Model.DataContext.CourseDepartment.Where(e => e.Type == populationType ).OrderBy(e => e.Ordinal).ToList();
+            List<Course> courses = Model.DataContext.Course.Where(e => e.Type == populationType).OrderBy(e => e.Ordinal).ToList();
+            List<CourseDepartment> department = Model.DataContext.CourseDepartment.Where(e => e.Type == populationType).OrderBy(e => e.Ordinal).ToList();
             ViewBag.Year = schoolYear.Year;
             ViewBag.Week = schoolYear.Week;
             ViewBag.Courses = courses;
@@ -1142,9 +1154,6 @@ namespace PHStatistics.Portal.Controllers {
         [HttpPost("AddNewClass")]
         // data: { 'schoolId': schoolId, 'courseId': newCourses.value, 'week': week, 'year': year, 'newClassType': newClassType, 'newClassName': newClassName, 'newNumber': newNumber, 'newStudentremark':newStudentremark },
         public IActionResult AddNewClass(int courseId, int schoolId, int year, int week, string[][] itemArr, int newClassType, string newClassName, int newNumber, string newStudentremark, string type) {
-
-
-
             DataContext dataContext = new DataContext();
             var seleceedType = type switch {
                 "PH" => StudentPopulationType.PH,
@@ -1408,7 +1417,7 @@ namespace PHStatistics.Portal.Controllers {
                 List<Course> courses = Model.DataContext.Course.Where(e => e.Type == item.StudentPopulation.Type && !e.IsSum).OrderBy(e => e.Ordinal).ToList();
                 ViewBag.Courses = courses;
                 if (item != null) {
-                    if (item.Class.Course.Name.Equals("本週英語文新生") || item.Class.Course.Name.Equals("本週英語文流失") || 
+                    if (item.Class.Course.Name.Equals("本週英語文新生") || item.Class.Course.Name.Equals("本週英語文流失") ||
                         item.Class.Course.Name.Equals("本週國語文新生人數") || item.Class.Course.Name.Equals("本週國語文流失人數")) {
                         item.IsManual = true;
                     }
@@ -1472,27 +1481,27 @@ namespace PHStatistics.Portal.Controllers {
         [Authorize(typeof(PortalUser))]
         [HttpPost("QueryPopulationPartial")]
         // data: { 'schoolId': schoolId, 'courseId': newCourses.value, 'week': week, 'year': year, 'newClassType': newClassType, 'newClassName': newClassName, 'newNumber': newNumber, 'newStudentremark':newStudentremark },
-        public IActionResult QueryPopulationPartial(int schoolId, int year, int week) {
+        public IActionResult QueryPopulationPartial(int schoolId, int year, int week, string reportType) {
 
             List<Course> courses = Model.DataContext.Course.OrderBy(e => e.Ordinal).ToList();
             ViewBag.Courses = courses;
             DataContext dataContext = new DataContext();
-            var seleceedType = StudentPopulationType.PH;
-            //var seleceedType = type switch {
-            //    "PH" => StudentPopulationType.PH,
-            //    "PS" => StudentPopulationType.PS,
-            //    "PHM" => StudentPopulationType.PHM,
-            //    _ => StudentPopulationType.AfterSchool
-            //};
+            var seleceedType = reportType switch {
+                "PH" => StudentPopulationType.PH,
+                "PS" => StudentPopulationType.PS,
+                "GEPT" => StudentPopulationType.GEPT,
+                "PSJ" => StudentPopulationType.PSJ,
+                "AS" => StudentPopulationType.AfterSchool,
+                _ => StudentPopulationType.PH
+            };
 
 
-            StudentPopulation studentPopulationData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").Where(e => e.School.Id == schoolId && e.Year == year && e.Week == week).FirstOrDefault();
+            StudentPopulation studentPopulationData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").Where(e => e.School.Id == schoolId && e.Year == year && e.Week == week && e.Type == seleceedType).FirstOrDefault();
             return PartialView("QueryPopulationPartialView", studentPopulationData);
         }
-
         public StudentPopulation SumPHPopulation(long spId) {
-
             DataContext dataContext = new DataContext();
+            dataContext.ChangeTracker.Clear();
             //取得本週資料
             StudentPopulation studentPopulationData = Model.GetStudentPopulationById(spId);
             //加總說明
@@ -1535,7 +1544,8 @@ namespace PHStatistics.Portal.Controllers {
                     if (!group.Class.Course.Department.Name.Equals("英文個別指導")) {
                         if (group.Class.Course.Department.Name.Equals("英文國小班") || group.Class.Course.Department.Name.Equals("英文國中班") || group.Class.Course.Department.Name.Equals("英文高中班"))
                             eNCount = eNCount + studentPopulationData.Items.Where(e => e.Class.Course.Department != null && e.Class.Course.Department.Id == group.Class.Course.Department.Id && e.Class.Type == group.Class.Type && !e.Class.Course.IsSum).Count();
-                    }else if (!group.Class.Course.Department.Name.Equals("國語文個別指導")) {
+                    }
+                    else if (!group.Class.Course.Department.Name.Equals("國語文個別指導")) {
                         if (group.Class.Course.Department.Name.Equals("國語文"))
                             chCount = chCount + studentPopulationData.Items.Where(e => e.Class.Course.Department != null && e.Class.Course.Department.Id == group.Class.Course.Department.Id && e.Class.Type == group.Class.Type && !e.Class.Course.IsSum).Count();
                     }
@@ -1554,7 +1564,7 @@ namespace PHStatistics.Portal.Controllers {
                         else if (group.Number - lastWeekNumber < 0) {
                             lostChStudent = lostChStudent + (lastWeekNumber - group.Number);
                         }
-                    }                        
+                    }
 
                     dataContext.StudentPopulationItem.Update(group);
                     dataContext.SaveChanges();
@@ -1566,35 +1576,35 @@ namespace PHStatistics.Portal.Controllers {
             }
 
             if (studentPopulationData.Type == StudentPopulationType.PH) {
-                //總班數
-                StudentPopulationItem sumClassCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("英文總班數統計"));
+                //總班數 小
+                StudentPopulationItem subgroupClassCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("英文總班數統計") && e.Class.Type == ClassType.SubGroup);
                 int[] countIds = dataContext.Course.Where(e => e.Type == StudentPopulationType.PH && !e.IsSum && (e.Department.Name.Equals("英文國小班") || e.Department.Name.Equals("英文國中班") || e.Department.Name.Equals("英文高中班"))).Select(e => e.Id).ToArray();
-                sumClassCount.Number = studentPopulationData.Items.Where(e => e.Class.Course != null && countIds.Contains(e.Class.Course.Id) && e.Class.Type == group.Class.Type && !e.Class.Course.IsSum).Count(); ;
-                dataContext.StudentPopulationItem.Update(sumClassCount);
+                subgroupClassCount.Number = studentPopulationData.Items.Where(e => e.Class.Course != null && countIds.Contains(e.Class.Course.Id) && e.Class.Type == ClassType.SubGroup && !e.Class.Course.IsSum).Count(); ;
+                dataContext.StudentPopulationItem.Update(subgroupClassCount);
+                dataContext.SaveChanges();
+                //總班數 三
+                StudentPopulationItem em3ClassCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("英文總班數統計") && e.Class.Type == ClassType.V3);
+                //int[] countIds = dataContext.Course.Where(e => e.Type == StudentPopulationType.PH && !e.IsSum && (e.Department.Name.Equals("英文國小班") || e.Department.Name.Equals("英文國中班") || e.Department.Name.Equals("英文高中班"))).Select(e => e.Id).ToArray();
+                em3ClassCount.Number = studentPopulationData.Items.Where(e => e.Class.Course != null && countIds.Contains(e.Class.Course.Id) && e.Class.Type == ClassType.V3 && !e.Class.Course.IsSum).Count(); ;
+                dataContext.StudentPopulationItem.Update(em3ClassCount);
                 dataContext.SaveChanges();
 
-                //國文總班數
-                StudentPopulationItem sumChClassCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("國文總班數"));
-                sumChClassCount.Number = chCount;
-                dataContext.StudentPopulationItem.Update(sumChClassCount);
+                //國文總班數 小
+                StudentPopulationItem subgroupChClassCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("國文總班數") && e.Class.Type == ClassType.SubGroup);
+                int[] chIds = dataContext.Course.Where(e => e.Type == StudentPopulationType.PH && !e.IsSum && (e.Department.Name.Equals("國語文"))).Select(e => e.Id).ToArray();
+                subgroupChClassCount.Number = studentPopulationData.Items.Where(e => e.Class.Course != null && chIds.Contains(e.Class.Course.Id) && e.Class.Type == ClassType.SubGroup && !e.Class.Course.IsSum).Count();
+                dataContext.StudentPopulationItem.Update(subgroupChClassCount);
                 dataContext.SaveChanges();
 
-                ////總班數
-                //StudentPopulationItem sumClassCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("英文總班數統計"));
-                //sumClassCount.Number = eNCount;
-                //dataContext.StudentPopulationItem.Update(sumClassCount);
-                //dataContext.SaveChanges();
-
-                ////國文總班數
-                //StudentPopulationItem sumChClassCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("國文總班數"));
-                //sumChClassCount.Number = chCount;
-                //dataContext.StudentPopulationItem.Update(sumChClassCount);
-                //dataContext.SaveChanges();
-
+                //國文總班數 三
+                StudentPopulationItem em3ChClassCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("國文總班數") && e.Class.Type == ClassType.V3);
+                em3ChClassCount.Number = studentPopulationData.Items.Where(e => e.Class.Course != null && chIds.Contains(e.Class.Course.Id) && e.Class.Type == ClassType.V3 && !e.Class.Course.IsSum).Count();
+                dataContext.StudentPopulationItem.Update(em3ChClassCount);
+                dataContext.SaveChanges();
 
                 //本週英語文總人數 三
                 StudentPopulationItem sumWeekEn3Count = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("本週英語文總人數") && e.Class.Type == ClassType.V3);
-                if(sumWeekEn3Count != null) {
+                if (sumWeekEn3Count != null) {
                     sumWeekEn3Count.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department != null && e.Class.Course.Department.Id == sumWeekEn3Count.Class.Course.Department.Id && e.Class.Type == sumWeekEn3Count.Class.Type && !e.Class.Course.IsSum).Sum(e => e.Number);
                     dataContext.StudentPopulationItem.Update(sumWeekEn3Count);
                     dataContext.SaveChanges();
@@ -1607,6 +1617,22 @@ namespace PHStatistics.Portal.Controllers {
                     dataContext.StudentPopulationItem.Update(sumWeekEnGCount);
                     dataContext.SaveChanges();
                 }
+
+                ////本週英語文總人數 三
+                //StudentPopulationItem sumEM1 = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("英文個別指導人數合計"));
+                //if (sumEM1 != null) {
+                //    sumEM1.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department != null && e.Class.Course.Department.Id == sumWeekEn3Count.Class.Course.Department.Id && e.Class.Type == sumWeekEn3Count.Class.Type && !e.Class.Course.IsSum).Sum(e => e.Number);
+                //    dataContext.StudentPopulationItem.Update(sumEM1);
+                //    dataContext.SaveChanges();
+                //}
+
+                ////本週英語文總人數 小
+                //StudentPopulationItem sumWeekEnGCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("英文合作開班人數合計"));
+                //if (sumWeekEnGCount != null) {
+                //    sumWeekEnGCount.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department != null && e.Class.Course.Department.Id == sumWeekEnGCount.Class.Course.Department.Id && e.Class.Type == sumWeekEnGCount.Class.Type && !e.Class.Course.IsSum).Sum(e => e.Number); ;
+                //    dataContext.StudentPopulationItem.Update(sumWeekEnGCount);
+                //    dataContext.SaveChanges();
+                //}
 
                 //本周流失/新增 英文
                 StudentPopulationItem addCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("本週英語文新生"));
@@ -1624,7 +1650,7 @@ namespace PHStatistics.Portal.Controllers {
 
                 //本週國語文總人數 三
                 StudentPopulationItem sumWeekCh3Count = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("本週國語文總人數") && e.Class.Type == ClassType.V3);
-                if(sumWeekCh3Count != null) {
+                if (sumWeekCh3Count != null) {
                     sumWeekCh3Count.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department != null && e.Class.Course.Department.Id == sumWeekCh3Count.Class.Course.Department.Id && e.Class.Type == sumWeekCh3Count.Class.Type && !e.Class.Course.IsSum).Sum(e => e.Number);
                     dataContext.StudentPopulationItem.Update(sumWeekCh3Count);
                     dataContext.SaveChanges();
@@ -1632,7 +1658,7 @@ namespace PHStatistics.Portal.Controllers {
 
                 //本週國語文總人數 小
                 StudentPopulationItem sumWeekChGCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("本週國語文總人數") && e.Class.Type == ClassType.SubGroup);
-                if(sumWeekChGCount != null) {
+                if (sumWeekChGCount != null) {
                     sumWeekChGCount.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department != null && e.Class.Course.Department.Id == sumWeekChGCount.Class.Course.Department.Id && e.Class.Type == sumWeekChGCount.Class.Type && !e.Class.Course.IsSum).Sum(e => e.Number); ;
                     dataContext.StudentPopulationItem.Update(sumWeekChGCount);
                     dataContext.SaveChanges();
@@ -1653,7 +1679,9 @@ namespace PHStatistics.Portal.Controllers {
                     dataContext.SaveChanges();
                 }
 
-                //總班數
+                //
+
+                //總人數
                 StudentPopulationItem sumAllCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("總人數"));
                 sumAllCount.Number = studentPopulationData.Items.Where(e => !e.Class.Course.IsSum).Sum(e => e.Number); ;
                 dataContext.StudentPopulationItem.Update(sumAllCount);
@@ -1671,6 +1699,316 @@ namespace PHStatistics.Portal.Controllers {
             dataContext.SaveChanges();
             return studentPopulationData;
         }
+        #region 資料匯出
+
+        [HttpGet("ExportPopulationPartial")]
+        public IActionResult ExportPopulationPartial(int schoolId, int year, int week, string reportType) {
+            string fileName = string.Empty;
+            var seleceedType = reportType switch {
+                "PH" => StudentPopulationType.PH,
+                "PS" => StudentPopulationType.PS,
+                "GEPT" => StudentPopulationType.GEPT,
+                "PSJ" => StudentPopulationType.PSJ,
+                "AS" => StudentPopulationType.AfterSchool,
+                _ => StudentPopulationType.PH
+            };
+            School school = Model.DataContext.School.Find(schoolId);
+
+            IWorkbook wb = new XSSFWorkbook();
+            ISheet ws = wb.CreateSheet("Course");
+            using (DataContext dataContext = new DataContext()) {
+                //取得週次人數
+                StudentPopulation studentPopulationData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").Where(e => e.School.Id == schoolId && e.Year == year && e.Week == week && e.Type == seleceedType).FirstOrDefault();
+                List<Course> course = new List<Course>();// dataContext.Course.Include("Department").OrderBy(e => e.Ordinal).ToList();
+                //取得課程資料
+                course = dataContext.Course.Include("Department").Where(e => e.Type == seleceedType).OrderBy(e => e.Ordinal).ToList();
+                if (seleceedType == StudentPopulationType.PH) {
+                    fileName = $"百瀚{week}週人數表.xlsx";
+                    ws.CreateRow(0);//第一行為欄位名稱                    
+                    //設定欄位樣式
+                    XSSFCellStyle courseCellStyle = (XSSFCellStyle)wb.CreateCellStyle();
+                    courseCellStyle.WrapText = true; //自動換行設定
+                    IRow departmentRow = ws.CreateRow(0);
+                    IRow courseRow = ws.CreateRow(1);
+                    IRow sgRow = ws.CreateRow(2);
+                    IRow v3Row = ws.CreateRow(3);
+                    int currentDep = 0;
+                    int mergedIndex = 0;
+                    int currentCou = 0;
+                    int couMergedIndex = 0;                                                                               
+                    ICell schoolCell = sgRow.CreateCell(0);
+                    schoolCell.SetCellValue(school.Name);
+                    //處理分校名稱合併
+                    ws.AddMergedRegion(new CellRangeAddress(2, 3, 0, 0));
+                    ICell gNameCell = sgRow.CreateCell(1);
+                    gNameCell.SetCellValue("小");
+                    ICell vNameCell = v3Row.CreateCell(1);
+                    vNameCell.SetCellValue("三");
+                    int cellNo = 2;
+                    foreach (Course cItem in course) {
+                        //int classCount = studentPopulationData.Items.Count(e => e.Class.Course.Id == cItem.Id);
+                        //cellNo = cellNo + classCount;
+                        if (currentDep != cItem.Department.Id) {
+                            currentDep = cItem.Department.Id;
+                            ICell departmentCell = departmentRow.CreateCell(cellNo);
+                            departmentCell.SetCellValue(cItem.Department.Name);
+                            try {
+                                if (mergedIndex != cellNo) {
+                                    ws.AddMergedRegion(new CellRangeAddress(0, 0, mergedIndex, cellNo - 1));
+                                    mergedIndex = cellNo;
+                                }
+                            }
+                            catch (Exception ex) {
+
+                            }
+                        }
+                        if (studentPopulationData.Items.Any(e => e.Class.Course.Id == cItem.Id)) {
+                            int sgCount = studentPopulationData.Items.Count(e => e.Class.Course.Id == cItem.Id && e.Class.Type == ClassType.SubGroup);
+                            int v3Count = studentPopulationData.Items.Count(e => e.Class.Course.Id == cItem.Id && e.Class.Type == ClassType.V3);
+                            int em1Count = studentPopulationData.Items.Count(e => e.Class.Course.Id == cItem.Id && e.Class.Type == ClassType.Personal);
+                            int gCount = studentPopulationData.Items.Count(e => e.Class.Course.Id == cItem.Id && e.Class.Type == ClassType.General);
+
+                            if (sgCount > 0 || v3Count > 0) {
+                                if (sgCount > v3Count) {
+                                    int cNo = 0;
+                                    List<StudentPopulationItem> v3Items = studentPopulationData.Items.Where(e => e.Class.Course.Id == cItem.Id && e.Class.Type == ClassType.V3).ToList();
+                                    foreach (StudentPopulationItem sItem in studentPopulationData.Items.Where(e => e.Class.Course.Id == cItem.Id && e.Class.Type == ClassType.SubGroup)) {
+                                        ICell sgCell = sgRow.CreateCell(cellNo);
+                                        sgCell.SetCellValue(sItem.Number);
+                                        ICell v3Cell = v3Row.CreateCell(cellNo);
+                                        try {
+                                            if (v3Items[cNo] != null) {
+                                                v3Cell.SetCellValue(v3Items[cNo].Number);
+                                            }
+                                            else {
+                                                v3Cell.SetCellValue(string.Empty);
+                                            }
+                                        }
+                                        catch(Exception ex) {
+                                            v3Cell.SetCellValue(string.Empty);
+                                        }
+                                        
+                                        ICell courseCell = courseRow.CreateCell(cellNo);
+                                        courseCell.SetCellValue(cItem.Name);
+                                        ws.SetColumnWidth(cellNo, 4 * 256);//設定欄寬
+                                        courseCell.CellStyle = courseCellStyle; 
+                                        cellNo++;
+                                        cNo++;
+                                    }
+                                }else if (v3Count > sgCount) {
+                                    int cNo = 0;
+                                    List<StudentPopulationItem> sgItems = studentPopulationData.Items.Where(e => e.Class.Course.Id == cItem.Id && e.Class.Type == ClassType.SubGroup).ToList();
+                                    foreach (StudentPopulationItem vItem in studentPopulationData.Items.Where(e => e.Class.Course.Id == cItem.Id && e.Class.Type == ClassType.V3)) {
+                                        ICell sgCell = sgRow.CreateCell(cellNo);
+                                        try {
+                                            if (sgItems[cNo] != null) {
+                                                sgCell.SetCellValue(sgItems[cNo].Number);
+                                            }
+                                            else {
+                                                sgCell.SetCellValue(string.Empty);
+                                            }
+                                        }
+                                        catch(Exception ex) {
+                                            sgCell.SetCellValue(string.Empty);
+                                        }
+                                        
+                                        ICell v3Cell = v3Row.CreateCell(cellNo);
+                                        v3Cell.SetCellValue(vItem.Number);
+                                        ICell courseCell = courseRow.CreateCell(cellNo);
+                                        courseCell.SetCellValue(cItem.Name);
+                                        ws.SetColumnWidth(cellNo, 4 * 256);//設定欄寬
+                                        courseCell.CellStyle = courseCellStyle;
+                                        cellNo++;
+                                        cNo++;
+                                    }
+                                }else if (v3Count == sgCount) {
+                                    int cNo = 0;
+                                    List<StudentPopulationItem> v3Items = studentPopulationData.Items.Where(e => e.Class.Course.Id == cItem.Id && e.Class.Type == ClassType.V3).ToList();
+                                    foreach (StudentPopulationItem sItem in studentPopulationData.Items.Where(e => e.Class.Course.Id == cItem.Id && e.Class.Type == ClassType.SubGroup)) {
+                                        ICell sgCell = sgRow.CreateCell(cellNo);
+                                        sgCell.SetCellValue(sItem.Number);
+                                        ICell v3Cell = v3Row.CreateCell(cellNo);
+                                        if (v3Items[cNo] != null) {
+                                            v3Cell.SetCellValue(v3Items[cNo].Number);
+                                        }
+                                        else {
+                                            v3Cell.SetCellValue(string.Empty);
+                                        }
+                                        ICell courseCell = courseRow.CreateCell(cellNo);
+                                        courseCell.SetCellValue(cItem.Name);
+                                        ws.SetColumnWidth(cellNo, 4 * 256);//設定欄寬
+                                        courseCell.CellStyle = courseCellStyle;
+                                        cellNo++;
+                                        cNo++;
+                                    }
+                                }
+                            }
+                            else {
+                                foreach (StudentPopulationItem sItem in studentPopulationData.Items.Where(e => e.Class.Course.Id == cItem.Id)) {
+                                    ICell sgCell = sgRow.CreateCell(cellNo);
+                                    sgCell.SetCellValue(sItem.Number);
+                                    ICell v3Cell = v3Row.CreateCell(cellNo);
+                                    v3Cell.SetCellValue(string.Empty);
+                                    ICell courseCell = courseRow.CreateCell(cellNo);
+                                    courseCell.SetCellValue(cItem.Name);
+                                    ws.SetColumnWidth(cellNo, 4 * 256);//設定欄寬
+                                    courseCell.CellStyle = courseCellStyle;
+                                    cellNo++;
+                                }
+                            }
+                        
+                        }
+                        else {
+                            ICell courseCell = courseRow.CreateCell(cellNo);
+                            courseCell.SetCellValue(cItem.Name);
+                            ws.SetColumnWidth(cellNo, 4 * 256);//設定欄寬
+                            courseCell.CellStyle = courseCellStyle;
+                            cellNo++;
+                        }                      
+                    }
+                }
+                else if (seleceedType == StudentPopulationType.GEPT) {
+                    fileName = $"英檢班{week}週人數表.xlsx";
+                    ws.CreateRow(0);//第一行為欄位名稱
+                    int cellNo = 0;
+                    //設定欄位樣式
+                    XSSFCellStyle courseCellStyle = (XSSFCellStyle)wb.CreateCellStyle();
+                    courseCellStyle.WrapText = true; //自動換行設定
+                    IRow departmentRow = ws.CreateRow(0);
+                    IRow courseRow = ws.CreateRow(1);
+                    int currentDep = 0;
+                    int mergedIndex = 0;
+                    foreach (Course cItem in course) {
+                        if (currentDep != cItem.Department.Id) {
+                            currentDep = cItem.Department.Id;
+                            ICell departmentCell = departmentRow.CreateCell(cellNo);
+                            departmentCell.SetCellValue(cItem.Department.Name);
+                            try {
+                                if (mergedIndex != cellNo) {
+                                    ws.AddMergedRegion(new CellRangeAddress(0, 0, mergedIndex, cellNo - 1));
+                                    mergedIndex = cellNo;
+                                }
+                            }
+                            catch (Exception ex) {
+
+                            }
+                        }
+                        ICell courseCell = courseRow.CreateCell(cellNo);
+                        courseCell.SetCellValue(cItem.Name);
+                        ws.SetColumnWidth(cellNo, 4 * 256);//設定欄寬
+                        courseCell.CellStyle = courseCellStyle;
+                        cellNo++;
+                    }
+                }
+                else if (seleceedType == StudentPopulationType.PSJ) {
+                    fileName = $"百倍速{week}週人數表.xlsx";
+                    ws.CreateRow(0);//第一行為欄位名稱
+                    int cellNo = 0;
+                    //設定欄位樣式
+                    XSSFCellStyle courseCellStyle = (XSSFCellStyle)wb.CreateCellStyle();
+                    courseCellStyle.WrapText = true; //自動換行設定
+                    IRow departmentRow = ws.CreateRow(0);
+                    IRow courseRow = ws.CreateRow(1);
+                    int currentDep = 0;
+                    int mergedIndex = 0;
+                    foreach (Course cItem in course) {
+                        if (currentDep != cItem.Department.Id) {
+                            currentDep = cItem.Department.Id;
+                            ICell departmentCell = departmentRow.CreateCell(cellNo);
+                            departmentCell.SetCellValue(cItem.Department.Name);
+                            try {
+                                if (mergedIndex != cellNo) {
+                                    ws.AddMergedRegion(new CellRangeAddress(0, 0, mergedIndex, cellNo - 1));
+                                    mergedIndex = cellNo;
+                                }
+                            }
+                            catch (Exception ex) {
+
+                            }
+                        }
+                        ICell courseCell = courseRow.CreateCell(cellNo);
+                        courseCell.SetCellValue(cItem.Name);
+                        ws.SetColumnWidth(cellNo, 4 * 256);//設定欄寬
+                        courseCell.CellStyle = courseCellStyle;
+                        cellNo++;
+                    }
+                }
+                else if (seleceedType == StudentPopulationType.PS) {
+                    fileName = $"百世{week}週人數表.xlsx";
+                    ws.CreateRow(0);//第一行為欄位名稱
+                    int cellNo = 0;
+                    //設定欄位樣式
+                    XSSFCellStyle courseCellStyle = (XSSFCellStyle)wb.CreateCellStyle();
+                    courseCellStyle.WrapText = true; //自動換行設定
+                    IRow departmentRow = ws.CreateRow(0);
+                    IRow courseRow = ws.CreateRow(1);
+                    int currentDep = 0;
+                    int mergedIndex = 0;
+                    foreach (Course cItem in course) {
+                        if (currentDep != cItem.Department.Id) {
+                            currentDep = cItem.Department.Id;
+                            ICell departmentCell = departmentRow.CreateCell(cellNo);
+                            departmentCell.SetCellValue(cItem.Department.Name);
+                            try {
+                                if (mergedIndex != cellNo) {
+                                    ws.AddMergedRegion(new CellRangeAddress(0, 0, mergedIndex, cellNo - 1));
+                                    mergedIndex = cellNo;
+                                }
+                            }
+                            catch (Exception ex) {
+
+                            }
+                        }
+                        ICell courseCell = courseRow.CreateCell(cellNo);
+                        courseCell.SetCellValue(cItem.Name);
+                        ws.SetColumnWidth(cellNo, 4 * 256);//設定欄寬
+                        courseCell.CellStyle = courseCellStyle;
+                        cellNo++;
+                    }
+                }
+                else if (seleceedType == StudentPopulationType.AfterSchool) {
+                    fileName = $"課輔班{week}週人數表.xlsx";
+                    ws.CreateRow(0);//第一行為欄位名稱
+                    int cellNo = 0;
+                    //設定欄位樣式
+                    XSSFCellStyle courseCellStyle = (XSSFCellStyle)wb.CreateCellStyle();
+                    courseCellStyle.WrapText = true; //自動換行設定
+                    IRow departmentRow = ws.CreateRow(0);
+                    IRow courseRow = ws.CreateRow(1);
+                    int currentDep = 0;
+                    int mergedIndex = 0;
+                    foreach (Course cItem in course) {
+                        if (currentDep != cItem.Department.Id) {
+                            currentDep = cItem.Department.Id;
+                            ICell departmentCell = departmentRow.CreateCell(cellNo);
+                            departmentCell.SetCellValue(cItem.Department.Name);
+                            try {
+                                if (mergedIndex != cellNo) {
+                                    ws.AddMergedRegion(new CellRangeAddress(0, 0, mergedIndex, cellNo - 1));
+                                    mergedIndex = cellNo;
+                                }
+                            }
+                            catch (Exception ex) {
+
+                            }
+                        }
+                        ICell courseCell = courseRow.CreateCell(cellNo);
+                        courseCell.SetCellValue(cItem.Name);
+                        ws.SetColumnWidth(cellNo, 4 * 256);//設定欄寬
+                        courseCell.CellStyle = courseCellStyle;
+                        cellNo++;
+                    }
+                }
+            }
+            var path = Path.Combine($"{System.Framework.Environment.Directory.WebRootPath}", "files", "reports", "NewReport.xlsx");
+            //var fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+            var memoryStream = new MemoryStream();
+            //  FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write);
+            wb.Write(memoryStream);            
+            return File(memoryStream.ToArray(), "application/octet-stream", fileName);
+        }
+
+        #endregion
 
     }
 }
