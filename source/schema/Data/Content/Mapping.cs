@@ -48,11 +48,24 @@ namespace PHStatistics.Content {
         [Display(Name = "識別碼"), DataMember]
         public long Id { get; set; }
 
+
+        /// <summary>
+        /// 年度
+        /// </summary>
+        [Display(Name = "年度")]
+        public int Year { get; set; }
+
+        /// <summary>
+        /// 學年
+        /// </summary>
+        [Display(Name = "學年")]
+        public int YearStr { get; set; }
+
         /// <summary>
         /// 周次
         /// </summary>
         [Display(Name = "周次")]
-        public int week { get; set; }
+        public int Week { get; set; }
 
         /// <summary>
         /// 分校
@@ -60,6 +73,12 @@ namespace PHStatistics.Content {
         [Display(Name = "分校"), DataMember]
         [MaxLength(128)]
         public string Name { get; set; }
+
+        /// <summary>
+        /// 分校編號
+        /// </summary>
+        [Display(Name = "分校編號"), DataMember]        
+        public int SchoolId { get; set; }
 
         /// <summary>
         /// 班別
