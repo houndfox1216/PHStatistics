@@ -1345,8 +1345,8 @@ namespace PHStatistics.Portal.Controllers {
                         decimal pics = 0;
                         string sizeStr = string.Empty;
                         string exNo = string.Empty;
-                        List<ImportCourse> courseData = new List<ImportCourse>();
-                        List<ImportMapping> mappings = new List<ImportMapping>();
+                        //List<ImportCourse> courseData = new List<ImportCourse>();
+                        //List<ImportMapping> mappings = new List<ImportMapping>();
                         for (int k = 0; k < workbook.NumberOfSheets; k++) {
                             try {
                                 //第三個Sheet為英檢
@@ -1424,9 +1424,8 @@ namespace PHStatistics.Portal.Controllers {
                                                         catch {
                                                             number = 0;
                                                         }
-
-                                                        mappings.Add(new ImportMapping() {
-                                                            School = schoolName,
+                                                        dataContext.Mapping.Add(new Mapping() {
+                                                            Name = schoolName,
                                                             ClassType = classType,
                                                             CourseDepartmentName = depName,
                                                             CourseName = itemCourseName,
