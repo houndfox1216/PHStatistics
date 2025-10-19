@@ -90,7 +90,14 @@ public partial class DataContext {
     /// </summary>
     public DbSet<SchoolClass> SchoolClass { get; set; }
 
+    /// <summary>
+    /// 分校開班情況
+    /// </summary>
+    public DbSet<Mapping> Mapping { get; set; }
+
     
+
+
 
     #endregion
 
