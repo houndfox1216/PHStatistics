@@ -1,0 +1,31 @@
+2025-09-27 12:49:31.4217[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-27 12:49:31.4217[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-27 12:49:31.5700[11]  INFO MemberController  Member Login account: password: 
+2025-09-27 12:58:58.6327[20]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-27 12:58:58.6327[20]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-27 12:58:58.6432[21]  INFO MemberController  Member Login account: password: 
+2025-09-27 12:59:10.2236[11]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-09-27 12:59:10.2978[11]  INFO MemberController  進行登入 
+2025-09-27 12:59:10.3442[11]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-09-27 12:59:10.4114[21]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-27 12:59:10.4114[21]  INFO HomeController  進入首頁
+2025-09-27 13:05:00.4281[16]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-27 13:05:00.4382[16]  INFO HomeController  進入首頁
+2025-09-27 13:16:34.6913[7]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-27 13:16:34.6913[7]  INFO HomeController  進入首頁
+2025-09-27 13:18:47.9729[7]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-27 13:18:47.9729[7]  INFO HomeController  進入首頁
+2025-09-27 13:20:35.3405[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-27 13:20:35.3508[11]  INFO HomeController  進入首頁
+2025-09-27 13:30:25.9910[10]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-27 13:30:25.9993[10]  INFO HomeController  進入首頁
+2025-09-27 13:35:22.9395[5]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-27 13:35:22.9527[5]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-27 13:35:23.0510[5]  INFO MemberController  Member Login account: password: 
+2025-09-27 13:35:40.2013[21]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-09-27 13:35:40.3559[21]  INFO MemberController  進行登入 
+2025-09-27 13:35:40.5144[21]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-09-27 13:35:40.6408[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-27 13:35:40.6408[11]  INFO HomeController  進入首頁
+2025-09-27 13:39:14.6076[10]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-27 13:39:14.6076[10]  INFO HomeController  進入首頁

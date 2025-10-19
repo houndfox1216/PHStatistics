@@ -27,6 +27,9 @@
                     <button type="button" class="btn btn-primary btn-lg btn-round" id="addNewPS">
                         輸入資料-百世
                     </button>
+                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addNewAS">
+                        輸入資料-課輔
+                    </button>
                 }
                 else {
                     <button type="button" class="btn btn-primary btn-lg btn-round" id="addNew" disabled="true">
@@ -40,6 +43,9 @@
                     </button>
                     <button type="button" class="btn btn-primary btn-lg btn-round" id="addNewPS" disabled="true">
                         輸入資料-百世
+                    </button>
+                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addNewAS" disabled="true">
+                        輸入資料-課輔
                     </button>
                     @* 
                     <button type="button" class="btn btn-primary btn-lg btn-round" onclick="#" disabled="true">
@@ -66,6 +72,9 @@
     })
     $('#addNewPS').on('click', function () {
         window.location.href = "/StudentPopulation/Index?type=PS";
+    })
+    $('#addNewAS').on('click', function () {
+        window.location.href = "/StudentPopulation/Index?type=AS";
     })
     $('#query').on('click', function () {
         window.location.href = "/StudentPopulation/Query";
