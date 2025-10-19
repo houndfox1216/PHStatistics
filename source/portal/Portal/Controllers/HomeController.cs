@@ -1346,7 +1346,7 @@ namespace PHStatistics.Portal.Controllers {
                         string sizeStr = string.Empty;
                         string exNo = string.Empty;
                         //List<ImportCourse> courseData = new List<ImportCourse>();
-                        //List<ImportMapping> mappings = new List<ImportMapping>();
+                        List<Mapping> mappings = new List<Mapping>();
                         for (int k = 0; k < workbook.NumberOfSheets; k++) {
                             try {
                                 //第三個Sheet為英檢
@@ -1357,10 +1357,10 @@ namespace PHStatistics.Portal.Controllers {
                                     IRow row1 = readSheet.GetRow(1);
                                     IRow row2 = readSheet.GetRow(2);
                                     IRow row3 = readSheet.GetRow(3);
-                                    IRow row4 = readSheet.GetRow(4);
-                                    IRow row5 = readSheet.GetRow(5);
-                                    IRow row6 = readSheet.GetRow(6);
-                                    IRow row7 = readSheet.GetRow(7);
+                                    //IRow row4 = readSheet.GetRow(4);
+                                    //IRow row5 = readSheet.GetRow(5);
+                                    //IRow row6 = readSheet.GetRow(6);
+                                    //IRow row7 = readSheet.GetRow(7);
                                     string schoolName = string.Empty;
                                     string classType = string.Empty;
                                     string depName = string.Empty;
@@ -1375,42 +1375,40 @@ namespace PHStatistics.Portal.Controllers {
                                         else {
                                             for (int cNo = 0; cNo < rowR.Cells.Count; cNo++) {
                                                 try {
+                                                    if (!string.IsNullOrEmpty(row1.Cells[cNo].ToString()) && !depName.Equals(row1.Cells[cNo].ToString())) {
+                                                        depName = row1.Cells[cNo].ToString().Trim();
+                                                        courseName = string.Empty;
+                                                        courseName2 = string.Empty;
+                                                    }
+                                                    if (!string.IsNullOrEmpty(row2.Cells[cNo].ToString()) && !courseName.Equals(row2.Cells[cNo].ToString())) {
+                                                        courseName = row2.Cells[cNo].ToString().Trim();
+                                                        courseName2 = string.Empty;
+                                                    }
+                                                    if (!string.IsNullOrEmpty(row3.Cells[cNo].ToString()) && !courseName2.Equals(row3.Cells[cNo].ToString())) {
+                                                        courseName2 = row3.Cells[cNo].ToString().Trim();
+                                                    }
+                                                    //確認班系課程資料
+                                                    if (!string.IsNullOrEmpty(courseName2)) {
+                                                        if (courseName2.Equals("A") || courseName2.Equals("B")) {
+                                                            itemCourseName = courseName.Trim() + courseName2.Trim();
+                                                        }
+                                                        else {
+                                                            itemCourseName = courseName.Trim() + "-" + courseName2.Trim();
+                                                        }
+                                                    }
+                                                    else {
+                                                        itemCourseName = courseName.Trim();
+                                                    }
                                                     if (cNo == 0) {
-                                                        if (!string.IsNullOrEmpty(row1.Cells[cNo].ToString()) && !schoolName.Equals(row1.Cells[cNo].ToString())) {
-                                                            schoolName = row1.Cells[cNo].ToString().Trim();
+                                                        if (!string.IsNullOrEmpty(rowR.Cells[cNo].ToString()) && !schoolName.Equals(rowR.Cells[cNo].ToString())) {
+                                                            schoolName = rowR.Cells[cNo].ToString().Trim();
                                                         }
                                                     }
                                                     else if (cNo == 1) {
-                                                        if (!string.IsNullOrEmpty(row1.Cells[cNo].ToString()) && !classType.Equals(row1.Cells[cNo].ToString())) {
-                                                            classType = row1.Cells[cNo].ToString().Trim();
+                                                        if (!string.IsNullOrEmpty(rowR.Cells[cNo].ToString()) && !classType.Equals(rowR.Cells[cNo].ToString())) {
+                                                            classType = rowR.Cells[cNo].ToString().Trim();
                                                         }
-                                                    }
-                                                    else if (cNo < 2) {
-                                                        if (!string.IsNullOrEmpty(row1.Cells[cNo].ToString()) && !depName.Equals(row1.Cells[cNo].ToString())) {
-                                                            depName = row1.Cells[cNo].ToString().Trim();
-                                                            courseName = string.Empty;
-                                                            courseName2 = string.Empty;
-                                                        }
-                                                        if (!string.IsNullOrEmpty(row2.Cells[cNo].ToString()) && !courseName.Equals(row2.Cells[cNo].ToString())) {
-                                                            courseName = row2.Cells[cNo].ToString().Trim();
-                                                            courseName2 = string.Empty;
-                                                        }
-                                                        if (!string.IsNullOrEmpty(row3.Cells[cNo].ToString()) && !courseName2.Equals(row3.Cells[cNo].ToString())) {
-                                                            courseName2 = row3.Cells[cNo].ToString().Trim();
-                                                        }
-                                                        //確認班系課程資料
-                                                        if (!string.IsNullOrEmpty(courseName2)) {
-                                                            if (courseName2.Equals("A") || courseName2.Equals("B")) {
-                                                                itemCourseName = courseName.Trim() + courseName2.Trim();
-                                                            }
-                                                            else {
-                                                                itemCourseName = courseName.Trim() + "-" + courseName2.Trim();
-                                                            }
-                                                        }
-                                                        else {
-                                                            itemCourseName = courseName.Trim();
-                                                        }
-                                                    }
+                                                    }                                             
                                                     else {
                                                         int number = 0;
                                                         try {
@@ -1424,7 +1422,10 @@ namespace PHStatistics.Portal.Controllers {
                                                         catch {
                                                             number = 0;
                                                         }
-                                                        dataContext.Mapping.Add(new Mapping() {
+                                                        mappings.Add(new Mapping() {
+                                                            Year = 2025,
+                                                            YearStr = 114,
+                                                            Week = 12,
                                                             Name = schoolName,
                                                             ClassType = classType,
                                                             CourseDepartmentName = depName,
@@ -1432,6 +1433,7 @@ namespace PHStatistics.Portal.Controllers {
                                                             //CourseId = dataContext.Course.Any(e => e.Name == itemCourseName) ? dataContext.Course.FirstOrDefault(e => e.Name == itemCourseName).Id : 0,
                                                             Number = number
                                                         });
+                                                        
                                                     }
                                                 }
                                                 catch (Exception ex) {
@@ -1442,6 +1444,8 @@ namespace PHStatistics.Portal.Controllers {
                                         }
                                     }
                                     string debug = string.Empty;
+                                    dataContext.Mapping.AddRange(mappings);
+                                    dataContext.SaveChanges();
                                     #region
                                     //for (int cNo = 0; cNo < row0.Cells.Count; cNo++) {
                                     //    try {

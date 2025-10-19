@@ -11,3 +11,26 @@
 2025-10-19 11:23:10.2435[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
 2025-10-19 11:23:10.2435[13]  INFO HomeController  進入首頁 讀取 Session account: login:
 2025-10-19 11:23:10.3578[18]  INFO MemberController  Member Login account: password: 
+2025-10-19 11:51:22.1798[15]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-10-19 11:51:22.1798[15]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-10-19 11:51:22.3008[17]  INFO MemberController  Member Login account: password: 
+2025-10-19 11:55:54.2226[15]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-10-19 11:55:54.2226[15]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-10-19 11:55:54.3362[9]  INFO MemberController  Member Login account: password: 
+2025-10-19 12:04:12.3655[15]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-10-19 12:04:12.3655[15]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-10-19 12:04:12.4572[18]  INFO MemberController  Member Login account: password: 
+2025-10-19 12:05:11.9518[18] ERROR HomeController  匯入EXCEL錯誤An error occurred while saving the entity changes. See the inner exception for details.
+2025-10-19 12:05:11.9780[18] ERROR HomeController  匯入EXCEL錯誤An error occurred while saving the entity changes. See the inner exception for details.
+2025-10-19 12:10:55.6356[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-10-19 12:10:55.6356[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-10-19 12:10:55.7145[11]  INFO MemberController  Member Login account: password: 
+2025-10-19 12:13:20.2615[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-10-19 12:13:20.2716[13]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-10-19 12:13:20.3623[7]  INFO MemberController  Member Login account: password: 
+2025-10-19 12:13:59.1181[19]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-10-19 12:13:59.1181[19]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-10-19 12:13:59.2103[9]  INFO MemberController  Member Login account: password: 
+2025-10-19 12:18:35.2185[15]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-10-19 12:18:35.2256[15]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-10-19 12:18:35.3214[9]  INFO MemberController  Member Login account: password: 
