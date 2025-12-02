@@ -62,8 +62,9 @@
                     <div class="col-1 mb-1">
                         <select class="form-select validate[required]" id="new_class_type">
                             <option selected selected="selected">選擇班別</option>
+                            <option value=1>EM1</option>                            
+                            <option value=1>小</option>
                             <option value=0>團</option>
-                            <option value=1>EM1</option>
                         </select>
                     </div>
                     <div class="col-2 mb-2">
@@ -85,7 +86,7 @@
                     int itemRowNo = 0;
                 }
                 <div id="contentItem">
-                    @await Html.PartialAsync("PSJPopulationPartialView", Model)                  
+                    @await Html.PartialAsync("PopulationPartialView", Model)                  
                 </div>
 @*                 <div>
                     <button type="submit" class="btn w-100 btn-primary btn-lg btn-round">
@@ -192,6 +193,53 @@
                 }
             });
      });
+
+    $("#new_courses").on('change', function() {
+            console.log("ExamCity");
+            const coursesId = $(this).val();
+            if (!coursesId) return;
+            $("#new_class_type").html('<option selected selected="selected">選擇班別</option>');
+            $.ajax({
+                url: `/GetClassType?coursesId=${coursesId}`,
+                type: 'GET',
+                success: function(response) {
+                    console.log('response',response);
+                    if (response.success) {
+                        const courses = response.data;
+                        console.log('Dep', courses.Department.Name);
+                        if(courses.Department.Name == '數學班') {
+                            const option1 = $("<option>")
+                                .val(1)
+                                .text('EM1')
+                                .data('name', 'EM1');
+                            $("#new_class_type").append(option1);
+                            const option2 = $("<option>")
+                                .val(4)
+                                .text('小')
+                                .data('name', '小');
+                            $("#new_class_type").append(option2);
+
+                        }else if(courses.ClassType == 'EM1、團'){
+                              const option1 = $("<option>")
+                                .val(1)
+                                .text('EM1')
+                                .data('name', 'EM1');
+                            $("#new_class_type").append(option1);
+                            const option2 = $("<option>")
+                                .val(0)
+                                .text('團')
+                                .data('name', '團');
+                            $("#new_class_type").append(option2);
+                        }else{
+                             $("#new_class_type").html('<option selected disabled value="">無需設定班別</option>');
+                        }
+                    }
+                },
+                error: function() {
+                    alert('無法取得課程資料，請稍後再試');
+                }
+            });
+       });
 
      function valueChange(sId){
             var updateCourses = document.getElementById(sId);

@@ -1,0 +1,26 @@
+2025-11-04 06:32:59.4832[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-04 06:32:59.4832[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-04 06:32:59.6022[18]  INFO MemberController  Member Login account: password: 
+2025-11-04 06:33:21.2535[18]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-11-04 06:33:21.3573[18]  INFO MemberController  進行登入 
+2025-11-04 06:33:21.5409[18]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-11-04 06:33:21.6488[18]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-11-04 06:33:21.6488[18]  INFO HomeController  進入首頁
+2025-11-04 06:33:52.6392[21]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-11-04 06:33:52.6392[21]  INFO HomeController  進入首頁
+2025-11-04 06:41:46.5996[15]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-11-04 06:41:46.5996[15]  INFO HomeController  進入首頁
+2025-11-04 06:44:34.2913[29]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-11-04 06:44:34.2913[29]  INFO HomeController  進入首頁
+2025-11-04 06:51:43.6622[15]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-11-04 06:51:43.6622[15]  INFO HomeController  進入首頁
+2025-11-04 08:51:28.7804[9]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-04 08:51:28.7907[9]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-04 08:51:28.9000[18]  INFO MemberController  Member Login account: password: 
+2025-11-04 08:53:58.3776[28]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-11-04 08:53:58.4804[28]  INFO MemberController  進行登入 
+2025-11-04 08:53:58.6096[28]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-11-04 08:53:58.7003[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-11-04 08:53:58.7003[11]  INFO HomeController  進入首頁
+2025-11-04 08:57:06.0134[15]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-11-04 08:57:06.0199[15]  INFO HomeController  進入首頁

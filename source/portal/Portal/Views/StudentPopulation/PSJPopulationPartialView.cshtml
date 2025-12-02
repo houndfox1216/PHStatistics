@@ -61,6 +61,8 @@
                 <div class="col-2 mb-3">
                     學生備註
                 </div>
+                <div class="col-2 mb-3">
+                </div>
             </div>
             foreach (StudentPopulationItem sItem in Model.Items.Where(e => e.Class.Course.Id == cItem.Id)) {
                 <div class="row mx-0">
@@ -92,11 +94,18 @@
                         @sItem.LastWeekNumber
                     </div>
                     <div class="col-2 mb-3">
-                        <input type="number" class="form-control" placeholder="請輸入人數" name="Items[@itemRowNo].Number" id="class_@sItem.Class.Id.ToString()_count" value="@sItem.Number" data-course="@cItem.Id" data-class="@sItem.Class.Id">
+                        <input type="number" class="form-control" placeholder="請輸入人數" name="Items[@itemRowNo].Number" id="class_@sItem.Class.Id.ToString()_count" value="@sItem.Number" data-course="@cItem.Id" data-class="@sItem.Class.Id" onchange="valueChange('class_@sItem.Class.Id.ToString()_count')">
                     </div>
                     <div class="col-2 mb-3">
                         <input type="text" class="form-control" placeholder="" name="Items[@itemRowNo].StudentRemark" id="class_@sItem.Class.Id.ToString()_remark" value="@sItem.StudentRemark">
                     </div>
+                    @if (!sItem.Class.Course.IsSum) {
+                        <div class="col-2 mb-2">
+                            <button type="button" class="btn btn-primary btn-sm btn-round" id="add-new" onclick="removeClassItem(@sItem.Id)">
+                                -
+                            </button>
+                        </div>
+                    }
                 </div>
                 itemRowNo++;
             }

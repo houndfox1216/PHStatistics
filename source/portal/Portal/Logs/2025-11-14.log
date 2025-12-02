@@ -1,0 +1,18 @@
+2025-11-14 22:24:07.2829[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-14 22:24:07.2829[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-14 22:24:07.4390[15] ERROR HomeController  Could not find a part of the path 'C:\Users\hound\Downloads\人數表系統\20251108\19\2025 07(全國人數表第18週).xlsx'.
+System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Users\hound\Downloads\人數表系統\20251108\19\2025 07(全國人數表第18週).xlsx'.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access)
+   at PHStatistics.Portal.Controllers.HomeController.ImportPH() in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\HomeController.cs:line 1567
+2025-11-14 22:25:37.9788[19]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-14 22:25:37.9880[19]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-14 22:59:12.0658[19]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-14 22:59:12.0658[19]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-14 22:59:12.1628[9]  INFO MemberController  Member Login account: password: 
+2025-11-14 23:18:40.8926[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-14 23:18:40.8926[13]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-14 23:18:40.9627[9]  INFO MemberController  Member Login account: password: 

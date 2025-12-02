@@ -1,0 +1,90 @@
+2025-11-16 08:59:07.8954[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-16 08:59:07.8954[13]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-16 08:59:07.9983[13]  INFO MemberController  Member Login account: password: 
+2025-11-16 09:01:38.8811[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-16 09:01:38.8910[13]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-16 09:01:38.9705[7]  INFO MemberController  Member Login account: password: 
+2025-11-16 09:02:45.2458[18] ERROR HomeController  匯入EXCEL錯誤The input string '中正' was not in a correct format.
+2025-11-16 09:02:45.2669[18] ERROR HomeController  匯入EXCEL錯誤The input string '東安' was not in a correct format.
+2025-11-16 09:02:45.2843[18] ERROR HomeController  匯入EXCEL錯誤The input string '莊敬' was not in a correct format.
+2025-11-16 09:04:26.4532[15]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-16 09:04:26.4532[15]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-16 09:04:26.5493[18]  INFO MemberController  Member Login account: password: 
+2025-11-16 09:05:20.7281[15]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-16 09:05:20.7374[15]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-16 09:05:20.8242[19]  INFO MemberController  Member Login account: password: 
+2025-11-16 09:06:07.4097[15]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-16 09:06:07.4097[15]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-16 09:06:07.4995[9]  INFO MemberController  Member Login account: password: 
+2025-11-16 09:08:40.1084[16]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-16 09:08:40.1084[16]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-16 09:08:40.2002[16]  INFO MemberController  Member Login account: password: 
+2025-11-16 09:13:33.8429[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-16 09:13:33.8429[13]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-16 09:13:33.9672[18]  INFO MemberController  Member Login account: password: 
+2025-11-16 09:20:37.6265[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-16 09:20:37.6265[13]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-16 09:20:37.7332[22]  INFO MemberController  Member Login account: password: 
+2025-11-16 10:22:26.7963[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-16 10:22:26.7963[13]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-16 10:22:26.8866[9]  INFO MemberController  Member Login account: password: 
+2025-11-16 10:46:20.5198[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-16 10:46:20.5262[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-16 10:46:20.6134[7]  INFO MemberController  Member Login account: password: 
+2025-11-16 10:46:24.4280[13] ERROR HomeController  匯入EXCEL錯誤An exception was thrown while attempting to evaluate a LINQ query parameter expression. See the inner exception for more information. To show additional information call 'DbContextOptionsBuilder.EnableSensitiveDataLogging'.
+2025-11-16 10:46:24.4505[13] ERROR HomeController  匯入EXCEL錯誤An exception was thrown while attempting to evaluate a LINQ query parameter expression. See the inner exception for more information. To show additional information call 'DbContextOptionsBuilder.EnableSensitiveDataLogging'.
+2025-11-16 10:49:17.6896[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-16 10:49:17.6896[13]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-16 10:49:17.7617[18]  INFO MemberController  Member Login account: password: 
+2025-11-16 10:51:41.4523[18] ERROR HomeController  匯入EXCEL錯誤An exception was thrown while attempting to evaluate a LINQ query parameter expression. See the inner exception for more information. To show additional information call 'DbContextOptionsBuilder.EnableSensitiveDataLogging'.
+2025-11-16 10:51:41.4736[18] ERROR HomeController  匯入EXCEL錯誤An exception was thrown while attempting to evaluate a LINQ query parameter expression. See the inner exception for more information. To show additional information call 'DbContextOptionsBuilder.EnableSensitiveDataLogging'.
+2025-11-16 10:55:39.6701[9]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-16 10:55:39.6701[9]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-16 10:55:39.7845[18]  INFO MemberController  Member Login account: password: 
+2025-11-16 11:18:24.0834[15]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-16 11:18:24.0834[15]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-16 11:18:24.1774[11]  INFO MemberController  Member Login account: password: 
+2025-11-16 11:24:36.2628[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-16 11:24:36.2693[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-16 11:24:36.3368[21]  INFO MemberController  Member Login account: password: 
+2025-11-16 11:27:21.4243[16]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-16 11:27:21.4243[16]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-16 11:27:21.5083[19]  INFO MemberController  Member Login account: password: 
+2025-11-16 11:30:28.2371[28] ERROR HomeController  匯入EXCEL錯誤An exception was thrown while attempting to evaluate a LINQ query parameter expression. See the inner exception for more information. To show additional information call 'DbContextOptionsBuilder.EnableSensitiveDataLogging'.
+2025-11-16 11:30:28.2546[28] ERROR HomeController  匯入EXCEL錯誤An exception was thrown while attempting to evaluate a LINQ query parameter expression. See the inner exception for more information. To show additional information call 'DbContextOptionsBuilder.EnableSensitiveDataLogging'.
+2025-11-16 11:54:04.0144[15]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-16 11:54:04.0144[15]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-16 11:54:04.1020[18]  INFO MemberController  Member Login account: password: 
+2025-11-16 11:54:45.8636[19] ERROR HomeController  匯入EXCEL錯誤An exception was thrown while attempting to evaluate a LINQ query parameter expression. See the inner exception for more information. To show additional information call 'DbContextOptionsBuilder.EnableSensitiveDataLogging'.
+2025-11-16 11:54:45.8824[19] ERROR HomeController  匯入EXCEL錯誤An exception was thrown while attempting to evaluate a LINQ query parameter expression. See the inner exception for more information. To show additional information call 'DbContextOptionsBuilder.EnableSensitiveDataLogging'.
+2025-11-16 11:58:07.3662[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 11:58:11.8153[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 11:58:15.3743[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 11:58:20.2449[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 11:58:23.7787[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 11:58:29.4786[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 11:58:33.0075[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 11:58:37.6971[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 11:58:42.5285[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 11:58:46.0639[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 11:58:50.1687[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 11:58:53.7758[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 11:58:58.4805[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 11:59:03.6392[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 11:59:07.2307[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 11:59:11.2131[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 11:59:15.1891[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 11:59:18.7674[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 11:59:22.3319[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 11:59:25.9662[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 11:59:29.4908[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 11:59:33.6568[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 11:59:37.2408[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 11:59:40.8127[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 11:59:44.6781[7] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-16 12:07:43.7150[19]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-16 12:07:43.7216[19]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-16 12:07:43.7966[11]  INFO MemberController  Member Login account: password: 
+2025-11-16 12:16:06.7447[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-16 12:16:06.7510[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-16 12:16:06.8270[18]  INFO MemberController  Member Login account: password: 

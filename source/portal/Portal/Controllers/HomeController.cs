@@ -1,40 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Framework;
-using System.Framework.Globalization;
-using System.Framework.Web;
-using System.IO;
-using System.Reflection;
-using PHStatistics.Portal.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Framework.Logging;
-using PHStatistics.Content;
-using System.Linq;
-using System.Framework.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using Nest;
+﻿using Castle.Core.Resource;
 using FluentFTP.Helpers;
-using Environment = System.Framework.Environment;
-using System.Framework.Data;
-using System.Text.Json;
-using Castle.Core.Resource;
-using NPOI;
-using NPOI.SS.UserModel;
-using NPOI.HSSF.UserModel;
-using NPOI.XSSF.UserModel;
-using NPOI.SS.Util;
-using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
-using PHStatistics.Community;
-using System.Framework.Security;
-using System.Framework.Application;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using Nest;
+using NPOI;
+using NPOI.HSSF.Record;
+using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
+using NPOI.SS.Util;
+using NPOI.XSSF.Streaming;
+using NPOI.XSSF.UserModel;
+using PHStatistics.Community;
+using PHStatistics.Content;
+using PHStatistics.Portal.Models;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.SqlClient;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
-using NPOI.HSSF.Record;
-using NPOI.XSSF.Streaming;
+using System.Diagnostics;
+using System.Framework;
+using System.Framework.Application;
+using System.Framework.Data;
+using System.Framework.EntityFrameworkCore;
+using System.Framework.Globalization;
+using System.Framework.Logging;
+using System.Framework.Security;
+using System.Framework.Web;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.Security.Cryptography;
+using System.Text.Json;
+using Environment = System.Framework.Environment;
 
 
 
@@ -113,7 +114,6 @@ namespace PHStatistics.Portal.Controllers {
             return Content(new { assemblyVersion, appVersion }.ToJson(), "text/json");
         }
 
-        #region 資料匯入處理
         [HttpGet("ImportExcelData")]
         public IActionResult ImportExcelData() {
             string schooleName = string.Empty;
@@ -1025,6 +1025,7 @@ namespace PHStatistics.Portal.Controllers {
             }
         }
 
+
         [HttpGet("ImportMemberData")]
         public IActionResult ImportMemberData(string type) {
             try {
@@ -1345,7 +1346,7 @@ namespace PHStatistics.Portal.Controllers {
                         decimal pics = 0;
                         string sizeStr = string.Empty;
                         string exNo = string.Empty;
-                        //List<ImportCourse> courseData = new List<ImportCourse>();
+                        List<ImportCourse> courseData = dataContext.ImportCourse.ToList();
                         List<Mapping> mappings = new List<Mapping>();
                         for (int k = 0; k < workbook.NumberOfSheets; k++) {
                             try {
@@ -1373,7 +1374,7 @@ namespace PHStatistics.Portal.Controllers {
                                             continue;
                                         }
                                         else {
-                                            for (int cNo = 0; cNo < rowR.Cells.Count; cNo++) {
+                                            for (int cNo = 0; cNo <= rowR.Cells.Count; cNo++) {
                                                 try {
                                                     if (!string.IsNullOrEmpty(row1.Cells[cNo].ToString()) && !depName.Equals(row1.Cells[cNo].ToString())) {
                                                         depName = row1.Cells[cNo].ToString().Trim();
@@ -1399,6 +1400,15 @@ namespace PHStatistics.Portal.Controllers {
                                                     else {
                                                         itemCourseName = courseName.Trim();
                                                     }
+                                                    string cellStr = depName + "|" + courseName + "|" + courseName2;
+                                                    if (!courseData.Any(e => e.CourseDepartmentName == depName && e.CourseName == itemCourseName && e.Name == cellStr)) {
+                                                        courseData.Add(new ImportCourse() {
+                                                            CourseDepartmentName = depName,
+                                                            CourseName = itemCourseName,
+                                                            Name = cellStr,
+                                                        });
+                                                    }
+
                                                     if (cNo == 0) {
                                                         if (!string.IsNullOrEmpty(rowR.Cells[cNo].ToString()) && !schoolName.Equals(rowR.Cells[cNo].ToString())) {
                                                             schoolName = rowR.Cells[cNo].ToString().Trim();
@@ -1408,18 +1418,19 @@ namespace PHStatistics.Portal.Controllers {
                                                         if (!string.IsNullOrEmpty(rowR.Cells[cNo].ToString()) && !classType.Equals(rowR.Cells[cNo].ToString())) {
                                                             classType = rowR.Cells[cNo].ToString().Trim();
                                                         }
-                                                    }                                             
+                                                    }
                                                     else {
                                                         int number = 0;
                                                         try {
                                                             if (rowR.Cells[cNo].CellType == CellType.Formula) {
-                                                                number = string.IsNullOrEmpty(rowR.Cells[cNo].StringCellValue) ? 0 : int.Parse(rowR.Cells[cNo].StringCellValue);
+                                                                number = int.Parse(rowR.Cells[cNo].NumericCellValue.ToString("N0"));
                                                             }
                                                             else {
                                                                 number = string.IsNullOrEmpty(rowR.Cells[cNo].ToString()) ? 0 : int.Parse(rowR.Cells[cNo].ToString());
                                                             }
                                                         }
-                                                        catch {
+                                                        catch (Exception ex) {
+                                                            string fake = ex.Message;
                                                             number = 0;
                                                         }
                                                         mappings.Add(new Mapping() {
@@ -1433,7 +1444,7 @@ namespace PHStatistics.Portal.Controllers {
                                                             //CourseId = dataContext.Course.Any(e => e.Name == itemCourseName) ? dataContext.Course.FirstOrDefault(e => e.Name == itemCourseName).Id : 0,
                                                             Number = number
                                                         });
-                                                        
+
                                                     }
                                                 }
                                                 catch (Exception ex) {
@@ -1444,6 +1455,10 @@ namespace PHStatistics.Portal.Controllers {
                                         }
                                     }
                                     string debug = string.Empty;
+
+                                    dataContext.ImportCourse.AddRange(courseData);
+                                    dataContext.SaveChanges();
+
                                     dataContext.Mapping.AddRange(mappings);
                                     dataContext.SaveChanges();
                                     #region
@@ -1542,6 +1557,1713 @@ namespace PHStatistics.Portal.Controllers {
             }
         }
 
+        #region 匯入資料 
+        //使用公版匯入總人數表
+        [HttpGet("ImportPH")]
+        public IActionResult ImportPH() {
+            try {
+                DataContext dataContext = new DataContext();
+                using (
+                    FileStream file = new FileStream(@"C:\\Users\\hound\\Downloads\\人數表系統\\20251130\\2025 07(全國人數表第21週)_北.xlsx", FileMode.Open, FileAccess.Read)) {
+                    if (!file.HasValue())
+                        throw new System.Data.DataException("取得資料發生錯誤");
+                    try {
+
+                        var workbook = new XSSFWorkbook(file);
+                        ISheet sheet1 = workbook.GetSheetAt(0);
+                        var list = new List<ISheet>() { sheet1 };
+                        var count = 0;
+                        string[] input = new string[3];
+                        var sheet = workbook.GetSheetAt(0);
+                        IRow headerRow = sheet.GetRow(1);
+                        string year = "2025";
+                        int yearInt = 0;
+                        int weekInt = 0;
+                        int colCount = headerRow.Cells.Count();
+                        int rowCount = sheet.LastRowNum;
+                        try {
+                            var readSheet = workbook.GetSheetAt(0);
+                            #region 解析資料
+                            IRow countryRow = readSheet.GetRow(4);
+                            string schoolName = string.Empty;
+                            string classType = string.Empty;
+                            for (int rNo = 5; rNo <= readSheet.LastRowNum; rNo++) {
+                                StudentPopulation populationData = new StudentPopulation();
+                                ClassType cType = new ClassType();
+                                IRow rowR = readSheet.GetRow(rNo);
+                                if (rowR == null) {
+                                    continue;
+                                }
+                                else {
+                                    School schoolData = dataContext.School.FirstOrDefault(e => e.Name == rowR.Cells[2].ToString().Trim());
+                                    if (schoolData == null) {
+                                        continue;
+                                    }
+                                    try {
+                                        #region 取得基礎資料
+                                        //取得年度
+                                        if (!string.IsNullOrEmpty(rowR.Cells[0].ToString())) {
+                                            yearInt = int.Parse(rowR.Cells[0].ToString().Trim());
+                                            year = (yearInt + 1911).ToString();
+                                        }
+                                        else {
+                                            continue;
+                                        }
+                                        //取得周次
+                                        if (!string.IsNullOrEmpty(rowR.Cells[1].ToString())) {
+                                            weekInt = int.Parse(rowR.Cells[1].ToString().Trim());
+                                        }
+                                        else {
+                                            continue;
+                                        }
+                                        SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.Year == yearInt && e.Week == weekInt).FirstOrDefault();
+                                        //取得班別                                                                              
+                                        if (rowR.Cells[3].ToString().Trim().Equals("團")) {
+                                            cType = ClassType.Group;
+                                        }
+                                        else if (rowR.Cells[3].ToString().Trim().Equals("小")) {
+                                            cType = ClassType.SubGroup;
+                                        }
+                                        else if (rowR.Cells[3].ToString().Trim().Equals("三")) {
+                                            cType = ClassType.V3;
+                                        }
+                                        else {
+                                            cType = ClassType.General;
+                                        }
+                                        #endregion
+                                        //刪除既有資料
+                                        if (schoolData != null && cType == ClassType.SubGroup) {
+                                            if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolData.Id && e.Year == yearInt && e.Week == weekInt && e.Type == StudentPopulationType.PH)) {
+                                                populationData = dataContext.StudentPopulation.First(e => e.School.Id == schoolData.Id && e.Year == yearInt && e.Week == weekInt && e.Type == StudentPopulationType.PH);
+                                                //刪除既有明細資料
+                                                var delDetails = dataContext.StudentPopulationItem.Where(e => e.StudentPopulation.Id == populationData.Id).ToList();
+                                                dataContext.StudentPopulationItem.RemoveRange(delDetails);
+                                                dataContext.SaveChanges();
+                                            }
+                                            else {
+                                                populationData = new StudentPopulation();
+                                                populationData.SchoolId = schoolData.Id;
+                                                populationData.Year = yearInt;
+                                                populationData.Week = schoolYear.Week.Value;
+                                                populationData.WeekDate = schoolYear.WeekStartDate;
+                                                populationData.Items = new List<StudentPopulationItem>();
+                                                populationData.Submitter = dataContext.Member.Find(Guid.Parse("23858D7E-F622-4D15-4A74-08DC7A5137DD"));
+                                                populationData.Type = StudentPopulationType.PH;
+                                                populationData.Name = string.Format("{0}第{1}週百瀚人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
+                                                dataContext.StudentPopulation.Add(populationData);
+                                                dataContext.SaveChanges();
+                                            }
+                                        }
+                                        else {
+                                            if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolData.Id && e.Year == yearInt && e.Week == weekInt && e.Type == StudentPopulationType.PH)) {
+                                                populationData = dataContext.StudentPopulation.First(e => e.School.Id == schoolData.Id && e.Year == yearInt && e.Week == weekInt && e.Type == StudentPopulationType.PH);
+                                            }
+                                            else {
+                                                populationData = new StudentPopulation();
+                                                populationData.SchoolId = schoolData.Id;
+                                                populationData.Year = yearInt;
+                                                populationData.Week = schoolYear.Week.Value;
+                                                populationData.WeekDate = schoolYear.WeekStartDate;
+                                                populationData.Items = new List<StudentPopulationItem>();
+                                                populationData.Submitter = dataContext.Member.Find(Guid.Parse("23858D7E-F622-4D15-4A74-08DC7A5137DD"));
+                                                populationData.Type = StudentPopulationType.PH;
+                                                populationData.Name = string.Format("{0}第{1}週百瀚人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
+                                                dataContext.StudentPopulation.Add(populationData);
+                                                dataContext.SaveChanges();
+                                            }
+                                        }
+
+                                    }
+                                    catch (Exception ex) {
+                                        Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                                        continue;
+                                    }
+                                    //開始匯入
+                                    for (int cNo = 4; cNo <= rowR.Cells.Count; cNo++) {
+                                        try {
+                                            if (countryRow.Cells[cNo] != null && !countryRow.Cells[cNo].ToString().ToUpper().Equals("P")) {
+                                                int cId = 0;
+                                                try {
+                                                    cId = int.Parse(countryRow.Cells[cNo].ToString().Trim());
+                                                }
+                                                catch {
+                                                    continue;
+                                                }
+                                                Course course = dataContext.Course.Include("Department").FirstOrDefault(e => e.Id == cId);
+                                                int cellNo = 0;
+                                                try {
+
+
+                                                    if (rowR.Cells[cNo].CellType != CellType.Formula) {
+                                                        if (rowR.Cells[cNo].HasValue() && !string.IsNullOrEmpty(rowR.Cells[cNo].ToString())) {
+                                                            try {
+                                                                cellNo = int.Parse(rowR.Cells[cNo].ToString().Trim());
+                                                            }
+                                                            catch {
+                                                                cellNo = 0;
+                                                            }
+                                                        }
+                                                        else {
+                                                            continue;
+                                                        }
+                                                    }
+                                                    else {
+                                                        try {
+                                                            rowR.Cells[cNo].SetCellType(CellType.Numeric);
+                                                            cellNo = int.Parse(rowR.Cells[cNo].NumericCellValue.ToString());
+                                                        }
+                                                        catch {
+                                                            continue;
+                                                        }
+                                                    }
+
+                                                }
+                                                catch (Exception ex) {
+                                                    cellNo = 0;
+                                                }
+
+                                                if (course != null && cellNo > 0) {
+                                                    //判斷是否為個別指導 個別指導需要依照人數開班
+                                                    if (course.Name.IndexOf("EM1") > 0) {
+                                                        for (int i = 0; i < cellNo; i++) {
+                                                            //新增班級
+                                                            Class newClass = new Class();
+                                                            try {
+                                                                //取得目前班級數
+                                                                int classCount = dataContext.StudentPopulationItem.Count(e => e.Class.Course.Id == course.Id);
+                                                                newClass.Course = null;
+                                                                newClass.CourseId = course.Id;
+                                                                newClass.SchoolId = schoolData.Id;
+                                                                newClass.Type = cType;
+                                                                newClass.Name = string.Format("{0}_{1}", course.Name, (classCount + 1).ToString("00"));
+                                                                dataContext.Class.Add(newClass);
+                                                                dataContext.SaveChanges();
+                                                            }
+                                                            catch (Exception ex) {
+                                                                string e = ex.Message;
+                                                            }
+                                                            StudentPopulationItem addItem = new StudentPopulationItem();
+                                                            addItem.Class = null;
+                                                            addItem.ClassId = newClass.Id;
+                                                            addItem.Name = newClass.Name;
+                                                            addItem.Number = 1;
+                                                            addItem.SchoolName = newClass.Name;
+                                                            addItem.LastWeekNumber = 0;
+                                                            addItem.StudentPopulation = null;
+                                                            addItem.StudentPopulationId = populationData.Id;
+                                                            dataContext.StudentPopulationItem.Add(addItem);
+                                                            dataContext.SaveChanges();
+                                                        }
+                                                    }
+                                                    else {
+                                                        //新增班級
+                                                        //取得目前班級數
+                                                        Class newClass = new Class();
+                                                        try {
+                                                            //確認開班
+                                                            int classCount = dataContext.StudentPopulationItem.Count(e => e.Class.Course.Id == course.Id);
+                                                            newClass.Course = null;
+                                                            newClass.CourseId = course.Id;
+                                                            newClass.SchoolId = schoolData.Id;
+                                                            newClass.Type = cType;
+                                                            newClass.Name = string.Format("{0}_{1}", course.Name, (classCount + 1).ToString("00"));
+                                                            dataContext.Class.Add(newClass);
+                                                            dataContext.SaveChanges();
+                                                        }
+                                                        catch (Exception ex) {
+                                                            string e = ex.Message;
+                                                        }
+                                                        StudentPopulationItem addItem = new StudentPopulationItem();
+                                                        addItem.Class = null;
+                                                        addItem.ClassId = newClass.Id;
+                                                        addItem.Name = newClass.Name;
+                                                        addItem.Number = cellNo;
+                                                        addItem.SchoolName = newClass.Name;
+                                                        addItem.LastWeekNumber = 0;
+                                                        addItem.StudentPopulation = null;
+                                                        addItem.StudentPopulationId = populationData.Id;
+                                                        dataContext.StudentPopulationItem.Add(addItem);
+                                                        dataContext.SaveChanges();
+                                                    }
+                                                    try {
+
+                                                    }
+                                                    catch (Exception ex) {
+
+                                                    }
+                                                }
+                                            }
+                                            else {
+                                                continue;
+                                            }
+                                        }
+                                        catch {
+                                            continue;
+                                        }
+                                    }
+                                }
+                            }
+                            string debug = string.Empty;
+                            #endregion
+                        }
+                        catch (Exception ex) {
+                            Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                            throw new FrameworkException(ex.Message);
+                        }
+                    }
+                    catch (FrameworkException ex) {
+                        Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                        throw new FrameworkException(ex.Message);
+                    }
+                    catch (Exception ex) {
+                        Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                        throw new Exception("系統忙碌中，請稍後再試");
+                    }
+                    return Json(ResponseStatus.OK, 1);
+                }
+            }
+            catch (FrameworkException fe) {
+                return Json(ResponseStatus.OK, 1);
+            }
+            catch (Exception e) {
+                Logger.LogError(e, e.Message);
+                return Json(ResponseStatus.OK, 1);
+            }
+        }
+
+        [HttpGet("ImportGEPT")]
+        public IActionResult ImportGEPT() {
+            try {
+                DataContext dataContext = new DataContext();
+                using (
+                    FileStream file = new FileStream(@"C:\\Users\\hound\\Downloads\\人數表系統\\20251130\\2025 07(全國人數表第21週)_英檢.xlsx", FileMode.Open, FileAccess.Read)) {
+                    if (!file.HasValue())
+                        throw new System.Data.DataException("取得資料發生錯誤");
+                    try {
+                        var workbook = new XSSFWorkbook(file);
+                        ISheet sheet1 = workbook.GetSheetAt(0);
+                        var list = new List<ISheet>() { sheet1 };
+                        var count = 0;
+                        string[] input = new string[3];
+                        var sheet = workbook.GetSheetAt(0);
+                        IRow headerRow = sheet.GetRow(1);
+                        string year = "2025";
+                        int yearInt = 0;
+                        int weekInt = 0;
+                        int colCount = headerRow.Cells.Count();
+                        int rowCount = sheet.LastRowNum;
+                        try {
+                            var readSheet = workbook.GetSheetAt(0);
+                            #region 解析資料
+                            IRow countryRow = readSheet.GetRow(4);
+                            string schoolName = string.Empty;
+                            string classType = string.Empty;
+                            for (int rNo = 5; rNo <= readSheet.LastRowNum; rNo++) {
+                                StudentPopulation populationData = new StudentPopulation();
+                                ClassType cType = new ClassType();
+                                IRow rowR = readSheet.GetRow(rNo);
+                                if (rowR == null) {
+                                    continue;
+                                }
+                                else {
+                                    School schoolData = dataContext.School.FirstOrDefault(e => e.Name == rowR.Cells[2].ToString().Trim());
+                                    if (schoolData == null) {
+                                        continue;
+                                    }
+                                    try {
+                                        #region 取得基礎資料
+                                        //取得年度
+                                        if (!string.IsNullOrEmpty(rowR.Cells[0].ToString())) {
+                                            yearInt = int.Parse(rowR.Cells[0].ToString().Trim());
+                                            year = (yearInt + 1911).ToString();
+                                        }
+                                        else {
+                                            continue;
+                                        }
+                                        //取得周次
+                                        if (!string.IsNullOrEmpty(rowR.Cells[1].ToString())) {
+                                            weekInt = int.Parse(rowR.Cells[1].ToString().Trim());
+                                        }
+                                        else {
+                                            continue;
+                                        }
+                                        SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.Year == yearInt && e.Week == weekInt).FirstOrDefault();
+                                        //取得班別                                                                              
+                                        if (rowR.Cells[3].ToString().Trim().Equals("團")) {
+                                            cType = ClassType.Group;
+                                        }
+                                        else if (rowR.Cells[3].ToString().Trim().Equals("小")) {
+                                            cType = ClassType.SubGroup;
+                                        }
+                                        else if (rowR.Cells[3].ToString().Trim().Equals("三")) {
+                                            cType = ClassType.V3;
+                                        }
+                                        else {
+                                            cType = ClassType.General;
+                                        }
+                                        #endregion
+                                        //刪除既有資料
+                                        if (schoolData != null) {
+                                            if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolData.Id && e.Year == yearInt && e.Week == weekInt && e.Type == StudentPopulationType.GEPT)) {
+                                                populationData = dataContext.StudentPopulation.First(e => e.School.Id == schoolData.Id && e.Year == yearInt && e.Week == weekInt && e.Type == StudentPopulationType.GEPT);
+                                                //刪除既有明細資料
+                                                var delDetails = dataContext.StudentPopulationItem.Where(e => e.StudentPopulation.Id == populationData.Id).ToList();
+                                                dataContext.StudentPopulationItem.RemoveRange(delDetails);
+                                                dataContext.SaveChanges();
+                                            }
+                                            else {
+                                                populationData = new StudentPopulation();
+                                                populationData.SchoolId = schoolData.Id;
+                                                populationData.Year = yearInt;
+                                                populationData.Week = schoolYear.Week.Value;
+                                                populationData.WeekDate = schoolYear.WeekStartDate;
+                                                populationData.Items = new List<StudentPopulationItem>();
+                                                populationData.Submitter = dataContext.Member.Find(Guid.Parse("23858D7E-F622-4D15-4A74-08DC7A5137DD"));
+                                                populationData.Type = StudentPopulationType.GEPT;
+                                                populationData.Name = string.Format("{0}第{1}週英檢人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
+                                                dataContext.StudentPopulation.Add(populationData);
+                                                dataContext.SaveChanges();
+                                            }
+                                        }
+                                        else {
+                                            if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolData.Id && e.Year == yearInt && e.Week == weekInt && e.Type == StudentPopulationType.GEPT)) {
+                                                populationData = dataContext.StudentPopulation.First(e => e.School.Id == schoolData.Id && e.Year == yearInt && e.Week == weekInt && e.Type == StudentPopulationType.GEPT);
+                                            }
+                                            else {
+                                                populationData = new StudentPopulation();
+                                                populationData.SchoolId = schoolData.Id;
+                                                populationData.Year = yearInt;
+                                                populationData.Week = schoolYear.Week.Value;
+                                                populationData.WeekDate = schoolYear.WeekStartDate;
+                                                populationData.Items = new List<StudentPopulationItem>();
+                                                populationData.Submitter = dataContext.Member.Find(Guid.Parse("23858D7E-F622-4D15-4A74-08DC7A5137DD"));
+                                                populationData.Type = StudentPopulationType.GEPT;
+                                                populationData.Name = string.Format("{0}第{1}週英檢人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
+                                                dataContext.StudentPopulation.Add(populationData);
+                                                dataContext.SaveChanges();
+                                            }
+                                        }
+
+                                    }
+                                    catch (Exception ex) {
+                                        Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                                        continue;
+                                    }
+                                    //開始匯入
+                                    for (int cNo = 4; cNo <= rowR.Cells.Count; cNo++) {
+                                        try {
+                                            if (countryRow.Cells[cNo] != null && !countryRow.Cells[cNo].ToString().ToUpper().Equals("P")) {
+                                                int cId = 0;
+                                                try {
+                                                    cId = int.Parse(countryRow.Cells[cNo].ToString().Trim());
+                                                }
+                                                catch {
+                                                    continue;
+                                                }
+                                                Course course = dataContext.Course.Include("Department").FirstOrDefault(e => e.Id == cId);
+                                                int cellNo = 0;
+                                                try {
+                                                    if (rowR.Cells[cNo].CellType != CellType.Formula) {
+                                                        if (rowR.Cells[cNo].HasValue() && !string.IsNullOrEmpty(rowR.Cells[cNo].ToString())) {
+                                                            try {
+                                                                cellNo = int.Parse(rowR.Cells[cNo].ToString().Trim());
+                                                            }
+                                                            catch {
+                                                                cellNo = 0;
+                                                            }
+                                                        }
+                                                        else {
+                                                            continue;
+                                                        }
+                                                    }
+                                                    else {
+                                                        try {
+                                                            rowR.Cells[cNo].SetCellType(CellType.Numeric);
+                                                            cellNo = int.Parse(rowR.Cells[cNo].NumericCellValue.ToString());
+                                                        }
+                                                        catch (Exception ex) {
+                                                            Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                                                            continue;
+                                                        }
+                                                    }
+
+                                                }
+                                                catch (Exception ex) {
+                                                    Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                                                    continue;
+                                                }
+
+                                                if (course != null && cellNo > 0) {
+                                                    //判斷是否為個別指導 個別指導需要依照人數開班
+                                                    if (course.Name.IndexOf("EM1") > 0) {
+                                                        for (int i = 0; i < cellNo; i++) {
+                                                            //新增班級
+                                                            Class newClass = new Class();
+                                                            try {
+                                                                //取得目前班級數
+                                                                int classCount = dataContext.StudentPopulationItem.Count(e => e.Class.Course.Id == course.Id);
+                                                                newClass.Course = null;
+                                                                newClass.CourseId = course.Id;
+                                                                newClass.SchoolId = schoolData.Id;
+                                                                newClass.Type = cType;
+                                                                newClass.Name = string.Format("{0}_{1}", course.Name, (classCount + 1).ToString("00"));
+                                                                dataContext.Class.Add(newClass);
+                                                                dataContext.SaveChanges();
+                                                            }
+                                                            catch (Exception ex) {
+                                                                Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                                                                continue;
+                                                            }
+                                                            StudentPopulationItem addItem = new StudentPopulationItem();
+                                                            addItem.Class = null;
+                                                            addItem.ClassId = newClass.Id;
+                                                            addItem.Name = newClass.Name;
+                                                            addItem.Number = 1;
+                                                            addItem.SchoolName = newClass.Name;
+                                                            addItem.LastWeekNumber = 0;
+                                                            addItem.StudentPopulation = null;
+                                                            addItem.StudentPopulationId = populationData.Id;
+                                                            dataContext.StudentPopulationItem.Add(addItem);
+                                                            dataContext.SaveChanges();
+                                                        }
+                                                    }
+                                                    else {
+                                                        //新增班級
+                                                        //取得目前班級數
+                                                        Class newClass = new Class();
+                                                        try {
+                                                            //確認開班
+                                                            int classCount = dataContext.StudentPopulationItem.Count(e => e.Class.Course.Id == course.Id);
+                                                            newClass.Course = null;
+                                                            newClass.CourseId = course.Id;
+                                                            newClass.SchoolId = schoolData.Id;
+                                                            newClass.Type = cType;
+                                                            newClass.Name = string.Format("{0}_{1}", course.Name, (classCount + 1).ToString("00"));
+                                                            dataContext.Class.Add(newClass);
+                                                            dataContext.SaveChanges();
+                                                        }
+                                                        catch (Exception ex) {
+                                                            Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                                                            continue;
+                                                        }
+                                                        StudentPopulationItem addItem = new StudentPopulationItem();
+                                                        addItem.Class = null;
+                                                        addItem.ClassId = newClass.Id;
+                                                        addItem.Name = newClass.Name;
+                                                        addItem.Number = cellNo;
+                                                        addItem.SchoolName = newClass.Name;
+                                                        addItem.LastWeekNumber = 0;
+                                                        addItem.StudentPopulation = null;
+                                                        addItem.StudentPopulationId = populationData.Id;
+                                                        dataContext.StudentPopulationItem.Add(addItem);
+                                                        dataContext.SaveChanges();
+                                                    }
+                                                    try {
+
+                                                    }
+                                                    catch (Exception ex) {
+                                                        Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                                                        continue;
+                                                    }
+                                                }
+                                            }
+                                            else {
+                                                continue;
+                                            }
+                                        }
+                                        catch (Exception ex) {
+                                            Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                                            continue;
+                                        }
+                                    }
+                                }
+                            }
+                            string debug = string.Empty;
+                            #endregion
+                        }
+                        catch (Exception ex) {
+                            Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                            throw new FrameworkException(ex.Message);
+                        }
+                    }
+                    catch (FrameworkException ex) {
+                        Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                        throw new FrameworkException(ex.Message);
+                    }
+                    catch (Exception ex) {
+                        Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                        throw new Exception("系統忙碌中，請稍後再試");
+                    }
+                    return Json(ResponseStatus.OK, 1);
+                }
+            }
+            catch (FrameworkException fe) {
+                return Json(ResponseStatus.OK, 1);
+            }
+            catch (Exception e) {
+                Logger.LogError(e, e.Message);
+                return Json(ResponseStatus.OK, 1);
+            }
+        }
+
+        [HttpGet("ImportPS")]
+        public IActionResult ImportPS() {
+            try {
+                DataContext dataContext = new DataContext();
+                using (
+                    FileStream file = new FileStream(@"C:\\Users\\hound\\Downloads\\人數表系統\\20251130\\PS南區人數統計表 114學年度(21週).xlsx", FileMode.Open, FileAccess.Read)) {
+                    if (!file.HasValue())
+                        throw new System.Data.DataException("取得資料發生錯誤");
+                    try {
+
+                        var workbook = new XSSFWorkbook(file);
+                        ISheet sheet1 = workbook.GetSheetAt(0);
+                        var list = new List<ISheet>() { sheet1 };
+                        var count = 0;
+                        string[] input = new string[3];
+                        var sheet = workbook.GetSheetAt(0);
+                        IRow headerRow = sheet.GetRow(1);
+                        string year = "2025";
+                        int yearInt = 0;
+                        int weekInt = 0;
+                        int colCount = headerRow.Cells.Count();
+                        int rowCount = sheet.LastRowNum;
+                        try {
+                            var readSheet = workbook.GetSheetAt(0);
+                            #region 解析資料
+                            IRow countryRow = readSheet.GetRow(2);
+                            string schoolName = string.Empty;
+                            string classType = string.Empty;
+                            for (int rNo = 3; rNo <= readSheet.LastRowNum; rNo++) {
+                                StudentPopulation populationData = new StudentPopulation();
+                                ClassType cType = new ClassType();
+                                IRow rowR = readSheet.GetRow(rNo);
+                                if (rowR == null) {
+                                    continue;
+                                }
+                                else {
+                                    School schoolData = dataContext.School.FirstOrDefault(e => e.Name == rowR.Cells[2].ToString().Trim());
+                                    if (schoolData == null) {
+                                        continue;
+                                    }
+                                    try {
+                                        #region 取得基礎資料
+                                        //取得年度
+                                        if (!string.IsNullOrEmpty(rowR.Cells[0].ToString())) {
+                                            yearInt = int.Parse(rowR.Cells[0].ToString().Trim());
+                                            year = (yearInt + 1911).ToString();
+                                        }
+                                        else {
+                                            continue;
+                                        }
+                                        //取得周次
+                                        if (!string.IsNullOrEmpty(rowR.Cells[1].ToString())) {
+                                            weekInt = int.Parse(rowR.Cells[1].ToString().Trim());
+                                        }
+                                        else {
+                                            continue;
+                                        }
+                                        SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.Year == yearInt && e.Week == weekInt).FirstOrDefault();
+                                        //取得班別                                                                              
+                                        cType = ClassType.General;
+                                        #endregion
+                                        //刪除既有資料
+                                        if (schoolData != null) {
+                                            if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolData.Id && e.Year == yearInt && e.Week == weekInt && e.Type == StudentPopulationType.PS)) {
+                                                populationData = dataContext.StudentPopulation.First(e => e.School.Id == schoolData.Id && e.Year == yearInt && e.Week == weekInt && e.Type == StudentPopulationType.PS);
+                                                //刪除既有明細資料
+                                                var delDetails = dataContext.StudentPopulationItem.Where(e => e.StudentPopulation.Id == populationData.Id).ToList();
+                                                dataContext.StudentPopulationItem.RemoveRange(delDetails);
+                                                dataContext.SaveChanges();
+                                            }
+                                            else {
+                                                populationData = new StudentPopulation();
+                                                populationData.SchoolId = schoolData.Id;
+                                                populationData.Year = yearInt;
+                                                populationData.Week = schoolYear.Week.Value;
+                                                populationData.WeekDate = schoolYear.WeekStartDate;
+                                                populationData.Items = new List<StudentPopulationItem>();
+                                                populationData.Submitter = dataContext.Member.Find(Guid.Parse("23858D7E-F622-4D15-4A74-08DC7A5137DD"));
+                                                populationData.Type = StudentPopulationType.PS;
+                                                populationData.Name = string.Format("{0}第{1}週百世人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
+                                                dataContext.StudentPopulation.Add(populationData);
+                                                dataContext.SaveChanges();
+                                            }
+                                        }
+                                        else {
+                                            if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolData.Id && e.Year == yearInt && e.Week == weekInt && e.Type == StudentPopulationType.PS)) {
+                                                populationData = dataContext.StudentPopulation.First(e => e.School.Id == schoolData.Id && e.Year == yearInt && e.Week == weekInt && e.Type == StudentPopulationType.PS);
+                                            }
+                                            else {
+                                                populationData = new StudentPopulation();
+                                                populationData.SchoolId = schoolData.Id;
+                                                populationData.Year = yearInt;
+                                                populationData.Week = schoolYear.Week.Value;
+                                                populationData.WeekDate = schoolYear.WeekStartDate;
+                                                populationData.Items = new List<StudentPopulationItem>();
+                                                populationData.Submitter = dataContext.Member.Find(Guid.Parse("23858D7E-F622-4D15-4A74-08DC7A5137DD"));
+                                                populationData.Type = StudentPopulationType.PS;
+                                                populationData.Name = string.Format("{0}第{1}週百世人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
+                                                dataContext.StudentPopulation.Add(populationData);
+                                                dataContext.SaveChanges();
+                                            }
+                                        }
+
+                                    }
+                                    catch (Exception ex) {
+                                        Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                                        continue;
+                                    }
+                                    //開始匯入
+                                    for (int cNo = 3; cNo <= rowR.Cells.Count; cNo++) {
+                                        try {
+                                            if (countryRow.Cells[cNo] != null && !countryRow.Cells[cNo].ToString().ToUpper().Equals("P")) {
+                                                int cId = 0;
+                                                try {
+                                                    cId = int.Parse(countryRow.Cells[cNo].ToString().Trim());
+                                                }
+                                                catch {
+                                                    continue;
+                                                }
+                                                Course course = dataContext.Course.Include("Department").FirstOrDefault(e => e.Id == cId);
+                                                int cellNo = 0;
+                                                try {
+                                                    if (rowR.Cells[cNo].CellType != CellType.Formula) {
+                                                        if (rowR.Cells[cNo].HasValue() && !string.IsNullOrEmpty(rowR.Cells[cNo].ToString())) {
+                                                            try {
+                                                                cellNo = int.Parse(rowR.Cells[cNo].ToString().Trim());
+                                                            }
+                                                            catch {
+                                                                cellNo = 0;
+                                                            }
+                                                        }
+                                                        else {
+                                                            continue;
+                                                        }
+                                                    }
+                                                    else {
+                                                        try {
+                                                            rowR.Cells[cNo].SetCellType(CellType.Numeric);
+                                                            cellNo = int.Parse(Math.Round(decimal.Parse(rowR.Cells[cNo].NumericCellValue.ToString()), MidpointRounding.AwayFromZero).ToString());
+                                                            ;
+                                                        }
+                                                        catch {
+                                                            continue;
+                                                        }
+                                                    }
+
+                                                }
+                                                catch (Exception ex) {
+                                                    cellNo = 0;
+                                                }
+
+                                                if (course != null && cellNo > 0) {
+                                                    //取得目前班級數
+                                                    Class newClass = new Class();
+                                                    try {
+                                                        //確認開班
+                                                        int classCount = dataContext.StudentPopulationItem.Count(e => e.Class.Course.Id == course.Id);
+                                                        newClass.Course = null;
+                                                        newClass.CourseId = course.Id;
+                                                        newClass.SchoolId = schoolData.Id;
+                                                        newClass.Type = cType;
+                                                        newClass.Name = string.Format("{0}_{1}", course.Name, (classCount + 1).ToString("00"));
+                                                        dataContext.Class.Add(newClass);
+                                                        dataContext.SaveChanges();
+                                                    }
+                                                    catch (Exception ex) {
+                                                        string e = ex.Message;
+                                                    }
+                                                    StudentPopulationItem addItem = new StudentPopulationItem();
+                                                    addItem.Class = null;
+                                                    addItem.ClassId = newClass.Id;
+                                                    addItem.Name = newClass.Name;
+                                                    addItem.Number = cellNo;
+                                                    addItem.SchoolName = newClass.Name;
+                                                    addItem.LastWeekNumber = 0;
+                                                    addItem.StudentPopulation = null;
+                                                    addItem.StudentPopulationId = populationData.Id;
+                                                    dataContext.StudentPopulationItem.Add(addItem);
+                                                    dataContext.SaveChanges();
+                                                }
+                                            }
+                                            else {
+                                                continue;
+                                            }
+                                        }
+                                        catch {
+                                            continue;
+                                        }
+                                    }
+                                }
+                            }
+                            string debug = string.Empty;
+                            #endregion
+                        }
+                        catch (Exception ex) {
+                            Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                            throw new FrameworkException(ex.Message);
+                        }
+                    }
+                    catch (FrameworkException ex) {
+                        Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                        throw new FrameworkException(ex.Message);
+                    }
+                    catch (Exception ex) {
+                        Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                        throw new Exception("系統忙碌中，請稍後再試");
+                    }
+                    return Json(ResponseStatus.OK, 1);
+                }
+            }
+            catch (FrameworkException fe) {
+                return Json(ResponseStatus.OK, 1);
+            }
+            catch (Exception e) {
+                Logger.LogError(e, e.Message);
+                return Json(ResponseStatus.OK, 1);
+            }
+        }
+
+        [HttpGet("ImportPSJ")]
+        public IActionResult ImportPSJ() {
+            try {
+                DataContext dataContext = new DataContext();
+                using (
+                    FileStream file = new FileStream(@"C:\\Users\\hound\\Downloads\\人數表系統\\20251130\\（百倍速）人數統計表更新版114.11.22_北.xlsx", FileMode.Open, FileAccess.Read)) {
+                    if (!file.HasValue())
+                        throw new System.Data.DataException("取得資料發生錯誤");
+                    try {
+
+                        var workbook = new XSSFWorkbook(file);
+                        ISheet sheet1 = workbook.GetSheetAt(0);
+                        var list = new List<ISheet>() { sheet1 };
+                        var count = 0;
+                        string[] input = new string[3];
+                        var sheet = workbook.GetSheetAt(0);
+                        IRow headerRow = sheet.GetRow(1);
+                        string year = "2025";
+                        int yearInt = 0;
+                        int weekInt = 0;
+                        int colCount = headerRow.Cells.Count();
+                        int rowCount = sheet.LastRowNum;
+                        try {
+                            var readSheet = workbook.GetSheetAt(0);
+                            #region 解析資料
+                            IRow countryRow = readSheet.GetRow(4);
+                            string schoolName = string.Empty;
+                            string classType = string.Empty;
+                            bool first = false;
+                            int doSchoolId = 0;
+                            string classLv = string.Empty;
+                            for (int rNo = 5; rNo <= readSheet.LastRowNum; rNo++) {
+                                StudentPopulation populationData = new StudentPopulation();
+                                ClassType cType = new ClassType();
+                                IRow rowR = readSheet.GetRow(rNo);
+                                if (rowR == null) {
+                                    continue;
+                                }
+                                else {
+                                    School schoolData = dataContext.School.FirstOrDefault(e => e.Name == rowR.Cells[2].ToString().Trim());
+                                    if (schoolData == null) {
+                                        continue;
+                                    }
+                                    if (doSchoolId != schoolData.Id) {
+                                        doSchoolId = schoolData.Id;
+                                        first = true;
+                                    }
+                                    else {
+                                        first = false;
+                                    }
+                                    try {
+                                        #region 取得基礎資料
+                                        //取得年度
+                                        if (!string.IsNullOrEmpty(rowR.Cells[0].ToString())) {
+                                            yearInt = int.Parse(rowR.Cells[0].ToString().Trim());
+                                            year = (yearInt + 1911).ToString();
+                                        }
+                                        else {
+                                            continue;
+                                        }
+                                        //取得周次
+                                        if (!string.IsNullOrEmpty(rowR.Cells[1].ToString())) {
+                                            weekInt = int.Parse(rowR.Cells[1].ToString().Trim());
+                                        }
+                                        else {
+                                            continue;
+                                        }
+                                        //取得年級
+                                        if (!string.IsNullOrEmpty(rowR.Cells[3].ToString())) {
+                                            classLv = string.IsNullOrEmpty(rowR.Cells[3].ToString().Trim()) ? "" : rowR.Cells[3].ToString().Trim();
+                                        }
+                                        else {
+                                            continue;
+                                        }
+
+                                        SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.Year == yearInt && e.Week == weekInt).FirstOrDefault();
+                                        #endregion
+                                        //刪除既有資料
+                                        if (schoolData != null && first) {
+                                            if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolData.Id && e.Year == yearInt && e.Week == weekInt && e.Type == StudentPopulationType.PSJ)) {
+                                                populationData = dataContext.StudentPopulation.First(e => e.School.Id == schoolData.Id && e.Year == yearInt && e.Week == weekInt && e.Type == StudentPopulationType.PSJ);
+                                                //刪除既有明細資料
+                                                var delDetails = dataContext.StudentPopulationItem.Where(e => e.StudentPopulation.Id == populationData.Id).ToList();
+                                                dataContext.StudentPopulationItem.RemoveRange(delDetails);
+                                                dataContext.SaveChanges();
+                                            }
+                                            else {
+                                                populationData = new StudentPopulation();
+                                                populationData.SchoolId = schoolData.Id;
+                                                populationData.Year = yearInt;
+                                                populationData.Week = schoolYear.Week.Value;
+                                                populationData.WeekDate = schoolYear.WeekStartDate;
+                                                populationData.Items = new List<StudentPopulationItem>();
+                                                populationData.Submitter = dataContext.Member.Find(Guid.Parse("23858D7E-F622-4D15-4A74-08DC7A5137DD"));
+                                                populationData.Type = StudentPopulationType.PSJ;
+                                                populationData.Name = string.Format("{0}第{1}週百倍速人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
+                                                dataContext.StudentPopulation.Add(populationData);
+                                                dataContext.SaveChanges();
+                                            }
+                                        }
+                                        else {
+                                            if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolData.Id && e.Year == yearInt && e.Week == weekInt && e.Type == StudentPopulationType.PSJ)) {
+                                                populationData = dataContext.StudentPopulation.First(e => e.School.Id == schoolData.Id && e.Year == yearInt && e.Week == weekInt && e.Type == StudentPopulationType.PSJ);
+                                            }
+                                            else {
+                                                populationData = new StudentPopulation();
+                                                populationData.SchoolId = schoolData.Id;
+                                                populationData.Year = yearInt;
+                                                populationData.Week = schoolYear.Week.Value;
+                                                populationData.WeekDate = schoolYear.WeekStartDate;
+                                                populationData.Items = new List<StudentPopulationItem>();
+                                                populationData.Submitter = dataContext.Member.Find(Guid.Parse("23858D7E-F622-4D15-4A74-08DC7A5137DD"));
+                                                populationData.Type = StudentPopulationType.PSJ;
+                                                populationData.Name = string.Format("{0}第{1}週百倍速人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
+                                                dataContext.StudentPopulation.Add(populationData);
+                                                dataContext.SaveChanges();
+                                            }
+                                        }
+
+                                    }
+                                    catch (Exception ex) {
+                                        Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                                        continue;
+                                    }
+                                    //開始匯入
+                                    for (int cNo = 4; cNo <= rowR.Cells.Count; cNo++) {
+                                        try {
+                                            if (countryRow.Cells[cNo] != null && !countryRow.Cells[cNo].ToString().ToUpper().Equals("X")) {
+                                                string courseName = string.Empty;
+                                                int cId = 0;
+                                                try {
+                                                    if (countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("SP")) {
+                                                        cType = ClassType.Personal;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("MS") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) {
+                                                        cType = ClassType.SubGroup;
+                                                    }
+                                                    else {
+                                                        cType = ClassType.General;
+                                                    }
+                                                    //數學1V1
+                                                    if ((countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("MS")) && classLv.Equals("一年級")) {
+                                                        cId = 145;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("MS")) && classLv.Equals("二年級")) {
+                                                        cId = 146;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("MS")) && classLv.Equals("三年級")) {
+                                                        cId = 147;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("MS")) && classLv.Equals("四年級")) {
+                                                        cId = 148;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("MS")) && classLv.Equals("五年級")) {
+                                                        cId = 149;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("MS")) && classLv.Equals("六年級")) {
+                                                        cId = 150;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("MS")) && classLv.Equals("國一")) {
+                                                        cId = 151;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("MS")) && classLv.Equals("國二")) {
+                                                        cId = 152;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("MS")) && classLv.Equals("國三")) {
+                                                        cId = 153;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("MS")) && classLv.Equals("高一")) {
+                                                        cId = 154;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("MS")) && classLv.Equals("高二")) {
+                                                        cId = 155;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("MS")) && classLv.Equals("高三")) {
+                                                        cId = 156;
+                                                    }//理化
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("SP") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) && classLv.Equals("一年級")) {
+                                                        cId = 195;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("SP") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) && classLv.Equals("二年級")) {
+                                                        cId = 196;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("SP") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) && classLv.Equals("三年級")) {
+                                                        cId = 197;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("SP") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) && classLv.Equals("四年級")) {
+                                                        cId = 198;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("SP") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) && classLv.Equals("五年級")) {
+                                                        cId = 199;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("SP") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) && classLv.Equals("六年級")) {
+                                                        cId = 200;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("SP") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) && classLv.Equals("國一")) {
+                                                        cId = 201;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("SP") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) && classLv.Equals("國二")) {
+                                                        cId = 202;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("SP") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) && classLv.Equals("國三")) {
+                                                        cId = 203;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("SP") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) && classLv.Equals("高一")) {
+                                                        cId = 204;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("SP") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) && classLv.Equals("高二")) {
+                                                        cId = 205;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("SP") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) && classLv.Equals("高三")) {
+                                                        cId = 206;
+                                                    }//新生
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("N") && classLv.Equals("一年級")) {
+                                                        cId = 171;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("N") && classLv.Equals("二年級")) {
+                                                        cId = 172;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("N") && classLv.Equals("三年級")) {
+                                                        cId = 173;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("N") && classLv.Equals("四年級")) {
+                                                        cId = 174;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("N") && classLv.Equals("五年級")) {
+                                                        cId = 175;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("N") && classLv.Equals("六年級")) {
+                                                        cId = 176;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("N") && classLv.Equals("國一")) {
+                                                        cId = 177;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("N") && classLv.Equals("國二")) {
+                                                        cId = 178;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("N") && classLv.Equals("國三")) {
+                                                        cId = 179;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("N") && classLv.Equals("高一")) {
+                                                        cId = 180;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("N") && classLv.Equals("高二")) {
+                                                        cId = 181;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("N") && classLv.Equals("高三")) {
+                                                        cId = 182;
+                                                    }//流失
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("L") && classLv.Equals("一年級")) {
+                                                        cId = 183;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("L") && classLv.Equals("二年級")) {
+                                                        cId = 184;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("L") && classLv.Equals("三年級")) {
+                                                        cId = 185;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("L") && classLv.Equals("四年級")) {
+                                                        cId = 186;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("L") && classLv.Equals("五年級")) {
+                                                        cId = 187;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("L") && classLv.Equals("六年級")) {
+                                                        cId = 188;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("L") && classLv.Equals("國一")) {
+                                                        cId = 189;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("L") && classLv.Equals("國二")) {
+                                                        cId = 190;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("L") && classLv.Equals("國三")) {
+                                                        cId = 191;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("L") && classLv.Equals("高一")) {
+                                                        cId = 192;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("L") && classLv.Equals("高二")) {
+                                                        cId = 193;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("L") && classLv.Equals("高三")) {
+                                                        cId = 194;
+                                                    }//上週比
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("W") && classLv.Equals("一年級")) {
+                                                        cId = 159;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("W") && classLv.Equals("二年級")) {
+                                                        cId = 160;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("W") && classLv.Equals("三年級")) {
+                                                        cId = 161;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("W") && classLv.Equals("四年級")) {
+                                                        cId = 162;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("W") && classLv.Equals("五年級")) {
+                                                        cId = 163;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("W") && classLv.Equals("六年級")) {
+                                                        cId = 164;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("W") && classLv.Equals("國一")) {
+                                                        cId = 165;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("W") && classLv.Equals("國二")) {
+                                                        cId = 166;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("W") && classLv.Equals("國三")) {
+                                                        cId = 167;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("W") && classLv.Equals("高一")) {
+                                                        cId = 168;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("W") && classLv.Equals("高二")) {
+                                                        cId = 169;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("W") && classLv.Equals("高三")) {
+                                                        cId = 170;
+                                                    }//總計
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("T")) {
+                                                        cId = 158;
+                                                    }
+                                                    else {
+                                                        continue;
+                                                    }
+                                                }
+                                                catch {
+                                                    continue;
+                                                }
+                                                Course course = dataContext.Course.Include("Department").FirstOrDefault(e => e.Id == cId);
+                                                int cellNo = 0;
+                                                try {
+
+
+                                                    if (rowR.Cells[cNo].CellType != CellType.Formula) {
+                                                        if (rowR.Cells[cNo].HasValue() && !string.IsNullOrEmpty(rowR.Cells[cNo].ToString())) {
+                                                            try {
+                                                                cellNo = int.Parse(rowR.Cells[cNo].ToString().Trim());
+                                                            }
+                                                            catch {
+                                                                cellNo = 0;
+                                                            }
+                                                        }
+                                                        else {
+                                                            continue;
+                                                        }
+                                                    }
+                                                    else {
+                                                        try {
+                                                            rowR.Cells[cNo].SetCellType(CellType.Numeric);
+                                                            cellNo = int.Parse(rowR.Cells[cNo].NumericCellValue.ToString());
+                                                        }
+                                                        catch {
+                                                            continue;
+                                                        }
+                                                    }
+
+                                                }
+                                                catch (Exception ex) {
+                                                    cellNo = 0;
+                                                }
+
+                                                if (course != null && cellNo > 0) {
+                                                    //新增班級
+                                                    //取得目前班級數
+                                                    Class newClass = new Class();
+                                                    try {
+                                                        //確認開班
+                                                        int classCount = dataContext.StudentPopulationItem.Count(e => e.Class.Course.Id == course.Id);
+                                                        newClass.Course = null;
+                                                        newClass.CourseId = course.Id;
+                                                        newClass.SchoolId = schoolData.Id;
+                                                        newClass.Type = cType;
+                                                        newClass.Name = string.Format("{0}_{1}", course.Name, (classCount + 1).ToString("00"));
+                                                        dataContext.Class.Add(newClass);
+                                                        dataContext.SaveChanges();
+                                                    }
+                                                    catch (Exception ex) {
+                                                        string e = ex.Message;
+                                                    }
+                                                    StudentPopulationItem addItem = new StudentPopulationItem();
+                                                    addItem.Class = null;
+                                                    addItem.ClassId = newClass.Id;
+                                                    addItem.Name = newClass.Name;
+                                                    addItem.Number = cellNo;
+                                                    addItem.SchoolName = newClass.Name;
+                                                    addItem.LastWeekNumber = 0;
+                                                    addItem.StudentPopulation = null;
+                                                    addItem.StudentPopulationId = populationData.Id;
+                                                    dataContext.StudentPopulationItem.Add(addItem);
+                                                    dataContext.SaveChanges();
+                                                }
+                                            }
+                                            else {
+                                                continue;
+                                            }
+                                        }
+                                        catch {
+                                            continue;
+                                        }
+                                    }
+                                }
+                            }
+                            string debug = string.Empty;
+                            #endregion
+                        }
+                        catch (Exception ex) {
+                            Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                            throw new FrameworkException(ex.Message);
+                        }
+                    }
+                    catch (FrameworkException ex) {
+                        Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                        throw new FrameworkException(ex.Message);
+                    }
+                    catch (Exception ex) {
+                        Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                        throw new Exception("系統忙碌中，請稍後再試");
+                    }
+                    return Json(ResponseStatus.OK, 1);
+                }
+            }
+            catch (FrameworkException fe) {
+                return Json(ResponseStatus.OK, 1);
+            }
+            catch (Exception e) {
+                Logger.LogError(e, e.Message);
+                return Json(ResponseStatus.OK, 1);
+            }
+        }
+
+        [HttpGet("ImportAS")]
+        public IActionResult ImportAS() {
+            try {
+                DataContext dataContext = new DataContext();
+                using (
+                    FileStream file = new FileStream(@"C:\\Users\\hound\\Downloads\\人數表系統\\20251130\\百瀚全區課輔人數總表(20251122).xlsx", FileMode.Open, FileAccess.Read)) {
+                    if (!file.HasValue())
+                        throw new System.Data.DataException("取得資料發生錯誤");
+                    try {
+
+                        var workbook = new XSSFWorkbook(file);
+                        ISheet sheet1 = workbook.GetSheetAt(0);
+                        var list = new List<ISheet>() { sheet1 };
+                        var count = 0;
+                        string[] input = new string[3];
+                        var sheet = workbook.GetSheetAt(0);
+                        IRow headerRow = sheet.GetRow(1);
+                        string year = "2025";
+                        int yearInt = 0;
+                        int weekInt = 0;
+                        int colCount = headerRow.Cells.Count();
+                        int rowCount = sheet.LastRowNum;
+                        try {
+                            var readSheet = workbook.GetSheetAt(0);
+                            #region 解析資料
+                            IRow countryRow = readSheet.GetRow(4);
+                            string schoolName = string.Empty;
+                            string classType = string.Empty;
+                            bool first = false;
+                            int doSchoolId = 0;
+                            string classLv = string.Empty;
+                            for (int rNo = 5; rNo <= readSheet.LastRowNum; rNo++) {
+                                StudentPopulation populationData = new StudentPopulation();
+                                ClassType cType = new ClassType();
+                                IRow rowR = readSheet.GetRow(rNo);
+                                if (rowR == null) {
+                                    continue;
+                                }
+                                else {
+                                    School schoolData = dataContext.School.FirstOrDefault(e => e.Name == rowR.Cells[2].ToString().Trim());
+                                    if (schoolData == null) {
+                                        continue;
+                                    }
+                                    if (doSchoolId != schoolData.Id) {
+                                        doSchoolId = schoolData.Id;
+                                        first = true;
+                                    }
+                                    else {
+                                        first = false;
+                                    }
+                                    try {
+                                        #region 取得基礎資料
+                                        //取得年度
+                                        if (!string.IsNullOrEmpty(rowR.Cells[0].ToString())) {
+                                            yearInt = int.Parse(rowR.Cells[0].ToString().Trim());
+                                            year = (yearInt + 1911).ToString();
+                                        }
+                                        else {
+                                            continue;
+                                        }
+                                        //取得周次
+                                        if (!string.IsNullOrEmpty(rowR.Cells[1].ToString())) {
+                                            weekInt = int.Parse(rowR.Cells[1].ToString().Trim());
+                                        }
+                                        else {
+                                            continue;
+                                        }
+                                        //取得年級
+                                        if (!string.IsNullOrEmpty(rowR.Cells[3].ToString())) {
+                                            classLv = string.IsNullOrEmpty(rowR.Cells[3].ToString().Trim()) ? "" : rowR.Cells[3].ToString().Trim();
+                                        }
+                                        else {
+                                            continue;
+                                        }
+
+                                        SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.Year == yearInt && e.Week == weekInt).FirstOrDefault();
+                                        #endregion
+                                        //刪除既有資料
+                                        if (schoolData != null && first) {
+                                            if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolData.Id && e.Year == yearInt && e.Week == weekInt && e.Type == StudentPopulationType.AfterSchool)) {
+                                                populationData = dataContext.StudentPopulation.First(e => e.School.Id == schoolData.Id && e.Year == yearInt && e.Week == weekInt && e.Type == StudentPopulationType.AfterSchool);
+                                                //刪除既有明細資料
+                                                var delDetails = dataContext.StudentPopulationItem.Where(e => e.StudentPopulation.Id == populationData.Id).ToList();
+                                                dataContext.StudentPopulationItem.RemoveRange(delDetails);
+                                                dataContext.SaveChanges();
+                                            }
+                                            else {
+                                                populationData = new StudentPopulation();
+                                                populationData.SchoolId = schoolData.Id;
+                                                populationData.Year = yearInt;
+                                                populationData.Week = schoolYear.Week.Value;
+                                                populationData.WeekDate = schoolYear.WeekStartDate;
+                                                populationData.Items = new List<StudentPopulationItem>();
+                                                populationData.Submitter = dataContext.Member.Find(Guid.Parse("23858D7E-F622-4D15-4A74-08DC7A5137DD"));
+                                                populationData.Type = StudentPopulationType.AfterSchool;
+                                                populationData.Name = string.Format("{0}第{1}週課輔人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
+                                                dataContext.StudentPopulation.Add(populationData);
+                                                dataContext.SaveChanges();
+                                            }
+                                        }
+                                        else {
+                                            if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolData.Id && e.Year == yearInt && e.Week == weekInt && e.Type == StudentPopulationType.AfterSchool)) {
+                                                populationData = dataContext.StudentPopulation.First(e => e.School.Id == schoolData.Id && e.Year == yearInt && e.Week == weekInt && e.Type == StudentPopulationType.AfterSchool);
+                                            }
+                                            else {
+                                                populationData = new StudentPopulation();
+                                                populationData.SchoolId = schoolData.Id;
+                                                populationData.Year = yearInt;
+                                                populationData.Week = schoolYear.Week.Value;
+                                                populationData.WeekDate = schoolYear.WeekStartDate;
+                                                populationData.Items = new List<StudentPopulationItem>();
+                                                populationData.Submitter = dataContext.Member.Find(Guid.Parse("23858D7E-F622-4D15-4A74-08DC7A5137DD"));
+                                                populationData.Type = StudentPopulationType.AfterSchool;
+                                                populationData.Name = string.Format("{0}第{1}週課輔人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
+                                                dataContext.StudentPopulation.Add(populationData);
+                                                dataContext.SaveChanges();
+                                            }
+                                        }
+
+                                    }
+                                    catch (Exception ex) {
+                                        Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                                        continue;
+                                    }
+                                    //開始匯入
+                                    for (int cNo = 4; cNo <= rowR.Cells.Count; cNo++) {
+                                        try {
+                                            if (countryRow.Cells[cNo] != null && !countryRow.Cells[cNo].ToString().ToUpper().Equals("X")) {
+                                                string courseName = string.Empty;
+                                                int cId = 0;
+                                                try {
+                                                    if(countryRow.Cells[cNo].ToString().Trim().Equals("EP") || countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("SP")) {
+                                                        cType = ClassType.Personal;
+                                                    }else if (countryRow.Cells[cNo].ToString().Trim().Equals("ES") || countryRow.Cells[cNo].ToString().Trim().Equals("MS") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) {
+                                                        cType = ClassType.SubGroup;
+                                                    }
+                                                    else {
+                                                        cType = ClassType.General;
+                                                    }
+                                                    //安親
+                                                    if (countryRow.Cells[cNo].ToString().Trim().Equals("AS") && classLv.Equals("一年級")) {
+                                                        cId = 245;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("AS") && classLv.Equals("二年級")) {
+                                                        cId = 246;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("AS") && classLv.Equals("三年級")) {
+                                                        cId = 247;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("AS") && classLv.Equals("四年級")) {
+                                                        cId = 248;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("AS") && classLv.Equals("五年級")) {
+                                                        cId = 249;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("AS") && classLv.Equals("六年級")) {
+                                                        cId = 250;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("AS") && classLv.Equals("國一")) {
+                                                        cId = 251;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("AS") && classLv.Equals("國二")) {
+                                                        cId = 252;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("AS") && classLv.Equals("國三")) {
+                                                        cId = 253;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("AS") && classLv.Equals("高一")) {
+                                                        cId = 254;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("AS") && classLv.Equals("高二")) {
+                                                        cId = 255;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("AS") && classLv.Equals("高三")) {
+                                                        cId = 256;
+                                                    }//英文
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("EP") || countryRow.Cells[cNo].ToString().Trim().Equals("EG")) && classLv.Equals("一年級")) {
+                                                        cId = 295;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("EP") || countryRow.Cells[cNo].ToString().Trim().Equals("EG")) && classLv.Equals("二年級")) {
+                                                        cId = 296;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("EP") || countryRow.Cells[cNo].ToString().Trim().Equals("EG")) && classLv.Equals("三年級")) {
+                                                        cId = 297;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("EP") || countryRow.Cells[cNo].ToString().Trim().Equals("EG")) && classLv.Equals("四年級")) {
+                                                        cId = 298;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("EP") || countryRow.Cells[cNo].ToString().Trim().Equals("EG")) && classLv.Equals("五年級")) {
+                                                        cId = 299;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("EP") || countryRow.Cells[cNo].ToString().Trim().Equals("EG")) && classLv.Equals("六年級")) {
+                                                        cId = 300;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("EP") || countryRow.Cells[cNo].ToString().Trim().Equals("EG")) && classLv.Equals("國一")) {
+                                                        cId = 301;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("EP") || countryRow.Cells[cNo].ToString().Trim().Equals("EG")) && classLv.Equals("國二")) {
+                                                        cId = 302;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("EP") || countryRow.Cells[cNo].ToString().Trim().Equals("EG")) && classLv.Equals("國三")) {
+                                                        cId = 303;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("EP") || countryRow.Cells[cNo].ToString().Trim().Equals("EG")) && classLv.Equals("高一")) {
+                                                        cId = 305;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("EP") || countryRow.Cells[cNo].ToString().Trim().Equals("EG")) && classLv.Equals("高二")) {
+                                                        cId = 306;
+                                                    }
+                                                    else if ((countryRow.Cells[cNo].ToString().Trim().Equals("EP") || countryRow.Cells[cNo].ToString().Trim().Equals("EG")) && classLv.Equals("高三")) {
+                                                        cId = 307;
+                                                    }//數學
+                                                    //else if ((countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("MS")) && classLv.Equals("一年級")) {
+                                                    //    cId = 195;                                            
+                                                    //}                                                         
+                                                    //else if ((countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("MS")) && classLv.Equals("二年級")) {
+                                                    //    cId = 196;
+                                                    //}
+                                                    //else if ((countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("MS")) && classLv.Equals("三年級")) {
+                                                    //    cId = 197;
+                                                    //}
+                                                    //else if ((countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("MS")) && classLv.Equals("四年級")) {
+                                                    //    cId = 198;
+                                                    //}
+                                                    //else if ((countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("MS")) && classLv.Equals("五年級")) {
+                                                    //    cId = 199;
+                                                    //}
+                                                    //else if ((countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("MS")) && classLv.Equals("六年級")) {
+                                                    //    cId = 200;
+                                                    //}
+                                                    //else if ((countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("MS")) && classLv.Equals("國一")) {
+                                                    //    cId = 201;
+                                                    //}
+                                                    //else if ((countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("MS")) && classLv.Equals("國二")) {
+                                                    //    cId = 202;
+                                                    //}
+                                                    //else if ((countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("MS")) && classLv.Equals("國三")) {
+                                                    //    cId = 203;
+                                                    //}
+                                                    //else if ((countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("MS")) && classLv.Equals("高一")) {
+                                                    //    cId = 204;
+                                                    //}
+                                                    //else if ((countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("MS")) && classLv.Equals("高二")) {
+                                                    //    cId = 205;
+                                                    //}
+                                                    //else if ((countryRow.Cells[cNo].ToString().Trim().Equals("MP") || countryRow.Cells[cNo].ToString().Trim().Equals("MS")) && classLv.Equals("高三")) {
+                                                    //    cId = 206;
+                                                    //}//理化
+                                                    //else if ((countryRow.Cells[cNo].ToString().Trim().Equals("SP") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) && classLv.Equals("一年級")) {
+                                                    //    cId = 195;
+                                                    //}
+                                                    //else if ((countryRow.Cells[cNo].ToString().Trim().Equals("SP") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) && classLv.Equals("二年級")) {
+                                                    //    cId = 196;
+                                                    //}
+                                                    //else if ((countryRow.Cells[cNo].ToString().Trim().Equals("SP") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) && classLv.Equals("三年級")) {
+                                                    //    cId = 197;
+                                                    //}
+                                                    //else if ((countryRow.Cells[cNo].ToString().Trim().Equals("SP") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) && classLv.Equals("四年級")) {
+                                                    //    cId = 198;
+                                                    //}
+                                                    //else if ((countryRow.Cells[cNo].ToString().Trim().Equals("SP") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) && classLv.Equals("五年級")) {
+                                                    //    cId = 199;
+                                                    //}
+                                                    //else if ((countryRow.Cells[cNo].ToString().Trim().Equals("SP") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) && classLv.Equals("六年級")) {
+                                                    //    cId = 200;
+                                                    //}
+                                                    //else if ((countryRow.Cells[cNo].ToString().Trim().Equals("SP") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) && classLv.Equals("國一")) {
+                                                    //    cId = 201;
+                                                    //}
+                                                    //else if ((countryRow.Cells[cNo].ToString().Trim().Equals("SP") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) && classLv.Equals("國二")) {
+                                                    //    cId = 202;
+                                                    //}
+                                                    //else if ((countryRow.Cells[cNo].ToString().Trim().Equals("SP") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) && classLv.Equals("國三")) {
+                                                    //    cId = 203;
+                                                    //}
+                                                    //else if ((countryRow.Cells[cNo].ToString().Trim().Equals("SP") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) && classLv.Equals("高一")) {
+                                                    //    cId = 204;
+                                                    //}
+                                                    //else if ((countryRow.Cells[cNo].ToString().Trim().Equals("SP") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) && classLv.Equals("高二")) {
+                                                    //    cId = 205;
+                                                    //}
+                                                    //else if ((countryRow.Cells[cNo].ToString().Trim().Equals("SP") || countryRow.Cells[cNo].ToString().Trim().Equals("SS")) && classLv.Equals("高三")) {
+                                                    //    cId = 206;
+                                                    //}//新生
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("N") && classLv.Equals("一年級")) {
+                                                        cId = 271;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("N") && classLv.Equals("二年級")) {
+                                                        cId = 272;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("N") && classLv.Equals("三年級")) {
+                                                        cId = 273;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("N") && classLv.Equals("四年級")) {
+                                                        cId = 274;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("N") && classLv.Equals("五年級")) {
+                                                        cId = 275;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("N") && classLv.Equals("六年級")) {
+                                                        cId = 276;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("N") && classLv.Equals("國一")) {
+                                                        cId = 277;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("N") && classLv.Equals("國二")) {
+                                                        cId = 278;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("N") && classLv.Equals("國三")) {
+                                                        cId = 279;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("N") && classLv.Equals("高一")) {
+                                                        cId = 280;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("N") && classLv.Equals("高二")) {
+                                                        cId = 281;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("N") && classLv.Equals("高三")) {
+                                                        cId = 282;
+                                                    }//流失
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("L") && classLv.Equals("一年級")) {
+                                                        cId = 283;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("L") && classLv.Equals("二年級")) {
+                                                        cId = 284;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("L") && classLv.Equals("三年級")) {
+                                                        cId = 285;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("L") && classLv.Equals("四年級")) {
+                                                        cId = 286;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("L") && classLv.Equals("五年級")) {
+                                                        cId = 287;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("L") && classLv.Equals("六年級")) {
+                                                        cId = 288;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("L") && classLv.Equals("國一")) {
+                                                        cId = 289;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("L") && classLv.Equals("國二")) {
+                                                        cId = 290;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("L") && classLv.Equals("國三")) {
+                                                        cId = 291;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("L") && classLv.Equals("高一")) {
+                                                        cId = 292;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("L") && classLv.Equals("高二")) {
+                                                        cId = 293;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("L") && classLv.Equals("高三")) {
+                                                        cId = 294;
+                                                    }//上週比
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("W") && classLv.Equals("一年級")) {
+                                                        cId = 259;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("W") && classLv.Equals("二年級")) {
+                                                        cId = 260;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("W") && classLv.Equals("三年級")) {
+                                                        cId = 261;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("W") && classLv.Equals("四年級")) {
+                                                        cId = 262;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("W") && classLv.Equals("五年級")) {
+                                                        cId = 263;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("W") && classLv.Equals("六年級")) {
+                                                        cId = 264;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("W") && classLv.Equals("國一")) {
+                                                        cId = 265;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("W") && classLv.Equals("國二")) {
+                                                        cId = 266;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("W") && classLv.Equals("國三")) {
+                                                        cId = 267;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("W") && classLv.Equals("高一")) {
+                                                        cId = 268;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("W") && classLv.Equals("高二")) {
+                                                        cId = 269;
+                                                    }
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("W") && classLv.Equals("高三")) {
+                                                        cId = 270;
+                                                    }//總計
+                                                    else if (countryRow.Cells[cNo].ToString().Trim().Equals("T")) {
+                                                        cId = 258;
+                                                    }
+                                                    else {
+                                                        continue;
+                                                    }
+                                                }
+                                                catch {
+                                                    continue;
+                                                }
+                                                Course course = dataContext.Course.Include("Department").FirstOrDefault(e => e.Id == cId);
+                                                int cellNo = 0;
+                                                try {
+
+
+                                                    if (rowR.Cells[cNo].CellType != CellType.Formula) {
+                                                        if (rowR.Cells[cNo].HasValue() && !string.IsNullOrEmpty(rowR.Cells[cNo].ToString())) {
+                                                            try {
+                                                                cellNo = int.Parse(rowR.Cells[cNo].ToString().Trim());
+                                                            }
+                                                            catch {
+                                                                cellNo = 0;
+                                                            }
+                                                        }
+                                                        else {
+                                                            continue;
+                                                        }
+                                                    }
+                                                    else {
+                                                        try {
+                                                            rowR.Cells[cNo].SetCellType(CellType.Numeric);
+                                                            cellNo = int.Parse(rowR.Cells[cNo].NumericCellValue.ToString());
+                                                        }
+                                                        catch {
+                                                            continue;
+                                                        }
+                                                    }
+
+                                                }
+                                                catch (Exception ex) {
+                                                    cellNo = 0;
+                                                }
+
+                                                if (course != null && cellNo > 0) {
+                                                    //新增班級
+                                                    //取得目前班級數
+                                                    Class newClass = new Class();
+                                                    try {
+                                                        //確認開班
+                                                        int classCount = dataContext.StudentPopulationItem.Count(e => e.Class.Course.Id == course.Id);
+                                                        newClass.Course = null;
+                                                        newClass.CourseId = course.Id;
+                                                        newClass.SchoolId = schoolData.Id;
+                                                        newClass.Type = cType;
+                                                        newClass.Name = string.Format("{0}_{1}", course.Name, (classCount + 1).ToString("00"));
+                                                        dataContext.Class.Add(newClass);
+                                                        dataContext.SaveChanges();
+                                                    }
+                                                    catch (Exception ex) {
+                                                        string e = ex.Message;
+                                                    }
+                                                    StudentPopulationItem addItem = new StudentPopulationItem();
+                                                    addItem.Class = null;
+                                                    addItem.ClassId = newClass.Id;
+                                                    addItem.Name = newClass.Name;
+                                                    addItem.Number = cellNo;
+                                                    addItem.SchoolName = newClass.Name;
+                                                    addItem.LastWeekNumber = 0;
+                                                    addItem.StudentPopulation = null;
+                                                    addItem.StudentPopulationId = populationData.Id;
+                                                    dataContext.StudentPopulationItem.Add(addItem);
+                                                    dataContext.SaveChanges();
+                                                }
+                                            }
+                                            else {
+                                                continue;
+                                            }
+                                        }
+                                        catch {
+                                            continue;
+                                        }
+                                    }
+                                }
+                            }
+                            string debug = string.Empty;
+                            #endregion
+                        }
+                        catch (Exception ex) {
+                            Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                            throw new FrameworkException(ex.Message);
+                        }
+                    }
+                    catch (FrameworkException ex) {
+                        Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                        throw new FrameworkException(ex.Message);
+                    }
+                    catch (Exception ex) {
+                        Logger?.LogError("匯入EXCEL錯誤{0}", ex.Message);
+                        throw new Exception("系統忙碌中，請稍後再試");
+                    }
+                    return Json(ResponseStatus.OK, 1);
+                }
+            }
+            catch (FrameworkException fe) {
+                return Json(ResponseStatus.OK, 1);
+            }
+            catch (Exception e) {
+                Logger.LogError(e, e.Message);
+                return Json(ResponseStatus.OK, 1);
+            }
+        }
+        #endregion
+
+
         public static List<ImportMapping> LoadHeaderMapFromCsv(string path) {
 
             var map = new List<ImportMapping>();
@@ -1569,10 +3291,6 @@ namespace PHStatistics.Portal.Controllers {
             }
             return map;
         }
-
-
-        #endregion
-
         #region 資料匯出
 
         [HttpGet("ExportDateTest")]
@@ -1657,44 +3375,6 @@ namespace PHStatistics.Portal.Controllers {
             public string CellsContent { get; set; }
         }
 
-        public class ImportCourse {
-            /// <summary>
-            /// 班系
-            /// </summary>
-            [Display(Name = "班系")]
-            public string CourseDepartmentName { get; set; }
-
-            /// <summary>
-            /// 班系
-            /// </summary>
-            [Display(Name = "班系")]
-            public CourseDepartment Department { get; set; }
-
-            /// <summary>
-            /// 課程
-            /// </summary>
-            [Display(Name = "課程")]
-            public string CourseName { get; set; }
-
-            /// <summary>
-            /// 班系
-            /// </summary>
-            [Display(Name = "班系")]
-            public Course Course { get; set; }
-
-            /// <summary>
-            /// 班級
-            /// </summary>
-            [Display(Name = "班級")]
-            public string Class { get; set; }
-
-            /// <summary>
-            /// 分校
-            /// </summary>
-            [Display(Name = "分校")]
-            public string School { get; set; }
-        }
-
         public class ImportMapping {
 
             /// <summary>
@@ -1732,6 +3412,6 @@ namespace PHStatistics.Portal.Controllers {
             [Display(Name = "人數")]
             public int Number { get; set; }
         }
-        #endregion
+        #endregion        
     }
 }
