@@ -1,0 +1,48 @@
+<nav class="admin-sidebar">
+    <div class="sidebar-header">
+        <a href="@Url.Action("Index", "Dashboard", new { area = "Admin" })" class="sidebar-brand">
+            <span class="brand-text">管理後台</span>
+        </a>
+    </div>
+
+    <ul class="sidebar-menu">
+        <li class="sidebar-item">
+            <a href="@Url.Action("Index", "Dashboard", new { area = "Admin" })" class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Dashboard" ? "active" : "")">
+                <i class="dx-icon-home"></i>
+                <span>儀表板</span>
+            </a>
+        </li>
+
+        <li class="sidebar-section">資料管理</li>
+
+        <li class="sidebar-item">
+            <a href="@Url.Action("Index", "Course", new { area = "Admin" })" class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Course" ? "active" : "")">
+                <i class="dx-icon-bookmark"></i>
+                <span>課程管理</span>
+            </a>
+        </li>
+
+        <li class="sidebar-item">
+            <a href="@Url.Action("Index", "CourseDepartment", new { area = "Admin" })" class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "CourseDepartment" ? "active" : "")">
+                <i class="dx-icon-folder"></i>
+                <span>班系管理</span>
+            </a>
+        </li>
+
+        <li class="sidebar-item">
+            <a href="@Url.Action("Index", "Member", new { area = "Admin" })" class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Member" ? "active" : "")">
+                <i class="dx-icon-group"></i>
+                <span>會員管理</span>
+            </a>
+        </li>
+
+        <li class="sidebar-section">系統</li>
+
+        <li class="sidebar-item">
+            <a href="/" class="sidebar-link">
+                <i class="dx-icon-arrowleft"></i>
+                <span>返回前台</span>
+            </a>
+        </li>
+    </ul>
+</nav>

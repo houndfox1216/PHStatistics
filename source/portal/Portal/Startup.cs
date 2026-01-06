@@ -91,6 +91,12 @@ namespace PHStatistics.Portal {
             });
 
             app.UseEndpoints(configure => {
+                // Admin Area 路由
+                configure.MapControllerRoute(
+                    name: "admin",
+                    pattern: "Admin/{controller=Dashboard}/{action=Index}/{id?}",
+                    defaults: new { area = "Admin" }
+                );
                 configure.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}"

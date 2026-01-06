@@ -1564,7 +1564,7 @@ namespace PHStatistics.Portal.Controllers {
             try {
                 DataContext dataContext = new DataContext();
                 using (
-                    FileStream file = new FileStream(@"C:\\Users\\hound\\Downloads\\人數表系統\\20251130\\2025 07(全國人數表第21週)_北.xlsx", FileMode.Open, FileAccess.Read)) {
+                    FileStream file = new FileStream(@"C:\\Users\\hound\\Downloads\\人數表系統\\20251218\\2025 07(全國人數表第24週)_北.xlsx", FileMode.Open, FileAccess.Read)) {
                     if (!file.HasValue())
                         throw new System.Data.DataException("取得資料發生錯誤");
                     try {
@@ -1722,7 +1722,7 @@ namespace PHStatistics.Portal.Controllers {
                                                     cellNo = 0;
                                                 }
 
-                                                if (course != null && cellNo > 0) {
+                                                if (course != null && cellNo != 0) {
                                                     //判斷是否為個別指導 個別指導需要依照人數開班
                                                     if (course.Name.IndexOf("EM1") > 0) {
                                                         for (int i = 0; i < cellNo; i++) {
@@ -1836,7 +1836,7 @@ namespace PHStatistics.Portal.Controllers {
             try {
                 DataContext dataContext = new DataContext();
                 using (
-                    FileStream file = new FileStream(@"C:\\Users\\hound\\Downloads\\人數表系統\\20251130\\2025 07(全國人數表第21週)_英檢.xlsx", FileMode.Open, FileAccess.Read)) {
+                    FileStream file = new FileStream(@"C:\\Users\\hound\\Downloads\\人數表系統\\20251218\\2025 07(全國人數表第24週)_英檢.xlsx", FileMode.Open, FileAccess.Read)) {
                     if (!file.HasValue())
                         throw new System.Data.DataException("取得資料發生錯誤");
                     try {
@@ -2111,7 +2111,7 @@ namespace PHStatistics.Portal.Controllers {
             try {
                 DataContext dataContext = new DataContext();
                 using (
-                    FileStream file = new FileStream(@"C:\\Users\\hound\\Downloads\\人數表系統\\20251130\\PS南區人數統計表 114學年度(21週).xlsx", FileMode.Open, FileAccess.Read)) {
+                    FileStream file = new FileStream(@"C:\\Users\\hound\\Downloads\\人數表系統\\20251218\\PS南區人數統計表 114學年度(24週).xlsx", FileMode.Open, FileAccess.Read)) {
                     if (!file.HasValue())
                         throw new System.Data.DataException("取得資料發生錯誤");
                     try {
@@ -2330,7 +2330,7 @@ namespace PHStatistics.Portal.Controllers {
             try {
                 DataContext dataContext = new DataContext();
                 using (
-                    FileStream file = new FileStream(@"C:\\Users\\hound\\Downloads\\人數表系統\\20251130\\（百倍速）人數統計表更新版114.11.22_北.xlsx", FileMode.Open, FileAccess.Read)) {
+                    FileStream file = new FileStream(@"C:\\Users\\hound\\Downloads\\人數表系統\\20251218\\（百倍速）人數統計表更新版114.12.13_北.xlsx", FileMode.Open, FileAccess.Read)) {
                     if (!file.HasValue())
                         throw new System.Data.DataException("取得資料發生錯誤");
                     try {
@@ -2763,7 +2763,7 @@ namespace PHStatistics.Portal.Controllers {
             try {
                 DataContext dataContext = new DataContext();
                 using (
-                    FileStream file = new FileStream(@"C:\\Users\\hound\\Downloads\\人數表系統\\20251130\\百瀚全區課輔人數總表(20251122).xlsx", FileMode.Open, FileAccess.Read)) {
+                    FileStream file = new FileStream(@"C:\\Users\\hound\\Downloads\\人數表系統\\20251218\\百瀚全區課輔人數總表(20251213).xlsx", FileMode.Open, FileAccess.Read)) {
                     if (!file.HasValue())
                         throw new System.Data.DataException("取得資料發生錯誤");
                     try {

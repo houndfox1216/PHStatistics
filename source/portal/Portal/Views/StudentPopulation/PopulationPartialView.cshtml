@@ -17,10 +17,86 @@
         else {
             color = "#93f3a6";
         }
-        @if (cItem.Name.Equals("上週英語文總人數"))
+        @if (cItem.Name.Equals("上週英語文總人數") || cItem.Name.Equals("本週英語文總人數") || cItem.Name.Equals("上週英語文總人數") || cItem.Name.Equals("與上週相比") ||
+                cItem.Name.Equals("去年同期/比"))
         {
-            int wNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("上週英語文總人數")).Number;
+            if (cItem.Name.Equals("與上週相比"))
+            {
+                int lwNumber = 0;
+                int wNumber = 0;
+                //35 英文   
+                if (cItem.Id == 35)
+                {
+                    //33 本週英文總人數 34 上週英文總人數
+                    wNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 33).Number;
+                    lwNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 34).Number;
+                
+                }
+                else // 62 國文
+                {
+                    //60 本週國文總人 數61 上週國文總人數
+                    wNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 60).Number;
+                    lwNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 61).Number;
+                }
 
+                <div class="row mx-0" style="background-color:@color">
+                <div class="col-12 mb-3">
+                    @if (cItem.IsSum) {
+                        StudentPopulationItem sumItem = Model.Items.Where(e => e.Class.Course.Id == cItem.Id).FirstOrDefault();
+                        string displayStr = string.Empty;
+                        <label>
+                            <h2>@cItem.Name  上週 @lwNumber 本週 @wNumber 相比 @sumItem.Number</h2>
+                        </label>
+                    }
+                    else {
+                        <label>
+                            <h2>課程：@cItem.Name</h2>
+                        </label>
+                    }
+            
+                </div>
+            </div>   
+            }else if (cItem.Name.Equals("去年同期/比"))
+            {
+
+                int lyNumber = 0;
+                int yNumber = 0;
+                //35 英文   
+                if (cItem.Id == 35)
+                {
+                    //33 本週英文總人數 34 上週英文總人數
+                    lyNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 33).Number;
+                    yNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 34).Number;
+                
+                }
+                else // 62 國文
+                {
+                    //60 本週國文總人 數61 上週國文總人數
+                    lyNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 60).Number;
+                    yNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 61).Number;
+                }
+
+                 int wNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == cItem.Id).Number;
+            <div class="row mx-0" style="background-color:@color">
+                <div class="col-12 mb-3">
+                    @if (cItem.IsSum) {
+                        StudentPopulationItem sumItem = Model.Items.Where(e => e.Class.Course.Id == cItem.Id).FirstOrDefault();
+                        string displayStr = string.Empty;
+                        <label>
+                            <h2>@cItem.Name  @sumItem.Number</h2>
+                        </label>
+                    }
+                    else {
+                        <label>
+                            <h2>課程：@cItem.Name</h2>
+                        </label>
+                    }
+            
+                </div>
+            </div>   
+            }else
+            {
+            int wNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("上週英語文總人數")).Number;
             <div class="row mx-0" style="background-color:@color">
                 <div class="col-12 mb-3">
                     @if (cItem.IsSum) {
@@ -38,6 +114,8 @@
             
                 </div>
             </div>
+            }
+            
         }
         else
         {
@@ -61,7 +139,7 @@
         }
 
         @if (!cItem.Name.Equals("本週英語文總人數") && !cItem.Name.Equals("上週英語文總人數") && !cItem.Name.Equals("與上週相比") && 
-             !cItem.Name.Equals("去年同期/比") && !cItem.Name.Equals("上週英語文總人數") && !cItem.Name.Equals("本週總詢問(填單)人數"))
+             !cItem.Name.Equals("去年同期/比") && !cItem.Name.Equals("上週英語文總人數"))
         {
             <div class="row mx-0">
                 @if (Model.Type == StudentPopulationType.PH || Model.Type == StudentPopulationType.PSJ) {
@@ -86,7 +164,8 @@
             </div> 
         }
         foreach (StudentPopulationItem sItem in Model.Items.Where(e => e.Class.Course.Id == cItem.Id)) {
-            if (sItem.Class.Course.Name.Equals("上週英語文總人數"))
+            if (sItem.Class.Course.Name.Equals("本週英語文總人數") || sItem.Class.Course.Name.Equals("上週英語文總人數") || sItem.Class.Course.Name.Equals("與上週相比") ||
+                sItem.Class.Course.Name.Equals("去年同期/比"))
             {
                 itemRowNo++;
                 continue;
@@ -238,13 +317,8 @@
                     </div>
                 }
             </div>
-            }
-
-
-
-          
+            }          
             itemRowNo++;
         }
-        @*}*@
     }
 }

@@ -1,0 +1,22 @@
+<header class="admin-header">
+    <div class="header-left">
+        <button class="btn btn-link sidebar-toggle d-lg-none" type="button">
+            <i class="dx-icon-menu"></i>
+        </button>
+        <h1 class="page-title">@ViewBag.Title</h1>
+    </div>
+
+    <div class="header-right">
+        <div class="dropdown">
+            <button class="btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                <i class="dx-icon-user"></i>
+                <span class="d-none d-md-inline">@(Html.User<PortalUser>()?.Data?.Account ?? "使用者")</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="@Url.Action("ChangePassword", "Member", new { area = "" })">變更密碼</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="@Url.Action("LogOut", "Member", new { area = "" })">登出</a></li>
+            </ul>
+        </div>
+    </div>
+</header>

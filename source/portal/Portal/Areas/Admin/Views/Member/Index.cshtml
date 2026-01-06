@@ -1,0 +1,67 @@
+@{
+    ViewBag.Title = "會員管理";
+}
+
+<div class="card">
+    <div class="card-body">
+        @(Html.DevExtreme().DataGrid<Member>()
+            .ID("gridMembers")
+            .DataSource(ds => ds.Mvc()
+                .Controller("Member")
+                .Area("Admin")
+                .LoadAction("GetMembers")
+                .InsertAction("Create")
+                .UpdateAction("Update")
+                .DeleteAction("Delete")
+                .Key("Id")
+            )
+            .RemoteOperations(true)
+            .ShowBorders(true)
+            .ShowRowLines(true)
+            .AllowColumnResizing(true)
+            .ColumnAutoWidth(true)
+            .RowAlternationEnabled(true)
+            .Paging(paging => paging.PageSize(20))
+            .Pager(pager => pager
+                .Visible(true)
+                .ShowPageSizeSelector(true)
+                .AllowedPageSizes(new[] { 10, 20, 50, 100 })
+                .ShowInfo(true)
+            )
+            .Editing(editing => editing
+                .Mode(GridEditMode.Popup)
+                .AllowAdding(true)
+                .AllowUpdating(true)
+                .AllowDeleting(true)
+                .UseIcons(true)
+                .Popup(popup => popup
+                    .Title("會員資料")
+                    .ShowTitle(true)
+                    .Width(700)
+                    .Height("auto")
+                )
+            )
+            .FilterRow(f => f.Visible(true))
+            .SearchPanel(s => s.Visible(true).Width(240).Placeholder("搜尋..."))
+            .HeaderFilter(h => h.Visible(true))
+            .Columns(columns => {
+                columns.AddFor(m => m.Number).Caption("編號").Width(100);
+                columns.AddFor(m => m.Account).Caption("帳號");
+                columns.AddFor(m => m.Nickname).Caption("暱稱");
+                columns.AddFor(m => m.Email).Caption("Email");
+                columns.AddFor(m => m.Status).Caption("狀態").Width(100);
+                columns.AddFor(m => m.CreatedTime).Caption("建立時間").Width(150)
+                    .DataType(GridColumnDataType.DateTime)
+                    .Format("yyyy/MM/dd HH:mm")
+                    .AllowEditing(false);
+                columns.AddFor(m => m.Password).Caption("密碼")
+                    .Visible(false)
+                    .EditorOptions(new { mode = "password" });
+            })
+            .Toolbar(toolbar => toolbar.Items(items => {
+                items.Add().Name("addRowButton");
+                items.Add().Name("searchPanel");
+            }))
+        )
+    </div>
+</div>

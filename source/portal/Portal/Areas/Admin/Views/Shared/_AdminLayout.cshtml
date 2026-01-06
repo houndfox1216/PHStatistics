@@ -1,0 +1,47 @@
+@{
+    var configuration = Html.Configuration<Configuration>();
+}
+
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>管理後台 - @ViewBag.Title</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <link href="~/css/devextreme/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/devextreme/dx.light.css" rel="stylesheet" />
+    <link href="~/css/admin.css" rel="stylesheet" />
+
+    @RenderSection("HeadStyle", false)
+</head>
+<body class="admin-body">
+    <div class="admin-wrapper">
+        <partial name="_AdminSidebar" />
+
+        <div class="admin-main">
+            <partial name="_AdminHeader" />
+
+            <main class="admin-content">
+                <div class="container-fluid py-4">
+                    @RenderBody()
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="~/js/devextreme/jquery.js"></script>
+    <script src="~/js/devextreme/bootstrap.js"></script>
+    <script src="~/js/devextreme/dx.all.js"></script>
+    <script src="~/js/devextreme/aspnet/dx.aspnet.mvc.js"></script>
+    <script src="~/js/devextreme/aspnet/dx.aspnet.data.js"></script>
+
+    <script>
+        DevExpress.localization.locale('zh-TW');
+    </script>
+
+    @RenderSection("BodyScript", false)
+</body>
+</html>

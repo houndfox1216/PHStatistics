@@ -1,0 +1,39 @@
+@{
+    ViewBag.Title = "儀表板";
+}
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="dx-icon-bookmark me-2"></i>課程管理
+                </h5>
+                <p class="card-text">管理系統中的課程資料，包括新增、編輯和刪除課程。</p>
+                <a href="@Url.Action("Index", "Course")" class="btn btn-primary">前往管理</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="dx-icon-folder me-2"></i>班系管理
+                </h5>
+                <p class="card-text">管理系統中的班系資料，包括新增、編輯和刪除班系。</p>
+                <a href="@Url.Action("Index", "CourseDepartment")" class="btn btn-primary">前往管理</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="dx-icon-group me-2"></i>會員管理
+                </h5>
+                <p class="card-text">管理系統中的會員資料，包括新增、編輯和刪除會員。</p>
+                <a href="@Url.Action("Index", "Member")" class="btn btn-primary">前往管理</a>
+            </div>
+        </div>
+    </div>
+</div>
