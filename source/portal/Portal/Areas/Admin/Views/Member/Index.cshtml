@@ -2,6 +2,16 @@
     ViewBag.Title = "會員管理";
 }
 
+<script>
+    var schoolsStore = new DevExpress.data.CustomStore({
+        key: "Id",
+        loadMode: "raw",
+        load: function() {
+            return $.getJSON("@Url.Action("GetSchools", "Member", new { area = "Admin" })");
+        }
+    });
+</script>
+
 <div class="card">
     <div class="card-body">
         @(Html.DevExtreme().DataGrid<Member>()
@@ -58,6 +68,52 @@
                     .Visible(false)
                     .EditorOptions(new { mode = "password" });
             })
+            .MasterDetail(md => md
+                .Enabled(true)
+                .Template(@<text>
+                    @(Html.DevExtreme().DataGrid<SchoolAssignment>()
+                        .DataSource(ds => ds.Mvc()
+                            .Controller("Member")
+                            .Area("Admin")
+                            .LoadAction("GetSchoolAssignments")
+                            .LoadParams(new { memberId = new JS("data.Id") })
+                            .InsertAction("CreateSchoolAssignment")
+                            .UpdateAction("UpdateSchoolAssignment")
+                            .DeleteAction("DeleteSchoolAssignment")
+                            .Key("Id")
+                        )
+                        .ShowBorders(true)
+                        .ShowRowLines(true)
+                        .ColumnAutoWidth(true)
+                        .Paging(paging => paging.PageSize(10))
+                        .Editing(editing => editing
+                            .Mode(GridEditMode.Row)
+                            .AllowAdding(true)
+                            .AllowUpdating(true)
+                            .AllowDeleting(true)
+                            .UseIcons(true)
+                        )
+                        .Columns(columns => {
+                            columns.AddFor(m => m.SchoolId)
+                                .Caption("分校")
+                                .Lookup(lookup => lookup
+                                    .DataSource(new JS("schoolsStore"))
+                                    .ValueExpr("Id")
+                                    .DisplayExpr("Name")
+                                );
+                            columns.AddFor(m => m.Name).Caption("備註名稱");
+                            columns.AddFor(m => m.CreatedTime).Caption("建立時間").Width(150)
+                                .DataType(GridColumnDataType.DateTime)
+                                .Format("yyyy/MM/dd HH:mm")
+                                .AllowEditing(false);
+                        })
+                        .Toolbar(toolbar => toolbar.Items(items => {
+                            items.Add().Name("addRowButton");
+                        }))
+                        .OnInitNewRow("function(e) { e.data.MemberId = data.Id; }")
+                    )
+                </text>)
+            )
             .Toolbar(toolbar => toolbar.Items(items => {
                 items.Add().Name("addRowButton");
                 items.Add().Name("searchPanel");

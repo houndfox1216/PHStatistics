@@ -293,4 +293,22 @@
         });
     }
 
+    //remarkChange - 更新學生備註
+    function remarkChange(sId){
+            var remarkInput = document.getElementById(sId);
+            $.ajax({
+            url: '@Url.Action("UpdateClassItem", "StudentPopulation")',
+            cache: false,
+            data: { 'sId': remarkInput.dataset.sitem, 'studentRemark': remarkInput.value },
+            type: 'POST',
+            dataType: "html",
+            success: function (data) {
+                $("#contentItem").html(data);
+            },
+            error: function () {
+
+            }
+        });
+    }
+
 </script>

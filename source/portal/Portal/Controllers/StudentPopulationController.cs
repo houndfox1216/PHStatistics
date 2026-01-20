@@ -1026,22 +1026,29 @@ namespace PHStatistics.Portal.Controllers {
             }
         }
 
-        public IActionResult UpdateClassItem(long sId, int number) {
+        public IActionResult UpdateClassItem(long sId, int? number, string studentRemark = null) {
             DataContext dataContext = new DataContext();
             try {
                 StudentPopulationItem item = dataContext.StudentPopulationItem.Include("Class.Course.Department").Include("StudentPopulation").Where(e => e.Id == sId).FirstOrDefault();
                 List<Course> courses = Model.DataContext.Course.Where(e => e.Type == item.StudentPopulation.Type).OrderBy(e => e.Ordinal).ToList();
                 ViewBag.Courses = courses;
                 if (item != null) {
-                    if (item.Class.Course.Name.Equals("本週英語文新生") || item.Class.Course.Name.Equals("本週英語文流失") ||
-                        item.Class.Course.Name.Equals("本週國語文新生人數") || item.Class.Course.Name.Equals("本週國語文流失人數")) {
-                        item.IsManual = true;
+                    if (number.HasValue) {
+                        if (item.Class.Course.Name.Equals("本週英語文新生") || item.Class.Course.Name.Equals("本週英語文流失") ||
+                            item.Class.Course.Name.Equals("本週國語文新生人數") || item.Class.Course.Name.Equals("本週國語文流失人數")) {
+                            item.IsManual = true;
+                        }
+                        item.Number = number.Value;
                     }
-                    item.Number = number;
+                    if (studentRemark != null) {
+                        item.StudentRemark = studentRemark;
+                    }
                     dataContext.StudentPopulationItem.Update(item);
                     dataContext.SaveChanges();
                     //進行加總
-                    SumPHPopulation(item.StudentPopulation.Id);
+                    if (number.HasValue) {
+                        SumPHPopulation(item.StudentPopulation.Id);
+                    }
                 }
                 var returnData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").Where(e => e.Id == item.StudentPopulation.Id).FirstOrDefault();
                 return PartialView("PopulationPartialView", returnData);

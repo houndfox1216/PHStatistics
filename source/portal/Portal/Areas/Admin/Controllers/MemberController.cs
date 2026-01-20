@@ -1,10 +1,13 @@
 using System;
+using System.Linq;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using PHStatistics.Actions;
 using PHStatistics.Community;
+using PHStatistics.Content;
 using System.Framework.Data;
 
 namespace PHStatistics.Portal.Areas.Admin.Controllers {
@@ -59,5 +62,64 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
                 return BadRequest(ex.Message);
             }
         }
+
+        #region SchoolAssignment CRUD
+
+        [HttpGet]
+        public object GetSchoolAssignments(Guid memberId, DataSourceLoadOptions loadOptions) {
+            var query = Model.DataContext.SchoolAssignment
+                .Include(e => e.School)
+                .Where(e => e.MemberId == memberId);
+            return DataSourceLoader.Load(query, loadOptions);
+        }
+
+        [HttpPost]
+        public IActionResult CreateSchoolAssignment(string values) {
+            try {
+                var data = new SchoolAssignment();
+                JsonConvert.PopulateObject(values, data);
+                data.CreatedTime = DateTime.Now;
+                Model.DataContext.SchoolAssignment.Add(data);
+                Model.DataContext.SaveChanges();
+                return Ok();
+            } catch (Exception ex) {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        public IActionResult UpdateSchoolAssignment(int key, string values) {
+            try {
+                var data = Model.DataContext.SchoolAssignment.Find(key);
+                if (data == null) return NotFound();
+                JsonConvert.PopulateObject(values, data);
+                data.UpdatedTime = DateTime.Now;
+                Model.DataContext.SaveChanges();
+                return Ok();
+            } catch (Exception ex) {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteSchoolAssignment(int key) {
+            try {
+                var data = Model.DataContext.SchoolAssignment.Find(key);
+                if (data == null) return NotFound();
+                Model.DataContext.SchoolAssignment.Remove(data);
+                Model.DataContext.SaveChanges();
+                return Ok();
+            } catch (Exception ex) {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public object GetSchools(DataSourceLoadOptions loadOptions) {
+            var query = Model.DataContext.School.OrderBy(e => e.Ordinal);
+            return DataSourceLoader.Load(query, loadOptions);
+        }
+
+        #endregion
     }
 }

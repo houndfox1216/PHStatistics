@@ -198,7 +198,7 @@
                     
                     </div>
                     <div class="col-4 mb-4">
-                        <input type="text" class="form-control" placeholder="" name="Items[@itemRowNo].StudentRemark" id="class_@sItem.Class.Id.ToString()_remark" value="@sItem.StudentRemark">
+                        <input type="text" class="form-control" placeholder="" name="Items[@itemRowNo].StudentRemark" id="class_@sItem.Class.Id.ToString()_remark" value="@sItem.StudentRemark" data-sitem="@sItem.Id" onchange="remarkChange('class_@sItem.Class.Id.ToString()_remark')">
                     </div>
                     @if (!sItem.Class.Course.IsSum) {
                         <div class="col-2 mb-2">
@@ -307,7 +307,7 @@
 
                 </div>
                 <div class="col-4 mb-4">
-                    <input type="text" class="form-control" placeholder="" name="Items[@itemRowNo].StudentRemark" id="class_@sItem.Class.Id.ToString()_remark" value="@sItem.StudentRemark">
+                    <input type="text" class="form-control" placeholder="" name="Items[@itemRowNo].StudentRemark" id="class_@sItem.Class.Id.ToString()_remark" value="@sItem.StudentRemark" data-sitem="@sItem.Id" onchange="remarkChange('class_@sItem.Class.Id.ToString()_remark')">
                 </div>
                 @if (!sItem.Class.Course.IsSum) {
                     <div class="col-2 mb-2">
@@ -317,7 +317,7 @@
                     </div>
                 }
             </div>
-            }          
+            }
             itemRowNo++;
         }
     }
