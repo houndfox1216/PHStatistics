@@ -1,0 +1,75 @@
+2025-09-29 09:21:59.4697[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-29 09:21:59.4697[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-29 09:21:59.5796[17]  INFO MemberController  Member Login account: password: 
+2025-09-29 09:22:34.3355[17]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-09-29 09:22:34.5305[17]  INFO MemberController  進行登入 
+2025-09-29 09:22:34.7517[17]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-09-29 09:22:34.9519[19]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-29 09:22:34.9519[19]  INFO HomeController  進入首頁
+2025-09-29 09:27:20.8659[3]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-29 09:27:20.8659[3]  INFO HomeController  進入首頁
+2025-09-29 09:29:25.8482[21]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-29 09:29:25.8482[21]  INFO HomeController  進入首頁
+2025-09-29 09:29:28.9596[42]  INFO StudentPopulationController  進入首頁(MainMenu)
+2025-09-29 09:29:28.9596[42]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2025-09-29 11:50:13.9443[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-29 11:50:13.9658[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-29 11:50:14.0300[7]  INFO MemberController  Member Login account: password: 
+2025-09-29 12:39:48.4833[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-29 12:39:48.4896[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-29 12:39:48.5780[16]  INFO MemberController  Member Login account: password: 
+2025-09-29 12:40:32.7577[17] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-09-29 12:40:32.7855[17] ERROR HomeController  系統忙碌中，請稍後再試
+System.Exception: 系統忙碌中，請稍後再試
+   at PHStatistics.Portal.Controllers.HomeController.ImportExcelData2()
+2025-09-29 12:44:18.0726[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-29 12:44:18.0783[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-29 12:44:18.1399[7]  INFO MemberController  Member Login account: password: 
+2025-09-29 12:48:56.2250[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-29 12:48:56.2250[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-29 12:48:56.2903[11]  INFO MemberController  Member Login account: password: 
+2025-09-29 12:57:06.7474[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-29 12:57:06.7533[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-29 12:57:06.8147[17]  INFO MemberController  Member Login account: password: 
+2025-09-29 15:41:02.7923[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-29 15:41:02.8141[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-29 15:41:03.1859[7]  INFO MemberController  Member Login account: password: 
+2025-09-29 15:44:46.3833[19]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-29 15:44:46.3833[19]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-29 15:44:46.5157[11]  INFO MemberController  Member Login account: password: 
+2025-09-29 15:48:06.1633[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-29 15:48:06.1633[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-29 15:48:06.2380[5]  INFO MemberController  Member Login account: password: 
+2025-09-29 15:50:07.2171[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-29 15:50:07.2338[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-29 15:50:07.4148[18]  INFO MemberController  Member Login account: password: 
+2025-09-29 15:51:35.2153[18] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-09-29 15:51:35.2473[18] ERROR HomeController  系統忙碌中，請稍後再試
+System.Exception: 系統忙碌中，請稍後再試
+   at PHStatistics.Portal.Controllers.HomeController.ImportExcelData2() in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\HomeController.cs:line 1488
+2025-09-29 15:54:33.4953[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-29 15:54:33.4953[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-29 15:54:33.5654[10]  INFO MemberController  Member Login account: password: 
+2025-09-29 15:54:58.4496[10] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-09-29 15:55:45.7078[12]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-29 15:55:45.7078[12]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-29 15:55:45.7934[7]  INFO MemberController  Member Login account: password: 
+2025-09-29 15:55:50.2624[5] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-09-29 15:57:48.8411[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-29 15:57:48.8574[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-29 15:57:48.9831[16]  INFO MemberController  Member Login account: password: 
+2025-09-29 15:59:24.6368[5]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-29 15:59:24.6430[5]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-29 15:59:24.7155[7]  INFO MemberController  Member Login account: password: 
+2025-09-29 16:01:39.8669[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-29 16:01:39.8971[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-29 16:01:40.1614[19]  INFO MemberController  Member Login account: password: 
+2025-09-29 16:11:58.5070[12]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-29 16:11:58.5243[12]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-29 16:11:58.7496[19]  INFO MemberController  Member Login account: password: 
+2025-09-29 16:47:02.0778[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-29 16:47:02.1363[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-29 16:47:02.3802[7]  INFO MemberController  Member Login account: password: 
+2025-09-29 16:53:43.7162[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-29 16:53:43.7351[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-29 16:53:43.8613[17]  INFO MemberController  Member Login account: password: 

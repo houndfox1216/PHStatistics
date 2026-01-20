@@ -1,0 +1,30 @@
+
+.contact-social-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.social-btn {
+    max-width: 100%;
+    width: 60px;
+    height: auto;
+    margin: .5rem;
+    &:hover, &:active, &:focus {
+        opacity: .6;
+    }
+}
+
+.member-nav {
+    .nav-item {
+        .nav-link {
+            color: rgba($primary, .6);
+        }
+        &:hover, &:active, &:focus, &.active {
+            .nav-link {
+                color: rgba($primary, 1);
+                border-bottom: 3px solid $primary;
+            }
+        }
+    }
+    
+}

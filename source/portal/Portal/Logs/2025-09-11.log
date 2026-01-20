@@ -1,0 +1,42 @@
+2025-09-11 19:37:53.8818[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-11 19:37:53.8818[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-11 19:37:53.9669[10]  INFO MemberController  Member Login account: password: 
+2025-09-11 19:39:52.3790[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-11 19:39:52.3848[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-11 19:39:52.4591[5]  INFO MemberController  Member Login account: password: 
+2025-09-11 19:45:52.5642[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-11 19:45:52.5707[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-11 19:45:52.6492[11]  INFO MemberController  Member Login account: password: 
+2025-09-11 19:48:56.3612[20]  INFO MemberController  Member Login account: password: 
+2025-09-11 19:49:06.5155[20]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-09-11 19:49:06.6108[20]  INFO MemberController  進行登入 
+2025-09-11 19:49:06.6704[20]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-09-11 19:49:06.7745[20]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-11 19:49:06.7745[20]  INFO HomeController  進入首頁
+2025-09-11 20:19:51.6807[19]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-11 20:19:51.6807[19]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-11 20:19:51.7138[11]  INFO MemberController  Member Login account: password: 
+2025-09-11 20:19:51.7138[10]  INFO MemberController  Member Login account: password: 
+2025-09-11 20:19:58.6984[7]  INFO MemberController  Member Login account: password: 
+2025-09-11 20:20:47.8660[23]  INFO MemberController  Member Login account: password: 
+2025-09-11 20:20:55.9080[38]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-09-11 20:20:55.9488[38]  INFO MemberController  進行登入 
+2025-09-11 20:20:55.9611[38]  INFO MemberController  進行登入完成 導入 /StudentPopulation/CreatePopulation?schoolId=1 False 
+2025-09-11 20:20:55.9844[37]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-11 20:20:55.9844[37]  INFO HomeController  進入首頁
+2025-09-11 20:21:06.6084[23]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-11 20:21:06.6084[23]  INFO HomeController  進入首頁
+2025-09-11 20:50:30.3074[36]  INFO MemberController  Member Login account: password: 
+2025-09-11 20:50:52.2486[17]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-09-11 20:50:52.2566[17]  INFO MemberController  進行登入 
+2025-09-11 20:50:52.2566[17]  INFO MemberController  進行登入完成 導入 /StudentPopulation/CreatePopulation?schoolId=1 False 
+2025-09-11 20:50:52.2776[17]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-11 20:50:52.2776[17]  INFO HomeController  進入首頁
+2025-09-11 20:51:42.8342[5]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-11 20:51:42.8342[5]  INFO HomeController  進入首頁
+2025-09-11 21:00:46.9692[10]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-11 21:00:46.9767[10]  INFO HomeController  進入首頁
+2025-09-11 21:01:52.5427[17]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-11 21:01:52.5427[17]  INFO HomeController  進入首頁
+2025-09-11 21:04:41.7770[10]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-11 21:04:41.7770[10]  INFO HomeController  進入首頁

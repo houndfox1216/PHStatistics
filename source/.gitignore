@@ -1,0 +1,18 @@
+# Ignore Other Branch Remain Directories
+*/
+
+# Branch Directories and Files
+!schema/
+!schema/**/*
+<<<<<<< HEAD
+!portal/
+!portal/**/*
+=======
+>>>>>>> origin/develop/schema
+portal/.vs/
+portal/Test/
+portal/Portal/obj/
+source/portal/.vs/
+source/portal/Test/
+source/portal/Portal/obj/
+source/portal/Portal/obj/Debug/

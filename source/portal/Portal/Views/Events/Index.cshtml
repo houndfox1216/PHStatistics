@@ -1,0 +1,67 @@
+﻿@using Newtonsoft.Json
+
+@{
+    ViewData["Title"] = "品牌活動";
+    var newsList = JsonConvert.DeserializeObject<dynamic[]>("[" +
+        "{\"Id\":1,\"Title\":\"品牌活動\",\"Img\":\"04.png\",\"Date\":\"2021/10/20\",\"Content\":\"內容\",\"Category\":\"2\",\"TagClass\":\"回饋活動\"}," +
+        "{\"Id\":2,\"Title\":\"品牌活動\",\"Img\":\"06.png\",\"Date\":\"2021/10/20\",\"Content\":\"內容\",\"Category\":\"3\",\"TagClass\":\"建案活動\"}," +
+        "{\"Id\":3,\"Title\":\"品牌活動\",\"Img\":\"04.png\",\"Date\":\"2021/10/20\",\"Content\":\"內容\",\"Category\":\"2\",\"TagClass\":\"回饋活動\"}," +
+        "{\"Id\":4,\"Title\":\"品牌活動\",\"Img\":\"05.png\",\"Date\":\"2021/10/20\",\"Content\":\"內容\",\"Category\":\"1\",\"TagClass\":\"品牌資訊\"}," +
+        "]");
+}
+
+<section>
+    <div class="pageTitle">
+        <div class="title">
+            <h2>@Html.ToI18n("page.event")</h2>
+        </div>
+    </div>
+</section>
+
+<section class="bg-light-them2 py-6">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div id="grid" class="row my-shuffle-container justify-content-md-start">
+                    @foreach (dynamic item in newsList) {
+                        <div class="filtr-item col-12 col-md-6 col-lg-4 col-xxl-3 px-1 picture-item work-grid-item " data-groups='["@item.Category"]'>
+                            <div class="news-list-card">
+                                <div class="">
+                                    <a href="@Url.Action("Detail", "Events")" class="img-wrap">
+                                        <img class="img-fluid" src='/api/Placeholder?width=600&height=400' alt='img' />
+                                    </a>
+                                    <div class="px-3">
+                                        <a href="@Url.Action("Detail", "Events")" class="">
+                                            <h5 class="line-clamp1 ">@item.Title</h5>
+                                        </a>
+                                        <a href="@Url.Action("Detail", "Events")" class="content">
+                                            <small>@item.Date</small>
+                                            <p class="line-clamp3">
+                                                @item.Content
+                                            </p>
+                                        </a>
+                                        <div class="d-flex justify-content-between align-items-end mb-3">
+                                            <a href="#" class="tagClass small">
+                                                @item.TagClass
+                                            </a>
+                                            <div class="d-flex justify-content-end">
+                                                <a class="more-link" href="@Url.Action("Detail", "Events")">
+                                                    READ MORE
+                                                    <span class="">
+                                                        <i class="fas fa-caret-right"></i>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <partial name="~/Views/Shared/Components/Pagination.cshtml" />
+
+    </div>
+</section>

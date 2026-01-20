@@ -1,0 +1,1254 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>J.Framework.Business</name>
+    </assembly>
+    <members>
+        <member name="T:System.Framework.Business.IAssetData">
+            <summary>
+            資產資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IAssetData.Number">
+            <summary>
+            編號
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IAssetData.Manufactor">
+            <summary>
+            製造商
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IAssetData.ManufacturedDate">
+            <summary>
+            出廠日期
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IAssetData.PurchaseDate">
+            <summary>
+            購買日期
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IAssetData.WarrantyDate">
+            <summary>
+            保固日期
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IAssetData.ModelNo">
+            <summary>
+            型號
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IAssetData.SerialNo">
+            <summary>
+            序號
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IAssetData.Latitude">
+            <summary>
+            緯度
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IAssetData.Longitude">
+            <summary>
+            經度
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IAssetData.Height">
+            <summary>
+            高度
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IAssetData.Description">
+            <summary>
+            說明
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.IContractData">
+            <summary>
+            契約資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IContractData.Parties">
+            <summary>
+            締約方
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IContractData.StartTime">
+            <summary>
+            開始時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IContractData.EndTime">
+            <summary>
+            結束時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IContractData.Memo">
+            <summary>
+            備忘事項
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IContractData.Document">
+            <summary>
+            文件資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IContractData.Status">
+            <summary>
+            狀態
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.IContractingPartyData">
+            <summary>
+            締約方資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IContractingPartyData.Title">
+            <summary>
+            稱謂
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IContractingPartyData.Party">
+            <summary>
+            當事者
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IContractingPartyData.Signature">
+            <summary>
+            簽章
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IContractingPartyData.Contract">
+            <summary>
+            合約
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.ICustomerData">
+            <summary>
+            客戶資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ICustomerData.Type">
+            <summary>
+            類型
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ICustomerData.StartTime">
+            <summary>
+            開始時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ICustomerData.EndTime">
+            <summary>
+            結束時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ICustomerData.Grade">
+            <summary>
+            級距資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ICustomerData.Bonus">
+            <summary>
+            紅利積點
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ICustomerData.Person">
+            <summary>
+            個人資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ICustomerData.Contacts">
+            <summary>
+            聯絡資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ICustomerData.Status">
+            <summary>
+            狀態
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.IDepartmentData">
+            <summary>
+            部門資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IDepartmentData.Organization">
+            <summary>
+            組織
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IDepartmentData.Principal">
+            <summary>
+            負責人
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IDepartmentData.Employments">
+            <summary>
+            聘僱關係
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.IEmployeeData">
+            <summary>
+            僱員資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IEmployeeData.Number">
+            <summary>
+            編號
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IEmployeeData.Person">
+            <summary>
+            個人資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IEmployeeData.Employments">
+            <summary>
+            聘僱資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IEmployeeData.Status">
+            <summary>
+            狀態
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.IEmploymentData">
+            <summary>
+            聘僱資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IEmploymentData.Department">
+            <summary>
+            部門
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IEmploymentData.Employee">
+            <summary>
+            人員資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IEmploymentData.Title">
+            <summary>
+            頭銜
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IEmploymentData.Position">
+            <summary>
+            職位
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IEmploymentData.StartDate">
+            <summary>
+            開始時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IEmploymentData.EndDate">
+            <summary>
+            結束時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IEmploymentData.Status">
+            <summary>
+            聘僱狀態
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.IExperienceData">
+            <summary>
+            經歷資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IExperienceData.Organization">
+            <summary>
+            服務組織
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IExperienceData.Grade">
+            <summary>
+            層級
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IExperienceData.StartDate">
+            <summary>
+            開始時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IExperienceData.EndDate">
+            <summary>
+            結束時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IExperienceData.License">
+            <summary>
+            證照
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IExperienceData.Reason">
+            <summary>
+            離職原因
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.IFranchiseeStoreData">
+            <summary>
+            加盟店之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IFranchiseeStoreData.Merchant">
+            <summary>
+            商家資料
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.IGradeData">
+            <summary>
+            級距資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IGradeData.Level">
+            <summary>
+            等級
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IGradeData.Scope">
+            <summary>
+            適用範圍
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IGradeData.UpgradeScrore">
+            <summary>
+            升級積分
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IGradeData.DegradeScore">
+            <summary>
+            降級積分
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.ILegalPersonData">
+            <summary>
+            法人資料之介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ILegalPersonData.LegalPersonType">
+            <summary>
+            法人類型
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ILegalPersonData.Country">
+            <summary>
+            國家
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ILegalPersonData.RegisterName">
+            <summary>
+            登記名稱
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ILegalPersonData.TaxId">
+            <summary>
+            統一編號
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ILegalPersonData.RegisterAddress">
+            <summary>
+            登記地址
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ILegalPersonData.Representative">
+            <summary>
+            代表
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ILegalPersonData.Employments">
+            <summary>
+            聘僱關係
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.IMaterialData">
+            <summary>
+            物料資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMaterialData.ModelNo">
+            <summary>
+            型號
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMaterialData.Picture">
+            <summary>
+            圖片
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMaterialData.LengthUnit">
+            <summary>
+            長度單位
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMaterialData.Height">
+            <summary>
+            高度
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMaterialData.Width">
+            <summary>
+            寬度
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMaterialData.Depth">
+            <summary>
+            深度
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMaterialData.WeightUnit">
+            <summary>
+            質量單位
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMaterialData.NetWeight">
+            <summary>
+            淨重
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMaterialData.GrossWeight">
+            <summary>
+            毛重
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMaterialData.ConditionedWeight">
+            <summary>
+            公量
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMaterialData.Introduction">
+            <summary>
+            簡介
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMaterialData.Description">
+            <summary>
+            說明
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMaterialData.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMaterialData.Categories">
+            <summary>
+            類別
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMaterialData.PurchaseCosts">
+            <summary>
+            進貨成本
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.IMerchantData">
+            <summary>
+            商家資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMerchantData.Grade">
+            <summary>
+            級距資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMerchantData.TaxType">
+            <summary>
+            稅別
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMerchantData.InvoiceTitle">
+            <summary>
+            發票抬頭
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMerchantData.TaxId">
+            <summary>
+            統一編號
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMerchantData.PaymentType">
+            <summary>
+            付款方式
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMerchantData.SettleDay">
+            <summary>
+            結算日
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMerchantData.InvoiceAddress">
+            <summary>
+            發票地址
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMerchantData.Principal">
+            <summary>
+            負責人
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMerchantData.ContactPerson">
+            <summary>
+            聯絡人員
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMerchantData.Accountant">
+            <summary>
+            會計人員
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IMerchantData.Contracts">
+            <summary>
+            契約資料
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.IOrganizationData">
+            <summary>
+            組織資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IOrganizationData.Parent">
+            <summary>
+            上層組織
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IOrganizationData.OrganizationType">
+            <summary>
+            組織類型
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IOrganizationData.Principal">
+            <summary>
+            負責人
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IOrganizationData.Departments">
+            <summary>
+            部門
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.IPartitionData">
+            <summary>
+            區間資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IPartitionData.Location">
+            <summary>
+            位置描述
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IPartitionData.OpenTime">
+            <summary>
+            開放時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IPartitionData.CloseTime">
+            <summary>
+            關閉時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IPartitionData.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.IPurchaseCostData">
+            <summary>
+            進貨成本之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IPurchaseCostData.Material">
+            <summary>
+            物料資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IPurchaseCostData.Supplier">
+            <summary>
+            供應商資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IPurchaseCostData.Cost">
+            <summary>
+            成本
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IPurchaseCostData.Priority">
+            <summary>
+            優先權
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IPurchaseCostData.LastPurchaseDate">
+            <summary>
+            上次訂購日期
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.IPurchaseOrderData">
+            <summary>
+            採購資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IPurchaseOrderData.Submitter">
+            <summary>
+            提交人員
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IPurchaseOrderData.Time">
+            <summary>
+            時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IPurchaseOrderData.Supplier">
+            <summary>
+            供應商資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IPurchaseOrderData.ShippingDate">
+            <summary>
+            出貨日期
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IPurchaseOrderData.ArrivalDate">
+            <summary>
+            到貨日期
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IPurchaseOrderData.Warehouse">
+            <summary>
+            倉庫資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IPurchaseOrderData.Items">
+            <summary>
+            採購項目
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IPurchaseOrderData.Amount">
+            <summary>
+            金額
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IPurchaseOrderData.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IPurchaseOrderData.Status">
+            <summary>
+            狀態
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.IPurchaseOrderItemData">
+            <summary>
+            採購項目資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IPurchaseOrderItemData.Product">
+            <summary>
+            商品資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IPurchaseOrderItemData.Price">
+            <summary>
+            單價
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IPurchaseOrderItemData.Quantity">
+            <summary>
+            數量
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IPurchaseOrderItemData.Amount">
+            <summary>
+            金額
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IPurchaseOrderItemData.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.IRetailOutletData">
+            <summary>
+            銷售管道之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IRetailOutletData.Type">
+            <summary>
+            類型
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IRetailOutletData.StartTime">
+            <summary>
+            開始時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IRetailOutletData.EndTime">
+            <summary>
+            結束時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IRetailOutletData.Store">
+            <summary>
+            所屬零售商
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IRetailOutletData.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.ISchoolingData">
+            <summary>
+            就學資料的基礎類別
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ISchoolingData.School">
+            <summary>
+            學校
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ISchoolingData.Department">
+            <summary>
+            科系
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ISchoolingData.StartDate">
+            <summary>
+            開始時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ISchoolingData.EndDate">
+            <summary>
+            結束時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ISchoolingData.Status">
+            <summary>
+            就學狀態
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.ISignaturable">
+            <summary>
+            表示可以對其進行數位簽章
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ISignaturable.Signatures">
+            <summary>
+            簽章
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ISignaturable.CurrentSignatureLevel">
+            <summary>
+            目前簽核層級
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ISignaturable.Approved">
+            <summary>
+            已批准
+            </summary>
+        </member>
+        <member name="M:System.Framework.Business.ISignaturable.GetContentBytes">
+            <summary>
+            取得簽章對象之內容
+            </summary>
+            <returns>位元組表示之內容</returns>
+        </member>
+        <member name="T:System.Framework.Business.ISignatureData">
+            <summary>
+            數位簽章的介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ISignatureData.Signatory">
+            <summary>
+            簽署人
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ISignatureData.Department">
+            <summary>
+            簽核部門
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ISignatureData.Document">
+            <summary>
+            可簽章文件
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ISignatureData.Level">
+            <summary>
+            層級
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ISignatureData.Approved">
+            <summary>
+            批准
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ISignatureData.Comment">
+            <summary>
+            意見
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ISignatureData.AlgorthmType">
+            <summary>
+            演算法類型
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.ISignatureData.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.IStoreData">
+            <summary>
+            商店資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IStoreData.RetailOutlets">
+            <summary>
+            銷售通路
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.IVendorData">
+            <summary>
+            廠商資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IVendorData.ShortCode">
+            <summary>
+            簡碼
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IVendorData.Categories">
+            <summary>
+            類型
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IVendorData.FactoryAddress">
+            <summary>
+            工廠地址
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.IWarehouseData">
+            <summary>
+            倉庫資料之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IWarehouseData.Type">
+            <summary>
+            類型
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IWarehouseData.Department">
+            <summary>
+            部門
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IWarehouseData.Principal">
+            <summary>
+            負責人
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IWarehouseData.Phone">
+            <summary>
+            電話
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IWarehouseData.Fax">
+            <summary>
+            傳真
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IWarehouseData.Email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IWarehouseData.Address">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:System.Framework.Business.IWarehouseData.Remark">
+            <summary>
+            備註
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.ContractStatus">
+            <summary>
+            契約狀態
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.ContractStatus.Pendding">
+            <summary>
+            擱置中
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.ContractStatus.Established">
+            <summary>
+            已成立
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.ContractStatus.Breached">
+            <summary>
+            已違約
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.ContractStatus.Voided">
+            <summary>
+            已廢止
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.ContractStatus.Finished">
+            <summary>
+            已完成
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.CustomerStatus">
+            <summary>
+            客戶狀態
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.CustomerStatus.Confirming">
+            <summary>
+            確認中
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.CustomerStatus.Enabled">
+            <summary>
+            已啟用
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.CustomerStatus.Disabled">
+            <summary>
+            已禁用
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.CustomerStatus.Expired">
+            <summary>
+            已失效
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.CustomerStatus.Other">
+            <summary>
+            其他
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.CustomerType">
+            <summary>
+            客戶類型列舉。
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.CustomerType.NaturalPerson">
+            <summary>
+            自然人
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.CustomerType.Corporation">
+            <summary>
+            財團(法人)
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.CustomerType.Association">
+            <summary>
+            社團(法人)
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.CustomerType.Charitableorganization">
+            <summary>
+            公益團體(法人)
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.CustomerType.Company">
+            <summary>
+            公司(法人)
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.EmployeeStatus">
+            <summary>
+            人員狀態
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.EmployeeStatus.Confirming">
+            <summary>
+            確認中
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.EmployeeStatus.Enabled">
+            <summary>
+            已啟用
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.EmployeeStatus.Disabled">
+            <summary>
+            已禁用
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.EmployeeStatus.Resigned">
+            <summary>
+            已離職
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.EmployeeStatus.Other">
+            <summary>
+            其他
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.EmploymentStatus">
+            <summary>
+            聘僱狀態之列舉
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.EmploymentStatus.Employed">
+            <summary>
+            已就職
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.EmploymentStatus.External">
+            <summary>
+            外聘中
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.EmploymentStatus.Leave">
+            <summary>
+            已離職
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.LegalPersonType">
+            <summary>
+            法人類型
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.LegalPersonType.PublicLegalAssociation">
+            <summary>
+            公法社團
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.LegalPersonType.PublicLegalCorporation">
+            <summary>
+            公法財團
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.LegalPersonType.PublicBuilding">
+            <summary>
+            公共營造物
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.LegalPersonType.PublicLegalOtherPerson">
+            <summary>
+            其他公法人
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.LegalPersonType.ProfitLedgalAssociation">
+            <summary>
+            營利社團法人
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.LegalPersonType.LedgalAssociation">
+            <summary>
+            中間社團法人
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.LegalPersonType.CharitableOrganization">
+            <summary>
+            公益社團法人
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.LegalPersonType.LegalCorporation">
+            <summary>
+            財團法人
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.LegalPersonType.NongovernmentalOrganization">
+            <summary>
+            非政府組織(NGO)
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.OrganizationType">
+            <summary>
+            組織類型
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.OrganizationType.Corporation">
+            <summary>
+            財團
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.OrganizationType.Association">
+            <summary>
+            社團
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.OrganizationType.CharitableOrganization">
+            <summary>
+            公益團體
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.OrganizationType.NongovernmentalOrganization">
+            <summary>
+            非政府組織(NGO)
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.PurchaseOrderStatus">
+            <summary>
+            採購單狀態
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.PurchaseOrderStatus.Pendding">
+            <summary>
+            閒置中
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.PurchaseOrderStatus.Approved">
+            <summary>
+            已核准
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.PurchaseOrderStatus.Refused">
+            <summary>
+            已否決
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.PurchaseOrderStatus.InProgress">
+            <summary>
+            進行中
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.PurchaseOrderStatus.PartStocked">
+            <summary>
+            部分進貨
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.PurchaseOrderStatus.StockFinished">
+            <summary>
+            已進貨
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.PurchaseOrderStatus.Finished">
+            <summary>
+            已完成
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.PurchaseOrderStatus.Canceled">
+            <summary>
+            已取消
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.RetailOutletType">
+            <summary>
+            銷售管道類型
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.RetailOutletType.Store">
+            <summary>
+            店面
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.RetailOutletType.Franchisee">
+            <summary>
+            經銷商
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.RetailOutletType.Internet">
+            <summary>
+            網路
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.RetailOutletType.Exhibition">
+            <summary>
+            展覽
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.RetailOutletType.Agent">
+            <summary>
+            代理商
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.RetailOutletType.Distributor">
+            <summary>
+            分銷商/通路商
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.SchoolingStatus">
+            <summary>
+            就學狀態之列舉
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.SchoolingStatus.Registered">
+            <summary>
+            已註冊
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.SchoolingStatus.Studying">
+            <summary>
+            就讀中
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.SchoolingStatus.Suspending">
+            <summary>
+            休學中
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.SchoolingStatus.Undergraduated">
+            <summary>
+            已肄業
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.SchoolingStatus.Graduated">
+            <summary>
+            已畢業
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.SchoolingStatus.Leave">
+            <summary>
+            已退學
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.WarehouseType">
+            <summary>
+            倉庫類型
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.WarehouseType.Storage">
+            <summary>
+            存貨倉
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.WarehouseType.Nonstorage">
+            <summary>
+            非存貨倉
+            </summary>
+        </member>
+        <member name="T:System.Framework.Business.WarehouseUse">
+            <summary>
+            倉庫用途
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.WarehouseUse.SafetyStock">
+            <summary>
+            安全庫存
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.WarehouseUse.TransportationInventory">
+            <summary>
+            運輸庫存
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.WarehouseUse.LotSizeInventory">
+            <summary>
+            批次庫存
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.WarehouseUse.AnticipationInventory">
+            <summary>
+            預期庫存
+            </summary>
+        </member>
+        <member name="F:System.Framework.Business.WarehouseUse.HedgeInventory">
+            <summary>
+            避險庫存
+            </summary>
+        </member>
+    </members>
+</doc>

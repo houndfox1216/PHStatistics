@@ -1,0 +1,8 @@
+2024-12-20 15:52:08.0721[10] ERROR HomeController  The process cannot access the file 'C:\Leo\其他\Kuri\人數表\人數統計表網站帳密資料_20241218.xlsx' because it is being used by another process.
+System.IO.IOException: The process cannot access the file 'C:\Leo\其他\Kuri\人數表\人數統計表網站帳密資料_20241218.xlsx' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access)
+   at PHStatistics.Portal.Controllers.HomeController.ImportMemberData(String type) in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\HomeController.cs:line 298

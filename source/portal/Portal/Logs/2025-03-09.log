@@ -1,0 +1,10 @@
+2025-03-09 15:16:29.9274[10]  INFO HomeController  進入首頁 IsGuest True
+2025-03-09 15:18:44.2181[18]  INFO MemberController  Member Login account: password: 
+2025-03-09 16:51:44.1649[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-03-09 16:51:44.2724[18]  INFO MemberController  Member Login account: password: 
+2025-03-09 16:53:31.7853[26]  INFO MemberController  Member Login account:neihu password:26271038 
+2025-03-09 16:53:31.8758[26]  INFO MemberController  進行登入 
+2025-03-09 16:53:32.1426[26] ERROR MemberController  One or more errors occurred. (No sign-in authentication handlers are registered. Did you forget to call AddAuthentication().AddCookie("Cookies",...)?)
+System.InvalidOperationException: No sign-in authentication handlers are registered. Did you forget to call AddAuthentication().AddCookie("Cookies",...)?
+   at Microsoft.AspNetCore.Authentication.AuthenticationService.SignInAsync(HttpContext context, String scheme, ClaimsPrincipal principal, AuthenticationProperties properties)
+2025-03-09 17:15:18.7112[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True

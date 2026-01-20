@@ -1,0 +1,76 @@
+2025-11-08 17:35:20.7307[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-08 17:35:20.7386[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-08 17:35:21.0033[13]  INFO MemberController  Member Login account: password: 
+2025-11-08 17:42:40.1802[15]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-08 17:42:40.1867[15]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-08 17:42:40.2746[15]  INFO MemberController  Member Login account: password: 
+2025-11-08 17:43:45.1660[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-08 17:43:45.1660[13]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-08 17:43:45.2377[22]  INFO MemberController  Member Login account: password: 
+2025-11-08 17:45:30.8967[9]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-08 17:45:30.8967[9]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-08 17:45:30.9789[11]  INFO MemberController  Member Login account: password: 
+2025-11-08 17:47:52.7757[15]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-08 17:47:52.7817[15]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-08 17:47:52.9231[7]  INFO MemberController  Member Login account: password: 
+2025-11-08 17:57:37.5823[15]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-08 17:57:37.5823[15]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-08 17:57:37.6594[7]  INFO MemberController  Member Login account: password: 
+2025-11-08 18:00:51.0899[19]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-08 18:00:51.0978[19]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-08 18:00:51.1710[9]  INFO MemberController  Member Login account: password: 
+2025-11-08 18:05:30.8581[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-08 18:05:30.8646[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-08 18:05:30.9587[18]  INFO MemberController  Member Login account: password: 
+2025-11-08 18:06:34.8649[13] ERROR HomeController  匯入EXCEL錯誤The input string '' was not in a correct format.
+2025-11-08 18:06:34.8804[13] ERROR HomeController  匯入EXCEL錯誤The input string '' was not in a correct format.
+2025-11-08 18:13:29.2338[31] ERROR HomeController  匯入EXCEL錯誤The input string '' was not in a correct format.
+2025-11-08 18:13:30.0743[31] ERROR HomeController  匯入EXCEL錯誤The input string '' was not in a correct format.
+2025-11-08 18:13:50.5943[34] ERROR HomeController  匯入EXCEL錯誤The input string '' was not in a correct format.
+2025-11-08 18:13:51.7624[34] ERROR HomeController  匯入EXCEL錯誤The input string '' was not in a correct format.
+2025-11-08 18:17:45.0049[19]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-08 18:17:45.0049[19]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-08 18:17:45.0907[11]  INFO MemberController  Member Login account: password: 
+2025-11-08 18:18:57.3465[19]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-08 18:18:57.3465[19]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-08 18:18:57.4379[22]  INFO MemberController  Member Login account: password: 
+2025-11-08 18:19:44.1417[16] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-08 18:19:45.0255[16] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-08 18:22:11.5994[19]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-08 18:22:11.6115[19]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-08 18:22:11.7020[22]  INFO MemberController  Member Login account: password: 
+2025-11-08 18:22:19.1654[15] ERROR HomeController  匯入EXCEL錯誤An error occurred while saving the entity changes. See the inner exception for details.
+2025-11-08 18:22:21.4091[15] ERROR HomeController  匯入EXCEL錯誤An error occurred while saving the entity changes. See the inner exception for details.
+2025-11-08 18:22:23.2887[15] ERROR HomeController  匯入EXCEL錯誤An error occurred while saving the entity changes. See the inner exception for details.
+2025-11-08 18:22:23.7320[15] ERROR HomeController  匯入EXCEL錯誤An error occurred while saving the entity changes. See the inner exception for details.
+2025-11-08 18:22:24.2125[15] ERROR HomeController  匯入EXCEL錯誤An error occurred while saving the entity changes. See the inner exception for details.
+2025-11-08 18:22:28.2340[15] ERROR HomeController  匯入EXCEL錯誤An error occurred while saving the entity changes. See the inner exception for details.
+2025-11-08 18:22:30.9199[15] ERROR HomeController  匯入EXCEL錯誤An error occurred while saving the entity changes. See the inner exception for details.
+2025-11-08 18:22:31.3055[15] ERROR HomeController  匯入EXCEL錯誤An error occurred while saving the entity changes. See the inner exception for details.
+2025-11-08 18:22:31.6200[15] ERROR HomeController  匯入EXCEL錯誤An error occurred while saving the entity changes. See the inner exception for details.
+2025-11-08 18:22:31.9613[15] ERROR HomeController  匯入EXCEL錯誤An error occurred while saving the entity changes. See the inner exception for details.
+2025-11-08 18:22:34.9698[15] ERROR HomeController  匯入EXCEL錯誤An error occurred while saving the entity changes. See the inner exception for details.
+2025-11-08 18:22:40.5040[15] ERROR HomeController  匯入EXCEL錯誤An error occurred while saving the entity changes. See the inner exception for details.
+2025-11-08 18:22:40.9137[15] ERROR HomeController  匯入EXCEL錯誤An error occurred while saving the entity changes. See the inner exception for details.
+2025-11-08 18:22:47.6331[15] ERROR HomeController  匯入EXCEL錯誤An error occurred while saving the entity changes. See the inner exception for details.
+2025-11-08 18:24:38.8098[32] ERROR HomeController  匯入EXCEL錯誤An error occurred while saving the entity changes. See the inner exception for details.
+2025-11-08 18:24:39.9237[32] ERROR HomeController  匯入EXCEL錯誤An error occurred while saving the entity changes. See the inner exception for details.
+2025-11-08 18:24:41.1081[32] ERROR HomeController  匯入EXCEL錯誤An error occurred while saving the entity changes. See the inner exception for details.
+2025-11-08 18:24:41.3444[32] ERROR HomeController  匯入EXCEL錯誤An error occurred while saving the entity changes. See the inner exception for details.
+2025-11-08 18:24:41.5822[32] ERROR HomeController  匯入EXCEL錯誤An error occurred while saving the entity changes. See the inner exception for details.
+2025-11-08 18:24:44.1076[32] ERROR HomeController  匯入EXCEL錯誤An error occurred while saving the entity changes. See the inner exception for details.
+2025-11-08 18:26:21.5724[32] ERROR HomeController  匯入EXCEL錯誤An error occurred while saving the entity changes. See the inner exception for details.
+2025-11-08 18:28:43.3846[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-08 18:28:43.3922[13]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-08 18:28:43.4606[18]  INFO MemberController  Member Login account: password: 
+2025-11-08 18:32:33.5653[15]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-08 18:32:33.5805[15]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-08 18:32:33.6608[7]  INFO MemberController  Member Login account: password: 
+2025-11-08 18:33:59.0479[19]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-08 18:33:59.0479[19]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-08 18:33:59.1304[19]  INFO MemberController  Member Login account: password: 
+2025-11-08 19:00:49.7392[16]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-08 19:00:49.7392[16]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-08 19:00:49.8375[22]  INFO MemberController  Member Login account: password: 
+2025-11-08 19:01:03.6039[19] ERROR HomeController  匯入EXCEL錯誤An exception was thrown while attempting to evaluate a LINQ query parameter expression. See the inner exception for more information. To show additional information call 'DbContextOptionsBuilder.EnableSensitiveDataLogging'.
+2025-11-08 19:01:03.6224[19] ERROR HomeController  匯入EXCEL錯誤An exception was thrown while attempting to evaluate a LINQ query parameter expression. See the inner exception for more information. To show additional information call 'DbContextOptionsBuilder.EnableSensitiveDataLogging'.

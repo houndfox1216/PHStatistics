@@ -1,0 +1,61 @@
+2025-05-19 22:24:53.7381[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-19 22:24:53.7443[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-19 22:24:53.8026[10]  INFO MemberController  Member Login account: password: 
+2025-05-19 22:24:56.8766[16]  INFO HomeController  進入ImportExcelData
+2025-05-19 22:24:56.9285[16]  INFO HomeController  讀取路徑 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\
+2025-05-19 22:24:56.9285[16]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\~$中正.xlsx
+2025-05-19 22:24:57.1667[16]  INFO HomeController  解析 ~$中正 檔案失敗 exThe process cannot access the file 'C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\~$中正.xlsx' because it is being used by another process. ex.InnerException 
+2025-05-19 22:24:57.1667[16]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\中正.xlsx
+2025-05-19 22:24:57.2229[16]  INFO HomeController  解析 中正 檔案失敗 exThe process cannot access the file 'C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\中正.xlsx' because it is being used by another process. ex.InnerException 
+2025-05-19 22:24:59.5290[18]  INFO HomeController  進入ImportExcelData
+2025-05-19 22:24:59.5290[18]  INFO HomeController  讀取路徑 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\
+2025-05-19 22:24:59.5290[18]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\~$中正.xlsx
+2025-05-19 22:24:59.5789[18]  INFO HomeController  解析 ~$中正 檔案失敗 exThe process cannot access the file 'C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\~$中正.xlsx' because it is being used by another process. ex.InnerException 
+2025-05-19 22:24:59.5789[18]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\中正.xlsx
+2025-05-19 22:24:59.6121[18]  INFO HomeController  解析 中正 檔案失敗 exThe process cannot access the file 'C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\中正.xlsx' because it is being used by another process. ex.InnerException 
+2025-05-19 22:25:03.7448[10]  INFO HomeController  進入ImportExcelData
+2025-05-19 22:25:03.7448[10]  INFO HomeController  讀取路徑 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\
+2025-05-19 22:25:03.7448[10]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\中正.xlsx
+2025-05-19 22:27:40.5722[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-19 22:27:40.5722[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-19 22:27:40.6433[10]  INFO MemberController  Member Login account: password: 
+2025-05-19 22:28:01.6955[33]  INFO HomeController  進入ImportExcelData
+2025-05-19 22:28:01.6955[33]  INFO HomeController  讀取路徑 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\
+2025-05-19 22:28:01.6955[33]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\中正.xlsx
+2025-05-19 22:28:29.0875[17]  INFO HomeController  進入ImportExcelData
+2025-05-19 22:28:29.0875[17]  INFO HomeController  讀取路徑 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\
+2025-05-19 22:28:29.0875[17]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\中正.xlsx
+2025-05-19 22:29:39.8462[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-19 22:29:39.8523[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-19 22:29:39.9172[18]  INFO MemberController  Member Login account: password: 
+2025-05-19 22:29:45.1106[5]  INFO HomeController  進入ImportExcelData
+2025-05-19 22:29:45.1106[5]  INFO HomeController  讀取路徑 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\
+2025-05-19 22:29:45.1106[5]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\中正.xlsx
+2025-05-19 22:30:42.7393[10]  INFO HomeController  進入ImportExcelData
+2025-05-19 22:30:42.7393[10]  INFO HomeController  讀取路徑 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\
+2025-05-19 22:30:42.7393[10]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\中正.xlsx
+2025-05-19 22:30:57.0394[11]  INFO HomeController  進入ImportExcelData
+2025-05-19 22:30:57.0394[11]  INFO HomeController  讀取路徑 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\
+2025-05-19 22:30:57.0394[11]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\中正.xlsx
+2025-05-19 22:31:23.1356[10]  INFO HomeController  進入ImportExcelData
+2025-05-19 22:31:23.1356[10]  INFO HomeController  讀取路徑 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\
+2025-05-19 22:31:23.1356[10]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\中正.xlsx
+2025-05-19 22:35:26.8242[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-19 22:35:26.8242[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-19 22:35:26.8976[10]  INFO MemberController  Member Login account: password: 
+2025-05-19 22:35:36.8894[19]  INFO HomeController  進入ImportExcelData
+2025-05-19 22:35:36.8894[19]  INFO HomeController  讀取路徑 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\
+2025-05-19 22:35:36.8894[19]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\中正.xlsx
+2025-05-19 22:53:59.5182[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-19 22:53:59.5246[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-19 22:53:59.6036[18]  INFO MemberController  Member Login account: password: 
+2025-05-19 22:55:53.0109[23]  INFO HomeController  進入ImportExcelData
+2025-05-19 22:55:53.0109[23]  INFO HomeController  讀取路徑 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\
+2025-05-19 22:55:53.0109[23]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\中正.xlsx
+2025-05-19 23:08:57.9531[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-19 23:08:57.9617[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-19 23:08:58.0336[7]  INFO MemberController  Member Login account: password: 
+2025-05-19 23:09:59.2098[25]  INFO HomeController  進入ImportExcelData
+2025-05-19 23:09:59.2098[25]  INFO HomeController  讀取路徑 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\
+2025-05-19 23:09:59.2098[25]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\中正.xlsx
+2025-05-19 23:18:52.4822[25]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\仁武.xlsx

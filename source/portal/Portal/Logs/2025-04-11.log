@@ -1,0 +1,12 @@
+2025-04-11 15:20:47.0012[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-11 15:20:47.0080[11]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2025-04-11 15:20:47.0973[10]  INFO MemberController  Member Login account: password: 
+2025-04-11 15:21:26.5167[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-11 15:21:26.5222[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-11 15:21:26.5987[18]  INFO MemberController  Member Login account: password: 
+2025-04-11 15:21:55.6102[20]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-04-11 15:22:17.1972[35]  INFO MemberController  Member Login account:neihu password:26271038 
+2025-04-11 15:22:17.2885[35]  INFO MemberController  進行登入 
+2025-04-11 15:22:17.4344[35]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-04-11 15:22:17.5243[20]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-04-11 15:22:17.5243[20]  INFO HomeController  進入首頁

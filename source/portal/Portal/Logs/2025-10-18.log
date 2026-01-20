@@ -1,0 +1,29 @@
+2025-10-18 16:56:54.1795[15]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-10-18 16:56:54.1883[15]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-10-18 16:56:54.3691[17]  INFO MemberController  Member Login account: password: 
+2025-10-18 17:07:37.5318[27]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-10-18 17:07:37.7078[27]  INFO MemberController  進行登入 
+2025-10-18 17:07:37.8528[27]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-10-18 17:07:37.9371[29]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-10-18 17:07:37.9371[29]  INFO HomeController  進入首頁
+2025-10-18 17:18:42.6925[7]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-10-18 17:18:42.6925[7]  INFO HomeController  進入首頁
+2025-10-18 17:39:33.0927[15]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-10-18 17:39:33.0981[15]  INFO HomeController  進入首頁
+2025-10-18 17:46:57.4296[7]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-10-18 17:46:57.4396[7]  INFO HomeController  進入首頁
+2025-10-18 18:19:19.0711[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-10-18 18:19:19.0795[13]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-10-18 18:19:19.2146[18]  INFO MemberController  Member Login account: password: 
+2025-10-18 18:25:45.3609[31]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-10-18 18:26:02.6659[29]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-10-18 18:26:02.6944[29]  INFO MemberController  進行登入 
+2025-10-18 18:26:02.7086[29]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-10-18 18:26:02.7335[31]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-10-18 18:26:02.7335[31]  INFO HomeController  進入首頁
+2025-10-18 18:27:39.7113[15]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-10-18 18:27:39.7243[15]  INFO HomeController  進入首頁
+2025-10-18 18:27:59.2249[15]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-10-18 18:27:59.2249[15]  INFO HomeController  進入首頁
+2025-10-18 18:30:08.0017[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-10-18 18:30:08.0017[11]  INFO HomeController  進入首頁

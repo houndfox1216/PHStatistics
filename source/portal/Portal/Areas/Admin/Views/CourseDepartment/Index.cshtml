@@ -1,0 +1,63 @@
+@{
+    ViewBag.Title = "班系管理";
+}
+
+<div class="card">
+    <div class="card-body">
+        @(Html.DevExtreme().DataGrid<CourseDepartment>()
+            .ID("gridDepartments")
+            .DataSource(ds => ds.Mvc()
+                .Controller("CourseDepartment")
+                .Area("Admin")
+                .LoadAction("GetCourseDepartments")
+                .InsertAction("Create")
+                .UpdateAction("Update")
+                .DeleteAction("Delete")
+                .Key("Id")
+            )
+            .RemoteOperations(true)
+            .ShowBorders(true)
+            .ShowRowLines(true)
+            .AllowColumnResizing(true)
+            .ColumnAutoWidth(true)
+            .RowAlternationEnabled(true)
+            .Paging(paging => paging.PageSize(20))
+            .Pager(pager => pager
+                .Visible(true)
+                .ShowPageSizeSelector(true)
+                .AllowedPageSizes(new[] { 10, 20, 50, 100 })
+                .ShowInfo(true)
+            )
+            .Editing(editing => editing
+                .Mode(GridEditMode.Popup)
+                .AllowAdding(true)
+                .AllowUpdating(true)
+                .AllowDeleting(true)
+                .UseIcons(true)
+                .Popup(popup => popup
+                    .Title("班系資料")
+                    .ShowTitle(true)
+                    .Width(600)
+                    .Height("auto")
+                )
+            )
+            .FilterRow(f => f.Visible(true))
+            .SearchPanel(s => s.Visible(true).Width(240).Placeholder("搜尋..."))
+            .HeaderFilter(h => h.Visible(true))
+            .Columns(columns => {
+                columns.AddFor(m => m.Id).Width(80).AllowEditing(false);
+                columns.AddFor(m => m.Name).Caption("名稱");
+                columns.AddFor(m => m.Subject).Caption("學科").Width(100);
+                columns.AddFor(m => m.Company).Caption("所屬公司").Width(120);
+                columns.AddFor(m => m.Ordinal).Caption("排列順序").Width(100);
+                columns.AddFor(m => m.IsSum).Caption("加總").Width(80);
+                columns.AddFor(m => m.Published).Caption("已發佈").Width(80);
+                columns.AddFor(m => m.Type).Caption("所屬單位").Width(100);
+            })
+            .Toolbar(toolbar => toolbar.Items(items => {
+                items.Add().Name("addRowButton");
+                items.Add().Name("searchPanel");
+            }))
+        )
+    </div>
+</div>

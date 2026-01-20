@@ -1,0 +1,16 @@
+2025-04-01 14:05:48.4234[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-01 14:05:48.4234[11]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2025-04-01 14:07:24.7388[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-01 14:07:24.7388[11]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2025-04-01 14:07:24.8123[17]  INFO MemberController  Member Login account: password: 
+2025-04-01 14:09:50.4452[34]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-01 14:09:50.4452[34]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2025-04-01 14:09:50.4551[34]  INFO MemberController  Member Login account: password: 
+2025-04-01 14:10:04.1682[36]  INFO MemberController  Member Login account:sysadmin password:53906052 
+2025-04-01 14:10:04.1878[36]  INFO MemberController  進行登入 
+2025-04-01 14:10:04.2043[36]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-04-01 14:10:04.2412[39]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-04-01 14:10:04.2412[39]  INFO HomeController  進入首頁
+2025-04-01 14:10:36.2354[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-01 14:10:36.2354[10]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2025-04-01 14:10:36.3669[5]  INFO MemberController  Member Login account: password: 

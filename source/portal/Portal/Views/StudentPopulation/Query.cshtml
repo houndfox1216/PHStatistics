@@ -1,0 +1,173 @@
+﻿@using PHStatistics.Content
+@model StudentPopulation
+@{
+    List<SchoolAssignment> schools = new List<SchoolAssignment>();
+    if (ViewBag.Schools != null) {
+        schools = (List<SchoolAssignment>)ViewBag.Schools;
+    }
+
+    if (ViewBag.Weeks != null) {
+        schools = (List<SchoolAssignment>)ViewBag.Schools;
+    }
+    string addType = ViewBag.Type;
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center mb-6">
+        <div class="col-12 col-sm-10 col-md-8 col-xl-6">
+            <div class="mt-3 mb-4">
+                @if (schools != null) {
+                    <label for="">
+                        分校 <small class="text-primary">＊必填</small>
+                    </label>
+                    <select class="form-select validate[required]" id="schoolSelect">
+                        <option selected disabled>選擇分校</option>
+                        @foreach (SchoolAssignment assignment in schools) {
+                            <option value=@assignment.School.Id>@assignment.School.Name</option>
+                        }
+                    </select>
+                    if (ViewBag.Years != null) {
+                        int[] years = (int[])ViewBag.Years;
+                        <label for="">
+                            年度
+                        </label>
+                        <select class="form-select " id="queryYear">
+                            <option selected disabled>選擇年度</option>
+                            <option value=0>全部</option>
+                            @foreach (int yearItem in years) {
+                                <option value=@yearItem>@yearItem.ToString()</option>
+                            }
+                        </select>
+                    }
+                    if (ViewBag.Weeks != null) {
+                        int[] weeks = (int[])ViewBag.Weeks;
+                        <label for="">
+                            週次
+                        </label>
+                        <select class="form-select " id="queryWeek">
+                            <option selected disabled>選擇週次</option>
+                            <option value=0>全部</option>
+                            @foreach (int weeekItem in weeks) {
+                                <option value=@weeekItem>@weeekItem.ToString()</option>
+                            }
+                        </select>
+                    }
+                    <label for="">
+                        類型 <small class="text-primary">＊必填</small>
+                    </label>
+                    <select class="form-select validate[required]" id="reportType">
+                        <option selected disabled>選擇類型</option>
+                        <option value="PH">百瀚</option>
+                        <option value="GEPG">英檢</option>
+                        <option value="PSJ">百倍速</option>
+                        <option value="PS">百世</option>
+                        <option value="AS">課輔班</option>
+                    </select>
+                }
+            </div>
+            <div class="">
+                <button type="button" class="btn btn-primary btn-lg btn-round" id="queryPHBtn">
+                    查詢 <i class="fas fa-paper-plane"></i>
+                </button>
+                <button type="button" class="btn btn-primary btn-lg btn-round" id="exportBtn">
+                    匯出 <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+            <div id="contentItem">
+                @await Html.PartialAsync("QueryPopulationPartialView", Model)
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+            $('#queryPHBtn').on('click', function () {
+             console.log('schoolSelect', $('#schoolSelect').val());
+             console.log('queryYear', $('#queryYear').val());
+             console.log('queryWeek', $('#queryWeek').val());
+              console.log('reportType', $('#reportType').val());
+            $.ajax({
+                   url: '@Url.Action("QueryPopulationPartial", "StudentPopulation")',
+                   cache: false,
+                   data: { 'schoolId': $('#schoolSelect').val(), 'week': $('#queryWeek').val(), 'year': $('#queryYear').val(), 'reportType':  $('#reportType').val() },
+                   // dataType: 'application/json',
+                   type: 'POST',
+                   dataType: "html",
+                   success: function (data) {
+                       $("#contentItem").html(data);
+                   },
+                   error: function () {
+
+                   }
+            });
+        });
+
+            $('#exportBtn').on('click', function () {
+             console.log('schoolSelect', $('#schoolSelect').val());
+             console.log('queryYear', $('#queryYear').val());
+             console.log('queryWeek', $('#queryWeek').val());
+              console.log('reportType', $('#reportType').val());
+              window.open('@Url.Action("ExportPopulationPartial", "StudentPopulation")?schoolId=' + $('#schoolSelect').val() + '&week=' + $('#queryWeek').val() + '&year=' +  $('#queryYear').val() + '&reportType=' +$('#reportType').val()  );
+            // $.ajax({
+            //        url: '@Url.Action("ExportPopulationPartial", "StudentPopulation")',
+            //        cache: false,
+            //        data: { 'schoolId': $('#schoolSelect').val(), 'week': $('#queryWeek').val(), 'year': $('#queryYear').val(), 'reportType':  $('#reportType').val() },
+            //        // dataType: 'application/json',
+            //        type: 'GET',
+            //        dataType: "html",
+            //        success: function (data) {
+            //            alert("匯出完畢");
+            //        },
+            //        error: function () {
+
+            //        }
+            // });
+        });
+
+    // $(function () {
+    //      $('#queryPHBtn').on('click', function () {
+    //          console.log('schoolSelect', $('#schoolSelect').val());
+    //          console.log('queryYear', $('#queryYear').val());
+    //          console.log('queryWeek', $('#queryWeek').val());
+    //         $.ajax({
+    //                url: '@Url.Action("QueryPopulationPartial", "StudentPopulation")',
+    //                cache: false,
+    //                data: { 'schoolId': $('#schoolSelect').val(), 'week': $('#queryWeek').val(), 'year': $('#queryYear').val(), 'reportType':  $('#reportType').val() },
+    //                // dataType: 'application/json',
+    //                type: 'POST',
+    //                dataType: "html",
+    //                success: function (data) {
+    //                    $("#contentItem").html(data);
+    //                },
+    //                error: function () {
+
+    //                }
+    //         });
+    //     });
+    // },
+
+    //     function () {
+    //      $('#queryPHBtn').on('click', function () {
+    //          console.log('schoolSelect', $('#schoolSelect').val());
+    //          console.log('queryYear', $('#queryYear').val());
+    //          console.log('queryWeek', $('#queryWeek').val());
+    //         $.ajax({
+    //                url: '@Url.Action("QueryPopulationPartial", "StudentPopulation")',
+    //                cache: false,
+    //                data: { 'schoolId': $('#schoolSelect').val(), 'week': $('#queryWeek').val(), 'year': $('#queryYear').val(), 'reportType':  $('#reportType').val() },
+    //                // dataType: 'application/json',
+    //                type: 'POST',
+    //                dataType: "html",
+    //                success: function (data) {
+    //                    $("#contentItem").html(data);
+    //                },
+    //                error: function () {
+
+    //                }
+    //         });
+    //     });
+    // }
+
+    // )
+
+</script>

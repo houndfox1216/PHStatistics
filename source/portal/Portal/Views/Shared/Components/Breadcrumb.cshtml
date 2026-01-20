@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Menu ??= Html.Menu<DataContext>(Html.User<PortalUser>()).ToArray();
+    var breadcrumb = Html.Breadcrumb(ViewBag.Menu as SitemapNode[]);
+}
+
+<div class=" bg-secondary mt-1 mb-6">
+    <div class="container py-1">
+        <div class="row ">
+            <div class="col d-flex justify-content-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+
+                        @for (var i = 0; i < breadcrumb.Length; i++) {
+                            if (i == breadcrumb.Length - 1) {
+                                <li class="breadcrumb-item active">
+                                    <span>
+                                        @Html.ToI18n(breadcrumb[i].Title)
+                                    </span>
+                                    <i class="icon-angle-right"></i>
+                                </li>
+                            } else {
+                                <li class="breadcrumb-item">
+                                    <a href="@breadcrumb[i].To">
+                                        @Html.ToI18n(breadcrumb[i].Title)
+                                    </a>
+                                    <i class="icon-angle-right"></i>
+                                </li>
+                            }
+                        }
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+2025-03-08 19:15:08.1426[10]  INFO MemberController  Member Login account: password: 
+2025-03-08 19:16:20.4726[52]  INFO MemberController  Member Login account:neihu password:26271038 
+2025-03-08 19:16:20.5378[52]  INFO MemberController  進行登入 
+2025-03-08 19:16:20.6270[52]  INFO MemberController  進行登入完成 導入 / 
+2025-03-08 19:16:20.6728[47]  INFO HomeController  進入首頁
+2025-03-08 19:23:03.5560[10]  INFO MemberController  Member Login account: password: 
+2025-03-08 19:23:23.9374[19]  INFO MemberController  Member Login account:neihu password:26271038 
+2025-03-08 19:23:24.0126[19]  INFO MemberController  進行登入 
+2025-03-08 19:23:24.1178[19]  INFO MemberController  進行登入完成 導入 / 
+2025-03-08 19:23:24.1579[19]  INFO HomeController  進入首頁
+2025-03-08 19:33:38.6816[5]  INFO MemberController  Member Login account: password: 
+2025-03-08 19:43:31.8215[54]  INFO MemberController  Member Login account:neihu password:26271038 
+2025-03-08 19:43:31.9834[54]  INFO MemberController  進行登入 
+2025-03-08 19:43:32.0713[54]  INFO MemberController  進行登入完成 導入 / 
+2025-03-08 19:43:32.1233[53]  INFO HomeController  進入首頁
+2025-03-08 20:30:31.8685[5]  INFO MemberController  Member Login account: password: 
+2025-03-08 20:30:52.9296[5]  INFO MemberController  Member Login account:neihu password:26271038 
+2025-03-08 20:30:53.0103[5]  INFO MemberController  進行登入 
+2025-03-08 20:30:53.2063[5]  INFO MemberController  進行登入完成 導入 / 
+2025-03-08 20:30:53.2819[11]  INFO StudentPopulationController  進入首頁(MainMenu)
+2025-03-08 20:31:06.5575[17]  INFO HomeController  進入首頁
+2025-03-08 20:55:34.3812[10]  INFO HomeController  進入首頁
+2025-03-08 20:55:53.4655[7]  INFO HomeController  進入首頁
+2025-03-08 20:57:29.9636[5]  INFO MemberController  Member Login account: password: 
+2025-03-08 20:57:44.4840[19]  INFO MemberController  Member Login account:neihu password:26271038 
+2025-03-08 20:57:44.5497[19]  INFO MemberController  進行登入 
+2025-03-08 20:57:44.6575[19]  INFO MemberController  進行登入完成 導入 /Index System.Func`1[System.Boolean] 
+2025-03-08 20:57:44.7019[19]  INFO HomeController  進入首頁
+2025-03-08 20:57:54.8894[11]  INFO HomeController  進入首頁
+2025-03-08 20:58:01.7583[10]  INFO MemberController  Member Login account: password: 
+2025-03-08 20:58:20.0010[10]  INFO MemberController  Member Login account:neihu password:26271038 
+2025-03-08 20:58:20.0010[10]  INFO MemberController  進行登入 
+2025-03-08 20:58:20.0010[10]  INFO MemberController  進行登入完成 導入 /Index System.Func`1[System.Boolean] 
+2025-03-08 20:58:29.5418[19]  INFO HomeController  進入首頁
+2025-03-08 20:58:34.0997[18]  INFO MemberController  Member Login account: password: 
+2025-03-08 20:59:27.3087[7]  INFO MemberController  Member Login account: password: 
+2025-03-08 21:00:18.2035[10]  INFO MemberController  Member Login account:daan password:23253131 
+2025-03-08 21:00:18.2764[10]  INFO MemberController  進行登入 
+2025-03-08 21:00:18.3581[10]  INFO MemberController  進行登入完成 導入 /Index System.Func`1[System.Boolean] 
+2025-03-08 21:00:20.2666[27]  INFO HomeController  進入首頁

@@ -1,0 +1,50 @@
+2025-11-21 15:03:22.7929[19]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-21 15:03:22.7929[19]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-21 15:13:36.9466[16]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-21 15:13:36.9466[16]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-21 15:13:37.0540[20]  INFO MemberController  Member Login account: password: 
+2025-11-21 17:04:43.7179[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-21 17:04:43.7249[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-21 17:04:43.8092[18]  INFO MemberController  Member Login account: password: 
+2025-11-21 17:07:33.6488[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-21 17:07:33.6570[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-21 17:07:33.7563[18]  INFO MemberController  Member Login account: password: 
+2025-11-21 17:10:23.0835[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-21 17:10:23.0835[13]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-21 17:10:23.1712[9]  INFO MemberController  Member Login account: password: 
+2025-11-21 17:15:02.1946[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-21 17:15:02.1946[13]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-21 17:15:02.2846[7]  INFO MemberController  Member Login account: password: 
+2025-11-21 17:15:43.2131[20] ERROR HomeController  匯入EXCEL錯誤An exception was thrown while attempting to evaluate a LINQ query parameter expression. See the inner exception for more information. To show additional information call 'DbContextOptionsBuilder.EnableSensitiveDataLogging'.
+2025-11-21 17:15:43.2376[20] ERROR HomeController  匯入EXCEL錯誤An exception was thrown while attempting to evaluate a LINQ query parameter expression. See the inner exception for more information. To show additional information call 'DbContextOptionsBuilder.EnableSensitiveDataLogging'.
+2025-11-21 17:30:54.4105[15]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-21 17:30:54.4105[15]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-21 17:30:54.4848[18]  INFO MemberController  Member Login account: password: 
+2025-11-21 17:31:07.0141[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 17:31:11.2057[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 17:31:14.5522[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 17:31:18.4391[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 17:31:21.7615[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 17:31:27.2464[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 17:31:30.6050[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 17:31:35.2059[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 17:31:39.3276[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 17:31:42.7013[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 17:31:46.6233[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 17:31:49.9255[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 17:31:54.0654[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 17:31:58.6611[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 17:32:01.9473[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 17:32:05.6553[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 17:32:09.3134[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 17:32:12.6496[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 17:32:15.9867[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 17:32:19.4247[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 17:32:22.8142[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 17:32:26.7133[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 17:32:30.2565[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 17:32:33.6706[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 17:32:37.0095[20] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-11-21 19:04:31.8600[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-11-21 19:04:31.8600[13]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-11-21 19:04:31.9685[7]  INFO MemberController  Member Login account: password: 

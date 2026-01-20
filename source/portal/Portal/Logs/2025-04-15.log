@@ -1,0 +1,45 @@
+2025-04-15 16:02:06.3075[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-15 16:02:06.3133[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-15 16:02:06.4040[10]  INFO MemberController  Member Login account: password: 
+2025-04-15 16:02:37.8396[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-15 16:02:37.8490[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-15 16:02:37.9139[7]  INFO MemberController  Member Login account: password: 
+2025-04-15 18:04:57.0786[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-15 18:04:57.0786[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-15 18:04:57.2057[19]  INFO MemberController  Member Login account: password: 
+2025-04-15 18:08:12.9582[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-15 18:08:12.9582[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-15 18:08:13.0391[5]  INFO MemberController  Member Login account: password: 
+2025-04-15 18:11:24.9621[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-15 18:11:24.9687[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-15 18:11:25.0438[11]  INFO MemberController  Member Login account: password: 
+2025-04-15 18:15:52.2368[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-15 18:15:52.2368[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-15 18:15:52.3331[7]  INFO MemberController  Member Login account: password: 
+2025-04-15 18:23:47.6914[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-15 18:23:47.6914[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-15 18:23:47.8093[17]  INFO MemberController  Member Login account: password: 
+2025-04-15 18:26:40.6022[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-15 18:26:40.6088[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-15 18:26:40.6891[18]  INFO MemberController  Member Login account: password: 
+2025-04-15 18:30:31.2026[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-15 18:30:31.2026[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-15 18:30:31.2934[5]  INFO MemberController  Member Login account: password: 
+2025-04-15 18:33:48.7795[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-15 18:33:48.7850[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-15 18:33:48.8563[7]  INFO MemberController  Member Login account: password: 
+2025-04-15 18:45:25.3259[12]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-15 18:45:25.3331[12]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-15 18:45:25.4150[7]  INFO MemberController  Member Login account: password: 
+2025-04-15 18:55:05.4514[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-15 18:55:05.4570[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-15 18:55:05.5332[16]  INFO MemberController  Member Login account: password: 
+2025-04-15 18:56:11.3788[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-15 18:56:11.3788[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-15 18:56:11.4516[10]  INFO MemberController  Member Login account: password: 
+2025-04-15 19:03:22.0936[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-15 19:03:22.0936[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-15 19:03:22.1705[5]  INFO MemberController  Member Login account: password: 
+2025-04-15 19:04:41.0515[5]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-04-15 19:04:41.0515[5]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-04-15 19:04:41.1292[18]  INFO MemberController  Member Login account: password: 

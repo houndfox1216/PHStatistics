@@ -1,0 +1,25 @@
+2025-07-15 16:31:24.9530[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-07-15 16:31:24.9597[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-07-15 16:31:25.0726[18]  INFO MemberController  Member Login account: password: 
+2025-07-15 16:31:50.1410[19]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-07-15 16:31:50.2466[19]  INFO MemberController  進行登入 
+2025-07-15 16:31:50.4027[19]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-07-15 16:31:50.5033[21]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-15 16:31:50.5033[21]  INFO HomeController  進入首頁
+2025-07-15 16:49:24.3658[7]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-15 16:49:24.3800[7]  INFO HomeController  進入首頁
+2025-07-15 17:00:46.8432[10]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-15 17:00:46.8499[10]  INFO HomeController  進入首頁
+2025-07-15 17:02:22.5015[5]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-15 17:02:22.5103[5]  INFO HomeController  進入首頁
+2025-07-15 17:28:33.5135[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-15 17:28:33.5201[11]  INFO HomeController  進入首頁
+2025-07-15 18:22:33.0514[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-07-15 18:22:33.0514[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-07-15 18:22:33.0514[11]  INFO MemberController  Member Login account: password: 
+2025-07-15 18:22:33.0692[10]  INFO MemberController  Member Login account: password: 
+2025-07-15 18:22:52.8467[22]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-07-15 18:22:52.8794[22]  INFO MemberController  進行登入 
+2025-07-15 18:22:52.8794[22]  INFO MemberController  進行登入完成 導入 /StudentPopulation/CreatePopulation?schoolId=1 False 
+2025-07-15 18:22:52.9128[19]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-15 18:22:52.9128[19]  INFO HomeController  進入首頁

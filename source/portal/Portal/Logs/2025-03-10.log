@@ -1,0 +1,52 @@
+2025-03-10 18:05:14.0336[14]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-03-10 18:06:36.4156[5]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-03-10 18:07:49.9607[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-03-10 18:07:50.0354[5]  INFO MemberController  Member Login account: password: 
+2025-03-10 18:08:06.7325[18]  INFO MemberController  Member Login account:neihu password:26271038 
+2025-03-10 18:08:06.7965[18]  INFO MemberController  進行登入 
+2025-03-10 18:08:06.9459[18] ERROR MemberController  Value cannot be null. (Parameter 's')
+System.ArgumentNullException: Value cannot be null. (Parameter 's')
+   at System.ArgumentNullException.Throw(String paramName)
+   at System.Text.Encoding.GetBytes(String s)
+   at Microsoft.AspNetCore.Http.SessionExtensions.SetString(ISession session, String key, String value)
+   at PHStatistics.Portal.Controllers.MemberController.Login(String account, String password, String captcha, String token, String returnUrl) in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\MemberController.cs:line 24
+2025-03-10 18:08:30.2326[19]  INFO MemberController  Member Login account:neihu password:26271038 
+2025-03-10 18:08:30.2339[19]  INFO MemberController  進行登入 
+2025-03-10 18:08:30.2665[19] ERROR MemberController  Value cannot be null. (Parameter 's')
+System.ArgumentNullException: Value cannot be null. (Parameter 's')
+   at System.ArgumentNullException.Throw(String paramName)
+   at System.Text.Encoding.GetBytes(String s)
+   at Microsoft.AspNetCore.Http.SessionExtensions.SetString(ISession session, String key, String value)
+   at PHStatistics.Portal.Controllers.MemberController.Login(String account, String password, String captcha, String token, String returnUrl) in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\MemberController.cs:line 24
+2025-03-10 18:08:51.0838[11]  INFO MemberController  Member Login account:neihu password:26271038 
+2025-03-10 18:08:55.6712[11]  INFO MemberController  進行登入 
+2025-03-10 18:09:04.4903[11] ERROR MemberController  Value cannot be null. (Parameter 's')
+System.ArgumentNullException: Value cannot be null. (Parameter 's')
+   at System.ArgumentNullException.Throw(String paramName)
+   at System.Text.Encoding.GetBytes(String s)
+   at Microsoft.AspNetCore.Http.SessionExtensions.SetString(ISession session, String key, String value)
+   at PHStatistics.Portal.Controllers.MemberController.Login(String account, String password, String captcha, String token, String returnUrl) in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\MemberController.cs:line 24
+2025-03-10 18:09:19.0526[19]  INFO MemberController  Member Login account:neihu password:26271038 
+2025-03-10 18:09:23.1964[19]  INFO MemberController  進行登入 
+2025-03-10 18:12:10.0528[5]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-03-10 18:12:10.0528[5]  INFO HomeController  進入首頁
+2025-03-10 18:12:25.6141[11]  INFO MemberController  Member Login account: password: 
+2025-03-10 18:12:36.4741[17]  INFO MemberController  Member Login account:daan password:23253131 
+2025-03-10 18:12:36.4981[17]  INFO MemberController  進行登入 
+2025-03-10 18:12:36.5079[17]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-03-10 18:12:36.5249[18]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-03-10 18:12:36.5249[18]  INFO HomeController  進入首頁
+2025-03-10 18:13:23.2862[17]  INFO MemberController  Member Login account: password: 
+2025-03-10 18:13:33.9560[32]  INFO MemberController  Member Login account:nczs password:29526818 
+2025-03-10 18:13:33.9560[32]  INFO MemberController  進行登入 
+2025-03-10 18:13:33.9560[32]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-03-10 18:13:35.9683[32]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-03-10 18:13:35.9683[32]  INFO HomeController  進入首頁
+2025-03-10 18:15:24.1821[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-03-10 18:15:24.1886[11]  INFO HomeController  進入首頁
+2025-03-10 18:18:04.0169[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-03-10 18:18:04.0169[11]  INFO HomeController  進入首頁
+2025-03-10 18:19:42.0961[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-03-10 18:19:42.0961[11]  INFO HomeController  進入首頁
+2025-03-10 18:20:55.4715[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-03-10 18:20:55.4715[11]  INFO HomeController  進入首頁

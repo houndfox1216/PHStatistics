@@ -1,0 +1,51 @@
+
+.error_bg{
+    background-color: $gray-100;
+}
+
+// .error-title {
+//     font-size: 50px;
+//     i {
+//         font-size: 60px;
+//     }
+// }
+
+
+.error404, .error500{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-image: url(/Content/images/error/404bg.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+    @media (max-width:768px) {
+        background-size: cover;
+        background-position-x: -100%;
+        
+    }
+
+    h1, h3{
+        letter-spacing: .5rem;
+    }
+
+    @media (max-width:768px) {
+        .row-2{
+            flex-direction: column-reverse;
+        }
+        
+    }
+}
+
+.error500{
+    background-image: url(/Content/images/error/500bg.png);
+}
+
+.color500{
+    color: #3c2828;
+}
+.color404{
+    color: #263238;
+}

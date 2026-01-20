@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>J.Framework.Log4net</name>
+    </assembly>
+    <members>
+        <member name="T:System.Framework.Log4net.Log4NetContext">
+            <summary>
+            Log4net 紀錄器脈絡
+            </summary>
+        </member>
+        <member name="M:System.Framework.Log4net.Log4NetContext.GetGlobalProperty(System.String)">
+            <summary>
+            取得全域特性
+            </summary>
+            <param name="key">索引值</param>
+        </member>
+        <member name="M:System.Framework.Log4net.Log4NetContext.SetGlobalProperty(System.String,System.Object)">
+            <summary>
+            設定全域特性
+            </summary>
+            <param name="key">索引值</param>
+            <param name="value">特性值</param>
+        </member>
+        <member name="M:System.Framework.Log4net.Log4NetContext.RemoveGlobalProperty(System.String)">
+            <summary>
+            移除全域特性
+            </summary>
+            <param name="key">索引值</param>
+        </member>
+        <member name="M:System.Framework.Log4net.Log4NetContext.ClearGlobalProperties">
+            <summary>
+            清除全域特性
+            </summary>
+        </member>
+        <member name="P:System.Framework.Log4net.Log4NetContext.ThreadPropertyKeys">
+            <summary>
+            所有線程特性索引值
+            </summary>
+        </member>
+        <member name="M:System.Framework.Log4net.Log4NetContext.GetThreadProperty(System.String)">
+            <summary>
+            取得線程特性
+            </summary>
+            <param name="key">索引值</param>
+        </member>
+        <member name="M:System.Framework.Log4net.Log4NetContext.SetThreadProperty(System.String,System.Object)">
+            <summary>
+            設定線程特性
+            </summary>
+            <param name="key">索引值</param>
+            <param name="value">特性值</param>
+        </member>
+        <member name="M:System.Framework.Log4net.Log4NetContext.RemoveThreadProperty(System.String)">
+            <summary>
+            移除線程特性
+            </summary>
+            <param name="key">索引值</param>
+        </member>
+        <member name="M:System.Framework.Log4net.Log4NetContext.ClearThreadProperties">
+            <summary>
+            清除線程特性
+            </summary>
+        </member>
+        <member name="M:System.Framework.Log4net.Log4NetContext.GetLogger``1">
+            <summary>
+            取得負責指定型別的記錄器
+            </summary>
+            <typeparam name="T">型別</typeparam>
+            <returns>指定型別的記錄器</returns>
+        </member>
+        <member name="M:System.Framework.Log4net.Log4NetContext.GetLogger(System.Type)">
+            <summary>
+            取得負責指定型別的記錄器
+            </summary>
+            <param name="type">型別</param>
+            <returns>指定型別的記錄器</returns>
+        </member>
+        <member name="M:System.Framework.Log4net.Log4NetContext.GetLogger(System.String)">
+            <summary>
+            取得符合指定名稱的記錄器
+            </summary>
+            <param name="name">指定名稱</param>
+            <returns>指定名稱的記錄器</returns>
+        </member>
+        <member name="M:System.Framework.Log4net.Log4NetContext.LoadConfiguration(System.String,System.Object)">
+            <summary>
+            載入設定檔
+            </summary>
+            <param name="path">設定檔路徑</param>
+            <param name="builder">建立者</param>
+        </member>
+        <member name="T:System.Framework.Log4net.Log4NetLogger">
+            <summary>
+            自行實作的 Log4net logger
+            </summary>
+        </member>
+        <member name="M:System.Framework.Log4net.Log4NetLogger.#ctor(System.String,System.IO.FileInfo)">
+            <summary>
+            建構 Log4netLogger
+            </summary>
+            <param name="name">容器中的名稱</param>
+            <param name="fileInfo">設定檔資訊</param>
+        </member>
+        <member name="M:System.Framework.Log4net.Log4NetLogger.#ctor(log4net.ILog)">
+            <summary>
+            建構 Log4netLogger
+            </summary>
+            <param name="log">The log4nt log</param>
+        </member>
+        <member name="M:System.Framework.Log4net.Log4NetLogger.BeginScope``1(``0)">
+            <summary>
+            Begins a logical operation scope. always return null
+            </summary>
+            <typeparam name="TState">The scope CLR type</typeparam>
+            <param name="state">The identifier for the scope.</param>
+            <returns>An IDisposable that ends the logical operation scope on dispose.</returns>
+        </member>
+        <member name="M:System.Framework.Log4net.Log4NetLogger.IsEnabled(Microsoft.Extensions.Logging.LogLevel)">
+            <summary>
+            Checks if the given logLevel is enabled.
+            </summary>
+            <param name="logLevel">level to be checked.</param>
+            <returns>true if enabled.</returns>
+        </member>
+        <member name="M:System.Framework.Log4net.Log4NetLogger.Log``1(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,``0,System.Exception,System.Func{``0,System.Exception,System.String})">
+            <summary>
+            Writes a log entry.
+            </summary>
+            <typeparam name="TState"></typeparam>
+            <param name="logLevel">Entry will be written on this level.</param>
+            <param name="eventId">Id of the event.</param>
+            <param name="state">The entry to be written. Can be also an object.</param>
+            <param name="exception">The exception related to this entry.</param>
+            <param name="formatter">Function to create a string message of the state and exception.</param>
+        </member>
+    </members>
+</doc>

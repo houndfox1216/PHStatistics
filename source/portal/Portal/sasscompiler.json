@@ -1,0 +1,14 @@
+{
+  "SourceFolder": "ScssCompiler",
+  "TargetFolder": "wwwroot/Content/css",
+  "Arguments": "--style=compressed",
+  "GenerateScopedCss": true,
+  "ScopedCssFolders": [ "Views", "Pages", "Shared", "Components" ],
+
+  // You can override specific options based on the build configuration
+  "Configurations": {
+    "Debug": { // These options apply only to Debug builds
+      "Arguments": "--style=expanded"
+    }
+  }
+}

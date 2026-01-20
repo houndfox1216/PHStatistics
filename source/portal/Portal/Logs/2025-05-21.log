@@ -1,0 +1,121 @@
+2025-05-21 00:03:01.8874[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\古亭.xlsx
+2025-05-21 00:14:47.1508[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\右昌.xlsx
+2025-05-21 00:25:19.6925[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\向上.xlsx
+2025-05-21 00:38:52.5772[20] ERROR HomeController  匯入向上資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 00:44:11.9657[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\大安.xlsx
+2025-05-21 00:55:27.0739[20] ERROR HomeController  匯入大安資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 00:55:40.5233[20] ERROR HomeController  匯入大安資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 00:55:49.0902[20] ERROR HomeController  匯入大安資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 00:59:33.4055[20] ERROR HomeController  匯入大安資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 01:02:12.6979[20] ERROR HomeController  匯入大安資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 01:02:40.8067[20] ERROR HomeController  匯入大安資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 01:04:05.5309[20] ERROR HomeController  匯入大安資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 01:06:31.4656[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\岡山.xlsx
+2025-05-21 01:18:28.4338[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\崇明.xlsx
+2025-05-21 01:21:49.5648[20] ERROR HomeController  匯入崇明資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 01:23:43.0653[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\復興.xlsx
+2025-05-21 01:37:42.5181[20] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 01:38:10.6594[20] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 01:38:36.7477[20] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 01:39:04.2653[20] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 01:39:32.5124[20] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 01:40:01.1371[20] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 01:40:28.9085[20] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 01:40:55.7318[20] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 01:41:24.1760[20] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 01:41:53.6427[20] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 01:42:23.5020[20] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 01:42:50.7698[20] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 01:43:20.4146[20] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 01:43:48.4393[20] ERROR HomeController  匯入復興資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 01:44:54.8864[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\敦南.xlsx
+2025-05-21 01:51:10.2249[20] ERROR HomeController  匯入敦南資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 01:52:12.0443[20] ERROR HomeController  匯入敦南資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 01:54:35.5832[20] ERROR HomeController  匯入敦南資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 01:54:45.4050[20] ERROR HomeController  匯入敦南資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 01:54:48.1678[20] ERROR HomeController  匯入敦南資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 01:59:59.2075[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\木柵.xlsx
+2025-05-21 02:16:36.6613[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\東安.xlsx
+2025-05-21 02:31:10.0457[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\東湖.xlsx
+2025-05-21 02:33:31.5070[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:33:56.6799[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:34:21.3370[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:34:45.6867[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:35:10.1962[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:35:33.5454[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:35:57.6030[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:36:22.2713[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:36:47.7679[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:37:14.1474[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:37:40.0126[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:38:04.4726[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:38:28.2128[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:38:52.8108[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:39:05.9671[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:39:18.9115[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:39:30.2287[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:39:42.3911[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:39:53.8979[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:40:05.6389[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:40:18.3091[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:40:30.1073[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:40:41.9300[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:40:53.9028[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:41:05.9252[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:41:17.6702[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:41:28.4159[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:41:40.1165[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:41:51.9230[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:42:03.0861[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:42:16.2936[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:42:26.9227[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:42:39.2385[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:42:50.0105[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:43:02.4871[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:43:13.2563[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:43:25.7096[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:43:36.4416[20] ERROR HomeController  匯入東湖資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 02:50:15.9967[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\板陽.xlsx
+2025-05-21 03:10:56.4174[20] ERROR HomeController  匯入板陽資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 03:10:59.0658[20] ERROR HomeController  匯入板陽資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 03:11:51.8999[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\正興.xlsx
+2025-05-21 03:31:19.6094[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\河堤.xlsx
+2025-05-21 03:57:59.6794[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\瑞祥.xlsx
+2025-05-21 04:16:50.0659[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\福山.xlsx
+2025-05-21 04:17:16.2531[20] ERROR HomeController  匯入福山資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 04:37:12.3159[20] ERROR HomeController  匯入福山資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 04:37:20.5969[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\秀朗.xlsx
+2025-05-21 04:45:00.8441[20] ERROR HomeController  匯入秀朗資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 04:48:23.2797[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\莊敬.xlsx
+2025-05-21 04:59:36.4047[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\華夏.xlsx
+2025-05-21 05:17:30.8349[20] ERROR HomeController  匯入華夏資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 05:17:38.8513[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\農十六.xlsx
+2025-05-21 05:34:16.3662[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\陽明.xlsx
+2025-05-21 05:55:10.9122[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\高美館.xlsx
+2025-05-21 06:15:33.5110[20]  INFO HomeController  讀取檔案 C:\Leo\其他\Kuri\人數表\20250519\0519匯入_TEST\龍華.xlsx
+2025-05-21 06:25:28.5703[20] ERROR HomeController  匯入龍華資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 06:25:37.5615[20] ERROR HomeController  匯入龍華資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 06:26:11.5326[20] ERROR HomeController  匯入龍華資料失敗 ex Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')  ex.InnerException 
+2025-05-21 07:00:15.3837[3]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-21 07:00:15.3837[3]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-21 07:00:15.3964[3]  INFO MemberController  Member Login account: password: 
+2025-05-21 07:00:27.5421[7]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-05-21 07:00:57.5276[3]  INFO MemberController  Member Login account:sysadmin password:53906052 
+2025-05-21 07:00:57.6196[3]  INFO MemberController  進行登入 
+2025-05-21 07:00:57.7057[3]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-05-21 07:00:57.8086[7]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-05-21 07:00:57.8086[7]  INFO HomeController  進入首頁
+2025-05-21 07:01:00.6617[52]  INFO StudentPopulationController  進入首頁(MainMenu)
+2025-05-21 07:01:00.6617[52]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 39f4dcfc-8205-434e-7e2d-08dd70e468ab
+2025-05-21 07:01:38.9180[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-05-21 07:01:38.9246[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-05-21 07:01:39.0329[17]  INFO MemberController  Member Login account: password: 
+2025-05-21 07:01:59.1142[18]  INFO MemberController  Member Login account:sysadmin password:53906052 
+2025-05-21 07:01:59.2573[18]  INFO MemberController  進行登入 
+2025-05-21 07:01:59.4520[18]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-05-21 07:01:59.5814[25]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-05-21 07:01:59.5814[25]  INFO HomeController  進入首頁
+2025-05-21 07:03:26.2894[34]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-05-21 07:03:26.2894[34]  INFO HomeController  進入首頁
+2025-05-21 07:03:27.9641[25]  INFO StudentPopulationController  進入首頁(MainMenu)
+2025-05-21 07:03:27.9641[25]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 39f4dcfc-8205-434e-7e2d-08dd70e468ab

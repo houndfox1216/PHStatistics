@@ -1,0 +1,41 @@
+2025-12-13 16:10:57.7336[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-12-13 16:10:57.7433[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-12-13 16:10:57.8515[11]  INFO MemberController  Member Login account: password: 
+2025-12-13 16:12:52.3498[19]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-12-13 16:12:52.3565[19]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-12-13 16:12:52.4326[20]  INFO MemberController  Member Login account: password: 
+2025-12-13 16:14:25.5903[53]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-12-13 16:14:25.6132[53]  INFO MemberController  進行登入 
+2025-12-13 16:14:25.6351[53]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-12-13 16:14:25.7287[22]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-12-13 16:14:25.7287[22]  INFO HomeController  進入首頁
+2025-12-13 16:15:48.8320[54]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-12-13 16:15:48.8320[54]  INFO HomeController  進入首頁
+2025-12-13 16:23:42.7906[13]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-12-13 16:23:42.8435[13]  INFO HomeController  進入首頁
+2025-12-13 16:23:42.8435[16] ERROR HomeController  The process cannot access the file 'C:\Users\hound\Downloads\人數表系統\20251208\2025 07(全國人數表第22週)_北.xlsx' because it is being used by another process.
+System.IO.IOException: The process cannot access the file 'C:\Users\hound\Downloads\人數表系統\20251208\2025 07(全國人數表第22週)_北.xlsx' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access)
+   at PHStatistics.Portal.Controllers.HomeController.ImportPH() in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\HomeController.cs:line 1567
+2025-12-13 16:24:26.8949[23] ERROR HomeController  The process cannot access the file 'C:\Users\hound\Downloads\人數表系統\20251208\2025 07(全國人數表第22週)_北.xlsx' because it is being used by another process.
+System.IO.IOException: The process cannot access the file 'C:\Users\hound\Downloads\人數表系統\20251208\2025 07(全國人數表第22週)_北.xlsx' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access)
+   at PHStatistics.Portal.Controllers.HomeController.ImportPH() in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\HomeController.cs:line 1567
+2025-12-13 16:24:39.0734[30] ERROR HomeController  The process cannot access the file 'C:\Users\hound\Downloads\人數表系統\20251208\2025 07(全國人數表第22週)_北.xlsx' because it is being used by another process.
+System.IO.IOException: The process cannot access the file 'C:\Users\hound\Downloads\人數表系統\20251208\2025 07(全國人數表第22週)_北.xlsx' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access)
+   at PHStatistics.Portal.Controllers.HomeController.ImportPH() in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\HomeController.cs:line 1567
+2025-12-13 16:30:48.4046[15]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-12-13 16:30:48.4046[15]  INFO HomeController  進入首頁

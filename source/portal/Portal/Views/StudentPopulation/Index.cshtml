@@ -1,0 +1,91 @@
+﻿@using PHStatistics.Content
+@{
+    List<SchoolAssignment> schools = new List<SchoolAssignment>();
+    if (ViewBag.Schools != null) {
+        schools = (List<SchoolAssignment>)ViewBag.Schools;
+    }
+    string addType = ViewBag.Type;
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center mb-6">
+        <div class="col-12 col-sm-10 col-md-8 col-xl-6">
+            <div class="mt-3 mb-4">
+                @if (schools != null) {
+                    <label for="">
+                        分校 <small class="text-primary">＊必填</small>
+                    </label>
+                    <select class="form-select validate[required]" id="schoolSelect">
+                        <option selected disabled>選擇分校</option>
+                        @foreach (SchoolAssignment assignment in schools) {
+                            <option value=@assignment.School.Id>@assignment.School.Name</option>
+                        }
+                    </select>
+                }
+            </div>
+            <div class="">
+                @if (addType.Equals("PH")) {
+                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addPHBtn">
+                        開始輸入 <i class="fas fa-paper-plane"></i>
+                    </button>
+                }
+                else if (addType.Equals("PSJ")) {
+                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addPSJBtn">
+                        開始輸入 <i class="fas fa-paper-plane"></i>
+                    </button>
+                }
+                else if (addType.Equals("Gept")) {
+                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addGeptBtn">
+                        開始輸入 <i class="fas fa-paper-plane"></i>
+                    </button>
+                }
+                else if (addType.Equals("PS")) {
+                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addPSBtn">
+                        開始輸入 <i class="fas fa-paper-plane"></i>
+                    </button>
+                }
+                else if (addType.Equals("AS")) {
+                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addASBtn">
+                        開始輸入 <i class="fas fa-paper-plane"></i>
+                    </button>
+                }
+                else {
+                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addPHBtn">
+                        開始輸入 <i class="fas fa-paper-plane"></i>
+                    </button>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('#addPHBtn').on('click', function () {
+            //alert($('#schoolSelect').val());
+            var location = "/StudentPopulation/CreatePopulation?schoolId=" + $('#schoolSelect').val() + "&type=PH";
+            window.location.href = location;
+        });
+        $('#addPSJBtn').on('click', function () {
+            //alert($('#schoolSelect').val());
+            var location = "/StudentPopulation/CreatePSJPopulation?schoolId=" + $('#schoolSelect').val() + "&type=PSJ";
+            window.location.href = location;
+        });
+        $('#addGeptBtn').on('click', function () {
+            //alert($('#schoolSelect').val());
+            var location = "/StudentPopulation/CreateGeptPopulation?schoolId=" + $('#schoolSelect').val() + "&type=Gept";
+            window.location.href = location;
+        });
+        $('#addPSBtn').on('click', function () {
+            //alert($('#schoolSelect').val());
+            var location = "/StudentPopulation/CreatePSPopulation?schoolId=" + $('#schoolSelect').val() + "&type=PS";
+            window.location.href = location;
+        });
+        $('#addASBtn').on('click', function () {
+            //alert($('#schoolSelect').val());
+            var location = "/StudentPopulation/CreateASPopulation?schoolId=" + $('#schoolSelect').val() + "&type=AS";
+            window.location.href = location;
+        });
+    })
+
+</script>

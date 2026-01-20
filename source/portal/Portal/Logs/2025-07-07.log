@@ -1,0 +1,102 @@
+2025-07-07 17:00:57.3003[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-07-07 17:00:57.3003[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-07-07 17:00:57.4025[11]  INFO MemberController  Member Login account: password: 
+2025-07-07 17:03:38.6198[43]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-07-07 17:03:38.7213[43]  INFO MemberController  進行登入 
+2025-07-07 17:03:38.8638[43]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-07-07 17:03:38.9684[42]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-07 17:03:38.9684[42]  INFO HomeController  進入首頁
+2025-07-07 17:05:11.4089[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-07 17:05:11.4089[11]  INFO HomeController  進入首頁
+2025-07-07 17:05:49.6900[16] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-07-07 17:05:49.7165[16] ERROR HomeController  系統忙碌中，請稍後再試
+System.Exception: 系統忙碌中，請稍後再試
+   at PHStatistics.Portal.Controllers.HomeController.ImportSchoolYearData() in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\HomeController.cs:line 1120
+2025-07-07 17:06:41.4333[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-07 17:06:41.4518[11]  INFO HomeController  進入首頁
+2025-07-07 17:06:42.0166[19] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-07-07 17:06:42.0574[19] ERROR HomeController  系統忙碌中，請稍後再試
+System.Exception: 系統忙碌中，請稍後再試
+   at PHStatistics.Portal.Controllers.HomeController.ImportSchoolYearData() in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\HomeController.cs:line 1120
+2025-07-07 17:06:45.0187[24] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-07-07 17:06:45.0718[24] ERROR HomeController  系統忙碌中，請稍後再試
+System.Exception: 系統忙碌中，請稍後再試
+   at PHStatistics.Portal.Controllers.HomeController.ImportSchoolYearData() in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\HomeController.cs:line 1120
+2025-07-07 17:06:57.7672[11] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-07-07 17:06:57.7954[11] ERROR HomeController  系統忙碌中，請稍後再試
+System.Exception: 系統忙碌中，請稍後再試
+   at PHStatistics.Portal.Controllers.HomeController.ImportSchoolYearData() in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\HomeController.cs:line 1120
+2025-07-07 17:09:15.9715[10]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-07 17:09:15.9715[10]  INFO HomeController  進入首頁
+2025-07-07 17:09:21.3598[11] ERROR HomeController  The process cannot access the file 'C:\Leo\其他\Kuri\人數表\2025年周次_匯入.xlsx' because it is being used by another process.
+System.IO.IOException: The process cannot access the file 'C:\Leo\其他\Kuri\人數表\2025年周次_匯入.xlsx' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access)
+   at PHStatistics.Portal.Controllers.HomeController.ImportSchoolYearData() in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\HomeController.cs:line 1052
+2025-07-07 17:09:25.1548[5] ERROR HomeController  The process cannot access the file 'C:\Leo\其他\Kuri\人數表\2025年周次_匯入.xlsx' because it is being used by another process.
+System.IO.IOException: The process cannot access the file 'C:\Leo\其他\Kuri\人數表\2025年周次_匯入.xlsx' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access)
+   at PHStatistics.Portal.Controllers.HomeController.ImportSchoolYearData() in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\HomeController.cs:line 1052
+2025-07-07 17:09:31.1872[11] ERROR HomeController  The process cannot access the file 'C:\Leo\其他\Kuri\人數表\2025年周次_匯入.xlsx' because it is being used by another process.
+System.IO.IOException: The process cannot access the file 'C:\Leo\其他\Kuri\人數表\2025年周次_匯入.xlsx' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access)
+   at PHStatistics.Portal.Controllers.HomeController.ImportSchoolYearData() in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\HomeController.cs:line 1052
+2025-07-07 17:09:43.3634[10] ERROR HomeController  The process cannot access the file 'C:\Leo\其他\Kuri\人數表\2025年周次_匯入.xlsx' because it is being used by another process.
+System.IO.IOException: The process cannot access the file 'C:\Leo\其他\Kuri\人數表\2025年周次_匯入.xlsx' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access)
+   at PHStatistics.Portal.Controllers.HomeController.ImportSchoolYearData() in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\HomeController.cs:line 1052
+2025-07-07 17:10:16.1548[16] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-07-07 17:10:16.1812[16] ERROR HomeController  系統忙碌中，請稍後再試
+System.Exception: 系統忙碌中，請稍後再試
+   at PHStatistics.Portal.Controllers.HomeController.ImportSchoolYearData() in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\HomeController.cs:line 1120
+2025-07-07 17:13:04.9114[19]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-07 17:13:07.6866[19]  INFO HomeController  進入首頁
+2025-07-07 17:13:20.8337[10] ERROR HomeController  匯入EXCEL錯誤Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+2025-07-07 17:13:20.8614[10] ERROR HomeController  系統忙碌中，請稍後再試
+System.Exception: 系統忙碌中，請稍後再試
+   at PHStatistics.Portal.Controllers.HomeController.ImportSchoolYearData() in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\HomeController.cs:line 1112
+2025-07-07 17:15:17.0993[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-07 17:15:17.0993[11]  INFO HomeController  進入首頁
+2025-07-07 17:16:37.7372[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-07 17:16:37.7372[11]  INFO HomeController  進入首頁
+2025-07-07 17:17:35.6486[5]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-07 17:17:35.6486[5]  INFO HomeController  進入首頁
+2025-07-07 17:20:21.0344[10]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-07 17:20:22.2930[10]  INFO HomeController  進入首頁
+2025-07-07 17:20:46.9302[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-07 17:20:46.9302[11]  INFO HomeController  進入首頁
+2025-07-07 18:13:00.1770[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-07-07 18:13:00.1770[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-07-07 18:13:00.3061[18]  INFO MemberController  Member Login account: password: 
+2025-07-07 18:13:01.7047[7]  INFO MemberController  Member Login account: password: 
+2025-07-07 18:13:16.5328[19]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-07-07 18:13:16.5564[19]  INFO MemberController  進行登入 
+2025-07-07 18:13:16.5678[19]  INFO MemberController  進行登入完成 導入 /StudentPopulation/CreatePopulation?schoolId=1 False 
+2025-07-07 18:13:16.5854[19]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-07 18:13:16.5854[19]  INFO HomeController  進入首頁
+2025-07-07 18:18:56.8686[19]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-07 18:18:56.8686[19]  INFO HomeController  進入首頁
+2025-07-07 18:43:49.2637[5]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-07-07 18:43:49.2706[5]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-07-07 18:43:49.3384[18]  INFO MemberController  Member Login account: password: 
+2025-07-07 18:43:50.1328[7]  INFO MemberController  Member Login account: password: 
+2025-07-07 18:44:06.7606[21]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-07-07 18:44:06.7942[21]  INFO MemberController  進行登入 
+2025-07-07 18:44:06.8048[21]  INFO MemberController  進行登入完成 導入 /StudentPopulation/CreatePopulation?schoolId=9 False 
+2025-07-07 18:44:06.8200[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-07-07 18:44:06.8200[11]  INFO HomeController  進入首頁

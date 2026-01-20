@@ -1,0 +1,4025 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>J.Framework.Core</name>
+    </assembly>
+    <members>
+        <member name="T:System.Framework.Application.ActionBase">
+            <summary>
+            操作的基礎類別
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ActionBase.Dispose(System.Boolean)">
+            <summary>
+            處置並釋放資源
+            </summary>
+            <param name="disposing">是否釋放受控資源</param>
+        </member>
+        <member name="M:System.Framework.Application.ActionBase.Dispose">
+            <summary>
+            處置並釋放資源
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ActionBase.Finalize">
+            <summary>
+            ActionBase 將被釋放時
+            </summary>
+        </member>
+        <member name="F:System.Framework.Application.ActionBase.Logger">
+            <summary>
+            紀錄器
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ActionBase.Name">
+            <summary>
+            名稱。
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ActionBase.User">
+            <summary>
+            請求操作的用戶
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ActionBase.Messages">
+            <summary>
+            取得或設定操作訊息
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ActionBase.Parameters">
+            <summary>
+            執行參數
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ActionBase.Result">
+            <summary>
+            執行結果
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ActionBase.IsFinished">
+            <summary>
+            是否已完成
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ActionBase.#ctor(System.String,System.Framework.Application.IUser)">
+            <summary>
+            以指定名稱建構 ActionBase
+            </summary>
+            <param name="name">操作名稱</param>
+            <param name="user">操作用戶</param>
+        </member>
+        <member name="M:System.Framework.Application.ActionBase.OnExecuting">
+            <summary>
+            當執行時呼叫
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ActionBase.OnExecuted">
+            <summary>
+            當執行完畢後呼叫
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ActionBase.GetResult``1">
+            <summary>
+            取得執行結果
+            </summary>
+            <typeparam name="TResult">執行結果型別</typeparam>
+            <returns>執行結果</returns>
+        </member>
+        <member name="M:System.Framework.Application.ActionBase.Execute">
+            <summary>
+            執行此項操作
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ActionBase.Execute``1">
+            <summary>
+            執行此項操作並回傳結果
+            </summary>
+            <typeparam name="TResult">結果型別</typeparam>
+            <returns>執行結果</returns>
+        </member>
+        <member name="T:System.Framework.Application.ActionBase`1">
+            <summary>
+            操作的基礎類別，須具備指定權限
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ActionBase`1.Permissions">
+            <summary>
+            必須具備的系統權限
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ActionBase`1.#ctor(System.String,System.Framework.Application.IUser)">
+            <summary>
+            初始化 ActionBase
+            </summary>
+            <param name="name">操作名稱</param>
+            <param name="user">用戶資料</param>
+        </member>
+        <member name="T:System.Framework.Application.ActionBase`2">
+            <summary>
+            操作的基礎類別，須具備指定權限
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ActionBase`2.Dispose(System.Boolean)">
+            <summary>
+            處置並釋放資源
+            </summary>
+            <param name="disposing">是否釋放受控資源</param>
+        </member>
+        <member name="P:System.Framework.Application.ActionBase`2.DataContext">
+            <summary>
+            資料脈絡
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ActionBase`2.ActionLogCommand">
+            <summary>
+            操作紀錄命令
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ActionBase`2.SetActionLog``1(`0,System.Boolean)">
+            <summary>
+            設定操作紀錄型別
+            </summary>
+            <typeparam name="TActionLogCommand">操作紀錄型別</typeparam>
+            <param name="context">資料脈絡</param>
+            <param name="autoGenerateIdByUuid">自動產生 UUID 識別碼</param>
+        </member>
+        <member name="M:System.Framework.Application.ActionBase`2.#ctor(System.String,System.Framework.Application.IUser,`0)">
+            <summary>
+            建構 ActionBase
+            </summary>
+            <param name="name">操作名稱</param>
+            <param name="user">用戶資料</param>
+            <param name="context">資料脈絡</param>
+        </member>
+        <member name="M:System.Framework.Application.ActionBase`2.OnExecuting(`0)">
+            <summary>
+            當執行時呼叫
+            </summary>
+            <param name="context">資料脈絡</param>
+        </member>
+        <member name="M:System.Framework.Application.ActionBase`2.OnExecuting">
+            <summary>
+            當執行完畢後呼叫
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ActionBase`2.OnExecuted(`0)">
+            <summary>
+            當執行完畢後呼叫，如須覆蓋此方法，請記得加入 base.OnExecuted()
+            </summary>
+            <param name="context">資料脈絡</param>
+        </member>
+        <member name="M:System.Framework.Application.ActionBase`2.OnActionLogCommitting(`0,System.Framework.Data.IActionLogData)">
+            <summary>
+            當操作紀錄要提交前呼叫，如須覆蓋此方法
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="actionLog">正要提交的操作記錄ㄖ</param>
+        </member>
+        <member name="M:System.Framework.Application.ActionBase`2.OnExecuted">
+            <summary>
+            當執行完畢後呼叫
+            </summary>
+        </member>
+        <member name="T:System.Framework.Application.ApplicationBase">
+            <summary>
+            應用程式的基礎類別
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ApplicationBase.Children">
+            <summary>
+            應用程式的子應用程式
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ApplicationBase.Id">
+            <summary>
+            識別碼
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ApplicationBase.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ApplicationBase.Type">
+            <summary>
+            類型
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ApplicationBase.Status">
+            <summary>
+            應用程式目前狀態
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ApplicationBase.Logger">
+            <summary>
+            應用程式的記錄器
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ApplicationBase.Listener">
+            <summary>
+            傾聽者，用來監聽指定的Socket
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ApplicationBase.Storage">
+            <summary>
+            取得應用程式的儲存體
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ApplicationBase.FileSystem">
+            <summary>
+            取得應用程式的檔案系統
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ApplicationBase.Indexer">
+            <summary>
+            取得應用程式的索引器
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ApplicationBase.Cultures">
+            <summary>
+            文化特性
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ApplicationBase.Countries">
+            <summary>
+            各國相關資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ApplicationBase.Localizations">
+            <summary>
+            本地化資源
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ApplicationBase.Configuration">
+            <summary>
+            設定
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ApplicationBase.Policy">
+            <summary>
+            安全政策，過濾可使用此程序的用戶、用戶端、網路位址，與使用權限
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ApplicationBase.Item(System.String)">
+            <summary>
+            取得或設定應用程式資料
+            </summary>
+            <param name="key">索引鍵</param>
+        </member>
+        <member name="P:System.Framework.Application.ApplicationBase.HasChild">
+            <summary>
+            判斷是否有子應用程式
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ApplicationBase.StartupPath">
+            <summary>
+            取得應用程式開始路徑
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ApplicationBase.GetRealPath(System.String)">
+            <summary>
+            取得真實路徑，以 '@' 開頭視 ContentRoot 為根目錄，其他視 Startup 為根目錄
+            </summary>
+            <param name="path">路徑</param>
+        </member>
+        <member name="M:System.Framework.Application.ApplicationBase.#ctor(System.String,System.Boolean)">
+            <summary>
+            建構 ApplicationBase
+            </summary>
+            <param name="name">名稱</param>
+            <param name="manageable">可被管理的應用程式，可由ApplicationContext取得</param>
+        </member>
+        <member name="M:System.Framework.Application.ApplicationBase.AddChild(System.Framework.Application.IApplication)">
+            <summary>
+            增加子應用程式(不會改變子應用程式之狀態)
+            </summary>
+            <param name="application">子應用程式</param>
+        </member>
+        <member name="M:System.Framework.Application.ApplicationBase.RemoveChild(System.Framework.Application.IApplication)">
+            <summary>
+            移除子應用程式(不會改變子應用程式之狀態)
+            </summary>
+            <param name="application">子應用程式</param>
+        </member>
+        <member name="M:System.Framework.Application.ApplicationBase.ContainChild(System.Framework.Application.IApplication)">
+            <summary>
+            是否包含指定的應用程式
+            </summary>
+            <param name="application">應用程式</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Application.ApplicationBase.Run">
+            <summary>
+            執行
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ApplicationBase.RunAll">
+            <summary>
+            全部執行(包含子程序)
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ApplicationBase.Stop">
+            <summary>
+            停止
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ApplicationBase.StopAll">
+            <summary>
+            全部停止(包含子程序)
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ApplicationBase.SendMessage(System.Framework.Data.IMessageData)">
+            <summary>
+            發送訊息至應用程式
+            </summary>
+            <param name="message">請求訊息</param>
+            <returns>回應訊息</returns>
+        </member>
+        <member name="P:System.Framework.Application.ApplicationBase.CriticalExecutionTime">
+            <summary>
+            臨界執行時間，當執行時間超過此值時，將於日誌中發出警示
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ApplicationBase.IsCommandProfilerEnabled">
+            <summary>
+            取得是否啟用命令評測
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ApplicationBase.Services">
+            <summary>
+            服務提供者
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ApplicationBase.ContentRootPath">
+            <summary>
+            應用程式內容路徑
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ApplicationBase.UseLoggerContext``1(System.Func{System.Framework.Data.IConfiguration,System.String},System.Object)">
+            <summary>
+            設定記錄器脈絡型別
+            </summary>
+            <typeparam name="TContext">記錄器脈絡型別</typeparam>
+            <param name="assignPath">取得設定檔路徑之方法，如有值時將一併載入設定值</param>
+            <param name="builder">建立者</param>
+        </member>
+        <member name="M:System.Framework.Application.ApplicationBase.UseConfiguration``1(System.Nullable{System.TimeSpan})">
+            <summary>
+            指定組態型別與同步週期
+            </summary>
+            <typeparam name="TConfiguration">設定型別</typeparam>
+            <param name="span">同步週期，未設定時為一分鐘</param>
+        </member>
+        <member name="M:System.Framework.Application.ApplicationBase.UseUuid(System.Nullable{System.Byte},System.Nullable{System.Int16},System.Nullable{System.Int32},System.Int16)">
+            <summary>
+            指定 UUID 參數，皆未指定時由應用程式參數或IP位址取得
+            </summary>
+            <param name="serviceId">服務ID</param>
+            <param name="deployId">部屬ID</param>
+            <param name="workerId">工作站ID</param>
+            <param name="sequence">目前序號</param>
+        </member>
+        <member name="M:System.Framework.Application.ApplicationBase.UseStorageContext``1(System.Action{``0})">
+            <summary>
+            指定儲存體脈絡型別
+            </summary>
+            <typeparam name="TStorageContext">儲存體脈絡型別</typeparam>
+            <param name="preload">預載程序，預設為嘗試初始化資料</param>
+        </member>
+        <member name="M:System.Framework.Application.ApplicationBase.UseFileSystemContext``1(System.Action{``0})">
+            <summary>
+            指定檔案系統脈絡型別
+            </summary>
+            <typeparam name="TFileSystemContext">檔案系統脈絡型別</typeparam>
+            <param name="preload">預載程序，預設為嘗試初始化資料</param>
+        </member>
+        <member name="M:System.Framework.Application.ApplicationBase.UseDataContext``1(System.Action{``0})">
+            <summary>
+            指定資料脈絡型別
+            </summary>
+            <typeparam name="TDataContext">資料脈絡型別</typeparam>
+            <param name="preload">預載程序，預設為嘗試初始化資料</param>
+        </member>
+        <member name="M:System.Framework.Application.ApplicationBase.UseIndexContext``1(System.Action{``0})">
+            <summary>
+            指定索引脈絡型別
+            </summary>
+            <typeparam name="TIndexContext">索引脈絡型別</typeparam>
+            <param name="preload">預載程序，預設為嘗試初始化資料</param>
+        </member>
+        <member name="M:System.Framework.Application.ApplicationBase.UseGlobalization(System.String)">
+            <summary>
+            使用全球化
+            <param name="path">本地化檔案目錄，不指定時預設為 Content Root</param>
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ApplicationBase.UseLocalization(System.String)">
+            <summary>
+            使用本地化
+            <param name="path">本地化檔案目錄，不指定時預設為 Content Root</param>
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ApplicationBase.Dispose(System.Boolean)">
+            <summary>
+            處置被使用的資源
+            </summary>
+            <param name="disposing">處置受控資源</param>
+        </member>
+        <member name="M:System.Framework.Application.ApplicationBase.Dispose">
+            <summary>
+            處置被使用的資源
+            </summary>
+        </member>
+        <member name="T:System.Framework.Application.AsyncActionBase">
+            <summary>
+            非同步操作的基礎類別
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.AsyncActionBase.Dispose(System.Boolean)">
+            <summary>
+            處置並釋放資源
+            </summary>
+            <param name="disposing">是否釋放受控資源</param>
+        </member>
+        <member name="M:System.Framework.Application.AsyncActionBase.Dispose">
+            <summary>
+            處置並釋放資源
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.AsyncActionBase.Finalize">
+            <summary>
+            ActionBase 將被釋放時
+            </summary>
+        </member>
+        <member name="F:System.Framework.Application.AsyncActionBase.Logger">
+            <summary>
+            紀錄器
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.AsyncActionBase.Name">
+            <summary>
+            名稱。
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.AsyncActionBase.User">
+            <summary>
+            請求操作的用戶
+            </summary>
+        </member>
+        <member name="F:System.Framework.Application.AsyncActionBase.CancellationToken">
+            <summary>
+            用以通知取消任務的傳令
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.AsyncActionBase.Messages">
+            <summary>
+            取得或設定操作訊息
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.AsyncActionBase.Parameters">
+            <summary>
+            執行參數
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.AsyncActionBase.Result">
+            <summary>
+            執行結果
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.AsyncActionBase.IsFinished">
+            <summary>
+            是否已完成
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.AsyncActionBase.#ctor(System.String,System.Framework.Application.IUser,System.Threading.CancellationToken)">
+            <summary>
+            以指定名稱建構 ActionBase
+            </summary>
+            <param name="name">操作名稱</param>
+            <param name="user">操作用戶</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.AsyncActionBase.OnExecuting(System.Threading.CancellationToken)">
+            <summary>
+            當執行時呼叫
+            </summary>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.AsyncActionBase.OnExecuted(System.Threading.CancellationToken)">
+            <summary>
+            當執行完畢後呼叫
+            </summary>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.AsyncActionBase.GetResult``1">
+            <summary>
+            取得執行結果
+            </summary>
+            <typeparam name="TResult">執行結果型別</typeparam>
+            <returns>執行結果</returns>
+        </member>
+        <member name="M:System.Framework.Application.AsyncActionBase.ExecuteAsync">
+            <summary>
+            執行此項操作
+            </summary>
+            <exception cref="T:System.OperationCanceledException">被取消時拋出</exception>
+        </member>
+        <member name="M:System.Framework.Application.AsyncActionBase.ExecuteAsync``1">
+            <summary>
+            執行此項操作並回傳結果
+            </summary>
+            <typeparam name="TResult">結果型別</typeparam>
+            <exception cref="T:System.OperationCanceledException">被取消時拋出</exception>
+            <returns>執行結果</returns>
+        </member>
+        <member name="T:System.Framework.Application.AsyncActionBase`1">
+            <summary>
+            操作的基礎類別，須具備指定權限
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.AsyncActionBase`1.Permissions">
+            <summary>
+            必須具備的系統權限
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.AsyncActionBase`1.#ctor(System.String,System.Framework.Application.IUser,System.Threading.CancellationToken)">
+            <summary>
+            初始化 ActionBase
+            </summary>
+            <param name="name">操作名稱</param>
+            <param name="user">用戶資料</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="T:System.Framework.Application.AsyncActionBase`2">
+            <summary>
+            操作的基礎類別，須具備指定權限
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.AsyncActionBase`2.Dispose(System.Boolean)">
+            <summary>
+            處置並釋放資源
+            </summary>
+            <param name="disposing">是否釋放受控資源</param>
+        </member>
+        <member name="P:System.Framework.Application.AsyncActionBase`2.DataContext">
+            <summary>
+            資料脈絡
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.AsyncActionBase`2.ActionLogCommand">
+            <summary>
+            操作紀錄命令
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.AsyncActionBase`2.SetActionLog``1(`0,System.Boolean)">
+            <summary>
+            設定操作紀錄型別
+            </summary>
+            <typeparam name="TActionLogCommand">操作紀錄型別</typeparam>
+            <param name="context">資料脈絡</param>
+            <param name="autoGenerateIdByUuid">自動產生 UUID 識別碼</param>
+        </member>
+        <member name="M:System.Framework.Application.AsyncActionBase`2.#ctor(System.String,System.Framework.Application.IUser,`0,System.Threading.CancellationToken)">
+            <summary>
+            建構 ActionBase
+            </summary>
+            <param name="name">操作名稱</param>
+            <param name="user">用戶資料</param>
+            <param name="context">資料脈絡</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.AsyncActionBase`2.OnExecuting(`0,System.Threading.CancellationToken)">
+            <summary>
+            當執行時呼叫
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.AsyncActionBase`2.OnExecuting(System.Threading.CancellationToken)">
+            <summary>
+            當執行時呼叫
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.AsyncActionBase`2.OnExecuted(`0,System.Threading.CancellationToken)">
+            <summary>
+            當執行完畢後呼叫，如須覆蓋此方法，請記得加入 base.OnExecuted()
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.AsyncActionBase`2.OnActionLogCommitting(`0,System.Framework.Data.IActionLogData,System.Threading.CancellationToken)">
+            <summary>
+            當操作紀錄要提交前呼叫，如須覆蓋此方法
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="actionLog">正要提交的操作記錄ㄖ</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.AsyncActionBase`2.OnExecuted(System.Threading.CancellationToken)">
+            <summary>
+            當執行完畢後呼叫
+            </summary>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="T:System.Framework.Application.CommandBase">
+            <summary>
+            命令的基礎類別
+            </summary>
+        </member>
+        <member name="F:System.Framework.Application.CommandBase.Logger">
+            <summary>
+            紀錄器
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.CommandBase.Parameters">
+            <summary>
+            執行參數
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.CommandBase.Result">
+            <summary>
+            執行結果
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.CommandBase.OnExecuting">
+            <summary>
+            當執行時呼叫
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.CommandBase.OnExecuted">
+            <summary>
+            當執行完畢後呼叫
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.CommandBase.Execute">
+            <summary>
+            執行此項操作
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.CommandBase.GetResult``1">
+            <summary>
+            取得執行結果
+            </summary>
+            <typeparam name="TResult">執行結果型別</typeparam>
+            <returns>執行結果</returns>
+        </member>
+        <member name="T:System.Framework.Application.ConfigurationBase">
+            <summary>
+            組態配置的基礎類別。
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ConfigurationBase.Finalize">
+            <summary>
+            Instance 終結時執行
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ConfigurationBase.Dispose">
+            <summary>
+            清除使用資源
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ConfigurationBase.Dispose(System.Boolean)">
+            <summary>
+            清除使用資源，當True時清除所有 Managed Resource，執行其 Dispose， False僅清除 Native Resource。
+            </summary>
+            <param name="disposing">確實執行清除</param>
+        </member>
+        <member name="F:System.Framework.Application.ConfigurationBase.persistLock">
+            <summary>
+            進行實體化時預防同時進行的實體化鎖
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ConfigurationBase.NetCoreConfiguration">
+            <summary>
+            取得.NET Core的組態設定
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ConfigurationBase.Application">
+            <summary>
+            應用程式
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ConfigurationBase.OnApplicationChanged(System.Framework.Application.IApplication)">
+            <summary>
+            當應用程式改變後將呼叫此方法
+            </summary>
+            <param name="app">替換後的應用程式</param>
+        </member>
+        <member name="M:System.Framework.Application.ConfigurationBase.#ctor(System.Framework.Application.IApplication,System.String)">
+            <summary>
+            建構 ConfigurationBase
+            </summary>
+            <param name="application">所屬應用程式，未設定時使用 ApplicationContext.Root</param>
+            <param name="uri">資源URI</param>
+        </member>
+        <member name="M:System.Framework.Application.ConfigurationBase.EncryptConfigurationValue(System.String)">
+            <summary>
+            加密設定值
+            </summary>
+            <param name="value">值</param>
+            <returns>加密後的值</returns>
+        </member>
+        <member name="P:System.Framework.Application.ConfigurationBase.Item(System.String)">
+            <summary>
+            取得組態設定值
+            </summary>
+            <param name="name">組態名稱</param>
+            <returns>組態設定值</returns>
+        </member>
+        <member name="M:System.Framework.Application.ConfigurationBase.ReadOrDefault``1(System.Framework.Application.IApplication)">
+            <summary>
+            讀取已存在的組態設定或是產生新的組態設定
+            </summary>
+            <typeparam name="TConfiguration">組態設定類型</typeparam>
+            <param name="application">所屬應用程式</param>
+            <returns>新的組態設定</returns>
+        </member>
+        <member name="P:System.Framework.Application.ConfigurationBase.LastReloadTime">
+            <summary>
+            上次重新載入時間
+            </summary>
+        </member>
+        <member name="F:System.Framework.Application.ConfigurationBase.uri">
+            <summary>
+            組態配置資源URI
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ConfigurationBase.Uri">
+            <summary>
+            取得組態配置資源URI
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ConfigurationBase.Apply(System.Framework.Data.IConfiguration)">
+            <summary>
+            將另一個組態配置用於此自身
+            </summary>
+            <param name="data">組態配置</param>
+        </member>
+        <member name="M:System.Framework.Application.ConfigurationBase.Reload``1">
+            <summary>
+            重新載入
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ConfigurationBase.Persist">
+            <summary>
+            將此次配置進行留存
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ConfigurationBase.GetSection(System.String)">
+            <summary>
+            Gets a configuration sub-section with the specified key.
+            </summary>
+            <param name="key">The key of the configuration section.</param>
+            <returns>The Microsoft.Extensions.Configuration.IConfigurationSection.</returns>
+        </member>
+        <member name="M:System.Framework.Application.ConfigurationBase.GetChildren">
+            <summary>
+            Gets the immediate descendant configuration sub-sections.
+            </summary>
+            <returns>The configuration sub-sections.</returns>
+        </member>
+        <member name="M:System.Framework.Application.ConfigurationBase.GetReloadToken">
+            <summary>
+            Returns a Microsoft.Extensions.Primitives.IChangeToken that can be used to observe
+            when this configuration is reloaded.
+            </summary>
+            <returns>A Microsoft.Extensions.Primitives.IChangeToken.</returns>
+        </member>
+        <member name="P:System.Framework.Application.ConfigurationBase.Default">
+            <summary>
+            預設的組態配置，只存在於記憶體
+            </summary>
+        </member>
+        <member name="T:System.Framework.Application.CreateActionBase`3">
+            <summary>
+            建立實體資料之操作的基礎類別
+            </summary>
+            <typeparam name="TEntity">實體資料類型</typeparam>
+            <typeparam name="TDataContext">資料脈絡類型</typeparam>
+            <typeparam name="TSystemPermission">系統權限類型</typeparam>
+        </member>
+        <member name="M:System.Framework.Application.CreateActionBase`3.#ctor(System.String,System.Framework.Application.IUser,`1,System.Boolean)">
+            <summary>
+            建構 CreateActionBase
+            </summary>
+            <param name="name">操作名稱</param>
+            <param name="user">執行此動作用戶</param>
+            <param name="context">資料脈絡</param>
+            <param name="transactionEnabled">啟用Transaction</param>
+        </member>
+        <member name="M:System.Framework.Application.CreateActionBase`3.#ctor(System.String,System.Framework.Application.IUser,System.Nullable{System.Transactions.TransactionOptions},`1)">
+            <summary>
+            建構 CreateActionBase
+            </summary>
+            <param name="name">操作名稱</param>
+            <param name="user">執行此動作用戶</param>
+            <param name="context">資料脈絡</param>
+            <param name="transactionOptions">交易選項，未設定時採用 RepeatableRead</param>
+        </member>
+        <member name="M:System.Framework.Application.CreateActionBase`3.Create(`0,System.Framework.Parameters)">
+            <summary>
+            創建實體資料
+            </summary>
+            <param name="data">資料範本</param>
+            <param name="parameters">參數</param>
+        </member>
+        <member name="M:System.Framework.Application.CreateActionBase`3.OnTransacting(`1,`0)">
+            <summary>
+            當 Transaction 前執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="data">資料範本</param>
+        </member>
+        <member name="M:System.Framework.Application.CreateActionBase`3.OnTransacted(`1,`0)">
+            <summary>
+            當Transaction後執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="current">實體資料</param>
+        </member>
+        <member name="M:System.Framework.Application.CreateActionBase`3.OnCreating(`1,`0)">
+            <summary>
+            當創建實體資料前執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="data">資料範本</param>
+        </member>
+        <member name="M:System.Framework.Application.CreateActionBase`3.OnCreated(`1,`0)">
+            <summary>
+            當創建實體資料完畢執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="current">實體資料</param>
+        </member>
+        <member name="M:System.Framework.Application.CreateActionBase`3.OnExecuting(`1)">
+            <summary>
+            當執行時呼叫
+            </summary>
+            <param name="context">資料脈絡</param>
+        </member>
+        <member name="M:System.Framework.Application.CreateActionBase`3.OnExecuted(`1)">
+            <summary>
+            當執行完畢後呼叫
+            </summary>
+            <param name="context">資料脈絡</param>
+        </member>
+        <member name="T:System.Framework.Application.CreateAsyncActionBase`3">
+            <summary>
+            建立實體資料之非同步操作的基礎類別
+            </summary>
+            <typeparam name="TEntity">實體資料類型</typeparam>
+            <typeparam name="TDataContext">資料脈絡類型</typeparam>
+            <typeparam name="TSystemPermission">系統權限類型</typeparam>
+        </member>
+        <member name="M:System.Framework.Application.CreateAsyncActionBase`3.#ctor(System.String,System.Framework.Application.IUser,`1,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            建構 CreateAsyncActionBase
+            </summary>
+            <param name="name">操作名稱</param>
+            <param name="user">執行此動作用戶</param>
+            <param name="context">資料脈絡</param>
+            <param name="transactionEnabled">啟用Transaction</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.CreateAsyncActionBase`3.#ctor(System.String,System.Framework.Application.IUser,System.Nullable{System.Transactions.TransactionOptions},`1,System.Threading.CancellationToken)">
+            <summary>
+            建構 CreateAsyncActionBase
+            </summary>
+            <param name="name">操作名稱</param>
+            <param name="user">執行此動作用戶</param>
+            <param name="context">資料脈絡</param>
+            <param name="transactionOptions">交易選項，未設定時採用 RepeatableRead</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.CreateAsyncActionBase`3.#ctor(System.String,System.Framework.Application.IUser,System.Threading.CancellationToken,`1)">
+            <summary>
+            建構 CreateAsyncActionBase
+            </summary>
+            <param name="name">操作名稱</param>
+            <param name="user">執行此動作用戶</param>
+            <param name="context">資料脈絡</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.CreateAsyncActionBase`3.CreateAsync(`0,System.Framework.Parameters)">
+            <summary>
+            創建實體資料
+            </summary>
+            <param name="data">資料範本</param>
+            <param name="parameters">參數</param>
+        </member>
+        <member name="M:System.Framework.Application.CreateAsyncActionBase`3.OnTransacting(`1,`0,System.Threading.CancellationToken)">
+            <summary>
+            當 Transaction 前執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="data">資料範本</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.CreateAsyncActionBase`3.OnTransacted(`1,`0,System.Threading.CancellationToken)">
+            <summary>
+            當Transaction後執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="current">實體資料</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.CreateAsyncActionBase`3.OnCreating(`1,`0,System.Threading.CancellationToken)">
+            <summary>
+            當創建實體資料前執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="data">資料範本</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.CreateAsyncActionBase`3.OnCreated(`1,`0,System.Threading.CancellationToken)">
+            <summary>
+            當創建實體資料完畢執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="current">實體資料</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.CreateAsyncActionBase`3.OnExecuting(`1,System.Threading.CancellationToken)">
+            <summary>
+            當執行時呼叫
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.CreateAsyncActionBase`3.OnExecuted(`1,System.Threading.CancellationToken)">
+            <summary>
+            當執行完畢後呼叫
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="T:System.Framework.Application.DeleteActionBase`3">
+            <summary>
+            表示進行創建實體資料之操作的基礎類別
+            </summary>
+            <typeparam name="TEntity">實體資料類型</typeparam>
+            <typeparam name="TDataContext">資料脈絡類型</typeparam>
+            <typeparam name="TSystemPermission">系統權限類型</typeparam>
+        </member>
+        <member name="P:System.Framework.Application.DeleteActionBase`3.RequiredIncludes">
+            <summary>
+            須載入之實體資料欄位
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.DeleteActionBase`3.IsManualDelete">
+            <summary>
+            是否手動處理刪除
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.DeleteActionBase`3.#ctor(System.String,System.Framework.Application.IUser,`1,System.Boolean)">
+            <summary>
+            建構 DeleteActionBase
+            </summary>
+            <param name="name">操作名稱</param>
+            <param name="user">執行此動作用戶</param>
+            <param name="context">資料脈絡</param>
+            <param name="transactionEnabled">啟用Transaction</param>
+        </member>
+        <member name="M:System.Framework.Application.DeleteActionBase`3.#ctor(System.String,System.Framework.Application.IUser,System.Nullable{System.Transactions.TransactionOptions},`1)">
+            <summary>
+            建構 DeleteActionBase
+            </summary>
+            <param name="name">操作名稱</param>
+            <param name="user">執行此動作用戶</param>
+            <param name="context">資料脈絡</param>
+            <param name="transactionOptions">交易選項，未設定時採用 RepeatableRead</param>
+        </member>
+        <member name="M:System.Framework.Application.DeleteActionBase`3.Delete(`0,System.Framework.Parameters)">
+            <summary>
+            刪除資料
+            </summary>
+            <param name="data">資料範本</param>
+            <param name="parameters">參數</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Application.DeleteActionBase`3.OnTransacting(`1,`0)">
+            <summary>
+            當 Transaction 前執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="data">資料範本</param>
+        </member>
+        <member name="M:System.Framework.Application.DeleteActionBase`3.OnTransacted(`1,`0)">
+            <summary>
+            當Transaction後執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="current">實體資料</param>
+        </member>
+        <member name="M:System.Framework.Application.DeleteActionBase`3.OnDeleting(`1,`0)">
+            <summary>
+            當刪除實體資料前執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="current">目前的實體資料</param>
+        </member>
+        <member name="M:System.Framework.Application.DeleteActionBase`3.OnDeleted(`1,`0)">
+            <summary>
+            當刪除實體資料完畢執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="current">資料範本</param>
+        </member>
+        <member name="M:System.Framework.Application.DeleteActionBase`3.OnExecuting(`1)">
+            <summary>
+            當執行時呼叫
+            </summary>
+            <param name="context">資料脈絡</param>
+        </member>
+        <member name="M:System.Framework.Application.DeleteActionBase`3.OnExecuted(`1)">
+            <summary>
+            當執行完畢後呼叫
+            </summary>
+            <param name="context">資料脈絡</param>
+        </member>
+        <member name="T:System.Framework.Application.DeleteAsyncActionBase`3">
+            <summary>
+            表示進行創建實體資料之操作的基礎類別
+            </summary>
+            <typeparam name="TEntity">實體資料類型</typeparam>
+            <typeparam name="TDataContext">資料脈絡類型</typeparam>
+            <typeparam name="TSystemPermission">系統權限類型</typeparam>
+        </member>
+        <member name="P:System.Framework.Application.DeleteAsyncActionBase`3.RequiredIncludes">
+            <summary>
+            須載入之實體資料欄位
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.DeleteAsyncActionBase`3.IsManualDelete">
+            <summary>
+            是否手動處理刪除
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.DeleteAsyncActionBase`3.#ctor(System.String,System.Framework.Application.IUser,`1,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            建構 DeleteActionBase
+            </summary>
+            <param name="name">操作名稱</param>
+            <param name="user">執行此動作用戶</param>
+            <param name="context">資料脈絡</param>
+            <param name="transactionEnabled">啟用Transaction</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.DeleteAsyncActionBase`3.#ctor(System.String,System.Framework.Application.IUser,System.Nullable{System.Transactions.TransactionOptions},`1,System.Threading.CancellationToken)">
+            <summary>
+            建構 DeleteActionBase
+            </summary>
+            <param name="name">操作名稱</param>
+            <param name="user">執行此動作用戶</param>
+            <param name="context">資料脈絡</param>
+            <param name="transactionOptions">交易選項，未設定時採用 RepeatableRead</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.DeleteAsyncActionBase`3.DeleteAsync(`0,System.Framework.Parameters)">
+            <summary>
+            刪除資料
+            </summary>
+            <param name="data">資料範本</param>
+            <param name="parameters">參數</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Application.DeleteAsyncActionBase`3.OnTransacting(`1,`0,System.Threading.CancellationToken)">
+            <summary>
+            當 Transaction 前執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="data">資料範本</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.DeleteAsyncActionBase`3.OnTransacted(`1,`0,System.Threading.CancellationToken)">
+            <summary>
+            當Transaction後執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="current">實體資料</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.DeleteAsyncActionBase`3.OnDeleting(`1,`0,System.Threading.CancellationToken)">
+            <summary>
+            當刪除實體資料前執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="current">目前的實體資料</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.DeleteAsyncActionBase`3.OnDeleted(`1,`0,System.Threading.CancellationToken)">
+            <summary>
+            當刪除實體資料完畢執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="current">資料範本</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.DeleteAsyncActionBase`3.OnExecuting(`1,System.Threading.CancellationToken)">
+            <summary>
+            當執行時呼叫
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.DeleteAsyncActionBase`3.OnExecuted(`1,System.Threading.CancellationToken)">
+            <summary>
+            當執行完畢後呼叫
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="T:System.Framework.Application.ModelBase`1">
+            <summary>
+            資料模型的基礎類型
+            </summary>
+            <typeparam name="TDataContext">資料脈絡型別</typeparam>
+        </member>
+        <member name="M:System.Framework.Application.ModelBase`1.Dispose(System.Boolean)">
+            <summary>
+            清除使用資源，當True時清除所有 Managed Resource，執行其 Dispose， False僅清除 Native Resource。
+            </summary>
+            <param name="disposing">確實執行清除</param>
+        </member>
+        <member name="M:System.Framework.Application.ModelBase`1.Dispose">
+            <summary>
+            清除使用資源
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ModelBase`1.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ModelBase`1.CurrentUser">
+            <summary>
+            目前用戶
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ModelBase`1.DataContext">
+            <summary>
+            資料脈絡
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ModelBase`1.OnDataContextCreating">
+            <summary>
+            當未指定資料模型但卻使用到資料模型時，系統自行建立資料模型時觸發程序
+            </summary>
+        </member>
+        <member name="F:System.Framework.Application.ModelBase`1.children">
+            <summary>
+            附屬資料模型
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ModelBase`1.#ctor(System.String,System.Framework.Application.IUser,`0)">
+            <summary>
+            建構資料模型
+            </summary>
+            <param name="name">名稱</param>
+            <param name="user">預設用戶</param>
+            <param name="context">預設資料脈絡</param>
+        </member>
+        <member name="M:System.Framework.Application.ModelBase`1.AddSubModel``1(System.Framework.Application.IUser)">
+            <summary>
+            增加子資料模型
+            </summary>
+            <typeparam name="TModel">資料模型型別</typeparam>
+            <param name="user">資料模型的預設用戶。未指定視為當前用戶</param>
+            <returns>已被加入的資料模型</returns>
+        </member>
+        <member name="M:System.Framework.Application.ModelBase`1.AddSubModel(System.Framework.Application.IModel)">
+            <summary>
+            增加子資料模型
+            </summary>
+            <param name="model">資料模型</param>
+            <returns>已被加入的資料模型</returns>
+        </member>
+        <member name="M:System.Framework.Application.ModelBase`1.GetSubModel``1(System.Framework.Application.IUser)">
+            <summary>
+            取得子資料模型，如無符合型別的資料模型時將自行建立
+            </summary>
+            <typeparam name="TModel">資料模型型別</typeparam>
+            <param name="user">該資料模型的預設用戶。未指定視為當前用戶</param>
+            <returns>符合型別的資料模型</returns>
+        </member>
+        <member name="M:System.Framework.Application.ModelBase`1.GetSubModel(System.Type)">
+            <summary>
+            取得子資料模型
+            </summary>
+            <param name="modelType">資料模型型別</param>
+            <returns>符合型別的資料模型</returns>
+        </member>
+        <member name="P:System.Framework.Application.ModelBase`1.Item(System.String)">
+            <summary>
+            取得請求的資料
+            </summary>
+            <param name="name">請求的名稱</param>
+            <returns>實體資料</returns>
+        </member>
+        <member name="M:System.Framework.Application.ModelBase`1.Request(System.String,System.Framework.Parameters)">
+            <summary>
+            請求資料
+            </summary>
+            <param name="name">請求的名稱</param>
+            <param name="parameters">請求的參數</param>
+        </member>
+        <member name="M:System.Framework.Application.ModelBase`1.Validation">
+            <summary>
+            驗證目前所有資料
+            </summary>
+            <returns>驗證結果</returns>
+        </member>
+        <member name="M:System.Framework.Application.ModelBase`1.Refresh">
+            <summary>
+            刷新目前所有資料
+            </summary>
+        </member>
+        <member name="T:System.Framework.Application.ReadActionBase`3">
+            <summary>
+            讀取實體資料之操作的基礎類別
+            </summary>
+            <typeparam name="TEntity">實體資料類型</typeparam>
+            <typeparam name="TDataContext">資料脈絡類型</typeparam>
+            <typeparam name="TSystemPermission">系統權限類型</typeparam>
+        </member>
+        <member name="P:System.Framework.Application.ReadActionBase`3.RequiredIncludesInQuery">
+            <summary>
+            查詢時的必載入欄位
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ReadActionBase`3.RequiredIncludesInFind">
+            <summary>
+            尋找時的必載入欄位
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ReadActionBase`3.#ctor(System.String,System.Framework.Application.IUser,`1,System.Boolean)">
+            <summary>
+            建構 ReadActionBase
+            </summary>
+            <param name="name">操作名稱</param>
+            <param name="user">執行此動作用戶</param>
+            <param name="context">資料脈絡</param>
+            <param name="trackable">是否可追蹤。預設為False，False時取得的資料為純資料型態，修改後無法直接同步至資料來源</param>
+        </member>
+        <member name="M:System.Framework.Application.ReadActionBase`3.BuildPredicate(`1,System.Collections.Generic.IList{System.String},System.String,System.Framework.Data.Operator,System.Object)">
+            <summary>
+            依條件建立 Predicate
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="includes">須積極取回之相關資料</param>
+            <param name="column">欄位</param>
+            <param name="operator">運算子</param>
+            <param name="value">值</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Application.ReadActionBase`3.BuildPredicate(`1,System.Framework.Data.Condition,System.String[])">
+            <summary>
+            依(多筆)條件建立 Predicate
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="condition">條件</param>
+            <param name="includes">須積極取回之相關資料</param>
+        </member>
+        <member name="M:System.Framework.Application.ReadActionBase`3.Exists(System.Object)">
+            <summary>
+            檢查符合主鍵的實體資料是否存在
+            </summary>
+            <param name="key">主鍵</param>
+        </member>
+        <member name="M:System.Framework.Application.ReadActionBase`3.Find(System.Object,System.Boolean,System.String[])">
+            <summary>
+            依主鍵尋找實體資料
+            </summary>
+            <returns>取回的實體資料</returns>
+        </member>
+        <member name="M:System.Framework.Application.ReadActionBase`3.Find(System.Object,System.String[])">
+            <summary>
+            依主鍵尋找實體資料
+            </summary>
+            <returns>取回的實體資料</returns>
+        </member>
+        <member name="M:System.Framework.Application.ReadActionBase`3.Query(System.Framework.Data.Condition,System.Framework.Data.Sorting[],System.Boolean,System.String[])">
+            <summary>
+            查詢實體資料 (不支援 Dapper)
+            </summary>
+            <param name="condition">查詢條件</param>
+            <param name="sortings">排序方式</param>
+            <param name="trackable">是否可追蹤。預設為建構時指定的trackable參數值，False時取得的資料為純資料型態，修改後無法直接同步至資料來源</param>
+            <param name="includes">須積極取回之相關資料)</param>
+        </member>
+        <member name="M:System.Framework.Application.ReadActionBase`3.Query(System.Framework.Data.Condition,System.Framework.Data.Sorting[],System.String[])">
+            <summary>
+            查詢實體資料 (不支援 Dapper)
+            </summary>
+            <param name="condition">查詢條件</param>
+            <param name="sortings">排序方式</param>
+            <param name="includes">須積極取回之相關資料)</param>
+        </member>
+        <member name="M:System.Framework.Application.ReadActionBase`3.Query(System.Framework.Data.Condition,System.String[])">
+            <summary>
+            查詢實體資料 (不支援 Dapper)
+            </summary>
+            <param name="conditions">查詢條件</param>
+            <param name="includes">須積極取回之相關資料</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Application.ReadActionBase`3.Query(System.Framework.Data.Sorting[],System.String[])">
+            <summary>
+            查詢實體資料 (不支援 Dapper)
+            </summary>
+            <param name="sortings">排序方式</param>
+            <param name="includes">須積極取回之相關資料</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Application.ReadActionBase`3.Query(System.String[])">
+            <summary>
+            查詢實體資料
+            </summary>
+            <param name="includes">須積極取回之相關資料</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Application.ReadActionBase`3.OnFinding(`1,System.Object,System.Collections.Generic.IList{System.String})">
+            <summary>
+            當尋找實體資料前執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="key">主鍵值</param>
+            <param name="includes">須積極取回之相關資料</param>
+        </member>
+        <member name="M:System.Framework.Application.ReadActionBase`3.OnFound(`1,`0,System.Collections.Generic.IList{System.String})">
+            <summary>
+            當尋找實體資料完畢後執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="entity">已取得的實體資料</param>
+            <param name="includes">須積極取回之相關資料</param>
+        </member>
+        <member name="M:System.Framework.Application.ReadActionBase`3.OnQuerying(`1,System.Collections.Generic.IList{System.String},System.Framework.Data.Condition)">
+            <summary>
+            當查詢實體資料前執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="includes">須積極取回之相關資料</param>
+            <param name="condition">條件</param>
+        </member>
+        <member name="M:System.Framework.Application.ReadActionBase`3.OnQueried(`1,System.Collections.Generic.IList{System.String},System.Framework.Data.Condition,System.Linq.IQueryable{`0})">
+            <summary>
+            當查詢實體資料完畢後執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="includes">須積極取回之相關資料</param>
+            <param name="condition">條件</param>
+            <param name="collection">已讀取的實體資料集合</param>
+        </member>
+        <member name="M:System.Framework.Application.ReadActionBase`3.OnExecuting(`1)">
+            <summary>
+            當執行時呼叫
+            </summary>
+            <param name="context">資料脈絡</param>
+        </member>
+        <member name="M:System.Framework.Application.ReadActionBase`3.OnExecuted(`1)">
+            <summary>
+            當執行完畢後呼叫
+            </summary>
+            <param name="context">資料脈絡</param>
+        </member>
+        <member name="T:System.Framework.Application.ReadAsyncActionBase`3">
+            <summary>
+            讀取實體資料之非同步操作的基礎類別
+            </summary>
+            <typeparam name="TEntity">實體資料類型</typeparam>
+            <typeparam name="TDataContext">資料脈絡類型</typeparam>
+            <typeparam name="TSystemPermission">系統權限類型</typeparam>
+        </member>
+        <member name="P:System.Framework.Application.ReadAsyncActionBase`3.RequiredIncludesInQuery">
+            <summary>
+            查詢時的必載入欄位
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.ReadAsyncActionBase`3.RequiredIncludesInFind">
+            <summary>
+            尋找時的必載入欄位
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.ReadAsyncActionBase`3.#ctor(System.String,System.Framework.Application.IUser,`1,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            建構 ReadAsyncActionBase
+            </summary>
+            <param name="name">操作名稱</param>
+            <param name="user">執行此動作用戶</param>
+            <param name="context">資料脈絡</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+            <param name="trackable">是否可追蹤。預設為False，False時取得的資料為純資料型態，修改後無法直接同步至資料來源</param>
+        </member>
+        <member name="M:System.Framework.Application.ReadAsyncActionBase`3.BuildPredicate(`1,System.Collections.Generic.IList{System.String},System.String,System.Framework.Data.Operator,System.Object)">
+            <summary>
+            依條件建立 Predicate
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="includes">須積極取回之相關資料</param>
+            <param name="column">欄位</param>
+            <param name="operator">運算子</param>
+            <param name="value">值</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Application.ReadAsyncActionBase`3.BuildPredicate(`1,System.Framework.Data.Condition,System.String[])">
+            <summary>
+            依條件建立 Predicate
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="condition">條件</param>
+            <param name="includes">須積極取回之相關資料</param>
+        </member>
+        <member name="M:System.Framework.Application.ReadAsyncActionBase`3.ExistsAsync(System.Object)">
+            <summary>
+            非同步檢查符合主鍵的實體資料是否存在
+            </summary>
+            <param name="key">主鍵</param>
+            <exception cref="T:System.OperationCanceledException">被取消時拋出</exception>
+        </member>
+        <member name="M:System.Framework.Application.ReadAsyncActionBase`3.FindAsync(System.Object,System.Boolean,System.String[])">
+            <summary>
+            依主鍵非同步尋找實體資料
+            </summary>
+            <param name="key">主鍵</param>
+            <param name="trackable">是否可被追蹤</param>
+            <param name="includes">須包含的導覽欄位</param>
+            <exception cref="T:System.OperationCanceledException">被取消時拋出</exception>
+            <returns>取回的實體資料</returns>
+        </member>
+        <member name="M:System.Framework.Application.ReadAsyncActionBase`3.FindAsync(System.Object,System.String[])">
+            <summary>
+            依主鍵非同步尋找實體資料
+            </summary>
+            <returns>取回的實體資料</returns>
+        </member>
+        <member name="M:System.Framework.Application.ReadAsyncActionBase`3.QueryAsync(System.Framework.Data.Condition,System.Framework.Data.Sorting[],System.Boolean,System.String[])">
+            <summary>
+            非同步查詢實體資料 (不支援 Dapper)
+            </summary>
+            <param name="condition">查詢條件</param>
+            <param name="sortings">排序方式</param>
+            <param name="trackable">是否可追蹤。預設為建構時指定的trackable參數值，False時取得的資料為純資料型態，修改後無法直接同步至資料來源</param>
+            <param name="includes">須積極取回之相關資料)</param>
+        </member>
+        <member name="M:System.Framework.Application.ReadAsyncActionBase`3.QueryAsync(System.Framework.Data.Condition,System.Framework.Data.Sorting[],System.String[])">
+            <summary>
+            非同步查詢實體資料 (不支援 Dapper)
+            </summary>
+            <param name="condition">查詢條件</param>
+            <param name="sortings">排序方式</param>
+            <param name="includes">須積極取回之相關資料)</param>
+        </member>
+        <member name="M:System.Framework.Application.ReadAsyncActionBase`3.QueryAsync(System.Framework.Data.Condition,System.String[])">
+            <summary>
+            非同步查詢實體資料 (不支援 Dapper)
+            </summary>
+            <param name="conditions">查詢條件</param>
+            <param name="includes">須積極取回之相關資料</param>
+        </member>
+        <member name="M:System.Framework.Application.ReadAsyncActionBase`3.QueryAsync(System.Framework.Data.Sorting[],System.String[])">
+            <summary>
+            查詢實體資料 (不支援 Dapper)
+            </summary>
+            <param name="sortings">排序方式</param>
+            <param name="includes">須積極取回之相關資料</param>
+        </member>
+        <member name="M:System.Framework.Application.ReadAsyncActionBase`3.QueryAsync(System.String[])">
+            <summary>
+            查詢實體資料
+            </summary>
+            <param name="includes">須積極取回之相關資料</param>
+        </member>
+        <member name="M:System.Framework.Application.ReadAsyncActionBase`3.OnFinding(`1,System.Object,System.Collections.Generic.IList{System.String},System.Threading.CancellationToken)">
+            <summary>
+            當尋找實體資料前執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="key">主鍵值</param>
+            <param name="includes">須積極取回之相關資料</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.ReadAsyncActionBase`3.OnFound(`1,`0,System.Collections.Generic.IList{System.String},System.Threading.CancellationToken)">
+            <summary>
+            當尋找實體資料完畢後執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="entity">已取得的實體資料</param>
+            <param name="includes">須積極取回之相關資料</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.ReadAsyncActionBase`3.OnQuerying(`1,System.Collections.Generic.IList{System.String},System.Framework.Data.Condition,System.Threading.CancellationToken)">
+            <summary>
+            當查詢實體資料前執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="includes">須積極取回之相關資料</param>
+            <param name="condition">條件</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.ReadAsyncActionBase`3.OnQueried(`1,System.Collections.Generic.IList{System.String},System.Framework.Data.Condition,System.Linq.IQueryable{`0},System.Threading.CancellationToken)">
+            <summary>
+            當查詢實體資料完畢後執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="includes">須積極取回之相關資料</param>
+            <param name="condition">條件</param>
+            <param name="collection">已讀取的實體資料集合</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.ReadAsyncActionBase`3.OnExecuting(`1,System.Threading.CancellationToken)">
+            <summary>
+            當執行時呼叫
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.ReadAsyncActionBase`3.OnExecuted(`1,System.Threading.CancellationToken)">
+            <summary>
+            當執行完畢後呼叫
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="T:System.Framework.Application.SystemUser">
+            <summary>
+            提供取得預設的系統用戶
+            </summary>
+        </member>
+        <member name="F:System.Framework.Application.SystemUser.Default">
+            <summary>
+            取得預設的系統用戶
+            </summary>
+        </member>
+        <member name="P:System.Framework.Application.SystemUser.Data">
+            <summary>
+            用戶資料
+            </summary>
+        </member>
+        <member name="T:System.Framework.Application.UpdateActionBase`3">
+            <summary>
+            更新實體資料之操作的基礎類別
+            </summary>
+            <typeparam name="TEntity">實體資料類型</typeparam>
+            <typeparam name="TDataContext">資料脈絡類型</typeparam>
+            <typeparam name="TSystemPermission">系統權限類型</typeparam>
+        </member>
+        <member name="P:System.Framework.Application.UpdateActionBase`3.RequiredIncludes">
+            <summary>
+            須載入之實體資料欄位，操作紀錄只會分析有載入的欄位
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.UpdateActionBase`3.#ctor(System.String,System.Framework.Application.IUser,`1,System.Boolean)">
+            <summary>
+            建構 UpdateActionBase
+            </summary>
+            <param name="name">操作名稱</param>
+            <param name="user">執行此動作用戶</param>
+            <param name="context">資料脈絡</param>
+            <param name="transactionEnabled">啟用Transaction</param>
+        </member>
+        <member name="M:System.Framework.Application.UpdateActionBase`3.#ctor(System.String,System.Framework.Application.IUser,System.Nullable{System.Transactions.TransactionOptions},`1)">
+            <summary>
+            建構 UpdateActionBase
+            </summary>
+            <param name="name">操作名稱</param>
+            <param name="user">執行此動作用戶</param>
+            <param name="context">資料脈絡</param>
+            <param name="transactionOptions">交易選項，未設定時採用 RepeatableRead</param>
+        </member>
+        <member name="M:System.Framework.Application.UpdateActionBase`3.Update(`0,System.Framework.Parameters)">
+            <summary>
+            更新實體資料
+            </summary>
+            <param name="data">資料範本</param>
+            <param name="parameters">參數</param>
+            <returns>更新後資料</returns>
+        </member>
+        <member name="M:System.Framework.Application.UpdateActionBase`3.OnTransacting(`1,`0)">
+            <summary>
+            當 Transaction 前執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="data">資料範本</param>
+        </member>
+        <member name="M:System.Framework.Application.UpdateActionBase`3.OnTransacted(`1,`0)">
+            <summary>
+            當Transaction後執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="current">實體資料</param>
+        </member>
+        <member name="M:System.Framework.Application.UpdateActionBase`3.OnUpdating(`1,`0,`0)">
+            <summary>
+            當更新實體資料前執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="data">資料範本</param>
+            <param name="current">目前資料</param>
+        </member>
+        <member name="M:System.Framework.Application.UpdateActionBase`3.OnUpdated(`1,`0,`0)">
+            <summary>
+            當更新實體資料完畢執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="data">資料範本</param>
+            <param name="current">目前資料</param>
+        </member>
+        <member name="M:System.Framework.Application.UpdateActionBase`3.OnExecuting(`1)">
+            <summary>
+            當執行時呼叫
+            </summary>
+            <param name="context">資料脈絡</param>
+        </member>
+        <member name="M:System.Framework.Application.UpdateActionBase`3.OnExecuted(`1)">
+            <summary>
+            當執行完畢後呼叫
+            </summary>
+            <param name="context">資料脈絡</param>
+        </member>
+        <member name="T:System.Framework.Application.UpdateAsyncActionBase`3">
+            <summary>
+            更新實體資料之非同步操作的基礎類別
+            </summary>
+            <typeparam name="TEntity">實體資料類型</typeparam>
+            <typeparam name="TDataContext">資料脈絡類型</typeparam>
+            <typeparam name="TSystemPermission">系統權限類型</typeparam>
+        </member>
+        <member name="P:System.Framework.Application.UpdateAsyncActionBase`3.RequiredIncludes">
+            <summary>
+            須載入之實體資料欄位，操作紀錄只會分析有載入的欄位
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.UpdateAsyncActionBase`3.#ctor(System.String,System.Framework.Application.IUser,`1,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            建構 UpdateActionBase
+            </summary>
+            <param name="name">操作名稱</param>
+            <param name="user">執行此動作用戶</param>
+            <param name="context">資料脈絡</param>
+            <param name="transactionEnabled">啟用Transaction</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.UpdateAsyncActionBase`3.#ctor(System.String,System.Framework.Application.IUser,System.Nullable{System.Transactions.TransactionOptions},`1,System.Threading.CancellationToken)">
+            <summary>
+            建構 UpdateAsyncActionBase
+            </summary>
+            <param name="name">操作名稱</param>
+            <param name="user">執行此動作用戶</param>
+            <param name="context">資料脈絡</param>
+            <param name="transactionOptions">交易選項，未設定時採用 RepeatableRead</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.UpdateAsyncActionBase`3.#ctor(System.String,System.Framework.Application.IUser,System.Threading.CancellationToken,`1)">
+            <summary>
+            建構 UpdateAsyncActionBase
+            </summary>
+            <param name="name">操作名稱</param>
+            <param name="user">執行此動作用戶</param>
+            <param name="context">資料脈絡</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.UpdateAsyncActionBase`3.UpdateAsync(`0,System.Framework.Parameters)">
+            <summary>
+            非同步更新實體資料
+            </summary>
+            <param name="data">資料範本</param>
+            <param name="parameters">參數</param>
+            <returns>更新後資料</returns>
+        </member>
+        <member name="M:System.Framework.Application.UpdateAsyncActionBase`3.OnTransacting(`1,`0,System.Threading.CancellationToken)">
+            <summary>
+            當 Transaction 前執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="data">資料範本</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.UpdateAsyncActionBase`3.OnTransacted(`1,`0,System.Threading.CancellationToken)">
+            <summary>
+            當Transaction後執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="current">實體資料</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.UpdateAsyncActionBase`3.OnUpdating(`1,`0,`0,System.Threading.CancellationToken)">
+            <summary>
+            當更新實體資料前執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="data">資料範本</param>
+            <param name="current">目前資料</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.UpdateAsyncActionBase`3.OnUpdated(`1,`0,`0,System.Threading.CancellationToken)">
+            <summary>
+            當更新實體資料完畢執行
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="data">資料範本</param>
+            <param name="current">目前資料</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.UpdateAsyncActionBase`3.OnExecuting(`1,System.Threading.CancellationToken)">
+            <summary>
+            當執行時呼叫
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="M:System.Framework.Application.UpdateAsyncActionBase`3.OnExecuted(`1,System.Threading.CancellationToken)">
+            <summary>
+            當執行完畢後呼叫
+            </summary>
+            <param name="context">資料脈絡</param>
+            <param name="cancellationToken">用以通知取消任務的傳令</param>
+        </member>
+        <member name="T:System.Framework.Application.UserExtensions">
+            <summary>
+            用戶相關擴充方法
+            </summary>
+        </member>
+        <member name="M:System.Framework.Application.UserExtensions.IsGuest(System.Framework.Application.IUser)">
+            <summary>
+            判斷用戶是否為來賓
+            </summary>
+            <param name="user">用戶</param>
+        </member>
+        <member name="M:System.Framework.Application.UserExtensions.IsValid(System.Framework.Application.IUser)">
+            <summary>
+            判斷用戶是否為有效用戶
+            </summary>
+            <param name="user">用戶</param>
+        </member>
+        <member name="T:System.Framework.Builder">
+            <summary>
+            資料生成器
+            </summary>
+        </member>
+        <member name="M:System.Framework.Builder.BuilderCulture(System.String)">
+            <summary>
+            生成文化特性，適用於需要預設的文化特性(zh-Hant-TW)時
+            </summary>
+            <param name="code">代碼，未提供時使用預設文化特性</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Builder.BuildMultilingualText(System.String,System.String)">
+            <summary>
+            生成多語言文本，適用於只有一個文本卻須返回多語系文本時
+            </summary>
+            <param name="text">文本</param>
+            <param name="culture">文化特性(代碼)，未設定時使用EnvironmentContext.Culture</param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Framework.CompressionKind">
+            <summary>
+            壓縮種類
+            </summary>
+        </member>
+        <member name="F:System.Framework.CompressionKind.None">
+            <summary>
+            無壓縮
+            </summary>
+        </member>
+        <member name="F:System.Framework.CompressionKind.Deflate">
+            <summary>
+            Deflate，亦可稱為ZLib或Zip
+            </summary>
+        </member>
+        <member name="F:System.Framework.CompressionKind.GZip">
+            <summary>
+            GZip
+            </summary>
+        </member>
+        <member name="T:System.Framework.CriticalTimeDetector">
+            <summary>
+            表示此 Method 設有臨界執行時間
+            </summary>
+        </member>
+        <member name="M:System.Framework.CriticalTimeDetector.#ctor(System.String,System.String)">
+            <summary>
+            建構 CriticalExecutionTimeAttribute，並使用 Application 設定之臨界時間，類型為警示
+            </summary>
+            <param name="label">識別用標籤</param>
+            <param name="username">識別使用者</param>
+        </member>
+        <member name="M:System.Framework.CriticalTimeDetector.#ctor(System.TimeSpan,System.Nullable{System.Framework.MessageType},System.String,System.String)">
+            <summary>
+            建構 CriticalExecutionTimeAttribute，並使用指定的臨界時間與訊息類型
+            </summary>
+            <param name="criticalTime">臨界時間</param>
+            <param name="logType">訊息類型</param>
+            <param name="label">識別用標籤</param>
+            <param name="username">識別使用者</param>
+        </member>
+        <member name="M:System.Framework.CriticalTimeDetector.Finalize">
+            <summary>
+            Instance 終結時執行
+            </summary>
+        </member>
+        <member name="M:System.Framework.CriticalTimeDetector.Dispose">
+            <summary>
+            清除使用資源
+            </summary>
+        </member>
+        <member name="M:System.Framework.CriticalTimeDetector.Dispose(System.Boolean)">
+            <summary>
+            清除使用資源，當True時清除所有 Managed Resource，執行其 Dispose， False僅清除 Native Resource。
+            </summary>
+            <param name="disposing">確實執行清除</param>
+        </member>
+        <member name="T:System.Framework.Data.DataSourceExtensions">
+            <summary>
+            資料來源之擴充方法
+            </summary>
+        </member>
+        <member name="M:System.Framework.Data.DataSourceExtensions.OrderBy``1(System.Linq.IQueryable{``0},System.String)">
+            <summary>
+            使用指定的欄位，依遞增順序排序序列中的項目
+            </summary>
+            <typeparam name="TItem">序列項目類別</typeparam>
+            <param name="source">來源序列</param>
+            <param name="column">欄位名稱</param>
+            <returns>已遞增排序過之序列</returns>
+        </member>
+        <member name="M:System.Framework.Data.DataSourceExtensions.OrderBy``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>
+            使用指定的欄位，依遞增順序排序序列中的項目
+            </summary>
+            <typeparam name="TItem">序列項目類別</typeparam>
+            <param name="source">來源序列</param>
+            <param name="column">欄位名稱</param>
+            <returns>已遞增排序過之序列</returns>
+        </member>
+        <member name="M:System.Framework.Data.DataSourceExtensions.OrderByDescending``1(System.Linq.IQueryable{``0},System.String)">
+            <summary>
+            使用指定的欄位，依遞減順序排序序列中的項目
+            </summary>
+            <typeparam name="TItem">序列項目類別</typeparam>
+            <param name="source">來源序列</param>
+            <param name="column">欄位名稱</param>
+            <returns>已遞減排序過之序列</returns>
+        </member>
+        <member name="M:System.Framework.Data.DataSourceExtensions.OrderByDescending``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>
+            使用指定的欄位，依遞減順序排序序列中的項目
+            </summary>
+            <typeparam name="TItem">序列項目類別</typeparam>
+            <param name="source">來源序列</param>
+            <param name="column">欄位名稱</param>
+            <returns>已遞減排序過之序列</returns>
+        </member>
+        <member name="M:System.Framework.Data.DataSourceExtensions.Column``1(System.Data.DataRow,System.String)">
+            <summary>
+            讀取欄位值，並已指定類型回傳。字串型態將自動移除前後之空白字元，空白字串將視為 NULL
+            </summary>
+            <typeparam name="T">指定回傳類型</typeparam>
+            <param name="row">資料列</param>
+            <param name="columnName">欄位名稱</param>
+            <returns>轉換成指定類型的欄位值</returns>
+        </member>
+        <member name="M:System.Framework.Data.DataSourceExtensions.Column``1(System.Data.DataRow,System.Int32)">
+            <summary>
+            讀取欄位值，並已指定類型回傳。字串型態將自動移除前後之空白字元，空白字串將視為 NULL
+            </summary>
+            <typeparam name="T">指定回傳類型</typeparam>
+            <param name="row">資料列</param>
+            <param name="index">欄位索引</param>
+            <returns>轉換成指定類型的欄位值</returns>
+        </member>
+        <member name="M:System.Framework.Data.DataSourceExtensions.GetValue(System.Data.SqlClient.SqlDataReader,System.String)">
+            <summary>
+            依欄位名稱取得欄位值
+            </summary>
+            <param name="reader">讀取器</param>
+            <param name="columnName">欄位名稱</param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Framework.Data.DynamicQueryableExtensions">
+            <summary>
+            動態查詢的擴充方法
+            </summary>
+        </member>
+        <member name="M:System.Framework.Data.DynamicQueryableExtensions.GroupBy``1(System.Linq.IQueryable{``0},System.String,System.Object[])">
+            <summary>
+            將查詢分組
+            </summary>
+            <typeparam name="T">資料型別</typeparam>
+            <param name="query">查詢</param>
+            <param name="keySelector">以字串型態的表達式指定每個元素的Key</param>
+            <param name="args">如keySelector為format形式，可於此傳入參數</param>
+            <returns>已分組的查詢</returns>
+        </member>
+        <member name="M:System.Framework.Data.DynamicQueryableExtensions.GroupBy``1(System.Linq.IQueryable{``0},System.String,System.String)">
+            <summary>
+            將查詢分組
+            </summary>
+            <typeparam name="T">資料型別</typeparam>
+            <param name="query">查詢</param>
+            <param name="keySelector">以字串型態的表達式指定每個元素的Key</param>
+            <param name="resultSelect">以字串型態的表達式指定每個元素的Result</param>
+            <returns>已分組的查詢</returns>
+        </member>
+        <member name="M:System.Framework.Data.DynamicQueryableExtensions.Page(System.Linq.IQueryable,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            將查詢結果進行分頁
+            </summary>
+            <param name="query">查詢</param>
+            <param name="page">頁數</param>
+            <param name="size">每頁筆數</param>
+            <param name="initialPage">初始頁面</param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Framework.Data.EntityExtensions">
+            <summary>
+            實體資料相關之擴充方法
+            </summary>
+        </member>
+        <member name="M:System.Framework.Data.EntityExtensions.GetDefaultName``1(System.Framework.Data.IEntityData)">
+            <summary>
+            取得實體資料之預設名稱
+            </summary>
+            <param name="entity">實體資料</param>
+            <typeparam name="TEntity">實體資料類型</typeparam>
+            <returns>預設名稱</returns>
+        </member>
+        <member name="M:System.Framework.Data.EntityExtensions.GetDefaultName(System.Framework.Data.IEntityData,System.Type)">
+            <summary>
+            取得實體資料之預設名稱
+            </summary>
+            <param name="entity">實體資料</param>
+            <param name="entityType">實體資料類型</param>
+            <returns>預設名稱</returns>
+        </member>
+        <member name="M:System.Framework.Data.EntityExtensions.GetEagerIncludes(System.Type)">
+            <summary>
+            取得 Eager Load 欄位名稱陣列
+            </summary>
+        </member>
+        <member name="M:System.Framework.Data.EntityExtensions.GetLazyIncludes(System.Type)">
+            <summary>
+            取得 Lazy Load 欄位名稱陣列
+            </summary>
+        </member>
+        <member name="M:System.Framework.Data.EntityExtensions.GetAllIncludes(System.Type)">
+            <summary>
+            取得須以外鍵(FK)取回資料的欄位名稱陣列
+            </summary>
+        </member>
+        <member name="M:System.Framework.Data.EntityExtensions.CreateProxyEntity``1(``0)">
+            <summary>
+            將此筆實體資料加至代理機制
+            </summary>
+            <param name="entity">實體資料</param>
+            <typeparam name="TEntity">實體資料類型</typeparam>
+            <returns>已被代理的實體資料</returns>
+        </member>
+        <member name="M:System.Framework.Data.EntityExtensions.BuildBasicCredential(System.Framework.Data.IUserData)">
+            <summary>
+            產生 Basic Credential
+            </summary>
+            <returns>Basic Credential，用於 Http Authorization Header</returns>
+        </member>
+        <member name="M:System.Framework.Data.EntityExtensions.GetEventDurations(System.Framework.Data.ICalendarData,System.DateTime,System.DateTime,System.Boolean)">
+            <summary>
+            取得行事曆之指定時間內依活動狀態分割的所有時間區間
+            </summary>
+            <param name="calendar">行事曆</param>
+            <param name="startTime">開始查詢時間</param>
+            <param name="endTime">結束查詢時間</param>
+            <param name="checkValue">檢查狀態值。通常True表示有活動之區間；False表示沒活動之區間</param>
+            <exception cref="T:System.InvalidOperationException"></exception>
+            <returns>依活動狀態分割的所有時間區間</returns>
+        </member>
+        <member name="M:System.Framework.Data.EntityExtensions.SetRange(System.Framework.Data.ICalendarData,System.DateTime,System.DateTime,System.Boolean)">
+            <summary>
+            設定指定時間範圍內之行事曆狀態值
+            </summary>
+            <param name="calendar">行事曆</param>
+            <param name="startTime">開始時間</param>
+            <param name="endTime">結束時間</param>
+            <param name="value">狀態值。通常True表示有活動；False表示沒活動</param>
+        </member>
+        <member name="M:System.Framework.Data.EntityExtensions.GetPath(System.Framework.Data.IResourceData,System.String)">
+            <summary>
+            取得圖檔路徑，如圖檔存在即傳回圖檔，不然傳回URI
+            </summary>
+            <param name="resource">圖片</param>
+            <param name="defaultPath">預設路徑，如無法找到圖檔時使用。</param>
+        </member>
+        <member name="M:System.Framework.Data.EntityExtensions.ConvertDataUriToUri(System.Framework.Data.IResourceData)">
+            <summary>
+            將Data URI包含的影像資料儲存在伺服器上，並以圖檔之URI取代URI屬性。
+            </summary>
+            <param name="resource">圖片</param>
+        </member>
+        <member name="M:System.Framework.Data.EntityExtensions.SetContentType(System.Framework.Data.IResourceData,System.String)">
+            <summary>
+            設定內容類型。如未指定內容類型時，將自動判斷內容類型。
+            </summary>
+            <param name="resource">圖片資料</param>
+            <param name="contentType">內容類型</param>
+        </member>
+        <member name="T:System.Framework.Data.MappingData`1">
+            <summary>
+            對應資料
+            </summary>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="M:System.Framework.Data.MappingData`1.ToData">
+            <summary>
+            映照成資料
+            </summary>
+            <returns>映照後的資料</returns>
+        </member>
+        <member name="T:System.Framework.Data.StringResource">
+            <summary>
+            字串資訊，提供已建立相關資訊(XML)或須將實體資料轉化為資訊時使用
+            </summary>
+        </member>
+        <member name="P:System.Framework.Data.StringResource.IsDefault">
+            <summary>
+            是否為預設值
+            </summary>
+        </member>
+        <member name="P:System.Framework.Data.StringResource.Culture">
+            <summary>
+            文化特性(代碼)
+            </summary>
+        </member>
+        <member name="P:System.Framework.Data.StringResource.Content">
+            <summary>
+            內容
+            </summary>
+        </member>
+        <member name="M:System.Framework.Data.StringResource.#ctor">
+            <summary>
+            建構 StringInfo
+            </summary>
+        </member>
+        <member name="M:System.Framework.Data.StringResource.#ctor(System.String,System.String,System.Boolean)">
+            <summary>
+            建構 StringInfo
+            </summary>
+            <param name="culture">文化特性</param>
+            <param name="content">內容</param>
+            <param name="isDefault">是否為預設值</param>
+        </member>
+        <member name="T:System.Framework.Metadata">
+            <summary>
+            詮釋指定資料型別的資料
+            </summary>
+        </member>
+        <member name="P:System.Framework.Metadata.Field">
+            <summary>
+            欄位
+            </summary>
+        </member>
+        <member name="P:System.Framework.Metadata.Name">
+            <summary>
+            名稱
+            </summary>
+        </member>
+        <member name="P:System.Framework.Metadata.ShortName">
+            <summary>
+            簡稱
+            </summary>
+        </member>
+        <member name="P:System.Framework.Metadata.Prompt">
+            <summary>
+            提示文字
+            </summary>
+        </member>
+        <member name="P:System.Framework.Metadata.Description">
+            <summary>
+            說明
+            </summary>
+        </member>
+        <member name="P:System.Framework.Metadata.Group">
+            <summary>
+            分組名稱
+            </summary>
+        </member>
+        <member name="P:System.Framework.Metadata.Ordinal">
+            <summary>
+            順序加權
+            </summary>
+        </member>
+        <member name="P:System.Framework.Metadata.ResourceType">
+            <summary>
+            資源型別
+            </summary>
+        </member>
+        <member name="M:System.Framework.Metadata.#ctor">
+            <summary>
+            建構 Metadata
+            </summary>
+        </member>
+        <member name="T:System.Framework.Metadata`1">
+            <summary>
+            詮釋指定資料型別的資料
+            </summary>
+            <typeparam name="TValue">資料型別</typeparam>
+        </member>
+        <member name="P:System.Framework.Metadata`1.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="M:System.Framework.Metadata`1.#ctor">
+            <summary>
+            建構 Metadata
+            </summary>
+        </member>
+        <member name="T:System.Framework.DataDictionary">
+            <summary>
+            資料字典，用以查詢資料名稱與建立資料項目列表之用。
+            </summary>
+        </member>
+        <member name="M:System.Framework.DataDictionary.BuildMetadata``1(System.String)">
+            <summary>
+            建立資料項目列表，僅支援 Enum 與 Class
+            </summary>
+            <typeparam name="TSource">資料型別</typeparam>
+            <param name="culture">文化特性是別碼</param>
+            <exception cref="T:System.NotSupportedException">僅支援Enum與Class</exception>
+            <returns>資料項目列表</returns>
+        </member>
+        <member name="M:System.Framework.DataDictionary.BuildEnumMetadata``1(System.String)">
+            <summary>
+            建立列舉的詮釋資料
+            </summary>
+            <typeparam name="TEnum">列舉型別</typeparam>
+            <param name="culture">文化特性是別碼</param>
+            <exception cref="T:System.NotSupportedException">僅支援Enum與Class</exception>
+            <returns>資料項目列表</returns>
+        </member>
+        <member name="M:System.Framework.DataDictionary.BuildClassMetadata``1(System.String)">
+            <summary>
+            建立類別的詮釋資料
+            </summary>
+            <typeparam name="TSource">資料型別</typeparam>
+            <param name="culture">文化特性是別碼</param>
+            <exception cref="T:System.NotSupportedException">僅支援Enum與Class</exception>
+            <returns>資料項目列表</returns>
+        </member>
+        <member name="M:System.Framework.DataDictionary.ToDynamic(System.Collections.Generic.IEnumerable{System.Framework.Metadata})">
+            <summary>
+            轉換成動態物件
+            </summary>
+            <returns>物件型態的資料項目，資料項目以屬性方式呈現，屬性名稱為各自的列舉名稱</returns>
+            <exception cref="T:System.Framework.OperationException">當資列項目的值型別必非列舉型態，無法進行個別存放時將拋出此例外</exception>
+        </member>
+        <member name="T:System.Framework.CompressExtensions">
+            <summary>
+            壓縮相關之擴充方法
+            </summary>
+        </member>
+        <member name="M:System.Framework.CompressExtensions.Compress(System.Byte[],System.Framework.CompressionKind,System.IO.Compression.CompressionLevel)">
+            <summary>
+            將資料進行壓縮，預設使用Deflate(Zip)進行快速壓縮
+            </summary>
+            <param name="data">待壓縮資料</param>
+            <param name="kind">壓縮種類</param>
+            <param name="level">壓縮層級</param>
+            <returns>壓縮後之資料</returns>
+        </member>
+        <member name="M:System.Framework.CompressExtensions.Decompress(System.Byte[],System.Framework.CompressionKind)">
+            <summary>
+            將已壓縮資料進行解壓縮，預設使用Deflate(Zip)進行解壓縮
+            </summary>
+            <param name="data">已壓縮資料</param>
+            <param name="kind">壓縮種類</param>
+            <returns>解壓縮後之資料</returns>
+        </member>
+        <member name="T:System.Framework.FileSystemExtensions">
+            <summary>
+            目錄之擴充方法
+            </summary>
+        </member>
+        <member name="M:System.Framework.FileSystemExtensions.IsSameDirectory(System.IO.DirectoryInfo,System.IO.DirectoryInfo)">
+            <summary>
+            判斷兩個目錄是否相同
+            </summary>
+            <param name="source">須判斷的目錄</param>
+            <param name="another">另一個目錄</param>
+        </member>
+        <member name="M:System.Framework.FileSystemExtensions.IsSubDirectoryOf(System.IO.DirectoryInfo,System.IO.DirectoryInfo)">
+            <summary>
+            判斷目錄是否為指定目錄的子目錄 
+            </summary>
+            <param name="subDirectory">須判斷的子目錄</param>
+            <param name="baseDirectory">上層目錄</param>
+        </member>
+        <member name="M:System.Framework.FileSystemExtensions.IsSubDirectoryOf(System.IO.DirectoryInfo,System.String)">
+            <summary>
+            判斷目錄是否為指定目錄的子目錄
+            </summary>
+            <param name="subDirectory">須判斷的子目錄</param>
+            <param name="basePath">上層目錄路徑</param>
+        </member>
+        <member name="M:System.Framework.FileSystemExtensions.AvoidPathManipulation(System.String)">
+            <summary>
+            防範 Path Manipulation 風險
+            </summary>
+            <param name="path">路徑</param>
+            <returns>無 Path Manipulation 風險之路徑</returns>
+        </member>
+        <member name="T:System.Framework.FileTransferExtensions">
+            <summary>
+            檔案傳輸擴充方法
+            </summary>
+        </member>
+        <member name="M:System.Framework.FileTransferExtensions.CreateDirectoryViaFtp(System.Uri)">
+            <summary>
+            透過FTP方式建立目錄
+            </summary>
+            <param name="uri">檔案資源位置索引</param>
+        </member>
+        <member name="M:System.Framework.FileTransferExtensions.MoveFileViaFtp(System.Uri,System.String,FluentFTP.FtpRemoteExists)">
+            <summary>
+            透過FTP方式移動檔案
+            </summary>
+            <param name="uri">檔案資源位置索引</param>
+            <param name="destination">目的路徑</param>
+            <param name="existsMode">如檔案存在，依此模式處理</param>
+        </member>
+        <member name="M:System.Framework.FileTransferExtensions.GetFileViaFtp(System.Uri,System.String,System.Boolean,FluentFTP.FtpVerify,System.Action{FluentFTP.FtpProgress})">
+            <summary>
+            透過FTP方式取得檔案
+            </summary>
+            <param name="uri">檔案資源位置索引</param>
+            <param name="fileName">目的檔案名稱</param>
+            <param name="overwritable">如檔案存在，是否進行覆蓋</param>
+            <param name="verify">檢查失敗後的處理方式</param>
+            <param name="progress">更新進度通知</param>
+        </member>
+        <member name="M:System.Framework.FileTransferExtensions.FileExistsViaFtp(System.Uri)">
+            <summary>
+            透過FTP方式確認檔案是否存在
+            </summary>
+            <param name="uri">檔案資源位置索引</param>
+        </member>
+        <member name="M:System.Framework.FileTransferExtensions.UploadFileViaFtp(System.Uri,System.String,FluentFTP.FtpRemoteExists,System.Action{FluentFTP.FtpProgress})">
+            <summary>
+            透過FTP方式上傳檔案
+            </summary>
+            <param name="uri">檔案資源位置索引</param>
+            <param name="fileName">來源檔案名稱</param>
+            <param name="existsMode">如檔案存在，依此模式處理</param>
+            <param name="progress">如須掌控進度，可指定FileTransferProgressEventHandler</param>
+        </member>
+        <member name="M:System.Framework.FileTransferExtensions.RemoveFileViaFtp(System.Uri)">
+            <summary>
+            透過FTP方式刪除檔案
+            </summary>
+            <param name="uri">檔案資源位置索引</param>
+        </member>
+        <member name="T:System.Framework.MediaExtension">
+            <summary>
+            媒體相關之擴充方法
+            </summary>
+        </member>
+        <member name="M:System.Framework.MediaExtension.ToBase64(SixLabors.ImageSharp.Image,SixLabors.ImageSharp.Formats.IImageFormat)">
+            <summary>
+            將影像轉換成Base64
+            </summary>
+            <param name="source">來源影像</param>
+            <param name="format">影像格式</param>
+            <returns>Base64字串</returns>
+        </member>
+        <member name="M:System.Framework.MediaExtension.Resize(SixLabors.ImageSharp.Image,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Single})">
+            <summary>
+            調整影像大小
+            </summary>
+            <param name="source">原始影像</param>
+            <param name="resizedWidth">調整後寬度</param>
+            <param name="resizedHeight">調整後高度</param>
+            <param name="dpi">解析度</param>
+            <returns>調整後的影像</returns>
+        </member>
+        <member name="M:System.Framework.MediaExtension.Trim(SixLabors.ImageSharp.Image{SixLabors.ImageSharp.PixelFormats.Rgba32},SixLabors.ImageSharp.Color[])">
+            <summary>
+            以指定顏色對影像進行裁切
+            </summary>
+            <param name="image">需裁切的影像</param>
+            <param name="colors">可裁切的顏色，固定裁切完全透明的顏色</param>
+            <returns>裁切後的影響</returns>
+        </member>
+        <member name="M:System.Framework.MediaExtension.SaveImage(System.IO.Stream,System.String,System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Single)">
+            <summary>
+            將串流儲存成影像
+            </summary>
+            <param name="input">影像輸入串流</param>
+            <param name="saveFilePath">檔案儲存路徑</param>
+            <param name="overwrite">是否可覆寫</param>
+            <param name="resizedWidth">調整後寬度</param>
+            <param name="resizedHeight">調整後高度</param>
+            <param name="dpi">圖像解析度</param>
+            <returns>內容類型</returns>
+        </member>
+        <member name="T:System.Framework.StreamExtension">
+            <summary>
+            Stream擴充方法
+            </summary>
+        </member>
+        <member name="M:System.Framework.StreamExtension.RestGet``1(System.Uri,System.Boolean)">
+            <summary>
+            透過RESTful方式取回資源
+            </summary>
+            <typeparam name="TResource">資源型別</typeparam>
+            <param name="uri">資源位置索引</param>
+            <param name="acceptJson">是否接受JSON，如不接收將以XML格式聯繫</param>
+            <result>內容</result>
+        </member>
+        <member name="M:System.Framework.StreamExtension.RestPost``1(System.Uri,``0,System.Boolean)">
+            <summary>
+            透過RESTful方式建立資源
+            </summary>
+            <typeparam name="TResource">資源型別</typeparam>
+            <param name="uri">資源位置索引</param>
+            <param name="resource">資源樣本</param>
+            <param name="acceptJson">是否接受JSON，如不接收將以XML格式聯繫</param>
+        </member>
+        <member name="M:System.Framework.StreamExtension.RestPut``1(System.Uri,``0,System.Boolean)">
+            <summary>
+            透過RESTful方式更新資源
+            </summary>
+            <typeparam name="TResource">資源型別</typeparam>
+            <param name="uri">資源位置索引</param>
+            <param name="resource">資源樣本</param>
+            <param name="acceptJson">是否接受JSON，如不接收將以XML格式聯繫</param>
+        </member>
+        <member name="M:System.Framework.StreamExtension.RestDelete(System.Uri)">
+            <summary>
+            透過RESTful方式刪除資源
+            </summary>
+            <param name="uri">資源位置索引</param>
+        </member>
+        <member name="T:System.Framework.Globalization.ChineseExtensions">
+            <summary>
+            中文轉換的擴充方法。
+            </summary>
+        </member>
+        <member name="M:System.Framework.Globalization.ChineseExtensions.ToSimpleChinese(System.String)">
+            <summary>
+            將中文轉換成簡體中文
+            </summary>
+            <param name="source">原始文字</param>
+            <returns>簡體中文</returns>
+        </member>
+        <member name="M:System.Framework.Globalization.ChineseExtensions.ToTrandictionChinese(System.String)">
+            <summary>
+            將中文轉換成繁體中文
+            </summary>
+            <param name="source">原始文字</param>
+            <returns>繁體中文</returns>
+        </member>
+        <member name="T:System.Framework.Globalization.LocalizationExtensions">
+            <summary>
+            提供文字的文化特性相關的擴充方法。
+            </summary>
+        </member>
+        <member name="M:System.Framework.Globalization.LocalizationExtensions.ToI18n(System.String,System.String,System.Object[])">
+            <summary>
+            依指定的文化特性轉換文字
+            </summary>
+            <param name="name">資源名稱</param>
+            <param name="culture">指定的文化特性(代碼)</param>
+            <param name="args">須填空於文字格式的參數值，文字格式與用法請參考String.Format</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Globalization.LocalizationExtensions.GetLocalizeEnu``1(System.String,System.String,System.Func{System.String,``0})">
+            <summary>
+            取得本地化列舉
+            </summary>
+            <typeparam name="T">列舉值之型別</typeparam>
+            <param name="name">列舉名稱</param>
+            <param name="culture">指定的文化特性(代碼)</param>
+            <param name="changeType">將字串改變成列舉值之方法，如為實作IConverable之型別可忽略</param>
+            <returns>指定列舉名稱知本地化列舉值</returns>
+        </member>
+        <member name="M:System.Framework.Globalization.LocalizationExtensions.ToChinese(System.String,System.String)">
+            <summary>
+            自動轉換成目前文化特性的(簡體/繁體)中文
+            </summary>
+            <param name="source">原始文字</param>
+            <param name="cultureCode">文化特性</param>
+            <returns>(簡體/繁體)中文</returns>
+        </member>
+        <member name="T:System.Framework.Globalization.MultilingualExtension">
+            <summary>
+            多國語系相關之擴充方法
+            </summary>
+        </member>
+        <member name="M:System.Framework.Globalization.MultilingualExtension.DecideDefaultText(System.Framework.Globalization.IMultilingualTextData,System.String)">
+            <summary>
+            決定預設文本
+            </summary>
+            <param name="source">多語言文本</param>
+            <param name="culture">語言文化，預設為 EnvironmentContext.Culture</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Globalization.MultilingualExtension.GetText``1(System.Framework.Globalization.IMultilingualTextData,System.String)">
+            <summary>
+            依語言代碼取得語言文本
+            </summary>
+            <param name="source">多語言文本</param>
+            <param name="culture">語言文化，預設為 EnvironmentContext.Culture</param>
+            <returns>語言文本</returns>
+        </member>
+        <member name="M:System.Framework.Globalization.MultilingualExtension.DecideDefaultImage(System.Framework.Globalization.IMultilingualImageData,System.String)">
+            <summary>
+            決定預設影像
+            </summary>
+            <param name="source">多語言影像</param>
+            <param name="culture">語言文化，預設為 EnvironmentContext.Culture</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Globalization.MultilingualExtension.GetImage``1(System.Framework.Globalization.IMultilingualImageData,System.String)">
+            <summary>
+            依語言代碼取得語言影像
+            </summary>
+            <param name="source">多語言影像</param>
+            <param name="culture">語言文化，預設為 EnvironmentContext.Culture</param>
+            <returns>語言文本</returns>
+        </member>
+        <member name="T:System.Framework.Globalization.MultilingualImage">
+            <summary>
+            多語言圖片實作，提供已有資訊(XML)或沒有多語言圖片實體資料的專案使用
+            </summary>
+        </member>
+        <member name="P:System.Framework.Globalization.MultilingualImage.DefaultImageUri">
+            <summary>
+            預設圖片URI
+            </summary>
+        </member>
+        <member name="P:System.Framework.Globalization.MultilingualImage.Images">
+            <summary>
+            多語言文本集合
+            </summary>
+        </member>
+        <member name="M:System.Framework.Globalization.MultilingualImage.#ctor">
+            <summary>
+            建構 MultilingualImageInfo
+            </summary>
+        </member>
+        <member name="M:System.Framework.Globalization.MultilingualImage.#ctor(System.Framework.Data.IPictureData[])">
+            <summary>
+            建構 MultilingualImageInfo
+            </summary>
+            <param name="images">要加入的圖片</param>
+        </member>
+        <member name="M:System.Framework.Globalization.MultilingualImage.GetImage(System.String)">
+            <summary>
+            取得以指定文化特性(代碼)呈現的圖片
+            </summary>
+            <param name="culture">文化特性(代碼)</param>
+        </member>
+        <member name="T:System.Framework.Globalization.MultilingualText">
+            <summary>
+            多語言文本資訊，提供已有資訊(XML)或沒有多語言文本實體資料的專案使用
+            </summary>
+        </member>
+        <member name="P:System.Framework.Globalization.MultilingualText.DefaultText">
+            <summary>
+            預設文本
+            </summary>
+        </member>
+        <member name="P:System.Framework.Globalization.MultilingualText.Texts">
+            <summary>
+            多語言文本集合
+            </summary>
+        </member>
+        <member name="M:System.Framework.Globalization.MultilingualText.#ctor">
+            <summary>
+            建構 MultilingualTextInfo
+            </summary>
+        </member>
+        <member name="M:System.Framework.Globalization.MultilingualText.#ctor(System.String,System.String)">
+            <summary>
+            建構 MultilingualTextInfo
+            </summary>
+            <param name="culture">文字特性代碼</param>
+            <param name="text">文字</param>
+        </member>
+        <member name="M:System.Framework.Globalization.MultilingualText.GetText(System.String)">
+            <summary>
+            取得以指定文字代碼呈現的文本
+            </summary>
+            <param name="culture">文字代碼</param>
+            <returns>以指定文字代碼呈現的文本圖片</returns>
+        </member>
+        <member name="T:System.Framework.Globalization.PhoneNumberExtensions">
+            <summary>
+            包含所有與電話號碼相關之擴充方法
+            </summary>
+        </member>
+        <member name="P:System.Framework.Globalization.PhoneNumberExtensions.Util">
+            <summary>
+            共同使用的 Phone Number Utility
+            </summary>
+        </member>
+        <member name="M:System.Framework.Globalization.PhoneNumberExtensions.IsPossiblePhoneNumber(System.String,System.Framework.Globalization.CountryCode)">
+            <summary>
+            是否有可能是電話號碼
+            </summary>
+        </member>
+        <member name="M:System.Framework.Globalization.PhoneNumberExtensions.IsValidPhoneNumber(System.String,System.Framework.Globalization.CountryCode)">
+            <summary>
+            是否為有效的電話號碼
+            </summary>
+        </member>
+        <member name="M:System.Framework.Globalization.PhoneNumberExtensions.FormatAsPhone(System.String,System.Framework.Globalization.CountryCode)">
+            <summary>
+            視為電話號碼並格式化為國際電話格式
+            </summary>
+        </member>
+        <member name="M:System.Framework.Globalization.PhoneNumberExtensions.FormatAsPhone(System.String,System.Boolean,System.Framework.Globalization.CountryCode)">
+            <summary>
+            視為電話號碼並格式化為國際電話格式
+            </summary>
+            <param name="number">原始號碼</param>
+            <param name="trimSpace">是否裁掉空白</param>
+            <param name="country">所在國家</param>
+        </member>
+        <member name="M:System.Framework.Globalization.PhoneNumberExtensions.GetExamplePhone(System.Framework.Globalization.CountryCode)">
+            <summary>
+            取得國際電話範例
+            </summary>
+            <param name="country">所在國家</param>
+            <returns>國際電話範例</returns>
+        </member>
+        <member name="M:System.Framework.Globalization.PhoneNumberExtensions.FormatAsNationalPhone(System.String,System.Framework.Globalization.CountryCode)">
+            <summary>
+            視為電話號碼並格式化為國內電話格式
+            </summary>
+        </member>
+        <member name="M:System.Framework.Globalization.PhoneNumberExtensions.FormatAsNationalPhone(System.String,System.Boolean,System.Framework.Globalization.CountryCode)">
+            <summary>
+            視為電話號碼並格式化為國內電話格式
+            </summary>
+            <param name="number">原始號碼</param>
+            <param name="trimSpace">是否裁掉空白</param>
+            <param name="country">所在國家</param>
+        </member>
+        <member name="M:System.Framework.Globalization.PhoneNumberExtensions.GetExampleNationalPhone(System.Framework.Globalization.CountryCode)">
+            <summary>
+            取得國內電話範例
+            </summary>
+            <param name="country">所在國家</param>
+            <returns>國內電話範例</returns>
+        </member>
+        <member name="T:System.Framework.JsonResponse">
+            <summary>
+            JSON 回應
+            </summary>
+        </member>
+        <member name="M:System.Framework.JsonResponse.#ctor">
+            <summary>
+            建構 JSON 回應
+            </summary>
+        </member>
+        <member name="M:System.Framework.JsonResponse.#ctor(System.Framework.ResponseStatus,System.Object,System.String)">
+            <summary>
+            建構 JSON 回應
+            </summary>
+            <param name="status">狀態</param>
+            <param name="payload">酬載</param>
+            <param name="message">訊息</param>
+        </member>
+        <member name="M:System.Framework.JsonResponse.#ctor(System.Net.HttpStatusCode,System.Object,System.String)">
+            <summary>
+            建構 JSON 回應
+            </summary>
+            <param name="status">狀態</param>
+            <param name="payload">酬載</param>
+            <param name="message">訊息</param>
+        </member>
+        <member name="P:System.Framework.JsonResponse.Status">
+            <summary>
+            狀態
+            </summary>
+        </member>
+        <member name="P:System.Framework.JsonResponse.Message">
+            <summary>
+            訊息
+            </summary>
+        </member>
+        <member name="P:System.Framework.JsonResponse.Payload">
+            <summary>
+            酬載
+            </summary>
+        </member>
+        <member name="T:System.Framework.JsonResponse`1">
+            <summary>
+            JSON 回應
+            </summary>
+            <typeparam name="TStatus">狀態型別</typeparam>
+        </member>
+        <member name="P:System.Framework.JsonResponse`1.Status">
+            <summary>
+            狀態
+            </summary>
+        </member>
+        <member name="M:System.Framework.JsonResponse`1.#ctor(`0,System.Object,System.String)">
+            <summary>
+            建構 JSON 回應
+            </summary>
+            <param name="status">狀態</param>
+            <param name="payload">酬載</param>
+            <param name="message">訊息</param>
+        </member>
+        <member name="T:System.Framework.JsonResponse`2">
+            <summary>
+            JSON 回應
+            </summary>
+            <typeparam name="TStatus">狀態型別</typeparam>
+            <typeparam name="TPayload">酬載型別</typeparam>
+        </member>
+        <member name="P:System.Framework.JsonResponse`2.Payload">
+            <summary>
+            酬載
+            </summary>
+        </member>
+        <member name="M:System.Framework.JsonResponse`2.#ctor(`0,`1,System.String)">
+            <summary>
+            建構 JSON 回應
+            </summary>
+            <param name="status">狀態</param>
+            <param name="payload">酬載</param>
+            <param name="message">訊息</param>
+        </member>
+        <member name="T:System.Framework.Logging.VoidLogContext">
+            <summary>
+            無作用記錄器脈絡
+            </summary>
+        </member>
+        <member name="M:System.Framework.Logging.VoidLogContext.GetGlobalProperty(System.String)">
+            <summary>
+            取得全域特性(回傳NULL)
+            </summary>
+            <param name="key">索引值</param>
+        </member>
+        <member name="M:System.Framework.Logging.VoidLogContext.SetGlobalProperty(System.String,System.Object)">
+            <summary>
+            設定全域特性(無作用)
+            </summary>
+            <param name="key">索引值</param>
+            <param name="value">特性值</param>
+        </member>
+        <member name="M:System.Framework.Logging.VoidLogContext.RemoveGlobalProperty(System.String)">
+            <summary>
+            移除全域特性(無作用)
+            </summary>
+            <param name="key">索引值</param>
+        </member>
+        <member name="M:System.Framework.Logging.VoidLogContext.ClearGlobalProperties">
+            <summary>
+            清除全域特性(無作用)
+            </summary>
+        </member>
+        <member name="P:System.Framework.Logging.VoidLogContext.ThreadPropertyKeys">
+            <summary>
+            所有線程特性索引值(回傳空陣列)
+            </summary>
+        </member>
+        <member name="M:System.Framework.Logging.VoidLogContext.GetThreadProperty(System.String)">
+            <summary>
+            取得線程特性(回傳NULL)
+            </summary>
+            <param name="key">索引值</param>
+        </member>
+        <member name="M:System.Framework.Logging.VoidLogContext.SetThreadProperty(System.String,System.Object)">
+            <summary>
+            設定線程特性(無作用)
+            </summary>
+            <param name="key">索引值</param>
+            <param name="value">特性值</param>
+        </member>
+        <member name="M:System.Framework.Logging.VoidLogContext.RemoveThreadProperty(System.String)">
+            <summary>
+            移除線程特性(無作用)
+            </summary>
+            <param name="key">索引值</param>
+        </member>
+        <member name="M:System.Framework.Logging.VoidLogContext.ClearThreadProperties">
+            <summary>
+            清除線程特性(無作用)
+            </summary>
+        </member>
+        <member name="M:System.Framework.Logging.VoidLogContext.GetLogger``1">
+            <summary>
+            取得負責指定型別的記錄器
+            </summary>
+            <typeparam name="T">型別</typeparam>
+            <returns>指定型別的記錄器</returns>
+        </member>
+        <member name="M:System.Framework.Logging.VoidLogContext.GetLogger(System.Type)">
+            <summary>
+            取得負責指定型別的記錄器
+            </summary>
+            <param name="type">型別</param>
+            <returns>指定型別的記錄器</returns>
+        </member>
+        <member name="M:System.Framework.Logging.VoidLogContext.GetLogger(System.String)">
+            <summary>
+            取得符合指定名稱的記錄器
+            </summary>
+            <param name="name">指定名稱</param>
+            <returns>指定名稱的記錄器</returns>
+        </member>
+        <member name="M:System.Framework.Logging.VoidLogContext.LoadConfiguration(System.String,System.Object)">
+            <summary>
+            載入設定檔(無作用)
+            </summary>
+            <param name="path">設定檔路徑</param>
+            <param name="builder">建立者</param>
+        </member>
+        <member name="T:System.Framework.Logging.VoidLogger">
+            <summary>
+            無作用記錄器
+            </summary>
+        </member>
+        <member name="M:System.Framework.Logging.VoidLogger.BeginScope``1(``0)">
+            <summary>
+            Begins a logical operation scope. always return null.
+            </summary>
+            <typeparam name="TState">The scope CLR type</typeparam>
+            <param name="state">The identifier for the scope.</param>
+            <returns>An IDisposable that ends the logical operation scope on dispose.</returns>
+        </member>
+        <member name="M:System.Framework.Logging.VoidLogger.IsEnabled(Microsoft.Extensions.Logging.LogLevel)">
+            <summary>
+            Checks if the given logLevel is enabled. always return false.
+            </summary>
+            <param name="logLevel">level to be checked.</param>
+            <returns>true if enabled.</returns>
+        </member>
+        <member name="M:System.Framework.Logging.VoidLogger.Log``1(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,``0,System.Exception,System.Func{``0,System.Exception,System.String})">
+            <summary>
+            Writes a log entry. always not effect.
+            </summary>
+            <typeparam name="TState"></typeparam>
+            <param name="logLevel">Entry will be written on this level.</param>
+            <param name="eventId">Id of the event.</param>
+            <param name="state">The entry to be written. Can be also an object.</param>
+            <param name="exception">The exception related to this entry.</param>
+            <param name="formatter">Function to create a string message of the state and exception.</param>
+        </member>
+        <member name="T:System.Framework.Password">
+            <summary>
+            密碼產生器
+            </summary>
+        </member>
+        <member name="M:System.Framework.Password.#ctor(System.Int16,System.Char[])">
+            <summary>
+            建構 Password
+            </summary>
+            <param name="length">密碼長度</param>
+            <param name="characters">可接受的字元，預設僅接受數字與大小寫英文字母</param>
+        </member>
+        <member name="M:System.Framework.Password.RequireNumeric(System.Nullable{System.Int16},System.Char[])">
+            <summary>
+            要求數字字元
+            </summary>
+            <param name="count">數量</param>
+            <param name="characters">可接受的數字字元</param>
+        </member>
+        <member name="M:System.Framework.Password.RequireNumeric(System.Char[])">
+            <summary>
+            要求數字字元
+            </summary>
+            <param name="characters">可接受的數字字元</param>
+        </member>
+        <member name="M:System.Framework.Password.RequireLowercase(System.Nullable{System.Int16},System.Char[])">
+            <summary>
+            要求小寫英文字元
+            </summary>
+            <param name="count">數量</param>
+            <param name="characters">可接受的小寫英文字元</param>
+        </member>
+        <member name="M:System.Framework.Password.RequireLowercase(System.Char[])">
+            <summary>
+            要求小寫英文字元
+            </summary>
+            <param name="characters">可接受的小寫英文字元</param>
+        </member>
+        <member name="M:System.Framework.Password.RequireUppercase(System.Nullable{System.Int16},System.Char[])">
+            <summary>
+            要求大寫英文字元
+            </summary>
+            <param name="count">數量</param>
+            <param name="characters">可接受的大寫英文字元</param>
+        </member>
+        <member name="M:System.Framework.Password.RequireUppercase(System.Char[])">
+            <summary>
+            要求大寫英文字元
+            </summary>
+            <param name="characters">可接受的大寫英文字元</param>
+        </member>
+        <member name="M:System.Framework.Password.RequireSpecial(System.Nullable{System.Int16},System.Char[])">
+            <summary>
+            要求特殊字元
+            </summary>
+            <param name="count">數量</param>
+            <param name="characters">可接受的特殊字元</param>
+        </member>
+        <member name="M:System.Framework.Password.RequireSpecial(System.Char[])">
+            <summary>
+            要求特殊字元
+            </summary>
+            <param name="characters">可接受的特殊字元</param>
+        </member>
+        <member name="M:System.Framework.Password.Generate">
+            <summary>
+            生成密碼
+            </summary>
+        </member>
+        <member name="M:System.Framework.Password.ToString">
+            <summary>
+            轉換成字串
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Password.UpsetIndexes(System.Int16,System.Random)">
+            <summary>
+            打亂索引位置
+            </summary>
+            <param name="length">長度</param>
+            <param name="random">亂數產生器</param>
+        </member>
+        <member name="M:System.Framework.Password.GenerateCharacter(System.Nullable{System.Framework.Password.CharacterKind},System.Random,System.Int16[])">
+            <summary>
+            生成字元集
+            </summary>
+            <param name="kind">字元種類</param>
+            <param name="random">亂數產生器</param>
+            <param name="places">放置位置</param>
+        </member>
+        <member name="T:System.Framework.Placeholder">
+            <summary>
+            佔位符
+            </summary>
+        </member>
+        <member name="M:System.Framework.Placeholder.#ctor(System.String,System.Int32,System.String,SixLabors.Fonts.FontStyle,System.String,System.String,System.String,System.Single)">
+            <summary>
+            建構預留位置
+            </summary>
+            <param name="text">文字</param>
+            <param name="fontSize">字體大小(em)</param>
+            <param name="dpi">DPI</param>
+            <param name="fontName">字體名稱</param>
+            <param name="fontStyle">字體風格</param>
+            <param name="textColor">文字的HTML色碼</param>
+            <param name="bgColor">背景的HTML色碼</param>
+            <param name="textColor2">如指定第二組文字的HTML色碼，將形成漸層色</param>
+        </member>
+        <member name="M:System.Framework.Placeholder.#ctor(System.Int32,System.Int32,System.String,System.String,System.String,System.Nullable{System.Int32},System.String,System.Nullable{SixLabors.Fonts.FontStyle},System.String,System.Single)">
+            <summary>
+            建構驗證碼工廠
+            </summary>
+            <param name="width">寬度</param>
+            <param name="height">高度</param>
+            <param name="dpi">DPI</param>
+            <param name="bgColor">背景的HTML色碼</param>
+            <param name="text">文字</param>
+            <param name="fontName">字體名稱</param>
+            <param name="fontSize">字體大小(em)</param>
+            <param name="fontStyle">字體風格</param>
+            <param name="textColor">文字的HTML色碼</param>
+            <param name="textColor2">如指定第二組文字的HTML色碼，將形成漸層色</param>
+        </member>
+        <member name="M:System.Framework.Placeholder.Generate">
+            <summary>
+            生成影像
+            </summary>
+        </member>
+        <member name="T:System.Framework.ResponseStatus">
+            <summary>
+            回應狀態，反映請求經過處理後造成狀態
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.Continue">
+            <summary>
+            請繼續下個請求
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.SwitchingProtocols">
+            <summary>
+            請使用 Upgrade 標頭的通訊協定再次請求
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.Processing">
+            <summary>
+            已經收到請求並正在處理
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.EarlyHints">
+            <summary>
+            資源正在準備，請先預載 Link 標頭中的資源
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.OK">
+            <summary>
+            請求已成功
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.Created">
+            <summary>
+            新的資源已經依據請求的需要而建立，且其URI已經隨Location頭資訊返回
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.Accepted">
+            <summary>
+            伺服器已接受請求，但尚未處理
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.NonAuthoritativeInformation">
+            <summary>
+            資訊來自快取備份而非原始伺服器，因此可能不正確
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.NoContent">
+            <summary>
+            伺服器成功處理了請求，沒有返回任何內容
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.ResetContent">
+            <summary>
+            伺服器成功處理了請求，用戶端應該重新設定 (非重新載入) 目前的資源
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.PartialContent">
+            <summary>
+            伺服器已經成功處理了部分請求，返回部分內容(用於續傳)
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.MultiStatus">
+            <summary>
+            網頁分工編寫及版本管理 (WebDAV) 作業期間單一回應的多狀態碼。 回應主體包括描述狀態碼的 XML
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.AlreadyReported">
+            <summary>
+            WebDAV 繫結的成員已在多狀態回應的前面部分中列舉，因此將不會再次包括
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.IMUsed">
+            <summary>
+            伺服器已完成資源的要求，且回應是套用到目前執行個體之一或多個執行個體操作結果的表示法
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.Ambiguous">
+            <summary>
+            要求的資訊有多種表示法。 預設動作是將這個狀態視為重新導向並跟隨在與這個回應相關的 Location 標頭內容之後
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.MultipleChoices">
+            <summary>
+            要求的資訊有多種表示法。 預設動作是將這個狀態視為重新導向並跟隨在與這個回應相關的 Location 標頭內容之後
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.Moved">
+            <summary>
+            要求的資訊已經移至 Location 標頭中指定的 URI
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.MovedPermanently">
+            <summary>
+            要求的資訊已經移至 Location 標頭中指定的 URI
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.Found">
+            <summary>
+            要求客戶端執行臨時重新導向至 Location 標頭中所指定的 URI
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.Redirect">
+            <summary>
+            要求客戶端執行臨時重新導向至 Location 標頭中所指定的 URI
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.RedirectMethod">
+            <summary>
+            自動將用戶端重新導向至 Location 標頭中指定的 URI(通常是Canonical URL)
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.SeeOther">
+            <summary>
+            自動將用戶端重新導向至 Location 標頭中指定的 URI(通常是Canonical URL)
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.NotModified">
+            <summary>
+            參數資源並未被修改
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.UseProxy">
+            <summary>
+            被請求的資源必須通過 Location 標頭中指定的代理才能被存取
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.Unused">
+            <summary>
+            HTTP/1.1 規格未完全指定的建議擴充
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.RedirectKeepVerb">
+            <summary>
+            要求客戶端執行臨時重新導向至 Location 標頭中所指定的 URI，並且必須以相同的請求方式
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.TemporaryRedirect">
+            <summary>
+            要求客戶端執行臨時重新導向至 Location 標頭中所指定的 URI，並且必須以相同的請求方式
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.PermanentRedirect">
+            <summary>
+            要求客戶端執行永久導向至 Location 標頭中所指定的 URI，並且必須以相同的請求方式
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.BadRequest">
+            <summary>
+            伺服器無法了解要求
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.Unauthorized">
+            <summary>
+            要求的資源需要驗證
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.PaymentRequired">
+            <summary>
+            須付款後方可請求(預留未用)。該狀態碼最初的意圖可能被用作某種形式的數字現金或線上支付方案的一部分，但幾乎沒有哪家服務商使用，而且這個狀態碼通常不被使用
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.Forbidden">
+            <summary>
+            伺服器拒絕處理要求
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.NotFound">
+            <summary>
+            資源不存在
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.MethodNotAllowed">
+            <summary>
+            不允許透過目前的方法請求資源
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.NotAcceptable">
+            <summary>
+            資源的類型無法滿足 Accept 標頭所述，因而無法生成回應內容，該請求不可接受
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.ProxyAuthenticationRequired">
+            <summary>
+            Proxy 需要驗證。 Proxy 驗證標頭包含如何執行驗證的詳細資料
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.RequestTimeout">
+            <summary>
+            請求逾時，請求後伺服器無法在規定的時間內取得相關細節
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.Conflict">
+            <summary>
+            因為伺服器上的衝突而無法完成要求
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.Gone">
+            <summary>
+            資源已不能再使用
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.LengthRequired">
+            <summary>
+            未提供 Content-Length 標頭
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.PreconditionFailed">
+            <summary>
+            條件設定失敗，無法執行要求
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.RequestEntityTooLarge">
+            <summary>
+            請求資源的大小超過伺服器設定上限，無法處理
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.RequestUriTooLong">
+            <summary>
+            請求的URI字串長度過長，無法處理
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.UnsupportedMediaType">
+            <summary>
+            請求的資源是不被支援的類型，無法處理
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.RequestedRangeNotSatisfiable">
+            <summary>
+            無法傳回資源所要求的資料範圍
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.ExpectationFailed">
+            <summary>
+            在 Expect 標頭中所指定的預期項目無法被伺服器滿足
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.MisdirectedRequest">
+            <summary>
+            請求被導向至無回應的伺服器
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.UnprocessableEntity">
+            <summary>
+            請求的格式雖然正確，但由於語意錯誤而無法達成
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.Locked">
+            <summary>
+            請求的資源已被鎖定
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.FailedDependency">
+            <summary>
+            由於之前的某個請求發生的錯誤，導致當前請求失敗
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.UpgradeRequired">
+            <summary>
+            用戶端應該切換至不同的通訊協定
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.PreconditionRequired">
+            <summary>
+            須先滿足先決條件方能請求
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.TooManyRequests">
+            <summary>
+            特定時間內請求數量太多
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.RequestHeaderFieldsTooLarge">
+            <summary>
+            標頭欄位 (個別標頭欄位或所有標頭欄位) 太大
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.UnavailableForLegalReasons">
+            <summary>
+            因法律因素造成無法請求
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.InternalServerError">
+            <summary>
+            伺服器發生異常，請稍後再試
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.NotImplemented">
+            <summary>
+            未實作此項請求
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.BadGateway">
+            <summary>
+            Proxy 伺服器收到其他 Proxy 或原始伺服器的錯誤回應
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.ServiceUnavailable">
+            <summary>
+            伺服器暫時無法使用
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.GatewayTimeout">
+            <summary>
+            Proxy 伺服器在等候來自其他 Proxy 或原始伺服器的回應時已逾時
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.HttpVersionNotSupported">
+            <summary>
+            伺服器不支援要求的 HTTP 版本
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.VariantAlsoNegotiates">
+            <summary>
+            伺服器存在內部組態錯誤(TCN)
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.InsufficientStorage">
+            <summary>
+            伺服器(暫時)無法儲存請求造成的改變
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.LoopDetected">
+            <summary>
+            伺服器在處理請求時陷入無窮迴圈
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.NotExtended">
+            <summary>
+            必須有要求的進一步延伸，伺服器才能完成
+            </summary>
+        </member>
+        <member name="F:System.Framework.ResponseStatus.NetworkAuthenticationRequired">
+            <summary>
+            用戶端必須驗證以取得網路存取權
+            </summary>
+        </member>
+        <member name="T:System.Framework.Security.Captcha">
+            <summary>
+            驗證碼
+            </summary>
+        </member>
+        <member name="P:System.Framework.Security.Captcha.Token">
+            <summary>
+            令牌
+            </summary>
+        </member>
+        <member name="P:System.Framework.Security.Captcha.Text">
+            <summary>
+            文字
+            </summary>
+        </member>
+        <member name="P:System.Framework.Security.Captcha.Image">
+            <summary>
+            影像
+            </summary>
+        </member>
+        <member name="T:System.Framework.Security.CaptchaFactory">
+            <summary>
+            驗證碼工廠
+            </summary>
+        </member>
+        <member name="P:System.Framework.Security.CaptchaFactory.Span">
+            <summary>
+            驗證碼有效時間跨度
+            </summary>
+        </member>
+        <member name="M:System.Framework.Security.CaptchaFactory.#ctor(System.TimeSpan,SixLabors.Fonts.FontFamily[],SixLabors.Fonts.FontStyle[],SixLabors.ImageSharp.Color[],System.Char[],System.Int32,System.Int32)">
+            <summary>
+            建構驗證碼工廠
+            </summary>
+            <param name="span">驗證碼有效時間跨度</param>
+            <param name="fontFamilies">可使用文字字體</param>
+            <param name="fontStyles">可使用文字樣式</param>
+            <param name="fontColors">可使用文字顏色</param>
+            <param name="unusedChars">不被使用的字元</param>
+            <param name="noisyLines">背景干擾線數量</param>
+            <param name="noisyPoints">前景干擾點數量</param>
+        </member>
+        <member name="M:System.Framework.Security.CaptchaFactory.#ctor(System.Framework.IHourglass{System.String},SixLabors.Fonts.FontFamily[],SixLabors.Fonts.FontStyle[],SixLabors.ImageSharp.Color[],System.Char[],System.Int32,System.Int32)">
+            <summary>
+            建構驗證碼工廠
+            </summary>
+            <param name="hourglass">用來過濾驗證碼的時漏</param>
+            <param name="fontFamilies">可使用文字字體</param>
+            <param name="fontStyles">可使用文字樣式</param>
+            <param name="fontColors">可使用文字顏色</param>
+            <param name="unusedChars">不被使用的字元</param>
+            <param name="noisyLines">背景干擾線數量</param>
+            <param name="noisyPoints">前景干擾點數量</param>
+        </member>
+        <member name="M:System.Framework.Security.CaptchaFactory.GetCaptcha(System.Int32,System.Single,System.Single,System.String)">
+            <summary>
+            取得驗證碼
+            </summary>
+            <param name="length">驗證碼長度</param>
+            <param name="maxFontSize">最大字型尺寸</param>
+            <param name="minFontSize">最小字型尺寸</param>
+            <param name="token">令牌，可自行指定或由系統產生長度256以內的字串</param>
+            <returns>驗證碼</returns>
+        </member>
+        <member name="M:System.Framework.Security.CaptchaFactory.GetCaptcha(System.Int32,System.String)">
+            <summary>
+            取得驗證碼
+            </summary>
+            <param name="length">驗證碼長度</param>
+            <param name="token">令牌，可自行指定或由系統產生長度256以內的字串</param>
+            <returns>驗證碼</returns>
+        </member>
+        <member name="M:System.Framework.Security.CaptchaFactory.GenerateCaptchaText(System.Int32)">
+            <summary>
+            生成檢查碼
+            </summary>
+            <param name="length">驗證碼長度</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Security.CaptchaFactory.GenerateCaptchaImage(System.String,System.Single,System.Single)">
+            <summary>
+            生成驗證碼影像
+            </summary>
+            <param name="captcha">驗證碼</param>
+            <param name="maxFontSize">最大字型尺寸</param>
+            <param name="minFontSize">最小字型尺寸</param>
+            <returns>圖像化後的驗證碼</returns>
+        </member>
+        <member name="M:System.Framework.Security.CaptchaFactory.Check(System.String,System.String)">
+            <summary>
+            檢查輸入的captchaCode是否與token對應的Captcha吻合
+            </summary>
+            <param name="token">令牌</param>
+            <param name="captchaCode">驗證碼</param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Framework.Security.CheckCodeBuilder">
+            <summary>
+            用以依文字產生檢查碼
+            </summary>
+        </member>
+        <member name="M:System.Framework.Security.CheckCodeBuilder.Generate(System.String,System.Char[])">
+            <summary>
+            產生檢查碼
+            </summary>
+            <param name="text">欲產生檢查碼的文字</param>
+            <param name="codeBook">密碼本</param>
+            <returns>檢查碼</returns>
+        </member>
+        <member name="T:System.Framework.Security.Cryptography.Aes">
+            <summary>
+            AES 密碼演算法。
+            </summary>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Aes.#ctor(System.Int32)">
+            <summary>
+            初始化 Rijndael(AES) 密碼演算法。
+            </summary>
+            <param name="keySize">秘密金鑰的大小，以位元為單位。</param>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Aes.#ctor(System.Int32,System.Byte[],System.Byte[])">
+            <summary>
+            初始化 Rijndael(AES) 加密演算法。
+            </summary>
+            <param name="keySize">秘密金鑰的大小，以位元為單位。</param>
+            <param name="iv">初始化向量。</param>
+            <param name="key">秘密金鑰。</param>
+        </member>
+        <member name="P:System.Framework.Security.Cryptography.Aes.KeySize">
+            <summary>
+            取得或設定秘密金鑰的大小，以位元為單位。
+            </summary>
+        </member>
+        <member name="P:System.Framework.Security.Cryptography.Aes.IV">
+            <summary>
+            取得或設定初始化向量。
+            </summary>
+        </member>
+        <member name="P:System.Framework.Security.Cryptography.Aes.Key">
+            <summary>
+            取得或設定秘密金鑰。
+            </summary>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Aes.GenerateIV">
+            <summary>
+            由系統產生新的初始化向量(IV)。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Aes.GenerateKey">
+            <summary>
+            由系統產生新的私密金鑰(Key)。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Aes.MakeEncryptedStream(System.IO.Stream)">
+            <summary>
+            取得加密資料流。此資料流可將所輸入的資料透過管線(Pipe)的方式將加密後的資料輸日到目標資料流。
+            </summary>
+            <param name="stream">目標資料流。</param>
+            <returns>加密資料流。</returns>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Aes.MakeDecryptedStream(System.IO.Stream)">
+            <summary>
+            取得解密資料流。此資料流可從目標資料流中取得資料並傳回解密後之資料。
+            </summary>
+            <param name="stream">目標資料流。</param>
+            <returns>解密資料流。</returns>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Aes.Dispose(System.Boolean)">
+            <summary>
+            清除使用資源，當True時清除所有 Managed Resource，執行其 Dispose， False僅清除 Native Resource。
+            </summary>
+            <param name="disposing">確實執行清除</param>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Aes.Dispose">
+            <summary>
+            清除使用資源
+            </summary>
+        </member>
+        <member name="T:System.Framework.Security.Cryptography.Md5">
+            <summary>
+            MD5 雜湊演算法
+            </summary>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Md5.#ctor">
+            <summary>
+            建構 MD5
+            </summary>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Md5.ComputeHash(System.Byte[])">
+             <summary>
+            計算所指定位元組陣列的雜湊值。
+             </summary>
+             <param name="data">要用來計算雜湊程式碼的輸入。</param>
+             <returns>計算出來的雜湊程式碼。</returns>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Md5.ComputeHash(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            計算所指定位元組陣列中指定區域的雜湊值。
+            </summary>
+            <param name="data">要用來計算雜湊程式碼的輸入。</param>
+            <param name="start">位元組陣列中的座標，從此處開始使用資料。</param>
+            <param name="count">陣列中要用作資料的位元組數目。</param>
+            <returns>計算出來的雜湊程式碼。</returns>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Md5.ComputeHash(System.IO.Stream)">
+            <summary>
+            計算指定 Stream 物件的雜湊值。 
+            </summary>
+            <param name="input">要用來計算雜湊程式碼的輸入。</param>
+            <returns>計算出來的雜湊程式碼。 </returns>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Md5.Dispose(System.Boolean)">
+            <summary>
+            清除使用資源，當True時清除所有 Managed Resource，執行其 Dispose， False僅清除 Native Resource。
+            </summary>
+            <param name="disposing">確實執行清除</param>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Md5.Dispose">
+            <summary>
+            清除使用資源
+            </summary>
+        </member>
+        <member name="T:System.Framework.Security.Cryptography.Rsa">
+            <summary>
+            RSA 密碼演算法。
+            </summary>
+        </member>
+        <member name="P:System.Framework.Security.Cryptography.Rsa.PublicKey">
+            <summary>
+            取得 XML 字串型態的公開金鑰。
+            </summary>
+        </member>
+        <member name="P:System.Framework.Security.Cryptography.Rsa.PrivateKey">
+            <summary>
+            取得 XML 字串型態的私密金鑰。
+            </summary>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Rsa.#ctor(System.Int32)">
+            <summary>
+            初始化 RSA 密碼演算法。
+            </summary>
+            <param name="keySize">金鑰長度，資安考量下請盡量使用2048以上的長度</param>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Rsa.#ctor(System.String)">
+            <summary>
+            初始化 RSA 密碼演算法。
+            </summary>
+            <param name="key">XML 字串型態的金鑰。可為公開金鑰或私密金鑰</param>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Rsa.SignHashWithSha256(System.Byte[])">
+            <summary>
+            以 SHA1 演算法對資料簽名。
+            </summary>
+            <param name="data">資料</param>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Rsa.SignHashWithSha384(System.Byte[])">
+            <summary>
+            以 SHA384 演算法對資料簽名。
+            </summary>
+            <param name="data">資料</param>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Rsa.SignHashWithSha512(System.Byte[])">
+            <summary>
+            以 SHA512 演算法對資料簽名。
+            </summary>
+            <param name="data">資料</param>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Rsa.SignHashWithMd5(System.Byte[])">
+            <summary>
+            以 MD5 演算法對資料簽名。
+            </summary>
+            <param name="data">資料</param>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Rsa.VerifyHashWithSha256(System.Byte[],System.Byte[])">
+            <summary>
+            以 SHA256 演算法檢驗簽名。
+            </summary>
+            <param name="data">資料</param>
+            <param name="signature">簽章資料</param>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Rsa.VerifyHashWithSha384(System.Byte[],System.Byte[])">
+            <summary>
+            以 SHA384 演算法檢驗簽名。
+            </summary>
+            <param name="data">資料</param>
+            <param name="signature">簽章資料</param>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Rsa.VerifyHashWithSha512(System.Byte[],System.Byte[])">
+            <summary>
+            以 SHA512 演算法檢驗簽名。
+            </summary>
+            <param name="data">資料</param>
+            <param name="signature">簽章資料</param>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Rsa.VerifyHashWithMd5(System.Byte[],System.Byte[])">
+            <summary>
+            以 SHA512 演算法檢驗簽名。
+            </summary>
+            <param name="data">資料</param>
+            <param name="signature">簽章資料</param>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Rsa.Encrypt(System.Byte[])">
+            <summary>
+            加密。
+            </summary>
+            <param name="data">資料</param>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Rsa.Decrypt(System.Byte[])">
+            <summary>
+            解密。
+            </summary>
+            <param name="encryptedData">密文資料</param>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Rsa.Dispose(System.Boolean)">
+            <summary>
+            清除使用資源，當True時清除所有 Managed Resource，執行其 Dispose， False僅清除 Native Resource。
+            </summary>
+            <param name="disposing">確實執行清除</param>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Rsa.Dispose">
+            <summary>
+            清除使用資源
+            </summary>
+        </member>
+        <member name="T:System.Framework.Security.Cryptography.Sha">
+            <summary>
+            SHA 密碼演算法
+            </summary>
+        </member>
+        <member name="P:System.Framework.Security.Cryptography.Sha.Length">
+            <summary>
+            取得或設定金鑰長度
+            </summary>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Sha.#ctor(System.Int32)">
+            <summary>
+            初始化 SHA 密碼演算法，並指定長度(160,256,384,512)
+            </summary>
+            <param name="length">金鑰長度</param>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Sha.ComputeHash(System.Byte[])">
+             <summary>
+            計算所指定位元組陣列的雜湊值。
+             </summary>
+             <param name="data">要用來計算雜湊程式碼的輸入。</param>
+             <returns>計算出來的雜湊程式碼。</returns>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Sha.ComputeHash(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            計算所指定位元組陣列中指定區域的雜湊值。
+            </summary>
+            <param name="data">要用來計算雜湊程式碼的輸入。</param>
+            <param name="start">位元組陣列中的座標，從此處開始使用資料。</param>
+            <param name="count">陣列中要用作資料的位元組數目。</param>
+            <returns>計算出來的雜湊程式碼。</returns>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Sha.ComputeHash(System.IO.Stream)">
+            <summary>
+            計算指定 Stream 物件的雜湊值。 
+            </summary>
+            <param name="input">要用來計算雜湊程式碼的輸入。</param>
+            <returns>計算出來的雜湊程式碼。 </returns>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Sha.Dispose(System.Boolean)">
+            <summary>
+            清除使用資源，當True時清除所有 Managed Resource，執行其 Dispose， False僅清除 Native Resource。
+            </summary>
+            <param name="disposing">確實執行清除</param>
+        </member>
+        <member name="M:System.Framework.Security.Cryptography.Sha.Dispose">
+            <summary>
+            清除使用資源
+            </summary>
+        </member>
+        <member name="T:System.Framework.Security.Ean13CheckCodeBuilder">
+            <summary>
+            用以依文字產生檢查碼
+            </summary>
+        </member>
+        <member name="M:System.Framework.Security.Ean13CheckCodeBuilder.Generate(System.String,System.Char[])">
+            <summary>
+            產生檢查碼
+            </summary>
+            <param name="text">欲產生檢查碼的文字</param>
+            <param name="codeBook">密碼本</param>
+            <returns>檢查碼</returns>
+        </member>
+        <member name="T:System.Framework.Security.Permissions`2">
+            <summary>
+            權限資料
+            </summary>
+            <typeparam name="TSystemPermission">所使用的系統權限種類</typeparam>
+            <typeparam name="TPermission">所使用的權限種類</typeparam>
+        </member>
+        <member name="P:System.Framework.Security.Permissions`2.SystemPermissions">
+            <summary>
+            取得所有的系統權限資料
+            </summary>
+        </member>
+        <member name="M:System.Framework.Security.Permissions`2.GetPermission(`0)">
+            <summary>
+            取得指定系統權限對應之權限資料
+            </summary>
+            <param name="permission"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Security.Permissions`2.GetPermissionsByValue(System.String)">
+            <summary>
+            依指定的權限值，傳回所代表的所有權限
+            </summary>
+            <param name="value">權限值</param>
+            <returns>所代表的所有權限</returns>
+        </member>
+        <member name="T:System.Framework.Security.PolicyBase">
+            <summary>
+            安全政策之基礎類別
+            </summary>
+        </member>
+        <member name="M:System.Framework.Security.PolicyBase.Finalize">
+            <summary>
+            Instance 終結時執行
+            </summary>
+        </member>
+        <member name="M:System.Framework.Security.PolicyBase.Dispose">
+            <summary>
+            清除使用資源
+            </summary>
+        </member>
+        <member name="M:System.Framework.Security.PolicyBase.Dispose(System.Boolean)">
+            <summary>
+            清除使用資源，當True時清除所有 Managed Resource，執行其 Dispose， False僅清除 Native Resource。
+            </summary>
+            <param name="disposing">確實執行清除</param>
+        </member>
+        <member name="P:System.Framework.Security.PolicyBase.BlackList">
+            <summary>
+            黑名單列表
+            </summary>
+        </member>
+        <member name="P:System.Framework.Security.PolicyBase.GlobalRules">
+            <summary>
+            全域規則
+            </summary>
+        </member>
+        <member name="M:System.Framework.Security.PolicyBase.#ctor">
+            <summary>
+            建構 PolicyBase
+            </summary>
+        </member>
+        <member name="M:System.Framework.Security.PolicyBase.Login``1(``0,System.Net.IPAddress,System.Framework.Application.IApplicationStub)">
+            <summary>
+            用戶登入(未實作)
+            </summary>
+            <param name="user">用戶資料</param>
+            <param name="ip">IP資料</param>
+            <param name="stub">用戶端資料</param>
+            <example>System.NotSupportedException</example>
+            <returns>此次登入的Token，如為null則表示登入失敗</returns>
+        </member>
+        <member name="M:System.Framework.Security.PolicyBase.Logout``1">
+            <summary>
+            登出目前的使用者(未實作)
+            </summary>
+            <example>System.NotSupportedException</example>
+        </member>
+        <member name="M:System.Framework.Security.PolicyBase.IsApproved``1(System.Framework.Application.IUser,System.Framework.Security.IPermissionRequired{``0})">
+            <summary>
+            判斷用戶是否有權利使用指定的功能，須具備功能所需的所有權限。
+            </summary>
+            <param name="user">用戶資料</param>
+            <param name="function">元件</param>
+        </member>
+        <member name="M:System.Framework.Security.PolicyBase.CheckPermissions``1(System.Framework.Application.IUser,System.Framework.Security.IPermissionRequired{``0})">
+            <summary>
+            檢查權限，須具備功能所需的所有權限。
+            </summary>
+            <typeparam name="TSystemPermission">所使用的系統權限類型</typeparam>
+            <param name="user">要檢查的用戶</param>
+            <param name="function">要檢查的功能</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Security.PolicyBase.GetPermission``2(``0)">
+            <summary>
+            依傳入之系統權限取得對應的權限資料
+            </summary>
+            <typeparam name="TSystemPermission">系統權限種類</typeparam>
+            <typeparam name="TPermission">系統權限種類</typeparam>
+            <param name="permission">系統權限</param>
+            <returns>權限資料</returns>
+        </member>
+        <member name="M:System.Framework.Security.PolicyBase.AddBlackList(System.Net.IPAddress,System.Framework.Application.IApplicationStub,System.Framework.Data.IUserData)">
+            <summary>
+            加入黑名單
+            </summary>
+            <param name="ip">網路位址，不設條件時為NULL</param>
+            <param name="stub">用戶端，不設條件時為NULL</param>
+            <param name="user">使用者，不設條件時為NULL</param>
+        </member>
+        <member name="M:System.Framework.Security.PolicyBase.IsBanned(System.Net.IPAddress,System.Framework.Application.IApplicationStub,System.Framework.Data.IUserData)">
+            <summary>
+            判斷符合條件的用戶是否處於黑名單
+            </summary>
+            <param name="ip">網路位址，不設條件時為NULL</param>
+            <param name="stub">用戶端，不設條件時為NULL</param>
+            <param name="user">使用者，不設條件時為NULL</param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Framework.Security.PolicyBase.BlackRecord">
+            <summary>
+            黑名單紀錄
+            </summary>
+        </member>
+        <member name="T:System.Framework.Security.SecurityExtension">
+            <summary>
+            包含所有與 Security 相關之擴充方法
+            </summary>
+        </member>
+        <member name="F:System.Framework.Security.SecurityExtension.md5">
+            <summary>
+            共同使用的 MD5 密碼演算法
+            </summary>
+        </member>
+        <member name="F:System.Framework.Security.SecurityExtension.Sha">
+            <summary>
+            共同使用的 SHA 密碼演算法
+            </summary>
+        </member>
+        <member name="F:System.Framework.Security.SecurityExtension.CodeBooks">
+            <summary>
+            系統密碼本
+            </summary>
+        </member>
+        <member name="M:System.Framework.Security.SecurityExtension.TransCode(System.String,System.Int32,System.Framework.Data.NumberRange[],System.Boolean,System.Framework.Security.CheckCodeBuilder)">
+            <summary>
+            依密碼本編號轉換數值為密文
+            </summary>
+            <param name="source">原始文字</param>
+            <param name="codeBookNumber">密碼本編號</param>
+            <param name="sections">位置區段</param>
+            <param name="includeCheckBook">是否包含檢查碼</param>
+            <param name="checkCodeBuilder">檢查碼建立者</param>
+        </member>
+        <member name="M:System.Framework.Security.SecurityExtension.TransCode(System.String,System.Char[],System.Framework.Data.NumberRange[],System.Boolean,System.Framework.Security.CheckCodeBuilder)">
+            <summary>
+            依指定的密碼本轉換數值為密文
+            </summary>
+            <param name="source">原始文字</param>
+            <param name="codeBook">密碼本</param>
+            <param name="sections">位置區段</param>
+            <param name="includeCheckBook">是否包含檢查碼</param>
+            <param name="checkCodeBuilder">檢查碼建立者</param>
+        </member>
+        <member name="M:System.Framework.Security.SecurityExtension.ComputeHashStringWithMd5(System.Byte[])">
+            <summary>
+            使用 MD5 演算法計算雜湊值。已確認存在破解可能，請小心使用
+            </summary>
+            <param name="value">要計算的值</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Security.SecurityExtension.ComputeHashStringWithMd5(System.String)">
+            <summary>
+            使用 MD5 演算法計算雜湊值。已確認存在破解可能，請小心使用
+            </summary>
+            <param name="value">要計算的值</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Security.SecurityExtension.ComputeHashStringWithSha(System.Byte[],System.Int32)">
+            <summary>
+            使用 SHA 演算法計算雜湊值。SHA1(160)已確認存在破解可能，請小心使用
+            </summary>
+            <param name="value">要計算的值</param>
+            <param name="length">金鑰長度</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Security.SecurityExtension.ComputeHashStringWithSha(System.String,System.Int32)">
+            <summary>
+            使用 SHA 演算法計算雜湊值。SHA1(160)已確認存在破解可能，請小心使用
+            </summary>
+            <param name="value">要計算的值</param>
+            <param name="length">金鑰長度</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Security.SecurityExtension.GetSystemPermissionName(System.Type,System.String)">
+            <summary>
+            取得系統權限名稱
+            </summary>
+            <param name="type"></param>
+            <param name="memberName">要取得顯示名稱之成員(Member)名稱</param>
+        </member>
+        <member name="M:System.Framework.Security.SecurityExtension.SetValue(System.Framework.Data.IPermissionData,System.Framework.Data.IPermissionData[])">
+            <summary>
+            設定權限值，將所有傳入的權限進行權限值之計算並加以設定
+            </summary>
+            <param name="self">目前的權限資料</param>
+            <param name="permissions">所具備的所有權限</param>
+        </member>
+        <member name="M:System.Framework.Security.SecurityExtension.GetValue(System.Collections.Generic.IEnumerable{System.Framework.Data.IPermissionData})">
+            <summary>
+            取得權限值，將所有權限進行權限值之計算並回傳
+            </summary>
+            <param name="collection">要計算的權限列表</param>
+        </member>
+        <member name="M:System.Framework.Security.SecurityExtension.IsImplied(System.Framework.Data.IPermissionData,System.Framework.Data.IPermissionData)">
+            <summary>
+            判斷權限是否意涵指定的權限。
+            </summary>
+        </member>
+        <member name="M:System.Framework.Security.SecurityExtension.Equals(System.Framework.Data.IPermissionData,System.Framework.Data.IPermissionData)">
+            <summary>
+            判斷權限是否相同
+            </summary>
+            <param name="target">用以比較的權限</param>
+            <param name="other">用以比較的權限</param>
+            <returns>如果是相同權限則傳回true，否則傳回false</returns>
+        </member>
+        <member name="T:System.Framework.ShortUid">
+            <summary>
+            用以產生短唯一識別碼
+            </summary>
+        </member>
+        <member name="P:System.Framework.ShortUid.NewId">
+            <summary>
+            取得新的短唯一識別碼
+            </summary>
+        </member>
+        <member name="M:System.Framework.ShortUid.Generate(System.String)">
+            <summary>
+            產生短唯一識別碼
+            </summary>
+            <param name="seed">種子字串，將以此字串為種子產生識別碼</param>
+        </member>
+        <member name="M:System.Framework.ShortUid.Generate(System.Framework.Application.IApplication,System.String)">
+            <summary>
+            產生短唯一識別碼
+            </summary>
+            <param name="application">應用程式，產生指定應用程式之專屬識別碼</param>
+            <param name="seed">種子字串，將以此字串為種子產生識別碼</param>
+        </member>
+        <member name="M:System.Framework.ShortUid.ToShortUid(System.Guid)">
+            <summary>
+            轉換GUID為短唯一識別碼
+            </summary>
+            <param name="guid">GUID</param>
+            <returns>短唯一識別碼</returns>
+        </member>
+        <member name="M:System.Framework.ShortUid.ToGuid(System.String)">
+            <summary>
+            轉換短唯一識別碼為GUID
+            </summary>
+            <param name="shortUid">短唯一識別碼</param>
+            <returns>GUID</returns>
+        </member>
+        <member name="T:System.Framework.Uuid">
+            <summary>
+            通用統一識別碼
+            </summary>
+        </member>
+        <member name="P:System.Framework.Uuid.Initialized">
+            <summary>
+            是否已初始化
+            </summary>
+        </member>
+        <member name="P:System.Framework.Uuid.InitialServiceId">
+            <summary>
+            初始服務識別碼
+            </summary>
+        </member>
+        <member name="P:System.Framework.Uuid.InitialDeployId">
+            <summary>
+            初始部署識別碼
+            </summary>
+        </member>
+        <member name="P:System.Framework.Uuid.InitialWorkerId">
+            <summary>
+            初始工作者識別碼
+            </summary>
+        </member>
+        <member name="P:System.Framework.Uuid.ServiceId">
+            <summary>
+            服務識別碼
+            </summary>
+        </member>
+        <member name="P:System.Framework.Uuid.DeployId">
+            <summary>
+            部署識別碼
+            </summary>
+        </member>
+        <member name="P:System.Framework.Uuid.WorkerId">
+            <summary>
+            工作者識別碼
+            </summary>
+        </member>
+        <member name="P:System.Framework.Uuid.Timestamp">
+            <summary>
+            時間戳記
+            </summary>
+        </member>
+        <member name="P:System.Framework.Uuid.Time">
+            <summary>
+            時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Uuid.Sequence">
+            <summary>
+            流水號
+            </summary>
+        </member>
+        <member name="P:System.Framework.Uuid.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="M:System.Framework.Uuid.#ctor">
+            <summary>
+            建置空的UUID
+            </summary>
+        </member>
+        <member name="M:System.Framework.Uuid.Initialize(System.Framework.Application.IApplication)">
+            <summary>
+            初始化雙精度UUID
+            </summary>
+            <param name="application">應用程式，將透過此應用程式取得參數值，如無參數值時將以IP Address作為參數</param>
+        </member>
+        <member name="M:System.Framework.Uuid.Initialize(System.Byte,System.Int16,System.Int32,System.Int16)">
+            <summary>
+            初始化雙精度UUID
+            </summary>
+            <param name="serviceId">服務識別碼</param>
+            <param name="deployId">部署識別碼</param>
+            <param name="workerId">工作者識別碼</param>
+            <param name="sequence">起始序號</param>
+        </member>
+        <member name="M:System.Framework.Uuid.Initialize(System.Int16,System.Int16)">
+            <summary>
+            初始化單精度UUID
+            </summary>
+            <param name="deployId">部署識別碼</param>
+            <param name="sequence">起始序號</param>
+        </member>
+        <member name="M:System.Framework.Uuid.NewId">
+            <summary>
+            取得新的ID
+            </summary>
+        </member>
+        <member name="M:System.Framework.Uuid.GenerateDoubleValue">
+            <summary>
+            產生雙精度數值
+            </summary>
+        </member>
+        <member name="M:System.Framework.Uuid.GenerateSingleValue">
+            <summary>
+            產生單精度數值
+            </summary>
+        </member>
+        <member name="M:System.Framework.Uuid.ToString">
+            <summary>
+            轉緩成字串
+            </summary>
+        </member>
+        <member name="M:System.Framework.Uuid.ToByteArray">
+            <summary>
+            轉換成位元組
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.Uuid.Parse(System.String)">
+            <summary>
+            解析數值字串
+            </summary>
+            <param name="value">數值字串</param>
+        </member>
+        <member name="M:System.Framework.Uuid.ToCharacter(System.Byte)">
+            <summary>
+            將(僅使用前6bits的)位元組轉為字元
+            </summary>
+            <param name="value">64進位字元</param>
+        </member>
+        <member name="M:System.Framework.Uuid.ToByte(System.Char)">
+            <summary>
+            將(64進位)字元轉為位元組
+            </summary>
+            <param name="character">64進位字元</param>
+        </member>
+        <member name="M:System.Framework.Uuid.TilNextMillisecond(System.Int64)">
+            <summary>
+            直到下一個毫秒到來並取得其值
+            </summary>
+            <param name="moment">目前時刻</param>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,124 @@
+﻿@{
+    var configuration = Html.Configuration<Configuration>();
+}
+
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <!-- #region SEO Metadata Begin -->
+    <meta name="keywords" content="@configuration.PortalMetaKeywords">
+    <meta name="description" content="@configuration.PortalMetaDescription">
+    <title>@configuration.PortalTitle - @ViewBag.Title</title>
+    <!-- #endregion -->
+
+    <!-- #region Icons Definition Begin -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/Content/images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/Content/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/Content/images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/Content/images/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/Content/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <!-- #endregion -->
+
+    <!-- #region Style Definition Begin -->
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" type="text/css" href="/Content/css/default.css">
+    @RenderSection("HeadStyle", false)
+    <!-- #endregion -->
+
+    <!-- #region Font Definition Begin -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- #endregion -->
+
+    <!-- #region Scripts Definition Begin -->
+    <script src="/Content/js/popper.min.js"></script>
+    <script src="/Content/js/bootstrap.min.js"></script>
+    <!-- <script src="/Content/js/glightbox.js"></script> -->
+    <script src="/Content/js/clamp.min.js"></script>
+    <script src="/Content/js/jquery-3.6.0.min.js"></script>
+    <script src="/Content/js/jquery.validationEngine-zh_TW.js"></script>
+    <script src="/Content/js/jquery.validationEngine.min.js"></script>
+    <script src="/Content/js/aos.js"></script>
+    <script src="/Content/js/datepicker.js"></script>
+    <script src="/Content/js/datepicker.zh-CN.js"></script>
+    <script src="/Content/js/main.js"></script>
+    @* Uncomment to use the HtmlEditor control *@
+    @* <script src="https://unpkg.com/devextreme-quill@23_2/dist/dx-quill.min.js"></script> *@
+
+    @* Uncomment to use the Gantt control *@
+    @*<link href="~/css/devextreme/dx-gantt.css" rel="stylesheet" />*@
+
+    @* Uncomment to use the Diagram control *@
+    @*<link href="~/css/devextreme/dx-diagram.css" rel="stylesheet" />*@
+
+    <link href="~/css/devextreme/bootstrap.css" rel="stylesheet" />
+
+    @* Predefined themes: https://js.devexpress.com/DevExtreme/Guide/Themes_and_Styles/Predefined_Themes/ *@
+    <link href="~/css/devextreme/dx.light.css" rel="stylesheet" />
+
+    @* Uncomment to use the Gantt control *@
+    @*<script src="~/js/devextreme/dx-gantt.js"></script>*@
+
+    @* Uncomment to use the Diagram control *@
+    @*<script src="~/js/devextreme/dx-diagram.js"></script>*@
+
+    <script src="~/js/devextreme/jquery.js"></script>
+    <script src="~/js/devextreme/bootstrap.js"></script>
+
+    @* Uncomment to use Globalize for localization *@
+    @* Docs: https://docs.devexpress.com/AspNetCore/400577#globalize *@
+    @*<script src="~/js/devextreme/cldr.js"></script>*@
+    @*<script src="~/js/devextreme/cldr/event.js"></script>*@
+    @*<script src="~/js/devextreme/cldr/supplemental.js"></script>*@
+    @*<script src="~/js/devextreme/cldr/unresolved.js"></script>*@
+    @*<script src="~/js/devextreme/globalize.js"></script>*@
+    @*<script src="~/js/devextreme/globalize/message.js"></script>*@
+    @*<script src="~/js/devextreme/globalize/number.js"></script>*@
+    @*<script src="~/js/devextreme/globalize/currency.js"></script>*@
+    @*<script src="~/js/devextreme/globalize/date.js"></script>*@
+
+    @* Uncomment to enable client-side export *@
+    @*<script src="~/js/devextreme/jszip.js"></script>*@
+
+    <script src="~/js/devextreme/dx.all.js"></script>
+
+    @* Uncomment to provide geo-data for the VectorMap control *@
+    @* Docs: https://js.devexpress.com/DevExtreme/Guide/Widgets/VectorMap/Providing_Data/#Data_for_Areas *@
+    @*<script src="~/js/devextreme/vectormap-data/world.js"></script>*@
+
+    <script src="~/js/devextreme/aspnet/dx.aspnet.mvc.js"></script>
+    <script src="~/js/devextreme/aspnet/dx.aspnet.data.js"></script>
+
+
+
+    @RenderSection("HeadScript", false)
+    <!-- #endregion -->
+</head>
+<body>
+    <partial name="_Header" model="configuration" />
+
+    <main role="main" class="contents-wrap">
+        @RenderBody()
+    </main>
+
+    <partial name="_Footer" model="configuration" />
+
+    <div class="fixed-link">
+        <a class="goTop" href="javascript:void(0)">
+            <span>▲</span>
+            <span>TOP</span>
+        </a>
+    </div>
+
+    <!-- #region Page Loaded Scripts -->
+    @RenderSection("BodyScript", false)
+    <!-- #endregion -->
+</body>
+</html>

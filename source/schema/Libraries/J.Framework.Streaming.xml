@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>J.Framework.Streaming</name>
+    </assembly>
+    <members>
+        <member name="T:System.Framework.Streaming.ILiveSourceData">
+            <summary>
+            直播來源之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Streaming.ILiveSourceData.Token">
+            <summary>
+            令牌
+            </summary>
+        </member>
+        <member name="P:System.Framework.Streaming.ILiveSourceData.ThumbnailUri">
+            <summary>
+            縮圖網址
+            </summary>
+        </member>
+        <member name="P:System.Framework.Streaming.ILiveSourceData.PushUri">
+            <summary>
+            推送網址
+            </summary>
+        </member>
+        <member name="T:System.Framework.Streaming.IMediaFileData">
+            <summary>
+            媒體檔案之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Streaming.IMediaFileData.Height">
+            <summary>
+            高度(Pixel)
+            </summary>
+        </member>
+        <member name="P:System.Framework.Streaming.IMediaFileData.Width">
+            <summary>
+            寬度(Pixel)
+            </summary>
+        </member>
+        <member name="P:System.Framework.Streaming.IMediaFileData.Bitrate">
+            <summary>
+            比特率
+            </summary>
+        </member>
+        <member name="P:System.Framework.Streaming.IMediaFileData.Duration">
+            <summary>
+            時間
+            </summary>
+        </member>
+        <member name="P:System.Framework.Streaming.IMediaFileData.ThumbnailUri">
+            <summary>
+            縮圖網址
+            </summary>
+        </member>
+        <member name="T:System.Framework.Streaming.IStreamingResoureData">
+            <summary>
+            串流資源之基本介面
+            </summary>
+        </member>
+        <member name="P:System.Framework.Streaming.IStreamingResoureData.Host">
+            <summary>
+            主機
+            </summary>
+        </member>
+        <member name="P:System.Framework.Streaming.IStreamingResoureData.Port">
+            <summary>
+            埠
+            </summary>
+        </member>
+        <member name="P:System.Framework.Streaming.IStreamingResoureData.Application">
+            <summary>
+            應用
+            </summary>
+        </member>
+        <member name="P:System.Framework.Streaming.IStreamingResoureData.MediaType">
+            <summary>
+            媒體型別
+            </summary>
+        </member>
+        <member name="P:System.Framework.Streaming.IStreamingResoureData.Entry">
+            <summary>
+            進入點
+            </summary>
+        </member>
+        <member name="P:System.Framework.Streaming.IStreamingResoureData.Uri">
+            <summary>
+            資源URI
+            </summary>
+        </member>
+        <member name="T:System.Framework.Streaming.StreamingExtensions">
+            <summary>
+            串流相關之擴充方法
+            </summary>
+        </member>
+        <member name="M:System.Framework.Streaming.StreamingExtensions.GetUri(System.Framework.Streaming.IMediaFileData)">
+            <summary>
+            取得網址
+            </summary>
+        </member>
+        <member name="M:System.Framework.Streaming.StreamingExtensions.GetUri(System.Framework.Streaming.ILiveSourceData)">
+            <summary>
+            取得網址
+            </summary>
+        </member>
+        <member name="M:System.Framework.Streaming.StreamingExtensions.GetMpegDashUrl(System.Framework.Streaming.IMediaFileData)">
+            <summary>
+            取得 MPEG DASH 網址
+            </summary>
+        </member>
+        <member name="M:System.Framework.Streaming.StreamingExtensions.GetMpegDashUrl(System.Framework.Streaming.ILiveSourceData)">
+            <summary>
+            取得 MPEG DASH 網址
+            </summary>
+        </member>
+        <member name="M:System.Framework.Streaming.StreamingExtensions.GetHlsUrl(System.Framework.Streaming.IMediaFileData)">
+            <summary>
+            取得 HLS 網址
+            </summary>
+        </member>
+        <member name="M:System.Framework.Streaming.StreamingExtensions.GetHlsUrl(System.Framework.Streaming.ILiveSourceData)">
+            <summary>
+            取得 HLS 網址
+            </summary>
+        </member>
+        <member name="M:System.Framework.Streaming.StreamingExtensions.GetPushUrl(System.Framework.Streaming.ILiveSourceData)">
+            <summary>
+            取得推流網址
+            </summary>
+        </member>
+        <member name="T:System.Framework.Streaming.StreamingMediaType">
+            <summary>
+            串流媒體類型
+            </summary>
+        </member>
+        <member name="F:System.Framework.Streaming.StreamingMediaType.Mp4">
+            <summary>
+            MPEG-4 Part 14
+            </summary>
+        </member>
+        <member name="F:System.Framework.Streaming.StreamingMediaType.Flv">
+            <summary>
+            Flash Video
+            </summary>
+        </member>
+        <member name="F:System.Framework.Streaming.StreamingMediaType.Mp3">
+            <summary>
+            MPEG-1 or MPEG-2 Audio Layer III
+            </summary>
+        </member>
+    </members>
+</doc>

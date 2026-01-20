@@ -1,0 +1,19 @@
+2025-03-12 16:22:27.2558[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-03-12 16:22:27.2558[10]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2025-03-12 16:26:25.1787[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-03-12 16:26:25.1879[11]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2025-03-12 16:26:38.8597[18]  INFO MemberController  Member Login account: password: 
+2025-03-12 16:27:49.4139[21]  INFO MemberController  Member Login account:neihu password:26271038 
+2025-03-12 16:27:53.1980[21]  INFO MemberController  進行登入 
+2025-03-12 16:27:59.4375[21]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-03-12 16:28:28.3772[35]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-03-12 16:28:28.3772[35]  INFO HomeController  進入首頁
+2025-03-12 16:44:13.7230[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-03-12 16:44:13.7230[10]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2025-03-12 16:45:50.1163[5]  INFO MemberController  Member Login account: password: 
+2025-03-12 16:46:10.2999[25]  INFO MemberController  Member Login account:nczs password:29526818 
+2025-03-12 16:46:10.3276[25]  INFO MemberController  進行登入 
+2025-03-12 16:46:10.3276[25]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-03-12 16:46:10.3603[5]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-03-12 16:46:10.3603[5]  INFO HomeController  進入首頁
+2025-03-12 16:46:13.6501[25]  INFO MemberController  Member Login account: password: 

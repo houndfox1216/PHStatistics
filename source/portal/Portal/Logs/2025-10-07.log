@@ -1,0 +1,20 @@
+2025-10-07 18:36:52.7050[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-10-07 18:36:52.7050[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-10-07 18:36:52.7919[5]  INFO MemberController  Member Login account: password: 
+2025-10-07 18:37:17.2987[5]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-10-07 18:37:17.5216[5]  INFO MemberController  進行登入 
+2025-10-07 18:37:17.9213[5]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-10-07 18:37:18.1869[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-10-07 18:37:18.1869[11]  INFO HomeController  進入首頁
+2025-10-07 18:38:29.7114[40]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-10-07 18:38:29.7114[40]  INFO HomeController  進入首頁
+2025-10-07 18:38:31.3557[34]  INFO StudentPopulationController  進入首頁(MainMenu)
+2025-10-07 18:38:31.3557[34]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2025-10-07 18:38:54.2084[33]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-10-07 18:38:54.2084[33]  INFO HomeController  進入首頁
+2025-10-07 18:40:58.3117[51]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-10-07 18:40:58.3117[51]  INFO HomeController  進入首頁
+2025-10-07 18:40:59.9602[50]  INFO StudentPopulationController  進入首頁(MainMenu)
+2025-10-07 18:40:59.9602[50]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2025-10-07 18:41:32.6571[53]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-10-07 18:41:32.6571[53]  INFO HomeController  進入首頁

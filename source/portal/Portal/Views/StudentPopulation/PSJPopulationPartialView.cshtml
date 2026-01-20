@@ -1,0 +1,114 @@
+﻿@using PHStatistics.Content
+@model StudentPopulation
+@{
+    List<SchoolAssignment> schools = new List<SchoolAssignment>();
+    if (ViewBag.Schools != null) {
+        schools = (List<SchoolAssignment>)ViewBag.Schools;
+    }
+    List<Course> courses = (List<Course>)ViewBag.Courses;
+    int itemRowNo = 0;
+    string color = "#75b6e1";
+}
+@foreach (Course cItem in courses) {
+    if (Model.Items.Any(e => e.Class.Course.Id == cItem.Id)) {
+        if (itemRowNo % 2 == 0) {
+            color = "#75b6e1";
+        }
+        else {
+            color = "#93f3a6";
+        }
+        <div class="row mx-0" style="background-color:@color">
+            <div class="col-12 mb-3">
+                @if (cItem.IsSum) {
+                    StudentPopulationItem sumItem = Model.Items.Where(e => e.Class.Course.Id == cItem.Id).FirstOrDefault();
+                    string displayStr = string.Format("{0} {1} 人", cItem.Name, (sumItem != null ? sumItem.Number : 0).ToString());
+                    <label>
+                        <h2>@displayStr</h2>                        
+                    </label>
+                }
+                else {
+                    <label>
+                        <h2>課程：@cItem.Name</h2>
+                    </label>
+                }
+
+            </div>
+@*             @if (!cItem.IsSum) {
+                <div class="col-2 mb-3">
+                    <button type="button" class="btn btn-primary btn-sm btn-round" id="add-@cItem.Id" onclick="addClassItem(@cItem.Id)">
+                        +
+                    </button>
+                </div>
+            } *@
+        </div>
+        if (!cItem.IsSum) {
+            <div class="row mx-0">
+                @*             <div class="col-2 mb-3">
+    系統班級名稱
+    </div> *@
+@*                 <div class="col-2 mb-3">
+                    班別
+                </div> *@
+                <div class="col-4 mb-3">
+                    分校班級名稱
+                </div>
+                <div class="col-2 mb-3">
+                    上週人數
+                </div>
+                <div class="col-2 mb-3">
+                    本週人數
+                </div>
+                <div class="col-2 mb-3">
+                    學生備註
+                </div>
+                <div class="col-2 mb-3">
+                </div>
+            </div>
+            foreach (StudentPopulationItem sItem in Model.Items.Where(e => e.Class.Course.Id == cItem.Id)) {
+                <div class="row mx-0">
+                    @*                 <div class="col-2 mb-3">
+    <input type="hidden" class="form-control" name="Items[@itemRowNo].ClassId" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Id">
+    <input type="text" class="form-control" name="Items[@itemRowNo].Class.Id" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Name">
+    </div> *@
+@*                     <div class="col-2 mb-3">
+                        <select class="form-select validate[required]" id="class_type_@sItem.Class.Id.ToString()" data-live-search="true">
+                            <option selected disabled>選擇班別</option>
+                            @if (sItem.Class.Type == ClassType.Personal) {
+                                <option value=1 selected="selected">三</option>
+                            }
+                            else {
+                                <option value=1>三</option>
+                            }
+                            @if (sItem.Class.Type == ClassType.SubGroup) {
+                                <option value=2 selected="selected">小</option>
+                            }
+                            else {
+                                <option value=2>小</option>
+                            }
+                        </select>
+                    </div> *@
+                    <div class="col-4 mb-3">
+                        <input type="text" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.SchoolName">
+                    </div>
+                    <div class="col-2 mb-3">
+                        @sItem.LastWeekNumber
+                    </div>
+                    <div class="col-2 mb-3">
+                        <input type="number" class="form-control" placeholder="請輸入人數" name="Items[@itemRowNo].Number" id="class_@sItem.Class.Id.ToString()_count" value="@sItem.Number" data-course="@cItem.Id" data-class="@sItem.Class.Id" onchange="valueChange('class_@sItem.Class.Id.ToString()_count')">
+                    </div>
+                    <div class="col-2 mb-3">
+                        <input type="text" class="form-control" placeholder="" name="Items[@itemRowNo].StudentRemark" id="class_@sItem.Class.Id.ToString()_remark" value="@sItem.StudentRemark">
+                    </div>
+                    @if (!sItem.Class.Course.IsSum) {
+                        <div class="col-2 mb-2">
+                            <button type="button" class="btn btn-primary btn-sm btn-round" id="add-new" onclick="removeClassItem(@sItem.Id)">
+                                -
+                            </button>
+                        </div>
+                    }
+                </div>
+                itemRowNo++;
+            }
+        }
+    }
+}

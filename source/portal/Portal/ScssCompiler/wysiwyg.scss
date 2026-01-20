@@ -1,0 +1,12 @@
+// **************************************************
+//   CSS
+// **************************************************
+
+/* Updated 2022/07/29 */
+
+.wysiwyg {
+    // Core variables, foundation, Reset and dependencies!
+    @import "foundation/foundation";
+}
+
+@import "layout/common/wysiwyg";

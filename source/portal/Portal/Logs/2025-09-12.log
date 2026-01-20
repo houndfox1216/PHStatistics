@@ -1,0 +1,39 @@
+2025-09-12 11:42:32.3880[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-12 11:42:32.3942[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-12 11:42:32.4595[7]  INFO MemberController  Member Login account: password: 
+2025-09-12 11:43:10.1471[20]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-09-12 11:43:10.2105[20]  INFO MemberController  進行登入 
+2025-09-12 11:43:10.3439[20]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-09-12 11:43:10.4374[25]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-12 11:43:10.4374[25]  INFO HomeController  進入首頁
+2025-09-12 11:45:15.5638[35]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-12 11:45:15.5638[35]  INFO HomeController  進入首頁
+2025-09-12 11:55:43.8466[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-12 11:55:43.8529[11]  INFO HomeController  進入首頁
+2025-09-12 11:58:57.7577[5]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-12 11:58:57.7577[5]  INFO HomeController  進入首頁
+2025-09-12 11:59:19.5721[16]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-12 11:59:19.5721[16]  INFO HomeController  進入首頁
+2025-09-12 14:37:10.8124[10]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-12 14:37:10.8313[10]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-12 14:37:10.9422[5]  INFO MemberController  Member Login account: password: 
+2025-09-12 14:37:17.3426[19]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2025-09-12 14:37:17.3426[19]  INFO HomeController  進入首頁 讀取 Session account: login:
+2025-09-12 14:37:17.3567[19]  INFO MemberController  Member Login account: password: 
+2025-09-12 14:37:33.8813[19]  INFO MemberController  Member Login account:admin password:cloudfun 
+2025-09-12 14:37:33.9184[19]  INFO MemberController  進行登入 
+2025-09-12 14:37:33.9327[19]  INFO MemberController  進行登入完成 導入 /Index False 
+2025-09-12 14:37:33.9569[17]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-12 14:37:33.9569[17]  INFO HomeController  進入首頁
+2025-09-12 14:38:54.5290[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-12 14:38:54.5355[11]  INFO HomeController  進入首頁
+2025-09-12 14:41:54.8706[5]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-12 14:41:54.8706[5]  INFO HomeController  進入首頁
+2025-09-12 14:43:56.6668[19]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-12 14:43:56.6762[19]  INFO HomeController  進入首頁
+2025-09-12 14:44:30.5445[19]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-12 14:44:30.5543[19]  INFO HomeController  進入首頁
+2025-09-12 14:45:03.4950[5]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-12 14:45:03.4950[5]  INFO HomeController  進入首頁
+2025-09-12 14:47:50.9283[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2025-09-12 14:47:50.9283[11]  INFO HomeController  進入首頁

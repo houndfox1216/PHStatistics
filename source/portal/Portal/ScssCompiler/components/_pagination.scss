@@ -1,0 +1,45 @@
+.pagination {
+    li {
+        padding: 5px 10px;
+        background-color: none;
+        border-radius: 25px;
+        transition: all .1s;
+        a {
+            color: #666;
+            transition: all .1s;
+        }
+    }
+    li:hover {
+        background-color: $secondary;
+        a {
+            background-color: $secondary;
+            color: #666;
+        }
+    }
+    li.PagedList-ellipses {
+        pointer-events: none;
+        a {
+            color: #999;
+        }
+    }
+    li.active {
+        background-color: $secondary;
+        a {
+            color: $dark;
+        }
+    }
+    li:active {
+       background-color: $secondary;
+        a {
+            color: $dark;
+        }
+    }
+    li:focus {
+       background-color: $secondary;
+        a {
+            color: $dark;
+        }
+    }
+
+
+}

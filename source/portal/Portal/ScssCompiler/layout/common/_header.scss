@@ -1,0 +1,21 @@
+
+
+
+header {
+    background-color: #fff;
+    // box-shadow:  0 9px 0px rgba($primary, .9);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9;
+    .header {
+        padding: 1rem;
+        transition: all .3s;
+        .logo-wrap {
+            width: 200px;
+        }
+        @media (max-width:1200px) {
+            padding: .25rem;
+        }
+    }
+}

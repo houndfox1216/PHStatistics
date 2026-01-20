@@ -1,0 +1,187 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>J.Framework.NLog</name>
+    </assembly>
+    <members>
+        <member name="T:System.Framework.NLog.NLogContext">
+            <summary>
+            NLog 紀錄器脈絡
+            </summary>
+        </member>
+        <member name="M:System.Framework.NLog.NLogContext.GetGlobalProperty(System.String)">
+            <summary>
+            取得全域特性
+            </summary>
+            <param name="key">索引值</param>
+        </member>
+        <member name="M:System.Framework.NLog.NLogContext.SetGlobalProperty(System.String,System.Object)">
+            <summary>
+            設定全域特性
+            </summary>
+            <param name="key">索引值</param>
+            <param name="value">特性值</param>
+        </member>
+        <member name="M:System.Framework.NLog.NLogContext.RemoveGlobalProperty(System.String)">
+            <summary>
+            移除全域特性
+            </summary>
+            <param name="key">索引值</param>
+        </member>
+        <member name="M:System.Framework.NLog.NLogContext.ClearGlobalProperties">
+            <summary>
+            清除全域特性
+            </summary>
+        </member>
+        <member name="P:System.Framework.NLog.NLogContext.ThreadPropertyKeys">
+            <summary>
+            所有線程特性索引值
+            </summary>
+        </member>
+        <member name="M:System.Framework.NLog.NLogContext.GetThreadProperty(System.String)">
+            <summary>
+            取得線程特性
+            </summary>
+            <param name="key">索引值</param>
+        </member>
+        <member name="M:System.Framework.NLog.NLogContext.SetThreadProperty(System.String,System.Object)">
+            <summary>
+            設定線程特性
+            </summary>
+            <param name="key">索引值</param>
+            <param name="value">特性值</param>
+        </member>
+        <member name="M:System.Framework.NLog.NLogContext.RemoveThreadProperty(System.String)">
+            <summary>
+            移除線程特性
+            </summary>
+            <param name="key">索引值</param>
+        </member>
+        <member name="M:System.Framework.NLog.NLogContext.ClearThreadProperties">
+            <summary>
+            清除線程特性
+            </summary>
+        </member>
+        <member name="M:System.Framework.NLog.NLogContext.GetLogger``1">
+            <summary>
+            取得負責指定型別的記錄器
+            </summary>
+            <typeparam name="T">型別</typeparam>
+            <returns>指定型別的記錄器</returns>
+        </member>
+        <member name="M:System.Framework.NLog.NLogContext.GetLogger(System.Type)">
+            <summary>
+            取得負責指定型別的記錄器
+            </summary>
+            <param name="type">型別</param>
+            <returns>指定型別的記錄器</returns>
+        </member>
+        <member name="M:System.Framework.NLog.NLogContext.GetLogger(System.String)">
+            <summary>
+            取得符合指定名稱的記錄器
+            </summary>
+            <param name="name">指定名稱</param>
+            <returns>指定名稱的記錄器</returns>
+        </member>
+        <member name="M:System.Framework.NLog.NLogContext.LoadConfiguration(System.String)">
+            <summary>
+            載入設定檔
+            </summary>
+            <param name="path">設定檔路徑</param>
+        </member>
+        <member name="M:System.Framework.NLog.NLogContext.LoadConfiguration(System.String,System.Object)">
+            <summary>
+            載入設定檔
+            </summary>
+            <param name="path">設定檔路徑</param>
+            <param name="builder">建立者</param>
+        </member>
+        <member name="T:System.Framework.NLog.NLogLogger">
+            <summary>
+            Wrap NLog's Logger in a Microsoft.Extensions.Logging's interface <see cref="T:Microsoft.Extensions.Logging.ILogger"/>.
+            </summary>
+        </member>
+        <member name="M:System.Framework.NLog.NLogLogger.CreateLogEventInfoWithMultipleParameters(NLog.LogLevel,System.String,System.Collections.Generic.IReadOnlyList{System.Collections.Generic.KeyValuePair{System.String,System.Object}})">
+            <summary>
+            Create Log Event with multiple parameters (last parameter is the {OriginalFormat})
+            </summary>
+        </member>
+        <member name="M:System.Framework.NLog.NLogLogger.IsEnabled(Microsoft.Extensions.Logging.LogLevel)">
+            <summary>
+            Is logging enabled for this logger at this <paramref name="logLevel"/>?
+            </summary>
+            <param name="logLevel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.NLog.NLogLogger.IsEnabled(NLog.LogLevel)">
+            <summary>
+            Is logging enabled for this logger at this <paramref name="logLevel"/>?
+            </summary>
+        </member>
+        <member name="M:System.Framework.NLog.NLogLogger.ConvertLogLevel(Microsoft.Extensions.Logging.LogLevel)">
+            <summary>
+            Convert loglevel to NLog variant.
+            </summary>
+            <param name="logLevel">level to be converted.</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Framework.NLog.NLogLogger.BeginScope``1(``0)">
+            <summary>
+            Begin a scope. Use in config with ${ndlc} 
+            </summary>
+            <param name="state">The state (message)</param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Framework.NLog.NLogMessageParameterList">
+            <summary>
+            Converts Microsoft Extension Logging ParameterList into NLog MessageTemplate ParameterList
+            </summary>
+        </member>
+        <member name="M:System.Framework.NLog.NLogMessageParameterList.IsValidParameterList(System.Collections.Generic.IReadOnlyList{System.Collections.Generic.KeyValuePair{System.String,System.Object}},System.Nullable{System.Int32}@)">
+            <summary>
+            Verify that the input parameterList contains non-empty key-values and the orignal-format-property at the end
+            </summary>
+        </member>
+        <member name="M:System.Framework.NLog.NLogMessageParameterList.CreateValidParameterList(System.Collections.Generic.IReadOnlyList{System.Collections.Generic.KeyValuePair{System.String,System.Object}})">
+            <summary>
+            Extract all valid properties from the input parameterList, and return them in a newly allocated list
+            </summary>
+        </member>
+        <member name="T:System.Framework.NLog.NLogProviderOptions">
+            <summary>
+            Options for logging to NLog with 
+            </summary>
+        </member>
+        <member name="P:System.Framework.NLog.NLogProviderOptions.EventIdSeparator">
+            <summary>
+            Separator between for EventId.Id and EventId.Name. Default to .
+            </summary>
+        </member>
+        <member name="P:System.Framework.NLog.NLogProviderOptions.IgnoreEmptyEventId">
+            <summary>
+            Skip allocation of <see cref="P:NLog.LogEventInfo.Properties" />-dictionary
+            </summary>
+            <remarks>
+            using
+                <c>default(EventId)</c></remarks>
+        </member>
+        <member name="P:System.Framework.NLog.NLogProviderOptions.CaptureMessageTemplates">
+            <summary>
+            Enable structured logging by capturing message template parameters and inject into the <see cref="P:NLog.LogEventInfo.Properties" />-dictionary
+            </summary>
+        </member>
+        <member name="P:System.Framework.NLog.NLogProviderOptions.CaptureMessageProperties">
+            <summary>
+            Enable capture of properties from the ILogger-State-object, both in <see cref="M:Microsoft.Extensions.Logging.ILogger.Log``1(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,``0,System.Exception,System.Func{``0,System.Exception,System.String})"/> and <see cref="M:Microsoft.Extensions.Logging.ILogger.BeginScope``1(``0)"/>
+            </summary>
+        </member>
+        <member name="M:System.Framework.NLog.NLogProviderOptions.#ctor">
+            <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
+        </member>
+        <member name="F:System.Framework.NLog.NLogProviderOptions.Default">
+            <summary>
+            Default options
+            </summary>
+        </member>
+    </members>
+</doc>

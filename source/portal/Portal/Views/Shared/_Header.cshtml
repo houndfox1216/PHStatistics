@@ -1,0 +1,110 @@
+﻿@model Configuration
+
+@{
+    var culture = Html.Culture<PHStatistics.Culture>();
+    var sitemap = Application.Current.Policy.Sitemap;
+    ViewBag.Menu ??= Html.Menu<DataContext>(Html.User<PortalUser>()).ToArray();;
+    var menu = ViewBag.Menu as SitemapNode[];
+    var index = 0;
+}
+
+<header>
+    <div id="headerBar" class="container-fluid px-2xl-4 header d-flex justify-content-between align-items-center position-relative">
+        <!-- LOGO -->
+        <h1 class="visually-hidden">@Model.PortalTitle)</h1>
+        <a href="@Url.Action("Index", "Home")" class="logo-wrap">
+            <img class="img-fluid h-64" src="/Content/images/logo.svg" alt="@Model.PortalTitle" style="max-width:40%">
+        </a>
+        <!-- mobile-nav-button -->
+@*         <button class="me-0 me-sm-3 btn btn-link d-xl-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMenu" aria-expanded="false" aria-controls="collapseMenu">
+            <i class="fas fa-bars h1 mb-0 text-primary"></i>
+        </button> *@
+        <!-- web-nav -->
+        <ul class="nav d-none d-xl-flex">
+@*             <li class="nav-item">
+                @if (culture.Codes.Contains("zh-TW")) {
+                    <a class="nav-link bg-warning rounded-pill" href="/Culture/en-US">
+                        <b>中文</b>
+                    </a>
+                } else {
+                    <a class="nav-link bg-warning rounded-pill" href="/Culture/zh-TW">
+                        <b>EN</b>
+                    </a>
+                }
+            </li> *@
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index", "Home")">@Html.ToI18n(sitemap.Title)</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("LogOut", "Member")">登出</a>
+            </li>
+@*             @foreach (var node in menu) {
+                <li class="nav-item @(node.Expandable && node.SubNodes != null && node.SubNodes.Any() ? "dropdown" : "")">
+                    @if (node.To != null) {
+                        <a class="nav-link" href="@node.To">@Html.ToI18n(node.Title)</a>
+                    } else {
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">@Html.ToI18n(node.Title)</a>
+                    }
+                    @if (node.SubNodes != null && node.SubNodes.Any()) {
+                        <ul class="dropdown-menu show" aria-labelledby="navbarDropdown">
+                            @foreach (var subNode in node.SubNodes) {
+                                <li>
+                                    <a class="dropdown-item" href="@subNode.To">@Html.ToI18n(subNode.Title)</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </li>
+            } *@
+        </ul>
+    </div>
+
+    <!-- mobile-nav -->
+    @* <div class="collapse d-xl-none" id="collapseMenu">
+        <div class="card card-body" id="accordionItems">
+            <ul class="nav">
+                <li class="nav-item">
+                    @if (culture.Codes.Contains("zh-TW")) {
+                        <a class="nav-link bg-warning py-3" href="/Culture/en-US">
+                            <b>Switch to English</b>
+                        </a>
+                    } else {
+                        <a class="nav-link bg-warning py-3" href="/Culture/zh-TW">
+                            <b>切換至中文</b>
+                        </a>
+                    }
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Index", "Home")">@Html.ToI18n(sitemap.Title)</a>
+                </li>
+
+                @foreach (var node in menu) {
+                    <li class="nav-item @(node.Expandable && node.SubNodes != null && node.SubNodes.Any() ? "dropdown" : "")">
+                        @if (node.To != null) {
+                            <a class="nav-link" href="@node.To">@Html.ToI18n(node.Title)</a>
+                        } else {
+                            <button class="nav-link" type="button" data-bs-toggle="collapse" data-bs-target="#sitemapNode_@(++index)" aria-expanded="false" aria-controls="sitemapNode_@index">
+                                @Html.ToI18n(node.Title)
+                            </button>
+                        }
+                        @if (node.SubNodes != null && node.SubNodes.Any()) {
+                            <div class="collapse" id="sitemapNode_@index" data-bs-parent="#accordionItems">
+                                <div class="card card-body">
+                                    <ul>
+                                        @foreach (var subNode in node.SubNodes) {
+                                            <li>
+                                                <a href="@subNode.To">@Html.ToI18n(subNode.Title)</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                    </li>
+                }
+
+            </ul>
+        </div>
+    </div> *@
+</header>
