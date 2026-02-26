@@ -1,0 +1,3 @@
+2026-01-20 17:56:00.2965[15]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-01-20 17:56:00.3133[15]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-01-20 17:56:00.6014[11]  INFO MemberController  Member Login account: password: 
