@@ -10,6 +10,41 @@
             return $.getJSON("@Url.Action("GetSchools", "Member", new { area = "Admin" })");
         }
     });
+
+    var rolesStore = new DevExpress.data.CustomStore({
+        key: "Id",
+        loadMode: "raw",
+        load: function() {
+            return $.getJSON("@Url.Action("GetRoles", "Member", new { area = "Admin" })");
+        }
+    });
+
+    function createMemberRoleStore(memberId) {
+        return new DevExpress.data.CustomStore({
+            key: "RoleId",
+            load: function() {
+                return $.getJSON(
+                    "@Url.Action("GetMemberRoles", "Member", new { area = "Admin" })",
+                    { memberId: memberId }
+                ).then(function(r) { return r.data || r; });
+            },
+            insert: function(values) {
+                values.MemberId = memberId;
+                return $.ajax({
+                    url: "@Url.Action("CreateMemberRole", "Member", new { area = "Admin" })",
+                    type: "POST",
+                    data: { values: JSON.stringify(values) }
+                });
+            },
+            remove: function(roleId) {
+                return $.ajax({
+                    url: "@Url.Action("DeleteMemberRole", "Member", new { area = "Admin" })"
+                        + "?memberId=" + memberId + "&roleId=" + roleId,
+                    type: "DELETE"
+                });
+            }
+        });
+    }
 </script>
 
 <div class="card">
@@ -71,6 +106,7 @@
             .MasterDetail(md => md
                 .Enabled(true)
                 .Template(@<text>
+                    <p class="mb-1 mt-2 fw-semibold">分校指派</p>
                     @(Html.DevExtreme().DataGrid<SchoolAssignment>()
                         .DataSource(ds => ds.Mvc()
                             .Controller("Member")
@@ -112,6 +148,54 @@
                         }))
                         .OnInitNewRow("function(e) { e.data.MemberId = data.Id; }")
                     )
+
+                    <p class="mb-1 mt-3 fw-semibold">角色指派</p>
+                    <div class="member-role-grid"></div>
+                    <script>
+                        (function () {
+                            var memberId = data.Id;
+                            var container = document.querySelectorAll(".member-role-grid");
+                            var el = container[container.length - 1];
+                            DevExpress.ui.dxDataGrid(el, {
+                                dataSource: createMemberRoleStore(memberId),
+                                showBorders: true,
+                                showRowLines: true,
+                                columnAutoWidth: true,
+                                paging: { pageSize: 10 },
+                                editing: {
+                                    mode: "row",
+                                    allowAdding: true,
+                                    allowDeleting: true,
+                                    allowUpdating: false,
+                                    useIcons: true
+                                },
+                                onInitNewRow: function (e) { e.data.MemberId = memberId; },
+                                columns: [
+                                    {
+                                        dataField: "RoleId",
+                                        caption: "角色",
+                                        lookup: {
+                                            dataSource: rolesStore,
+                                            valueExpr: "Id",
+                                            displayExpr: "Name"
+                                        },
+                                        validationRules: [{ type: "required" }]
+                                    },
+                                    {
+                                        dataField: "CreatedTime",
+                                        caption: "指派時間",
+                                        width: 150,
+                                        dataType: "datetime",
+                                        format: "yyyy/MM/dd HH:mm",
+                                        allowEditing: false
+                                    }
+                                ],
+                                toolbar: {
+                                    items: [{ name: "addRowButton", showText: "inMenu" }]
+                                }
+                            });
+                        })();
+                    </script>
                 </text>)
             )
             .Toolbar(toolbar => toolbar.Items(items => {
