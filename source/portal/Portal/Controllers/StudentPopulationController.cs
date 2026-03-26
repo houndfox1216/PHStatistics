@@ -142,6 +142,12 @@ namespace PHStatistics.Portal.Controllers {
                 lastWeekData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course.Department").Where(e => e.School.Id == schoolId && e.Year == lastschoolYear.Year && e.Week == lastschoolYear.Week && e.Type == populationType).FirstOrDefault();
 
                 StudentPopulation returnData = new StudentPopulation();
+                try {
+                    List<Course> coursesT = Model.DataContext.Course.Include("Department").Where(e => e.Type == populationType).OrderBy(e => e.Ordinal).ToList();
+                }
+                catch(Exception ex) {
+                    string d = ex.Message;  
+                }
                 List<Course> courses = Model.DataContext.Course.Include("Department").Where(e => e.Type == populationType).OrderBy(e => e.Ordinal).ToList();
                 List<CourseDepartment> department = Model.DataContext.CourseDepartment.Where(e => e.Type == populationType).OrderBy(e => e.Ordinal).ToList();
                 ViewBag.Year = schoolYear.Year;
