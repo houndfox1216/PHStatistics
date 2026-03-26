@@ -16,6 +16,15 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
 
             if (User.IsGuest()) {
                 context.Result = new RedirectToActionResult("Login", "Member", new { area = "" });
+                return;
+            }
+
+            // 檢查 Action/Controller 上的 RequirePermissionAttribute
+            var permAttr = context.ActionDescriptor.EndpointMetadata
+                .OfType<RequirePermissionAttribute>()
+                .FirstOrDefault();
+            if (permAttr != null && !User.HasPermission(permAttr.Permission)) {
+                context.Result = new RedirectToActionResult("Index", "Dashboard", new { area = "Admin" });
             }
         }
     }

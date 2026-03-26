@@ -99,6 +99,18 @@ namespace PHStatistics.Content {
         public string Remark { get; set; }
 
         /// <summary>
+        /// 所屬區域識別碼
+        /// </summary>
+        [Display(Name = "所屬區域識別碼"), DataMember]
+        public int? RegionId { get; set; }
+
+        /// <summary>
+        /// 所屬區域
+        /// </summary>
+        [Display(Name = "所屬區域"), DataMember]
+        public Region Region { get; set; }
+
+        /// <summary>
         /// 分校操作人員
         /// </summary>
         [Display(Name = "分校操作人員"), DataMember]

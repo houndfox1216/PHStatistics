@@ -9,6 +9,7 @@ using System.Framework.Data;
 using System.Runtime.Serialization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Linq;
 using PHStatistics.Content;
 
 using IndexAttribute = System.Framework.Data.IndexAttribute;
@@ -42,7 +43,10 @@ namespace PHStatistics.Community {
         ICollection<IRoleData> IUserData.Roles => new List<IRoleData>().AsReadOnly();
         UserStatus IUserData.Status => Status == MemberStatus.Expired ? UserStatus.Disabled : (UserStatus)Status;
         ISessionData IUserData.Session => null;
-        ICollection<IPermissionData> IUserData.Permissions => new List<IPermissionData>().AsReadOnly();
+        ICollection<IPermissionData> IUserData.Permissions =>
+            MemberRoles == null
+                ? new List<IPermissionData>().AsReadOnly()
+                : new List<IPermissionData>(MemberRoles.SelectMany(mr => mr.Role?.Permissions ?? Array.Empty<Permission>())).AsReadOnly();
 
         #endregion
 
@@ -205,5 +209,11 @@ namespace PHStatistics.Community {
         /// </summary>
         [Display(Name = "分校操作人員"), DataMember]
         public ICollection<SchoolAssignment> SchoolAssignment { get; set; }
+
+        /// <summary>
+        /// 角色關聯
+        /// </summary>
+        [Display(Name = "角色關聯"), DataMember]
+        public ICollection<MemberRole> MemberRoles { get; set; }
     }
 }

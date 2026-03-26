@@ -13,6 +13,7 @@ using NuGet.Configuration;
 using PHStatistics.Content;
 using PHStatistics.Migrations;
 using PHStatistics.Portal.Models;
+using PHStatistics.Portal.Services;
 using System;
 using System.Collections.Generic;
 using System.Framework;
@@ -27,7 +28,11 @@ using static NPOI.HSSF.Util.HSSFColor;
 
 namespace PHStatistics.Portal.Controllers {
     public class StudentPopulationController : MvcController<PortalUser, Model, Culture> {
-        public StudentPopulationController() : base("System") { }
+        private readonly ReportExportService _reportExport;
+
+        public StudentPopulationController(ReportExportService reportExport) : base("System") {
+            _reportExport = reportExport;
+        }
 
         [Authorize(typeof(PortalUser))]
         public IActionResult Index(string type) {
@@ -102,6 +107,7 @@ namespace PHStatistics.Portal.Controllers {
             ViewBag.Weeks = weeks;
             ViewBag.SelectedYear = schoolYear;
             ViewBag.CanEdit = schoolYear != null;
+            ViewBag.CanExportAll = User.HasPermission(SystemPermission.ViewAllSchools);
             ViewBag.Courses = Model.DataContext.Course.OrderBy(e => e.Ordinal).ToList();
             int memberSchool = schools.FirstOrDefault().School.Id;
             int year = years[years.Length - 1];
@@ -1765,6 +1771,53 @@ namespace PHStatistics.Portal.Controllers {
             //  FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write);
             wb.Write(memoryStream);
             return File(memoryStream.ToArray(), "application/octet-stream", fileName);
+        }
+
+        /// <summary>
+        /// 匯出標準格式報表（原手填報表格式）。
+        /// 支援單一分校或全區所有分校匯出，依區域分 Sheet。
+        /// </summary>
+        /// <param name="year">學年度</param>
+        /// <param name="week">週次</param>
+        /// <param name="reportType">PH / GEPT / PS / PSJ / AS</param>
+        /// <param name="allSchools">true=所有分校（需 ViewAllSchools 權限），false=依登入者分校</param>
+        [HttpGet]
+        [Authorize(typeof(PortalUser))]
+        public IActionResult ExportReport(int year, int week, string reportType, bool allSchools = false) {
+            var type = reportType switch {
+                "PH"   => StudentPopulationType.PH,
+                "PS"   => StudentPopulationType.PS,
+                "GEPT" => StudentPopulationType.GEPT,
+                "PSJ"  => StudentPopulationType.PSJ,
+                "AS"   => StudentPopulationType.AfterSchool,
+                _      => StudentPopulationType.PH
+            };
+
+            // 決定分校範圍
+            IList<int> schoolIds = null;
+            if (!allSchools || !User.HasPermission(SystemPermission.ViewAllSchools)) {
+                // 僅限登入者有權限的分校
+                schoolIds = Model.GetAccessibleSchools(User)
+                                 .Select(s => s.Id)
+                                 .ToList();
+            }
+
+            var bytes = _reportExport.Export(type, year, week, schoolIds);
+            if (bytes.Length == 0)
+                return NotFound("查無符合條件的資料");
+
+            string typeName = reportType switch {
+                "PH"   => "百瀚英語",
+                "PS"   => "百世資優",
+                "GEPT" => "英語檢定",
+                "PSJ"  => "百倍數",
+                "AS"   => "安親課輔",
+                _      => reportType
+            };
+            string fileName = Uri.EscapeDataString($"{typeName}{year}學年第{week}週人數統計表.xlsx");
+            return File(bytes,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                fileName);
         }
 
         #endregion
