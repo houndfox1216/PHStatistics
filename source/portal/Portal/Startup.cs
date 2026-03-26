@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
+using PHStatistics.Portal.Services;
 
 namespace PHStatistics.Portal {
     public class Startup(IConfiguration configuration) {
@@ -32,6 +33,9 @@ namespace PHStatistics.Portal {
                         options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                     });
+
+            // 報表匯出服務
+            services.AddScoped<ReportExportService>();
 
             // 啟用 Session 設定
             services.AddSession(options => {

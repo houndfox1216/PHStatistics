@@ -69,9 +69,14 @@
                 <button type="button" class="btn btn-primary btn-lg btn-round" id="queryPHBtn">
                     查詢 <i class="fas fa-paper-plane"></i>
                 </button>
-                <button type="button" class="btn btn-primary btn-lg btn-round" id="exportBtn">
-                    匯出 <i class="fas fa-paper-plane"></i>
+                <button type="button" class="btn btn-success btn-lg btn-round" id="exportBtn">
+                    匯出本校報表 <i class="fas fa-file-excel"></i>
                 </button>
+                @if (ViewBag.CanExportAll == true) {
+                    <button type="button" class="btn btn-warning btn-lg btn-round" id="exportAllBtn">
+                        匯出全區報表 <i class="fas fa-file-excel"></i>
+                    </button>
+                }
             </div>
             <div id="contentItem">
                 @await Html.PartialAsync("QueryPopulationPartialView", Model)
@@ -102,27 +107,29 @@
             });
         });
 
+            // 匯出本校報表（依登入者分校過濾）
             $('#exportBtn').on('click', function () {
-             console.log('schoolSelect', $('#schoolSelect').val());
-             console.log('queryYear', $('#queryYear').val());
-             console.log('queryWeek', $('#queryWeek').val());
-              console.log('reportType', $('#reportType').val());
-              window.open('@Url.Action("ExportPopulationPartial", "StudentPopulation")?schoolId=' + $('#schoolSelect').val() + '&week=' + $('#queryWeek').val() + '&year=' +  $('#queryYear').val() + '&reportType=' +$('#reportType').val()  );
-            // $.ajax({
-            //        url: '@Url.Action("ExportPopulationPartial", "StudentPopulation")',
-            //        cache: false,
-            //        data: { 'schoolId': $('#schoolSelect').val(), 'week': $('#queryWeek').val(), 'year': $('#queryYear').val(), 'reportType':  $('#reportType').val() },
-            //        // dataType: 'application/json',
-            //        type: 'GET',
-            //        dataType: "html",
-            //        success: function (data) {
-            //            alert("匯出完畢");
-            //        },
-            //        error: function () {
+                var year = $('#queryYear').val();
+                var week = $('#queryWeek').val();
+                var type = $('#reportType').val();
+                if (!year || !week || !type) { alert('請先選擇年度、週次及類型'); return; }
+                var url = '@Url.Action("ExportReport", "StudentPopulation")'
+                    + '?year=' + year + '&week=' + week
+                    + '&reportType=' + type + '&allSchools=false';
+                window.location.href = url;
+            });
 
-            //        }
-            // });
-        });
+            // 匯出全區報表（需 ViewAllSchools 權限，由後端再次驗證）
+            $('#exportAllBtn').on('click', function () {
+                var year = $('#queryYear').val();
+                var week = $('#queryWeek').val();
+                var type = $('#reportType').val();
+                if (!year || !week || !type) { alert('請先選擇年度、週次及類型'); return; }
+                var url = '@Url.Action("ExportReport", "StudentPopulation")'
+                    + '?year=' + year + '&week=' + week
+                    + '&reportType=' + type + '&allSchools=true';
+                window.location.href = url;
+            });
 
     // $(function () {
     //      $('#queryPHBtn').on('click', function () {

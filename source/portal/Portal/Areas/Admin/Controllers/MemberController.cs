@@ -9,8 +9,10 @@ using PHStatistics.Actions;
 using PHStatistics.Community;
 using PHStatistics.Content;
 using System.Framework.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace PHStatistics.Portal.Areas.Admin.Controllers {
+    [RequirePermission(SystemPermission.Member)]
     public class MemberController : AdminBaseController {
         public IActionResult Index() {
             ViewBag.Title = "會員管理";
@@ -62,6 +64,51 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
                 return BadRequest(ex.Message);
             }
         }
+
+        #region MemberRole CRUD
+
+        [HttpGet]
+        public object GetMemberRoles(Guid memberId, DataSourceLoadOptions loadOptions) {
+            var query = Model.DataContext.MemberRole
+                .Include(e => e.Role)
+                .Where(e => e.MemberId == memberId);
+            return DataSourceLoader.Load(query, loadOptions);
+        }
+
+        [HttpPost]
+        public IActionResult CreateMemberRole(string values) {
+            try {
+                var data = new MemberRole();
+                JsonConvert.PopulateObject(values, data);
+                data.CreatedTime = DateTime.Now;
+                Model.DataContext.MemberRole.Add(data);
+                Model.DataContext.SaveChanges();
+                return Ok();
+            } catch (Exception ex) {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteMemberRole(Guid memberId, Guid roleId) {
+            try {
+                var data = Model.DataContext.MemberRole.Find(memberId, roleId);
+                if (data == null) return NotFound();
+                Model.DataContext.MemberRole.Remove(data);
+                Model.DataContext.SaveChanges();
+                return Ok();
+            } catch (Exception ex) {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public object GetRoles(DataSourceLoadOptions loadOptions) {
+            var query = Model.DataContext.Role.Where(e => e.DataMode == DataMode.Normal);
+            return DataSourceLoader.Load(query, loadOptions);
+        }
+
+        #endregion
 
         #region SchoolAssignment CRUD
 

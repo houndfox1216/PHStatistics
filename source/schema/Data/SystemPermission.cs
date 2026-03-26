@@ -130,4 +130,16 @@ public enum SystemPermission : short {
     [Display(Name = "網址管理")]
     UrlSegment,
 
+    /// <summary>
+    /// 區域管理
+    /// </summary>
+    [Display(Name = "區域管理")]
+    Region,
+
+    /// <summary>
+    /// 查看所有分校資料（管理處人員）
+    /// </summary>
+    [Display(Name = "查看所有分校")]
+    ViewAllSchools,
+
 }

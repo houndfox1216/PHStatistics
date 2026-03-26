@@ -8,6 +8,7 @@ using PHStatistics.Content;
 using System.Framework.Data;
 
 namespace PHStatistics.Portal.Areas.Admin.Controllers {
+    [RequirePermission(SystemPermission.Course)]
     public class CourseController : AdminBaseController {
         public IActionResult Index() {
             ViewBag.Title = "課程管理";

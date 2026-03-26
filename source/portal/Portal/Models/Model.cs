@@ -11,6 +11,7 @@ using PHStatistics.Content;
 using PHStatistics.Models;
 using PHStatistics.Portal.Actions;
 
+// ReSharper disable once CheckNamespace
 namespace PHStatistics.Portal.Models {
     public class Model : HttpModelBase<DataContext> {
         /// <summary>
@@ -81,10 +82,30 @@ namespace PHStatistics.Portal.Models {
         }
 
         /// <summary>
-        /// 取得使用者分校資料
+        /// 取得使用者可存取的分校清單。
+        /// 若使用者有 ViewAllSchools 或 Administrator 權限則回傳所有分校，
+        /// 否則依 SchoolAssignment 過濾。
+        /// </summary>
+        /// <param name="user">目前登入用戶</param>
+        public List<School> GetAccessibleSchools(PortalUser user) {
+            if (user.HasPermission(SystemPermission.ViewAllSchools))
+                return DataContext.School.OrderBy(e => e.Ordinal).ToList();
+
+            if (!Guid.TryParse(user.Id, out var memberId))
+                return new List<School>();
+
+            return DataContext.SchoolAssignment
+                .Include(e => e.School)
+                .Where(e => e.MemberId == memberId)
+                .Select(e => e.School)
+                .OrderBy(e => e.Ordinal)
+                .ToList();
+        }
+
+        /// <summary>
+        /// 取得使用者分校指派資料（用於需要 SchoolAssignment 關聯的場景）
         /// </summary>
         /// <param name="mId">分校人員識別碼</param>
-        /// <returns></returns>
         public List<SchoolAssignment> GetMemberSchool(string mId) {
             Guid checkId = Guid.Parse(mId);
             return DataContext.SchoolAssignment.Include("School").Include("Member").Where(e => e.Member.Id == checkId).ToList();
