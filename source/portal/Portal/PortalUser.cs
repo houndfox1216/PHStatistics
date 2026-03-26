@@ -1,4 +1,5 @@
-﻿using PHStatistics.Community;
+﻿using Microsoft.EntityFrameworkCore;
+using PHStatistics.Community;
 using PHStatistics.Content;
 using System;
 using System.Collections.Generic;

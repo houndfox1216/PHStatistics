@@ -9,7 +9,6 @@ using PHStatistics.Actions;
 using PHStatistics.Community;
 using PHStatistics.Content;
 using System.Framework.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace PHStatistics.Portal.Areas.Admin.Controllers {
     [RequirePermission(SystemPermission.Member)]

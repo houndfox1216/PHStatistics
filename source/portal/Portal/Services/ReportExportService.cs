@@ -356,7 +356,7 @@ public class ReportExportService {
     }
 
     private static IFont CreateFont(XSSFWorkbook wb, bool bold, short size,
-                                     short fontColor = IndexedColors.Black.Index) {
+                                     short fontColor = 8 /* IndexedColors.Black */) {
         var font = wb.CreateFont();
         font.FontName           = "Arial";
         font.FontHeightInPoints = size;
@@ -367,8 +367,8 @@ public class ReportExportService {
 
     private static ICellStyle MakeStyle(XSSFWorkbook wb, IFont font,
                                          HorizontalAlignment align,
-                                         short fillColor  = IndexedColors.White.Index,
-                                         short fontColor  = IndexedColors.Black.Index) {
+                                         short fillColor  = 9 /* IndexedColors.White */,
+                                         short fontColor  = 8 /* IndexedColors.Black */) {
         var s = wb.CreateCellStyle();
         s.SetFont(font);
         s.Alignment        = align;
