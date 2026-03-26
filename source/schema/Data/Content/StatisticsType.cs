@@ -6,7 +6,7 @@ namespace PHStatistics.Content;
 /// <summary>
 /// 統計計算類型列舉
 /// </summary>
-public enum StatisticsType
+public enum StatisticsType : short
 {
     /// <summary>
     /// 使用者輸入
