@@ -28,7 +28,7 @@ namespace PHStatistics.Portal.Services;
 public class ReportExportService {
     private readonly DataContext _context;
 
-    public ReportExportService(DataContext context) => _context = context;
+    public ReportExportService() => _context = new DataContext();
 
     // ─────────────────────────── 主入口 ───────────────────────────
 

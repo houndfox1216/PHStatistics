@@ -18,9 +18,9 @@ public class StatisticsCalculationService
     /// 建構統計計算服務
     /// </summary>
     /// <param name="context">資料脈絡</param>
-    public StatisticsCalculationService(DataContext context)
+    public StatisticsCalculationService()
     {
-        _context = context;
+        _context = new DataContext();
     }
 
     /// <summary>
