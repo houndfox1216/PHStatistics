@@ -1418,7 +1418,7 @@ namespace PHStatistics.Portal.Controllers {
 
                     StudentPopulationItem lastSumAllCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("與上週相比"));
                     int lastWeek = studentPopulationData.Week - 1;
-                    int lastWeekNum = dataContext.StudentPopulationItem.FirstOrDefault(e => e.StudentPopulation.Year == studentPopulationData.Year && e.StudentPopulation.Week == lastWeek && e.StudentPopulation.School.Id == studentPopulationData.School.Id && e.Class.Course.Department != null && e.Class.Course.Name.Equals("本週英語文總人數")).Number;
+                    int lastWeekNum = dataContext.StudentPopulationItem.FirstOrDefault(e => e.StudentPopulation.Year == studentPopulationData.Year && e.StudentPopulation.Week == lastWeek && e.StudentPopulation.School.Id == studentPopulationData.School.Id && e.Class.Course.Department != null && e.Class.Course.Name.Equals("本週英語文總人數"))?.Number ?? 0;
                     lastSumAllCount.Number = studentPopulationData.Items.Where(e => !e.Class.Course.IsSum).Sum(e => e.Number);
                     lastSumAllCount.LastWeekNumber = lastWeekNum;
                     lastSumAllCount.Number = lastSumAllCount.Number - lastSumAllCount.LastWeekNumber;
@@ -1432,7 +1432,7 @@ namespace PHStatistics.Portal.Controllers {
                     36 去年同期/比            
                      */
                     StudentPopulationItem chLastSumAllCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("與上週相比"));
-                    int chLastWeekNum = dataContext.StudentPopulationItem.FirstOrDefault(e => e.StudentPopulation.Year == studentPopulationData.Year && e.StudentPopulation.Week == lastWeek && e.StudentPopulation.School.Id == studentPopulationData.School.Id && e.Class.Course.Department != null && e.Class.Course.Name.Equals("本週英語文總人數")).Number;
+                    int chLastWeekNum = dataContext.StudentPopulationItem.FirstOrDefault(e => e.StudentPopulation.Year == studentPopulationData.Year && e.StudentPopulation.Week == lastWeek && e.StudentPopulation.School.Id == studentPopulationData.School.Id && e.Class.Course.Department != null && e.Class.Course.Name.Equals("本週英語文總人數"))?.Number ?? 0;
                     chLastSumAllCount.Number = studentPopulationData.Items.Where(e => !e.Class.Course.IsSum).Sum(e => e.Number);
                     chLastSumAllCount.LastWeekNumber = chLastWeekNum;
                     chLastSumAllCount.Number = lastSumAllCount.Number - chLastSumAllCount.LastWeekNumber;
