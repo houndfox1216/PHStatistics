@@ -3,7 +3,6 @@ using System.Linq;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using PHStatistics.Actions;
 using PHStatistics.Community;
@@ -69,8 +68,8 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
         [HttpGet]
         public object GetMemberRoles(Guid memberId, DataSourceLoadOptions loadOptions) {
             var query = Model.DataContext.MemberRole
-                .Include(e => e.Role)
-                .Where(e => e.MemberId == memberId);
+                .Where(e => e.MemberId == memberId)
+                .Select(e => new { e.RoleId, e.MemberId, e.CreatedTime });
             return DataSourceLoader.Load(query, loadOptions);
         }
 
@@ -114,8 +113,8 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
         [HttpGet]
         public object GetSchoolAssignments(Guid memberId, DataSourceLoadOptions loadOptions) {
             var query = Model.DataContext.SchoolAssignment
-                .Include(e => e.School)
-                .Where(e => e.MemberId == memberId);
+                .Where(e => e.MemberId == memberId)
+                .Select(e => new { e.Id, e.SchoolId, e.MemberId, e.Name, e.CreatedTime, e.UpdatedTime });
             return DataSourceLoader.Load(query, loadOptions);
         }
 
