@@ -35,6 +35,11 @@ public partial class DataContext {
     public DbSet<NewsTag> NewsTag { get; set; }
 
     /// <summary>
+    /// 區域
+    /// </summary>
+    public DbSet<Region> Region { get; set; }
+
+    /// <summary>
     /// 分校
     /// </summary>
     public DbSet<School> School { get; set; }
@@ -69,6 +74,11 @@ public partial class DataContext {
     /// 分校人員指派
     /// </summary>
     public DbSet<SchoolAssignment> SchoolAssignment { get; set; }
+
+    /// <summary>
+    /// 人員角色關聯
+    /// </summary>
+    public DbSet<MemberRole> MemberRole { get; set; }
 
     /// <summary>
     /// 網址區段
@@ -134,6 +144,11 @@ public partial class DataContext {
         //modelBuilder.Entity<StudentPopulationItem>().HasOne(e => e.StudentPopulation).WithMany().HasForeignKey(e => e.StudentPopulationId);
 
         modelBuilder.Entity<School>().HasMany(e => e.SchoolAssignment).WithOne(e => e.School).HasForeignKey(e => e.SchoolId).OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<School>().HasOne(e => e.Region).WithMany(e => e.Schools).HasForeignKey(e => e.RegionId).OnDelete(DeleteBehavior.SetNull);
+
+        modelBuilder.Entity<MemberRole>().HasKey(e => new { e.MemberId, e.RoleId });
+        modelBuilder.Entity<MemberRole>().HasOne(e => e.Member).WithMany(e => e.MemberRoles).HasForeignKey(e => e.MemberId).OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<MemberRole>().HasOne(e => e.Role).WithMany().HasForeignKey(e => e.RoleId).OnDelete(DeleteBehavior.Cascade);
     }
 
     private partial void InitializeContentData() {

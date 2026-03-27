@@ -98,5 +98,43 @@ namespace PHStatistics.Content {
         [Display(Name = "已發佈"), DataMember]
         public bool Published { get; set; }
 
+        /// <summary>
+        /// 統計計算類型
+        /// </summary>
+        [Display(Name = "統計計算類型"), DataMember]
+        public StatisticsType? StatisticsType { get; set; }
+
+        /// <summary>
+        /// 統計來源班系Id，JSON陣列格式
+        /// </summary>
+        [Display(Name = "統計來源班系Id"), DataMember]
+        [MaxLength(500)]
+        public string SourceDepartmentIds { get; set; }
+
+        /// <summary>
+        /// 統計來源課程Id，JSON陣列格式
+        /// </summary>
+        [Display(Name = "統計來源課程Id"), DataMember]
+        [MaxLength(500)]
+        public string SourceCourseIds { get; set; }
+
+        /// <summary>
+        /// 是否依班別分組計算
+        /// </summary>
+        [Display(Name = "是否依班別分組計算"), DataMember]
+        public bool GroupByClassType { get; set; }
+
+        /// <summary>
+        /// 適用班別
+        /// </summary>
+        [Display(Name = "適用班別"), DataMember]
+        public ClassType? ApplicableClassType { get; set; }
+
+        /// <summary>
+        /// 統計來源學科
+        /// </summary>
+        [Display(Name = "統計來源學科"), DataMember]
+        public CourseSubject? SourceSubject { get; set; }
+
     }
 }

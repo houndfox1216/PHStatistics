@@ -19,18 +19,6 @@ namespace PHStatistics.Content {
         PH,
 
         /// <summary>
-        /// 百倍速
-        /// </summary>
-        [Display(Name = "百倍速")]
-        PHM,
-
-        /// <summary>
-        /// PSJ/PS
-        /// </summary>
-        [Display(Name = "百世")]
-        PS,
-
-        /// <summary>
         /// PSJ
         /// </summary>
         [Display(Name = "PSJ")]
@@ -41,6 +29,12 @@ namespace PHStatistics.Content {
         /// </summary>
         [Display(Name = "英檢班")]
         GEPT,
+
+        /// <summary>
+        /// PSJ/PS
+        /// </summary>
+        [Display(Name = "百世")]
+        PS,
 
         /// <summary>
         /// 安親課輔

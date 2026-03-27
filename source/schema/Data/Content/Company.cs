@@ -22,7 +22,7 @@ namespace PHStatistics.Content {
         /// 百世
         /// </summary>
         [Display(Name = "百世")]
-        PSJ,
+        PS,
 
         /// <summary>
         /// 其他
