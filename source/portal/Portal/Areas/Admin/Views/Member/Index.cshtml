@@ -150,52 +150,42 @@
                     )
 
                     <p class="mb-1 mt-3 fw-semibold">角色指派</p>
-                    <div class="member-role-grid"></div>
-                    <script>
-                        (function () {
-                            var memberId = data.Id;
-                            var container = document.querySelectorAll(".member-role-grid");
-                            var el = container[container.length - 1];
-                            DevExpress.ui.dxDataGrid(el, {
-                                dataSource: createMemberRoleStore(memberId),
-                                showBorders: true,
-                                showRowLines: true,
-                                columnAutoWidth: true,
-                                paging: { pageSize: 10 },
-                                editing: {
-                                    mode: "row",
-                                    allowAdding: true,
-                                    allowDeleting: true,
-                                    allowUpdating: false,
-                                    useIcons: true
-                                },
-                                onInitNewRow: function (e) { e.data.MemberId = memberId; },
-                                columns: [
-                                    {
-                                        dataField: "RoleId",
-                                        caption: "角色",
-                                        lookup: {
-                                            dataSource: rolesStore,
-                                            valueExpr: "Id",
-                                            displayExpr: "Name"
-                                        },
-                                        validationRules: [{ type: "required" }]
-                                    },
-                                    {
-                                        dataField: "CreatedTime",
-                                        caption: "指派時間",
-                                        width: 150,
-                                        dataType: "datetime",
-                                        format: "yyyy/MM/dd HH:mm",
-                                        allowEditing: false
-                                    }
-                                ],
-                                toolbar: {
-                                    items: [{ name: "addRowButton", showText: "inMenu" }]
-                                }
-                            });
-                        })();
-                    </script>
+                    @(Html.DevExtreme().DataGrid<MemberRole>()
+                        .DataSource(new JS("createMemberRoleStore(data.Id)"))
+                        .ShowBorders(true)
+                        .ShowRowLines(true)
+                        .ColumnAutoWidth(true)
+                        .Paging(paging => paging.PageSize(10))
+                        .Editing(editing => editing
+                            .Mode(GridEditMode.Row)
+                            .AllowAdding(true)
+                            .AllowDeleting(true)
+                            .AllowUpdating(false)
+                            .UseIcons(true)
+                        )
+                        .OnInitNewRow("function(e) { e.data.MemberId = data.Id; }")
+                        .Columns(columns => {
+                            columns.Add()
+                                .DataField("RoleId")
+                                .Caption("角色")
+                                .Lookup(lookup => lookup
+                                    .DataSource(new JS("rolesStore"))
+                                    .ValueExpr("Id")
+                                    .DisplayExpr("Name")
+                                )
+                                .ValidationRules(rules => rules.AddRequired());
+                            columns.Add()
+                                .DataField("CreatedTime")
+                                .Caption("指派時間")
+                                .Width(150)
+                                .DataType(GridColumnDataType.DateTime)
+                                .Format("yyyy/MM/dd HH:mm")
+                                .AllowEditing(false);
+                        })
+                        .Toolbar(toolbar => toolbar.Items(items => {
+                            items.Add().Name("addRowButton");
+                        }))
+                    )
                 </text>)
             )
             .Toolbar(toolbar => toolbar.Items(items => {
