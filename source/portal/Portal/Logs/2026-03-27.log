@@ -89,3 +89,9 @@
 2026-03-27 11:16:41.5581[19]  INFO MemberController  進行登入完成 導入 /Index False 
 2026-03-27 11:16:41.6803[18]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
 2026-03-27 11:16:41.6803[18]  INFO HomeController  進入首頁
+2026-03-27 11:19:39.4120[15]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-03-27 11:19:39.4120[15]  INFO HomeController  進入首頁
+2026-03-27 11:29:17.7660[7]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-03-27 11:29:17.7781[7]  INFO HomeController  進入首頁
+2026-03-27 11:37:19.2224[7]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-03-27 11:37:19.2352[7]  INFO HomeController  進入首頁
