@@ -39,6 +39,13 @@
         <li class="sidebar-section">系統</li>
 
         <li class="sidebar-item">
+            <a href="@Url.Action("Index", "Role", new { area = "Admin" })" class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Role" ? "active" : "")">
+                <i class="dx-icon-key"></i>
+                <span>角色管理</span>
+            </a>
+        </li>
+
+        <li class="sidebar-item">
             <a href="/" class="sidebar-link">
                 <i class="dx-icon-arrowleft"></i>
                 <span>返回前台</span>

@@ -1,0 +1,158 @@
+@{
+    ViewBag.Title = "角色管理";
+}
+
+<script>
+    var permissionsStore = new DevExpress.data.CustomStore({
+        key: "value",
+        loadMode: "raw",
+        load: function () {
+            return $.getJSON("@Url.Action("GetPermissions", "Role", new { area = "Admin" })")
+                .then(function (r) { return r.data || r; });
+        }
+    });
+
+    // 依 value 查找顯示名稱
+    function getPermissionText(value) {
+        var item = permissionsStore._array && permissionsStore._array.find(function (p) { return p.value === value; });
+        return item ? item.text : value;
+    }
+
+    function onEditorPreparing(e) {
+        if (e.dataField !== "PermissionValues" || e.parentType !== "dataRow") return;
+
+        var currentValue = e.value ? e.value.slice() : [];
+
+        e.editorName = "dxTagBox";
+        e.editorOptions = {
+            dataSource: permissionsStore,
+            valueExpr: "value",
+            displayExpr: "text",
+            value: currentValue,
+            showSelectionControls: true,
+            searchEnabled: true,
+            multiline: true,
+            onValueChanged: function (args) {
+                e.setValue(args.value);
+            }
+        };
+    }
+
+    function permissionsCellTemplate(container, options) {
+        var values = options.value;
+        if (!values || values.length === 0) {
+            $("<span>").text("（無）").css("color", "#999").appendTo(container);
+            return;
+        }
+        var $wrap = $("<div>").css({ display: "flex", flexWrap: "wrap", gap: "4px", padding: "2px 0" });
+        values.forEach(function (v) {
+            permissionsStore.byKey(v).then(function (p) {
+                $("<span>")
+                    .text(p ? p.text : v)
+                    .css({
+                        display: "inline-block",
+                        padding: "1px 8px",
+                        borderRadius: "12px",
+                        background: "#e9ecef",
+                        fontSize: "12px"
+                    })
+                    .appendTo($wrap);
+            });
+        });
+        $wrap.appendTo(container);
+    }
+</script>
+
+<div class="card">
+    <div class="card-body">
+        @(Html.DevExtreme().DataGrid<Role>()
+            .ID("gridRoles")
+            .DataSource(ds => ds.Mvc()
+                .Controller("Role")
+                .Area("Admin")
+                .LoadAction("GetRoles")
+                .InsertAction("Create")
+                .UpdateAction("Update")
+                .DeleteAction("Delete")
+                .Key("Id")
+            )
+            .RemoteOperations(true)
+            .ShowBorders(true)
+            .ShowRowLines(true)
+            .AllowColumnResizing(true)
+            .ColumnAutoWidth(true)
+            .RowAlternationEnabled(true)
+            .Paging(paging => paging.PageSize(20))
+            .Pager(pager => pager
+                .Visible(true)
+                .ShowPageSizeSelector(true)
+                .AllowedPageSizes(new[] { 10, 20, 50 })
+                .ShowInfo(true)
+            )
+            .Editing(editing => editing
+                .Mode(GridEditMode.Popup)
+                .AllowAdding(true)
+                .AllowUpdating(true)
+                .AllowDeleting(true)
+                .UseIcons(true)
+                .Popup(popup => popup
+                    .Title("角色資料")
+                    .ShowTitle(true)
+                    .Width(600)
+                    .Height("auto")
+                )
+                .Form(form => form
+                    .ColCount(1)
+                    .Items(items => {
+                        items.AddSimple()
+                            .DataField("Name")
+                            .Label(l => l.Text("角色名稱"))
+                            .IsRequired(true);
+                        items.AddSimple()
+                            .DataField("Description")
+                            .Label(l => l.Text("說明"))
+                            .EditorType(FormEditorType.TextArea)
+                            .EditorOptions(new { height = 80 });
+                        items.AddSimple()
+                            .DataField("PermissionValues")
+                            .Label(l => l.Text("權限"));
+                        items.AddSimple()
+                            .DataField("CreatedTime")
+                            .Label(l => l.Text("建立時間"))
+                            .EditorOptions(new { readOnly = true });
+                        items.AddSimple()
+                            .DataField("UpdatedTime")
+                            .Label(l => l.Text("更新時間"))
+                            .EditorOptions(new { readOnly = true });
+                    })
+                )
+            )
+            .FilterRow(f => f.Visible(true))
+            .SearchPanel(s => s.Visible(true).Width(240).Placeholder("搜尋..."))
+            .HeaderFilter(h => h.Visible(true))
+            .OnEditorPreparing("onEditorPreparing")
+            .Columns(columns => {
+                columns.AddFor(m => m.Name).Caption("角色名稱").Width(180);
+                columns.AddFor(m => m.Description).Caption("說明");
+                columns.Add()
+                    .DataField("PermissionValues")
+                    .Caption("權限")
+                    .AllowSorting(false)
+                    .AllowFiltering(false)
+                    .CellTemplate("permissionsCellTemplate");
+                columns.AddFor(m => m.CreatedTime).Caption("建立時間").Width(150)
+                    .DataType(GridColumnDataType.DateTime)
+                    .Format("yyyy/MM/dd HH:mm")
+                    .AllowEditing(false);
+                columns.AddFor(m => m.UpdatedTime).Caption("更新時間").Width(150)
+                    .DataType(GridColumnDataType.DateTime)
+                    .Format("yyyy/MM/dd HH:mm")
+                    .AllowEditing(false);
+            })
+            .Toolbar(toolbar => toolbar.Items(items => {
+                items.Add().Name("addRowButton");
+                items.Add().Name("searchPanel");
+            }))
+        )
+    </div>
+</div>
