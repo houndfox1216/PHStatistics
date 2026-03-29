@@ -17,6 +17,18 @@
         <div class="container mb-3">
             <form action="/StudentPopulation/CreatePopulation" method="post" role="form" id="formPopulation">
                 <fieldset class="center"><h1>@yearStr 年第 @weekStr 週英檢人數表輸入</h1></fieldset>
+                @{
+                    string statusBadgeClass = Model.Status == StudentPopulationStatus.Documented ? "bg-secondary" : "bg-success";
+                    string statusText = Model.Status switch {
+                        StudentPopulationStatus.Documented => "建檔中",
+                        StudentPopulationStatus.Pending => "已送出",
+                        StudentPopulationStatus.Approved => "已審核",
+                        StudentPopulationStatus.Rejected => "已否決",
+                        StudentPopulationStatus.Finished => "已完成",
+                        _ => Model.Status.ToString()
+                    };
+                }
+                <fieldset class="center"><span class="badge @statusBadgeClass fs-6">@statusText</span></fieldset>
                 <input type="hidden" name="SchoolId" id="SchoolId" value="@Model.School.Id" />
                 <input type="hidden" name="Week" id="Week" value="@Model.Week" />
                 <input type="hidden" name="Name" id="Name" value="@Model.Name" />
@@ -42,6 +54,7 @@
                     <div class="col-1 mb-1">
                     </div>
                 </div>
+                @if (Model.Status == StudentPopulationStatus.Documented) {
                 <div class="row mx-0" style="background-color:#b2dd6e">
                     <div class="col-2 mb-2">
                         <select class="form-select" id="new_department">
@@ -83,6 +96,7 @@
                         </button>
                     </div>
                 </div>
+                }
                 @*                 <div id="formContent">
                 @await Html.PartialAsync("PopulationPartialView", Model)
                 </div> *@
@@ -146,11 +160,13 @@
                     }
                     } *@
                 </div>
-@*                 <div>
-                    <button type="submit" class="btn w-100 btn-primary btn-lg btn-round">
-                        確認 <i class="fas fa-paper-plane"></i>
-                    </button>
-                </div> *@
+                @if (Model.Status == StudentPopulationStatus.Documented) {
+                    <div class="mt-3 text-center">
+                        <button type="button" class="btn btn-success btn-lg btn-round" onclick="confirmPopulation(@Model.Id)">
+                            確認送出 <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                }
             </form>
         </div>
     </div>
@@ -268,6 +284,26 @@
             },
             error: function () {
 
+            }
+        });
+    }
+
+    function confirmPopulation(populationId) {
+        if (!confirm('確認要送出人數表？送出後本週資料將無法修改，如需調整須由管理人員解鎖並說明原因。')) return;
+        $.ajax({
+            url: '@Url.Action("ConfirmPopulation", "StudentPopulation")',
+            type: 'POST',
+            data: { populationId: populationId },
+            success: function (res) {
+                if (res.success) {
+                    alert('人數表已成功送出！');
+                    location.reload();
+                } else {
+                    alert(res.message || '送出失敗');
+                }
+            },
+            error: function () {
+                alert('送出失敗，請稍後再試');
             }
         });
     }

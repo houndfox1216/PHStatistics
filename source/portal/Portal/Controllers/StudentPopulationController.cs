@@ -751,6 +751,10 @@ namespace PHStatistics.Portal.Controllers {
             StudentPopulation studentPopulationData = Model.GetStudentPopulation(schoolId, year, week, seleceedType);
             List<Course> courses = Model.DataContext.Course.Where(e => e.Type == studentPopulationData.Type).OrderBy(e => e.Ordinal).ToList();
             ViewBag.Courses = courses;
+            if (studentPopulationData.Status != StudentPopulationStatus.Documented) {
+                var lockedData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").Where(e => e.Id == studentPopulationData.Id).FirstOrDefault();
+                return PartialView("PopulationPartialView", lockedData);
+            }
             //更新人數表資料
             try {
                 foreach (string[] updateItem in itemArr) {
@@ -1017,6 +1021,10 @@ namespace PHStatistics.Portal.Controllers {
                 StudentPopulationItem item = dataContext.StudentPopulationItem.Include("StudentPopulation").Where(e => e.Id == sId).FirstOrDefault();
                 List<Course> courses = Model.DataContext.Course.Where(e => e.Type == item.StudentPopulation.Type).OrderBy(e => e.Ordinal).ToList();
                 ViewBag.Courses = courses;
+                if (item.StudentPopulation.Status != StudentPopulationStatus.Documented) {
+                    var lockedData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").Where(e => e.Id == item.StudentPopulationId).FirstOrDefault();
+                    return PartialView("PopulationPartialView", lockedData);
+                }
                 if (item != null) {
                     spId = item.StudentPopulationId;
                     dataContext.StudentPopulationItem.Remove(item);
@@ -1038,6 +1046,10 @@ namespace PHStatistics.Portal.Controllers {
                 StudentPopulationItem item = dataContext.StudentPopulationItem.Include("Class.Course.Department").Include("StudentPopulation").Where(e => e.Id == sId).FirstOrDefault();
                 List<Course> courses = Model.DataContext.Course.Where(e => e.Type == item.StudentPopulation.Type).OrderBy(e => e.Ordinal).ToList();
                 ViewBag.Courses = courses;
+                if (item.StudentPopulation.Status != StudentPopulationStatus.Documented) {
+                    var lockedData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").Where(e => e.Id == item.StudentPopulation.Id).FirstOrDefault();
+                    return PartialView("PopulationPartialView", lockedData);
+                }
                 if (item != null) {
                     if (number.HasValue) {
                         if (item.Class.Course.Name.Equals("本週英語文新生") || item.Class.Course.Name.Equals("本週英語文流失") ||
@@ -1064,6 +1076,21 @@ namespace PHStatistics.Portal.Controllers {
             }
         }
 
+        [Authorize(typeof(PortalUser))]
+        [HttpPost("ConfirmPopulation")]
+        public IActionResult ConfirmPopulation(long populationId) {
+            DataContext dataContext = new DataContext();
+            StudentPopulation sp = dataContext.StudentPopulation.Find(populationId);
+            if (sp == null)
+                return Json(new { success = false, message = "找不到人數表資料" });
+            if (sp.Status != StudentPopulationStatus.Documented)
+                return Json(new { success = false, message = "人數表已送出，無法重複確認" });
+            sp.Status = StudentPopulationStatus.Pending;
+            sp.SubmitterTime = DateTime.UtcNow.ToTaipeiTime();
+            sp.SubmitterId = Guid.Parse(User.Id);
+            dataContext.SaveChanges();
+            return Json(new { success = true });
+        }
 
         //
 
