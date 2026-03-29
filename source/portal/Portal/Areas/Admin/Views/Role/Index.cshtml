@@ -19,23 +19,32 @@
     }
 
     function onEditorPreparing(e) {
-        if (e.dataField !== "PermissionValues" || e.parentType !== "dataRow") return;
+        if (e.parentType !== "dataRow") return;
 
-        var currentValue = e.value ? e.value.slice() : [];
+        if (e.dataField === "PermissionValues") {
+            var currentValue = e.value ? e.value.slice() : [];
+            e.editorName = "dxTagBox";
+            e.editorOptions = {
+                dataSource: permissionsStore,
+                valueExpr: "value",
+                displayExpr: "text",
+                value: currentValue,
+                showSelectionControls: true,
+                searchEnabled: true,
+                multiline: true,
+                onValueChanged: function (args) {
+                    e.setValue(args.value);
+                }
+            };
+        }
 
-        e.editorName = "dxTagBox";
-        e.editorOptions = {
-            dataSource: permissionsStore,
-            valueExpr: "value",
-            displayExpr: "text",
-            value: currentValue,
-            showSelectionControls: true,
-            searchEnabled: true,
-            multiline: true,
-            onValueChanged: function (args) {
-                e.setValue(args.value);
-            }
-        };
+        if (e.dataField === "Description") {
+            e.editorOptions = Object.assign({}, e.editorOptions, { height: 80 });
+        }
+
+        if (e.dataField === "CreatedTime" || e.dataField === "UpdatedTime") {
+            e.editorOptions = Object.assign({}, e.editorOptions, { readOnly: true });
+        }
     }
 
     function permissionsCellTemplate(container, options) {
@@ -111,19 +120,16 @@
                         items.AddSimple()
                             .DataField("Description")
                             .Label(l => l.Text("說明"))
-                            .EditorType(FormEditorType.TextArea)
-                            .EditorOptions(new { height = 80 });
+                            .EditorType(FormEditorType.TextArea);
                         items.AddSimple()
                             .DataField("PermissionValues")
                             .Label(l => l.Text("權限"));
                         items.AddSimple()
                             .DataField("CreatedTime")
-                            .Label(l => l.Text("建立時間"))
-                            .EditorOptions(new { readOnly = true });
+                            .Label(l => l.Text("建立時間"));
                         items.AddSimple()
                             .DataField("UpdatedTime")
-                            .Label(l => l.Text("更新時間"))
-                            .EditorOptions(new { readOnly = true });
+                            .Label(l => l.Text("更新時間"));
                     })
                 )
             )
