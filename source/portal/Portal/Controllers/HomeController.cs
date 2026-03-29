@@ -76,6 +76,7 @@ namespace PHStatistics.Portal.Controllers {
             DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
             SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).FirstOrDefault();
             ViewBag.CanEdit = schoolYear != null;
+            ViewBag.IsAdmin = User.HasPermission(SystemPermission.Administrator);
             ViewBag.Title = "Home Page".ToI18n(Culture.GetCode());
             ViewBag.BannerPositions = new List<BannerPosition>();
             ViewBag.BannerPositions.Add(Model.BannerPosition.FindByCode("Home.Slider"));

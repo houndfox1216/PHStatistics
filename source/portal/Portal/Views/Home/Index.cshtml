@@ -1,6 +1,7 @@
 ﻿@{
     List<BannerPosition> positions = ViewBag.BannerPositions;
     bool canEdit = (bool)ViewBag.CanEdit;
+    bool isAdmin = (bool)ViewBag.IsAdmin;
 }
 
 <div class="container py-5">
@@ -55,6 +56,11 @@
                 <button type="button" class="btn btn-primary btn-lg btn-round" id="query">
                     查詢資料
                 </button>
+                @if (isAdmin) {
+                    <button type="button" class="btn btn-secondary btn-lg btn-round" id="goAdmin">
+                        管理後台
+                    </button>
+                }
             </div>
 
         </div>
@@ -78,5 +84,8 @@
     })
     $('#query').on('click', function () {
         window.location.href = "/StudentPopulation/Query";
+    })
+    $('#goAdmin').on('click', function () {
+        window.location.href = "/Admin";
     })
 </script>
