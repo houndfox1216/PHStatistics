@@ -39,6 +39,7 @@
         }
 
         if (e.dataField === "Description") {
+            e.editorName = "dxTextArea";
             e.editorOptions = Object.assign({}, e.editorOptions, { height: 80 });
         }
 
@@ -119,8 +120,7 @@
                             .IsRequired(true);
                         items.AddSimple()
                             .DataField("Description")
-                            .Label(l => l.Text("說明"))
-                            .EditorType(FormEditorType.TextArea);
+                            .Label(l => l.Text("說明"));
                         items.AddSimple()
                             .DataField("PermissionValues")
                             .Label(l => l.Text("權限"));
