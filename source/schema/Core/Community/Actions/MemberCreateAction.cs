@@ -53,7 +53,7 @@ public class MemberCreateAction : CreateActionBase<Member, DataContext, SystemPe
         if (!data.Email.HasValue() || context.Member.Any(e => e.Email == data.Email && e.DataMode == DataMode.Normal)) throw new DataException("此Email已被使用");
         if (!data.Account.HasValue() || context.Member.Any(e => e.Account == data.Account && e.DataMode == DataMode.Normal)) throw new DataException("此帳號已被使用");
         if (!data.Number.HasValue() || context.Member.Any(e => e.Number == data.Number && e.DataMode == DataMode.Normal)) throw new DataException("此編號已被使用");
-        data.Password = data.Password;
+        data.Password = data.Password.ComputeHashStringWithSha().ToBase64();
         data.Person ??= new Person();
         data.Person.Address ??= new Address();
 
