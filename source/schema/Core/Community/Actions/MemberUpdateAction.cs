@@ -26,7 +26,10 @@ public class MemberUpdateAction : UpdateActionBase<Member, DataContext, SystemPe
             RequiredIncludes = ["Title.Texts", "Introduction.Texts", "Content.Texts", "Picture.Images", "MemberTags"];
         }
 
-    //protected override void OnUpdating(DataContext context, Member data, Member current) {
-    //    var defaultCulture = context.Culture.FirstOrDefault(e => e.IsDefault) ?? context.Culture.First();
-    //}
+    protected override void OnUpdating(DataContext context, Member data, Member current) {
+        if (data.Password.HasValue())
+            data.Password = data.Password.ComputeHashStringWithSha().ToBase64();
+        else
+            data.Password = current.Password;
+    }
 }
