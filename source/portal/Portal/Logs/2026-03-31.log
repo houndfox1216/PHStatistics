@@ -1,0 +1,26 @@
+2026-03-31 09:24:45.4022[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-03-31 09:24:45.4129[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-03-31 09:24:45.5182[7]  INFO MemberController  Member Login account: password: 
+2026-03-31 09:25:00.6287[37]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-03-31 09:25:00.7567[37]  INFO MemberController  進行登入 
+2026-03-31 09:25:00.9526[37]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-03-31 09:25:01.1356[20]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-03-31 09:25:01.1356[20]  INFO HomeController  進入首頁
+2026-03-31 09:25:26.7566[49]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-03-31 09:25:26.7566[49]  INFO HomeController  進入首頁
+2026-03-31 09:25:34.1610[39]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-03-31 09:25:34.1610[39]  INFO HomeController  進入首頁
+2026-03-31 09:25:43.0936[39]  INFO StudentPopulationController  進入首頁(MainMenu)
+2026-03-31 09:25:43.0936[39]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2026-03-31 09:27:59.9705[55]  INFO MemberController  Member Login account: password: 
+2026-03-31 09:28:24.2735[55]  INFO MemberController  Member Login account:raybozhi password:0983802836 
+2026-03-31 09:28:36.0866[53]  INFO MemberController  Member Login account:raybozhi password:0983802836 
+2026-03-31 09:28:45.7863[54]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-03-31 09:28:45.9297[54]  INFO MemberController  進行登入 
+2026-03-31 09:28:46.0184[54]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-03-31 09:28:46.0970[55]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-03-31 09:28:46.0970[55]  INFO HomeController  進入首頁
+2026-03-31 09:35:50.6543[13]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-03-31 09:35:50.6643[13]  INFO HomeController  進入首頁
+2026-03-31 09:36:42.0517[25]  INFO StudentPopulationController  進入首頁(MainMenu)
+2026-03-31 09:36:42.0517[25]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd

@@ -1,0 +1,40 @@
+2026-03-30 09:23:37.7290[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-03-30 09:23:37.7290[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-03-30 09:23:37.8972[7]  INFO MemberController  Member Login account: password: 
+2026-03-30 09:23:54.3643[20]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-03-30 09:23:54.4480[20]  INFO MemberController  進行登入 
+2026-03-30 09:23:54.5808[20]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-03-30 09:23:54.7305[16]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-03-30 09:23:54.7305[16]  INFO HomeController  進入首頁
+2026-03-30 09:24:09.9074[9]  INFO StudentPopulationController  進入首頁(MainMenu)
+2026-03-30 09:24:09.9074[9]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2026-03-30 09:24:38.7124[20]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-03-30 09:24:38.7124[20]  INFO HomeController  進入首頁
+2026-03-30 09:25:11.3319[19]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-03-30 09:25:11.3319[19]  INFO HomeController  進入首頁
+2026-03-30 09:27:34.4948[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-03-30 09:27:34.4948[11]  INFO HomeController  進入首頁
+2026-03-30 10:19:51.4555[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-03-30 10:19:51.4630[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-03-30 10:19:51.5527[11]  INFO MemberController  Member Login account: password: 
+2026-03-30 10:20:27.0750[18]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-03-30 10:20:27.1621[18]  INFO MemberController  進行登入 
+2026-03-30 10:20:27.3457[18]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-03-30 10:20:27.4407[13]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-03-30 10:20:27.4407[13]  INFO HomeController  進入首頁
+2026-03-30 10:51:35.7319[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-03-30 10:51:35.7319[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-03-30 10:51:35.8257[7]  INFO MemberController  Member Login account: password: 
+2026-03-30 10:51:55.3985[19]  INFO MemberController  Member Login account: password: 
+2026-03-30 10:52:00.1429[21]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-03-30 10:52:00.2230[21]  INFO MemberController  進行登入 
+2026-03-30 10:52:00.2898[21]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-03-30 10:52:00.3576[21]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-03-30 10:52:00.3576[21]  INFO HomeController  進入首頁
+2026-03-30 11:06:49.8790[32]  INFO MemberController  Member Login account:raybozhi password:0983802836 
+2026-03-30 11:07:05.4594[34]  INFO MemberController  Member Login account:raybozhi password:0983802836 
+2026-03-30 11:07:13.2849[21]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-03-30 11:07:13.3406[21]  INFO MemberController  進行登入 
+2026-03-30 11:07:13.4001[21]  INFO MemberController  進行登入完成 導入 /Admin/Member False 
+2026-03-30 11:07:13.4632[16]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-03-30 11:07:13.4632[16]  INFO HomeController  進入首頁

@@ -2,6 +2,7 @@
 using System.Framework;
 using System.Framework.Application;
 using System.Framework.EntityFrameworkCore;
+using System.Framework.Security;
 using System.Linq;
 using PHStatistics.Community;
 
