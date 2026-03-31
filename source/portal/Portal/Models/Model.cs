@@ -31,6 +31,11 @@ namespace PHStatistics.Portal.Models {
         public BannerPositionModel BannerPosition { get { return GetSubModel<BannerPositionModel>(); } }
 
         /// <summary>
+        /// 學年度領域模型
+        /// </summary>
+        public SchoolYearModel SchoolYear { get { return GetSubModel<SchoolYearModel>(); } }
+
+        /// <summary>
         /// 透過帳號與密碼認證用戶
         /// </summary>
         /// <param name="account">帳號</param>

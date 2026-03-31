@@ -1,0 +1,202 @@
+@{
+    ViewBag.Title = "學年度管理";
+}
+
+<div class="card">
+    <div class="card-body">
+        @(Html.DevExtreme().DataGrid<SchoolYear>()
+            .ID("gridSchoolYears")
+            .DataSource(ds => ds.Mvc()
+                .Controller("SchoolYear")
+                .Area("Admin")
+                .LoadAction("GetSchoolYears")
+                .InsertAction("Create")
+                .UpdateAction("Update")
+                .DeleteAction("Delete")
+                .Key("Id")
+            )
+            .RemoteOperations(true)
+            .ShowBorders(true)
+            .ShowRowLines(true)
+            .AllowColumnResizing(true)
+            .ColumnAutoWidth(true)
+            .RowAlternationEnabled(true)
+            .Paging(paging => paging.PageSize(20))
+            .Pager(pager => pager
+                .Visible(true)
+                .ShowPageSizeSelector(true)
+                .AllowedPageSizes(new[] { 10, 20, 50, 100 })
+                .ShowInfo(true)
+            )
+            .Editing(editing => editing
+                .Mode(GridEditMode.Popup)
+                .AllowAdding(true)
+                .AllowUpdating(true)
+                .AllowDeleting(true)
+                .UseIcons(true)
+                .Popup(popup => popup
+                    .Title("學年度資料")
+                    .ShowTitle(true)
+                    .Width(620)
+                    .Height("auto")
+                )
+            )
+            .FilterRow(f => f.Visible(true))
+            .SearchPanel(s => s.Visible(true).Width(240).Placeholder("搜尋..."))
+            .HeaderFilter(h => h.Visible(true))
+            .SortByGroupSummaryInfo(s => s.Add())
+            .Columns(columns => {
+                columns.AddFor(m => m.Id).Width(70).AllowEditing(false).Visible(false);
+                columns.AddFor(m => m.Year).Caption("學年度").Width(90);
+                columns.AddFor(m => m.ADYear).Caption("西元年").Width(90);
+                columns.AddFor(m => m.Week).Caption("週次").Width(70);
+                columns.AddFor(m => m.Name).Caption("名稱");
+                columns.AddFor(m => m.WeekStartDate).Caption("週起始日").Width(120)
+                    .DataType(GridColumnDataType.Date)
+                    .Format("yyyy/MM/dd");
+                columns.AddFor(m => m.WeekEndDate).Caption("週結束日").Width(120)
+                    .DataType(GridColumnDataType.Date)
+                    .Format("yyyy/MM/dd");
+                columns.AddFor(m => m.ImportEndDate).Caption("填報截止").Width(155)
+                    .DataType(GridColumnDataType.DateTime)
+                    .Format("yyyy/MM/dd HH:mm");
+                columns.AddFor(m => m.Remark).Caption("備註");
+            })
+            .Toolbar(toolbar => toolbar.Items(items => {
+                items.Add().Name("addRowButton");
+                items.Add()
+                    .Widget(w => w.Button()
+                        .Text("批次產生")
+                        .Icon("add")
+                        .OnClick("showBatchGeneratePopup")
+                    )
+                    .Location(ToolbarItemLocation.Before);
+                items.Add().Name("searchPanel");
+            }))
+        )
+    </div>
+</div>
+
+<div id="batchGenerateContainer"></div>
+
+@section Scripts {
+<script>
+    var batchPopup = null;
+    var batchForm = null;
+
+    function showBatchGeneratePopup() {
+        if (!batchPopup) {
+            var popupEl = $("<div>").appendTo("#batchGenerateContainer");
+            batchPopup = popupEl.dxPopup({
+                title: "批次產生學年度週次",
+                width: 440,
+                height: "auto",
+                showCloseButton: true,
+                dragEnabled: true,
+                contentTemplate: function (container) {
+                    var formEl = $("<div>").appendTo(container);
+                    batchForm = formEl.dxForm({
+                        formData: {
+                            year: null,
+                            adYear: null,
+                            firstWeekStartDate: null
+                        },
+                        colCount: 1,
+                        labelLocation: "top",
+                        items: [
+                            {
+                                dataField: "year",
+                                label: { text: "學年度（民國年，例：113）" },
+                                editorType: "dxNumberBox",
+                                editorOptions: {
+                                    min: 100,
+                                    max: 999,
+                                    showSpinButtons: true,
+                                    onValueChanged: function (e) {
+                                        if (e.value && batchForm) {
+                                            var adYearEditor = batchForm.getEditor("adYear");
+                                            if (adYearEditor && !adYearEditor.option("value")) {
+                                                adYearEditor.option("value", e.value + 1911);
+                                            }
+                                        }
+                                    }
+                                },
+                                validationRules: [{ type: "required", message: "請輸入學年度" }]
+                            },
+                            {
+                                dataField: "adYear",
+                                label: { text: "西元起始年（學年度開始的西元年，例：2024）" },
+                                editorType: "dxNumberBox",
+                                editorOptions: { min: 2000, max: 2100, showSpinButtons: true },
+                                validationRules: [{ type: "required", message: "請輸入西元起始年" }]
+                            },
+                            {
+                                dataField: "firstWeekStartDate",
+                                label: { text: "第一週起始日（需為星期一）" },
+                                editorType: "dxDateBox",
+                                editorOptions: {
+                                    type: "date",
+                                    displayFormat: "yyyy/MM/dd",
+                                    placeholder: "請選擇第一週星期一"
+                                },
+                                validationRules: [
+                                    { type: "required", message: "請選擇第一週起始日" },
+                                    {
+                                        type: "custom",
+                                        message: "第一週起始日必須為星期一",
+                                        validationCallback: function (e) {
+                                            if (!e.value) return true;
+                                            return new Date(e.value).getDay() === 1;
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                itemType: "button",
+                                horizontalAlignment: "right",
+                                buttonOptions: {
+                                    text: "開始產生",
+                                    type: "success",
+                                    icon: "check",
+                                    onClick: function () { submitBatchGenerate(); }
+                                }
+                            }
+                        ]
+                    }).dxForm("instance");
+                }
+            }).dxPopup("instance");
+        }
+        batchPopup.show();
+    }
+
+    function submitBatchGenerate() {
+        var result = batchForm.validate();
+        if (!result.isValid) return;
+
+        var data = batchForm.option("formData");
+        var dateVal = data.firstWeekStartDate;
+        var d = new Date(dateVal);
+        var dateStr = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+
+        DevExpress.ui.notify("產生中，請稍候...", "info", 2000);
+
+        $.ajax({
+            url: "@Url.Action("BatchGenerate", "SchoolYear", new { area = "Admin" })",
+            method: "POST",
+            data: {
+                year: data.year,
+                adYear: data.adYear,
+                firstWeekStartDate: dateStr
+            },
+            success: function (result) {
+                DevExpress.ui.notify("成功產生 " + result.count + " 筆學年度週次資料", "success", 4000);
+                batchPopup.hide();
+                $("#gridSchoolYears").dxDataGrid("instance").refresh();
+            },
+            error: function (xhr) {
+                DevExpress.ui.notify("產生失敗：" + xhr.responseText, "error", 5000);
+            }
+        });
+    }
+</script>
+}

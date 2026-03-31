@@ -142,4 +142,10 @@ public enum SystemPermission : short {
     [Display(Name = "查看所有分校")]
     ViewAllSchools,
 
+    /// <summary>
+    /// 學年度管理
+    /// </summary>
+    [Display(Name = "學年度管理")]
+    SchoolYear,
+
 }
