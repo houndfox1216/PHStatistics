@@ -36,7 +36,7 @@
                 <a class="nav-link" href="@Url.Action("Index", "Home")">@Html.ToI18n(sitemap.Title)</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("LogOut", "Member")">登出</a>
+                <a class="nav-link" href="@Url.Action("LogOut", "Member", new { area = "" })">登出</a>
             </li>
 @*             @foreach (var node in menu) {
                 <li class="nav-item @(node.Expandable && node.SubNodes != null && node.SubNodes.Any() ? "dropdown" : "")">

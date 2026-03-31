@@ -113,7 +113,7 @@
                 var week = $('#queryWeek').val();
                 var type = $('#reportType').val();
                 if (!year || !week || !type) { alert('請先選擇年度、週次及類型'); return; }
-                var url = '@Url.Action("ExportReport", "StudentPopulation")'
+                var url = '@Url.Action("ExportReport", "StudentPopulation", new { area = "" })'
                     + '?year=' + year + '&week=' + week
                     + '&reportType=' + type + '&allSchools=false';
                 window.location.href = url;
@@ -125,7 +125,7 @@
                 var week = $('#queryWeek').val();
                 var type = $('#reportType').val();
                 if (!year || !week || !type) { alert('請先選擇年度、週次及類型'); return; }
-                var url = '@Url.Action("ExportReport", "StudentPopulation")'
+                var url = '@Url.Action("ExportReport", "StudentPopulation", new { area = "" })'
                     + '?year=' + year + '&week=' + week
                     + '&reportType=' + type + '&allSchools=true';
                 window.location.href = url;
