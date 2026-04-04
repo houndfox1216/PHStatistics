@@ -120,5 +120,23 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
             var query = Model.DataContext.School.OrderBy(e => e.Ordinal);
             return DataSourceLoader.Load(query, loadOptions);
         }
+
+        [HttpGet]
+        public object GetYears(DataSourceLoadOptions loadOptions) {
+            var query = Model.DataContext.SchoolYear
+                .GroupBy(e => e.Year)
+                .Select(g => new { Year = g.Key })
+                .OrderByDescending(e => e.Year);
+            return DataSourceLoader.Load(query, loadOptions);
+        }
+
+        [HttpGet]
+        public object GetWeeks(int year, DataSourceLoadOptions loadOptions) {
+            var query = Model.DataContext.SchoolYear
+                .Where(e => e.Year == year)
+                .OrderBy(e => e.Week)
+                .Select(e => new { e.Week });
+            return DataSourceLoader.Load(query, loadOptions);
+        }
     }
 }
