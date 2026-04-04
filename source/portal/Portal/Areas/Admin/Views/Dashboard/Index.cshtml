@@ -2,6 +2,36 @@
     ViewBag.Title = "儀表板";
 }
 
+<div class="row mb-4">
+    <div class="col-12 mb-2">
+        <small class="text-muted">本週：@ViewBag.SchoolYearLabel</small>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card text-white bg-success h-100">
+            <div class="card-body">
+                <h6 class="card-title">已建檔分校數</h6>
+                <p class="card-text display-6 fw-bold">@ViewBag.DocumentedCount</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card text-white bg-primary h-100">
+            <div class="card-body">
+                <h6 class="card-title">已送出分校數</h6>
+                <p class="card-text display-6 fw-bold">@ViewBag.PendingCount</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card text-white bg-info h-100">
+            <div class="card-body">
+                <h6 class="card-title">本週詢問人數（全部分校）</h6>
+                <p class="card-text display-6 fw-bold">@ViewBag.TotalInquiry</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-4 mb-4">
         <div class="card h-100">
