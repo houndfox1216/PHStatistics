@@ -134,8 +134,10 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
         public object GetWeeks(int year, DataSourceLoadOptions loadOptions) {
             var query = Model.DataContext.SchoolYear
                 .Where(e => e.Year == year)
-                .OrderBy(e => e.Week)
-                .Select(e => new { e.Week });
+                .Select(e => e.Week)
+                .Distinct()
+                .OrderBy(e => e)
+                .Select(w => new { Week = w });
             return DataSourceLoader.Load(query, loadOptions);
         }
     }
