@@ -65,6 +65,23 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
             }
         }
 
+        [HttpPost]
+        public IActionResult Approve(long key) {
+            try {
+                var data = Model.DataContext.StudentPopulation.Find(key);
+                if (data == null) return NotFound();
+                data.Status = StudentPopulationStatus.Approved;
+                data.ConfirmTime = DateTime.Now;
+                data.UpdatedTime = DateTime.Now;
+                if (Guid.TryParse(User.Id, out var confirmerId))
+                    data.ConfirmerId = confirmerId;
+                Model.DataContext.SaveChanges();
+                return Ok();
+            } catch (Exception ex) {
+                return BadRequest(ex.Message);
+            }
+        }
+
         #endregion
 
         #region StudentPopulationItem CRUD

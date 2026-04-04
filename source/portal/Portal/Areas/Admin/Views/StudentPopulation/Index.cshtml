@@ -114,6 +114,27 @@
         weekBox.option("disabled", true);
         $("#gridPopulations").dxDataGrid("instance").filter(null);
     }
+
+    function approveRow(e) {
+        var id = e.row.data.Id;
+        var grid = e.component;
+        DevExpress.ui.dialog.confirm("確認將此筆人數表狀態改為「已審核」？", "確認操作")
+            .then(function (confirmed) {
+                if (!confirmed) return;
+                $.ajax({
+                    url: "@Url.Action("Approve", "StudentPopulation", new { area = "Admin" })",
+                    type: "POST",
+                    data: { key: id },
+                    success: function () {
+                        DevExpress.ui.notify("已審核", "success", 2000);
+                        grid.refresh();
+                    },
+                    error: function (xhr) {
+                        DevExpress.ui.notify("操作失敗：" + xhr.responseText, "error", 3000);
+                    }
+                });
+            });
+    }
 </script>
 
 <div class="card mb-3">
@@ -215,6 +236,18 @@
                     .DataType(GridColumnDataType.DateTime)
                     .Format("yyyy/MM/dd HH:mm")
                     .AllowEditing(false);
+                columns.Add()
+                    .Type(GridCommandColumnType.Buttons)
+                    .Width(110)
+                    .Buttons(buttons => {
+                        buttons.Add().Name("edit");
+                        buttons.Add().Name("delete");
+                        buttons.Add()
+                            .Hint("審核通過")
+                            .Icon("check")
+                            .OnClick("approveRow")
+                            .Visible("function(e) { return e.row.data.Status === 1; }");
+                    });
             })
             .MasterDetail(md => md
                 .Enabled(true)
