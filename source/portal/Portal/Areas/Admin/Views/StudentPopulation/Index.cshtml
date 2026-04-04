@@ -27,7 +27,114 @@
         { id: 3, name: "已否決" },
         { id: 4, name: "已完成" }
     ];
+
+    $(function () {
+        $("#schoolFilter").dxSelectBox({
+            dataSource: schoolsStore,
+            valueExpr: "Id",
+            displayExpr: "Name",
+            placeholder: "全部分校",
+            showClearButton: true,
+            width: 180,
+            onValueChanged: function () { applyFilters(); }
+        });
+
+        $("#yearFilter").dxSelectBox({
+            dataSource: {
+                store: new DevExpress.data.CustomStore({
+                    loadMode: "raw",
+                    load: function () {
+                        return $.getJSON("@Url.Action("GetYears", "StudentPopulation", new { area = "Admin" })")
+                            .then(function (r) { return r.data || r; });
+                    }
+                })
+            },
+            valueExpr: "Year",
+            displayExpr: "Year",
+            placeholder: "全部學年度",
+            showClearButton: true,
+            width: 130,
+            onValueChanged: function (e) {
+                var weekBox = $("#weekFilter").dxSelectBox("instance");
+                weekBox.option("value", null);
+                weekBox.option("disabled", e.value == null);
+                if (e.value != null) {
+                    weekBox.getDataSource().reload();
+                }
+                applyFilters();
+            }
+        });
+
+        $("#weekFilter").dxSelectBox({
+            dataSource: {
+                store: new DevExpress.data.CustomStore({
+                    loadMode: "raw",
+                    load: function () {
+                        var year = $("#yearFilter").dxSelectBox("instance").option("value");
+                        if (!year) return [];
+                        return $.getJSON("@Url.Action("GetWeeks", "StudentPopulation", new { area = "Admin" })", { year: year })
+                            .then(function (r) { return r.data || r; });
+                    }
+                })
+            },
+            valueExpr: "Week",
+            displayExpr: "Week",
+            placeholder: "全部週次",
+            showClearButton: true,
+            disabled: true,
+            width: 100,
+            onValueChanged: function () { applyFilters(); }
+        });
+    });
+
+    function applyFilters() {
+        var schoolId = $("#schoolFilter").dxSelectBox("instance").option("value");
+        var year = $("#yearFilter").dxSelectBox("instance").option("value");
+        var week = $("#weekFilter").dxSelectBox("instance").option("value");
+
+        var filters = [];
+        if (schoolId != null) filters.push(["SchoolId", "=", schoolId]);
+        if (year != null) {
+            if (filters.length) filters.push("and");
+            filters.push(["Year", "=", year]);
+        }
+        if (week != null) {
+            if (filters.length) filters.push("and");
+            filters.push(["Week", "=", week]);
+        }
+
+        $("#gridPopulations").dxDataGrid("instance").filter(filters.length > 0 ? filters : null);
+    }
+
+    function resetFilters() {
+        $("#schoolFilter").dxSelectBox("instance").option("value", null);
+        $("#yearFilter").dxSelectBox("instance").option("value", null);
+        var weekBox = $("#weekFilter").dxSelectBox("instance");
+        weekBox.option("value", null);
+        weekBox.option("disabled", true);
+        $("#gridPopulations").dxDataGrid("instance").filter(null);
+    }
 </script>
+
+<div class="card mb-3">
+    <div class="card-body py-2">
+        <div class="d-flex align-items-center gap-3 flex-wrap">
+            <div class="d-flex align-items-center gap-2">
+                <label class="mb-0">分校</label>
+                <div id="schoolFilter"></div>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <label class="mb-0">學年度</label>
+                <div id="yearFilter"></div>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <label class="mb-0">週次</label>
+                <div id="weekFilter"></div>
+            </div>
+            <button class="btn btn-outline-secondary btn-sm" onclick="resetFilters()">重設</button>
+        </div>
+    </div>
+</div>
 
 <div class="card">
     <div class="card-body">
