@@ -43,6 +43,13 @@
             </a>
         </li>
 
+        <li class="sidebar-item">
+            <a href="@Url.Action("Index", "StudentPopulation", new { area = "Admin" })" class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "StudentPopulation" ? "active" : "")">
+                <i class="dx-icon-chart"></i>
+                <span>人數表管理</span>
+            </a>
+        </li>
+
         <li class="sidebar-section">系統</li>
 
         <li class="sidebar-item">

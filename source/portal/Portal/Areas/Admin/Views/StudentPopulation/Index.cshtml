@@ -1,0 +1,160 @@
+@{
+    ViewBag.Title = "人數表管理";
+}
+
+<script>
+    var schoolsStore = new DevExpress.data.CustomStore({
+        key: "Id",
+        loadMode: "raw",
+        load: function () {
+            return $.getJSON("@Url.Action("GetSchools", "StudentPopulation", new { area = "Admin" })")
+                .then(function (r) { return r.data || r; });
+        }
+    });
+
+    var populationTypes = [
+        { id: 0, name: "百瀚 (PH)" },
+        { id: 1, name: "百倍數 (PSJ)" },
+        { id: 2, name: "英檢班 (GEPT)" },
+        { id: 3, name: "百世 (PS)" },
+        { id: 4, name: "安親課輔 (AfterSchool)" }
+    ];
+
+    var populationStatuses = [
+        { id: 0, name: "已建檔" },
+        { id: 1, name: "已送出" },
+        { id: 2, name: "已審核" },
+        { id: 3, name: "已否決" },
+        { id: 4, name: "已完成" }
+    ];
+</script>
+
+<div class="card">
+    <div class="card-body">
+        @(Html.DevExtreme().DataGrid<StudentPopulation>()
+            .ID("gridPopulations")
+            .DataSource(ds => ds.Mvc()
+                .Controller("StudentPopulation")
+                .Area("Admin")
+                .LoadAction("GetStudentPopulations")
+                .InsertAction("Create")
+                .UpdateAction("Update")
+                .DeleteAction("Delete")
+                .Key("Id")
+            )
+            .RemoteOperations(true)
+            .ShowBorders(true)
+            .ShowRowLines(true)
+            .AllowColumnResizing(true)
+            .ColumnAutoWidth(true)
+            .RowAlternationEnabled(true)
+            .Paging(paging => paging.PageSize(20))
+            .Pager(pager => pager
+                .Visible(true)
+                .ShowPageSizeSelector(true)
+                .AllowedPageSizes(new[] { 10, 20, 50, 100 })
+                .ShowInfo(true)
+            )
+            .Editing(editing => editing
+                .Mode(GridEditMode.Popup)
+                .AllowAdding(true)
+                .AllowUpdating(true)
+                .AllowDeleting(true)
+                .UseIcons(true)
+                .Popup(popup => popup
+                    .Title("人數表資料")
+                    .ShowTitle(true)
+                    .Width(700)
+                    .Height("auto")
+                )
+            )
+            .FilterRow(f => f.Visible(true))
+            .SearchPanel(s => s.Visible(true).Width(240).Placeholder("搜尋..."))
+            .HeaderFilter(h => h.Visible(true))
+            .Columns(columns => {
+                columns.AddFor(m => m.Id).Width(80).AllowEditing(false);
+                columns.AddFor(m => m.SchoolId)
+                    .Caption("分校")
+                    .Lookup(lookup => lookup
+                        .DataSource(new JS("schoolsStore"))
+                        .ValueExpr("Id")
+                        .DisplayExpr("Name")
+                    );
+                columns.AddFor(m => m.Year).Caption("學年度").Width(90);
+                columns.AddFor(m => m.Week).Caption("週次").Width(70);
+                columns.AddFor(m => m.Type)
+                    .Caption("類型")
+                    .Width(150)
+                    .Lookup(lookup => lookup
+                        .DataSource(new JS("populationTypes"))
+                        .ValueExpr("id")
+                        .DisplayExpr("name")
+                    );
+                columns.AddFor(m => m.Status)
+                    .Caption("狀態")
+                    .Width(100)
+                    .Lookup(lookup => lookup
+                        .DataSource(new JS("populationStatuses"))
+                        .ValueExpr("id")
+                        .DisplayExpr("name")
+                    );
+                columns.AddFor(m => m.Name).Caption("名稱");
+                columns.AddFor(m => m.TotalInquiryCount).Caption("詢問人數").Width(90);
+                columns.AddFor(m => m.SubmitterTime).Caption("送出時間").Width(150)
+                    .DataType(GridColumnDataType.DateTime)
+                    .Format("yyyy/MM/dd HH:mm")
+                    .AllowEditing(false);
+                columns.AddFor(m => m.CreatedTime).Caption("建立時間").Width(150)
+                    .DataType(GridColumnDataType.DateTime)
+                    .Format("yyyy/MM/dd HH:mm")
+                    .AllowEditing(false);
+            })
+            .MasterDetail(md => md
+                .Enabled(true)
+                .Template(@<text>
+                    <p class="mb-1 mt-2 fw-semibold">人數表項目</p>
+                    @(Html.DevExtreme().DataGrid<StudentPopulationItem>()
+                        .DataSource(ds => ds.Mvc()
+                            .Controller("StudentPopulation")
+                            .Area("Admin")
+                            .LoadAction("GetItems")
+                            .LoadParams(new { populationId = new JS("data.Id") })
+                            .InsertAction("CreateItem")
+                            .UpdateAction("UpdateItem")
+                            .DeleteAction("DeleteItem")
+                            .Key("Id")
+                        )
+                        .ShowBorders(true)
+                        .ShowRowLines(true)
+                        .ColumnAutoWidth(true)
+                        .Paging(paging => paging.PageSize(50))
+                        .Editing(editing => editing
+                            .Mode(GridEditMode.Row)
+                            .AllowAdding(true)
+                            .AllowUpdating(true)
+                            .AllowDeleting(true)
+                            .UseIcons(true)
+                        )
+                        .Columns(columns => {
+                            columns.AddFor(m => m.Id).Width(80).AllowEditing(false);
+                            columns.AddFor(m => m.Name).Caption("名稱");
+                            columns.AddFor(m => m.Number).Caption("人數").Width(80);
+                            columns.AddFor(m => m.LastWeekNumber).Caption("上週人數").Width(90);
+                            columns.AddFor(m => m.IsSum).Caption("加總").Width(70);
+                            columns.AddFor(m => m.IsManual).Caption("手動").Width(70);
+                            columns.AddFor(m => m.Remark).Caption("備註");
+                        })
+                        .Toolbar(toolbar => toolbar.Items(items => {
+                            items.Add().Name("addRowButton");
+                        }))
+                        .OnInitNewRow("function(e) { e.data.StudentPopulationId = data.Id; }")
+                    )
+                </text>)
+            )
+            .Toolbar(toolbar => toolbar.Items(items => {
+                items.Add().Name("addRowButton");
+                items.Add().Name("searchPanel");
+            }))
+        )
+    </div>
+</div>
