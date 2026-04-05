@@ -106,6 +106,20 @@
         $("#gridPopulations").dxDataGrid("instance").filter(filters.length > 0 ? filters : null);
     }
 
+    function exportExcel() {
+        var schoolId = $("#schoolFilter").dxSelectBox("instance").option("value");
+        var year     = $("#yearFilter").dxSelectBox("instance").option("value");
+        var week     = $("#weekFilter").dxSelectBox("instance").option("value");
+
+        var url = "@Url.Action("ExportExcel", "StudentPopulation", new { area = "Admin" })?";
+        var params = [];
+        if (schoolId != null) params.push("schoolId=" + schoolId);
+        if (year     != null) params.push("year="     + year);
+        if (week     != null) params.push("week="     + week);
+
+        window.location.href = url + params.join("&");
+    }
+
     function resetFilters() {
         $("#schoolFilter").dxSelectBox("instance").option("value", null);
         $("#yearFilter").dxSelectBox("instance").option("value", null);
@@ -153,6 +167,9 @@
                 <div id="weekFilter"></div>
             </div>
             <button class="btn btn-outline-secondary btn-sm" onclick="resetFilters()">重設</button>
+            <button class="btn btn-success btn-sm ms-2" onclick="exportExcel()">
+                <i class="fas fa-file-excel me-1"></i>匯出 Excel
+            </button>
         </div>
     </div>
 </div>
