@@ -246,7 +246,7 @@
                             .Hint("審核通過")
                             .Icon("check")
                             .OnClick("approveRow")
-                            .Visible("function(e) { return e.row.data.Status === 1; }");
+                            .Visible(new JS("function(e) { return e.row.data.Status === 1; }"));
                     });
             })
             .MasterDetail(md => md
