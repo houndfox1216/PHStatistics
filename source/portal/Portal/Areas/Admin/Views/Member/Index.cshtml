@@ -3,6 +3,14 @@
 }
 
 <script>
+    var memberStatusOptions = [
+        { value: "Confirming", text: "確認中" },
+        { value: "Enabled",    text: "已啟用" },
+        { value: "Disabled",   text: "已禁用" },
+        { value: "Expired",    text: "已失效" },
+        { value: "Other",      text: "其他"   }
+    ];
+
     var schoolsStore = new DevExpress.data.CustomStore({
         key: "Id",
         loadMode: "raw",
@@ -21,7 +29,44 @@
         }
     });
 
-    function createMemberRoleStore(memberId) {
+    // 建立分校指派的 DataSource（供編輯 Popup 使用）
+    function createSchoolAssignmentSource() {
+        var memberId = currentEditMemberId;
+        return new DevExpress.data.CustomStore({
+            key: "Id",
+            load: function() {
+                return $.getJSON(
+                    "@Url.Action("GetSchoolAssignments", "Member", new { area = "Admin" })",
+                    { memberId: memberId }
+                ).then(function(r) { return r.data || r; });
+            },
+            insert: function(values) {
+                values.MemberId = memberId;
+                return $.ajax({
+                    url: "@Url.Action("CreateSchoolAssignment", "Member", new { area = "Admin" })",
+                    type: "POST",
+                    data: { values: JSON.stringify(values) }
+                });
+            },
+            update: function(key, values) {
+                return $.ajax({
+                    url: "@Url.Action("UpdateSchoolAssignment", "Member", new { area = "Admin" })",
+                    type: "PUT",
+                    data: { key: key, values: JSON.stringify(values) }
+                });
+            },
+            remove: function(key) {
+                return $.ajax({
+                    url: "@Url.Action("DeleteSchoolAssignment", "Member", new { area = "Admin" })" + "?key=" + key,
+                    type: "DELETE"
+                });
+            }
+        });
+    }
+
+    // 建立角色指派的 DataSource（供編輯 Popup 使用）
+    function createMemberRoleSource() {
+        var memberId = currentEditMemberId;
         return new DevExpress.data.CustomStore({
             key: "RoleId",
             load: function() {
@@ -47,12 +92,132 @@
             }
         });
     }
+
+    // 建立角色指派的唯讀 DataSource（供 MasterDetail 使用）
+    function createMemberRoleViewStore(memberId) {
+        return new DevExpress.data.CustomStore({
+            key: "RoleId",
+            loadMode: "raw",
+            load: function() {
+                return $.getJSON(
+                    "@Url.Action("GetMemberRoles", "Member", new { area = "Admin" })",
+                    { memberId: memberId }
+                ).then(function(r) { return r.data || r; });
+            }
+        });
+    }
+
+    var currentEditMemberId = null;
+    var currentIsNew = false;
+
+    function onMemberEditingStart(e) {
+        currentEditMemberId = e.data ? e.data.Id : null;
+        currentIsNew = !e.data || !e.data.Id;
+    }
+
+    function onMemberPopupShown(e) {
+        var $content = $(e.component.content());
+
+        // 第一次開啟時建立容器
+        if (!$content.find("#popupAssignmentSection").length) {
+            $content.append(
+                '<div id="popupAssignmentSection" class="mt-3 px-3 pb-3">' +
+                    '<p class="mb-1 fw-semibold">分校指派</p>' +
+                    '<div id="popupSchoolGrid"></div>' +
+                    '<p class="mb-1 mt-3 fw-semibold">角色指派</p>' +
+                    '<div id="popupRoleGrid"></div>' +
+                '</div>'
+            );
+        }
+
+        var $section = $content.find("#popupAssignmentSection");
+
+        if (currentIsNew) {
+            $section.hide();
+            return;
+        }
+
+        $section.show();
+
+        // 分校指派 Grid
+        var $schoolGrid = $content.find("#popupSchoolGrid");
+        if ($schoolGrid.data("dxDataGrid")) {
+            $schoolGrid.dxDataGrid("instance").option("dataSource", createSchoolAssignmentSource());
+            $schoolGrid.dxDataGrid("instance").refresh();
+        } else {
+            $schoolGrid.dxDataGrid({
+                dataSource: createSchoolAssignmentSource(),
+                showBorders: true,
+                showRowLines: true,
+                columnAutoWidth: true,
+                paging: { pageSize: 5 },
+                editing: {
+                    mode: "row",
+                    allowAdding: true,
+                    allowUpdating: true,
+                    allowDeleting: true,
+                    useIcons: true
+                },
+                onInitNewRow: function(e) { e.data.MemberId = currentEditMemberId; },
+                columns: [
+                    {
+                        dataField: "SchoolId",
+                        caption: "分校",
+                        lookup: { dataSource: schoolsStore, valueExpr: "Id", displayExpr: "Name" }
+                    },
+                    { dataField: "Name", caption: "備註名稱" },
+                    {
+                        dataField: "CreatedTime", caption: "建立時間", width: 150,
+                        dataType: "datetime", format: "yyyy/MM/dd HH:mm", allowEditing: false
+                    }
+                ],
+                toolbar: { items: [{ name: "addRowButton" }] }
+            });
+        }
+
+        // 角色指派 Grid
+        var $roleGrid = $content.find("#popupRoleGrid");
+        if ($roleGrid.data("dxDataGrid")) {
+            $roleGrid.dxDataGrid("instance").option("dataSource", createMemberRoleSource());
+            $roleGrid.dxDataGrid("instance").refresh();
+        } else {
+            $roleGrid.dxDataGrid({
+                dataSource: createMemberRoleSource(),
+                showBorders: true,
+                showRowLines: true,
+                columnAutoWidth: true,
+                paging: { pageSize: 5 },
+                editing: {
+                    mode: "row",
+                    allowAdding: true,
+                    allowDeleting: true,
+                    allowUpdating: false,
+                    useIcons: true
+                },
+                onInitNewRow: function(e) { e.data.MemberId = currentEditMemberId; },
+                columns: [
+                    {
+                        dataField: "RoleId",
+                        caption: "角色",
+                        lookup: { dataSource: rolesStore, valueExpr: "Id", displayExpr: "Name" },
+                        validationRules: [{ type: "required" }]
+                    },
+                    {
+                        dataField: "CreatedTime", caption: "指派時間", width: 150,
+                        dataType: "datetime", format: "yyyy/MM/dd HH:mm", allowEditing: false
+                    }
+                ],
+                toolbar: { items: [{ name: "addRowButton" }] }
+            });
+        }
+    }
 </script>
 
 <div class="card">
     <div class="card-body">
         @(Html.DevExtreme().DataGrid<Member>()
             .ID("gridMembers")
+            .OnEditingStart("onMemberEditingStart")
             .DataSource(ds => ds.Mvc()
                 .Controller("Member")
                 .Area("Admin")
@@ -84,8 +249,9 @@
                 .Popup(popup => popup
                     .Title("會員資料")
                     .ShowTitle(true)
-                    .Width(700)
-                    .Height("auto")
+                    .Width(900)
+                    .Height(700)
+                    .OnShown("onMemberPopupShown")
                 )
             )
             .FilterRow(f => f.Visible(true))
@@ -96,7 +262,12 @@
                 columns.AddFor(m => m.Account).Caption("帳號");
                 columns.AddFor(m => m.Nickname).Caption("暱稱");
                 columns.AddFor(m => m.Email).Caption("Email");
-                columns.AddFor(m => m.Status).Caption("狀態").Width(100);
+                columns.AddFor(m => m.Status).Caption("狀態").Width(100)
+                    .Lookup(lookup => lookup
+                        .DataSource(new JS("memberStatusOptions"))
+                        .ValueExpr("value")
+                        .DisplayExpr("text")
+                    );
                 columns.AddFor(m => m.CreatedTime).Caption("建立時間").Width(150)
                     .DataType(GridColumnDataType.DateTime)
                     .Format("yyyy/MM/dd HH:mm")
@@ -115,9 +286,6 @@
                             .Area("Admin")
                             .LoadAction("GetSchoolAssignments")
                             .LoadParams(new { memberId = new JS("data.Id") })
-                            .InsertAction("CreateSchoolAssignment")
-                            .UpdateAction("UpdateSchoolAssignment")
-                            .DeleteAction("DeleteSchoolAssignment")
                             .Key("Id")
                         )
                         .ShowBorders(true)
@@ -125,11 +293,9 @@
                         .ColumnAutoWidth(true)
                         .Paging(paging => paging.PageSize(10))
                         .Editing(editing => editing
-                            .Mode(GridEditMode.Row)
-                            .AllowAdding(true)
-                            .AllowUpdating(true)
-                            .AllowDeleting(true)
-                            .UseIcons(true)
+                            .AllowAdding(false)
+                            .AllowUpdating(false)
+                            .AllowDeleting(false)
                         )
                         .Columns(columns => {
                             columns.AddFor(m => m.SchoolId)
@@ -142,30 +308,22 @@
                             columns.AddFor(m => m.Name).Caption("備註名稱");
                             columns.AddFor(m => m.CreatedTime).Caption("建立時間").Width(150)
                                 .DataType(GridColumnDataType.DateTime)
-                                .Format("yyyy/MM/dd HH:mm")
-                                .AllowEditing(false);
+                                .Format("yyyy/MM/dd HH:mm");
                         })
-                        .Toolbar(toolbar => toolbar.Items(items => {
-                            items.Add().Name("addRowButton");
-                        }))
-                        .OnInitNewRow("function(e) { e.data.MemberId = data.Id; }")
                     )
 
                     <p class="mb-1 mt-3 fw-semibold">角色指派</p>
                     @(Html.DevExtreme().DataGrid<MemberRole>()
-                        .DataSource(new JS("createMemberRoleStore(data.Id)"))
+                        .DataSource(new JS("createMemberRoleViewStore(data.Id)"))
                         .ShowBorders(true)
                         .ShowRowLines(true)
                         .ColumnAutoWidth(true)
                         .Paging(paging => paging.PageSize(10))
                         .Editing(editing => editing
-                            .Mode(GridEditMode.Row)
-                            .AllowAdding(true)
-                            .AllowDeleting(true)
+                            .AllowAdding(false)
                             .AllowUpdating(false)
-                            .UseIcons(true)
+                            .AllowDeleting(false)
                         )
-                        .OnInitNewRow("function(e) { e.data.MemberId = data.Id; }")
                         .Columns(columns => {
                             columns.Add()
                                 .DataField("RoleId")
@@ -174,19 +332,14 @@
                                     .DataSource(new JS("rolesStore"))
                                     .ValueExpr("Id")
                                     .DisplayExpr("Name")
-                                )
-                                .ValidationRules(rules => rules.AddRequired());
+                                );
                             columns.Add()
                                 .DataField("CreatedTime")
                                 .Caption("指派時間")
                                 .Width(150)
                                 .DataType(GridColumnDataType.DateTime)
-                                .Format("yyyy/MM/dd HH:mm")
-                                .AllowEditing(false);
+                                .Format("yyyy/MM/dd HH:mm");
                         })
-                        .Toolbar(toolbar => toolbar.Items(items => {
-                            items.Add().Name("addRowButton");
-                        }))
                     )
                 </text>)
             )
