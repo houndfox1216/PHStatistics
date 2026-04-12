@@ -85,12 +85,23 @@
             width: 100,
             onValueChanged: function () { applyFilters(); }
         });
+
+        $("#typeFilter").dxSelectBox({
+            dataSource: populationTypes,
+            valueExpr: "id",
+            displayExpr: "name",
+            placeholder: "全部類型",
+            showClearButton: true,
+            width: 180,
+            onValueChanged: function () { applyFilters(); }
+        });
     });
 
     function applyFilters() {
         var schoolId = $("#schoolFilter").dxSelectBox("instance").option("value");
-        var year = $("#yearFilter").dxSelectBox("instance").option("value");
-        var week = $("#weekFilter").dxSelectBox("instance").option("value");
+        var year     = $("#yearFilter").dxSelectBox("instance").option("value");
+        var week     = $("#weekFilter").dxSelectBox("instance").option("value");
+        var type     = $("#typeFilter").dxSelectBox("instance").option("value");
 
         var filters = [];
         if (schoolId != null) filters.push(["SchoolId", "=", schoolId]);
@@ -101,6 +112,10 @@
         if (week != null) {
             if (filters.length) filters.push("and");
             filters.push(["Week", "=", week]);
+        }
+        if (type != null) {
+            if (filters.length) filters.push("and");
+            filters.push(["Type", "=", type]);
         }
 
         $("#gridPopulations").dxDataGrid("instance").filter(filters.length > 0 ? filters : null);
@@ -126,7 +141,20 @@
         var weekBox = $("#weekFilter").dxSelectBox("instance");
         weekBox.option("value", null);
         weekBox.option("disabled", true);
+        $("#typeFilter").dxSelectBox("instance").option("value", null);
         $("#gridPopulations").dxDataGrid("instance").filter(null);
+    }
+
+    function exportPH() {
+        var year = $("#yearFilter").dxSelectBox("instance").option("value");
+        var week = $("#weekFilter").dxSelectBox("instance").option("value");
+
+        var url = "@Url.Action("ExportPH", "StudentPopulation", new { area = "Admin" })?";
+        var params = [];
+        if (year != null) params.push("year=" + year);
+        if (week != null) params.push("week=" + week);
+
+        window.location.href = url + params.join("&");
     }
 
     function approveRow(e) {
@@ -166,9 +194,16 @@
                 <label class="mb-0">週次</label>
                 <div id="weekFilter"></div>
             </div>
+            <div class="d-flex align-items-center gap-2">
+                <label class="mb-0">類型</label>
+                <div id="typeFilter"></div>
+            </div>
             <button class="btn btn-outline-secondary btn-sm" onclick="resetFilters()">重設</button>
             <button class="btn btn-success btn-sm ms-2" onclick="exportExcel()">
                 <i class="fas fa-file-excel me-1"></i>匯出 Excel
+            </button>
+            <button class="btn btn-primary btn-sm" onclick="exportPH()">
+                <i class="fas fa-file-excel me-1"></i>匯出 PH 報表
             </button>
         </div>
     </div>
