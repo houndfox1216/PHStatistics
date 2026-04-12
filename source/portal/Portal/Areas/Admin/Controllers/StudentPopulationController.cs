@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using NPOI.SS.UserModel;
+using NPOI.SS.Util;
 using NPOI.XSSF.UserModel;
 using PHStatistics.Actions;
 using PHStatistics.Content;
@@ -319,6 +320,236 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
             return File(bytes,
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 fileName);
+        }
+
+        // ─────────────────────────────────────────────────────────────────────
+        //  PH 專屬報表匯出（每區一個工作表，每分校兩列：小班 / 三人班）
+        // ─────────────────────────────────────────────────────────────────────
+        [HttpGet]
+        public IActionResult ExportPH(int? year, int? week) {
+            if (year == null || week == null) {
+                var today = DateTime.Today;
+                var current = Model.DataContext.SchoolYear
+                    .Where(sy => sy.WeekStartDate <= today && sy.WeekEndDate >= today)
+                    .FirstOrDefault();
+                if (current != null) { year ??= current.Year; week ??= current.Week; }
+            }
+
+            // ── 課程欄位結構（依 CourseDepartment → Course 排序）──
+            var departments = Model.DataContext.CourseDepartment
+                .Where(d => d.Type == StudentPopulationType.PH && !d.IsSum
+                         && d.Published && d.DataMode == DataMode.Normal)
+                .OrderBy(d => d.Ordinal)
+                .ToList();
+
+            var courses = Model.DataContext.Course
+                .Where(c => c.Type == StudentPopulationType.PH && !c.IsSum
+                         && c.Published && c.DataMode == DataMode.Normal)
+                .OrderBy(c => c.Ordinal)
+                .ToList();
+
+            // colDefs: 依顯示順序排列的 (班系, 課程) 組合
+            var colDefs = departments
+                .SelectMany(d => courses
+                    .Where(c => c.DepartmentId == d.Id)
+                    .Select(c => (dept: d, course: c)))
+                .ToList();
+
+            // ── 各分校各課程人數 key=(schoolId, courseId, classType) ──
+            var itemLookup = Model.DataContext.StudentPopulationItem
+                .Include(i => i.StudentPopulation)
+                .Include(i => i.Class).ThenInclude(cls => cls.Course)
+                .Where(i => i.StudentPopulation.Type == StudentPopulationType.PH
+                         && i.StudentPopulation.DataMode == DataMode.Normal
+                         && i.DataMode == DataMode.Normal
+                         && !i.Class.Course.IsSum
+                         && (!year.HasValue || i.StudentPopulation.Year == year)
+                         && (!week.HasValue || i.StudentPopulation.Week == week))
+                .AsNoTracking()
+                .AsEnumerable()
+                .GroupBy(i => (schoolId: i.StudentPopulation.SchoolId ?? 0,
+                               courseId: i.Class.Course.Id,
+                               classType: i.Class.Type))
+                .ToDictionary(g => g.Key, g => g.Sum(i => i.Number));
+
+            // ── 地區與分校 ──
+            var regions = Model.DataContext.Region
+                .Where(r => r.DataMode == DataMode.Normal)
+                .OrderBy(r => r.Ordinal)
+                .ToList();
+
+            var schools = Model.DataContext.School
+                .Where(s => s.Published && s.DataMode == DataMode.Normal && s.RegionId != null)
+                .OrderBy(s => s.Ordinal)
+                .ToList();
+
+            // ── NPOI 樣式工廠 ──
+            var wb = new XSSFWorkbook();
+
+            var boldFont   = wb.CreateFont();
+            boldFont.FontName = "Arial"; boldFont.FontHeightInPoints = 10; boldFont.IsBold = true;
+            var normalFont = wb.CreateFont();
+            normalFont.FontName = "Arial"; normalFont.FontHeightInPoints = 10;
+
+            NPOI.SS.UserModel.ICellStyle MkStyle(IFont font,
+                NPOI.SS.UserModel.HorizontalAlignment hAlign,
+                short fillColor = -1, bool wrap = false) {
+                var s = wb.CreateCellStyle();
+                s.SetFont(font);
+                s.Alignment = hAlign;
+                s.VerticalAlignment = NPOI.SS.UserModel.VerticalAlignment.Center;
+                if (fillColor >= 0) { s.FillForegroundColor = fillColor; s.FillPattern = FillPattern.SolidForeground; }
+                s.BorderTop = s.BorderBottom = s.BorderLeft = s.BorderRight = BorderStyle.Thin;
+                s.WrapText = wrap;
+                return s;
+            }
+
+            var sTitle   = MkStyle(boldFont,   NPOI.SS.UserModel.HorizontalAlignment.Center, IndexedColors.LightYellow.Index);
+            var sHeader  = MkStyle(boldFont,   NPOI.SS.UserModel.HorizontalAlignment.Center, IndexedColors.LightYellow.Index, wrap: true);
+            var sLeft    = MkStyle(normalFont, NPOI.SS.UserModel.HorizontalAlignment.Left);
+            var sCenter  = MkStyle(normalFont, NPOI.SS.UserModel.HorizontalAlignment.Center);
+            var sSubtL   = MkStyle(boldFont,   NPOI.SS.UserModel.HorizontalAlignment.Left,   IndexedColors.LightCornflowerBlue.Index);
+            var sSubtC   = MkStyle(boldFont,   NPOI.SS.UserModel.HorizontalAlignment.Center, IndexedColors.LightCornflowerBlue.Index);
+
+            static string ColLetter(int idx) => idx < 26
+                ? ((char)('A' + idx)).ToString()
+                : ((char)('A' + idx / 26 - 1)).ToString() + ((char)('A' + idx % 26)).ToString();
+
+            const int COL_SCHOOL = 0;
+            const int COL_MODE   = 1;
+            const int COL_DATA   = 2;
+
+            // 每分校兩列：小班(SubGroup) 和 三人班(V3)
+            var ctRows = new[] {
+                (ct: ClassType.SubGroup, label: "小"),
+                (ct: ClassType.V3,       label: "三"),
+            };
+
+            // ── 每個地區建立一個工作表 ──
+            foreach (var region in regions) {
+                var regionSchools = schools.Where(s => s.RegionId == region.Id).ToList();
+                if (!regionSchools.Any()) continue;
+
+                var sheet     = wb.CreateSheet(region.Name);
+                int totalCols = COL_DATA + colDefs.Count;
+
+                // 第 0 列：標題
+                {
+                    var row = sheet.CreateRow(0);
+                    var c   = row.CreateCell(0);
+                    c.SetCellValue($"百瀚英語{region.Name}分校人數統計表");
+                    c.CellStyle = sTitle;
+                    sheet.AddMergedRegion(new CellRangeAddress(0, 0, 0, totalCols - 1));
+                    for (int ci = 1; ci < totalCols; ci++) row.CreateCell(ci).CellStyle = sTitle;
+                }
+
+                // 第 1 列：班系標頭（CourseDepartment 名稱橫跨其課程欄）
+                {
+                    var row = sheet.CreateRow(1);
+                    // 校名 & 開班模式：跨第 1-2 列合併
+                    var c0 = row.CreateCell(COL_SCHOOL); c0.SetCellValue("校名/班別/人數"); c0.CellStyle = sHeader;
+                    sheet.AddMergedRegion(new CellRangeAddress(1, 2, COL_SCHOOL, COL_SCHOOL));
+                    var c1 = row.CreateCell(COL_MODE);   c1.SetCellValue("開班模式");       c1.CellStyle = sHeader;
+                    sheet.AddMergedRegion(new CellRangeAddress(1, 2, COL_MODE, COL_MODE));
+
+                    int offset = COL_DATA;
+                    foreach (var dept in departments) {
+                        var dc = colDefs.Where(x => x.dept.Id == dept.Id).ToList();
+                        if (!dc.Any()) continue;
+                        int s = offset, e = offset + dc.Count - 1;
+                        var cell = row.CreateCell(s); cell.SetCellValue(dept.Name); cell.CellStyle = sHeader;
+                        if (e > s) {
+                            sheet.AddMergedRegion(new CellRangeAddress(1, 1, s, e));
+                            for (int ci = s + 1; ci <= e; ci++) row.CreateCell(ci).CellStyle = sHeader;
+                        }
+                        offset += dc.Count;
+                    }
+                }
+
+                // 第 2 列：課程名稱
+                {
+                    var row = sheet.CreateRow(2);
+                    row.CreateCell(COL_SCHOOL).CellStyle = sHeader;
+                    row.CreateCell(COL_MODE).CellStyle   = sHeader;
+                    for (int ci = 0; ci < colDefs.Count; ci++) {
+                        var cell = row.CreateCell(COL_DATA + ci);
+                        cell.SetCellValue(colDefs[ci].course.Name);
+                        cell.CellStyle = sHeader;
+                    }
+                }
+
+                // 第 3 列起：每分校兩筆資料列
+                int rowIdx          = 3;
+                int dataStartExcel  = rowIdx + 1;   // Excel 列號從 1 起
+
+                foreach (var school in regionSchools) {
+                    int schoolSheetRow = rowIdx;
+
+                    for (int ri = 0; ri < ctRows.Length; ri++) {
+                        var (ct, label) = ctRows[ri];
+                        var row = sheet.CreateRow(rowIdx++);
+
+                        // 校名（第一列才設值，兩列合併）
+                        var nameCell = row.CreateCell(COL_SCHOOL);
+                        nameCell.CellStyle = sLeft;
+                        if (ri == 0) {
+                            nameCell.SetCellValue(school.Name);
+                            sheet.AddMergedRegion(new CellRangeAddress(
+                                schoolSheetRow, schoolSheetRow + ctRows.Length - 1,
+                                COL_SCHOOL, COL_SCHOOL));
+                        }
+
+                        // 開班模式
+                        var modeCell = row.CreateCell(COL_MODE);
+                        modeCell.SetCellValue(label);
+                        modeCell.CellStyle = sCenter;
+
+                        // 各課程人數
+                        for (int ci = 0; ci < colDefs.Count; ci++) {
+                            var cell  = row.CreateCell(COL_DATA + ci);
+                            int count = itemLookup.GetValueOrDefault(
+                                (schoolId: school.Id, courseId: colDefs[ci].course.Id, classType: ct), 0);
+                            cell.SetCellValue(count);
+                            cell.CellStyle = sCenter;
+                        }
+                    }
+                }
+
+                int dataEndExcel = rowIdx; // 最後一筆資料的 Excel 列號
+
+                // 小計列
+                {
+                    var row = sheet.CreateRow(rowIdx);
+                    var c0  = row.CreateCell(COL_SCHOOL); c0.SetCellValue("小計"); c0.CellStyle = sSubtL;
+                    sheet.AddMergedRegion(new CellRangeAddress(rowIdx, rowIdx, COL_SCHOOL, COL_MODE));
+                    row.CreateCell(COL_MODE).CellStyle = sSubtC;
+                    for (int ci = 0; ci < colDefs.Count; ci++) {
+                        int col  = COL_DATA + ci;
+                        var cell = row.CreateCell(col);
+                        cell.SetCellFormula($"SUM({ColLetter(col)}{dataStartExcel}:{ColLetter(col)}{dataEndExcel})");
+                        cell.CellStyle = sSubtC;
+                    }
+                }
+
+                // 欄寬
+                sheet.SetColumnWidth(COL_SCHOOL, 14 * 256);
+                sheet.SetColumnWidth(COL_MODE,    5 * 256);
+                for (int ci = 0; ci < colDefs.Count; ci++)
+                    sheet.SetColumnWidth(COL_DATA + ci, 8 * 256);
+
+                sheet.CreateFreezePane(COL_DATA, 3);
+            }
+
+            using var ms2 = new MemoryStream();
+            wb.Write(ms2);
+            var bytes2 = ms2.ToArray();
+
+            string yLabel = year.HasValue ? $"{year}學年度" : "全學年度";
+            string wLabel = week.HasValue ? $"第{week}週"   : "全週次";
+            string fname  = Uri.EscapeDataString($"百瀚人數表_{yLabel}{wLabel}.xlsx");
+            return File(bytes2,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                fname);
         }
 
         [HttpGet]
