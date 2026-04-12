@@ -158,9 +158,12 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
             if (year.HasValue)     query = query.Where(e => e.Year == year);
             if (week.HasValue)     query = query.Where(e => e.Week == week);
 
+            // 依班系類型排序，同類型再依分校順序/學年度/週次
             var data = query
-                .OrderByDescending(e => e.Year).ThenByDescending(e => e.Week)
+                .OrderBy(e => e.Type)
                 .ThenBy(e => e.School.Ordinal)
+                .ThenByDescending(e => e.Year)
+                .ThenByDescending(e => e.Week)
                 .ToList();
 
             var wb    = new XSSFWorkbook();
@@ -172,27 +175,27 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
             var normalFont = wb.CreateFont();
             normalFont.FontName = "Arial"; normalFont.FontHeightInPoints = 10;
 
-            ICellStyle HeaderStyle() {
+            NPOI.SS.UserModel.ICellStyle MakeStyle(IFont font,
+                NPOI.SS.UserModel.HorizontalAlignment align,
+                short fillColor = -1) {
                 var s = wb.CreateCellStyle();
-                s.SetFont(boldFont);
-                s.Alignment = HorizontalAlignment.Center;
-                s.FillForegroundColor = IndexedColors.LightYellow.Index;
-                s.FillPattern = FillPattern.SolidForeground;
-                s.BorderTop = s.BorderBottom = s.BorderLeft = s.BorderRight = BorderStyle.Thin;
-                return s;
-            }
-
-            ICellStyle DataStyle(HorizontalAlignment align = HorizontalAlignment.Left) {
-                var s = wb.CreateCellStyle();
-                s.SetFont(normalFont);
+                s.SetFont(font);
                 s.Alignment = align;
+                if (fillColor >= 0) {
+                    s.FillForegroundColor = fillColor;
+                    s.FillPattern = FillPattern.SolidForeground;
+                }
                 s.BorderTop = s.BorderBottom = s.BorderLeft = s.BorderRight = BorderStyle.Thin;
                 return s;
             }
 
-            var hStyle  = HeaderStyle();
-            var dLeft   = DataStyle();
-            var dCenter = DataStyle(HorizontalAlignment.Center);
+            var hStyle     = MakeStyle(boldFont,   NPOI.SS.UserModel.HorizontalAlignment.Center, IndexedColors.LightYellow.Index);
+            var dLeft      = MakeStyle(normalFont, NPOI.SS.UserModel.HorizontalAlignment.Left);
+            var dCenter    = MakeStyle(normalFont, NPOI.SS.UserModel.HorizontalAlignment.Center);
+            var subtLeft   = MakeStyle(boldFont,   NPOI.SS.UserModel.HorizontalAlignment.Left,   IndexedColors.LightCornflowerBlue.Index);
+            var subtCenter = MakeStyle(boldFont,   NPOI.SS.UserModel.HorizontalAlignment.Center, IndexedColors.LightCornflowerBlue.Index);
+            var totLeft    = MakeStyle(boldFont,   NPOI.SS.UserModel.HorizontalAlignment.Left,   IndexedColors.LightOrange.Index);
+            var totCenter  = MakeStyle(boldFont,   NPOI.SS.UserModel.HorizontalAlignment.Center, IndexedColors.LightOrange.Index);
 
             // ── 表頭 ──
             var headers = new[] { "識別碼", "分校", "學年度", "週次", "類型", "狀態", "名稱", "詢問人數", "送出時間", "建立時間" };
@@ -203,7 +206,6 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
                 c.CellStyle = hStyle;
             }
 
-            // ── 資料列 ──
             static string TypeName(StudentPopulationType t) => t switch {
                 StudentPopulationType.PH          => "百瀚 (PH)",
                 StudentPopulationType.PSJ         => "百倍數 (PSJ)",
@@ -222,27 +224,81 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
                 _                                  => s.ToString()
             };
 
+            // 將欄位索引轉為 Excel 欄位字母（0-indexed → A, B, ... Z, AA, ...）
+            static string ColLetter(int idx) => idx < 26
+                ? ((char)('A' + idx)).ToString()
+                : ((char)('A' + idx / 26 - 1)).ToString() + ((char)('A' + idx % 26)).ToString();
+
+            const int NumericCol = 7; // 詢問人數 (H 欄)
+            var subtotalExcelRows = new List<int>();
             int rowIdx = 1;
-            foreach (var sp in data) {
-                var row = sheet.CreateRow(rowIdx++);
-                void SetNum(int col, long val)    { var c = row.CreateCell(col); c.SetCellValue(val); c.CellStyle = dCenter; }
-                void SetStr(int col, string val)  { var c = row.CreateCell(col); c.SetCellValue(val); c.CellStyle = dLeft;   }
-                void SetDate(int col, DateTime? val) {
-                    var c = row.CreateCell(col);
-                    c.SetCellValue(val.HasValue ? val.Value.ToString("yyyy/MM/dd HH:mm") : "");
-                    c.CellStyle = dCenter;
+
+            // ── 資料列（依班系類型分組，每組末尾插入合計列）──
+            foreach (var group in data.GroupBy(e => e.Type)) {
+                int groupStartExcelRow = rowIdx + 1; // Excel 列號從 1 起，+1 跳過表頭
+
+                foreach (var sp in group) {
+                    var row = sheet.CreateRow(rowIdx++);
+                    void SetNum(int col, long val)    { var c = row.CreateCell(col); c.SetCellValue(val); c.CellStyle = dCenter; }
+                    void SetStr(int col, string val)  { var c = row.CreateCell(col); c.SetCellValue(val); c.CellStyle = dLeft;   }
+                    void SetDate(int col, DateTime? val) {
+                        var c = row.CreateCell(col);
+                        c.SetCellValue(val.HasValue ? val.Value.ToString("yyyy/MM/dd HH:mm") : "");
+                        c.CellStyle = dCenter;
+                    }
+
+                    SetNum(0,  sp.Id);
+                    SetStr(1,  sp.School?.Name ?? "");
+                    SetNum(2,  sp.Year);
+                    SetNum(3,  sp.Week);
+                    SetStr(4,  TypeName(sp.Type));
+                    SetStr(5,  StatusName(sp.Status));
+                    SetStr(6,  sp.Name ?? "");
+                    SetNum(7,  sp.TotalInquiryCount);
+                    SetDate(8, sp.SubmitterTime);
+                    SetDate(9, sp.CreatedTime);
                 }
 
-                SetNum(0,  sp.Id);
-                SetStr(1,  sp.School?.Name ?? "");
-                SetNum(2,  sp.Year);
-                SetNum(3,  sp.Week);
-                SetStr(4,  TypeName(sp.Type));
-                SetStr(5,  StatusName(sp.Status));
-                SetStr(6,  sp.Name ?? "");
-                SetNum(7,  sp.TotalInquiryCount);
-                SetDate(8, sp.SubmitterTime);
-                SetDate(9, sp.CreatedTime);
+                int groupEndExcelRow = rowIdx; // 最後一筆資料列的 Excel 列號
+
+                // 班系類型合計列
+                var subtRow = sheet.CreateRow(rowIdx);
+                int subtExcelRow = rowIdx + 1;
+                subtotalExcelRows.Add(subtExcelRow);
+                rowIdx++;
+
+                for (int ci = 0; ci < headers.Length; ci++) {
+                    var cell = subtRow.CreateCell(ci);
+                    if (ci == 4) {
+                        cell.SetCellValue($"{TypeName(group.Key)} 合計");
+                        cell.CellStyle = subtLeft;
+                    } else if (ci == NumericCol) {
+                        cell.SetCellFormula($"SUM({ColLetter(ci)}{groupStartExcelRow}:{ColLetter(ci)}{groupEndExcelRow})");
+                        cell.CellStyle = subtCenter;
+                    } else {
+                        cell.SetCellValue("");
+                        cell.CellStyle = subtCenter;
+                    }
+                }
+            }
+
+            // ── 總計列 ──
+            if (subtotalExcelRows.Count > 0) {
+                var totalRow = sheet.CreateRow(rowIdx);
+                for (int ci = 0; ci < headers.Length; ci++) {
+                    var cell = totalRow.CreateCell(ci);
+                    if (ci == 4) {
+                        cell.SetCellValue("總計");
+                        cell.CellStyle = totLeft;
+                    } else if (ci == NumericCol) {
+                        string sumArgs = string.Join(",", subtotalExcelRows.Select(r => $"{ColLetter(ci)}{r}"));
+                        cell.SetCellFormula($"SUM({sumArgs})");
+                        cell.CellStyle = totCenter;
+                    } else {
+                        cell.SetCellValue("");
+                        cell.CellStyle = totCenter;
+                    }
+                }
             }
 
             // ── 欄寬 ──
