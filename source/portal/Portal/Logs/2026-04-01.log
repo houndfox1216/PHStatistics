@@ -1,0 +1,15 @@
+2026-04-01 08:30:02.4466[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-04-01 08:30:02.4466[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-04-01 08:30:02.6319[16]  INFO MemberController  Member Login account: password: 
+2026-04-01 08:31:18.5191[19]  INFO MemberController  Member Login account:raybozhi password:0983802836 
+2026-04-01 08:32:00.6997[27]  INFO MemberController  Member Login account:raybozhi password:0983802836 
+2026-04-01 08:40:14.0486[43]  INFO MemberController  Member Login account:raybozhi password:0983802836 
+2026-04-01 08:40:46.5202[46]  INFO MemberController  Member Login account:raybozhi password:0983802836 
+2026-04-01 08:41:28.9977[49]  INFO MemberController  Member Login account:raybozhi password:0983802836 
+2026-04-01 08:41:30.7973[49]  INFO MemberController  進行登入 
+2026-04-01 08:41:30.9360[49]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-04-01 08:41:31.1481[52]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-04-01 08:41:31.1481[52]  INFO HomeController  進入首頁
+2026-04-01 08:41:35.4083[54]  INFO StudentPopulationController  進入首頁(MainMenu)
+2026-04-01 08:41:35.4083[54]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id bbe5d850-222a-4296-70ef-08de8e095650
+2026-04-01 08:42:30.7701[54]  INFO MemberController  Member Login account: password: 

@@ -1,0 +1,28 @@
+2026-04-12 11:25:06.1083[15]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-04-12 11:25:06.1169[15]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-04-12 11:25:06.2378[19]  INFO MemberController  Member Login account: password: 
+2026-04-12 11:25:51.1486[20]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-04-12 11:25:51.2367[20]  INFO MemberController  進行登入 
+2026-04-12 11:25:51.3921[20]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-04-12 11:25:51.5616[20]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-04-12 11:25:51.5616[20]  INFO HomeController  進入首頁
+2026-04-12 12:17:56.6913[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-04-12 12:17:56.6986[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-04-12 12:17:56.8393[17]  INFO MemberController  Member Login account: password: 
+2026-04-12 12:18:49.9882[26]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-04-12 12:18:50.0890[26]  INFO MemberController  進行登入 
+2026-04-12 12:18:50.2291[26]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-04-12 12:18:50.3981[26]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-04-12 12:18:50.3981[26]  INFO HomeController  進入首頁
+2026-04-12 12:57:09.9235[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-04-12 12:57:09.9317[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-04-12 12:57:10.0294[7]  INFO MemberController  Member Login account: password: 
+2026-04-12 12:58:42.4806[20]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-04-12 12:58:42.5217[20]  INFO MemberController  進行登入 
+2026-04-12 12:58:42.5350[20]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-04-12 12:58:42.5696[24]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-04-12 12:58:42.5696[24]  INFO HomeController  進入首頁
+2026-04-12 12:59:48.1397[13]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-04-12 12:59:48.1501[13]  INFO HomeController  進入首頁
+2026-04-12 13:02:23.2115[30]  INFO StudentPopulationController  進入首頁(MainMenu)
+2026-04-12 13:02:23.2115[30]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
