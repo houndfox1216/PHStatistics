@@ -109,6 +109,8 @@
 
     var currentEditMemberId = null;
     var currentIsNew = false;
+    var memberEditPopup = null;
+    var memberPopupFullscreenBtnAdded = false;
 
     function onMemberEditingStart(e) {
         currentEditMemberId = e.data ? e.data.Id : null;
@@ -116,11 +118,38 @@
     }
 
     function onMemberPopupShown(e) {
+        memberEditPopup = e.component;
+
+        // 第一次開啟時啟用 resizable 並加入全螢幕切換按鈕
+        if (!memberPopupFullscreenBtnAdded) {
+            memberPopupFullscreenBtnAdded = true;
+            e.component.option("resizable", true);
+            var toolbarItems = e.component.option("toolbarItems") || [];
+            toolbarItems.push({
+                toolbar: "top",
+                location: "after",
+                widget: "dxButton",
+                options: {
+                    icon: "fullscreen",
+                    hint: "全螢幕",
+                    onClick: function (btnEvt) {
+                        var isFs = memberEditPopup.option("fullScreen");
+                        memberEditPopup.option("fullScreen", !isFs);
+                        btnEvt.component.option("icon", isFs ? "fullscreen" : "exitfullscreen");
+                    }
+                }
+            });
+            e.component.option("toolbarItems", toolbarItems);
+        }
+
         var $content = $(e.component.content());
+        // 若 popup 內有 ScrollView，需 append 到可捲動區域內，否則會落在 Save/Cancel 按鈕下方
+        var $scrollArea = $content.find(".dx-scrollview-content");
+        var $appendTarget = $scrollArea.length ? $scrollArea : $content;
 
         // 第一次開啟時建立容器
         if (!$content.find("#popupAssignmentSection").length) {
-            $content.append(
+            $appendTarget.append(
                 '<div id="popupAssignmentSection" class="mt-3 px-3 pb-3">' +
                     '<p class="mb-1 fw-semibold">分校指派</p>' +
                     '<div id="popupSchoolGrid"></div>' +
