@@ -1743,7 +1743,7 @@ namespace PHStatistics.Portal.Controllers {
                 "AS"   => $"{year}年第{week}週課輔人數表",
                 _      => $"{year}年第{week}週人數表"
             };
-            string fileName = Uri.EscapeDataString($"{title}.xlsx");
+            string fileName = $"{title}.xlsx";
             return File(bytes,
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 fileName);

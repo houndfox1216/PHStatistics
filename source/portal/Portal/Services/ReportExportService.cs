@@ -98,8 +98,8 @@ public class ReportExportService {
 
     // ── PH ───────────────────────────────────────────────────────────────────
     // Row 0: 標題
-    // Rows 1-3: col 0 = 分校（跨3行合併）、col 1 = 類型（跨3行合併）、col 2+ = 科別/課程
-    // Row 4+: 每校兩列（「小」= SubGroup、「三」= V3），col 0 合併
+    // Rows 1-3: col 0=分校(合併3列)、col 1=類型(合併3列)、col 2+=科別→課程，每科末尾加「合計」欄
+    // Row 4+: 每校兩列（小=SubGroup、三=V3），各科末自動加總
 
     private static void BuildSheetPH(ISheet sheet,
         List<StudentPopulation> populations, List<Course> courses,
@@ -108,15 +108,37 @@ public class ReportExportService {
         sheet.CreateRow(0).CreateCell(0).SetCellValue(title);
 
         var r1 = sheet.CreateRow(1);
-        var r2 = sheet.CreateRow(2);
+        sheet.CreateRow(2);
         var r3 = sheet.CreateRow(3);
         r1.CreateCell(0).SetCellValue("分校");
         r1.CreateCell(1).SetCellValue("類型");
         try { sheet.AddMergedRegion(new CellRangeAddress(1, 3, 0, 0)); } catch { }
         try { sheet.AddMergedRegion(new CellRangeAddress(1, 3, 1, 1)); } catch { }
 
-        WritePhHeaders(sheet, r1, r3, courses);
+        var deptGroups = courses
+            .Where(c => !c.IsSum)
+            .GroupBy(c => c.Department.Id)
+            .Select(g => (dept: g.First().Department, list: g.ToList()))
+            .ToList();
 
+        // 表頭：Row 1 = 班系名稱（含合計欄合併），Row 3 = 課程名稱 + "合計"
+        int col = 2;
+        foreach (var (dept, list) in deptGroups) {
+            int deptStart = col;
+            foreach (var c in list) {
+                r3.CreateCell(col).SetCellValue(c.Name);
+                sheet.SetColumnWidth(col, 4 * 256);
+                col++;
+            }
+            r3.CreateCell(col).SetCellValue("合計");
+            sheet.SetColumnWidth(col, 4 * 256);
+            col++;
+            r1.CreateCell(deptStart).SetCellValue(dept.Name);
+            if (col - 1 > deptStart)
+                try { sheet.AddMergedRegion(new CellRangeAddress(1, 1, deptStart, col - 1)); } catch { }
+        }
+
+        // 資料列：每校兩列（小/三），每班系末附加小計
         int rowIdx = 4;
         foreach (var pop in populations) {
             var sgRow = sheet.CreateRow(rowIdx);
@@ -127,16 +149,18 @@ public class ReportExportService {
             v3Row.CreateCell(1).SetCellValue("三");
             try { sheet.AddMergedRegion(new CellRangeAddress(rowIdx, rowIdx + 1, 0, 0)); } catch { }
 
-            int col = 2;
-            foreach (var c in courses) {
-                int sg = c.IsSum
-                    ? ComputeIsumValue(c, pop.Items, ClassType.SubGroup)
-                    : pop.Items.Where(i => i.Class?.CourseId == c.Id && i.Class?.Type == ClassType.SubGroup).Sum(i => i.Number);
-                int v3 = c.IsSum
-                    ? ComputeIsumValue(c, pop.Items, ClassType.V3)
-                    : pop.Items.Where(i => i.Class?.CourseId == c.Id && i.Class?.Type == ClassType.V3).Sum(i => i.Number);
-                if (sg > 0) sgRow.CreateCell(col).SetCellValue(sg);
-                if (v3 > 0) v3Row.CreateCell(col).SetCellValue(v3);
+            col = 2;
+            foreach (var (dept, list) in deptGroups) {
+                int sgTotal = 0, v3Total = 0;
+                foreach (var c in list) {
+                    int sg = pop.Items.Where(i => i.Class?.CourseId == c.Id && i.Class?.Type == ClassType.SubGroup).Sum(i => i.Number);
+                    int v3 = pop.Items.Where(i => i.Class?.CourseId == c.Id && i.Class?.Type == ClassType.V3).Sum(i => i.Number);
+                    if (sg > 0) { sgRow.CreateCell(col).SetCellValue(sg); sgTotal += sg; }
+                    if (v3 > 0) { v3Row.CreateCell(col).SetCellValue(v3); v3Total += v3; }
+                    col++;
+                }
+                if (sgTotal > 0) sgRow.CreateCell(col).SetCellValue(sgTotal);
+                if (v3Total > 0) v3Row.CreateCell(col).SetCellValue(v3Total);
                 col++;
             }
             rowIdx += 2;
@@ -144,8 +168,7 @@ public class ReportExportService {
     }
 
     // ── GEPT ──────────────────────────────────────────────────────────────────
-    // Row 0: 標題
-    // Rows 1-3: 同 PH 但無「類型」欄，每校一列（General）
+    // Row 0: 標題；Rows 1-3: 同 PH 但無「類型」欄；每校一列，每班系末加合計
 
     private static void BuildSheetGEPT(ISheet sheet,
         List<StudentPopulation> populations, List<Course> courses,
@@ -154,32 +177,53 @@ public class ReportExportService {
         sheet.CreateRow(0).CreateCell(0).SetCellValue($"{year}年第{week}週英檢人數表");
 
         var r1 = sheet.CreateRow(1);
-        var r2 = sheet.CreateRow(2);
+        sheet.CreateRow(2);
         var r3 = sheet.CreateRow(3);
         r1.CreateCell(0).SetCellValue("分校");
         try { sheet.AddMergedRegion(new CellRangeAddress(1, 3, 0, 0)); } catch { }
 
-        WritePhHeaders(sheet, r1, r3, courses, dataColStart: 2);
+        var deptGroups = courses
+            .Where(c => !c.IsSum)
+            .GroupBy(c => c.Department.Id)
+            .Select(g => (dept: g.First().Department, list: g.ToList()))
+            .ToList();
+
+        int col = 2;
+        foreach (var (dept, list) in deptGroups) {
+            int deptStart = col;
+            foreach (var c in list) {
+                r3.CreateCell(col).SetCellValue(c.Name);
+                sheet.SetColumnWidth(col, 4 * 256);
+                col++;
+            }
+            r3.CreateCell(col).SetCellValue("合計");
+            sheet.SetColumnWidth(col, 4 * 256);
+            col++;
+            r1.CreateCell(deptStart).SetCellValue(dept.Name);
+            if (col - 1 > deptStart)
+                try { sheet.AddMergedRegion(new CellRangeAddress(1, 1, deptStart, col - 1)); } catch { }
+        }
 
         int rowIdx = 4;
         foreach (var pop in populations) {
             var row = sheet.CreateRow(rowIdx++);
             row.CreateCell(0).SetCellValue(pop.School?.Name ?? "");
-            int col = 2;
-            foreach (var c in courses) {
-                int sum = c.IsSum
-                    ? ComputeIsumValue(c, pop.Items, null)
-                    : pop.Items.Where(i => i.Class?.CourseId == c.Id).Sum(i => i.Number);
-                if (sum > 0) row.CreateCell(col).SetCellValue(sum);
+            col = 2;
+            foreach (var (dept, list) in deptGroups) {
+                int total = 0;
+                foreach (var c in list) {
+                    int sum = pop.Items.Where(i => i.Class?.CourseId == c.Id).Sum(i => i.Number);
+                    if (sum > 0) { row.CreateCell(col).SetCellValue(sum); total += sum; }
+                    col++;
+                }
+                if (total > 0) row.CreateCell(col).SetCellValue(total);
                 col++;
             }
         }
     }
 
     // ── PS ───────────────────────────────────────────────────────────────────
-    // Row 0: 標題
-    // Row 1: col 0 空白、col 1+ = Course.Name
-    // Row 2+: col 0 = 分校名稱、col 1+ = 人數
+    // Row 0: 標題；Row 1: 課程名稱（每班系末加「合計」）；Row 2+: 資料
 
     private static void BuildSheetPS(ISheet sheet,
         List<StudentPopulation> populations, List<Course> courses,
@@ -187,11 +231,22 @@ public class ReportExportService {
 
         sheet.CreateRow(0).CreateCell(0).SetCellValue($"{year}年第{week}週百世人數表");
 
+        var deptGroups = courses
+            .Where(c => !c.IsSum)
+            .GroupBy(c => c.Department.Id)
+            .Select(g => (dept: g.First().Department, list: g.ToList()))
+            .ToList();
+
         var hdr = sheet.CreateRow(1);
         hdr.CreateCell(0).SetCellValue("");
         int col = 1;
-        foreach (var c in courses) {
-            hdr.CreateCell(col).SetCellValue(c.Name);
+        foreach (var (dept, list) in deptGroups) {
+            foreach (var c in list) {
+                hdr.CreateCell(col).SetCellValue(c.Name);
+                sheet.SetColumnWidth(col, 4 * 256);
+                col++;
+            }
+            hdr.CreateCell(col).SetCellValue("合計");
             sheet.SetColumnWidth(col, 4 * 256);
             col++;
         }
@@ -201,11 +256,14 @@ public class ReportExportService {
             var row = sheet.CreateRow(rowIdx++);
             row.CreateCell(0).SetCellValue(pop.School?.Name ?? "");
             col = 1;
-            foreach (var c in courses) {
-                int sum = c.IsSum
-                    ? ComputeIsumValue(c, pop.Items, null)
-                    : pop.Items.Where(i => i.Class?.CourseId == c.Id).Sum(i => i.Number);
-                if (sum > 0) row.CreateCell(col).SetCellValue(sum);
+            foreach (var (dept, list) in deptGroups) {
+                int total = 0;
+                foreach (var c in list) {
+                    int sum = pop.Items.Where(i => i.Class?.CourseId == c.Id).Sum(i => i.Number);
+                    if (sum > 0) { row.CreateCell(col).SetCellValue(sum); total += sum; }
+                    col++;
+                }
+                if (total > 0) row.CreateCell(col).SetCellValue(total);
                 col++;
             }
         }
@@ -342,27 +400,6 @@ public class ReportExportService {
     private static int[] TryParseIntArray(string json) {
         try { return JsonSerializer.Deserialize<int[]>(json) ?? Array.Empty<int>(); }
         catch { return Array.Empty<int>(); }
-    }
-
-    // 寫入 PH/GEPT 的科別（row1）與課程（row3）表頭，並合併同科別欄位
-    private static void WritePhHeaders(ISheet sheet, IRow r1, IRow r3,
-        List<Course> courses, int dataColStart = 2) {
-
-        int col = dataColStart, deptStart = dataColStart, lastDeptId = 0;
-        foreach (var c in courses) {
-            if (c.Department.Id != lastDeptId) {
-                if (lastDeptId != 0 && col > deptStart)
-                    try { sheet.AddMergedRegion(new CellRangeAddress(1, 1, deptStart, col - 1)); } catch { }
-                r1.CreateCell(col).SetCellValue(c.Department.Name);
-                lastDeptId = c.Department.Id;
-                deptStart  = col;
-            }
-            r3.CreateCell(col).SetCellValue(c.Name);
-            sheet.SetColumnWidth(col, 4 * 256);
-            col++;
-        }
-        if (lastDeptId != 0 && col > deptStart + 1)
-            try { sheet.AddMergedRegion(new CellRangeAddress(1, 1, deptStart, col - 1)); } catch { }
     }
 
     private static void WriteGradeHeader(ISheet sheet, int rowIdx, string[] codes) {
