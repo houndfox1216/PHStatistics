@@ -143,13 +143,14 @@
         }
 
         var $content = $(e.component.content());
-        // 若 popup 內有 ScrollView，需 append 到可捲動區域內，否則會落在 Save/Cancel 按鈕下方
-        var $scrollArea = $content.find(".dx-scrollview-content");
-        var $appendTarget = $scrollArea.length ? $scrollArea : $content;
+        // scrollingEnabled 預設 false → content 為 overflow:hidden，需手動啟用捲動
+        // 同時將 DevExtreme 自動生成的 form 改為 auto 高度，消除下方大片空白
+        $content.css("overflow-y", "auto");
+        $content.find(".dx-form").first().css("height", "auto");
 
         // 第一次開啟時建立容器
         if (!$content.find("#popupAssignmentSection").length) {
-            $appendTarget.append(
+            $content.append(
                 '<div id="popupAssignmentSection" class="mt-3 px-3 pb-3">' +
                     '<p class="mb-1 fw-semibold">分校指派</p>' +
                     '<div id="popupSchoolGrid"></div>' +
