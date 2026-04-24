@@ -2,70 +2,93 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using NPOI.SS.UserModel;
 using NPOI.SS.Util;
 using NPOI.XSSF.UserModel;
 using PHStatistics.Content;
-using PHStatistics.Portal.Services.Report;
 
 namespace PHStatistics.Portal.Services;
 
 /// <summary>
-/// 人數統計報表匯出服務。
-/// 依照 StudentPopulationType 產生對應的 Excel 報表（原手填格式）。
-///
-/// 欄位規則：
-///   - IsSum=false 的課程 → 資料欄（Data），欄數依各分校實際班級數動態決定
-///   - IsSum=true  的課程 → 計算欄（Sum），值來自 StudentPopulationItem.IsSum 項目
-///
-/// 班別（ClassType）規則：
-///   - Personal (EM1)：個別指導，一對一，值=人數=班級數，一個課程固定 1 欄
-///   - SubGroup  (小)：小組班，一欄一班，值=該班人數
-///   - V3        (三)：三人班，一欄一班，值=該班人數
-///   當分校增班（人數達上限）時，相同課程下新增一欄
+/// 人數表匯出服務，產生與匯入格式完全相容的 Excel 檔案。
 /// </summary>
 public class ReportExportService {
     private readonly DataContext _context;
 
     public ReportExportService() => _context = new DataContext();
 
-    // ─────────────────────────── 主入口 ───────────────────────────
+    // ── PSJ / AS 對照表（與 HomeController 保持一致）─────────────────────────
 
-    /// <summary>
-    /// 匯出報表
-    /// </summary>
-    /// <param name="type">報表類型（PH/GEPT/PS/PSJ/AfterSchool）</param>
-    /// <param name="year">學年度</param>
-    /// <param name="week">週次</param>
+    private static readonly string[] _gradeOrder = {
+        "一年級","二年級","三年級","四年級","五年級","六年級",
+        "國一","國二","國三","高一","高二","高三"
+    };
+
+    private static readonly Dictionary<string, int[]> _psjCourseIds = new() {
+        ["MP"] = new[] {145,146,147,148,149,150,151,152,153,154,155,156},
+        ["MS"] = new[] {145,146,147,148,149,150,151,152,153,154,155,156},
+        ["SP"] = new[] {195,196,197,198,199,200,201,202,203,204,205,206},
+        ["SS"] = new[] {195,196,197,198,199,200,201,202,203,204,205,206},
+        ["N"]  = new[] {171,172,173,174,175,176,177,178,179,180,181,182},
+        ["L"]  = new[] {183,184,185,186,187,188,189,190,191,192,193,194},
+        ["W"]  = new[] {159,160,161,162,163,164,165,166,167,168,169,170},
+    };
+
+    private static readonly Dictionary<string, int[]> _asCourseIds = new() {
+        ["AS"] = new[] {245,246,247,248,249,250,251,252,253,254,255,256},
+        ["EP"] = new[] {295,296,297,298,299,300,301,302,303,305,306,307},
+        ["EG"] = new[] {295,296,297,298,299,300,301,302,303,305,306,307},
+        ["N"]  = new[] {271,272,273,274,275,276,277,278,279,280,281,282},
+        ["L"]  = new[] {283,284,285,286,287,288,289,290,291,292,293,294},
+        ["W"]  = new[] {259,260,261,262,263,264,265,266,267,268,269,270},
+    };
+
+    private static ClassType PsjColType(string code) => code switch {
+        "MP" or "SP" => ClassType.Personal,
+        "MS" or "SS" => ClassType.SubGroup,
+        _ => ClassType.General,
+    };
+
+    private static ClassType AsColType(string code) => code switch {
+        "EP" or "MP" or "SP" => ClassType.Personal,
+        "ES" or "MS" or "SS" => ClassType.SubGroup,
+        _ => ClassType.General,
+    };
+
+    // ── 主入口 ───────────────────────────────────────────────────────────────
+
     /// <param name="schoolIds">限定分校 Id（null = 所有分校）</param>
     public byte[] Export(StudentPopulationType type, int year, int week,
                           IList<int> schoolIds = null) {
         var populations = LoadPopulations(type, year, week, schoolIds);
         if (populations.Count == 0) return Array.Empty<byte>();
 
-        var courses = LoadCourses(type);
-        var columns = BuildColumns(courses, populations);
+        var wb    = new XSSFWorkbook();
+        var sheet = wb.CreateSheet("Sheet1");
 
-        var wb     = new XSSFWorkbook();
-        var styles = CreateStyles(wb);
+        var courses = (type == StudentPopulationType.PSJ || type == StudentPopulationType.AfterSchool)
+            ? null
+            : LoadCourses(type);
 
-        // 多分校：依區域分 Sheet；單分校：直接一個 Sheet
-        bool isMultiSchool = schoolIds == null || schoolIds.Count > 1;
-        if (isMultiSchool) {
-            var byRegion = populations
-                .GroupBy(p => p.School?.Region?.Name ?? "未分區")
-                .OrderBy(g => g.Min(p => p.School?.Region?.Ordinal ?? 999));
-
-            int page = 1;
-            foreach (var grp in byRegion) {
-                string title = BuildTitle(type, grp.Key, year, week, page++);
-                BuildSheet(wb, grp.Key, title, columns, grp.ToList(), styles, isMultiSchool);
-            }
-        } else {
-            var school = populations.First().School;
-            string title = BuildTitle(type, school?.Name ?? "", year, week, 1);
-            BuildSheet(wb, school?.Name ?? "報表", title, columns, populations, styles, false);
+        switch (type) {
+            case StudentPopulationType.PH:
+                BuildSheetPH(sheet, populations, courses, year, week,
+                    $"{year}年第{week}週百瀚英語全國人數表");
+                break;
+            case StudentPopulationType.GEPT:
+                BuildSheetGEPT(sheet, populations, courses, year, week);
+                break;
+            case StudentPopulationType.PS:
+                BuildSheetPS(sheet, populations, courses, year, week);
+                break;
+            case StudentPopulationType.PSJ:
+                BuildSheetPSJ(sheet, populations, year, week);
+                break;
+            case StudentPopulationType.AfterSchool:
+                BuildSheetAS(sheet, populations, year, week);
+                break;
         }
 
         using var ms = new MemoryStream();
@@ -73,11 +96,301 @@ public class ReportExportService {
         return ms.ToArray();
     }
 
-    // ─────────────────────────── 資料查詢 ───────────────────────────
+    // ── PH ───────────────────────────────────────────────────────────────────
+    // Row 0: 標題
+    // Rows 1-3: col 0 = 分校（跨3行合併）、col 1 = 類型（跨3行合併）、col 2+ = 科別/課程
+    // Row 4+: 每校兩列（「小」= SubGroup、「三」= V3），col 0 合併
+
+    private static void BuildSheetPH(ISheet sheet,
+        List<StudentPopulation> populations, List<Course> courses,
+        int year, int week, string title) {
+
+        sheet.CreateRow(0).CreateCell(0).SetCellValue(title);
+
+        var r1 = sheet.CreateRow(1);
+        var r2 = sheet.CreateRow(2);
+        var r3 = sheet.CreateRow(3);
+        r1.CreateCell(0).SetCellValue("分校");
+        r1.CreateCell(1).SetCellValue("類型");
+        try { sheet.AddMergedRegion(new CellRangeAddress(1, 3, 0, 0)); } catch { }
+        try { sheet.AddMergedRegion(new CellRangeAddress(1, 3, 1, 1)); } catch { }
+
+        WritePhHeaders(sheet, r1, r3, courses);
+
+        int rowIdx = 4;
+        foreach (var pop in populations) {
+            var sgRow = sheet.CreateRow(rowIdx);
+            var v3Row = sheet.CreateRow(rowIdx + 1);
+            sgRow.CreateCell(0).SetCellValue(pop.School?.Name ?? "");
+            sgRow.CreateCell(1).SetCellValue("小");
+            v3Row.CreateCell(0).SetCellValue("");
+            v3Row.CreateCell(1).SetCellValue("三");
+            try { sheet.AddMergedRegion(new CellRangeAddress(rowIdx, rowIdx + 1, 0, 0)); } catch { }
+
+            int col = 2;
+            foreach (var c in courses) {
+                int sg = c.IsSum
+                    ? ComputeIsumValue(c, pop.Items, ClassType.SubGroup)
+                    : pop.Items.Where(i => i.Class?.CourseId == c.Id && i.Class?.Type == ClassType.SubGroup).Sum(i => i.Number);
+                int v3 = c.IsSum
+                    ? ComputeIsumValue(c, pop.Items, ClassType.V3)
+                    : pop.Items.Where(i => i.Class?.CourseId == c.Id && i.Class?.Type == ClassType.V3).Sum(i => i.Number);
+                if (sg > 0) sgRow.CreateCell(col).SetCellValue(sg);
+                if (v3 > 0) v3Row.CreateCell(col).SetCellValue(v3);
+                col++;
+            }
+            rowIdx += 2;
+        }
+    }
+
+    // ── GEPT ──────────────────────────────────────────────────────────────────
+    // Row 0: 標題
+    // Rows 1-3: 同 PH 但無「類型」欄，每校一列（General）
+
+    private static void BuildSheetGEPT(ISheet sheet,
+        List<StudentPopulation> populations, List<Course> courses,
+        int year, int week) {
+
+        sheet.CreateRow(0).CreateCell(0).SetCellValue($"{year}年第{week}週英檢人數表");
+
+        var r1 = sheet.CreateRow(1);
+        var r2 = sheet.CreateRow(2);
+        var r3 = sheet.CreateRow(3);
+        r1.CreateCell(0).SetCellValue("分校");
+        try { sheet.AddMergedRegion(new CellRangeAddress(1, 3, 0, 0)); } catch { }
+
+        WritePhHeaders(sheet, r1, r3, courses, dataColStart: 2);
+
+        int rowIdx = 4;
+        foreach (var pop in populations) {
+            var row = sheet.CreateRow(rowIdx++);
+            row.CreateCell(0).SetCellValue(pop.School?.Name ?? "");
+            int col = 2;
+            foreach (var c in courses) {
+                int sum = c.IsSum
+                    ? ComputeIsumValue(c, pop.Items, null)
+                    : pop.Items.Where(i => i.Class?.CourseId == c.Id).Sum(i => i.Number);
+                if (sum > 0) row.CreateCell(col).SetCellValue(sum);
+                col++;
+            }
+        }
+    }
+
+    // ── PS ───────────────────────────────────────────────────────────────────
+    // Row 0: 標題
+    // Row 1: col 0 空白、col 1+ = Course.Name
+    // Row 2+: col 0 = 分校名稱、col 1+ = 人數
+
+    private static void BuildSheetPS(ISheet sheet,
+        List<StudentPopulation> populations, List<Course> courses,
+        int year, int week) {
+
+        sheet.CreateRow(0).CreateCell(0).SetCellValue($"{year}年第{week}週百世人數表");
+
+        var hdr = sheet.CreateRow(1);
+        hdr.CreateCell(0).SetCellValue("");
+        int col = 1;
+        foreach (var c in courses) {
+            hdr.CreateCell(col).SetCellValue(c.Name);
+            sheet.SetColumnWidth(col, 4 * 256);
+            col++;
+        }
+
+        int rowIdx = 2;
+        foreach (var pop in populations) {
+            var row = sheet.CreateRow(rowIdx++);
+            row.CreateCell(0).SetCellValue(pop.School?.Name ?? "");
+            col = 1;
+            foreach (var c in courses) {
+                int sum = c.IsSum
+                    ? ComputeIsumValue(c, pop.Items, null)
+                    : pop.Items.Where(i => i.Class?.CourseId == c.Id).Sum(i => i.Number);
+                if (sum > 0) row.CreateCell(col).SetCellValue(sum);
+                col++;
+            }
+        }
+    }
+
+    // ── PSJ ──────────────────────────────────────────────────────────────────
+    // Row 0: 標題
+    // Row 4: 年/週/分校/年級 + code 欄位
+    // Row 5+: 每校每有資料的年級一列
+
+    private static void BuildSheetPSJ(ISheet sheet,
+        List<StudentPopulation> populations, int year, int week) {
+
+        sheet.CreateRow(0).CreateCell(0).SetCellValue($"{year}年第{week}週百倍速人數表");
+
+        string[] codes = { "T", "MP", "MS", "SP", "SS", "N", "L", "W" };
+        WriteGradeHeader(sheet, 4, codes);
+
+        int rowIdx = 5;
+        foreach (var pop in populations) {
+            int tTotal = pop.Items.Where(i => i.Class?.CourseId == 158).Sum(i => i.Number);
+            bool tWritten = false;
+
+            for (int gi = 0; gi < _gradeOrder.Length; gi++) {
+                var vals = new int[codes.Length];
+                vals[0] = (!tWritten && tTotal > 0) ? tTotal : 0;
+
+                for (int ci = 1; ci < codes.Length; ci++) {
+                    if (!_psjCourseIds.TryGetValue(codes[ci], out var ids)) continue;
+                    var ct = PsjColType(codes[ci]);
+                    vals[ci] = pop.Items.Where(i => i.Class?.CourseId == ids[gi] && i.Class?.Type == ct).Sum(i => i.Number);
+                }
+
+                if (vals.All(v => v == 0)) continue;
+                if (vals[0] > 0) tWritten = true;
+
+                WriteGradeRow(sheet.CreateRow(rowIdx++), year, week, pop.School?.Name ?? "", _gradeOrder[gi], vals);
+            }
+        }
+    }
+
+    // ── AS ───────────────────────────────────────────────────────────────────
+
+    private static void BuildSheetAS(ISheet sheet,
+        List<StudentPopulation> populations, int year, int week) {
+
+        sheet.CreateRow(0).CreateCell(0).SetCellValue($"{year}年第{week}週課輔人數表");
+
+        string[] codes = { "T", "AS", "EP", "EG", "N", "L", "W" };
+        WriteGradeHeader(sheet, 4, codes);
+
+        int rowIdx = 5;
+        foreach (var pop in populations) {
+            int tTotal = pop.Items.Where(i => i.Class?.CourseId == 258).Sum(i => i.Number);
+            bool tWritten = false;
+
+            for (int gi = 0; gi < _gradeOrder.Length; gi++) {
+                var vals = new int[codes.Length];
+                vals[0] = (!tWritten && tTotal > 0) ? tTotal : 0;
+
+                for (int ci = 1; ci < codes.Length; ci++) {
+                    if (!_asCourseIds.TryGetValue(codes[ci], out var ids)) continue;
+                    var ct = AsColType(codes[ci]);
+                    vals[ci] = pop.Items.Where(i => i.Class?.CourseId == ids[gi] && i.Class?.Type == ct).Sum(i => i.Number);
+                }
+
+                if (vals.All(v => v == 0)) continue;
+                if (vals[0] > 0) tWritten = true;
+
+                WriteGradeRow(sheet.CreateRow(rowIdx++), year, week, pop.School?.Name ?? "", _gradeOrder[gi], vals);
+            }
+        }
+    }
+
+    // ── 共用 helper ───────────────────────────────────────────────────────────
+
+    // 計算 IsSum 課程的合計值（對應 StatisticsCalculationService 邏輯）
+    // rowClassType：本列的班別（PH 的 SubGroup/V3；GEPT/PS 傳 null）
+    private static int ComputeIsumValue(Course course,
+        IEnumerable<StudentPopulationItem> allItems, ClassType? rowClassType) {
+
+        // 排除 IsSum 課程本身的項目，只用真實班級資料計算
+        var src = allItems.Where(i => i.Class?.Course?.IsSum != true);
+
+        // 來源篩選：SourceDepartmentIds > SourceCourseIds > 同班系
+        if (!string.IsNullOrEmpty(course.SourceDepartmentIds)) {
+            var ids = TryParseIntArray(course.SourceDepartmentIds);
+            if (ids.Length > 0)
+                src = src.Where(i => i.Class?.Course?.DepartmentId != null &&
+                                     ids.Contains(i.Class.Course.DepartmentId.Value));
+        } else if (!string.IsNullOrEmpty(course.SourceCourseIds)) {
+            var ids = TryParseIntArray(course.SourceCourseIds);
+            if (ids.Length > 0)
+                src = src.Where(i => i.Class?.CourseId != null &&
+                                     ids.Contains(i.Class.CourseId.Value));
+        } else {
+            src = src.Where(i => i.Class?.Course?.DepartmentId == course.DepartmentId);
+        }
+
+        // 班別篩選：ApplicableClassType 優先，其次 GroupByClassType 使用列班別
+        var ct = course.ApplicableClassType
+                 ?? (course.GroupByClassType ? rowClassType : null);
+        if (ct.HasValue)
+            src = src.Where(i => i.Class?.Type == ct.Value);
+
+        // 決定統計類型（db 設定 > 名稱推斷）
+        var statsType = course.StatisticsType ?? InferStatisticsType(course.Name);
+
+        return statsType switch {
+            StatisticsType.CountClasses or StatisticsType.CountClassesByClassType
+                => src.Count(i => i.Number > 0),
+            StatisticsType.LastWeekValue
+                => src.Sum(i => i.LastWeekNumber),
+            StatisticsType.DiffWithLastWeek
+                => src.Sum(i => i.Number) - src.Sum(i => i.LastWeekNumber),
+            StatisticsType.NewStudents
+                => Math.Max(src.Sum(i => i.Number) - src.Sum(i => i.LastWeekNumber), 0),
+            StatisticsType.LostStudents
+                => Math.Max(src.Sum(i => i.LastWeekNumber) - src.Sum(i => i.Number), 0),
+            _ => src.Sum(i => i.Number),   // SumByDepartment / SumBySourceX / SumAll / 預設
+        };
+    }
+
+    private static StatisticsType? InferStatisticsType(string name) {
+        if (string.IsNullOrEmpty(name)) return null;
+        if (name.Contains("班級數") || name.Contains("班數")) return StatisticsType.CountClasses;
+        if (name.Contains("上週"))                               return StatisticsType.LastWeekValue;
+        if (name.Contains("新增") || name.Contains("新生"))      return StatisticsType.NewStudents;
+        if (name.Contains("流失"))                               return StatisticsType.LostStudents;
+        if (name.Contains("與上週相比"))                         return StatisticsType.DiffWithLastWeek;
+        return StatisticsType.SumByDepartment;
+    }
+
+    private static int[] TryParseIntArray(string json) {
+        try { return JsonSerializer.Deserialize<int[]>(json) ?? Array.Empty<int>(); }
+        catch { return Array.Empty<int>(); }
+    }
+
+    // 寫入 PH/GEPT 的科別（row1）與課程（row3）表頭，並合併同科別欄位
+    private static void WritePhHeaders(ISheet sheet, IRow r1, IRow r3,
+        List<Course> courses, int dataColStart = 2) {
+
+        int col = dataColStart, deptStart = dataColStart, lastDeptId = 0;
+        foreach (var c in courses) {
+            if (c.Department.Id != lastDeptId) {
+                if (lastDeptId != 0 && col > deptStart)
+                    try { sheet.AddMergedRegion(new CellRangeAddress(1, 1, deptStart, col - 1)); } catch { }
+                r1.CreateCell(col).SetCellValue(c.Department.Name);
+                lastDeptId = c.Department.Id;
+                deptStart  = col;
+            }
+            r3.CreateCell(col).SetCellValue(c.Name);
+            sheet.SetColumnWidth(col, 4 * 256);
+            col++;
+        }
+        if (lastDeptId != 0 && col > deptStart + 1)
+            try { sheet.AddMergedRegion(new CellRangeAddress(1, 1, deptStart, col - 1)); } catch { }
+    }
+
+    private static void WriteGradeHeader(ISheet sheet, int rowIdx, string[] codes) {
+        var hdr = sheet.CreateRow(rowIdx);
+        hdr.CreateCell(0).SetCellValue("年");
+        hdr.CreateCell(1).SetCellValue("週");
+        hdr.CreateCell(2).SetCellValue("分校");
+        hdr.CreateCell(3).SetCellValue("年級");
+        for (int i = 0; i < codes.Length; i++) hdr.CreateCell(4 + i).SetCellValue(codes[i]);
+    }
+
+    private static void WriteGradeRow(IRow row, int year, int week,
+        string school, string grade, int[] vals) {
+
+        row.CreateCell(0).SetCellValue(year);
+        row.CreateCell(1).SetCellValue(week);
+        row.CreateCell(2).SetCellValue(school);
+        row.CreateCell(3).SetCellValue(grade);
+        for (int ci = 0; ci < vals.Length; ci++) {
+            if (vals[ci] > 0) row.CreateCell(4 + ci).SetCellValue(vals[ci]);
+        }
+    }
+
+    // ── 資料查詢 ──────────────────────────────────────────────────────────────
 
     private List<StudentPopulation> LoadPopulations(StudentPopulationType type,
-                                                     int year, int week,
-                                                     IList<int> schoolIds) {
+        int year, int week, IList<int> schoolIds) {
+
         var query = _context.StudentPopulation
             .Include(sp => sp.School).ThenInclude(s => s.Region)
             .Include(sp => sp.Items)
@@ -89,9 +402,10 @@ public class ReportExportService {
         if (schoolIds?.Count > 0)
             query = query.Where(sp => schoolIds.Contains(sp.SchoolId ?? 0));
 
-        return query.OrderBy(sp => sp.School.Region.Ordinal)
-                    .ThenBy(sp => sp.School.Ordinal)
-                    .ToList();
+        return query
+            .OrderBy(sp => sp.School.Region.Ordinal)
+            .ThenBy(sp => sp.School.Ordinal)
+            .ToList();
     }
 
     private List<Course> LoadCourses(StudentPopulationType type) =>
@@ -101,307 +415,4 @@ public class ReportExportService {
             .OrderBy(c => c.Department.Ordinal)
             .ThenBy(c => c.Ordinal)
             .ToList();
-
-    // ─────────────────────────── 欄位建構 ───────────────────────────
-
-    private static List<ReportColumnDef> BuildColumns(List<Course> courses,
-                                                       List<StudentPopulation> populations) {
-        var cols = new List<ReportColumnDef>();
-
-        foreach (var course in courses) {
-            if (course.IsSum) {
-                // 計算欄（標記 X 的欄位）
-                cols.Add(new ReportColumnDef {
-                    Kind           = ReportColumnKind.Sum,
-                    DepartmentId   = course.DepartmentId ?? 0,
-                    DepartmentName = course.Department?.Name ?? "",
-                    CourseId       = course.Id,
-                    CourseName     = course.Name,
-                    SumItemName    = course.Name
-                });
-            } else {
-                // 資料欄：依實際出現的 ClassType 建立動態欄數
-                var classTypes = ResolveClassTypes(course, populations);
-
-                foreach (var ct in classTypes) {
-                    int maxInstances = ct == ClassType.Personal
-                        // EM1：固定 1 欄（值=人數=班級數）
-                        ? (populations.Any(sp => sp.Items.Any(i =>
-                              !i.IsSum && i.Class?.CourseId == course.Id
-                                       && i.Class?.Type == ct)) ? 1 : 0)
-                        // 其他：依各分校最多班級數決定欄數
-                        : populations
-                            .Select(sp => sp.Items.Count(i =>
-                                !i.IsSum && i.Class?.CourseId == course.Id
-                                         && i.Class?.Type == ct))
-                            .DefaultIfEmpty(0).Max();
-
-                    for (int idx = 0; idx < maxInstances; idx++) {
-                        cols.Add(new ReportColumnDef {
-                            Kind           = ReportColumnKind.Data,
-                            DepartmentId   = course.DepartmentId ?? 0,
-                            DepartmentName = course.Department?.Name ?? "",
-                            CourseId       = course.Id,
-                            CourseName     = course.Name,
-                            ClassType      = ct,
-                            InstanceIndex  = idx
-                        });
-                    }
-                }
-            }
-        }
-
-        return cols;
-    }
-
-    /// <summary>
-    /// 決定此課程適用的 ClassType 清單（依實際資料 + Course 設定）
-    /// </summary>
-    private static IEnumerable<ClassType> ResolveClassTypes(Course course,
-                                                              List<StudentPopulation> populations) {
-        // 優先使用 Course 上明確設定的班別
-        if (course.ApplicableClassType.HasValue)
-            return new[] { course.ApplicableClassType.Value };
-
-        // 否則從實際資料中推斷（確保只顯示真實存在的班別，並依 ClassType 值排序）
-        var found = populations
-            .SelectMany(sp => sp.Items.Where(i =>
-                !i.IsSum && i.Class?.CourseId == course.Id))
-            .Select(i => i.Class!.Type)
-            .Distinct()
-            .OrderBy(ct => (int)ct)
-            .ToList();
-
-        // 若資料中完全沒有此課程（新課程），預設 SubGroup + V3
-        return found.Count > 0 ? found : new[] { ClassType.SubGroup, ClassType.V3 };
-    }
-
-    // ─────────────────────────── Excel Sheet 建構 ───────────────────────────
-
-    private static void BuildSheet(XSSFWorkbook wb, string sheetName, string title,
-                                    List<ReportColumnDef> columns,
-                                    List<StudentPopulation> populations,
-                                    Dictionary<string, ICellStyle> styles,
-                                    bool showRegionSummary) {
-        var sheet = wb.CreateSheet(sheetName);
-        int totalCols = columns.Count + 1;  // +1 for school name column
-
-        // ── Row 0：標題列 ──
-        var r0 = sheet.CreateRow(0);
-        SetCell(r0, 0, title, styles["Title"]);
-        sheet.AddMergedRegion(new CellRangeAddress(0, 0, 0, totalCols - 1));
-        r0.HeightInPoints = 24;
-
-        // ── Row 1-3：三層表頭 ──
-        var r1 = sheet.CreateRow(1);
-        var r2 = sheet.CreateRow(2);
-        var r3 = sheet.CreateRow(3);
-
-        // 校名欄（跨 3 行）
-        SetCell(r1, 0, "校名＆班別＆人數", styles["Header"]);
-        sheet.AddMergedRegion(new CellRangeAddress(1, 3, 0, 0));
-
-        // 課程欄
-        WriteColumnHeaders(sheet, r1, r2, r3, columns, styles);
-
-        // ── Row 4+：資料列 ──
-        int rowIdx = 4;
-        foreach (var sp in populations) {
-            var row = sheet.CreateRow(rowIdx++);
-            SetCell(row, 0, sp.School?.Name ?? "", styles["DataSchool"]);
-
-            for (int c = 0; c < columns.Count; c++) {
-                var colDef = columns[c];
-                int val    = GetCellValue(sp, colDef);
-                var style  = colDef.Kind == ReportColumnKind.Sum ? styles["DataSum"] : styles["Data"];
-                var cell   = row.CreateCell(c + 1);
-                if (val != 0) cell.SetCellValue(val);
-                cell.CellStyle = style;
-            }
-        }
-
-        // ── 加總列（多分校時）──
-        if (showRegionSummary && populations.Count > 1) {
-            var sumRow = sheet.CreateRow(rowIdx);
-            SetCell(sumRow, 0, "合　計", styles["SumRow"]);
-
-            for (int c = 0; c < columns.Count; c++) {
-                int total = populations.Sum(sp => GetCellValue(sp, columns[c]));
-                var cell  = sumRow.CreateCell(c + 1);
-                if (total != 0) cell.SetCellValue(total);
-                cell.CellStyle = styles["SumRow"];
-            }
-        }
-
-        // ── 欄寬 ──
-        sheet.SetColumnWidth(0, 20 * 256);
-        for (int c = 1; c < totalCols; c++)
-            sheet.SetColumnWidth(c, 7 * 256);
-        sheet.CreateFreezePane(1, 4);  // 凍結校名欄與表頭
-    }
-
-    private static void WriteColumnHeaders(ISheet sheet,
-                                            IRow r1, IRow r2, IRow r3,
-                                            List<ReportColumnDef> columns,
-                                            Dictionary<string, ICellStyle> styles) {
-        int deptStart  = 1, lastDeptId  = -1;
-        int courseStart = 1, lastCourseId = -1;
-
-        for (int i = 0; i < columns.Count; i++) {
-            var col     = columns[i];
-            int excelCol = i + 1;
-
-            // 班系（Level 1）
-            if (col.DepartmentId != lastDeptId) {
-                if (lastDeptId >= 0 && excelCol - 1 > deptStart)
-                    sheet.AddMergedRegion(new CellRangeAddress(1, 1, deptStart, excelCol - 1));
-                SetCell(r1, excelCol, col.DepartmentName, styles["Header"]);
-                deptStart   = excelCol;
-                lastDeptId  = col.DepartmentId;
-            } else {
-                r1.CreateCell(excelCol).CellStyle = styles["Header"];
-            }
-
-            // 課程（Level 2）
-            if (col.CourseId != lastCourseId) {
-                if (lastCourseId >= 0 && excelCol - 1 > courseStart)
-                    sheet.AddMergedRegion(new CellRangeAddress(2, 2, courseStart, excelCol - 1));
-                var style = col.Kind == ReportColumnKind.Sum ? styles["HeaderSum"] : styles["Header"];
-                SetCell(r2, excelCol, col.CourseName, style);
-                courseStart  = excelCol;
-                lastCourseId = col.CourseId;
-            } else {
-                r2.CreateCell(excelCol).CellStyle = styles["Header"];
-            }
-
-            // 班別 / 合計（Level 3）
-            var l3Style = col.Kind == ReportColumnKind.Sum ? styles["HeaderSum"] : styles["Header"];
-            SetCell(r3, excelCol, col.ClassLabel, l3Style);
-        }
-
-        // 收尾合併
-        int last = columns.Count;
-        if (lastDeptId   >= 0 && last > deptStart)
-            sheet.AddMergedRegion(new CellRangeAddress(1, 1, deptStart, last));
-        if (lastCourseId >= 0 && last > courseStart)
-            sheet.AddMergedRegion(new CellRangeAddress(2, 2, courseStart, last));
-    }
-
-    // ─────────────────────────── 取值邏輯 ───────────────────────────
-
-    private static int GetCellValue(StudentPopulation sp, ReportColumnDef col) {
-        if (col.Kind == ReportColumnKind.Sum) {
-            // 計算欄：從 IsSum 項目依名稱取值
-            return sp.Items
-                .Where(i => i.IsSum && i.Name == col.SumItemName)
-                .Select(i => i.Number)
-                .FirstOrDefault();
-        }
-
-        if (col.ClassType == ClassType.Personal) {
-            // EM1 個別指導：加總此課程所有 Personal 項目（人數 = 班級數）
-            return sp.Items
-                .Where(i => !i.IsSum
-                         && i.Class?.CourseId == col.CourseId
-                         && i.Class?.Type     == ClassType.Personal)
-                .Sum(i => i.Number);
-        }
-
-        // SubGroup / V3 / 其他：取第 N 個班（依 Class.Ordinal 排序）
-        return sp.Items
-            .Where(i => !i.IsSum
-                     && i.Class?.CourseId == col.CourseId
-                     && i.Class?.Type     == col.ClassType)
-            .OrderBy(i => i.Class?.Ordinal ?? 0)
-            .ElementAtOrDefault(col.InstanceIndex)
-            ?.Number ?? 0;
-    }
-
-    // ─────────────────────────── 樣式建立 ───────────────────────────
-
-    private static Dictionary<string, ICellStyle> CreateStyles(XSSFWorkbook wb) {
-        var normal = CreateFont(wb, bold: false, size: 10);
-        var bold   = CreateFont(wb, bold: true,  size: 10);
-        var boldSm = CreateFont(wb, bold: true,  size: 9);
-
-        var styles = new Dictionary<string, ICellStyle>();
-
-        // 標題列
-        styles["Title"] = MakeStyle(wb, bold, HorizontalAlignment.Center,
-            fillColor: IndexedColors.Indigo.Index, fontColor: IndexedColors.White.Index);
-
-        // 表頭（班系/課程）
-        styles["Header"] = MakeStyle(wb, boldSm, HorizontalAlignment.Center,
-            fillColor: IndexedColors.LightYellow.Index);
-
-        // 計算欄表頭（綠底）
-        styles["HeaderSum"] = MakeStyle(wb, boldSm, HorizontalAlignment.Center,
-            fillColor: IndexedColors.LightGreen.Index);
-
-        // 資料儲存格 - 校名
-        styles["DataSchool"] = MakeStyle(wb, normal, HorizontalAlignment.Left);
-
-        // 資料儲存格 - 一般數值
-        styles["Data"] = MakeStyle(wb, normal, HorizontalAlignment.Center);
-
-        // 資料儲存格 - 計算欄（淡綠底）
-        styles["DataSum"] = MakeStyle(wb, normal, HorizontalAlignment.Center,
-            fillColor: IndexedColors.LightGreen.Index);
-
-        // 合計列
-        styles["SumRow"] = MakeStyle(wb, bold, HorizontalAlignment.Center,
-            fillColor: IndexedColors.Grey25Percent.Index);
-
-        return styles;
-    }
-
-    private static IFont CreateFont(XSSFWorkbook wb, bool bold, short size,
-                                     short fontColor = 8 /* IndexedColors.Black */) {
-        var font = wb.CreateFont();
-        font.FontName           = "Arial";
-        font.FontHeightInPoints = size;
-        font.IsBold             = bold;
-        font.Color              = fontColor;
-        return font;
-    }
-
-    private static ICellStyle MakeStyle(XSSFWorkbook wb, IFont font,
-                                         HorizontalAlignment align,
-                                         short fillColor  = 9 /* IndexedColors.White */,
-                                         short fontColor  = 8 /* IndexedColors.Black */) {
-        var s = wb.CreateCellStyle();
-        s.SetFont(font);
-        s.Alignment        = align;
-        s.VerticalAlignment = VerticalAlignment.Center;
-        s.WrapText         = true;
-        s.BorderTop = s.BorderBottom = s.BorderLeft = s.BorderRight = BorderStyle.Thin;
-
-        if (fillColor != IndexedColors.White.Index) {
-            s.FillForegroundColor = fillColor;
-            s.FillPattern         = FillPattern.SolidForeground;
-        }
-        return s;
-    }
-
-    private static void SetCell(IRow row, int col, string value, ICellStyle style) {
-        var cell = row.CreateCell(col);
-        cell.SetCellValue(value);
-        cell.CellStyle = style;
-    }
-
-    // ─────────────────────────── 輔助方法 ───────────────────────────
-
-    private static string BuildTitle(StudentPopulationType type, string regionName,
-                                      int year, int week, int page) =>
-        $"{TypeDisplayName(type)} {regionName} 人數統計表  " +
-        $"填表日期：{year}學年度第{week}週  Page.{page}";
-
-    private static string TypeDisplayName(StudentPopulationType type) => type switch {
-        StudentPopulationType.PH          => "百瀚英語",
-        StudentPopulationType.GEPT        => "英語檢定",
-        StudentPopulationType.PS          => "百世資優",
-        StudentPopulationType.PSJ         => "百倍數",
-        StudentPopulationType.AfterSchool => "安親課輔",
-        _                                 => type.ToString()
-    };
 }

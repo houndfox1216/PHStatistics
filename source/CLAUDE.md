@@ -62,7 +62,8 @@ source/
 │   │   ├── Models/
 │   │   │   └── Model.cs                 # HttpModelBase<DataContext> sub-model hub
 │   │   ├── Services/
-│   │   │   └── StatisticsCalculationService.cs  # Statistics aggregation logic
+│   │   │   ├── StatisticsCalculationService.cs  # Statistics aggregation logic
+│   │   │   └── ReportExportService.cs           # Excel export (import-compatible format)
 │   │   ├── Views/                       # Razor views
 │   │   ├── Localizations/               # XML localization files
 │   │   ├── Program.cs                   # App entry point (inherits Application)
@@ -112,11 +113,18 @@ source/
 
 Key entities in `schema/Data/Content/`:
 - `StudentPopulation` — a population table for a school year
-- `StudentPopulationItem` — one row per class/type combination
+- `StudentPopulationItem` — one row per class/type combination; `IsSum=true` marks computed items
 - `StudentPopulationItemLog` — audit log per item
 - `StudentPopulationType` / `StudentPopulationStatus` — lookup tables
 - `School`, `SchoolYear`, `SchoolClass`, `SchoolAssignment`
 - `Course`, `CourseDepartment`, `CourseSubject`, `Class`, `ClassType`
+
+Key `Course` flags:
+- `IsSum` — marks aggregate/summary columns (e.g. 國小人數合計、總班數)
+- `StatisticsType` — enum describing how to compute (`SumByDepartment`, `CountClasses`, `LastWeekValue`, etc.)
+- `SourceDepartmentIds` / `SourceCourseIds` — JSON int arrays specifying source scope for IsSum computation
+- `GroupByClassType` — if true, computation is scoped to the same ClassType as the row
+- `ApplicableClassType` — fixed ClassType filter overriding GroupByClassType
 
 ### Database
 
@@ -129,7 +137,7 @@ Key entities in `schema/Data/Content/`:
 
 - **DevExtreme.AspNet.Core** (24.1.4): UI grid/form components
 - **J.Framework.\***: Proprietary framework DLLs in `schema/Libraries/`
-- **NPOI**: Excel export functionality
+- **NPOI**: Excel read/write (XSSFWorkbook)
 - **NLog**: Logging; optional ElasticSearch target (`NLog-ElasticSearch.config`)
 - **Newtonsoft.Json**: JSON serialization (Pascal-case, local timezone dates)
 
@@ -156,3 +164,118 @@ Key entities in `schema/Data/Content/`:
 
 - Docker image: built from `source/portal/Portal/Dockerfile` (base image `mcr.microsoft.com/dotnet/aspnet:8.0`, timezone `Asia/Taipei`)
 - Use `build.sh` / `deploy.sh` scripts at repo root for CI/CD
+
+---
+
+## 批次匯入 / 匯出系統（Batch Import / Export）
+
+### 匯入 — `HomeController.cs`
+
+批次匯入入口：`POST /ImportAll`，讀取指定目錄下的 `.xlsx` 檔案，依檔名判斷類型後呼叫對應 handler。
+
+| 檔名關鍵字 | Handler | 類型 |
+|---|---|---|
+| `全國人數表` | `RunImportPH`（sheets 0–1）+ `RunImportGEPT`（sheet 2） | PH + GEPT |
+| `PS南區` | `RunImportPS` | PS |
+| `百倍速` | `RunImportPSJ` | PSJ |
+| `百瀚全區課輔` | `RunImportAS` | AfterSchool |
+
+#### PH / GEPT 共用解析器 — `RunImportSheetPH`
+
+- Row 0：標題（用正規表示式解析年份、週次）
+- Rows 1–3：三層表頭；Row 1 = 科別、Row 3 = 課程名稱
+- Row 4+：資料列；col 0 = 分校（跨列合併時向下延伸）、col 1 = 班別（`"小"` → SubGroup、`"三"` → V3）
+- `requireTypeIndicator=true`（PH）：col 1 必須是 "小"/"三" 才處理
+- `requireTypeIndicator=false`（GEPT）：所有列視為 ClassType.General
+- 課程對應：先查 DB Name，找不到則用 `_phColCourseId` 欄位索引對照表 fallback
+- EM1 邏輯：`_em1CourseIds`（課程 ID 23/24/25/26/50/51/52/53），每人建立獨立 Class 記錄（count=1）
+
+#### 冪等性（Idempotent import）
+
+`GetOrCreatePopulation(deleteExisting: true)` 在重新匯入前：
+1. 刪除該校該週該類型所有 `StudentPopulationItem`
+2. 刪除對應的孤立 `Class` 記錄
+3. 再重建新記錄
+
+PH 及 GEPT 使用 `deleteExisting=true`（每次重建），PS 同樣使用 `true`，PSJ/AS 各校各週各類型獨立管理。
+
+#### 硬碼對照表（HomeController 靜態欄位）
+
+```csharp
+// PH：Excel 欄位索引 → Course.Id
+private static readonly Dictionary<int, int> _phColCourseId
+
+// PS：欄位標頭字串 → Course.Id（大小寫不敏感）
+private static readonly Dictionary<string, int> _psHeaderCourseId
+
+// EM1 課程 Id 集合（個別指導：每人 1 筆 Class）
+private static readonly HashSet<int> _em1CourseIds = { 23, 24, 25, 26, 50, 51, 52, 53 }
+
+// PSJ 年級課程 Id（per grade，12 筆）
+private static readonly Dictionary<string, int[]> _psjCourseIds
+
+// AS 年級課程 Id（per grade，12 筆）
+private static readonly Dictionary<string, int[]> _asCourseIds
+```
+
+同一份對照表在 `HomeController`、`StudentPopulationController`、`ReportExportService` 三處各自維護靜態副本，修改時須同步更新。
+
+---
+
+### 匯出 — `ReportExportService.cs`
+
+入口：`Export(type, year, week, schoolIds?)` → `byte[]`（xlsx）
+
+所有分校輸出到同一個 Sheet1，格式與匯入 Excel 完全相容。
+
+#### Excel 結構（各類型）
+
+| 類型 | Row 0 | Rows 1–3 | 資料起始 | 備註 |
+|---|---|---|---|---|
+| PH | 標題 | 科別/空/課程（三層表頭） | Row 4，每校 2 列（小/三） | col 0 = 分校（合併）、col 1 = 類型 |
+| GEPT | 標題 | 同 PH，無 col 1 | Row 4，每校 1 列 | ClassType.General |
+| PS | 標題 | 課程名稱（單列） | Row 2，每校 1 列 | col 0 = 分校、col 1+ = 人數 |
+| PSJ | 標題 | — | Row 4 = code 表頭、Row 5+ 資料 | 格式：年/週/分校/年級/T/MP/MS/... |
+| AS | 標題 | — | Row 4 = code 表頭、Row 5+ 資料 | 格式：年/週/分校/年級/T/AS/EP/... |
+
+#### IsSum 欄位計算（`ComputeIsumValue`）
+
+匯出時對 `Course.IsSum = true` 的欄位（合計欄）不讀取已存項目，而是即時從非 IsSum 項目計算：
+
+1. **來源篩選**：`SourceDepartmentIds` > `SourceCourseIds` > 同班系（DepartmentId）
+2. **班別篩選**：`ApplicableClassType` 優先；次之若 `GroupByClassType=true` 則用列的班別（PH 的小/三）
+3. **計算方式**（`Course.StatisticsType`，無設定時從課程名稱推斷）：
+
+| StatisticsType | 計算 |
+|---|---|
+| `SumByDepartment` / `SumBySourceX` / `SumAll` / 預設 | `Sum(Number)` |
+| `CountClasses` / `CountClassesByClassType` | `Count(Number > 0)` |
+| `LastWeekValue` | `Sum(LastWeekNumber)` |
+| `DiffWithLastWeek` | `Sum(Number) - Sum(LastWeekNumber)` |
+| `NewStudents` | `Max(Sum(Number) - Sum(LastWeekNumber), 0)` |
+| `LostStudents` | `Max(Sum(LastWeekNumber) - Sum(Number), 0)` |
+
+名稱推斷規則：含「班數」→ CountClasses；含「上週」→ LastWeekValue；含「新增/新生」→ NewStudents；含「流失」→ LostStudents；含「與上週相比」→ DiffWithLastWeek；其餘 → SumByDepartment。
+
+#### `ExportReport` endpoint（StudentPopulationController）
+
+```
+GET /StudentPopulation/ExportReport?year=&week=&reportType=&allSchools=&schoolId=
+```
+
+- `schoolId`：指定單一分校（優先於 `allSchools`），需驗證存取權限
+- `allSchools=true`：需有 `ViewAllSchools` 權限，否則只輸出可存取分校
+- 呼叫 `ReportExportService.Export(type, year, week, schoolIds)`
+
+---
+
+### StatisticsCalculationService
+
+計算 `StudentPopulation.Items` 中 `IsSum=true` 項目的值，由各 save/recalculate 流程主動呼叫：
+
+- `CalculateAll(population)` — 計算該人數表所有 IsSum 項目
+- `Calculate(item, population)` — 計算單一 IsSum 項目
+- 若 `Course.StatisticsType` 為 null 且 `IsSum=true`，fallback 到 `DetermineStatisticsTypeByName`
+- 若 `item.IsManual=true`，跳過自動計算
+
+`ReportExportService.ComputeIsumValue` 是匯出時的平行實作，邏輯與此服務保持一致，但不依賴儲存的 IsSum 項目（直接從來源項目即時計算）。

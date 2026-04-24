@@ -35,6 +35,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using Environment = System.Framework.Environment;
 
 
@@ -3291,6 +3292,53 @@ namespace PHStatistics.Portal.Controllers {
 
         private static readonly Guid _defaultSubmitterId = Guid.Parse("23858D7E-F622-4D15-4A74-08DC7A5137DD");
 
+        // PH: Excel column index → DB Course ID (hardcoded from 百瀚英語南區 multi-level header layout)
+        private static readonly Dictionary<int, int> _phColCourseId = new() {
+            [9]=1,  [10]=1,                                                    // P1-初階
+            [11]=2, [12]=2, [13]=2,                                            // P2-先階
+            [14]=3, [15]=3, [16]=3, [17]=3, [18]=3,                            // P3-中階
+            [19]=4, [20]=4, [21]=4, [22]=4,                                    // P4-進階
+            [23]=5, [24]=5, [25]=5,                                            // P5-高階
+            [26]=6, [27]=6, [28]=6,                                            // P6-優階
+            [29]=7, [30]=8,                                                    // SAT Junior A/B
+            [32]=10,[33]=10,[34]=10,[35]=10,[36]=10,                           // 國一準特/特訓
+            [37]=11,[38]=11,[39]=11,[40]=11,[41]=11,[42]=11,                   // 國二準特/特訓
+            [43]=12,[44]=12,[45]=12,[46]=12,[47]=12,                           // 國三準特/特訓
+            [48]=13,[49]=14,[50]=15,                                           // 海外特訓班-TOEFL/SSAT/PSAT
+            [52]=17,[53]=17,                                                   // Elite/英檢/sat班系
+            [54]=18,[55]=18,[56]=18,[57]=18,[58]=18,                           // 高中小組班-高一
+            [59]=19,[60]=19,[61]=19,[62]=19,[63]=19,[64]=19,[65]=19,           // 高中小組班-高二
+            [66]=20,[67]=20,[68]=20,[69]=20,                                   // 高中小組班-高三
+            [72]=23,[73]=24,[74]=25,[75]=26,                                   // 英文個別指導
+            [77]=28,[78]=29,[79]=30,[80]=31,                                   // 英文合作開班1-4
+            [89]=39,[90]=39,[91]=39,[92]=39,[93]=39,                           // 國語文國小三力
+            [94]=40,[95]=40,                                                   // 國語文國小中階
+            [96]=41,[97]=41,[98]=41,                                           // 國語文國小攻略
+            [99]=42,[100]=42,                                                  // 國語文國一班
+            [101]=43,[102]=43,                                                 // 國語文國二班
+            [103]=44,[104]=44,                                                 // 國語文國三班
+            [105]=45,[106]=46,[107]=47,                                        // 國語文高一/二/三班
+            [110]=50,[111]=51,[112]=52,[113]=53,                               // 國語文個別指導
+            [115]=55,[116]=56,[117]=57,[118]=58,                               // 國語文合作開班
+        };
+
+        // PS: Excel column header → DB Course ID (aliases for multi-variant class names)
+        private static readonly Dictionary<string, int> _psHeaderCourseId = new(StringComparer.OrdinalIgnoreCase) {
+            ["一資"]=108, ["一特"]=109,
+            ["二資"]=110, ["二特"]=111, ["二PS特"]=111, ["二特2"]=111,
+            ["三資"]=112, ["三特"]=113, ["三特Ps"]=113, ["三特1"]=113, ["三特2"]=113,
+            ["四資"]=114, ["四特"]=115, ["四ps特"]=115, ["四P特"]=115, ["四S特"]=115, ["四特1"]=115, ["四特2"]=115,
+            ["五資"]=116, ["五特"]=117, ["五P特"]=117, ["五S特"]=117, ["五資1"]=116, ["五特2"]=117,
+            ["六資"]=118, ["六特"]=119, ["六P特"]=119, ["六資1"]=118, ["六資2"]=118, ["六特1"]=119, ["六特2"]=119,
+            ["七資"]=121, ["七特"]=122, ["七PS特"]=122,
+            ["八資"]=123, ["八特"]=124, ["八特1"]=124, ["八特2"]=124, ["八特3"]=124, ["八課內"]=124,
+            ["九資"]=125, ["九特"]=126, ["九資1"]=125, ["九資2"]=125,
+            ["高一特"]=128, ["高二特"]=129, ["高三特"]=130,
+        };
+
+        // CourseIds that use EM1 logic: count = # individual students, each gets its own class record of 1
+        private static readonly HashSet<int> _em1CourseIds = new() { 23, 24, 25, 26, 50, 51, 52, 53 };
+
         private static ClassType PsjColumnType(string code) => code switch {
             "MP" or "SP" => ClassType.Personal,
             "MS" or "SS" => ClassType.SubGroup,
@@ -3323,8 +3371,12 @@ namespace PHStatistics.Portal.Controllers {
             StudentPopulation pop;
             if (deleteExisting && db.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == yearInt && e.Week == weekInt && e.Type == type)) {
                 pop = db.StudentPopulation.First(e => e.School.Id == schoolId && e.Year == yearInt && e.Week == weekInt && e.Type == type);
-                var del = db.StudentPopulationItem.Where(e => e.StudentPopulation.Id == pop.Id).ToList();
-                db.StudentPopulationItem.RemoveRange(del);
+                var delItems = db.StudentPopulationItem.Where(e => e.StudentPopulation.Id == pop.Id).ToList();
+                var classIds = delItems.Select(e => e.ClassId).Distinct().ToList();
+                db.StudentPopulationItem.RemoveRange(delItems);
+                db.SaveChanges();
+                var orphanClasses = db.Class.Where(e => classIds.Contains(e.Id)).ToList();
+                db.Class.RemoveRange(orphanClasses);
                 db.SaveChanges();
             }
             else if (db.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == yearInt && e.Week == weekInt && e.Type == type)) {
@@ -3377,91 +3429,202 @@ namespace PHStatistics.Portal.Controllers {
             result.ItemCount++;
         }
 
-        private ImportAllResult RunImportPH(DataContext db, string filePath) {
-            var result = new ImportAllResult { File = Path.GetFileName(filePath), Type = "PH" };
-            using var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            var sheet = new XSSFWorkbook(fs).GetSheetAt(0);
-            IRow headerRow = sheet.GetRow(4);
+        private static (int academicYear, int week) ParseYearWeekFromTitle(string title) {
+            var weekMatch = Regex.Match(title, @"第(\d+)週");
+            int week = weekMatch.Success ? int.Parse(weekMatch.Groups[1].Value) : 0;
+            var dateMatch = Regex.Match(title, @"(\d+)年(\d+)月");
+            int academicYear = 0;
+            if (dateMatch.Success) {
+                int rocYear = int.Parse(dateMatch.Groups[1].Value);
+                int month = int.Parse(dateMatch.Groups[2].Value);
+                academicYear = month < 8 ? rocYear - 1 : rocYear;
+            }
+            return (academicYear, week);
+        }
 
-            for (int rNo = 5; rNo <= sheet.LastRowNum; rNo++) {
+        // Shared sheet reader for PH-style sheets (title row 0, headers rows 1-3, data from row 4).
+        // requireTypeIndicator=true  → only process rows where col1 is "小" or "三" (PH behaviour)
+        // requireTypeIndicator=false → rows without "小"/"三" are treated as ClassType.General (GEPT behaviour)
+        private ImportAllResult RunImportSheetPH(DataContext db, ISheet sheet,
+            StudentPopulationType popType, string typeLabel, string nameTemplate,
+            bool requireTypeIndicator) {
+
+            var result = new ImportAllResult { File = sheet.SheetName, Type = typeLabel };
+
+            string title = sheet.GetRow(0)?.GetCell(0)?.ToString()?.Trim() ?? "";
+            var (yearInt, weekInt) = ParseYearWeekFromTitle(title);
+            if (yearInt == 0 || weekInt == 0) {
+                result.Errors.Add($"無法從標題解析年份週次: {title}");
+                return result;
+            }
+            SchoolYear schoolYear = db.SchoolYear.FirstOrDefault(e => e.Year == yearInt && e.Week == weekInt);
+            if (schoolYear == null) {
+                result.Errors.Add($"找不到學年週次: {yearInt}第{weekInt}週");
+                return result;
+            }
+
+            int maxHdrCol = 0;
+            for (int r = 1; r <= 3; r++) {
+                var rw = sheet.GetRow(r);
+                if (rw != null && (int)rw.LastCellNum > maxHdrCol) maxHdrCol = (int)rw.LastCellNum;
+            }
+
+            var row2Prop = new string[maxHdrCol + 1];
+            string lastR2 = "";
+            for (int c = 0; c <= maxHdrCol; c++) {
+                var cell = sheet.GetRow(2)?.GetCell(c);
+                string v = (cell?.CellType == CellType.String) ? (cell.StringCellValue?.Trim() ?? "") : "";
+                if (!string.IsNullOrEmpty(v)) lastR2 = v;
+                row2Prop[c] = lastR2;
+            }
+
+            var colCourseMap = new Dictionary<int, Course>();
+            for (int c = 2; c < maxHdrCol; c++) {
+                var r3Cell = sheet.GetRow(3)?.GetCell(c);
+                string r3Val = (r3Cell?.CellType == CellType.String) ? (r3Cell.StringCellValue?.Trim() ?? "") : "";
+                string label = !string.IsNullOrEmpty(r3Val) ? r3Val : row2Prop[c];
+                Course course = null;
+                if (!string.IsNullOrEmpty(label))
+                    course = db.Course.Include("Department").FirstOrDefault(e => e.Name == label);
+                if (course == null && _phColCourseId.TryGetValue(c, out int fallbackId))
+                    course = db.Course.Include("Department").FirstOrDefault(e => e.Id == fallbackId);
+                if (course != null) colCourseMap[c] = course;
+            }
+
+            string currentSchoolName = "";
+            string lastCountedSchool = "";
+            for (int rNo = 4; rNo <= sheet.LastRowNum; rNo++) {
                 IRow row = sheet.GetRow(rNo);
                 if (row == null) continue;
 
-                string schoolName = row.GetCell(2)?.ToString()?.Trim() ?? "";
-                School school = db.School.FirstOrDefault(e => e.Name == schoolName);
+                string col0 = row.GetCell(0)?.ToString()?.Trim() ?? "";
+                if (!string.IsNullOrEmpty(col0)) currentSchoolName = col0;
+                if (string.IsNullOrEmpty(currentSchoolName)) continue;
+
+                string col1 = row.GetCell(1)?.ToString()?.Trim() ?? "";
+                ClassType cType;
+                bool deleteExisting;
+                bool isFirstRow;
+
+                if (col1 == "小") {
+                    cType = ClassType.SubGroup; deleteExisting = true; isFirstRow = true;
+                } else if (col1 == "三") {
+                    cType = ClassType.V3; deleteExisting = false; isFirstRow = false;
+                } else if (!requireTypeIndicator) {
+                    cType = ClassType.General;
+                    isFirstRow = currentSchoolName != lastCountedSchool;
+                    deleteExisting = isFirstRow;
+                } else {
+                    continue;
+                }
+
+                School school = db.School.FirstOrDefault(e => e.Name == currentSchoolName);
                 if (school == null) continue;
 
-                if (!int.TryParse(row.GetCell(0)?.ToString()?.Trim(), out int yearInt)) continue;
-                if (!int.TryParse(row.GetCell(1)?.ToString()?.Trim(), out int weekInt)) continue;
-                SchoolYear schoolYear = db.SchoolYear.FirstOrDefault(e => e.Year == yearInt && e.Week == weekInt);
-                if (schoolYear == null) continue;
-
-                ClassType cType = (row.GetCell(3)?.ToString()?.Trim()) switch {
-                    "團" => ClassType.Group, "小" => ClassType.SubGroup, "三" => ClassType.V3, _ => ClassType.General,
-                };
-
                 StudentPopulation pop = GetOrCreatePopulation(db, school.Id, yearInt, weekInt, schoolYear,
-                    StudentPopulationType.PH, $"{yearInt}第{weekInt}週百瀚人數表", cType == ClassType.SubGroup);
-                result.SchoolCount++;
+                    popType, string.Format(nameTemplate, yearInt, weekInt), deleteExisting);
+                if (isFirstRow) { result.SchoolCount++; lastCountedSchool = currentSchoolName; }
 
-                for (int cNo = 4; cNo < headerRow.LastCellNum; cNo++) {
-                    try {
-                        string hdr = headerRow.GetCell(cNo)?.ToString()?.Trim() ?? "";
-                        if (hdr.Equals("P", StringComparison.OrdinalIgnoreCase) || !int.TryParse(hdr, out int courseId)) continue;
-
-                        Course course = db.Course.Include("Department").FirstOrDefault(e => e.Id == courseId);
-                        int count = ReadCellNumber(row, cNo);
-                        if (course == null || count == 0) continue;
-
-                        if (course.Name.IndexOf("EM1") > 0) {
-                            for (int i = 0; i < count; i++)
-                                AddClassAndItem(db, school.Id, course, cType, pop.Id, 1, result);
-                        }
-                        else {
-                            AddClassAndItem(db, school.Id, course, cType, pop.Id, count, result);
-                        }
+                foreach (var (col, course) in colCourseMap) {
+                    var cell = row.GetCell(col);
+                    if (cell == null || cell.CellType != CellType.Numeric) continue;
+                    int count = (int)Math.Round(cell.NumericCellValue, MidpointRounding.AwayFromZero);
+                    if (count <= 0) continue;
+                    if (_em1CourseIds.Contains(course.Id)) {
+                        for (int i = 0; i < count; i++)
+                            AddClassAndItem(db, school.Id, course, cType, pop.Id, 1, result);
+                    } else {
+                        AddClassAndItem(db, school.Id, course, cType, pop.Id, count, result);
                     }
-                    catch { continue; }
                 }
             }
             return result;
+        }
+
+        private ImportAllResult RunImportPH(DataContext db, string filePath) {
+            using var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            var wb = new XSSFWorkbook(fs);
+            var combined = new ImportAllResult { File = Path.GetFileName(filePath), Type = "PH" };
+            int phSheets = Math.Min(wb.NumberOfSheets, 2);
+            for (int s = 0; s < phSheets; s++) {
+                var r = RunImportSheetPH(db, wb.GetSheetAt(s), StudentPopulationType.PH,
+                    "PH", "{0}第{1}週百瀚人數表", requireTypeIndicator: true);
+                combined.SchoolCount += r.SchoolCount;
+                combined.ItemCount += r.ItemCount;
+                combined.Errors.AddRange(r.Errors);
+            }
+            return combined;
+        }
+
+        private ImportAllResult RunImportGEPT(DataContext db, string filePath) {
+            using var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            var wb = new XSSFWorkbook(fs);
+            if (wb.NumberOfSheets < 3)
+                return new ImportAllResult { File = Path.GetFileName(filePath), Type = "GEPT",
+                    Errors = { "找不到第3個頁籤（英檢）" } };
+            return RunImportSheetPH(db, wb.GetSheetAt(2), StudentPopulationType.GEPT,
+                "GEPT", "{0}第{1}週英檢人數表", requireTypeIndicator: false);
         }
 
         private ImportAllResult RunImportPS(DataContext db, string filePath) {
             var result = new ImportAllResult { File = Path.GetFileName(filePath), Type = "PS" };
             using var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
             var sheet = new XSSFWorkbook(fs).GetSheetAt(0);
-            IRow headerRow = sheet.GetRow(2);
 
-            for (int rNo = 3; rNo <= sheet.LastRowNum; rNo++) {
+            // Parse year/week from row 0 title
+            string title = sheet.GetRow(0)?.GetCell(0)?.ToString()?.Trim() ?? "";
+            var (yearInt, weekInt) = ParseYearWeekFromTitle(title);
+            if (yearInt == 0 || weekInt == 0) {
+                result.Errors.Add($"無法從標題解析年份週次: {title}");
+                return result;
+            }
+            SchoolYear schoolYear = db.SchoolYear.FirstOrDefault(e => e.Year == yearInt && e.Week == weekInt);
+            if (schoolYear == null) {
+                result.Errors.Add($"找不到學年週次: {yearInt}第{weekInt}週");
+                return result;
+            }
+
+            // Build col→course map from row 1 headers; fallback to alias dict when Course.Name doesn't match
+            IRow headerRow = sheet.GetRow(1);
+            var colCourseMap = new Dictionary<int, Course>();
+            if (headerRow != null) {
+                for (int c = 1; c < (int)headerRow.LastCellNum; c++) {
+                    var hCell = headerRow.GetCell(c);
+                    if (hCell == null || hCell.CellType != CellType.String) continue;
+                    string hdr = hCell.StringCellValue?.Trim() ?? "";
+                    if (string.IsNullOrEmpty(hdr)) continue;
+                    Course course = db.Course.Include("Department").FirstOrDefault(e => e.Name == hdr);
+                    if (course == null && _psHeaderCourseId.TryGetValue(hdr, out int fallbackId))
+                        course = db.Course.Include("Department").FirstOrDefault(e => e.Id == fallbackId);
+                    if (course != null) colCourseMap[c] = course;
+                }
+            }
+            if (colCourseMap.Count == 0) {
+                result.Errors.Add("Row 1 未找到任何課程對應，請確認課程名稱或別名是否與資料庫一致");
+                return result;
+            }
+
+            // Process data rows starting at row 2
+            for (int rNo = 2; rNo <= sheet.LastRowNum; rNo++) {
                 IRow row = sheet.GetRow(rNo);
                 if (row == null) continue;
 
-                string schoolName = row.GetCell(2)?.ToString()?.Trim() ?? "";
+                string schoolName = row.GetCell(0)?.ToString()?.Trim() ?? "";
+                if (string.IsNullOrEmpty(schoolName) || schoolName == "總計") continue;
+
                 School school = db.School.FirstOrDefault(e => e.Name == schoolName);
                 if (school == null) continue;
 
-                if (!int.TryParse(row.GetCell(0)?.ToString()?.Trim(), out int yearInt)) continue;
-                if (!int.TryParse(row.GetCell(1)?.ToString()?.Trim(), out int weekInt)) continue;
-                SchoolYear schoolYear = db.SchoolYear.FirstOrDefault(e => e.Year == yearInt && e.Week == weekInt);
-                if (schoolYear == null) continue;
-
                 StudentPopulation pop = GetOrCreatePopulation(db, school.Id, yearInt, weekInt, schoolYear,
-                    StudentPopulationType.PS, $"{yearInt}第{weekInt}週百世人數表", false);
+                    StudentPopulationType.PS, $"{yearInt}第{weekInt}週百世人數表", true);
                 result.SchoolCount++;
 
-                for (int cNo = 3; cNo < headerRow.LastCellNum; cNo++) {
-                    try {
-                        string hdr = headerRow.GetCell(cNo)?.ToString()?.Trim() ?? "";
-                        if (hdr.Equals("P", StringComparison.OrdinalIgnoreCase) || !int.TryParse(hdr, out int courseId)) continue;
-
-                        Course course = db.Course.Include("Department").FirstOrDefault(e => e.Id == courseId);
-                        int count = ReadCellNumber(row, cNo);
-                        if (course == null || count <= 0) continue;
-
-                        AddClassAndItem(db, school.Id, course, ClassType.General, pop.Id, count, result);
-                    }
-                    catch { continue; }
+                foreach (var (col, course) in colCourseMap) {
+                    var cell = row.GetCell(col);
+                    if (cell == null || cell.CellType != CellType.Numeric) continue;
+                    int count = (int)Math.Round(cell.NumericCellValue, MidpointRounding.AwayFromZero);
+                    if (count <= 0) continue;
+                    AddClassAndItem(db, school.Id, course, ClassType.General, pop.Id, count, result);
                 }
             }
             return result;
@@ -3591,10 +3754,40 @@ namespace PHStatistics.Portal.Controllers {
             return result;
         }
 
+        [HttpGet("DiagnoseImport")]
+        public IActionResult DiagnoseImport(string filePath, int startRow = 0, int endRow = 8) {
+            if (!System.IO.File.Exists(filePath))
+                return Json(new { success = false, message = $"檔案不存在: {filePath}" });
+            using var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            var sheet = new XSSFWorkbook(fs).GetSheetAt(0);
+            int maxCol = 0;
+            for (int r = startRow; r <= Math.Min(endRow, sheet.LastRowNum); r++) {
+                var rw = sheet.GetRow(r);
+                if (rw != null && rw.LastCellNum > maxCol) maxCol = rw.LastCellNum;
+            }
+            var rows = new List<object>();
+            for (int r = startRow; r <= Math.Min(endRow, sheet.LastRowNum); r++) {
+                var row = sheet.GetRow(r);
+                var cells = Enumerable.Range(0, maxCol)
+                    .Select(i => {
+                        var c = row?.GetCell(i);
+                        return (object)new { col = i, val = c?.ToString() ?? "", type = c?.CellType.ToString() ?? "Null" };
+                    }).Where(x => ((dynamic)x).val != "" || ((dynamic)x).col < 4)
+                    .ToList();
+                rows.Add(new { rowNum = r, cells });
+            }
+            using var db = new DataContext();
+            var allSchools = db.School.OrderBy(s => s.Id).Select(s => new { s.Id, s.Name }).ToList();
+            var allCourses = db.Course.Include("Department")
+                .OrderBy(c => c.Department.Id).ThenBy(c => c.Ordinal)
+                .Select(c => new { c.Id, c.Name, Dept = c.Department.Name }).ToList();
+            return Json(new { totalRows = sheet.LastRowNum, maxCol, rows, allSchools, allCourses });
+        }
+
         [HttpGet("ImportAll")]
         public IActionResult ImportAll(string rootPath = @"C:\Leo\其他\Kuri\人數表匯入") {
             if (!Directory.Exists(rootPath))
-                return Json(ResponseStatus.InternalServerError, $"路徑不存在: {rootPath}");
+                return Json(new { success = false, message = $"路徑不存在: {rootPath}" });
 
             var results = new List<ImportAllResult>();
             using var db = new DataContext();
@@ -3606,30 +3799,31 @@ namespace PHStatistics.Portal.Controllers {
                 var weekName = Path.GetFileName(weekDir);
                 foreach (var filePath in Directory.GetFiles(weekDir, "*.xlsx").OrderBy(f => f)) {
                     var fn = Path.GetFileName(filePath);
-                    ImportAllResult r = null;
+                    var fileResults = new List<ImportAllResult>();
                     try {
-                        if (fn.Contains("全國人數表"))
-                            r = RunImportPH(db, filePath);
-                        else if (fn.Contains("PS南區"))
-                            r = RunImportPS(db, filePath);
+                        if (fn.Contains("全國人數表")) {
+                            fileResults.Add(RunImportPH(db, filePath));
+                            fileResults.Add(RunImportGEPT(db, filePath));
+                        } else if (fn.Contains("PS南區"))
+                            fileResults.Add(RunImportPS(db, filePath));
                         else if (fn.Contains("百倍速"))
-                            r = RunImportPSJ(db, filePath);
+                            fileResults.Add(RunImportPSJ(db, filePath));
                         else if (fn.Contains("百瀚全區課輔"))
-                            r = RunImportAS(db, filePath);
+                            fileResults.Add(RunImportAS(db, filePath));
                     }
                     catch (Exception ex) {
-                        r = new ImportAllResult { File = fn, Type = "Unknown", Errors = { ex.Message } };
+                        fileResults.Add(new ImportAllResult { File = fn, Type = "Unknown", Errors = { ex.Message } });
                         Logger?.LogError("ImportAll 例外 {file}: {msg}", fn, ex.Message);
                     }
-                    if (r != null) {
+                    foreach (var r in fileResults) {
                         r.Week = weekName;
                         results.Add(r);
-                        Logger?.LogInformation("ImportAll {week}/{file} → {schools}校 {items}筆 錯誤:{errs}",
-                            weekName, fn, r.SchoolCount, r.ItemCount, r.Errors.Count);
+                        Logger?.LogInformation("ImportAll {week}/{file} [{type}] → {schools}校 {items}筆 錯誤:{errs}",
+                            weekName, fn, r.Type, r.SchoolCount, r.ItemCount, r.Errors.Count);
                     }
                 }
             }
-            return Json(ResponseStatus.OK, results);
+            return Json(new { success = true, results = results });
         }
 
         public class ImportAllResult {

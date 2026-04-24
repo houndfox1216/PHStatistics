@@ -1,0 +1,88 @@
+2026-04-23 14:35:14.2363[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-04-23 14:35:14.2433[13]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-04-23 14:35:14.3609[11]  INFO MemberController  Member Login account: password: 
+2026-04-23 14:35:42.7579[35]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-04-23 14:35:42.8455[35]  INFO MemberController  進行登入 
+2026-04-23 14:35:43.0042[35]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-04-23 14:35:43.1614[35]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-04-23 14:35:43.1614[35]  INFO HomeController  進入首頁
+2026-04-23 14:36:00.2608[51]  INFO HomeController  ImportAll 34/（百倍速）人數統計表更新版115.2.21).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:01.0232[51]  INFO HomeController  ImportAll 34/2025 07(全國人數表第34週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:01.4955[51]  INFO HomeController  ImportAll 34/百瀚全區課輔人數總表(20260221).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:02.2545[51]  INFO HomeController  ImportAll 34/PS南區人數統計表 114學年度(34週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:03.0573[51]  INFO HomeController  ImportAll 35/（百倍速）人數統計表更新版115.2.28).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:03.9888[51]  INFO HomeController  ImportAll 35/2025 07(全國人數表第35週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:04.5426[51]  INFO HomeController  ImportAll 35/百瀚全區課輔人數總表(20260228).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:05.1887[51]  INFO HomeController  ImportAll 35/PS南區人數統計表 114學年度(35週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:05.8173[51]  INFO HomeController  ImportAll 36/（百倍速）人數統計表更新版115.3.07).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:06.3626[51]  INFO HomeController  ImportAll 36/2025 07(全國人數表第36週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:06.7470[51]  INFO HomeController  ImportAll 36/百瀚全區課輔人數總表(20260307).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:07.2747[51]  INFO HomeController  ImportAll 36/PS南區人數統計表 114學年度(36週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:07.9312[51]  INFO HomeController  ImportAll 37/（百倍速）人數統計表更新版115.3.14).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:08.4086[51]  INFO HomeController  ImportAll 37/2025 07(全國人數表第37週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:08.8520[51]  INFO HomeController  ImportAll 37/百瀚全區課輔人數總表(20260314).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:09.3997[51]  INFO HomeController  ImportAll 37/PS南區人數統計表 114學年度(37週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:09.9614[51]  INFO HomeController  ImportAll 38/（百倍速）人數統計表更新版115.3.21).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:10.4129[51]  INFO HomeController  ImportAll 38/2025 07(全國人數表第38週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:10.7617[51]  INFO HomeController  ImportAll 38/百瀚全區課輔人數總表(20260321).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:11.3046[51]  INFO HomeController  ImportAll 38/PS南區人數統計表 114學年度(38週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:11.9125[51]  INFO HomeController  ImportAll 39/（百倍速）人數統計表更新版115.3.28).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:12.3540[51]  INFO HomeController  ImportAll 39/2025 07(全國人數表第39週)修正.xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:12.7086[51]  INFO HomeController  ImportAll 39/百瀚全區課輔人數總表(20260328).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:13.2680[51]  INFO HomeController  ImportAll 39/PS南區人數統計表 114學年度(39週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:13.8199[51]  INFO HomeController  ImportAll 40/（百倍速）人數統計表更新版115.4.04).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:14.2883[51]  INFO HomeController  ImportAll 40/2025 07(全國人數表第40週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:14.6849[51]  INFO HomeController  ImportAll 40/百瀚全區課輔人數總表(20260404).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:15.2124[51]  INFO HomeController  ImportAll 40/PS南區人數統計表 114學年度(40週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:15.8376[51]  INFO HomeController  ImportAll 41/（百倍速）人數統計表更新版115.4.11).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:16.2630[51]  INFO HomeController  ImportAll 41/2025 07(全國人數表第41週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:16.6586[51]  INFO HomeController  ImportAll 41/百瀚全區課輔人數總表(20260411).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:17.2441[51]  INFO HomeController  ImportAll 41/PS南區人數統計表 114學年度(41週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:17.8333[51]  INFO HomeController  ImportAll 42/（百倍速）人數統計表更新版115.4.18).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:18.2622[51]  INFO HomeController  ImportAll 42/2025 07(全國人數表第42週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:18.6593[51]  INFO HomeController  ImportAll 42/百瀚全區課輔人數總表(20260418).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:36:19.1726[51]  INFO HomeController  ImportAll 42/PS南區人數統計表 114學年度(42週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:46:53.1304[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-04-23 14:46:53.1304[11]  INFO HomeController  進入首頁
+2026-04-23 14:46:55.2725[9]  INFO HomeController  ImportAll 34/（百倍速）人數統計表更新版115.2.21).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:46:56.3529[9]  INFO HomeController  ImportAll 34/2025 07(全國人數表第34週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:46:56.9339[9]  INFO HomeController  ImportAll 34/百瀚全區課輔人數總表(20260221).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:46:57.8792[9]  INFO HomeController  ImportAll 34/PS南區人數統計表 114學年度(34週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:46:58.8143[9]  INFO HomeController  ImportAll 35/（百倍速）人數統計表更新版115.2.28).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:00.0440[9]  INFO HomeController  ImportAll 35/2025 07(全國人數表第35週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:00.5607[9]  INFO HomeController  ImportAll 35/百瀚全區課輔人數總表(20260228).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:01.8224[9]  INFO HomeController  ImportAll 35/PS南區人數統計表 114學年度(35週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:02.7803[9]  INFO HomeController  ImportAll 36/（百倍速）人數統計表更新版115.3.07).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:03.7905[9]  INFO HomeController  ImportAll 36/2025 07(全國人數表第36週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:04.3362[9]  INFO HomeController  ImportAll 36/百瀚全區課輔人數總表(20260307).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:05.2622[9]  INFO HomeController  ImportAll 36/PS南區人數統計表 114學年度(36週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:06.2107[9]  INFO HomeController  ImportAll 37/（百倍速）人數統計表更新版115.3.14).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:07.4296[9]  INFO HomeController  ImportAll 37/2025 07(全國人數表第37週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:08.0766[9]  INFO HomeController  ImportAll 37/百瀚全區課輔人數總表(20260314).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:08.8186[9]  INFO HomeController  ImportAll 37/PS南區人數統計表 114學年度(37週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:09.5049[9]  INFO HomeController  ImportAll 38/（百倍速）人數統計表更新版115.3.21).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:10.0601[9]  INFO HomeController  ImportAll 38/2025 07(全國人數表第38週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:10.4058[9]  INFO HomeController  ImportAll 38/百瀚全區課輔人數總表(20260321).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:10.9391[9]  INFO HomeController  ImportAll 38/PS南區人數統計表 114學年度(38週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:11.4790[9]  INFO HomeController  ImportAll 39/（百倍速）人數統計表更新版115.3.28).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:11.9733[9]  INFO HomeController  ImportAll 39/2025 07(全國人數表第39週)修正.xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:12.3718[9]  INFO HomeController  ImportAll 39/百瀚全區課輔人數總表(20260328).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:12.9319[9]  INFO HomeController  ImportAll 39/PS南區人數統計表 114學年度(39週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:13.4150[9]  INFO HomeController  ImportAll 40/（百倍速）人數統計表更新版115.4.04).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:13.9740[9]  INFO HomeController  ImportAll 40/2025 07(全國人數表第40週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:14.3609[9]  INFO HomeController  ImportAll 40/百瀚全區課輔人數總表(20260404).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:14.9217[9]  INFO HomeController  ImportAll 40/PS南區人數統計表 114學年度(40週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:15.4559[9]  INFO HomeController  ImportAll 41/（百倍速）人數統計表更新版115.4.11).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:15.9347[9]  INFO HomeController  ImportAll 41/2025 07(全國人數表第41週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:16.3457[9]  INFO HomeController  ImportAll 41/百瀚全區課輔人數總表(20260411).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:16.8938[9]  INFO HomeController  ImportAll 41/PS南區人數統計表 114學年度(41週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:17.4030[9]  INFO HomeController  ImportAll 42/（百倍速）人數統計表更新版115.4.18).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:17.8386[9]  INFO HomeController  ImportAll 42/2025 07(全國人數表第42週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:18.1849[9]  INFO HomeController  ImportAll 42/百瀚全區課輔人數總表(20260418).xlsx → 0校 0筆 錯誤:0
+2026-04-23 14:47:18.6458[9]  INFO HomeController  ImportAll 42/PS南區人數統計表 114學年度(42週).xlsx → 0校 0筆 錯誤:0
+2026-04-23 17:09:35.9929[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-04-23 17:09:36.0112[13]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-04-23 17:09:36.1698[18]  INFO MemberController  Member Login account: password: 
+2026-04-23 17:23:51.9947[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-04-23 17:23:52.0120[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-04-23 17:23:52.1981[11]  INFO MemberController  Member Login account: password: 
