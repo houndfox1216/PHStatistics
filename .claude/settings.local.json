@@ -3,7 +3,13 @@
     "allow": [
       "Bash(dotnet build *)",
       "Bash(sqlcmd -S \"CLOUDFUN-MSI-LE\\\\SQLEXPRESS\" -d NewPAS -Q \"SELECT Id, Name, DepartmentId FROM Course WHERE DepartmentId BETWEEN 77 AND 120 ORDER BY DepartmentId, Ordinal\" -W -s \",\")",
-      "Bash(sqlcmd -S \"CLOUDFUN-MSI-LE\\\\SQLEXPRESS\" -d NewPAS -Q \"SELECT Id, Name, DepartmentId FROM Course WHERE DepartmentId BETWEEN 14 AND 40 ORDER BY DepartmentId, Ordinal\" -W -s \",\")"
+      "Bash(sqlcmd -S \"CLOUDFUN-MSI-LE\\\\SQLEXPRESS\" -d NewPAS -Q \"SELECT Id, Name, DepartmentId FROM Course WHERE DepartmentId BETWEEN 14 AND 40 ORDER BY DepartmentId, Ordinal\" -W -s \",\")",
+      "Bash(git -C \"C:\\\\Company\\\\PHStatistics.portal\" status)",
+      "Bash(git -C \"C:\\\\Company\\\\PHStatistics.portal\" diff --stat)",
+      "Bash(git -C \"C:\\\\Company\\\\PHStatistics.portal\" diff HEAD -- source/portal/Portal/Services/ReportExportService.cs source/portal/Portal/Controllers/StudentPopulationController.cs source/portal/Portal/Controllers/HomeController.cs source/CLAUDE.md)",
+      "Bash(git *)",
+      "Bash(grep -v \"^$\")",
+      "Bash(dotnet run *)"
     ]
   }
 }
