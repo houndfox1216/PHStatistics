@@ -359,4 +359,19 @@
     $(document).ready(function () {
         updateSubmitSummary();
     });
+
+    function updateClassDetail(classId, populationId) {
+        const name      = $('#class_' + classId).val();
+        const classType = $('#class_type_' + classId).val() || 0;
+
+        $.ajax({
+            url: '/StudentPopulation/UpdateClassDetail',
+            type: 'POST',
+            data: { populationId: populationId, classId: classId, name: name, classType: classType },
+            success: function (result) {
+                if (!result.success) alert(result.message || '更新失敗');
+            },
+            error: function () { alert('連線錯誤，請重試'); }
+        });
+    }
 </script>
