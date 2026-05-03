@@ -202,6 +202,7 @@
             parts.push('<span class="text-danger fw-bold">人數歸零（下週不帶入）：' + zeroNames.join('、') + '</span>');
 
         const el = document.getElementById('submitSummary');
+        if (!el) return;
         if (parts.length > 0) {
             el.innerHTML = parts.join('&nbsp;&nbsp;');
             el.style.display = 'block';
