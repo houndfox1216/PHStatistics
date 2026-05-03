@@ -12,11 +12,18 @@ using NPOI.SS.Util;
 using NPOI.XSSF.UserModel;
 using PHStatistics.Actions;
 using PHStatistics.Content;
+using PHStatistics.Portal.Services;
 using System.Framework.Data;
 
 namespace PHStatistics.Portal.Areas.Admin.Controllers {
     [RequirePermission(SystemPermission.StudentPopulation)]
     public class StudentPopulationController : AdminBaseController {
+        private readonly ReportExportService _reportExport;
+
+        public StudentPopulationController(ReportExportService reportExport) {
+            _reportExport = reportExport;
+        }
+
         public IActionResult Index() {
             ViewBag.Title = "人數表管理";
             return View();
@@ -576,6 +583,40 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
                 .OrderBy(e => e)
                 .Select(w => new { Week = w });
             return DataSourceLoader.Load(query, loadOptions);
+        }
+
+        [HttpGet]
+        public IActionResult ExportReport(int year, int week, string reportType, bool allSchools = false, int? schoolId = null) {
+            var type = reportType switch {
+                "PH"   => StudentPopulationType.PH,
+                "PS"   => StudentPopulationType.PS,
+                "GEPT" => StudentPopulationType.GEPT,
+                "PSJ"  => StudentPopulationType.PSJ,
+                "AS"   => StudentPopulationType.AfterSchool,
+                _      => StudentPopulationType.PH
+            };
+
+            // 管理後台：指定單一分校時限定，否則匯出全部分校
+            IList<int> schoolIds = schoolId.HasValue
+                ? new List<int> { schoolId.Value }
+                : null; // null = 所有分校
+
+            var bytes = _reportExport.Export(type, year, week, schoolIds);
+            if (bytes.Length == 0)
+                return NotFound("查無符合條件的資料");
+
+            string title = reportType switch {
+                "PH"   => $"{year}年第{week}週百瀚英語全國人數表",
+                "GEPT" => $"{year}年第{week}週英檢人數表",
+                "PS"   => $"{year}年第{week}週百世人數表",
+                "PSJ"  => $"{year}年第{week}週百倍速人數表",
+                "AS"   => $"{year}年第{week}週課輔人數表",
+                _      => $"{year}年第{week}週人數表"
+            };
+            string fileName = Uri.EscapeDataString($"{title}.xlsx");
+            return File(bytes,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                fileName);
         }
     }
 }
