@@ -169,6 +169,9 @@
                 $('#new_class_name').val('');
                 $('#new_number').val(0);
                 $('#new_studentremark').val('');
+                $('#new_department').prop('selectedIndex', 0);
+                $('#new_courses').html('<option value="">請先選擇班系</option>');
+                $('#new_class_type').html('<option value="">請先選擇課程</option>');
             },
             error: function () {
                 alert("班級新增失敗!!");

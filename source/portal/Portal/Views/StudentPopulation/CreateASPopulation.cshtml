@@ -208,7 +208,7 @@
         $.ajax({
             url: '@Url.Action("AddNewClass", "StudentPopulation")',
             cache: false,
-            data: { 'schoolId': schoolId, 'courseId': newCourses.value, 'week': week, 'year': year, 'itemArr': itemArr, 'newClassType': newClassType.value, 'newClassName': newClassName.value, 'newNumber': newNumber.value, 'newStudentremark': newStudentremark.value, 'type': 'AS' },
+            data: { 'schoolId': schoolId, 'courseId': newCourses.value, 'week': week, 'year': year, 'itemArr': itemArr, 'newClassType': 0, 'newClassName': newClassName.value, 'newNumber': newNumber.value, 'newStudentremark': newStudentremark.value, 'type': 'AS' },
             // dataType: 'application/json',
             type: 'POST',
             dataType: "html",
@@ -220,6 +220,8 @@
                 $('#new_class_name').val('');
                 $('#new_number').val(0);
                 $('#new_studentremark').val('');
+                $('#new_department').prop('selectedIndex', 0);
+                $('#new_courses').html('<option value="">請先選擇班系</option>');
             },
             error: function () {
                 alert("班級新增失敗!!");
