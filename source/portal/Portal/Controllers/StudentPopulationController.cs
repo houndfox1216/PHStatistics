@@ -1114,11 +1114,11 @@ namespace PHStatistics.Portal.Controllers {
             }
         }
 
+        [Authorize(typeof(PortalUser))]
         [HttpPost]
         public IActionResult UpdateClassDetail(long populationId, int classId, string name, int classType) {
             DataContext dataContext = new DataContext();
             var population = dataContext.StudentPopulation
-                .Include("Items.Class")
                 .FirstOrDefault(p => p.Id == populationId);
 
             if (population == null)
