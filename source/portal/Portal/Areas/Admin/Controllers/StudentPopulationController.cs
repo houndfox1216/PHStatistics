@@ -586,7 +586,11 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
         }
 
         [HttpGet]
-        public IActionResult ExportReport(int year, int week, string reportType, bool allSchools = false, int? schoolId = null) {
+        public IActionResult ExportReport(int year, int week, string reportType, int? schoolId = null) {
+            var validTypes = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "PH", "PS", "GEPT", "PSJ", "AfterSchool" };
+            if (!validTypes.Contains(reportType))
+                return BadRequest($"不支援的報表類型：{reportType}");
+
             var type = reportType switch {
                 "PH"   => StudentPopulationType.PH,
                 "PS"   => StudentPopulationType.PS,
