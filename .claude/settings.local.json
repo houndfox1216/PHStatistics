@@ -9,7 +9,15 @@
       "Bash(git -C \"C:\\\\Company\\\\PHStatistics.portal\" diff HEAD -- source/portal/Portal/Services/ReportExportService.cs source/portal/Portal/Controllers/StudentPopulationController.cs source/portal/Portal/Controllers/HomeController.cs source/CLAUDE.md)",
       "Bash(git *)",
       "Bash(grep -v \"^$\")",
-      "Bash(dotnet run *)"
+      "Bash(dotnet run *)",
+      "Bash(bash *)",
+      "Bash(Get-ChildItem *)",
+      "Bash(grep -n \"docs\" .gitignore)",
+      "Bash(grep -rn \"docs\" source/.gitignore)",
+      "Bash(ls -d .worktrees)",
+      "Bash(ls -d worktrees)",
+      "PowerShell(Get-Content *)",
+      "PowerShell(dotnet build *)"
     ]
   }
 }

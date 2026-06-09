@@ -63,7 +63,16 @@
                 </div>
             </div>
             foreach (StudentPopulationItem sItem in Model.Items.Where(e => e.Class.Course.Id == cItem.Id)) {
-                <div class="row mx-0">
+                string rowStateClass;
+                if (sItem.Number == 0)
+                    rowStateClass = "row-zero";
+                else if (sItem.IsNew)
+                    rowStateClass = "row-new";
+                else if (sItem.Number == sItem.LastWeekNumber)
+                    rowStateClass = "row-unchanged";
+                else
+                    rowStateClass = "";
+                <div class="row mx-0 @rowStateClass">
                     @*                 <div class="col-2 mb-3">
     <input type="hidden" class="form-control" name="Items[@itemRowNo].ClassId" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Id">
     <input type="text" class="form-control" name="Items[@itemRowNo].Class.Id" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Name">
@@ -86,7 +95,7 @@
                         </select>
                     </div> *@
                     <div class="col-4 mb-3">
-                        <input type="text" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.SchoolName">
+                        <input type="text" class="form-control class-name-input" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.SchoolName" onblur="updateClassDetail(@sItem.Class.Id, @Model.Id)">
                     </div>
                     <div class="col-2 mb-3">
                         @sItem.LastWeekNumber

@@ -77,6 +77,14 @@
                         匯出全區報表 <i class="fas fa-file-excel"></i>
                     </button>
                 }
+                <button type="button" class="btn btn-info btn-lg btn-round" id="exportDetailBtn">
+                    匯出 PH 明細 <i class="fas fa-file-excel"></i>
+                </button>
+                @if (ViewBag.CanExportAll == true) {
+                    <button type="button" class="btn btn-warning btn-lg btn-round" id="exportAllDetailBtn">
+                        匯出全區 PH 明細 <i class="fas fa-file-excel"></i>
+                    </button>
+                }
             </div>
             <div id="contentItem">
                 @await Html.PartialAsync("QueryPopulationPartialView", Model)
@@ -130,6 +138,28 @@
                     + '&reportType=' + type + '&allSchools=true';
                 window.location.href = url;
             });
+
+            // 匯出本校 PH 明細
+            $('#exportDetailBtn').on('click', function () {
+                var year = $('#queryYear').val();
+                var week = $('#queryWeek').val();
+                if (!year || !week) { alert('請先選擇年度與週次'); return; }
+                var url = '@Url.Action("ExportReportDetail", "StudentPopulation", new { area = "" })'
+                    + '?year=' + year + '&week=' + week + '&allSchools=false';
+                window.location.href = url;
+            });
+
+            // 匯出全區 PH 明細
+            if ($('#exportAllDetailBtn').length) {
+                $('#exportAllDetailBtn').on('click', function () {
+                    var year = $('#queryYear').val();
+                    var week = $('#queryWeek').val();
+                    if (!year || !week) { alert('請先選擇年度與週次'); return; }
+                    var url = '@Url.Action("ExportReportDetail", "StudentPopulation", new { area = "" })'
+                        + '?year=' + year + '&week=' + week + '&allSchools=true';
+                    window.location.href = url;
+                });
+            }
 
     // $(function () {
     //      $('#queryPHBtn').on('click', function () {

@@ -1,0 +1,39 @@
+2026-05-27 15:04:05.2612[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-05-27 15:04:05.2612[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-05-27 15:04:05.3748[11]  INFO MemberController  Member Login account: password: 
+2026-05-27 15:05:41.9731[47]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-05-27 15:05:42.1038[47]  INFO MemberController  進行登入 
+2026-05-27 15:05:42.3181[47]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-05-27 15:05:42.5939[47]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-05-27 15:05:42.5939[47]  INFO HomeController  進入首頁
+2026-05-27 15:11:17.0756[65]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-05-27 15:11:17.0756[65]  INFO HomeController  進入首頁
+2026-05-27 15:11:59.1562[61]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-05-27 15:11:59.1562[61]  INFO HomeController  進入首頁
+2026-05-27 15:13:07.4845[59]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-05-27 15:13:07.4845[59]  INFO HomeController  進入首頁
+2026-05-27 15:13:09.3893[55]  INFO StudentPopulationController  進入首頁(MainMenu)
+2026-05-27 15:13:09.3893[55]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2026-05-27 15:15:53.2334[62]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-05-27 15:15:53.2334[62]  INFO HomeController  進入首頁
+2026-05-27 15:18:21.7959[34] ERROR IApplication  目前無法進行相關操作，請聯繫維護人員!
+System.InvalidOperationException: An error was generated for warning 'Microsoft.EntityFrameworkCore.Query.InvalidIncludePathError': Unable to find navigation 'Title' specified in string based include path 'Title.Texts'. This exception can be suppressed or logged by passing event ID 'CoreEventId.InvalidIncludePathError' to the 'ConfigureWarnings' method in 'DbContext.OnConfiguring' or 'AddDbContext'.
+   at Microsoft.EntityFrameworkCore.Diagnostics.EventDefinition`2.Log[TLoggerCategory](IDiagnosticsLogger`1 logger, TParam1 arg1, TParam2 arg2)
+   at Microsoft.EntityFrameworkCore.Diagnostics.CoreLoggerExtensions.InvalidIncludePathError(IDiagnosticsLogger`1 diagnostics, String navigationChain, String navigationName)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.ProcessInclude(NavigationExpansionExpression source, Expression expression, Boolean thenInclude, Boolean setLoaded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.Expand(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryTranslationPreprocessor.Process(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass9_0`1.<Execute>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at System.Framework.EntityFrameworkCore.EntityFrameworkContext.FindById[TEntity](Object id, Boolean trackEnabled, String[] includes)
+   at System.Framework.Application.UpdateActionBase`3.OnExecuting(TDataContext context)

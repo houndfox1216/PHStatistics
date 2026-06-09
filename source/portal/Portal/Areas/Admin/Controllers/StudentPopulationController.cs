@@ -12,11 +12,18 @@ using NPOI.SS.Util;
 using NPOI.XSSF.UserModel;
 using PHStatistics.Actions;
 using PHStatistics.Content;
+using PHStatistics.Portal.Services;
 using System.Framework.Data;
 
 namespace PHStatistics.Portal.Areas.Admin.Controllers {
     [RequirePermission(SystemPermission.StudentPopulation)]
     public class StudentPopulationController : AdminBaseController {
+        private readonly ReportExportService _reportExportService;
+
+        public StudentPopulationController(ReportExportService reportExportService) : base() {
+            _reportExportService = reportExportService;
+        }
+
         public IActionResult Index() {
             ViewBag.Title = "人數表管理";
             return View();
@@ -576,6 +583,34 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
                 .OrderBy(e => e)
                 .Select(w => new { Week = w });
             return DataSourceLoader.Load(query, loadOptions);
+        }
+
+        [HttpGet]
+        public IActionResult ExportReport(int year, int week, string reportType, bool allSchools = false, int? schoolId = null) {
+            if (!Enum.TryParse<StudentPopulationType>(reportType, true, out var type))
+                return BadRequest("無效的報表類型");
+
+            IList<int> schoolIds = schoolId.HasValue
+                ? new List<int> { schoolId.Value }
+                : Model.DataContext.School.Select(s => s.Id).ToList();
+
+            var bytes    = _reportExportService.Export(type, year, week, schoolIds);
+            var fileName = $"PHStats_{reportType}_{year}_{week:D2}.xlsx";
+            return File(bytes,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                System.Web.HttpUtility.UrlEncode(fileName));
+        }
+
+        [HttpGet]
+        public IActionResult ExportReportDetail(int year, int week) {
+            var schoolIds = Model.DataContext.School.Select(s => s.Id).ToList();
+            var bytes     = _reportExportService.ExportPHDetail(year, week, schoolIds);
+            if (bytes.Length == 0)
+                return NotFound("查無符合條件的資料");
+            var fileName = $"PH明細_{year}年第{week}週.xlsx";
+            return File(bytes,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                System.Web.HttpUtility.UrlEncode(fileName));
         }
     }
 }

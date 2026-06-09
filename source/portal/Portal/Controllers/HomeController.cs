@@ -3292,6 +3292,11 @@ namespace PHStatistics.Portal.Controllers {
 
         private static readonly Guid _defaultSubmitterId = Guid.Parse("23858D7E-F622-4D15-4A74-08DC7A5137DD");
 
+        // 排除在 PH 匯入之外的頁籤名稱（英檢、舊版本、非人數表頁籤）
+        private static readonly HashSet<string> _phExcludeSheets = new(StringComparer.OrdinalIgnoreCase) {
+            "英檢", "舊版本", "南區 (舊版本)", "中北區（舊版本）", "Rocky班", "各校開班數"
+        };
+
         // PH: Excel column index → DB Course ID (hardcoded from 百瀚英語南區 multi-level header layout)
         private static readonly Dictionary<int, int> _phColCourseId = new() {
             [9]=1,  [10]=1,                                                    // P1-初階
@@ -3545,9 +3550,10 @@ namespace PHStatistics.Portal.Controllers {
             using var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
             var wb = new XSSFWorkbook(fs);
             var combined = new ImportAllResult { File = Path.GetFileName(filePath), Type = "PH" };
-            int phSheets = Math.Min(wb.NumberOfSheets, 2);
-            for (int s = 0; s < phSheets; s++) {
-                var r = RunImportSheetPH(db, wb.GetSheetAt(s), StudentPopulationType.PH,
+            for (int s = 0; s < wb.NumberOfSheets; s++) {
+                var sheet = wb.GetSheetAt(s);
+                if (_phExcludeSheets.Contains(sheet.SheetName)) continue;
+                var r = RunImportSheetPH(db, sheet, StudentPopulationType.PH,
                     "PH", "{0}第{1}週百瀚人數表", requireTypeIndicator: true);
                 combined.SchoolCount += r.SchoolCount;
                 combined.ItemCount += r.ItemCount;

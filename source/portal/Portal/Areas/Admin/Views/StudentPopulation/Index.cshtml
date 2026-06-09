@@ -157,6 +157,20 @@
         window.location.href = url + params.join("&");
     }
 
+    function exportReport(isDetail) {
+        var year = $("#yearFilter").dxSelectBox("instance").option("value");
+        var week = $("#weekFilter").dxSelectBox("instance").option("value");
+        var type = $("#exportReportType").val();
+
+        if (!year || !week) { alert('請先選擇年度與週次'); return; }
+
+        var action = isDetail ? 'ExportReportDetail' : 'ExportReport';
+        var url = '@Url.Action("ExportReport", "StudentPopulation", new { area = "Admin" })'
+            .replace('ExportReport', action)
+            + '?year=' + year + '&week=' + week + '&reportType=' + type + '&allSchools=true';
+        window.location.href = url;
+    }
+
     function approveRow(e) {
         var id = e.row.data.Id;
         var grid = e.component;
@@ -205,6 +219,22 @@
             <button class="btn btn-primary btn-sm" onclick="exportPH()">
                 <i class="fas fa-file-excel me-1"></i>匯出 PH 報表
             </button>
+            <div class="d-flex align-items-center gap-2 border-start ps-3 ms-2">
+                <label class="mb-0 text-muted small">報表匯出</label>
+                <select id="exportReportType" class="form-select form-select-sm" style="width:130px;">
+                    <option value="PH">百瀚 PH</option>
+                    <option value="GEPT">英檢 GEPT</option>
+                    <option value="PSJ">百倍速 PSJ</option>
+                    <option value="PS">百世 PS</option>
+                    <option value="AfterSchool">課輔 AS</option>
+                </select>
+                <button class="btn btn-success btn-sm" onclick="exportReport(false)">
+                    <i class="fas fa-file-excel me-1"></i>匯出全區
+                </button>
+                <button class="btn btn-info btn-sm text-white" onclick="exportReport(true)">
+                    <i class="fas fa-file-excel me-1"></i>匯出 PH 明細
+                </button>
+            </div>
         </div>
     </div>
 </div>

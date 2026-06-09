@@ -1,0 +1,92 @@
+2026-05-09 16:49:54.1312[9]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-05-09 16:49:54.1376[9]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-05-09 16:49:54.2319[9]  INFO MemberController  Member Login account: password: 
+2026-05-09 17:41:36.5279[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-05-09 17:41:36.5279[13]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-05-09 17:41:36.6584[18]  INFO MemberController  Member Login account: password: 
+2026-05-09 17:45:38.2168[38]  INFO HomeController  ImportAll 1/2025 07(全國人數表第01週).xlsx [PH] → 0校 0筆 錯誤:3
+2026-05-09 17:45:38.2168[38]  INFO HomeController  ImportAll 1/2025 07(全國人數表第01週).xlsx [GEPT] → 0校 0筆 錯誤:1
+2026-05-09 17:45:40.4499[38]  INFO HomeController  ImportAll 2/2025 07(全國人數表第02週).xlsx [PH] → 0校 0筆 錯誤:3
+2026-05-09 17:45:40.4499[38]  INFO HomeController  ImportAll 2/2025 07(全國人數表第02週).xlsx [GEPT] → 0校 0筆 錯誤:1
+2026-05-09 17:45:41.8052[38]  INFO HomeController  ImportAll 3/2025 07(全國人數表第03週).xlsx [PH] → 0校 0筆 錯誤:3
+2026-05-09 17:45:41.8052[38]  INFO HomeController  ImportAll 3/2025 07(全國人數表第03週).xlsx [GEPT] → 0校 0筆 錯誤:1
+2026-05-09 17:45:43.3765[38]  INFO HomeController  ImportAll 4/2025 07(全國人數表第04週).xlsx [PH] → 0校 0筆 錯誤:2
+2026-05-09 17:45:43.3765[38]  INFO HomeController  ImportAll 4/2025 07(全國人數表第04週).xlsx [GEPT] → 0校 0筆 錯誤:1
+2026-05-09 17:50:03.8822[38]  INFO HomeController  ImportAll 5/2025 07(全國人數表第05週).xlsx [PH] → 23校 724筆 錯誤:0
+2026-05-09 17:50:03.8822[38]  INFO HomeController  ImportAll 5/2025 07(全國人數表第05週).xlsx [GEPT] → 25校 49筆 錯誤:0
+2026-05-09 17:54:45.1263[38]  INFO HomeController  ImportAll 6/2025 07(全國人數表第06週).xlsx [PH] → 23校 742筆 錯誤:0
+2026-05-09 17:54:45.1263[38]  INFO HomeController  ImportAll 6/2025 07(全國人數表第06週).xlsx [GEPT] → 25校 47筆 錯誤:0
+2026-05-09 17:59:39.4284[38]  INFO HomeController  ImportAll 7/2025 07(全國人數表第07週).xlsx [PH] → 23校 736筆 錯誤:0
+2026-05-09 17:59:39.4284[38]  INFO HomeController  ImportAll 7/2025 07(全國人數表第07週).xlsx [GEPT] → 25校 45筆 錯誤:0
+2026-05-09 18:04:53.2094[38]  INFO HomeController  ImportAll 8/2025 07(全國人數表第08週).xlsx [PH] → 23校 733筆 錯誤:0
+2026-05-09 18:04:53.2094[38]  INFO HomeController  ImportAll 8/2025 07(全國人數表第08週).xlsx [GEPT] → 25校 45筆 錯誤:0
+2026-05-09 18:10:24.8431[38]  INFO HomeController  ImportAll 9/2025 07(全國人數表第09週).xlsx [PH] → 23校 733筆 錯誤:0
+2026-05-09 18:10:24.8431[38]  INFO HomeController  ImportAll 9/2025 07(全國人數表第09週).xlsx [GEPT] → 25校 41筆 錯誤:0
+2026-05-09 18:16:15.7002[38]  INFO HomeController  ImportAll 10/2025 07(全國人數表第10週).xlsx [PH] → 23校 746筆 錯誤:0
+2026-05-09 18:16:15.7002[38]  INFO HomeController  ImportAll 10/2025 07(全國人數表第10週).xlsx [GEPT] → 25校 39筆 錯誤:0
+2026-05-09 18:22:18.8619[38]  INFO HomeController  ImportAll 11/2025 07(全國人數表第11週).xlsx [PH] → 23校 735筆 錯誤:0
+2026-05-09 18:22:18.8619[38]  INFO HomeController  ImportAll 11/2025 07(全國人數表第11週).xlsx [GEPT] → 25校 38筆 錯誤:0
+2026-05-09 18:28:47.5139[38]  INFO HomeController  ImportAll 12/2025 07(全國人數表第12週).xlsx [PH] → 23校 746筆 錯誤:0
+2026-05-09 18:28:47.5139[38]  INFO HomeController  ImportAll 12/2025 07(全國人數表第12週).xlsx [GEPT] → 25校 38筆 錯誤:0
+2026-05-09 18:35:33.4026[38]  INFO HomeController  ImportAll 13/2025 07(全國人數表第13週).xlsx [PH] → 23校 750筆 錯誤:0
+2026-05-09 18:35:33.4026[38]  INFO HomeController  ImportAll 13/2025 07(全國人數表第13週).xlsx [GEPT] → 25校 37筆 錯誤:0
+2026-05-09 18:42:31.2654[38]  INFO HomeController  ImportAll 14/2025 07(全國人數表第14週).xlsx [PH] → 23校 742筆 錯誤:0
+2026-05-09 18:42:31.2654[38]  INFO HomeController  ImportAll 14/2025 07(全國人數表第14週).xlsx [GEPT] → 25校 36筆 錯誤:0
+2026-05-09 18:49:41.5584[38]  INFO HomeController  ImportAll 15/2025 07(全國人數表第15週).xlsx [PH] → 23校 727筆 錯誤:0
+2026-05-09 18:49:41.5584[38]  INFO HomeController  ImportAll 15/2025 07(全國人數表第15週).xlsx [GEPT] → 25校 36筆 錯誤:0
+2026-05-09 18:57:01.3809[38]  INFO HomeController  ImportAll 16/2025 07(全國人數表第16週).xlsx [PH] → 23校 725筆 錯誤:0
+2026-05-09 18:57:01.3809[38]  INFO HomeController  ImportAll 16/2025 07(全國人數表第16週).xlsx [GEPT] → 25校 35筆 錯誤:0
+2026-05-09 19:00:33.8368[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第17週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:00:33.8368[38]  INFO HomeController  ImportAll 17/2025 07(全國人數表第17週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:00:44.0293[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第18週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:00:44.0293[38]  INFO HomeController  ImportAll 18/2025 07(全國人數表第18週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:00:54.4167[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第19週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:00:54.4168[38]  INFO HomeController  ImportAll 19/2025 07(全國人數表第19週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:01:04.5313[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第20週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:01:04.5313[38]  INFO HomeController  ImportAll 20/2025 07(全國人數表第20週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:01:14.6204[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第21週)1203update.xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:01:14.6204[38]  INFO HomeController  ImportAll 21/2025 07(全國人數表第21週)1203update.xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:01:24.8248[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第22週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:01:24.8248[38]  INFO HomeController  ImportAll 22/2025 07(全國人數表第22週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:01:35.1359[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第23週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:01:35.1359[38]  INFO HomeController  ImportAll 23/2025 07(全國人數表第23週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:01:45.4455[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第24週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:01:45.4455[38]  INFO HomeController  ImportAll 24/2025 07(全國人數表第24週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:01:55.4559[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第25週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:01:55.4559[38]  INFO HomeController  ImportAll 25/2025 07(全國人數表第25週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:02:05.7960[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第26週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:02:05.7960[38]  INFO HomeController  ImportAll 26/2025 07(全國人數表第26週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:02:15.8153[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第27週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:02:15.8153[38]  INFO HomeController  ImportAll 27/2025 07(全國人數表第27週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:02:26.0134[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第28週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:02:26.0134[38]  INFO HomeController  ImportAll 28/2025 07(全國人數表第28週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:02:36.1274[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第29週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:02:36.1274[38]  INFO HomeController  ImportAll 29/2025 07(全國人數表第29週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:02:46.1565[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第30週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:02:46.1565[38]  INFO HomeController  ImportAll 30/2025 07(全國人數表第30週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:02:57.1738[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第31週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:02:57.1738[38]  INFO HomeController  ImportAll 31/2025 07(全國人數表第31週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:03:07.5044[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第32週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:03:07.5044[38]  INFO HomeController  ImportAll 32/2025 07(全國人數表第32週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:03:17.5281[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第33週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:03:17.5281[38]  INFO HomeController  ImportAll 33/2025 07(全國人數表第33週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:03:27.7133[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第34週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:03:27.7133[38]  INFO HomeController  ImportAll 34/2025 07(全國人數表第34週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:03:38.0435[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第35週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:03:38.0435[38]  INFO HomeController  ImportAll 35/2025 07(全國人數表第35週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:03:48.1068[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第36週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:03:48.1068[38]  INFO HomeController  ImportAll 36/2025 07(全國人數表第36週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:03:58.7116[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第37週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:03:58.7116[38]  INFO HomeController  ImportAll 37/2025 07(全國人數表第37週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:04:08.7846[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第38週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:04:08.7846[38]  INFO HomeController  ImportAll 38/2025 07(全國人數表第38週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:04:18.8565[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第39週)修正.xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:04:18.8565[38]  INFO HomeController  ImportAll 39/2025 07(全國人數表第39週)修正.xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:04:29.1068[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第40週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:04:29.1068[38]  INFO HomeController  ImportAll 40/2025 07(全國人數表第40週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:04:39.0884[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第41週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:04:39.0884[38]  INFO HomeController  ImportAll 41/2025 07(全國人數表第41週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:04:49.2620[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第42週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:04:49.2620[38]  INFO HomeController  ImportAll 42/2025 07(全國人數表第42週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-05-09 19:04:59.5107[38] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第43週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-05-09 19:04:59.5111[38]  INFO HomeController  ImportAll 43/2025 07(全國人數表第43週).xlsx [Unknown] → 0校 0筆 錯誤:1

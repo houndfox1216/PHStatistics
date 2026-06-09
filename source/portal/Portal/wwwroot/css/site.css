@@ -69,3 +69,41 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+/* ===== Home Page Cards ===== */
+.input-card {
+    display: block;
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    background-color: #4e73df;
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.input-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(78, 115, 223, 0.35);
+    color: #fff;
+}
+.input-card.disabled {
+    background-color: #adb5bd;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+.utility-card {
+    display: block;
+    border: none;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.utility-card:hover { transform: translateY(-3px); }
+.utility-card-green { background-color: #1cc88a; color: #fff; }
+.utility-card-green:hover { color: #fff; box-shadow: 0 6px 16px rgba(28,200,138,0.35); }
+.utility-card-grey  { background-color: #858796; color: #fff; }
+.utility-card-grey:hover  { color: #fff; box-shadow: 0 6px 16px rgba(133,135,150,0.35); }
+
+/* ===== Population Row States ===== */
+.row-zero      { background-color: #f8d7da !important; }
+.row-new       { background-color: #d4edda !important; }
+.row-unchanged { background-color: #fff3cd !important; }

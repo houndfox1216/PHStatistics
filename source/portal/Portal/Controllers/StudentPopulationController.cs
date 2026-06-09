@@ -812,6 +812,7 @@ namespace PHStatistics.Portal.Controllers {
                 string e = ex.Message;
             }
 
+            long newAddedClassId = 0;
             if (seleceedType == StudentPopulationType.PH) {
                 //進行百瀚人數表異動
                 try {
@@ -860,6 +861,7 @@ namespace PHStatistics.Portal.Controllers {
                     addItem.StudentRemark = newStudentremark;
                     dataContext.StudentPopulationItem.Add(addItem);
                     dataContext.SaveChanges();
+                    newAddedClassId = newClass.Id;
                     SumPHPopulation(studentPopulationData.Id);
                 }
                 catch (Exception ex) {
@@ -919,6 +921,7 @@ namespace PHStatistics.Portal.Controllers {
                     addItem.StudentRemark = newStudentremark;
                     dataContext.StudentPopulationItem.Add(addItem);
                     dataContext.SaveChanges();
+                    newAddedClassId = newClass.Id;
                     //進行加總
                     SumPHPopulation(studentPopulationData.Id);
                 }
@@ -959,6 +962,7 @@ namespace PHStatistics.Portal.Controllers {
                     addItem.StudentRemark = newStudentremark;
                     dataContext.StudentPopulationItem.Add(addItem);
                     dataContext.SaveChanges();
+                    newAddedClassId = newClass.Id;
                     //進行加總
                     SumPHPopulation(studentPopulationData.Id);
                 }
@@ -999,6 +1003,7 @@ namespace PHStatistics.Portal.Controllers {
                     addItem.StudentRemark = newStudentremark;
                     dataContext.StudentPopulationItem.Add(addItem);
                     dataContext.SaveChanges();
+                    newAddedClassId = newClass.Id;
                     //進行加總
                     SumPHPopulation(studentPopulationData.Id);
                 }
@@ -1039,6 +1044,7 @@ namespace PHStatistics.Portal.Controllers {
                     addItem.StudentRemark = newStudentremark;
                     dataContext.StudentPopulationItem.Add(addItem);
                     dataContext.SaveChanges();
+                    newAddedClassId = newClass.Id;
                     //進行加總
                     SumPHPopulation(studentPopulationData.Id);
                 }
@@ -1049,6 +1055,10 @@ namespace PHStatistics.Portal.Controllers {
             dataContext.ChangeTracker.Clear();
             //var returnData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").Where(e => e.School.Id == schoolId && e.Year == year && e.Week == week && e.Type == seleceedType).FirstOrDefault();
             var returnData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").Where(e => e.Id == studentPopulationData.Id).FirstOrDefault();
+            if (newAddedClassId > 0) {
+                var newItem = returnData?.Items?.FirstOrDefault(i => i.ClassId == newAddedClassId);
+                if (newItem != null) newItem.IsNew = true;
+            }
             return PartialView("PopulationPartialView", returnData);
         }
 
@@ -1111,6 +1121,38 @@ namespace PHStatistics.Portal.Controllers {
             }
             catch (Exception ex) {
                 return PartialView("PopulationPartialView", new StudentPopulation());
+            }
+        }
+
+        [HttpPost]
+        public IActionResult UpdateClassDetail(long populationId, int classId, string name, int classType) {
+            try {
+                DataContext dataContext = new DataContext();
+                var population = dataContext.StudentPopulation
+                    .Where(p => p.Id == populationId).FirstOrDefault();
+                if (population == null)
+                    return Json(new { success = false, message = "找不到人數表" });
+                if (population.Status != StudentPopulationStatus.Documented)
+                    return Json(new { success = false, message = "人數表狀態不允許修改" });
+
+                var cls = dataContext.Class.FirstOrDefault(c => c.Id == classId);
+                if (cls == null)
+                    return Json(new { success = false, message = "找不到班級" });
+
+                bool classTypeChanged = (int)cls.Type != classType;
+                if (!string.IsNullOrWhiteSpace(name))
+                    cls.Name = name;
+                cls.Type = (ClassType)classType;
+                dataContext.Class.Update(cls);
+                dataContext.SaveChanges();
+
+                if (classTypeChanged)
+                    SumPHPopulation(populationId);
+
+                return Json(new { success = true });
+            }
+            catch (Exception ex) {
+                return Json(new { success = false, message = ex.Message });
             }
         }
 
@@ -1744,6 +1786,29 @@ namespace PHStatistics.Portal.Controllers {
                 _      => $"{year}年第{week}週人數表"
             };
             string fileName = $"{title}.xlsx";
+            return File(bytes,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                fileName);
+        }
+
+        [HttpGet]
+        [Authorize(typeof(PortalUser))]
+        public IActionResult ExportReportDetail(int year, int week, bool allSchools = false, int? schoolId = null) {
+            IList<int> schoolIds = null;
+            if (schoolId.HasValue) {
+                var accessible = Model.GetAccessibleSchools(User).Select(s => s.Id).ToList();
+                if (!User.HasPermission(SystemPermission.ViewAllSchools) && !accessible.Contains(schoolId.Value))
+                    return Forbid();
+                schoolIds = new List<int> { schoolId.Value };
+            } else if (!allSchools || !User.HasPermission(SystemPermission.ViewAllSchools)) {
+                schoolIds = Model.GetAccessibleSchools(User).Select(s => s.Id).ToList();
+            }
+
+            var bytes = _reportExport.ExportPHDetail(year, week, schoolIds);
+            if (bytes.Length == 0)
+                return NotFound("查無符合條件的資料");
+
+            string fileName = $"PH明細_{year}年第{week}週.xlsx";
             return File(bytes,
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 fileName);

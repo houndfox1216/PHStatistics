@@ -1,91 +1,61 @@
-﻿@{
-    List<BannerPosition> positions = ViewBag.BannerPositions;
+@{
     bool canEdit = (bool)ViewBag.CanEdit;
     bool isAdmin = (bool)ViewBag.IsAdmin;
+    var inputItems = new (string Label, string Url)[] {
+        ("百瀚",        "/StudentPopulation/Index?type=PH"),
+        ("百倍速",      "/StudentPopulation/Index?type=PSJ"),
+        ("英檢班/其他", "/StudentPopulation/Index?type=Gept"),
+        ("百世",        "/StudentPopulation/Index?type=PS"),
+        ("課輔",        "/StudentPopulation/Index?type=AS"),
+    };
 }
 
 <div class="container py-5">
-    <div class="row justify-content-center mb-6">
-        <div class="col-12 col-sm-10 col-md-8 col-xl-6 align-self-center">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-xl-8">
+
             @if (ViewBag.ErrorMessage != null) {
-                <div class="mt-3 mb-3 content">
-                    <button type="button" class="btn btn-primary btn-lg btn-round">
-                        @ViewBag.ErrorMessage
-                    </button>
-                </div>
+                <div class="alert alert-warning mb-4">@ViewBag.ErrorMessage</div>
             }
-            <div class="mt-4 mb-4 ">
-                @if (canEdit) {
-                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addNew">
-                        輸入資料-百瀚
-                    </button>
-                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addPSJNew">
-                        輸入資料-百倍速
-                    </button>
-                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addNewGept">
-                        輸入資料-英檢班/其他班系
-                    </button>
-                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addNewPS">
-                        輸入資料-百世
-                    </button>
-                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addNewAS">
-                        輸入資料-課輔
-                    </button>
+
+            <h5 class="text-center text-muted fw-normal mb-3">輸入資料</h5>
+            <div class="row g-3 mb-4">
+                @foreach (var item in inputItems) {
+                    <div class="col-4">
+                        <a href="@(canEdit ? item.Url : "javascript:void(0)")"
+                           class="input-card @(!canEdit ? "disabled" : "")">
+                            <div class="card-body text-center py-4">
+                                <i class="fas fa-clipboard-list fa-2x mb-2 d-block"></i>
+                                <span class="fw-semibold">@item.Label</span>
+                            </div>
+                        </a>
+                    </div>
                 }
-                else {
-                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addNew" disabled="true">
-                        輸入資料-百瀚
-                    </button>
-                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addPSJNew" disabled="true">
-                        輸入資料-百倍速
-                    </button>
-                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addNewGept" disabled="true">
-                        輸入資料-英檢班/其他班系
-                    </button>
-                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addNewPS" disabled="true">
-                        輸入資料-百世
-                    </button>
-                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addNewAS" disabled="true">
-                        輸入資料-課輔
-                    </button>
-                    @* 
-                    <button type="button" class="btn btn-primary btn-lg btn-round" onclick="#" disabled="true">
-                        輸入資料
-                    </button> *@
-                }
-                <button type="button" class="btn btn-primary btn-lg btn-round" id="query">
-                    查詢資料
-                </button>
+            </div>
+
+            <hr>
+
+            <div class="row g-3 justify-content-center">
+                <div class="col-4">
+                    <a href="/StudentPopulation/Query" class="utility-card utility-card-green">
+                        <div class="card-body text-center py-3">
+                            <i class="fas fa-search fa-2x mb-1 d-block"></i>
+                            <span class="fw-semibold">查詢資料</span>
+                        </div>
+                    </a>
+                </div>
                 @if (isAdmin) {
-                    <button type="button" class="btn btn-secondary btn-lg btn-round" id="goAdmin">
-                        管理後台
-                    </button>
+                    <div class="col-4">
+                        <a href="/Admin" class="utility-card utility-card-grey">
+                            <div class="card-body text-center py-3">
+                                <i class="fas fa-cog fa-2x mb-1 d-block"></i>
+                                <span class="fw-semibold">管理後台</span>
+                            </div>
+                        </a>
+                    </div>
                 }
             </div>
 
         </div>
     </div>
 </div>
-<script>
-    $('#addNew').on('click', function () {
-        window.location.href = "/StudentPopulation/Index?type=PH";
-    })
-    $('#addPSJNew').on('click', function () {
-        window.location.href = "/StudentPopulation/Index?type=PSJ";
-    })
-    $('#addNewGept').on('click', function () {
-        window.location.href = "/StudentPopulation/Index?type=Gept";
-    })
-    $('#addNewPS').on('click', function () {
-        window.location.href = "/StudentPopulation/Index?type=PS";
-    })
-    $('#addNewAS').on('click', function () {
-        window.location.href = "/StudentPopulation/Index?type=AS";
-    })
-    $('#query').on('click', function () {
-        window.location.href = "/StudentPopulation/Query";
-    })
-    $('#goAdmin').on('click', function () {
-        window.location.href = "/Admin";
-    })
-</script>

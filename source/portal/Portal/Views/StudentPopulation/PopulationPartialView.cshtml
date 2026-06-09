@@ -211,7 +211,16 @@
             }
             else
             {
-                  <div class="row mx-0">
+                string rowStateClass;
+                if (sItem.Number == 0)
+                    rowStateClass = "row-zero";
+                else if (sItem.IsNew)
+                    rowStateClass = "row-new";
+                else if (sItem.Number == sItem.LastWeekNumber)
+                    rowStateClass = "row-unchanged";
+                else
+                    rowStateClass = "";
+                  <div class="row mx-0 @rowStateClass">
                 @if (Model.Type == StudentPopulationType.PH || Model.Type == StudentPopulationType.PSJ) {
                     if (Model.Type == StudentPopulationType.PH) {
                         if (sItem.Class.Course.Name.Equals("英文合作開班人數合計") || sItem.Class.Course.Name.Equals("上週英語文總人數") || sItem.Class.Course.Name.Equals("與上週相比") ||
@@ -242,21 +251,21 @@
                             }
                             else {
                                 <div class="col-1 mb-1">
-                                    <select class="form-select validate[required]" id="class_type_@sItem.Class.Id.ToString()" data-live-search="true">
+                                    <select class="form-select validate[required]"
+                                            id="class_type_@sItem.Class.Id.ToString()"
+                                            onchange="updateClassDetail(@sItem.Class.Id, @Model.Id)"
+                                            data-live-search="true">
                                         <option selected disabled>選擇班別</option>
                                         @if (sItem.Class.Type == ClassType.SubGroup) {
                                             <option value=4 selected="selected">小</option>
-                                        }
-                                        else {
-                                            <option value=2>小</option>
+                                        } else {
+                                            <option value=4>小</option>
                                         }
                                         @if (sItem.Class.Type == ClassType.V3) {
                                             <option value=3 selected="selected">三</option>
-                                        }
-                                        else {
+                                        } else {
                                             <option value=3>三</option>
                                         }
-
                                     </select>
                                 </div>
                             }
@@ -285,7 +294,7 @@
 
                 <div class="col-3 mb-3">
                     @* <input type="text" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.Id.ToString() @sItem.Name"> *@
-                    <input type="text" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.Name">
+                    <input type="text" class="form-control class-name-input" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.Name" onblur="updateClassDetail(@sItem.Class.Id, @Model.Id)">
                 </div>
                 <div class="col-1 mb-1">
                     @sItem.LastWeekNumber

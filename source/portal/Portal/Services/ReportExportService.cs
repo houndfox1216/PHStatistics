@@ -452,4 +452,132 @@ public class ReportExportService {
             .OrderBy(c => c.Department.Ordinal)
             .ThenBy(c => c.Ordinal)
             .ToList();
+
+    // ── PH 班級明細 ───────────────────────────────────────────────────────────
+    // 格式：每校 2 列（小班 / 三人班），每課程展開為 N 個子欄位（甲班、乙班…）
+
+    private static readonly string[] _chineseOrdinals =
+        { "甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸" };
+
+    private static string GetOrdinalLabel(int zeroIdx) =>
+        zeroIdx < _chineseOrdinals.Length ? $"{_chineseOrdinals[zeroIdx]}班" : $"第{zeroIdx + 1}班";
+
+    public byte[] ExportPHDetail(int year, int week, IList<int> schoolIds = null) {
+        var populations = LoadPopulations(StudentPopulationType.PH, year, week, schoolIds);
+        if (populations.Count == 0) return Array.Empty<byte>();
+
+        var courses = LoadCourses(StudentPopulationType.PH);
+        var nonSumCourses = courses.Where(c => !c.IsSum).ToList();
+
+        var targetTypes = new[] { ClassType.SubGroup, ClassType.V3 };
+
+        // 計算各 courseId 的全區最大班數（SubGroup 與 V3 取其中較大值）
+        var maxSlots = new Dictionary<int, int>();
+        foreach (var pop in populations) {
+            foreach (var courseId in nonSumCourses.Select(c => c.Id)) {
+                int sg = pop.Items.Count(i => i.Class?.CourseId == courseId && i.Class?.Type == ClassType.SubGroup);
+                int v3 = pop.Items.Count(i => i.Class?.CourseId == courseId && i.Class?.Type == ClassType.V3);
+                int mx = Math.Max(sg, v3);
+                if (!maxSlots.TryGetValue(courseId, out int ex) || mx > ex)
+                    maxSlots[courseId] = mx;
+            }
+        }
+
+        // 只保留有資料的課程欄
+        var activeCourses = nonSumCourses.Where(c => maxSlots.TryGetValue(c.Id, out int s) && s > 0).ToList();
+        var deptGroups = activeCourses
+            .GroupBy(c => c.Department.Id)
+            .Select(g => (dept: g.First().Department, list: g.ToList()))
+            .ToList();
+
+        int fixedCols = 2;
+        int totalCols = fixedCols + activeCourses.Sum(c => maxSlots[c.Id]) + deptGroups.Count;
+
+        var wb    = new XSSFWorkbook();
+        var sheet = wb.CreateSheet("Sheet1");
+
+        // Row 0: 標題
+        sheet.CreateRow(0).CreateCell(0).SetCellValue($"{year}年第{week}週百瀚人數表（班級明細）");
+        try { sheet.AddMergedRegion(new CellRangeAddress(0, 0, 0, totalCols - 1)); } catch { }
+
+        var r1 = sheet.CreateRow(1);
+        sheet.CreateRow(2);
+        var r3 = sheet.CreateRow(3);
+        r1.CreateCell(0).SetCellValue("分校");
+        r1.CreateCell(1).SetCellValue("班型");
+        try { sheet.AddMergedRegion(new CellRangeAddress(1, 3, 0, 0)); } catch { }
+        try { sheet.AddMergedRegion(new CellRangeAddress(1, 3, 1, 1)); } catch { }
+
+        // Rows 1-3: 班系 → 課程 → 子欄位
+        int col = fixedCols;
+        foreach (var (dept, list) in deptGroups) {
+            int deptStart = col;
+            foreach (var c in list) {
+                int slots = maxSlots[c.Id];
+                var row2 = sheet.GetRow(2) ?? sheet.CreateRow(2);
+                row2.CreateCell(col).SetCellValue(c.Name);
+                if (slots > 1)
+                    try { sheet.AddMergedRegion(new CellRangeAddress(2, 2, col, col + slots - 1)); } catch { }
+                for (int si = 0; si < slots; si++)
+                    r3.CreateCell(col + si).SetCellValue(GetOrdinalLabel(si));
+                col += slots;
+            }
+            // 部門合計欄
+            r1.CreateCell(deptStart).SetCellValue(dept.Name);
+            int deptEnd = col;
+            if (deptEnd > deptStart)
+                try { sheet.AddMergedRegion(new CellRangeAddress(1, 1, deptStart, deptEnd)); } catch { }
+            r3.CreateCell(col).SetCellValue("合計");
+            col++;
+        }
+
+        // Row 4+: 每校 2 列（小班 / 三人班）
+        int rowIdx = 4;
+        foreach (var pop in populations) {
+            var sgRow = sheet.CreateRow(rowIdx);
+            var v3Row = sheet.CreateRow(rowIdx + 1);
+            sgRow.CreateCell(0).SetCellValue(pop.School?.Name ?? "");
+            sgRow.CreateCell(1).SetCellValue("小班");
+            v3Row.CreateCell(1).SetCellValue("三人班");
+            try { sheet.AddMergedRegion(new CellRangeAddress(rowIdx, rowIdx + 1, 0, 0)); } catch { }
+
+            col = fixedCols;
+            foreach (var (_, list) in deptGroups) {
+                int sgDeptTotal = 0, v3DeptTotal = 0;
+                foreach (var c in list) {
+                    int slots = maxSlots[c.Id];
+                    var sgItems = pop.Items
+                        .Where(i => i.Class?.CourseId == c.Id && i.Class?.Type == ClassType.SubGroup)
+                        .OrderBy(i => i.Class.Ordinal).ThenBy(i => i.Class.Id).ToList();
+                    var v3Items = pop.Items
+                        .Where(i => i.Class?.CourseId == c.Id && i.Class?.Type == ClassType.V3)
+                        .OrderBy(i => i.Class.Ordinal).ThenBy(i => i.Class.Id).ToList();
+                    for (int si = 0; si < slots; si++) {
+                        if (si < sgItems.Count && sgItems[si].Number > 0) {
+                            sgRow.CreateCell(col + si).SetCellValue(sgItems[si].Number);
+                            sgDeptTotal += sgItems[si].Number;
+                        }
+                        if (si < v3Items.Count && v3Items[si].Number > 0) {
+                            v3Row.CreateCell(col + si).SetCellValue(v3Items[si].Number);
+                            v3DeptTotal += v3Items[si].Number;
+                        }
+                    }
+                    col += slots;
+                }
+                if (sgDeptTotal > 0) sgRow.CreateCell(col).SetCellValue(sgDeptTotal);
+                if (v3DeptTotal > 0) v3Row.CreateCell(col).SetCellValue(v3DeptTotal);
+                col++;
+            }
+            rowIdx += 2;
+        }
+
+        sheet.SetColumnWidth(0, 20 * 256);
+        sheet.SetColumnWidth(1, 9 * 256);
+        for (int c = fixedCols; c < totalCols; c++)
+            sheet.SetColumnWidth(c, 7 * 256);
+
+        using var ms = new MemoryStream();
+        wb.Write(ms);
+        return ms.ToArray();
+    }
 }
