@@ -18,10 +18,10 @@ using System.Framework.Data;
 namespace PHStatistics.Portal.Areas.Admin.Controllers {
     [RequirePermission(SystemPermission.StudentPopulation)]
     public class StudentPopulationController : AdminBaseController {
-        private readonly ReportExportService _reportExportService;
+        private readonly ReportExportService _reportExport;
 
-        public StudentPopulationController(ReportExportService reportExportService) : base() {
-            _reportExportService = reportExportService;
+        public StudentPopulationController(ReportExportService reportExport) {
+            _reportExport = reportExport;
         }
 
         public IActionResult Index() {
@@ -586,31 +586,41 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
         }
 
         [HttpGet]
-        public IActionResult ExportReport(int year, int week, string reportType, bool allSchools = false, int? schoolId = null) {
-            if (!Enum.TryParse<StudentPopulationType>(reportType, true, out var type))
-                return BadRequest("無效的報表類型");
+        public IActionResult ExportReport(int year, int week, string reportType, int? schoolId = null) {
+            var validTypes = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "PH", "PS", "GEPT", "PSJ", "AfterSchool" };
+            if (!validTypes.Contains(reportType))
+                return BadRequest($"不支援的報表類型：{reportType}");
 
+            var type = reportType switch {
+                "PH"   => StudentPopulationType.PH,
+                "PS"   => StudentPopulationType.PS,
+                "GEPT" => StudentPopulationType.GEPT,
+                "PSJ"  => StudentPopulationType.PSJ,
+                "AS"   => StudentPopulationType.AfterSchool,
+                _      => StudentPopulationType.PH
+            };
+
+            // 管理後台：指定單一分校時限定，否則匯出全部分校
             IList<int> schoolIds = schoolId.HasValue
                 ? new List<int> { schoolId.Value }
-                : Model.DataContext.School.Select(s => s.Id).ToList();
+                : null; // null = 所有分校
 
-            var bytes    = _reportExportService.Export(type, year, week, schoolIds);
-            var fileName = $"PHStats_{reportType}_{year}_{week:D2}.xlsx";
-            return File(bytes,
-                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                System.Web.HttpUtility.UrlEncode(fileName));
-        }
-
-        [HttpGet]
-        public IActionResult ExportReportDetail(int year, int week) {
-            var schoolIds = Model.DataContext.School.Select(s => s.Id).ToList();
-            var bytes     = _reportExportService.ExportPHDetail(year, week, schoolIds);
+            var bytes = _reportExport.Export(type, year, week, schoolIds);
             if (bytes.Length == 0)
                 return NotFound("查無符合條件的資料");
-            var fileName = $"PH明細_{year}年第{week}週.xlsx";
+
+            string title = reportType switch {
+                "PH"   => $"{year}年第{week}週百瀚英語全國人數表",
+                "GEPT" => $"{year}年第{week}週英檢人數表",
+                "PS"   => $"{year}年第{week}週百世人數表",
+                "PSJ"  => $"{year}年第{week}週百倍速人數表",
+                "AS"   => $"{year}年第{week}週課輔人數表",
+                _      => $"{year}年第{week}週人數表"
+            };
+            string fileName = Uri.EscapeDataString($"{title}.xlsx");
             return File(bytes,
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                System.Web.HttpUtility.UrlEncode(fileName));
+                fileName);
         }
     }
 }

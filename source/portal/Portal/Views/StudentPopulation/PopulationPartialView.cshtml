@@ -173,10 +173,19 @@
             if (sItem.Class.Course.Name.Equals("本週英語文總人數") || sItem.Class.Course.Name.Equals("上週英語文總人數") || sItem.Class.Course.Name.Equals("與上週相比") ||
                 sItem.Class.Course.Name.Equals("去年同期/比") || sItem.Class.Course.Name.Equals("本週總詢問(填單)人數"))
             {
-                <div class="row mx-0">
+                string rowStateClass;
+                if (sItem.Number == 0)
+                    rowStateClass = "row-zero";
+                else if (sItem.IsNew)
+                    rowStateClass = "row-new";
+                else if (sItem.Number == sItem.LastWeekNumber)
+                    rowStateClass = "row-unchanged";
+                else
+                    rowStateClass = "";
+                <div class="row mx-0 @rowStateClass">
                     <div class="col-3 mb-3">
                         @* <input type="text" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.Id.ToString() @sItem.Name"> *@
-                        <input type="text" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.Name">
+                        <input type="text" class="form-control class-name-input" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.Name" onblur="updateClassDetail(@sItem.Class.Id, @sItem.StudentPopulationId)">
                     </div>
                     <div class="col-1 mb-1">
                         @sItem.LastWeekNumber
@@ -195,7 +204,7 @@
                         else {
                             <input type="number" class="form-control" placeholder="請輸入人數" name="Items[@itemRowNo].Number" id="class_@sItem.Class.Id.ToString()_count" value="@sItem.Number" data-course="@cItem.Id" data-class="@sItem.Class.Id" data-sitem="@sItem.Id" onchange="valueChange('class_@sItem.Class.Id.ToString()_count')">
                         }
-                    
+
                     </div>
                     <div class="col-4 mb-4">
                         <input type="text" class="form-control" placeholder="" name="Items[@itemRowNo].StudentRemark" id="class_@sItem.Class.Id.ToString()_remark" value="@sItem.StudentRemark" data-sitem="@sItem.Id" onchange="remarkChange('class_@sItem.Class.Id.ToString()_remark')">
@@ -251,21 +260,21 @@
                             }
                             else {
                                 <div class="col-1 mb-1">
-                                    <select class="form-select validate[required]"
-                                            id="class_type_@sItem.Class.Id.ToString()"
-                                            onchange="updateClassDetail(@sItem.Class.Id, @Model.Id)"
-                                            data-live-search="true">
+                                    <select class="form-select validate[required]" id="class_type_@sItem.Class.Id.ToString()" data-live-search="true" onchange="updateClassDetail(@sItem.Class.Id, @sItem.StudentPopulationId)">
                                         <option selected disabled>選擇班別</option>
                                         @if (sItem.Class.Type == ClassType.SubGroup) {
                                             <option value=4 selected="selected">小</option>
-                                        } else {
+                                        }
+                                        else {
                                             <option value=4>小</option>
                                         }
                                         @if (sItem.Class.Type == ClassType.V3) {
                                             <option value=3 selected="selected">三</option>
-                                        } else {
+                                        }
+                                        else {
                                             <option value=3>三</option>
                                         }
+
                                     </select>
                                 </div>
                             }
@@ -273,7 +282,7 @@
                     }
                     else {
                         <div class="col-1 mb-1">
-                            <select class="form-select validate[required]" id="class_type_@sItem.Class.Id.ToString()" data-live-search="true">
+                            <select class="form-select validate[required]" id="class_type_@sItem.Class.Id.ToString()" data-live-search="true" onchange="updateClassDetail(@sItem.Class.Id, @sItem.StudentPopulationId)">
                                 <option selected disabled>選擇班別</option>
                                 @if (sItem.Class.Type == ClassType.Personal) {
                                     <option value=1 selected="selected">EM1</option>
@@ -294,7 +303,7 @@
 
                 <div class="col-3 mb-3">
                     @* <input type="text" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.Id.ToString() @sItem.Name"> *@
-                    <input type="text" class="form-control class-name-input" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.Name" onblur="updateClassDetail(@sItem.Class.Id, @Model.Id)">
+                    <input type="text" class="form-control class-name-input" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.Name" onblur="updateClassDetail(@sItem.Class.Id, @sItem.StudentPopulationId)">
                 </div>
                 <div class="col-1 mb-1">
                     @sItem.LastWeekNumber

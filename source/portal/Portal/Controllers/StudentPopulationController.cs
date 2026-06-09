@@ -1157,6 +1157,37 @@ namespace PHStatistics.Portal.Controllers {
         }
 
         [Authorize(typeof(PortalUser))]
+        [HttpPost]
+        public IActionResult UpdateClassDetail(long populationId, int classId, string name, int classType) {
+            DataContext dataContext = new DataContext();
+            var population = dataContext.StudentPopulation
+                .FirstOrDefault(p => p.Id == populationId);
+
+            if (population == null)
+                return Json(new { success = false, message = "找不到人數表" });
+
+            if (population.Status != StudentPopulationStatus.Documented)
+                return Json(new { success = false, message = "人數表狀態不允許修改" });
+
+            var cls = dataContext.Class.FirstOrDefault(c => c.Id == classId);
+            if (cls == null)
+                return Json(new { success = false, message = "找不到班級" });
+
+            bool classTypeChanged = (int)cls.Type != classType;
+
+            if (!string.IsNullOrWhiteSpace(name))
+                cls.Name = name;
+
+            cls.Type = (ClassType)classType;
+            dataContext.SaveChanges();
+
+            if (classTypeChanged)
+                SumPHPopulation(populationId);
+
+            return Json(new { success = true });
+        }
+
+        [Authorize(typeof(PortalUser))]
         [HttpPost("ConfirmPopulation")]
         public IActionResult ConfirmPopulation(long populationId) {
             DataContext dataContext = new DataContext();
