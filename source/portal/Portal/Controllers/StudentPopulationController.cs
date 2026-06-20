@@ -1970,6 +1970,31 @@ namespace PHStatistics.Portal.Controllers {
                 fileName);
         }
 
+        [HttpGet("FixAllSums")]
+        public IActionResult FixAllSums(long? spId = null) {
+            var db = new DataContext();
+            var ids = spId.HasValue
+                ? new List<long> { spId.Value }
+                : db.StudentPopulation.Select(p => p.Id).ToList();
+
+            int processed = 0;
+            var log = new List<object>();
+
+            foreach (var id in ids) {
+                try {
+                    var result = SumPHPopulation(id);
+                    if (result != null) {
+                        processed++;
+                        log.Add(new { id, year = result.Year, week = result.Week, schoolId = result.SchoolId, type = result.Type?.ToString() });
+                    }
+                } catch (Exception ex) {
+                    log.Add(new { id, error = ex.Message });
+                }
+            }
+
+            return Json(new { success = true, processed, log });
+        }
+
         #endregion
 
     }

@@ -75,7 +75,7 @@ namespace PHStatistics.Portal.Controllers {
             DataContext dataContext = new DataContext();
             //取得維護年度週次
             DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
-            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).FirstOrDefault();
+            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
             ViewBag.CanEdit = schoolYear != null;
             ViewBag.IsAdmin = User.HasPermission(SystemPermission.Administrator);
             ViewBag.Title = "Home Page".ToI18n(Culture.GetCode());
@@ -1031,7 +1031,7 @@ namespace PHStatistics.Portal.Controllers {
         [HttpGet("ImportMemberData")]
         public IActionResult ImportMemberData(string type) {
             try {
-                using (FileStream file = new FileStream(@"C:\Leo\其他\Kuri\人數表\人數統計表網站帳密資料_20250910.xlsx", FileMode.Open, FileAccess.Read)) {
+                using (FileStream file = new FileStream(@"C:\Users\hound\Downloads\分校帳密.xlsx", FileMode.Open, FileAccess.Read)) {
                     if (!file.HasValue())
                         throw new System.Data.DataException("取得資料發生錯誤");
                     try {
@@ -3380,9 +3380,13 @@ namespace PHStatistics.Portal.Controllers {
                 var classIds = delItems.Select(e => e.ClassId).Distinct().ToList();
                 db.StudentPopulationItem.RemoveRange(delItems);
                 db.SaveChanges();
-                var orphanClasses = db.Class.Where(e => classIds.Contains(e.Id)).ToList();
-                db.Class.RemoveRange(orphanClasses);
-                db.SaveChanges();
+                var orphanClasses = db.Class
+                    .Where(e => classIds.Contains(e.Id) && !db.StudentPopulationItem.Any(i => i.ClassId == e.Id))
+                    .ToList();
+                if (orphanClasses.Count > 0) {
+                    db.Class.RemoveRange(orphanClasses);
+                    db.SaveChanges();
+                }
             }
             else if (db.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == yearInt && e.Week == weekInt && e.Type == type)) {
                 pop = db.StudentPopulation.First(e => e.School.Id == schoolId && e.Year == yearInt && e.Week == weekInt && e.Type == type);
@@ -3791,7 +3795,7 @@ namespace PHStatistics.Portal.Controllers {
         }
 
         [HttpGet("ImportAll")]
-        public IActionResult ImportAll(string rootPath = @"C:\Leo\其他\Kuri\人數表匯入") {
+        public IActionResult ImportAll(string rootPath = @"C:\Leo\其他\Kuri\人數表匯入A") {
             if (!Directory.Exists(rootPath))
                 return Json(new { success = false, message = $"路徑不存在: {rootPath}" });
 
@@ -3830,6 +3834,152 @@ namespace PHStatistics.Portal.Controllers {
                 }
             }
             return Json(new { success = true, results = results });
+        }
+
+        [HttpGet("FillLastWeekNumbers")]
+        public IActionResult FillLastWeekNumbers(string rootPath = @"C:\Leo\其他\Kuri\人數表匯入A") {
+            if (!Directory.Exists(rootPath))
+                return Json(new { success = false, message = $"路徑不存在: {rootPath}" });
+
+            var weekNos = Directory.GetDirectories(rootPath)
+                .Select(d => Path.GetFileName(d))
+                .Where(n => int.TryParse(n, out _))
+                .Select(n => int.Parse(n))
+                .ToHashSet();
+
+            using var db = new DataContext();
+            var allSchoolYears = db.SchoolYear.OrderBy(sy => sy.Id).ToList();
+
+            int totalUpdated = 0;
+            var log = new List<object>();
+
+            var populations = db.StudentPopulation
+                .Where(p => weekNos.Contains(p.Week))
+                .OrderBy(p => p.Year).ThenBy(p => p.Week)
+                .ToList();
+
+            foreach (var pop in populations) {
+                var schoolYear = allSchoolYears
+                    .FirstOrDefault(sy => sy.Year == pop.Year && sy.Week == pop.Week);
+                if (schoolYear == null) continue;
+
+                var prevSY = allSchoolYears
+                    .Where(sy => sy.Id < schoolYear.Id)
+                    .OrderByDescending(sy => sy.Id)
+                    .FirstOrDefault();
+                if (prevSY == null) continue;
+
+                var prevPop = db.StudentPopulation
+                    .FirstOrDefault(p => p.SchoolId == pop.SchoolId
+                                      && p.Year == prevSY.Year
+                                      && p.Week == prevSY.Week
+                                      && p.Type == pop.Type);
+                if (prevPop == null) continue;
+
+                var prevItems = db.StudentPopulationItem
+                    .Include("Class")
+                    .Where(i => i.StudentPopulationId == prevPop.Id && i.ClassId != null)
+                    .ToList();
+
+                // (CourseId, ClassType) → 上週人數總和
+                var prevLookup = prevItems
+                    .GroupBy(i => (i.Class.CourseId, i.Class.Type))
+                    .ToDictionary(g => g.Key, g => g.Sum(i => i.Number));
+
+                var currentItems = db.StudentPopulationItem
+                    .Include("Class")
+                    .Where(i => i.StudentPopulationId == pop.Id && i.ClassId != null)
+                    .ToList();
+
+                // 同一 (CourseId, ClassType) 群組：第一筆填入上週總數，其餘填 0
+                // 對 EM1 等多筆課程，Sum(LastWeekNumber) 仍等於上週總數，統計正確
+                int updated = 0;
+                foreach (var grp in currentItems.GroupBy(i => (i.Class.CourseId, i.Class.Type))) {
+                    prevLookup.TryGetValue(grp.Key, out int prevTotal);
+                    bool isFirst = true;
+                    foreach (var item in grp) {
+                        item.LastWeekNumber = isFirst ? prevTotal : 0;
+                        isFirst = false;
+                        updated++;
+                    }
+                }
+
+                if (updated > 0)
+                    db.SaveChanges();
+
+                totalUpdated += updated;
+                log.Add(new {
+                    week = pop.Week,
+                    year = pop.Year,
+                    schoolId = pop.SchoolId,
+                    type = pop.Type.ToString(),
+                    updated
+                });
+            }
+
+            return Json(new { success = true, totalUpdated, log });
+        }
+
+        [HttpGet("FixLastWeekData")]
+        public IActionResult FixLastWeekData() {
+            using var db = new DataContext();
+            var allSchoolYears = db.SchoolYear.OrderBy(sy => sy.Year).ThenBy(sy => sy.Week).ToList();
+            var allPopulations = db.StudentPopulation.ToList();
+
+            int totalUpdated = 0;
+            var log = new List<object>();
+
+            foreach (var pop in allPopulations.OrderBy(p => p.Year).ThenBy(p => p.Week)) {
+                var schoolYear = allSchoolYears.FirstOrDefault(sy => sy.Year == pop.Year && sy.Week == pop.Week);
+                if (schoolYear == null) continue;
+
+                SchoolYear prevSY = schoolYear.Week > 1
+                    ? allSchoolYears.Where(sy => sy.Year == schoolYear.Year && sy.Week == schoolYear.Week - 1)
+                                    .OrderBy(sy => sy.Id).FirstOrDefault()
+                    : allSchoolYears.Where(sy => sy.Year == schoolYear.Year - 1)
+                                    .OrderByDescending(sy => sy.Week).ThenByDescending(sy => sy.Id).FirstOrDefault();
+
+                if (prevSY == null) continue;
+
+                var prevPop = allPopulations.FirstOrDefault(p =>
+                    p.SchoolId == pop.SchoolId && p.Year == prevSY.Year && p.Week == prevSY.Week && p.Type == pop.Type);
+                if (prevPop == null) continue;
+
+                var currentItems = db.StudentPopulationItem
+                    .Include("Class.Course")
+                    .Where(i => i.StudentPopulationId == pop.Id && i.ClassId != null && i.LastWeekNumber == 0)
+                    .ToList()
+                    .Where(i => i.Class?.Course?.IsSum != true)
+                    .ToList();
+
+                if (!currentItems.Any()) continue;
+
+                var prevByClassId = db.StudentPopulationItem
+                    .Where(i => i.StudentPopulationId == prevPop.Id && i.ClassId != null)
+                    .ToDictionary(i => i.ClassId!.Value, i => i.Number);
+
+                int updated = 0;
+                foreach (var item in currentItems) {
+                    if (item.ClassId.HasValue && prevByClassId.TryGetValue(item.ClassId.Value, out int prevNum)) {
+                        item.LastWeekNumber = prevNum;
+                        updated++;
+                    }
+                }
+
+                if (updated > 0) {
+                    db.SaveChanges();
+                    totalUpdated += updated;
+                    log.Add(new {
+                        year = pop.Year,
+                        week = pop.Week,
+                        schoolId = pop.SchoolId,
+                        type = pop.Type.ToString(),
+                        updated
+                    });
+                }
+            }
+
+            return Json(new { success = true, totalUpdated, log });
         }
 
         public class ImportAllResult {
