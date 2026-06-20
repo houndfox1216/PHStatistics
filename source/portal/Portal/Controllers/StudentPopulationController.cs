@@ -95,7 +95,7 @@ namespace PHStatistics.Portal.Controllers {
             #endregion
             //取得維護年度週次
             DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
-            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).FirstOrDefault();
+            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
             List<SchoolAssignment> schools = Model.GetMemberSchool(User.Id);
             ViewBag.Schools = schools;
             ViewBag.CanEdit = schoolYear != null;
@@ -117,7 +117,7 @@ namespace PHStatistics.Portal.Controllers {
             DataContext dataContext = new DataContext();
             //取得維護年度週次
             DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
-            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).FirstOrDefault();
+            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
             ViewBag.CanEdit = schoolYear != null;
             ViewBag.Title = "Home Page".ToI18n(Culture.GetCode());
             ViewBag.BannerPositions = new List<BannerPosition>();
@@ -136,7 +136,7 @@ namespace PHStatistics.Portal.Controllers {
             DataContext dataContext = new DataContext();
             //取得維護年度週次
             DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
-            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).FirstOrDefault();
+            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
             List<SchoolAssignment> schools = Model.GetMemberSchool(User.Id);
             int[] years = dataContext.StudentPopulation.GroupBy(e => e.Year).Select(e => e.Key).ToArray();
             int[] weeks = dataContext.StudentPopulation.GroupBy(e => e.Week).Select(e => e.Key).OrderBy(e => e).ToArray();
@@ -180,8 +180,10 @@ namespace PHStatistics.Portal.Controllers {
                 //取得維護年度週次
                 DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
                 School school = dataContext.School.Find(schoolId);
-                SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).FirstOrDefault();
-                SchoolYear lastschoolYear = dataContext.SchoolYear.Where(e => e.Id < schoolYear.Id).OrderByDescending(e => e.Id).FirstOrDefault();
+                SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
+                SchoolYear lastschoolYear = schoolYear.Week > 1
+                    ? dataContext.SchoolYear.Where(e => e.Year == schoolYear.Year && e.Week == schoolYear.Week - 1).OrderBy(e => e.Id).FirstOrDefault()
+                    : dataContext.SchoolYear.Where(e => e.Year == schoolYear.Year - 1).OrderByDescending(e => e.Week).ThenByDescending(e => e.Id).FirstOrDefault();
                 StudentPopulation lastWeekData = new StudentPopulation();
                 lastWeekData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course.Department").Where(e => e.School.Id == schoolId && e.Year == lastschoolYear.Year && e.Week == lastschoolYear.Week && e.Type == populationType).FirstOrDefault();
 
@@ -219,7 +221,7 @@ namespace PHStatistics.Portal.Controllers {
                     //增加上週資料
                     if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
                         foreach (StudentPopulationItem lItem in lastWeekData.Items) {
-                            if (!dataContext.StudentPopulationItem.Any(e => e.Class.Course.Id == lItem.Class.Course.Id && e.Class.Type == lItem.Class.Type && e.StudentPopulation.Id == returnData.Id)) {
+                            if (!lItem.Class.Course.IsSum && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                                 StudentPopulationItem item = new StudentPopulationItem();
                                 Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type);
                                 if (classItem == null) {
@@ -336,8 +338,10 @@ namespace PHStatistics.Portal.Controllers {
             }
             //取得維護年度週次
             DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
-            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).FirstOrDefault();
-            SchoolYear lastschoolYear = dataContext.SchoolYear.Where(e => e.Id < schoolYear.Id).OrderByDescending(e => e.Id).FirstOrDefault();
+            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
+            SchoolYear lastschoolYear = schoolYear.Week > 1
+                    ? dataContext.SchoolYear.Where(e => e.Year == schoolYear.Year && e.Week == schoolYear.Week - 1).OrderBy(e => e.Id).FirstOrDefault()
+                    : dataContext.SchoolYear.Where(e => e.Year == schoolYear.Year - 1).OrderByDescending(e => e.Week).ThenByDescending(e => e.Id).FirstOrDefault();
             StudentPopulation lastWeekData = new StudentPopulation();
             lastWeekData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").Where(e => e.School.Id == schoolId && e.Year == lastschoolYear.Year && e.Week == lastschoolYear.Week && e.Type == populationType).FirstOrDefault();
             School school = dataContext.School.Find(schoolId);
@@ -375,7 +379,7 @@ namespace PHStatistics.Portal.Controllers {
                 //增加上週資料
                 if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
                     foreach (StudentPopulationItem lItem in lastWeekData.Items) {
-                        if (!dataContext.StudentPopulationItem.Any(e => e.Class.Course.Id == lItem.Class.Course.Id && e.Class.Type == lItem.Class.Type && e.StudentPopulation.Id == returnData.Id)) {
+                        if (!lItem.Class.Course.IsSum && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                             StudentPopulationItem item = new StudentPopulationItem();
                             Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type);
                             if (classItem == null) {
@@ -497,8 +501,10 @@ namespace PHStatistics.Portal.Controllers {
             }
             //取得維護年度週次
             DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
-            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).FirstOrDefault();
-            SchoolYear lastschoolYear = dataContext.SchoolYear.Where(e => e.Id < schoolYear.Id).OrderByDescending(e => e.Id).FirstOrDefault();
+            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
+            SchoolYear lastschoolYear = schoolYear.Week > 1
+                    ? dataContext.SchoolYear.Where(e => e.Year == schoolYear.Year && e.Week == schoolYear.Week - 1).OrderBy(e => e.Id).FirstOrDefault()
+                    : dataContext.SchoolYear.Where(e => e.Year == schoolYear.Year - 1).OrderByDescending(e => e.Week).ThenByDescending(e => e.Id).FirstOrDefault();
             StudentPopulation lastWeekData = new StudentPopulation();
             lastWeekData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").Where(e => e.School.Id == schoolId && e.Year == lastschoolYear.Year && e.Week == lastschoolYear.Week && e.Type == populationType).FirstOrDefault();
 
@@ -536,7 +542,7 @@ namespace PHStatistics.Portal.Controllers {
                 //增加上週資料
                 if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
                     foreach (StudentPopulationItem lItem in lastWeekData.Items) {
-                        if (!dataContext.StudentPopulationItem.Any(e => e.Class.Course.Id == lItem.Class.Course.Id && e.Class.Type == lItem.Class.Type && e.StudentPopulation.Id == returnData.Id)) {
+                        if (!lItem.Class.Course.IsSum && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                             StudentPopulationItem item = new StudentPopulationItem();
                             Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type);
                             if (classItem == null) {
@@ -603,8 +609,10 @@ namespace PHStatistics.Portal.Controllers {
             }
             //取得維護年度週次
             DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
-            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).FirstOrDefault();
-            SchoolYear lastschoolYear = dataContext.SchoolYear.Where(e => e.Id < schoolYear.Id).OrderByDescending(e => e.Id).FirstOrDefault();
+            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
+            SchoolYear lastschoolYear = schoolYear.Week > 1
+                    ? dataContext.SchoolYear.Where(e => e.Year == schoolYear.Year && e.Week == schoolYear.Week - 1).OrderBy(e => e.Id).FirstOrDefault()
+                    : dataContext.SchoolYear.Where(e => e.Year == schoolYear.Year - 1).OrderByDescending(e => e.Week).ThenByDescending(e => e.Id).FirstOrDefault();
             StudentPopulation lastWeekData = new StudentPopulation();
             lastWeekData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").Where(e => e.School.Id == schoolId && e.Year == lastschoolYear.Year && e.Week == lastschoolYear.Week && e.Type == populationType).FirstOrDefault();
 
@@ -642,7 +650,7 @@ namespace PHStatistics.Portal.Controllers {
                 //增加上週資料
                 if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
                     foreach (StudentPopulationItem lItem in lastWeekData.Items) {
-                        if (!dataContext.StudentPopulationItem.Any(e => e.Class.Course.Id == lItem.Class.Course.Id && e.Class.Type == lItem.Class.Type && e.StudentPopulation.Id == returnData.Id)) {
+                        if (!lItem.Class.Course.IsSum && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                             StudentPopulationItem item = new StudentPopulationItem();
                             Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type);
                             if (classItem == null) {
@@ -713,8 +721,10 @@ namespace PHStatistics.Portal.Controllers {
             }
             //取得維護年度週次
             DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
-            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).FirstOrDefault();
-            SchoolYear lastschoolYear = dataContext.SchoolYear.Where(e => e.Id < schoolYear.Id).OrderByDescending(e => e.Id).FirstOrDefault();
+            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
+            SchoolYear lastschoolYear = schoolYear.Week > 1
+                    ? dataContext.SchoolYear.Where(e => e.Year == schoolYear.Year && e.Week == schoolYear.Week - 1).OrderBy(e => e.Id).FirstOrDefault()
+                    : dataContext.SchoolYear.Where(e => e.Year == schoolYear.Year - 1).OrderByDescending(e => e.Week).ThenByDescending(e => e.Id).FirstOrDefault();
             StudentPopulation lastWeekData = new StudentPopulation();
             lastWeekData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").Where(e => e.School.Id == schoolId && e.Year == lastschoolYear.Year && e.Week == lastschoolYear.Week && e.Type == populationType).FirstOrDefault();
 
@@ -752,7 +762,7 @@ namespace PHStatistics.Portal.Controllers {
                 //增加上週資料
                 if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
                     foreach (StudentPopulationItem lItem in lastWeekData.Items) {
-                        if (!dataContext.StudentPopulationItem.Any(e => e.Class.Course.Id == lItem.Class.Course.Id && e.Class.Type == lItem.Class.Type && e.StudentPopulation.Id == returnData.Id)) {
+                        if (!lItem.Class.Course.IsSum && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                             StudentPopulationItem item = new StudentPopulationItem();
                             Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type);
                             if (classItem == null) {
@@ -1333,6 +1343,23 @@ namespace PHStatistics.Portal.Controllers {
             //去年同期 / 比 本週總人數 - 去年同週次總人數
             //本週英語文新生 分校自填
             //本週英語文流失 分校自填
+
+            // 移除重複 IsSum 項目：同 (CourseId, ClassType) 保留 ClassId 最小的正本，其餘歸零並從記憶體清除
+            var isumDupGroups = studentPopulationData.Items
+                .Where(e => e.Class.Course.IsSum)
+                .GroupBy(e => new { CourseId = e.Class.Course.Id, e.Class.Type })
+                .Where(g => g.Count() > 1)
+                .ToList();
+            foreach (var g in isumDupGroups) {
+                var extras = g.OrderBy(x => x.Class.Id).Skip(1).ToList();
+                foreach (var extra in extras) {
+                    extra.Number = 0;
+                    extra.LastWeekNumber = 0;
+                    dataContext.StudentPopulationItem.Update(extra);
+                    studentPopulationData.Items.Remove(extra);
+                }
+            }
+            if (isumDupGroups.Any()) dataContext.SaveChanges();
 
             //取得上周及目前資料
             int eNCount = 0;
