@@ -240,10 +240,9 @@
             type: 'POST',
             dataType: "html",
             success: function (data) {
-                alert("班級已新增!!");
                 $("#contentItem").html(data);
                 if (typeof updateSubmitSummary === 'function') updateSubmitSummary();
-                $('#addClassModal').modal('hide');
+                document.querySelector('#addClassModal [data-bs-dismiss="modal"]')?.click();
                 $('#new_class_name').val('');
                 $('#new_number').val(0);
                 $('#new_studentremark').val('');
@@ -319,7 +318,7 @@
             console.log('updateCourses',updateCourses.value);
             // console.log('updateCourses',updateCourses.data["sid"]);
             $.ajax({
-            url: '@Url.Action("UpdateClassItem", "StudentPopulation")',
+            url: '@Url.Action("UpdateClassItem", "StudentPopulation", new { area = "" })',
             cache: false,
             data: { 'sId': updateCourses.dataset.sitem, 'number': updateCourses.value },
             // dataType: 'application/json',
@@ -371,6 +370,28 @@
                 if (!result.success) alert(result.message || '更新失敗');
             },
             error: function () { alert('連線錯誤，請重試'); }
+        });
+    }
+
+    function remarkChange(sId) {
+        var remarkInput = document.getElementById(sId);
+        $.ajax({
+            url: '@Url.Action("UpdateRemark", "StudentPopulation", new { area = "" })',
+            type: 'POST',
+            data: { sId: remarkInput.dataset.sitem, studentRemark: remarkInput.value },
+            success: function (result) {
+                if (result.success) {
+                    remarkInput.style.borderColor = '#28a745';
+                    setTimeout(function () { remarkInput.style.borderColor = ''; }, 1000);
+                } else {
+                    remarkInput.style.borderColor = '#dc3545';
+                    setTimeout(function () { remarkInput.style.borderColor = ''; }, 2000);
+                }
+            },
+            error: function () {
+                remarkInput.style.borderColor = '#dc3545';
+                setTimeout(function () { remarkInput.style.borderColor = ''; }, 2000);
+            }
         });
     }
 </script>
