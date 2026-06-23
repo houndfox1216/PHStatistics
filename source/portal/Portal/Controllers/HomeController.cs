@@ -3705,60 +3705,73 @@ namespace PHStatistics.Portal.Controllers {
         private ImportAllResult RunImportAS(DataContext db, string filePath) {
             var result = new ImportAllResult { File = Path.GetFileName(filePath), Type = "AS" };
             using var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            var sheet = new XSSFWorkbook(fs).GetSheetAt(0);
-            IRow headerRow = sheet.GetRow(4);
+            var workbook = new XSSFWorkbook(fs);
 
-            int prevSchoolId = 0;
-            StudentPopulation pop = null;
-
-            for (int rNo = 5; rNo <= sheet.LastRowNum; rNo++) {
-                IRow row = sheet.GetRow(rNo);
-                if (row == null) continue;
-
-                string schoolName = row.GetCell(2)?.ToString()?.Trim() ?? "";
+            for (int sheetIdx = 0; sheetIdx < workbook.NumberOfSheets; sheetIdx++) {
+                var sheet = workbook.GetSheetAt(sheetIdx);
+                string schoolName = Regex.Replace(sheet.SheetName, @"^\d+", "").Trim();
                 School school = db.School.FirstOrDefault(e => e.Name == schoolName);
-                if (school == null) continue;
-
-                if (!int.TryParse(row.GetCell(0)?.ToString()?.Trim(), out int yearInt)) continue;
-                if (!int.TryParse(row.GetCell(1)?.ToString()?.Trim(), out int weekInt)) continue;
-                string grade = row.GetCell(3)?.ToString()?.Trim() ?? "";
-                if (string.IsNullOrEmpty(grade)) continue;
-
-                SchoolYear schoolYear = db.SchoolYear.FirstOrDefault(e => e.Year == yearInt && e.Week == weekInt);
-                if (schoolYear == null) continue;
-
-                if (school.Id != prevSchoolId) {
-                    prevSchoolId = school.Id;
-                    pop = GetOrCreatePopulation(db, school.Id, yearInt, weekInt, schoolYear,
-                        StudentPopulationType.AfterSchool, $"{yearInt}第{weekInt}週課輔人數表", true);
-                    result.SchoolCount++;
+                if (school == null) {
+                    result.Errors.Add($"找不到分校: {sheet.SheetName} (解析為 {schoolName})");
+                    continue;
                 }
 
-                int gradeIdx = Array.IndexOf(_gradeOrder, grade);
-                if (gradeIdx < 0) continue;
+                string title = sheet.GetRow(0)?.GetCell(0)?.ToString()?.Trim() ?? "";
+                var yearMatch = Regex.Match(title, @"(\d+)學年度");
+                if (!yearMatch.Success) {
+                    result.Errors.Add($"頁籤 {sheet.SheetName}: 無法從標題解析學年度: {title}");
+                    continue;
+                }
+                int yearInt = int.Parse(yearMatch.Groups[1].Value);
 
-                for (int cNo = 4; cNo < headerRow.LastCellNum; cNo++) {
-                    try {
-                        string code = headerRow.GetCell(cNo)?.ToString()?.Trim() ?? "";
-                        if (code.Equals("X", StringComparison.OrdinalIgnoreCase)) continue;
-
-                        int courseId;
-                        ClassType cType;
-                        if (code == "T") {
-                            courseId = 258; cType = ClassType.General;
-                        }
-                        else if (_asCourseIds.TryGetValue(code, out int[] ids)) {
-                            courseId = ids[gradeIdx]; cType = AsColumnType(code);
-                        }
-                        else { continue; }
-
-                        Course course = db.Course.Include("Department").FirstOrDefault(e => e.Id == courseId);
-                        int count = ReadCellNumber(row, cNo);
-                        if (course == null || count <= 0) continue;
-
-                        AddClassAndItem(db, school.Id, course, cType, pop.Id, count, result);
+                int weekInt = 0;
+                for (int r = 4; r <= sheet.LastRowNum; r++) {
+                    IRow wr = sheet.GetRow(r);
+                    if (wr == null) continue;
+                    if (int.TryParse(wr.GetCell(0)?.ToString()?.Trim(), out int w) && w > 0) {
+                        weekInt = w;
+                        break;
                     }
-                    catch { continue; }
+                }
+                if (weekInt == 0) {
+                    result.Errors.Add($"頁籤 {sheet.SheetName}: 找不到有效週次");
+                    continue;
+                }
+
+                SchoolYear schoolYear = db.SchoolYear.FirstOrDefault(e => e.Year == yearInt && e.Week == weekInt);
+                if (schoolYear == null) {
+                    result.Errors.Add($"頁籤 {sheet.SheetName}: SchoolYear 不存在 (年{yearInt} 週{weekInt})");
+                    continue;
+                }
+
+                StudentPopulation pop = GetOrCreatePopulation(db, school.Id, yearInt, weekInt, schoolYear,
+                    StudentPopulationType.AfterSchool, $"{yearInt}第{weekInt}週課輔人數表", true);
+                result.SchoolCount++;
+
+                var colDefs = new[] {
+                    (col: 3, code: "AS", cType: ClassType.General),
+                    (col: 4, code: "EP", cType: ClassType.Personal),
+                    (col: 5, code: "EG", cType: ClassType.General),
+                };
+
+                for (int rNo = 4; rNo <= sheet.LastRowNum; rNo++) {
+                    IRow row = sheet.GetRow(rNo);
+                    if (row == null) continue;
+
+                    string grade = row.GetCell(2)?.ToString()?.Trim() ?? "";
+                    int gradeIdx = Array.IndexOf(_gradeOrder, grade);
+                    if (gradeIdx < 0) continue;
+
+                    foreach (var (col, code, cType) in colDefs) {
+                        try {
+                            int courseId = _asCourseIds[code][gradeIdx];
+                            Course course = db.Course.Include("Department").FirstOrDefault(e => e.Id == courseId);
+                            int count = ReadCellNumber(row, col);
+                            if (course == null || count <= 0) continue;
+                            AddClassAndItem(db, school.Id, course, cType, pop.Id, count, result);
+                        }
+                        catch { continue; }
+                    }
                 }
             }
             return result;
