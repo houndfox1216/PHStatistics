@@ -130,7 +130,9 @@ Portal/Services/Import/
 
 ### 匯入流程：掃描確認 → 執行
 
-單一後端 action（`Areas/Admin/Controllers/StudentPopulationController.cs` 新增 `Import(IFormFile file, StudentPopulationType type, bool confirmed = false)`）：
+**修正（寫 plan 前發現）**：原先設想把這支 action 加在既有 `Areas/Admin/Controllers/StudentPopulationController.cs`，但該 Controller 已有類別層級 `[RequirePermission(SystemPermission.StudentPopulation)]`；`AdminBaseController.OnActionExecuting`（`AdminBaseController.cs:25`）用 `.OfType<RequirePermissionAttribute>().FirstOrDefault()` 只取一個屬性做檢查，專案裡目前也沒有任何「類別層級＋方法層級疊加不同權限」的先例。若在既有 Controller 的方法上疊加 `StudentPopulationImport`，有被類別層級 `StudentPopulation` 覆蓋、導致權限檢查錯誤（或無法真正獨立授權）的風險。改為新建獨立 Controller `Areas/Admin/Controllers/StudentPopulationImportController.cs`，類別層級直接標註 `[RequirePermission(SystemPermission.StudentPopulationImport)]`，避免此風險，也讓匯入這個獨立職責與既有人數表 CRUD/匯出職責分開。
+
+單一後端 action（新建 `Areas/Admin/Controllers/StudentPopulationImportController.cs` 的 `Import(IFormFile file, StudentPopulationType type, bool confirmed = false)`）：
 
 1. 呼叫對應 `IPopulationImporter.Scan(stream)`：僅解析標題列與分校欄位，取得本檔案涉及的 `(School, Year, Week)` 清單，**不寫入資料庫**
 2. 逐一比對資料庫是否已有對應資料：
