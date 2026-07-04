@@ -111,6 +111,11 @@ namespace PHStatistics.Portal.Controllers {
             ViewBag.Schools = schools;
             ViewBag.CanEdit = schoolYear != null;
             ViewBag.Type = type;
+            ViewBag.CanSwitchWeek = User.HasPermission(SystemPermission.PopulationWeekSwitch);
+            if ((bool)ViewBag.CanSwitchWeek) {
+                int currentMaxYear = dataContext.SchoolYear.Max(e => e.Year) ?? 0;
+                ViewBag.Weeks = dataContext.SchoolYear.Where(e => e.Year == currentMaxYear).OrderBy(e => e.Week).ToList();
+            }
             if (schools == null || schools.Count <= 0) {
                 Redirect("StudentPopulation/CreatePopulation");
             }
