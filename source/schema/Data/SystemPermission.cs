@@ -148,4 +148,10 @@ public enum SystemPermission : short {
     [Display(Name = "學年度管理")]
     SchoolYear,
 
+    /// <summary>
+    /// 人數表週次切換（可任選週次輸入/編輯，不受當週自動判定限制）
+    /// </summary>
+    [Display(Name = "人數表週次切換")]
+    PopulationWeekSwitch,
+
 }
