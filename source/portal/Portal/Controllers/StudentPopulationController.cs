@@ -72,6 +72,17 @@ namespace PHStatistics.Portal.Controllers {
             _ => ClassType.General,
         };
 
+        private SchoolYear ResolveSchoolYear(DataContext dataContext, int? schoolYearId) {
+            if (schoolYearId.HasValue && User.HasPermission(SystemPermission.PopulationWeekSwitch)) {
+                SchoolYear overrideYear = dataContext.SchoolYear.Find(schoolYearId.Value);
+                if (overrideYear != null) {
+                    return overrideYear;
+                }
+            }
+            DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
+            return dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
+        }
+
         [Authorize(typeof(PortalUser))]
         public IActionResult Index(string type) {
             DataContext dataContext = new DataContext();
@@ -157,7 +168,7 @@ namespace PHStatistics.Portal.Controllers {
 
         //百瀚
         [Authorize(typeof(PortalUser))]
-        public IActionResult CreatePopulation(StudentPopulation data, int schoolId, string type) {
+        public IActionResult CreatePopulation(StudentPopulation data, int schoolId, string type, int? schoolYearId = null) {
             if (Request.Method == "POST") {
                 //進行人數表新增或更新
                 SumPHPopulation(data.Id);
@@ -178,9 +189,8 @@ namespace PHStatistics.Portal.Controllers {
                     populationType = StudentPopulationType.GEPT;
                 }
                 //取得維護年度週次
-                DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
                 School school = dataContext.School.Find(schoolId);
-                SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
+                SchoolYear schoolYear = ResolveSchoolYear(dataContext, schoolYearId);
                 SchoolYear lastschoolYear = schoolYear.Week > 1
                     ? dataContext.SchoolYear.Where(e => e.Year == schoolYear.Year && e.Week == schoolYear.Week - 1).OrderBy(e => e.Id).FirstOrDefault()
                     : dataContext.SchoolYear.Where(e => e.Year == schoolYear.Year - 1).OrderByDescending(e => e.Week).ThenByDescending(e => e.Id).FirstOrDefault();
@@ -321,7 +331,7 @@ namespace PHStatistics.Portal.Controllers {
         }
         //百倍速
         [Authorize(typeof(PortalUser))]
-        public IActionResult CreatePSJPopulation(StudentPopulation data, int schoolId, string type) {
+        public IActionResult CreatePSJPopulation(StudentPopulation data, int schoolId, string type, int? schoolYearId = null) {
             DataContext dataContext = new DataContext();
             StudentPopulationType populationType = new StudentPopulationType();
             if (type.Equals("PH")) {
@@ -337,8 +347,7 @@ namespace PHStatistics.Portal.Controllers {
                 populationType = StudentPopulationType.GEPT;
             }
             //取得維護年度週次
-            DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
-            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
+            SchoolYear schoolYear = ResolveSchoolYear(dataContext, schoolYearId);
             SchoolYear lastschoolYear = schoolYear.Week > 1
                     ? dataContext.SchoolYear.Where(e => e.Year == schoolYear.Year && e.Week == schoolYear.Week - 1).OrderBy(e => e.Id).FirstOrDefault()
                     : dataContext.SchoolYear.Where(e => e.Year == schoolYear.Year - 1).OrderByDescending(e => e.Week).ThenByDescending(e => e.Id).FirstOrDefault();
@@ -484,7 +493,7 @@ namespace PHStatistics.Portal.Controllers {
 
         //英檢
         [Authorize(typeof(PortalUser))]
-        public IActionResult CreateGeptPopulation(StudentPopulation data, int schoolId, string type) {
+        public IActionResult CreateGeptPopulation(StudentPopulation data, int schoolId, string type, int? schoolYearId = null) {
             DataContext dataContext = new DataContext();
             StudentPopulationType populationType = new StudentPopulationType();
             if (type.Equals("PH")) {
@@ -500,8 +509,7 @@ namespace PHStatistics.Portal.Controllers {
                 populationType = StudentPopulationType.GEPT;
             }
             //取得維護年度週次
-            DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
-            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
+            SchoolYear schoolYear = ResolveSchoolYear(dataContext, schoolYearId);
             SchoolYear lastschoolYear = schoolYear.Week > 1
                     ? dataContext.SchoolYear.Where(e => e.Year == schoolYear.Year && e.Week == schoolYear.Week - 1).OrderBy(e => e.Id).FirstOrDefault()
                     : dataContext.SchoolYear.Where(e => e.Year == schoolYear.Year - 1).OrderByDescending(e => e.Week).ThenByDescending(e => e.Id).FirstOrDefault();
@@ -592,7 +600,7 @@ namespace PHStatistics.Portal.Controllers {
         }
         //百世
         [Authorize(typeof(PortalUser))]
-        public IActionResult CreatePSPopulation(StudentPopulation data, int schoolId, string type) {
+        public IActionResult CreatePSPopulation(StudentPopulation data, int schoolId, string type, int? schoolYearId = null) {
             DataContext dataContext = new DataContext();
             StudentPopulationType populationType = new StudentPopulationType();
             if (type.Equals("PH")) {
@@ -608,8 +616,7 @@ namespace PHStatistics.Portal.Controllers {
                 populationType = StudentPopulationType.GEPT;
             }
             //取得維護年度週次
-            DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
-            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
+            SchoolYear schoolYear = ResolveSchoolYear(dataContext, schoolYearId);
             SchoolYear lastschoolYear = schoolYear.Week > 1
                     ? dataContext.SchoolYear.Where(e => e.Year == schoolYear.Year && e.Week == schoolYear.Week - 1).OrderBy(e => e.Id).FirstOrDefault()
                     : dataContext.SchoolYear.Where(e => e.Year == schoolYear.Year - 1).OrderByDescending(e => e.Week).ThenByDescending(e => e.Id).FirstOrDefault();
@@ -701,7 +708,7 @@ namespace PHStatistics.Portal.Controllers {
 
         //課輔
         [Authorize(typeof(PortalUser))]
-        public IActionResult CreateASPopulation(StudentPopulation data, int schoolId, string type) {
+        public IActionResult CreateASPopulation(StudentPopulation data, int schoolId, string type, int? schoolYearId = null) {
             DataContext dataContext = new DataContext();
             StudentPopulationType populationType = new StudentPopulationType();
             if (type.Equals("PH")) {
@@ -720,8 +727,7 @@ namespace PHStatistics.Portal.Controllers {
                 populationType = StudentPopulationType.AfterSchool;
             }
             //取得維護年度週次
-            DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
-            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
+            SchoolYear schoolYear = ResolveSchoolYear(dataContext, schoolYearId);
             SchoolYear lastschoolYear = schoolYear.Week > 1
                     ? dataContext.SchoolYear.Where(e => e.Year == schoolYear.Year && e.Week == schoolYear.Week - 1).OrderBy(e => e.Id).FirstOrDefault()
                     : dataContext.SchoolYear.Where(e => e.Year == schoolYear.Year - 1).OrderByDescending(e => e.Week).ThenByDescending(e => e.Id).FirstOrDefault();
