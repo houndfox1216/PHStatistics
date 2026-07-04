@@ -23,6 +23,20 @@
                     </select>
                 }
             </div>
+            <div class="mt-3 mb-4">
+                @if (ViewBag.CanSwitchWeek != null && (bool)ViewBag.CanSwitchWeek) {
+                    List<SchoolYear> weeks = (List<SchoolYear>)ViewBag.Weeks;
+                    <label for="">
+                        週次 <small class="text-muted">（不選則預設當週）</small>
+                    </label>
+                    <select class="form-select" id="weekSelect">
+                        <option value="" selected>預設當週</option>
+                        @foreach (SchoolYear w in weeks) {
+                            <option value="@w.Id">@w.Year 年第 @w.Week 週</option>
+                        }
+                    </select>
+                }
+            </div>
             <div class="">
                 @if (addType.Equals("PH")) {
                     <button type="button" class="btn btn-primary btn-lg btn-round" id="addPHBtn">
@@ -60,30 +74,32 @@
     </div>
 </div>
 <script>
+    function weekParam() {
+        var sel = $('#weekSelect');
+        if (sel.length && sel.val()) {
+            return '&schoolYearId=' + sel.val();
+        }
+        return '';
+    }
     $(function () {
         $('#addPHBtn').on('click', function () {
-            //alert($('#schoolSelect').val());
-            var location = "/StudentPopulation/CreatePopulation?schoolId=" + $('#schoolSelect').val() + "&type=PH";
+            var location = "/StudentPopulation/CreatePopulation?schoolId=" + $('#schoolSelect').val() + "&type=PH" + weekParam();
             window.location.href = location;
         });
         $('#addPSJBtn').on('click', function () {
-            //alert($('#schoolSelect').val());
-            var location = "/StudentPopulation/CreatePSJPopulation?schoolId=" + $('#schoolSelect').val() + "&type=PSJ";
+            var location = "/StudentPopulation/CreatePSJPopulation?schoolId=" + $('#schoolSelect').val() + "&type=PSJ" + weekParam();
             window.location.href = location;
         });
         $('#addGeptBtn').on('click', function () {
-            //alert($('#schoolSelect').val());
-            var location = "/StudentPopulation/CreateGeptPopulation?schoolId=" + $('#schoolSelect').val() + "&type=Gept";
+            var location = "/StudentPopulation/CreateGeptPopulation?schoolId=" + $('#schoolSelect').val() + "&type=Gept" + weekParam();
             window.location.href = location;
         });
         $('#addPSBtn').on('click', function () {
-            //alert($('#schoolSelect').val());
-            var location = "/StudentPopulation/CreatePSPopulation?schoolId=" + $('#schoolSelect').val() + "&type=PS";
+            var location = "/StudentPopulation/CreatePSPopulation?schoolId=" + $('#schoolSelect').val() + "&type=PS" + weekParam();
             window.location.href = location;
         });
         $('#addASBtn').on('click', function () {
-            //alert($('#schoolSelect').val());
-            var location = "/StudentPopulation/CreateASPopulation?schoolId=" + $('#schoolSelect').val() + "&type=AS";
+            var location = "/StudentPopulation/CreateASPopulation?schoolId=" + $('#schoolSelect').val() + "&type=AS" + weekParam();
             window.location.href = location;
         });
     })
