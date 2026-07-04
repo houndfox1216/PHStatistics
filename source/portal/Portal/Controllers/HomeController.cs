@@ -3509,14 +3509,6 @@ namespace PHStatistics.Portal.Controllers {
             }
         }
 
-        public class ImportAllResult {
-            public string Week { get; set; }
-            public string File { get; set; }
-            public string Type { get; set; }
-            public int SchoolCount { get; set; }
-            public int ItemCount { get; set; }
-            public List<string> Errors { get; set; } = new();
-        }
 
         #endregion
         #endregion
