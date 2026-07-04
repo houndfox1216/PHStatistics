@@ -144,10 +144,15 @@ Portal/Services/Import/
 
 範圍：**僅限本次匯入涉及的週次/分校**，不做全庫掃描（不使用現行 `FixLastWeekData` 的全庫版本），也不向下一週連鎖修正（若下週資料已存在，可能已被人工調整過，連鎖回填有覆蓋風險；此邊界情況維持用現有 `FixLastWeekData` 手動處理）。
 
+**實作修正（2026-07-04 寫 plan 前發現，已與使用者確認）**：原先設想比照 `FixLastWeekData` 用 `ClassId` 比對上一週資料，但實際程式碼顯示不可行——`AddClassAndItem`（`HomeController.cs:3411`）每次匯入都會建立全新的 `Class` 記錄（`{course.Name}_{流水號}`），同一課程在不同週次匯入會產生不同的 `Class.Id`，因此 `ClassId` 比對在匯入資料上永遠比對不到。
+
+專案裡已經有一支手動維運端點 `FillLastWeekNumbers`（`HomeController.cs:3881`）就是為了這個情境寫的：用 `(CourseId, ClassType)` 分組加總來比對上一週資料（而非 `ClassId`），目前是依資料夾週次範圍手動觸發。校正上週資料步驟應改為**沿用這支既有邏輯**，只是範圍改成「本次匯入產生/更新的 `StudentPopulation`」而非資料夾週次範圍。
+
+另外，匯入資料**不會建立任何 `IsSum`（合計）項目**——`AddClassAndItem` 只建立實際課程項目，合計欄位（與上週相比/本週新生/本週流失等）是在匯出時由 `ReportExportService.ComputeIsumValue` 即時從 `Sum(Number)`/`Sum(LastWeekNumber)` 計算，並未走前台輸入流程的 `SumPHPopulation`/`StatisticsCalculationService.CalculateAll` 持久化合計項目那條路。因此**不需要**額外的合計重算步驟，回填 `LastWeekNumber` 後，匯出時的合計數字會自動正確。
+
 步驟：
-1. 對匯入產生/更新的每個 `StudentPopulation`，逐一檢查其 `Items`
-2. 對 `LastWeekNumber == 0` 的項目，比照現行 `FixLastWeekData` 的邏輯，查詢上一週（`Year`/`Week - 1`，跨學年度時取上一學年度最後一週）同分校同 `Class` 的 `Number`，回填至 `LastWeekNumber`
-3. 回填完成後，對該 `StudentPopulation` 重新執行合計計算（`SumPHPopulation` 或 `StatisticsCalculationService.CalculateAll`，依現行實際呼叫路徑為準，實作階段確認），確保「與上週相比」「本週新生」「本週流失」等依賴 `LastWeekNumber` 的 `IsSum` 欄位正確
+1. 對匯入產生/更新的每個 `StudentPopulation`，比照 `FillLastWeekNumbers` 的邏輯：查詢上一週（`Year`/`Week - 1`，跨學年度時取上一學年度最後一週）同分校同類型的 `StudentPopulation`，把其 `Items` 依 `(Class.CourseId, Class.Type)` 分組加總，取得每組的「上週總數」
+2. 對本週 `StudentPopulation` 的 `Items` 同樣依 `(Class.CourseId, Class.Type)` 分組，每組第一筆填入對應的「上週總數」、同組其餘筆填 0（與 `FillLastWeekNumbers` 現行邏輯一致，確保 `Sum(LastWeekNumber)` 等於上週總數，避免重複計算）
 
 此步驟實作為 `PopulationImportService` 的共用後置流程，所有 Importer 匯入完成後自動套用，不需要每個格式各自實作一次。
 
