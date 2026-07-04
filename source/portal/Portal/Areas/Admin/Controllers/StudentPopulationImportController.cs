@@ -38,7 +38,7 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
                 return Json(new {
                     success = true,
                     requiresConfirmation = true,
-                    conflicts = conflicts.Select(c => new { c.SchoolName, c.Year, c.Week }),
+                    conflicts = conflicts.Select(c => new { schoolName = c.SchoolName, year = c.Year, week = c.Week }),
                 });
             }
 
