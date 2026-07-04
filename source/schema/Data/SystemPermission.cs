@@ -154,4 +154,9 @@ public enum SystemPermission : short {
     [Display(Name = "人數表週次切換")]
     PopulationWeekSwitch,
 
+    /// <summary>
+    /// 人數表 Excel 匯入（後台自助匯入，與人數表管理權限分開）
+    /// </summary>
+    [Display(Name = "人數表匯入")]
+    StudentPopulationImport,
 }
