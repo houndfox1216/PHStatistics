@@ -36,6 +36,7 @@ namespace PHStatistics.Portal {
 
             // 報表匯出服務
             services.AddScoped<ReportExportService>();
+            services.AddScoped<PHStatistics.Portal.Services.Import.PopulationImportService>();
 
             // 啟用 Session 設定
             services.AddSession(options => {
