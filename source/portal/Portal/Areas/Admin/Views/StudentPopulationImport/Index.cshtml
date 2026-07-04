@@ -1,0 +1,77 @@
+@{
+    ViewBag.Title = "人數表匯入";
+}
+<div class="container py-4">
+    <h3>人數表匯入</h3>
+    <p class="text-muted">選擇報表類型並上傳對應的 Excel 檔案。若該分校/週次已有資料，系統會先詢問確認才覆寫重建。</p>
+
+    <div class="mb-3">
+        <label class="form-label">報表類型</label>
+        <select class="form-select" id="importType" style="max-width:300px">
+            <option value="PH">百瀚（PH）</option>
+            <option value="GEPT">英檢（GEPT）</option>
+            <option value="PS">百世（PS）</option>
+            <option value="PSJ">百倍速（PSJ）</option>
+            <option value="AfterSchool">課輔（AS）</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Excel 檔案</label>
+        <input type="file" class="form-control" id="importFile" accept=".xlsx" style="max-width:400px">
+    </div>
+    <button type="button" class="btn btn-primary" id="importBtn">上傳並匯入</button>
+
+    <div id="importResult" class="mt-3"></div>
+</div>
+
+<script>
+    function doImport(confirmed) {
+        var fileInput = document.getElementById('importFile');
+        if (!fileInput.files || fileInput.files.length === 0) {
+            alert('請選擇檔案');
+            return;
+        }
+        var formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+        formData.append('type', $('#importType').val());
+        formData.append('confirmed', confirmed ? 'true' : 'false');
+
+        $('#importResult').html('<div class="text-muted">匯入中...</div>');
+
+        $.ajax({
+            url: '@Url.Action("Import")',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (res) {
+                if (!res.success) {
+                    $('#importResult').html('<div class="alert alert-danger">' + res.message + '</div>');
+                    return;
+                }
+                if (res.requiresConfirmation) {
+                    var lines = res.conflicts.map(function (c) {
+                        return c.schoolName + ' ' + c.year + '年第' + c.week + '週';
+                    }).join('、');
+                    if (confirm('以下資料已存在，確定要覆寫重建嗎？\n' + lines)) {
+                        doImport(true);
+                    } else {
+                        $('#importResult').html('<div class="text-muted">已取消匯入</div>');
+                    }
+                    return;
+                }
+                var errHtml = (res.errors && res.errors.length > 0)
+                    ? '<div class="alert alert-warning mt-2">錯誤：' + res.errors.join('<br>') + '</div>'
+                    : '';
+                $('#importResult').html(
+                    '<div class="alert alert-success">匯入完成：' + res.schoolCount + ' 校，' + res.itemCount + ' 筆項目</div>' + errHtml
+                );
+            },
+            error: function () {
+                $('#importResult').html('<div class="alert alert-danger">匯入失敗，請稍後再試</div>');
+            }
+        });
+    }
+
+    $('#importBtn').on('click', function () { doImport(false); });
+</script>

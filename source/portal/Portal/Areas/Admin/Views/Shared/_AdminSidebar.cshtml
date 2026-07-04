@@ -50,6 +50,13 @@
             </a>
         </li>
 
+        <li class="sidebar-item">
+            <a href="@Url.Action("Index", "StudentPopulationImport", new { area = "Admin" })" class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "StudentPopulationImport" ? "active" : "")">
+                <i class="dx-icon-upload"></i>
+                <span>人數表匯入</span>
+            </a>
+        </li>
+
         <li class="sidebar-section">系統</li>
 
         <li class="sidebar-item">
