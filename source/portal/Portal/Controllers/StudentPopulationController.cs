@@ -240,11 +240,11 @@ namespace PHStatistics.Portal.Controllers {
                                 StudentPopulationItem item = new StudentPopulationItem();
                                 Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type);
                                 if (classItem == null) {
-                                    classItem = new Class() { SchoolId = schoolId, CourseId = lItem.Class.Course.Id, Name = lItem.Class.Course.Name, Type = lItem.Class.Type };
+                                    classItem = new Class() { SchoolId = schoolId, CourseId = lItem.Class.Course.Id, Name = lItem.Class.Name, Type = lItem.Class.Type };
                                     dataContext.Class.Add(classItem);
                                     dataContext.SaveChanges();
                                 }
-                                item.Name = lItem.Class.Course.Name;
+                                item.Name = lItem.Name;
                                 item.SchoolName = lItem.SchoolName;
                                 item.Class = classItem;
                                 item.Number = lItem.Class.Course.IsSum ? 0 : lItem.Number;
@@ -258,6 +258,9 @@ namespace PHStatistics.Portal.Controllers {
                     dataContext.SaveChanges();
                     //增加固定總計項目
                     //英文個別指導 162 國文個別指導 172 course.Name.Equals("英文總班數統計")
+                    int LastWeekSumNumber(int courseId, ClassType classType) {
+                        return lastWeekData?.Items?.FirstOrDefault(e => e.Class.Course.Id == courseId && e.Class.Type == classType)?.Number ?? 0;
+                    }
                     foreach (Course course in dataContext.Course.Include("Department").Where(e => e.IsSum == true && e.Type == StudentPopulationType.PH).OrderBy(e => e.Ordinal).ToList()) {
                         if (course.Department.Name.Equals("英文個別指導") || course.Department.Name.Equals("國語文個別指導") || course.Name.Equals("英文合作開班人數合計") || course.Name.Equals("本週英語文新生") ||
                             course.Name.Equals("本週英語文總人數") || course.Name.Equals("上週英語文總人數") || course.Name.Equals("與上週相比") || course.Name.Equals("去年同期/比") ||
@@ -283,7 +286,7 @@ namespace PHStatistics.Portal.Controllers {
                                 item.SchoolName = school.Name;
                                 item.Class = classItem;
                                 item.Number = 0;
-                                item.LastWeekNumber = 0;
+                                item.LastWeekNumber = LastWeekSumNumber(course.Id, classItem.Type);
                                 item.IsSum = true;
                                 returnData.Items.Add(item);
                             }
@@ -302,7 +305,7 @@ namespace PHStatistics.Portal.Controllers {
                                 item.SchoolName = school.Name;
                                 item.Class = classItem;
                                 item.Number = 0;
-                                item.LastWeekNumber = 0;
+                                item.LastWeekNumber = LastWeekSumNumber(course.Id, ClassType.SubGroup);
                                 item.IsSum = true;
                                 returnData.Items.Add(item);
                             }
@@ -319,7 +322,7 @@ namespace PHStatistics.Portal.Controllers {
                                 item.SchoolName = school.Name;
                                 item.Class = classItem;
                                 item.Number = 0;
-                                item.LastWeekNumber = 0;
+                                item.LastWeekNumber = LastWeekSumNumber(course.Id, ClassType.V3);
                                 item.IsSum = true;
                                 returnData.Items.Add(item);
                             }
@@ -397,11 +400,11 @@ namespace PHStatistics.Portal.Controllers {
                             StudentPopulationItem item = new StudentPopulationItem();
                             Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type);
                             if (classItem == null) {
-                                classItem = new Class() { SchoolId = schoolId, CourseId = lItem.Class.Course.Id, Name = lItem.Class.Course.Name, Type = lItem.Class.Type };
+                                classItem = new Class() { SchoolId = schoolId, CourseId = lItem.Class.Course.Id, Name = lItem.Class.Name, Type = lItem.Class.Type };
                                 dataContext.Class.Add(classItem);
                                 dataContext.SaveChanges();
                             }
-                            item.Name = lItem.Class.Course.Name;
+                            item.Name = lItem.Name;
                             item.SchoolName = lItem.Class.Course.Name;
                             item.Class = classItem;
                             item.Number = lItem.Class.Course.IsSum ? 0 : lItem.Number;
@@ -413,6 +416,9 @@ namespace PHStatistics.Portal.Controllers {
                 }
                 dataContext.SaveChanges();
                 //增加固定總計項目
+                int LastWeekSumNumber(int courseId, ClassType classType) {
+                    return lastWeekData?.Items?.FirstOrDefault(e => e.Class.Course.Id == courseId && e.Class.Type == classType)?.Number ?? 0;
+                }
                 foreach (Course course in dataContext.Course.Include("Department").Where(e => e.IsSum == true && e.Type == StudentPopulationType.PSJ).OrderBy(e => e.Ordinal).ToList()) {
                     if (course.Name.Equals("本週數學總人數合計") || course.Name.Equals("本週理化總人數合計")) {
                         if (!dataContext.StudentPopulationItem.Any(e => e.Class.Course.Id == course.Id && e.Class.Type == ClassType.General && e.StudentPopulation.Id == returnData.Id)) {
@@ -427,7 +433,7 @@ namespace PHStatistics.Portal.Controllers {
                             item.SchoolName = school.Name;
                             item.Class = classItem;
                             item.Number = 0;
-                            item.LastWeekNumber = 0;
+                            item.LastWeekNumber = LastWeekSumNumber(course.Id, ClassType.General);
                             item.IsSum = true;
                             returnData.Items.Add(item);
                         }
@@ -446,7 +452,7 @@ namespace PHStatistics.Portal.Controllers {
                             item.SchoolName = school.Name;
                             item.Class = classItem;
                             item.Number = 0;
-                            item.LastWeekNumber = 0;
+                            item.LastWeekNumber = LastWeekSumNumber(course.Id, ClassType.Personal);
                             item.IsSum = true;
                             returnData.Items.Add(item);
                         }
@@ -463,7 +469,7 @@ namespace PHStatistics.Portal.Controllers {
                             item.SchoolName = school.Name;
                             item.Class = classItem;
                             item.Number = 0;
-                            item.LastWeekNumber = 0;
+                            item.LastWeekNumber = LastWeekSumNumber(course.Id, ClassType.SubGroup);
                             item.IsSum = true;
                             returnData.Items.Add(item);
                         }
@@ -559,11 +565,11 @@ namespace PHStatistics.Portal.Controllers {
                             StudentPopulationItem item = new StudentPopulationItem();
                             Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type);
                             if (classItem == null) {
-                                classItem = new Class() { SchoolId = schoolId, CourseId = lItem.Class.Course.Id, Name = lItem.Class.Course.Name, Type = lItem.Class.Type };
+                                classItem = new Class() { SchoolId = schoolId, CourseId = lItem.Class.Course.Id, Name = lItem.Class.Name, Type = lItem.Class.Type };
                                 dataContext.Class.Add(classItem);
                                 dataContext.SaveChanges();
                             }
-                            item.Name = lItem.Class.Course.Name;
+                            item.Name = lItem.Name;
                             item.SchoolName = lItem.Class.Course.Name;
                             item.Class = classItem;
                             item.Number = lItem.Class.Course.IsSum ? 0 : lItem.Number;
@@ -588,7 +594,7 @@ namespace PHStatistics.Portal.Controllers {
                         item.SchoolName = course.Name;
                         item.Class = classItem;
                         item.Number = 0;
-                        item.LastWeekNumber = 0;
+                        item.LastWeekNumber = lastWeekData?.Items?.FirstOrDefault(e => e.Class.Course.Id == course.Id && e.Class.Type == ClassType.General)?.Number ?? 0;
                         item.IsSum = true;
                         returnData.Items.Add(item);
                     }
@@ -666,11 +672,11 @@ namespace PHStatistics.Portal.Controllers {
                             StudentPopulationItem item = new StudentPopulationItem();
                             Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type);
                             if (classItem == null) {
-                                classItem = new Class() { SchoolId = schoolId, CourseId = lItem.Class.Course.Id, Name = lItem.Class.Course.Name, Type = lItem.Class.Type };
+                                classItem = new Class() { SchoolId = schoolId, CourseId = lItem.Class.Course.Id, Name = lItem.Class.Name, Type = lItem.Class.Type };
                                 dataContext.Class.Add(classItem);
                                 dataContext.SaveChanges();
                             }
-                            item.Name = lItem.Class.Course.Name;
+                            item.Name = lItem.Name;
                             item.SchoolName = lItem.Class.Course.Name;
                             item.Class = classItem;
                             item.Number = lItem.Class.Course.IsSum ? 0 : lItem.Number;
@@ -695,7 +701,7 @@ namespace PHStatistics.Portal.Controllers {
                         item.SchoolName = course.Name;
                         item.Class = classItem;
                         item.Number = 0;
-                        item.LastWeekNumber = 0;
+                        item.LastWeekNumber = lastWeekData?.Items?.FirstOrDefault(e => e.Class.Course.Id == course.Id && e.Class.Type == ClassType.General)?.Number ?? 0;
                         item.IsSum = true;
                         returnData.Items.Add(item);
                     }
@@ -777,11 +783,11 @@ namespace PHStatistics.Portal.Controllers {
                             StudentPopulationItem item = new StudentPopulationItem();
                             Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type);
                             if (classItem == null) {
-                                classItem = new Class() { SchoolId = schoolId, CourseId = lItem.Class.Course.Id, Name = lItem.Class.Course.Name, Type = lItem.Class.Type };
+                                classItem = new Class() { SchoolId = schoolId, CourseId = lItem.Class.Course.Id, Name = lItem.Class.Name, Type = lItem.Class.Type };
                                 dataContext.Class.Add(classItem);
                                 dataContext.SaveChanges();
                             }
-                            item.Name = lItem.Class.Course.Name;
+                            item.Name = lItem.Name;
                             item.SchoolName = lItem.Class.Course.Name;
                             item.Class = classItem;
                             item.Number = lItem.Class.Course.IsSum ? 0 : lItem.Number;
@@ -806,7 +812,7 @@ namespace PHStatistics.Portal.Controllers {
                         item.SchoolName = course.Name;
                         item.Class = classItem;
                         item.Number = 0;
-                        item.LastWeekNumber = 0;
+                        item.LastWeekNumber = lastWeekData?.Items?.FirstOrDefault(e => e.Class.Course.Id == course.Id && e.Class.Type == ClassType.General)?.Number ?? 0;
                         item.IsSum = true;
                         returnData.Items.Add(item);
                     }
@@ -1215,6 +1221,15 @@ namespace PHStatistics.Portal.Controllers {
                 dataContext.Class.Update(cls);
                 dataContext.SaveChanges();
 
+                if (!string.IsNullOrWhiteSpace(name)) {
+                    var item = dataContext.StudentPopulationItem.FirstOrDefault(e => e.ClassId == classId && e.StudentPopulationId == populationId);
+                    if (item != null) {
+                        item.Name = name;
+                        dataContext.StudentPopulationItem.Update(item);
+                        dataContext.SaveChanges();
+                    }
+                }
+
                 if (classTypeChanged)
                     SumPHPopulation(populationId);
 
@@ -1249,6 +1264,14 @@ namespace PHStatistics.Portal.Controllers {
 
             cls.Type = (ClassType)classType;
             dataContext.SaveChanges();
+
+            if (!string.IsNullOrWhiteSpace(name)) {
+                var item = dataContext.StudentPopulationItem.FirstOrDefault(e => e.ClassId == classId && e.StudentPopulationId == populationId);
+                if (item != null) {
+                    item.Name = name;
+                    dataContext.SaveChanges();
+                }
+            }
 
             if (classTypeChanged)
                 SumPHPopulation(populationId);
