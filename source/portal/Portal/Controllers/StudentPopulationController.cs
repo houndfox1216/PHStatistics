@@ -238,7 +238,7 @@ namespace PHStatistics.Portal.Controllers {
                         foreach (StudentPopulationItem lItem in lastWeekData.Items) {
                             if (!lItem.Class.Course.IsSum && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                                 StudentPopulationItem item = new StudentPopulationItem();
-                                Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type);
+                                Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type && e.Name == lItem.Class.Name);
                                 if (classItem == null) {
                                     classItem = new Class() { SchoolId = schoolId, CourseId = lItem.Class.Course.Id, Name = lItem.Class.Name, Type = lItem.Class.Type };
                                     dataContext.Class.Add(classItem);
@@ -398,7 +398,7 @@ namespace PHStatistics.Portal.Controllers {
                     foreach (StudentPopulationItem lItem in lastWeekData.Items) {
                         if (!lItem.Class.Course.IsSum && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                             StudentPopulationItem item = new StudentPopulationItem();
-                            Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type);
+                            Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type && e.Name == lItem.Class.Name);
                             if (classItem == null) {
                                 classItem = new Class() { SchoolId = schoolId, CourseId = lItem.Class.Course.Id, Name = lItem.Class.Name, Type = lItem.Class.Type };
                                 dataContext.Class.Add(classItem);
@@ -563,7 +563,7 @@ namespace PHStatistics.Portal.Controllers {
                     foreach (StudentPopulationItem lItem in lastWeekData.Items) {
                         if (!lItem.Class.Course.IsSum && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                             StudentPopulationItem item = new StudentPopulationItem();
-                            Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type);
+                            Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type && e.Name == lItem.Class.Name);
                             if (classItem == null) {
                                 classItem = new Class() { SchoolId = schoolId, CourseId = lItem.Class.Course.Id, Name = lItem.Class.Name, Type = lItem.Class.Type };
                                 dataContext.Class.Add(classItem);
@@ -670,7 +670,7 @@ namespace PHStatistics.Portal.Controllers {
                     foreach (StudentPopulationItem lItem in lastWeekData.Items) {
                         if (!lItem.Class.Course.IsSum && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                             StudentPopulationItem item = new StudentPopulationItem();
-                            Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type);
+                            Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type && e.Name == lItem.Class.Name);
                             if (classItem == null) {
                                 classItem = new Class() { SchoolId = schoolId, CourseId = lItem.Class.Course.Id, Name = lItem.Class.Name, Type = lItem.Class.Type };
                                 dataContext.Class.Add(classItem);
@@ -781,7 +781,7 @@ namespace PHStatistics.Portal.Controllers {
                     foreach (StudentPopulationItem lItem in lastWeekData.Items) {
                         if (!lItem.Class.Course.IsSum && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                             StudentPopulationItem item = new StudentPopulationItem();
-                            Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type);
+                            Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type && e.Name == lItem.Class.Name);
                             if (classItem == null) {
                                 classItem = new Class() { SchoolId = schoolId, CourseId = lItem.Class.Course.Id, Name = lItem.Class.Name, Type = lItem.Class.Type };
                                 dataContext.Class.Add(classItem);
@@ -852,15 +852,11 @@ namespace PHStatistics.Portal.Controllers {
             //更新人數表資料
             try {
                 foreach (string[] updateItem in itemArr) {
-                    int classId = int.Parse(updateItem[1]);
-                    if (studentPopulationData.Items.Any(e => e.Class.Id == classId)) {
-                        long itemId = studentPopulationData.Items.FirstOrDefault(e => e.Class.Id == classId).Id;
-                        StudentPopulationItem sItem = dataContext.StudentPopulationItem.Find(itemId);
+                    long itemId = long.Parse(updateItem[1]);
+                    StudentPopulationItem sItem = dataContext.StudentPopulationItem.Find(itemId);
+                    if (sItem != null) {
                         sItem.Number = int.Parse((string)updateItem[2]);
                         dataContext.SaveChanges();
-                    }
-                    else {
-                        continue;
                     }
                 }
             }
@@ -1200,17 +1196,16 @@ namespace PHStatistics.Portal.Controllers {
         }
 
         [HttpPost]
-        public IActionResult UpdateClassDetail(long populationId, int classId, string name, int classType) {
+        public IActionResult UpdateClassDetail(long itemId, string name, int classType) {
             try {
                 DataContext dataContext = new DataContext();
-                var population = dataContext.StudentPopulation
-                    .Where(p => p.Id == populationId).FirstOrDefault();
-                if (population == null)
-                    return Json(new { success = false, message = "找不到人數表" });
-                if (population.Status != StudentPopulationStatus.Documented)
+                var item = dataContext.StudentPopulationItem.Include("StudentPopulation").Include("Class").FirstOrDefault(e => e.Id == itemId);
+                if (item == null)
+                    return Json(new { success = false, message = "找不到項目" });
+                if (item.StudentPopulation.Status != StudentPopulationStatus.Documented)
                     return Json(new { success = false, message = "人數表狀態不允許修改" });
 
-                var cls = dataContext.Class.FirstOrDefault(c => c.Id == classId);
+                var cls = item.Class;
                 if (cls == null)
                     return Json(new { success = false, message = "找不到班級" });
 
@@ -1222,16 +1217,13 @@ namespace PHStatistics.Portal.Controllers {
                 dataContext.SaveChanges();
 
                 if (!string.IsNullOrWhiteSpace(name)) {
-                    var item = dataContext.StudentPopulationItem.FirstOrDefault(e => e.ClassId == classId && e.StudentPopulationId == populationId);
-                    if (item != null) {
-                        item.Name = name;
-                        dataContext.StudentPopulationItem.Update(item);
-                        dataContext.SaveChanges();
-                    }
+                    item.Name = name;
+                    dataContext.StudentPopulationItem.Update(item);
+                    dataContext.SaveChanges();
                 }
 
                 if (classTypeChanged)
-                    SumPHPopulation(populationId);
+                    SumPHPopulation(item.StudentPopulationId);
 
                 return Json(new { success = true });
             }
@@ -2064,6 +2056,60 @@ namespace PHStatistics.Portal.Controllers {
             }
 
             return Json(new { success = true, processed, log });
+        }
+
+        // 校正「同一週人數表內多筆班級誤共用同一個 Class 記錄」的問題
+        // 成因：CreateXXXPopulation 繼承上週資料時，尋找對應 Class 只比對 School+CourseId+ClassType，
+        // 未比對班級名稱，導致同課程同班型下有多筆不同班級時，第2筆起全部誤配到第1筆新建的 Class，
+        // 使得畫面上這些列的「本週人數」欄位 HTML id（以 Class.Id 命名）重複，只有第1筆能正確編輯。
+        [HttpGet("FixDuplicateClassAssignment")]
+        public IActionResult FixDuplicateClassAssignment(long? spId = null) {
+            var db = new DataContext();
+            var dupKeys = db.StudentPopulationItem
+                .Where(e => e.ClassId.HasValue && (!spId.HasValue || e.StudentPopulationId == spId.Value))
+                .GroupBy(e => new { e.StudentPopulationId, e.ClassId })
+                .Where(g => g.Count() > 1)
+                .Select(g => new { g.Key.StudentPopulationId, ClassId = g.Key.ClassId.Value })
+                .ToList();
+
+            int fixedCount = 0;
+            int skippedIsSum = 0;
+            var log = new List<object>();
+
+            foreach (var key in dupKeys) {
+                var items = db.StudentPopulationItem
+                    .Include("Class.Course")
+                    .Where(e => e.StudentPopulationId == key.StudentPopulationId && e.ClassId == key.ClassId)
+                    .OrderBy(e => e.Id)
+                    .ToList();
+
+                if (items.Count < 2) continue;
+                Class originalClass = items[0].Class;
+                if (originalClass == null || originalClass.Course == null || originalClass.Course.IsSum) {
+                    skippedIsSum++;
+                    continue;
+                }
+
+                for (int i = 1; i < items.Count; i++) {
+                    StudentPopulationItem item = items[i];
+                    Class newClass = new Class {
+                        SchoolId = originalClass.SchoolId,
+                        CourseId = originalClass.CourseId,
+                        Type = originalClass.Type,
+                        Name = string.Format("{0}_dup{1}", originalClass.Name, i),
+                        Remark = originalClass.Remark
+                    };
+                    db.Class.Add(newClass);
+                    db.SaveChanges();
+                    item.ClassId = newClass.Id;
+                    db.StudentPopulationItem.Update(item);
+                    db.SaveChanges();
+                    fixedCount++;
+                    log.Add(new { spId = key.StudentPopulationId, itemId = item.Id, oldClassId = key.ClassId, newClassId = newClass.Id, newClassName = newClass.Name });
+                }
+            }
+
+            return Json(new { success = true, groupsFound = dupKeys.Count, skippedIsSum, fixedCount, log });
         }
 
         #endregion

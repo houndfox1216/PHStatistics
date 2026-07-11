@@ -229,7 +229,7 @@
                 var typeSelect = 0;
                 console.log(typeSelect);
                 //console.log(typeSelect.value);
-                itemArr.push([classItem.dataset.course, classItem.dataset.class, classItem.value]);
+                itemArr.push([classItem.dataset.course, classItem.dataset.sitem, classItem.value]);
             }
         }   
 
@@ -359,14 +359,14 @@
         updateSubmitSummary();
     });
 
-    function updateClassDetail(classId, populationId) {
-        const name      = $('#class_' + classId).val();
-        const classType = $('#class_type_' + classId).val() || 0;
+    function updateClassDetail(itemId) {
+        const name      = $('#class_' + itemId).val();
+        const classType = $('#class_type_' + itemId).val() || 0;
 
         $.ajax({
             url: '/StudentPopulation/UpdateClassDetail',
             type: 'POST',
-            data: { populationId: populationId, classId: classId, name: name, classType: classType },
+            data: { itemId: itemId, name: name, classType: classType },
             success: function (result) {
                 if (!result.success) alert(result.message || '更新失敗');
             },

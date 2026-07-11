@@ -95,16 +95,16 @@
                         </select>
                     </div> *@
                     <div class="col-4 mb-3">
-                        <input type="text" class="form-control class-name-input" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.Name" onblur="updateClassDetail(@sItem.Class.Id, @sItem.StudentPopulationId)">
+                        <input type="text" class="form-control class-name-input" placeholder="" id="class_@sItem.Id.ToString()" value="@sItem.Name" onblur="updateClassDetail(@sItem.Id)">
                     </div>
                     <div class="col-2 mb-3">
                         @sItem.LastWeekNumber
                     </div>
                     <div class="col-2 mb-3">
-                        <input type="number" class="form-control" placeholder="請輸入人數" name="Items[@itemRowNo].Number" id="class_@sItem.Class.Id.ToString()_count" value="@sItem.Number" data-course="@cItem.Id" data-class="@sItem.Class.Id">
+                        <input type="number" class="form-control" placeholder="請輸入人數" name="Items[@itemRowNo].Number" id="class_@sItem.Id.ToString()_count" value="@sItem.Number" data-course="@cItem.Id" data-class="@sItem.Class.Id" data-sitem="@sItem.Id">
                     </div>
                     <div class="col-2 mb-3">
-                        <input type="text" class="form-control" placeholder="" name="Items[@itemRowNo].StudentRemark" id="class_@sItem.Class.Id.ToString()_remark" value="@sItem.StudentRemark">
+                        <input type="text" class="form-control" placeholder="" name="Items[@itemRowNo].StudentRemark" id="class_@sItem.Id.ToString()_remark" value="@sItem.StudentRemark">
                     </div>
                 </div>
                 itemRowNo++;
