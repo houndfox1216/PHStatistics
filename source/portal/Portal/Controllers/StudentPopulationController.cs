@@ -1603,28 +1603,35 @@ namespace PHStatistics.Portal.Controllers {
                 //總班數 小
                 StudentPopulationItem subgroupClassCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("英文總班數統計") && e.Class.Type == ClassType.SubGroup);
                 int[] countIds = dataContext.Course.Where(e => e.Type == StudentPopulationType.PH && !e.IsSum && (e.Department.Name.Equals("英文國小班") || e.Department.Name.Equals("英文國中班") || e.Department.Name.Equals("英文高中班"))).Select(e => e.Id).ToArray();
-                subgroupClassCount.Number = studentPopulationData.Items.Where(e => e.Class.Course != null && countIds.Contains(e.Class.Course.Id) && e.Class.Type == ClassType.SubGroup && !e.Class.Course.IsSum).Count(); ;
-                dataContext.StudentPopulationItem.Update(subgroupClassCount);
-                dataContext.SaveChanges();
+                if (subgroupClassCount != null) {
+                    subgroupClassCount.Number = studentPopulationData.Items.Where(e => e.Class.Course != null && countIds.Contains(e.Class.Course.Id) && e.Class.Type == ClassType.SubGroup && !e.Class.Course.IsSum).Count();
+                    dataContext.StudentPopulationItem.Update(subgroupClassCount);
+                    dataContext.SaveChanges();
+                }
                 //總班數 三
                 StudentPopulationItem em3ClassCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("英文總班數統計") && e.Class.Type == ClassType.V3);
-                //int[] countIds = dataContext.Course.Where(e => e.Type == StudentPopulationType.PH && !e.IsSum && (e.Department.Name.Equals("英文國小班") || e.Department.Name.Equals("英文國中班") || e.Department.Name.Equals("英文高中班"))).Select(e => e.Id).ToArray();
-                em3ClassCount.Number = studentPopulationData.Items.Where(e => e.Class.Course != null && countIds.Contains(e.Class.Course.Id) && e.Class.Type == ClassType.V3 && !e.Class.Course.IsSum).Count(); ;
-                dataContext.StudentPopulationItem.Update(em3ClassCount);
-                dataContext.SaveChanges();
+                if (em3ClassCount != null) {
+                    em3ClassCount.Number = studentPopulationData.Items.Where(e => e.Class.Course != null && countIds.Contains(e.Class.Course.Id) && e.Class.Type == ClassType.V3 && !e.Class.Course.IsSum).Count();
+                    dataContext.StudentPopulationItem.Update(em3ClassCount);
+                    dataContext.SaveChanges();
+                }
 
                 //國文總班數 小
                 StudentPopulationItem subgroupChClassCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("國文總班數") && e.Class.Type == ClassType.SubGroup);
                 int[] chIds = dataContext.Course.Where(e => e.Type == StudentPopulationType.PH && !e.IsSum && (e.Department.Name.Equals("國語文"))).Select(e => e.Id).ToArray();
-                subgroupChClassCount.Number = studentPopulationData.Items.Where(e => e.Class.Course != null && chIds.Contains(e.Class.Course.Id) && e.Class.Type == ClassType.SubGroup && !e.Class.Course.IsSum).Count();
-                dataContext.StudentPopulationItem.Update(subgroupChClassCount);
-                dataContext.SaveChanges();
+                if (subgroupChClassCount != null) {
+                    subgroupChClassCount.Number = studentPopulationData.Items.Where(e => e.Class.Course != null && chIds.Contains(e.Class.Course.Id) && e.Class.Type == ClassType.SubGroup && !e.Class.Course.IsSum).Count();
+                    dataContext.StudentPopulationItem.Update(subgroupChClassCount);
+                    dataContext.SaveChanges();
+                }
 
                 //國文總班數 三
                 StudentPopulationItem em3ChClassCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("國文總班數") && e.Class.Type == ClassType.V3);
-                em3ChClassCount.Number = studentPopulationData.Items.Where(e => e.Class.Course != null && chIds.Contains(e.Class.Course.Id) && e.Class.Type == ClassType.V3 && !e.Class.Course.IsSum).Count();
-                dataContext.StudentPopulationItem.Update(em3ChClassCount);
-                dataContext.SaveChanges();
+                if (em3ChClassCount != null) {
+                    em3ChClassCount.Number = studentPopulationData.Items.Where(e => e.Class.Course != null && chIds.Contains(e.Class.Course.Id) && e.Class.Type == ClassType.V3 && !e.Class.Course.IsSum).Count();
+                    dataContext.StudentPopulationItem.Update(em3ChClassCount);
+                    dataContext.SaveChanges();
+                }
 
                 //本週英語文總人數 全部
                 //如果有重新匯入課程要調整對應Id
@@ -1638,13 +1645,13 @@ namespace PHStatistics.Portal.Controllers {
 
                 //本周流失/新增 英文
                 StudentPopulationItem addCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("本週英語文新生"));
-                if (!addCount.IsManual) {
+                if (addCount != null && !addCount.IsManual) {
                     addCount.Number = addEnStudent;
                     dataContext.StudentPopulationItem.Update(addCount);
                     dataContext.SaveChanges();
                 }
                 StudentPopulationItem lostCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("本週英語文流失"));
-                if (!lostCount.IsManual) {
+                if (lostCount != null && !lostCount.IsManual) {
                     lostCount.Number = lostEnStudent;
                     dataContext.StudentPopulationItem.Update(lostCount);
                     dataContext.SaveChanges();
@@ -1661,13 +1668,13 @@ namespace PHStatistics.Portal.Controllers {
 
                 //本周流失/新增 國語
                 StudentPopulationItem addChCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("本週國語文新生人數"));
-                if (!addChCount.IsManual) {
+                if (addChCount != null && !addChCount.IsManual) {
                     addChCount.Number = addChStudent;
                     dataContext.StudentPopulationItem.Update(addChCount);
                     dataContext.SaveChanges();
                 }
                 StudentPopulationItem lostChCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("本週國語文流失人數"));
-                if (!lostChCount.IsManual) {
+                if (lostChCount != null && !lostChCount.IsManual) {
                     lostChCount.Number = lostChStudent;
                     dataContext.StudentPopulationItem.Update(lostChCount);
                     dataContext.SaveChanges();
@@ -1771,9 +1778,11 @@ namespace PHStatistics.Portal.Controllers {
 
                 //總人數
                 StudentPopulationItem sumAllCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("總人數"));
-                sumAllCount.Number = studentPopulationData.Items.Where(e => !e.Class.Course.IsSum).Sum(e => e.Number); ;
-                dataContext.StudentPopulationItem.Update(sumAllCount);
-                dataContext.SaveChanges();
+                if (sumAllCount != null) {
+                    sumAllCount.Number = studentPopulationData.Items.Where(e => !e.Class.Course.IsSum).Sum(e => e.Number);
+                    dataContext.StudentPopulationItem.Update(sumAllCount);
+                    dataContext.SaveChanges();
+                }
             }
             else if (studentPopulationData.Type == StudentPopulationType.PSJ) {
 
