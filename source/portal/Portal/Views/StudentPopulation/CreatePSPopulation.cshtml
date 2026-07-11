@@ -198,8 +198,8 @@
         const parts = [];
         if (newCount    > 0) parts.push('<span class="text-success fw-bold">本週新增 ' + newCount + ' 班</span>');
         if (deletedCount > 0) parts.push('<span class="text-secondary fw-bold">已刪除 ' + deletedCount + ' 班</span>');
-        if (zeroNames.length > 0)
-            parts.push('<span class="text-danger fw-bold">人數歸零（下週不帶入）：' + zeroNames.join('、') + '</span>');
+        // if (zeroNames.length > 0)
+        //     parts.push('<span class="text-danger fw-bold">人數歸零（下週不帶入）：' + zeroNames.join('、') + '</span>');
 
         const el = document.getElementById('submitSummary');
         if (!el) return;
@@ -234,7 +234,7 @@
         }   
 
         $.ajax({
-            url: '@Url.Action("AddNewClass", "StudentPopulation")',
+            url: '@Url.Action("AddNewClass", "StudentPopulation", new { area = "" })',
             cache: false,
             data: { 'schoolId': schoolId, 'courseId': newCourses.value, 'week': week, 'year': year, 'itemArr': itemArr, 'newClassType': 0, 'newClassName': newClassName.value, 'newNumber': newNumber.value, 'newStudentremark': newStudentremark.value, 'type': 'PS' },
             // dataType: 'application/json',
@@ -260,7 +260,7 @@
     function removeClassItem(sId){
         if(confirm('確認要刪除班級資料!?')==true){
             $.ajax({
-                url: '@Url.Action("RemoveClassItem", "StudentPopulation")',
+                url: '@Url.Action("RemoveClassItem", "StudentPopulation", new { area = "" })',
                 cache: false,
                 data: { 'sId': sId },
                 // dataType: 'application/json',
@@ -338,7 +338,7 @@
     function confirmPopulation(populationId) {
         if (!confirm('確認要送出人數表？送出後本週資料將無法修改，如需調整須由管理人員解鎖並說明原因。')) return;
         $.ajax({
-            url: '@Url.Action("ConfirmPopulation", "StudentPopulation")',
+            url: '@Url.Action("ConfirmPopulation", "StudentPopulation", new { area = "" })',
             type: 'POST',
             data: { populationId: populationId },
             success: function (res) {

@@ -96,7 +96,7 @@
              console.log('queryWeek', $('#queryWeek').val());
               console.log('reportType', $('#reportType').val());
             $.ajax({
-                   url: '@Url.Action("QueryPopulationPartial", "StudentPopulation")',
+                   url: '@Url.Action("QueryPopulationPartial", "StudentPopulation", new { area = "" })',
                    cache: false,
                    data: { 'schoolId': $('#schoolSelect').val(), 'week': $('#queryWeek').val(), 'year': $('#queryYear').val(), 'reportType':  $('#reportType').val() },
                    // dataType: 'application/json',
