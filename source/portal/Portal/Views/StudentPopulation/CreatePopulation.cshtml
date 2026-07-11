@@ -112,7 +112,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                                <button type="button" class="btn btn-primary" onclick="addNewClassItem()">新增</button>
+                                <button type="button" class="btn btn-primary" id="addNewClassBtn" onclick="addNewClassItem()">新增</button>
                             </div>
                         </div>
                     </div>
@@ -170,6 +170,8 @@
     }
 
     function addNewClassItem() {
+        var addNewClassBtn = document.getElementById('addNewClassBtn');
+        if (addNewClassBtn) addNewClassBtn.disabled = true;
         var schoolId = @Model.School.Id;
         var year = @Model.Year;
         var week = @Model.Week;
@@ -207,9 +209,11 @@
                 $('#new_department').prop('selectedIndex', 0);
                 $('#new_courses').html('<option value="">請先選擇班系</option>');
                 $('#new_class_type').html('<option value="">請先選擇課程</option>');
+                if (addNewClassBtn) addNewClassBtn.disabled = false;
             },
             error: function () {
                  alert("班級新增失敗!!");
+                 if (addNewClassBtn) addNewClassBtn.disabled = false;
                  return false;
             }
         });

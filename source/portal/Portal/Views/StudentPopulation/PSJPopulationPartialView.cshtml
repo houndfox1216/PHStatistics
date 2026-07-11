@@ -64,7 +64,7 @@
                 <div class="col-2 mb-3">
                 </div>
             </div>
-            foreach (StudentPopulationItem sItem in Model.Items.Where(e => e.Class.Course.Id == cItem.Id)) {
+            foreach (StudentPopulationItem sItem in Model.Items.Where(e => e.Class.Course.Id == cItem.Id).OrderBy(e => e.Id)) {
                 <div class="row mx-0">
                     @*                 <div class="col-2 mb-3">
     <input type="hidden" class="form-control" name="Items[@itemRowNo].ClassId" id="class_@sItem.Class.Id.ToString()" value="@sItem.Class.Id">

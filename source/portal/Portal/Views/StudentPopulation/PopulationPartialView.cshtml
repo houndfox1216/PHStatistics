@@ -163,7 +163,7 @@
                 </div>
             </div> 
         }
-        foreach (StudentPopulationItem sItem in Model.Items.Where(e => e.Class.Course.Id == cItem.Id)) {
+        foreach (StudentPopulationItem sItem in Model.Items.Where(e => e.Class.Course.Id == cItem.Id).OrderBy(e => e.Id)) {
             if (sItem.Class.Course.Name.Equals("本週英語文總人數") || sItem.Class.Course.Name.Equals("上週英語文總人數") || sItem.Class.Course.Name.Equals("與上週相比") ||
                 sItem.Class.Course.Name.Equals("去年同期/比"))
             {

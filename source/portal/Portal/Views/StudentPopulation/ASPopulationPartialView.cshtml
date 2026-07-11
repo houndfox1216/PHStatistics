@@ -62,7 +62,7 @@
                     學生備註
                 </div>
             </div>
-            foreach (StudentPopulationItem sItem in Model.Items.Where(e => e.Class.Course.Id == cItem.Id)) {
+            foreach (StudentPopulationItem sItem in Model.Items.Where(e => e.Class.Course.Id == cItem.Id).OrderBy(e => e.Id)) {
                 string rowStateClass;
                 if (sItem.Number == 0)
                     rowStateClass = "row-zero";
