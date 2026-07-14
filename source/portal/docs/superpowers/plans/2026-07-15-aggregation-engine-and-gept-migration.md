@@ -735,16 +735,16 @@ git commit -m "feat: expose aggregation rule fields (StatisticsType/SourceDepart
 
 ---
 
-### Task 5: Configure GEPT's 12 summary courses
+### Task 5: Configure GEPT's 13 summary courses
 
 **Files:**
 - Create: `source/portal/docs/superpowers/sql/2026-07-15-gept-aggregation-rules-apply.sql`
 - Create: `source/portal/docs/superpowers/sql/2026-07-15-gept-aggregation-rules-revert.sql`
 
 **Interfaces:**
-- Produces: correctly configured `Course.StatisticsType`/`SourceDepartmentIds` for GEPT's 12 `IsSum=true` courses — this is what Task 6's comparison and Task 7's engine cutover depend on.
+- Produces: correctly configured `Course.StatisticsType`/`SourceDepartmentIds` for GEPT's 13 `IsSum=true` courses — this is what Task 6's comparison and Task 7's engine cutover depend on.
 
-GEPT (`StudentPopulationType.GEPT` = `Type=2`) has 12 `IsSum=true` courses across 6 departments. The rule mapping below was derived by reading the current live `SumPHPopulation` GEPT branch (`StudentPopulationController.cs:1466-1495` as of this plan) against real department membership queried from the dev DB:
+GEPT (`StudentPopulationType.GEPT` = `Type=2`) has 13 `IsSum=true` courses across 6 departments. The rule mapping below was derived by reading the current live `SumPHPopulation` GEPT branch (`StudentPopulationController.cs:1466-1495` as of this plan) against real department membership queried from the dev DB:
 
 | Course Id | Name | Department | StatisticsType | SourceDepartmentIds | Why |
 |---|---|---|---|---|---|
