@@ -52,22 +52,22 @@ namespace PHStatistics.Portal.Controllers {
                 // 讀取 Session
                 string account = string.Empty;
                 string login = string.Empty;
-                //try {
-                //    account = HttpContext.Session.GetString("Account") ?? "";
-                //    login = HttpContext.Session.GetString("UserLogin") ?? "0";
-                //}
-                //catch (Exception ex) {
-                //    try {
-                //        account = HttpContext.Request.Cookies["Account"] ?? "";
-                //        login = HttpContext.Request.Cookies["UserLogin"] ?? "0";
-                //    }
-                //    catch {
-                //        account = string.Empty;
-                //        login = string.Empty;
-                //    }
-                //}
+                try {
+                    account = HttpContext.Session.GetString("Account") ?? "";
+                    login = HttpContext.Session.GetString("UserLogin") ?? "0";
+                }
+                catch (Exception ex) {
+                    try {
+                        account = HttpContext.Request.Cookies["Account"] ?? "";
+                        login = HttpContext.Request.Cookies["UserLogin"] ?? "0";
+                    }
+                    catch {
+                        account = string.Empty;
+                        login = string.Empty;
+                    }
+                }
                 Logger.LogInformation($"進入首頁 讀取 Session account:{account} login:{login}");
-                if (string.IsNullOrEmpty(account) || string.IsNullOrEmpty(login)) {
+                if (string.IsNullOrEmpty(account) || login != "1") {
                     return Redirect("/Member/Login");
                 }
             }
