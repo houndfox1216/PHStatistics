@@ -64,6 +64,43 @@
                 columns.AddFor(m => m.IsSum).Caption("加總").Width(80);
                 columns.AddFor(m => m.Published).Caption("已發佈").Width(80);
                 columns.AddFor(m => m.Type).Caption("所屬單位").Width(100);
+                columns.AddFor(m => m.StatisticsType)
+                    .Caption("加總類型")
+                    .Lookup(lookup => lookup
+                        .DataSource(new[] {
+                            new { Id = 0,  Name = "使用者輸入" },
+                            new { Id = 1,  Name = "同班系人數加總" },
+                            new { Id = 2,  Name = "同班系+同班別人數加總" },
+                            new { Id = 3,  Name = "指定來源班系人數加總" },
+                            new { Id = 4,  Name = "指定來源課程人數加總" },
+                            new { Id = 10, Name = "與上週相比" },
+                            new { Id = 11, Name = "去年同期比較" },
+                            new { Id = 30, Name = "班級數量統計" },
+                            new { Id = 31, Name = "班級數量統計依班別" },
+                            new { Id = 40, Name = "上週數值" },
+                            new { Id = 41, Name = "去年同期數值" },
+                            new { Id = 50, Name = "手動輸入" },
+                        })
+                        .ValueExpr("Id")
+                        .DisplayExpr("Name")
+                    );
+                columns.AddFor(m => m.SourceDepartmentIds).Caption("來源班系Id (JSON陣列，如 [14,15,16])").Width(220);
+                columns.AddFor(m => m.SourceCourseIds).Caption("來源課程Id (JSON陣列)").Width(180);
+                columns.AddFor(m => m.ApplicableClassType)
+                    .Caption("適用班別")
+                    .Lookup(lookup => lookup
+                        .DataSource(new[] {
+                            new { Id = 0, Name = "團" },
+                            new { Id = 1, Name = "EM1" },
+                            new { Id = 2, Name = "EM2" },
+                            new { Id = 3, Name = "三" },
+                            new { Id = 4, Name = "小" },
+                            new { Id = 5, Name = "一般" },
+                        })
+                        .ValueExpr("Id")
+                        .DisplayExpr("Name")
+                    );
+                columns.AddFor(m => m.GroupByClassType).Caption("依班別分組").Width(90);
             })
             .Toolbar(toolbar => toolbar.Items(items => {
                 items.Add().Name("addRowButton");
