@@ -36,4 +36,13 @@
     <ProjectReference Include="..\Portal\Portal.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="J.Framework">
+      <HintPath>..\..\schema\Libraries\J.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="J.Framework.EntityFrameworkCore">
+      <HintPath>..\..\schema\Libraries\J.Framework.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
