@@ -1402,7 +1402,11 @@ namespace PHStatistics.Portal.Controllers {
                 try {
 
                     if (studentPopulationData.Type == StudentPopulationType.PH) {
-                        if (group.Class.Course.Name.Equals("本週總詢問人數") || group.Class.Course.Name.Equals("本週總詢問(填單)人數")) {
+                        if (group.Class.Course.Name.Equals("本週總詢問人數") || group.Class.Course.Name.Equals("本週總詢問(填單)人數") ||
+                            group.Class.Course.Name.Equals("本週英語文新生") || group.Class.Course.Name.Equals("本週英語文流失") ||
+                            group.Class.Course.Name.Equals("本週國語文新生人數") || group.Class.Course.Name.Equals("本週國語文流失人數")) {
+                            // 新生/流失：分校自填，系統不計算。這裡必須提早 continue 跳過，
+                            // 否則會先被下面「同班系非加總課程加總」預設成 0（英文分析/國語文分析班系底下沒有非加總課程）。
                             continue;
                         }
                         //取得相同班系及班型的班級
@@ -1460,6 +1464,11 @@ namespace PHStatistics.Portal.Controllers {
                         // 流失人數／新生人數：分校自填，系統不計算
                     }
                     else if (studentPopulationData.Type == StudentPopulationType.GEPT) {
+                        if (group.Class.Course.Name.Equals("本週英檢新生人數") || group.Class.Course.Name.Equals("本週英檢流失人數")) {
+                            // 新生/流失：分校自填，系統不計算。這裡必須提早 continue 跳過，
+                            // 否則會先被下面「同班系非加總課程加總」預設成 0（英檢分析班系底下沒有非加總課程）。
+                            continue;
+                        }
                         //取得相同班系及班型的班級
                         var classItems = studentPopulationData.Items.Where(e => e.Class.Course.Department != null && e.Class.Course.Department.Id == group.Class.Course.Department.Id && e.Class.Type == group.Class.Type && !e.Class.Course.IsSum).ToList();
                         group.Number = classItems.Sum(e => e.Number);
