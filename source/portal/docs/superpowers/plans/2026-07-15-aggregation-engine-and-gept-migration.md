@@ -308,12 +308,10 @@ Append to `AggregationEngineTests.cs`:
     }
 ```
 
-- [ ] **Step 6: Run the tests to verify they fail**
+- [ ] **Step 6: Run the tests to verify exactly one fails**
 
 Run: `dotnet test source/portal/Test/Test.csproj --filter "FullyQualifiedName~AggregationEngineTests"`
-Expected: `Failed: 2` (the new tests) — `SumBySourceCourses` currently falls through to the `Sum` case already (should actually pass — see note below), `CountClasses` hits the `default: throw` branch and fails with `NotSupportedException`.
-
-Note: `SumBySourceCourses` is already listed in the Step 3 switch's `Sum` case group, so that test should already pass after Step 3. If it does, that's fine — just confirm `CountClasses` is the one failing before continuing.
+Expected: `Failed: 1, Passed: 3`. `Calculate_SumBySourceCourses_...` passes already — `SumBySourceCourses` was included in the Step 3 switch's `Sum` case group from the start (it shares the exact same `GetSourceItems(...).Sum(...)` code path as `SumByDepartment`/`SumBySourceDepartments`, so no new implementation is needed for it; this test exists to pin that shared behavior down explicitly). `Calculate_CountClasses_...` fails with `NotSupportedException`, since `CountClasses` isn't in the switch yet — that's the one Step 7 implements.
 
 - [ ] **Step 7: Add the `CountClasses`/`CountClassesByClassType` case to the switch**
 
