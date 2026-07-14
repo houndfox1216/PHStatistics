@@ -8,6 +8,10 @@
     List<Course> courses = (List<Course>)ViewBag.Courses;
     int itemRowNo = 0;
     string color = "#75b6e1";
+    List<string> warnings = ViewBag.Warnings as List<string> ?? new List<string>();
+}
+@if (warnings.Any()) {
+    <div id="ntw-warnings" style="display:none">@string.Join("\n", warnings)</div>
 }
 @foreach (Course cItem in courses) {
     if (Model.Items.Any(e => e.Class.Course.Id == cItem.Id)) {
@@ -32,11 +36,24 @@
                     lwNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 34).Number;
                 
                 }
-                else // 62 國文
+                else if (cItem.Id == 62) // 62 國文
                 {
                     //60 本週國文總人 數61 上週國文總人數
                     wNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 60).Number;
                     lwNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 61).Number;
+                }else if (cItem.Id == 19) // 19 國文
+                {
+                    try
+                    {
+                     wNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 88).Number;
+                    lwNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 89).Number;
+                    }
+                    catch
+                    {
+                        wNumber = 0;
+                        lwNumber = 0;
+                    }
+
                 }
 
                 <div class="row mx-0" style="background-color:@color">
@@ -55,13 +72,15 @@
                     }
             
                 </div>
-            </div>   
+                </div>
             }else if (cItem.Name.Equals("去年同期/比"))
             {
 
                 int lyNumber = 0;
                 int yNumber = 0;
                 //35 英文   
+                try
+                {
                 if (cItem.Id == 35)
                 {
                     //33 本週英文總人數 34 上週英文總人數
@@ -74,7 +93,13 @@
                     //60 本週國文總人 數61 上週國文總人數
                     lyNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 60).Number;
                     yNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 61).Number;
+                }                
+                }catch
+                {
+                    lyNumber = 0;
+                    yNumber = 0;
                 }
+    
 
                  int wNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == cItem.Id).Number;
             <div class="row mx-0" style="background-color:@color">

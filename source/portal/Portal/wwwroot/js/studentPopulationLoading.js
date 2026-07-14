@@ -54,7 +54,20 @@
         }
     }
 
+    function showConsistencyWarnings() {
+        var el = document.getElementById('ntw-warnings');
+        if (el && el.textContent.trim()) {
+            alert(el.textContent.trim());
+            el.remove();
+        }
+    }
+
     $(document).ready(ensureOverlay);
     $(document).ajaxStart(showOverlay);
     $(document).ajaxStop(hideOverlay);
+    $(document).ajaxComplete(function (event, xhr, settings) {
+        if (settings && settings.url && settings.url.indexOf('UpdateClassItem') !== -1) {
+            showConsistencyWarnings();
+        }
+    });
 })(jQuery);
