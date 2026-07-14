@@ -815,85 +815,103 @@ git commit -m "data: configure GEPT's 12 summary courses with AggregationEngine 
 
 ---
 
-### Task 6: Verify the engine against real GEPT data, then remove the temporary tool
+### Task 6: Verify the engine against real GEPT data
 
 **Files:**
-- Modify: `source/portal/Portal/Areas/Admin/Controllers/StudentPopulationController.cs` (temporary action, added then removed within this task)
+- Create: `source/portal/Test/Services/Aggregation/GeptAggregationComparisonTests.cs`
 
 **Interfaces:**
-- Consumes: `AggregationEngine` (Task 2/3), GEPT course configuration (Task 5)
-- Produces: confidence that the engine reproduces every currently-stored GEPT summary number before Task 7 flips the live code path over. This task adds no permanent code — the action is removed in Step 4 below.
+- Consumes: `AggregationEngine` (Task 2/3), GEPT course configuration (Task 5), `DataContext` (Data.csproj — already referenced transitively via Task 1's ProjectReference)
+- Produces: confidence that the engine reproduces every currently-stored GEPT summary number before Task 7 flips the live code path over.
 
-The most reliable ground truth for "does the new engine match the old logic" is the `Number` already stored on every existing GEPT `IsSum` item — it was last written by the current live `SumPHPopulation` code. Rather than re-implementing the old if/else a second time just to compare, this task runs the new engine (read-only, never saving) against every real GEPT population and diffs its output against what's already stored.
+**Revision note (2026-07-15):** the original version of this task added a temporary Admin-controller HTTP action to run the comparison. That approach turned out to be a dead end in an agentic/headless environment: the action lives under `[RequirePermission(SystemPermission.StudentPopulation)]`, which requires an authenticated browser session to reach — and the login flow requires solving an image CAPTCHA, which nothing here can do. This revision replaces it with a standalone NUnit test that talks to `DataContext` directly, bypassing the ASP.NET Core web host and its permission/auth layer entirely (it's just a C# object in a test process, not an HTTP request). This is also a strictly better artifact: it's not temporary — it stays in the repo as a standing regression check anyone can re-run later if GEPT's rule configuration ever changes, instead of being deleted after one use.
 
-- [ ] **Step 1: Add the temporary comparison action**
+The most reliable ground truth for "does the new engine match the old logic" is the `Number` already stored on every existing GEPT `IsSum` item — it was last written by the current live `SumPHPopulation` code. Rather than re-implementing the old if/else a second time just to compare, this test runs the new engine (read-only, never saving) against every real GEPT population in the dev DB and asserts its output equals what's already stored.
 
-In `source/portal/Portal/Areas/Admin/Controllers/StudentPopulationController.cs`, add `using PHStatistics.Portal.Services.Aggregation;` to the top of the file, and add this action inside the `StudentPopulationController` class (anywhere after `Index()` is fine, e.g. right before the `#region StudentPopulation CRUD` block):
+- [ ] **Step 1: Write the comparison test**
+
+Create `source/portal/Test/Services/Aggregation/GeptAggregationComparisonTests.cs`:
 
 ```csharp
-        // 暫時性端點，僅供 GEPT 加總引擎遷移驗證使用，驗證完成後即刪除（見 2026-07-15-aggregation-engine-and-gept-migration.md Task 6）
-        [HttpGet]
-        public IActionResult CompareGeptAggregation() {
-            var populations = Model.DataContext.StudentPopulation
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using PHStatistics;
+using PHStatistics.Content;
+using PHStatistics.Portal.Services.Aggregation;
+
+namespace PHStatistics.Portal.Test.Services.Aggregation;
+
+[TestFixture]
+[Explicit("Requires a live connection to the dev database; run manually to verify the GEPT AggregationEngine migration before cutover (see plan Task 6)")]
+public class GeptAggregationComparisonTests {
+    [Test]
+    public void Engine_ReproducesStoredNumbers_ForAllRealGeptPopulations() {
+        using var context = new DataContext();
+
+        var populations = context.StudentPopulation
+            .Include(p => p.Items).ThenInclude(i => i.Class).ThenInclude(c => c.Course)
+            .Where(p => p.Type == StudentPopulationType.GEPT && p.DataMode == DataMode.Normal)
+            .ToList();
+
+        var engine = new AggregationEngine((year, week, schoolId, type) =>
+            context.StudentPopulation
                 .Include(p => p.Items).ThenInclude(i => i.Class).ThenInclude(c => c.Course)
-                .Where(p => p.Type == StudentPopulationType.GEPT && p.DataMode == DataMode.Normal)
-                .ToList();
+                .FirstOrDefault(p => p.Year == year && p.Week == week && p.SchoolId == schoolId && p.Type == type));
 
-            var engine = new AggregationEngine((year, week, schoolId, type) =>
-                Model.DataContext.StudentPopulation
-                    .Include(p => p.Items).ThenInclude(i => i.Class).ThenInclude(c => c.Course)
-                    .FirstOrDefault(p => p.Year == year && p.Week == week && p.SchoolId == schoolId && p.Type == type));
-
-            var mismatches = new List<object>();
-            foreach (var population in populations) {
-                foreach (var item in population.Items.Where(i => i.IsSum).ToList()) {
-                    int oldNumber = item.Number;
-                    engine.Calculate(item, population);
-                    if (item.Number != oldNumber) {
-                        mismatches.Add(new {
-                            PopulationId = population.Id,
-                            population.SchoolId,
-                            population.Year,
-                            population.Week,
-                            CourseId = item.Class.Course.Id,
-                            CourseName = item.Class.Course.Name,
-                            OldNumber = oldNumber,
-                            NewNumber = item.Number,
-                        });
-                    }
-                    item.Number = oldNumber; // 唯讀比對，還原避免誤動資料
+        var mismatches = new List<string>();
+        foreach (var population in populations) {
+            foreach (var item in population.Items.Where(i => i.IsSum).ToList()) {
+                int oldNumber = item.Number;
+                engine.Calculate(item, population);
+                if (item.Number != oldNumber) {
+                    mismatches.Add(
+                        $"Population {population.Id} (School {population.SchoolId}, {population.Year}/{population.Week}): " +
+                        $"course {item.Class.Course.Id} \"{item.Class.Course.Name}\" stored={oldNumber} engine={item.Number}");
                 }
+                item.Number = oldNumber; // 唯讀比對，還原避免誤動資料
             }
-
-            return Json(new { totalPopulations = populations.Count, mismatchCount = mismatches.Count, mismatches });
         }
+
+        TestContext.WriteLine($"Checked {populations.Count} GEPT populations, {mismatches.Count} mismatches:");
+        foreach (var m in mismatches) TestContext.WriteLine(m);
+
+        Assert.That(mismatches, Is.Empty, () => string.Join("\n", mismatches));
+    }
+}
 ```
 
-- [ ] **Step 2: Build and run the comparison**
+`[Explicit]` keeps this out of normal `dotnet test` runs (no dev DB in CI), while still letting anyone run it on demand with `--filter`.
 
-Run: `dotnet build source/portal/Portal/Portal.csproj -c Debug` — expect `0 Error(s)`.
+- [ ] **Step 2: Attempt to run it against the dev DB**
 
-Start the app and hit `GET /Admin/StudentPopulation/CompareGeptAggregation` (as a user with `SystemPermission.StudentPopulation`), or if browser access isn't available in this environment, note this as a manual step for whoever runs the app next.
+Run: `dotnet test source/portal/Test/Test.csproj --filter "FullyQualifiedName~GeptAggregationComparisonTests" -- NUnit.WhereClause="cat != Explicit"` — this syntax may not directly select an `[Explicit]` test depending on the installed NUnit3TestAdapter version; if it reports 0 tests run, use `dotnet test source/portal/Test/Test.csproj --filter "FullyQualifiedName~GeptAggregationComparisonTests"` instead (NUnit3TestAdapter generally runs explicitly-filtered `[Explicit]` tests when they're the only thing selected — confirm empirically and note in your report which invocation actually worked).
+
+If `new DataContext()` throws (e.g. a configuration-resolution error, since the base `EntityFrameworkContext("DataContext")` constructor may expect ambient config that only exists inside the running ASP.NET Core host), fall back to constructing the context with explicit options instead — replace the `using var context = new DataContext();` line with:
+
+```csharp
+        var options = new DbContextOptionsBuilder<DataContext>()
+            .UseSqlServer("Server=CLOUDFUN-MSI-LE\\SQLEXPRESS;Database=NewPAS07;User=sa;Pwd=cloudfun@12;Encrypt=false;MultipleActiveResultSets=true")
+            .Options;
+        using var context = new DataContext(options);
+```
+
+(this matches `source/portal/Portal/appsettings.json`'s `DataContext` connection string exactly — do not use a different one). This constructor overload already exists on `DataContext` (`DataContext(DbContextOptions<DataContext> options)`), so no changes outside the test file are needed either way.
 
 - [ ] **Step 3: Interpret the result**
 
-- `mismatchCount: 0` → the engine reproduces every stored GEPT summary number exactly. Proceed to Task 7.
-- `mismatchCount > 0` → for each mismatch, check whether:
+- Test passes (0 mismatches) → the engine reproduces every stored GEPT summary number exactly. Proceed to Task 7.
+- Test fails → read the `TestContext.WriteLine` output (or the assertion failure message, which includes the same lines) for each mismatch, and check whether:
   - It's course 89/90/91/92 and the mismatch is explained by the department-21 asymmetry flagged in Task 5's table (i.e. old code's actual behavior differs from what's currently configured) — if so, adjust the `SourceDepartmentIds` for that course via the Admin UI (Task 4) or a follow-up SQL statement, re-run, and re-check.
   - It's a population whose `Number` predates any change made today and simply hasn't been recalculated since — cross-check against `UpdatedTime` before concluding it's a real discrepancy.
   - Anything else — stop and investigate before proceeding to Task 7; do not cut over GEPT while mismatches are unexplained.
+- If the test cannot be run at all in this environment (no reachable dev DB), do NOT proceed to Task 7. Escalate to a human who can run it against the dev DB and report the result — Task 7 depends on this test passing.
 
-- [ ] **Step 4: Remove the temporary action**
-
-Delete the `CompareGeptAggregation` method (and the `using PHStatistics.Portal.Services.Aggregation;` line added in Step 1, if nothing else in this file needs it after Task 7 — check Task 7 first, since it modifies `StudentPopulationController.cs` in the `Controllers` namespace, a different file, so this `using` will indeed become unused here and should be removed).
-
-Run: `dotnet build source/portal/Portal/Portal.csproj -c Debug` — expect `0 Error(s)`.
-
-- [ ] **Step 5: Commit**
+- [ ] **Step 4: Commit**
 
 ```bash
-git add source/portal/Portal/Areas/Admin/Controllers/StudentPopulationController.cs
-git commit -m "chore: remove temporary GEPT aggregation comparison endpoint after verification"
+git add source/portal/Test/Services/Aggregation/GeptAggregationComparisonTests.cs
+git commit -m "test: add explicit GEPT AggregationEngine comparison test against real dev data"
 ```
 
 ---
@@ -942,7 +960,7 @@ Expected: `0 Error(s)`.
 
 - [ ] **Step 5: Re-run the Task 6 comparison one more time to confirm nothing regressed**
 
-If the temporary action from Task 6 was already removed, temporarily re-add it (same code as Task 6 Step 1), hit `GET /Admin/StudentPopulation/CompareGeptAggregation` again, confirm `mismatchCount: 0`, then remove it again (mirroring Task 6 Steps 4-5). This double-checks that swapping the actual call site didn't introduce a discrepancy versus the isolated Task 6 check.
+Run: `dotnet test source/portal/Test/Test.csproj --filter "FullyQualifiedName~GeptAggregationComparisonTests"` (same invocation Task 6 Step 2 confirmed works) and confirm it still passes. This double-checks that swapping the actual call site didn't introduce a discrepancy versus the isolated Task 6 check — the test itself needs no changes, since it independently constructs its own `AggregationEngine` and reads live data, exercising the same engine code `SumPHPopulation` now calls.
 
 - [ ] **Step 6: Manual browser verification**
 
@@ -964,4 +982,4 @@ git commit -m "refactor: migrate GEPT aggregation to the shared AggregationEngin
 
 **Spec coverage:** Task 2/3 implement every `StatisticsType` the amended spec lists (`SumByDepartment`, `SumByDepartmentAndClassType`, `SumBySourceDepartments`, `SumBySourceCourses`, `CountClasses`, `CountClassesByClassType`, `DiffWithLastWeek`, `DiffWithLastYear`, `LastWeekValue`, `LastYearValue`, `ManualInput`/`None`). Task 4 covers the Admin UI section of the spec. Task 5-7 cover the "GEPT first" rollout step. The spec's "Out of scope" items (cooperative cross-school counting, course ordering) are correctly not addressed here. `ReportExportService.ComputeIsumValue`/`InferStatisticsType` and `StatisticsCalculationService.cs` deletion is explicitly deferred to after all 5 types migrate (per spec) — not part of this plan.
 
-**Type consistency:** `AggregationEngine(Func<int,int,int,StudentPopulationType,StudentPopulation>)` constructor signature is used identically in Task 2/3 tests, Task 6's temporary action, and Task 7's real wiring.
+**Type consistency:** `AggregationEngine(Func<int,int,int,StudentPopulationType,StudentPopulation>)` constructor signature is used identically in Task 2/3 tests, Task 6's comparison test, and Task 7's real wiring.
