@@ -69,7 +69,11 @@
 - `CountClasses`/`CountClassesByClassType`：計算 `Number > 0` 的班級數
 - `DiffWithLastWeek`：本週 `Number` 加總 － 上週 `LastWeekNumber` 加總
 - `DiffWithLastYear`：本週加總 － 去年同期加總（需跨 `StudentPopulation` 查詢去年同週次資料）
+- `LastWeekValue`：單純加總範圍內項目的 `LastWeekNumber`（不做差額，例如「上週OO總人數」這類欄位）
+- `LastYearValue`：單純加總去年同週次範圍內項目的 `Number`（不做差額，例如「去年同期人數」這類欄位；需跨 `StudentPopulation` 查詢去年同週次資料）
 - `ManualInput`/`None`：不計算，維持使用者輸入值原樣
+
+（`LastWeekValue`/`LastYearValue` 是盤點 GEPT 實際規則時發現需要的：「上週英檢總人數」「去年同期人數」這兩個課程只需要範圍內的單純加總，不是差額。這兩個列舉值在 `StatisticsType.cs` 裡本來就已經定義好、只是死碼從未真正實作，這裡補上實作，不需要新增列舉值或資料庫欄位。）
 
 「來源班系」（`SourceDepartmentIds`）與「來源課程」（`SourceCourseIds`）互斥、擇一設定：課程設定了 `SourceDepartmentIds` 就用 `SumBySourceDepartments`，否則若設定了 `SourceCourseIds` 就用 `SumBySourceCourses`；兩者皆未設定、但 `StatisticsType` 選了 `SumByDepartment` 類，則預設用課程自身的 `DepartmentId`。Admin 介面應在使用者同時填兩者時提示只會採用其中一個，避免誤解成兩者疊加。
 
