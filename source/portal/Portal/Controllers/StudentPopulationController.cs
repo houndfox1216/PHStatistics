@@ -14,6 +14,7 @@ using PHStatistics.Content;
 using PHStatistics.Migrations;
 using PHStatistics.Portal.Models;
 using PHStatistics.Portal.Services;
+using PHStatistics.Portal.Services.Aggregation;
 using System;
 using System.Collections.Generic;
 using System.Framework;
@@ -1352,6 +1353,9 @@ namespace PHStatistics.Portal.Controllers {
         public StudentPopulation SumPHPopulation(long spId) {
             DataContext dataContext = new DataContext();
             dataContext.ChangeTracker.Clear();
+            var aggregationEngine = new AggregationEngine((year, week, schoolId, type) =>
+                dataContext.StudentPopulation.Include("Items.Class.Course")
+                    .FirstOrDefault(p => p.Year == year && p.Week == week && p.SchoolId == schoolId && p.Type == type));
             //取得本週資料
             StudentPopulation studentPopulationData = Model.GetStudentPopulationById(spId);
             //加總說明
@@ -1464,37 +1468,7 @@ namespace PHStatistics.Portal.Controllers {
                         // 流失人數／新生人數：分校自填，系統不計算
                     }
                     else if (studentPopulationData.Type == StudentPopulationType.GEPT) {
-                        if (group.Class.Course.Name.Equals("本週英檢新生人數") || group.Class.Course.Name.Equals("本週英檢流失人數")) {
-                            // 新生/流失：分校自填，系統不計算。這裡必須提早 continue 跳過，
-                            // 否則會先被下面「同班系非加總課程加總」預設成 0（英檢分析班系底下沒有非加總課程）。
-                            continue;
-                        }
-                        //取得相同班系及班型的班級
-                        var classItems = studentPopulationData.Items.Where(e => e.Class.Course.Department != null && e.Class.Course.Department.Id == group.Class.Course.Department.Id && e.Class.Type == group.Class.Type && !e.Class.Course.IsSum).ToList();
-                        group.Number = classItems.Sum(e => e.Number);
-                        if (group.Class.Course.Name.Equals("本週英檢總人數")) {
-                            group.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department != null && e.Class.Course.Department.Id != 21 && e.Class.Type == group.Class.Type && !e.Class.Course.IsSum).Sum(e => e.Number);
-                        }
-                        else if (group.Class.Course.Name.Equals("上週英檢總人數")) {
-                            group.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department != null && e.Class.Type == group.Class.Type && !e.Class.Course.IsSum).Sum(e => e.LastWeekNumber); ;
-                        }
-                        else if (group.Class.Course.Name.Equals("與上週相比")) {
-                            int lastWeekNum = studentPopulationData.Items.Where(e => e.Class.Course.Department != null && e.Class.Type == group.Class.Type && !e.Class.Course.IsSum).Sum(e => e.LastWeekNumber);
-                            int thisWeekNum = studentPopulationData.Items.Where(e => e.Class.Course.Department != null && e.Class.Type == group.Class.Type && !e.Class.Course.IsSum).Sum(e => e.Number);
-                            group.Number = thisWeekNum - lastWeekNum;                            
-                        }
-                        else if (group.Class.Course.Name.Equals("去年同期人數")) {
-                            int lastYear = studentPopulationData.Year - 1;
-                            group.Number = dataContext.StudentPopulationItem.Include("StudentPopulation").Where(e => e.StudentPopulation.Year == lastYear && e.StudentPopulation.Week == studentPopulationData.Week && e.StudentPopulation.SchoolId == studentPopulationData.School.Id && e.Class.Course.Department != null && !e.Class.Course.IsSum).Sum(e => e.Number);
-                        }
-                        else if (group.Class.Course.Name.Equals("去年同期/比")) {
-                            int lastYear = studentPopulationData.Year - 1;
-                            int lastYearNum = dataContext.StudentPopulationItem.Include("StudentPopulation").Where(e => e.StudentPopulation.Year == lastYear && e.StudentPopulation.Week == studentPopulationData.Week && e.StudentPopulation.SchoolId == studentPopulationData.School.Id && e.Class.Course.Department != null && !e.Class.Course.IsSum).Sum(e => e.Number);
-                            int thisWeekNum = studentPopulationData.Items.Where(e => e.Class.Course.Department != null && e.Class.Type == group.Class.Type && !e.Class.Course.IsSum).Sum(e => e.Number);
-                            group.Number = thisWeekNum - lastYearNum;
-                        }
-                        // 本週英檢新生人數／本週英檢流失人數：分校自填，系統不計算
-
+                        aggregationEngine.Calculate(group, studentPopulationData);
                     }
                     else if (studentPopulationData.Type == StudentPopulationType.PS) {
                         int psDeptId = group.Class.Course.Department.Id;
