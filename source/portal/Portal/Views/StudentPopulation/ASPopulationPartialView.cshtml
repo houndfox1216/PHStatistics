@@ -41,7 +41,7 @@
                 </div>
             } *@
         </div>
-        if (!cItem.IsSum) {
+        if (!cItem.IsSum || cItem.Name.Contains("新生") || cItem.Name.Contains("流失")) {
             <div class="row mx-0">
                 @*             <div class="col-2 mb-3">
     系統班級名稱
