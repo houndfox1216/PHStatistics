@@ -38,10 +38,33 @@ public class AggregationEngine {
             case StatisticsType.CountClassesByClassType:
                 item.Number = GetSourceItems(course, item, population.Items).Count(i => i.Number > 0);
                 break;
+            case StatisticsType.LastWeekValue:
+                item.Number = GetSourceItems(course, item, population.Items).Sum(i => i.LastWeekNumber);
+                break;
+            case StatisticsType.DiffWithLastWeek: {
+                var src = GetSourceItems(course, item, population.Items);
+                item.Number = src.Sum(i => i.Number) - src.Sum(i => i.LastWeekNumber);
+                break;
+            }
+            case StatisticsType.LastYearValue:
+                item.Number = SumLastYear(course, item, population);
+                break;
+            case StatisticsType.DiffWithLastYear: {
+                int thisWeek = GetSourceItems(course, item, population.Items).Sum(i => i.Number);
+                item.Number = thisWeek - SumLastYear(course, item, population);
+                break;
+            }
             default:
                 throw new NotSupportedException(
                     $"AggregationEngine 尚未支援 StatisticsType.{type.Value}（課程 {course.Id} {course.Name}）。");
         }
+    }
+
+    private int SumLastYear(Course course, StudentPopulationItem item, StudentPopulation population) {
+        if (population.SchoolId == null) return 0;
+        var lastYearPopulation = _lookupPopulation(population.Year - 1, population.Week, population.SchoolId.Value, population.Type);
+        if (lastYearPopulation?.Items == null) return 0;
+        return GetSourceItems(course, item, lastYearPopulation.Items).Sum(i => i.Number);
     }
 
     // 篩選優先序：SourceDepartmentIds > SourceCourseIds > 課程自身 DepartmentId；
