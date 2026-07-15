@@ -123,6 +123,10 @@ namespace PHStatistics.Portal.Controllers {
         [Authorize(typeof(PortalUser))]
         public IActionResult LogOut() {
             User.Logout();
+            HttpContext.Session.SetString("Account", string.Empty);
+            HttpContext.Session.SetString("UserLogin", "0");
+            HttpContext.Response.Cookies.Delete("Account");
+            HttpContext.Response.Cookies.Delete("UserLogin");
             return Redirect("/Member/Login");
         }
 

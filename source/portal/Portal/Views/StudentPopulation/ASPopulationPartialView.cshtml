@@ -101,10 +101,10 @@
                         @sItem.LastWeekNumber
                     </div>
                     <div class="col-2 mb-3">
-                        <input type="number" class="form-control" placeholder="請輸入人數" name="Items[@itemRowNo].Number" id="class_@sItem.Id.ToString()_count" value="@sItem.Number" data-course="@cItem.Id" data-class="@sItem.Class.Id" data-sitem="@sItem.Id">
+                        <input type="number" class="form-control" placeholder="請輸入人數" name="Items[@itemRowNo].Number" id="class_@sItem.Id.ToString()_count" value="@sItem.Number" data-course="@cItem.Id" data-class="@sItem.Class.Id" data-sitem="@sItem.Id" onchange="valueChange('class_@sItem.Id.ToString()_count')">
                     </div>
                     <div class="col-2 mb-3">
-                        <input type="text" class="form-control" placeholder="" name="Items[@itemRowNo].StudentRemark" id="class_@sItem.Id.ToString()_remark" value="@sItem.StudentRemark">
+                        <input type="text" class="form-control" placeholder="" name="Items[@itemRowNo].StudentRemark" id="class_@sItem.Id.ToString()_remark" value="@sItem.StudentRemark" data-sitem="@sItem.Id" onblur="remarkChange('class_@sItem.Id.ToString()_remark')">
                     </div>
                 </div>
                 itemRowNo++;
