@@ -34,10 +34,17 @@ public class PsAggregationComparisonTests {
         foreach (var population in populations) {
             // Course.Ordinal 排序：144 的 SourceCourseIds=[132,135] 需要 132 已經在同一輪算過，
             // 跟 Task 4 替 classGroup 迴圈補上的 OrderBy(Ordinal) 是同一個順序保證。
+            // 三段式處理（先全部算完，再全部比對，最後全部還原）：如果邊算邊比對邊還原，132 會在
+            // 144 被算之前就被還原回舊值，144 讀到的就不是「132 剛算完的新值」，順序保證形同虛設。
             var sumItems = population.Items.Where(i => i.IsSum).OrderBy(i => i.Class.Course.Ordinal).ToList();
+            var oldNumbers = sumItems.ToDictionary(i => i, i => i.Number);
+
             foreach (var item in sumItems) {
-                int oldNumber = item.Number;
                 engine.Calculate(item, population);
+            }
+
+            foreach (var item in sumItems) {
+                int oldNumber = oldNumbers[item];
                 if (item.Number != oldNumber) {
                     string line =
                         $"Population {population.Id} (School {population.SchoolId}, {population.Year}/{population.Week}): " +
@@ -49,7 +56,10 @@ public class PsAggregationComparisonTests {
                         unexpectedMismatches.Add(line);
                     }
                 }
-                item.Number = oldNumber; // 唯讀比對，還原避免誤動資料
+            }
+
+            foreach (var item in sumItems) {
+                item.Number = oldNumbers[item]; // 唯讀比對，還原避免誤動資料
             }
         }
 
