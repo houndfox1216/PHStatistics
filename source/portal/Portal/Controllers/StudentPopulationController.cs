@@ -1406,6 +1406,8 @@ namespace PHStatistics.Portal.Controllers {
                 try {
 
                     if (studentPopulationData.Type == StudentPopulationType.PH) {
+#if false // 舊 PH 加總邏輯，2026-07-15 遷移到 AggregationEngine 時停用保留（不刪除），
+          // 見 docs/superpowers/plans/2026-07-15-ph-aggregation-migration.md Task 3
                         if (group.Class.Course.Name.Equals("本週總詢問人數") || group.Class.Course.Name.Equals("本週總詢問(填單)人數") ||
                             group.Class.Course.Name.Equals("本週英語文新生") || group.Class.Course.Name.Equals("本週英語文流失") ||
                             group.Class.Course.Name.Equals("本週國語文新生人數") || group.Class.Course.Name.Equals("本週國語文流失人數")) {
@@ -1446,6 +1448,8 @@ namespace PHStatistics.Portal.Controllers {
                         //    int thisWeekNum = studentPopulationData.Items.Where(e => e.Class.Course.Department != null && e.Class.Course.Name.Equals(subjectName) && e.Class.Type == group.Class.Type && !e.Class.Course.IsSum).Sum(e => e.Number);
                         //    group.Number = thisWeekNum - lastWeekNum;
                         //}
+#endif
+                        aggregationEngine.Calculate(group, studentPopulationData);
                     }
                     else if (studentPopulationData.Type == StudentPopulationType.PSJ) {
                         if (group.Class.Course.Name.Equals("本周數學人數合計")) {
@@ -1517,6 +1521,8 @@ namespace PHStatistics.Portal.Controllers {
             }
 
             if (studentPopulationData.Type == StudentPopulationType.PH) {
+#if false // 舊 PH 後處理邏輯，已併入 AggregationEngine（classGroup 迴圈內的單一呼叫已涵蓋這 24 個課程），
+          // 2026-07-15 停用保留（不刪除），見 docs/superpowers/plans/2026-07-15-ph-aggregation-migration.md Task 3
                 //總班數 小
                 StudentPopulationItem subgroupClassCount = studentPopulationData.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("英文總班數統計") && e.Class.Type == ClassType.SubGroup);
                 int[] countIds = dataContext.Course.Where(e => e.Type == StudentPopulationType.PH && !e.IsSum && (e.Department.Name.Equals("英文國小班") || e.Department.Name.Equals("英文國中班") || e.Department.Name.Equals("英文高中班"))).Select(e => e.Id).ToArray();
@@ -1676,6 +1682,7 @@ namespace PHStatistics.Portal.Controllers {
                     dataContext.StudentPopulationItem.Update(sumAllCount);
                     dataContext.SaveChanges();
                 }
+#endif
             }
             else if (studentPopulationData.Type == StudentPopulationType.PSJ) {
 
