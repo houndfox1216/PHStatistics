@@ -105,9 +105,11 @@ else if (studentPopulationData.Type == StudentPopulationType.PH) {
 
 沿用 GEPT 驗證模式：寫一支 `[Explicit]` NUnit 測試（比照 `GeptAggregationComparisonTests.cs`），直接接 dev 的 `DataContext`，抓 PH 所有已存在的人數表資料，逐筆比對「舊 if/else 算出來的 Number」vs「新引擎算出來的 Number」：
 
-- 22 個課程（扣除 Id 22/49/34/61）：目標 0 落差
+- 17 個課程（扣除 Id 22/34/35/49/61/62/67）：目標 0 落差
 - Id 22/49：允許因 `Number>0` 篩選條件變更產生的落差，測試需要分開統計、標註為「預期變更」而非失敗
 - Id 34/61：預期看到舊值 0、新值非 0，同樣標註為「預期變更（修正疏漏）」而非失敗
+- Id 67：允許新引擎依 `SourceDepartmentIds` 排除掉舊程式碼誤算進來的跨型別髒資料所產生的落差，標註為「預期變更（附帶修正）」而非失敗（2026-07-15 比對測試時發現，詳見上方「已確認的行為變更」第 3 項）
+- Id 35/62：允許 `LastWeekNumber` 快取因 PH 個別指導(EM1)課程 Class.Id 每週替換而與舊即時查詢不完全等價的落差，標註為「預期變更（已知快取限制）」而非失敗（2026-07-15 比對測試時發現，詳見上方「已確認的行為變更」第 4 項）
 
 ---
 
