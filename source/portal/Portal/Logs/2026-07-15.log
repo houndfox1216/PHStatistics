@@ -40,3 +40,54 @@
 2026-07-15 09:13:43.9285[102]  INFO MemberController  進行登入完成 導入 /Index False 
 2026-07-15 09:13:43.9532[87]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
 2026-07-15 09:13:43.9532[87]  INFO HomeController  進入首頁
+2026-07-15 10:04:24.9613[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-07-15 10:04:24.9613[11]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-07-15 10:04:25.0514[18]  INFO MemberController  Member Login account: password: 
+2026-07-15 10:05:40.8852[20]  INFO MemberController  Member Login account:fushaan password:073486358 
+2026-07-15 10:05:40.9190[20]  INFO MemberController  進行登入 
+2026-07-15 10:05:40.9343[20]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-07-15 10:05:40.9632[25]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 10:05:40.9632[25]  INFO HomeController  進入首頁
+2026-07-15 10:06:24.2885[29]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 10:06:24.2885[29]  INFO HomeController  進入首頁
+2026-07-15 10:06:43.7751[54]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 10:06:43.7751[54]  INFO HomeController  進入首頁
+2026-07-15 10:07:14.6783[56]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 10:07:14.6783[56]  INFO HomeController  進入首頁
+2026-07-15 10:07:25.6664[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 10:07:25.6664[11]  INFO HomeController  進入首頁
+2026-07-15 10:07:43.7306[79]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 10:07:43.7306[79]  INFO HomeController  進入首頁
+2026-07-15 10:07:53.3098[85]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 10:07:53.3098[85]  INFO HomeController  進入首頁
+2026-07-15 10:08:33.2302[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 10:08:33.2302[11]  INFO HomeController  進入首頁
+2026-07-15 10:08:44.0471[68]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 10:08:44.0471[68]  INFO HomeController  進入首頁
+2026-07-15 10:10:08.9414[54]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 10:10:08.9414[54]  INFO HomeController  進入首頁
+2026-07-15 10:11:09.0492[92]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 10:11:09.0492[92]  INFO HomeController  進入首頁
+2026-07-15 10:12:34.9501[110]  INFO MemberController  Member Login account: password: 
+2026-07-15 10:12:34.9596[110]  INFO MemberController  進行Session登入 
+2026-07-15 10:12:34.9596[110]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-07-15 10:12:34.9741[112]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 10:12:34.9741[112]  INFO HomeController  進入首頁
+2026-07-15 10:12:37.3130[118]  INFO MemberController  Member Login account: password: 
+2026-07-15 10:12:37.3160[118]  INFO MemberController  進行Session登入 
+2026-07-15 10:12:37.3160[118]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-07-15 10:12:37.3160[120]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 10:12:37.3160[120]  INFO HomeController  進入首頁
+2026-07-15 10:41:10.4015[9]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-07-15 10:41:10.4147[9]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-07-15 10:41:10.5162[9]  INFO MemberController  Member Login account: password: 
+2026-07-15 10:42:40.1791[46]  INFO MemberController  Member Login account:fushaan password:073486358 
+2026-07-15 10:42:40.2242[46]  INFO MemberController  進行登入 
+2026-07-15 10:42:40.2376[46]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-07-15 10:42:40.2756[17]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 10:42:40.2756[17]  INFO HomeController  進入首頁
+2026-07-15 10:44:17.2010[55]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 10:44:17.2010[55]  INFO HomeController  進入首頁
+2026-07-15 10:44:44.0509[57]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 10:44:44.0509[57]  INFO HomeController  進入首頁
+2026-07-15 10:44:45.6915[45]  INFO MemberController  Member Login account: password: 

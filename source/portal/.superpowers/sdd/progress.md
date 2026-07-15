@@ -1,4 +1,36 @@
-# Progress Ledger — Aggregation Engine + GEPT Migration
+# Progress Ledger — PH Aggregation Engine Migration
+
+Plan: docs/superpowers/plans/2026-07-15-ph-aggregation-migration.md
+No worktree used (project convention: commit directly on develop/portal, no branching).
+Base commit: 02d99cb (plan doc committed at 36170a8; two unrelated pre-existing bug fixes —
+logout session clear, AS 新生/流失 onchange wiring — committed at 02d99cb just before Task 1
+started, so they don't pollute Task 1's diff)
+
+## Tasks
+
+- [x] Task 1: complete (commit 55d1f27, review clean — approved; controller independently re-verified all 24 rows correct via fresh sqlcmd query after re-running apply script twice; sqlcmd's console message count is unreliable/lower than statement count on this box but final DB state and committed SQL file content both match the spec table exactly)
+- [x] Task 2: complete (commits 55d1f27..3b608e8, review clean — approved after user resolved a mid-task blocker: test initially found 12 unexpected mismatches across 6/920 PH populations, root-caused to 2 genuine engine-vs-old-code behavior differences [course 67 總人數: new engine excludes stray cross-type dept-27 data, more correct; course 35/62 與上週相比: LastWeekNumber cache diverges from live query due to PH's EM1 per-student weekly Class.Id churn]. User decided: accept both as additional documented exceptions. ExpectedChangeCourseIds now {22,34,35,49,61,62,67}, design spec updated, 0 unexpected mismatches confirmed, 2 follow-up doc-consistency fixes applied)
+- [x] Task 3: complete (commit 4a8db34, review clean — approved; both #if false blocks verified byte-identical to live pre-change code, single new aggregationEngine.Calculate(...) call reuses existing GEPT-shared instance, PS/PSJ/GEPT/AfterSchool untouched, build 0 errors, PhAggregationComparisonTests still 0 unexpected mismatches. Manual browser verification (plan Step 5) explicitly deferred — no browser tool in this environment — to a later consolidated verification pass, per established project pattern)
+
+## Final whole-branch review (2026-07-15, opus)
+
+Ready to merge: With fixes — the only "fix" is the disclosed non-code condition (manual browser verification not yet run, no browser tool available). No Critical/Important code defects found. Full review output not re-pasted here — see conversation.
+
+Confirmed regression-safe: `aggregationEngine` instance shared with untouched GEPT branch is stateless (StudentPopulationController.cs:1356/1452/1475); no rule ordering dependency (all 24 PH rules read only raw non-IsSum items, never other summary values); post-loop block's 11 courses are all fully subsumed by the single in-loop engine call, empirically confirmed by 920-population 0-unexpected-mismatch test.
+
+Minor findings (non-blocking, recorded for later):
+1. Test's 7-ID `ExpectedChangeCourseIds` allowlist (`PhAggregationComparisonTests.cs`) masks ANY mismatch on those IDs, not just the documented one — fine for a one-time `[Explicit]` migration gate, but if ever promoted to a recurring/CI guard should assert the specific expected relationship instead of blanket-allowing the ID.
+2. `catch (Exception ex) { }` around the classGroup loop (StudentPopulationController.cs:1517) now also swallows anything `AggregationEngine.Calculate` could throw (e.g. unsupported StatisticsType) with no log — pre-existing pattern (GEPT already runs through it), not introduced here, but the engine is now the most likely thing to throw inside this swallow.
+3. Manual-input courses now get reloaded+resaved unchanged instead of hitting the old `continue` — behaviorally equivalent, matches how GEPT already works, just a real control-flow difference worth knowing about.
+
+Recommendations for future work:
+- Track "delete the #if false PH blocks" as an actual follow-up task (gated on browser verification) so ~260 dead lines don't linger indefinitely in a hot 600-line method — GEPT's equivalent migration deleted outright (0e8b4dc); PH's conservative choice was deliberate but still needs a follow-through step.
+- File a data-cleanup task for the dept-27/Type=1 stray rows found polluting 4 PH populations' course-67 total (root cause behind one of the accepted exceptions) — `ReportExportService.ComputeIsumValue` and any other non-scoped consumer would still miscount from this dirty data.
+- The EM1 per-student weekly `Class.Id` churn that broke course 35/62's `LastWeekNumber` cache sync likely also taints course 34/61's "fixed" values for the same underlying reason (their old values were dead-0, so this wasn't visible as a regression, but may not be fully correct either) — worth a future task keying last-week linkage on CourseId+ClassType instead of Class.Id (same fix already applied to the Excel-import LastWeekNumber algorithm per project memory).
+
+---
+
+# Archive — Aggregation Engine + GEPT Migration (completed 2026-07-15)
 
 Plan: docs/superpowers/plans/2026-07-15-aggregation-engine-and-gept-migration.md
 No worktree used (project convention: commit directly on develop/portal, no branching).
