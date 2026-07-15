@@ -1401,7 +1401,7 @@ namespace PHStatistics.Portal.Controllers {
             //}
 
             //班系加總
-            var classGroup = studentPopulationData.Items.Where(e => e.Class.Course.Department != null && e.Class.Course.IsSum).ToList();
+            var classGroup = studentPopulationData.Items.Where(e => e.Class.Course.Department != null && e.Class.Course.IsSum).OrderBy(e => e.Class.Course.Ordinal).ToList();
             foreach (var group in classGroup) {
                 try {
 
@@ -1475,6 +1475,8 @@ namespace PHStatistics.Portal.Controllers {
                         aggregationEngine.Calculate(group, studentPopulationData);
                     }
                     else if (studentPopulationData.Type == StudentPopulationType.PS) {
+#if false // 舊 PS 加總邏輯，2026-07-15 遷移到 AggregationEngine 時停用保留（不刪除），
+          // 見 docs/superpowers/plans/2026-07-15-ps-aggregation-migration.md Task 4
                         int psDeptId = group.Class.Course.Department.Id;
                         int psCourseId = group.Class.Course.Id;
                         if (psDeptId == 22 || psDeptId == 23 || psDeptId == 24) {
@@ -1492,6 +1494,8 @@ namespace PHStatistics.Portal.Controllers {
                             group.Number = count > 0 ? total / count : 0;
                         }
                         // IDs 135-143: Manual items, skip auto-calculation
+#endif
+                        aggregationEngine.Calculate(group, studentPopulationData);
                     }
                     else if (studentPopulationData.Type == StudentPopulationType.AfterSchool) {
                         int asDeptId = group.Class.Course.Department.Id;
