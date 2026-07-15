@@ -126,7 +126,9 @@
       "Bash(awk -F'|' '{other+=$5; gept+=$6; n++} END {print \\\\\"rows:\\\\\", n, \\\\\" sum OtherTypeLastYearCount:\\\\\", other, \\\\\" sum GeptLastYearCount:\\\\\", gept}')",
       "Bash(awk '/public StudentPopulation SumPHPopulation/,0' source/portal/Portal/Controllers/StudentPopulationController.cs)",
       "Bash(echo \"exit: $?\")",
-      "Bash(echo \"exit2: $?\")"
+      "Bash(echo \"exit2: $?\")",
+      "Bash(env)",
+      "Bash(xargs -I{} sh -c 'echo \"=== {} ===\"; grep -A3 \"ConnectionStrings\" \"{}\"')"
     ]
   }
 }
