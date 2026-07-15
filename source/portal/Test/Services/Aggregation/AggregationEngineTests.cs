@@ -315,7 +315,7 @@ public class AggregationEngineTests {
 
     [Test]
     public void Calculate_UnsupportedStatisticsType_ThrowsNotSupportedException() {
-        var sumCourse = MakeCourse(199, isSum: true, statisticsType: StatisticsType.Average);
+        var sumCourse = MakeCourse(199, isSum: true, statisticsType: StatisticsType.SumAll);
         var sumItem = MakeItem(sumCourse, ClassType.General, 0);
         var population = new StudentPopulation {
             Year = 2026, Week = 10, SchoolId = 1, Type = StudentPopulationType.PH,
@@ -325,6 +325,96 @@ public class AggregationEngineTests {
         var engine = MakeEngine();
 
         Assert.Throws<NotSupportedException>(() => engine.Calculate(sumItem, population));
+    }
+
+    [Test]
+    public void Calculate_Average_ReturnsSumDividedByCountOfItemsWithNumberGreaterThanZero() {
+        var course1 = MakeCourse(101, departmentId: 1);
+        var course2 = MakeCourse(102, departmentId: 1);
+        var course3 = MakeCourse(103, departmentId: 1); // Number == 0, must not count toward the denominator
+        var sumCourse = MakeCourse(199, departmentId: 1, isSum: true, statisticsType: StatisticsType.Average);
+        var sumItem = MakeItem(sumCourse, ClassType.General, 0);
+
+        var population = new StudentPopulation {
+            Year = 2026, Week = 10, SchoolId = 1, Type = StudentPopulationType.PS,
+            Items = new List<StudentPopulationItem> {
+                MakeItem(course1, ClassType.General, 10),
+                MakeItem(course2, ClassType.General, 4),
+                MakeItem(course3, ClassType.General, 0),
+                sumItem,
+            },
+        };
+
+        MakeEngine().Calculate(sumItem, population);
+
+        // (10 + 4) / 2 = 7 — course3 contributes 0 to the sum and is excluded from the count
+        Assert.That(sumItem.Number, Is.EqualTo(7));
+    }
+
+    [Test]
+    public void Calculate_Average_ReturnsZeroWhenNoItemsHaveNumberGreaterThanZero() {
+        var course1 = MakeCourse(101, departmentId: 1);
+        var sumCourse = MakeCourse(199, departmentId: 1, isSum: true, statisticsType: StatisticsType.Average);
+        var sumItem = MakeItem(sumCourse, ClassType.General, 5);
+
+        var population = new StudentPopulation {
+            Year = 2026, Week = 10, SchoolId = 1, Type = StudentPopulationType.PS,
+            Items = new List<StudentPopulationItem> {
+                MakeItem(course1, ClassType.General, 0),
+                sumItem,
+            },
+        };
+
+        MakeEngine().Calculate(sumItem, population);
+
+        Assert.That(sumItem.Number, Is.EqualTo(0));
+    }
+
+    [Test]
+    public void Calculate_SourceCourseIds_CanIncludeOtherSummaryCourses() {
+        var rawCourse = MakeCourse(101, departmentId: 1);
+        var otherSumCourse = MakeCourse(132, departmentId: 25, isSum: true, statisticsType: StatisticsType.SumByDepartment);
+        var otherSumItem = MakeItem(otherSumCourse, ClassType.General, 20); // pre-computed value from an earlier item in the same pass
+        var targetSumCourse = MakeCourse(144, departmentId: 13, isSum: true,
+            statisticsType: StatisticsType.SumBySourceCourses, sourceCourseIds: "[101,132]");
+        var targetSumItem = MakeItem(targetSumCourse, ClassType.General, 0);
+
+        var population = new StudentPopulation {
+            Year = 2026, Week = 10, SchoolId = 1, Type = StudentPopulationType.PS,
+            Items = new List<StudentPopulationItem> {
+                MakeItem(rawCourse, ClassType.General, 5),
+                otherSumItem,
+                targetSumItem,
+            },
+        };
+
+        MakeEngine().Calculate(targetSumItem, population);
+
+        // 5 (raw course 101) + 20 (summary course 132) = 25 — proves SourceCourseIds no longer
+        // excludes IsSum=true items, unlike SourceDepartmentIds/own-department lookups.
+        Assert.That(targetSumItem.Number, Is.EqualTo(25));
+    }
+
+    [Test]
+    public void Calculate_SumByDepartment_StillExcludesOtherSumItemsInSameDepartment() {
+        var course1 = MakeCourse(101, departmentId: 1);
+        var otherSumCourse = MakeCourse(198, departmentId: 1, isSum: true, statisticsType: StatisticsType.ManualInput);
+        var otherSumItem = MakeItem(otherSumCourse, ClassType.General, 999); // must NOT be included
+        var sumCourse = MakeCourse(199, departmentId: 1, isSum: true, statisticsType: StatisticsType.SumByDepartment);
+        var sumItem = MakeItem(sumCourse, ClassType.General, 0);
+
+        var population = new StudentPopulation {
+            Year = 2026, Week = 10, SchoolId = 1, Type = StudentPopulationType.PH,
+            Items = new List<StudentPopulationItem> {
+                MakeItem(course1, ClassType.General, 5),
+                otherSumItem,
+                sumItem,
+            },
+        };
+
+        MakeEngine().Calculate(sumItem, population);
+
+        Assert.That(sumItem.Number, Is.EqualTo(5));
     }
 
     [Test]

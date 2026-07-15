@@ -54,6 +54,12 @@ public class AggregationEngine {
                 item.Number = thisWeek - SumLastYear(course, item, population);
                 break;
             }
+            case StatisticsType.Average: {
+                var src = GetSourceItems(course, item, population.Items).ToList();
+                int count = src.Count(i => i.Number > 0);
+                item.Number = count > 0 ? src.Sum(i => i.Number) / count : 0;
+                break;
+            }
             default:
                 throw new NotSupportedException(
                     $"AggregationEngine 尚未支援 StatisticsType.{type.Value}（課程 {course.Id} {course.Name}）。");
@@ -69,11 +75,15 @@ public class AggregationEngine {
 
     // 篩選優先序：SourceDepartmentIds > SourceCourseIds > 課程自身 DepartmentId；
     // 班別篩選：ApplicableClassType（固定班別）優先於 GroupByClassType（用 contextItem 自己的班別）
+    // SourceCourseIds 刻意不排除 IsSum 項目：部分課程（如 PS 的「總人數」）需要直接加總
+    // 其他「加總課程」目前算出的值，SourceDepartmentIds／課程自身 DepartmentId 這兩條路徑
+    // 則維持排除加總課程，這是 GEPT/PH 既有規則正確運作所依賴的行為，不能改。
     private static IEnumerable<StudentPopulationItem> GetSourceItems(
         Course course, StudentPopulationItem contextItem, IEnumerable<StudentPopulationItem> items) {
-        var query = items.Where(i => i.Class?.Course?.IsSum != true);
+        IEnumerable<StudentPopulationItem> query = items;
 
         if (!string.IsNullOrEmpty(course.SourceDepartmentIds)) {
+            query = query.Where(i => i.Class?.Course?.IsSum != true);
             var ids = ParseIntArray(course.SourceDepartmentIds);
             query = query.Where(i => i.Class?.Course?.DepartmentId != null && ids.Contains(i.Class.Course.DepartmentId.Value));
         }
@@ -82,6 +92,7 @@ public class AggregationEngine {
             query = query.Where(i => i.Class?.CourseId != null && ids.Contains(i.Class.CourseId.Value));
         }
         else if (course.DepartmentId.HasValue) {
+            query = query.Where(i => i.Class?.Course?.IsSum != true);
             query = query.Where(i => i.Class?.Course?.DepartmentId == course.DepartmentId.Value);
         }
 
