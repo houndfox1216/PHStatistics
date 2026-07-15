@@ -92,7 +92,9 @@ INSERT INTO CourseDepartment (Id, Name, Type, Ordinal, IsSum, Published, Created
 VALUES (39, N'CKC自立自學班', 1, 39, 0, 1, GETDATE(), GETDATE(), 0);
 ```
 
-Course.Id 345-377（英文 345-355、國文 356-366、數學 367-377，各自對應二年級~高三共 11 筆），`DepartmentId=39`、`Type=1`(PSJ)、`IsSum=0`、`ClassType=NULL`（沿用數學班模式，個別/團體用 `Class.Type` 區分，不設 `Course.ClassType`/`ApplicableClassType`）、`Ordinal` 從 345 接續遞增。
+Course.Id 345-377（英文 345-355、國文 356-366、數學 367-377，各自對應二年級~高三共 11 筆），`DepartmentId=39`、`Type=1`(PSJ)、`IsSum=0`、`Ordinal` 從 345 接續遞增。
+
+`Course.ClassType`（舊有的自由文字欄位，跟新的 enum 欄位 `ApplicableClassType` 是兩個不同欄位，都叫「適用班別」但只有 `ApplicableClassType` 真正影響加總引擎——這是先前 GEPT/PH/PS 遷移審查就記錄過的既有技術債）：查資料庫發現既有數學班/理化班的 145-156、195-206 這些**非加總**課程，這個舊文字欄位填的是 `"EM1、團"`（即 `Personal`+`Group` 兩個 enum 值的 Display Name，用頓號連接，純粹是給 Admin 後台人看的說明文字）。CKC 這 33 筆課程比照同樣慣例，`ClassType` 欄位一樣填 `"EM1、團"`。`ApplicableClassType`（enum，只在 `IsSum=true` 的加總課程才有意義）維持 `NULL`，這 33 筆本身不是加總課程。
 
 Revert script：`DELETE FROM Course WHERE Id BETWEEN 345 AND 377; DELETE FROM CourseDepartment WHERE Id = 39;`（需確認屆時沒有已匯入資料引用這些 Course，若有要先處理 `Class`/`StudentPopulationItem`）。
 
@@ -117,8 +119,8 @@ public static readonly Dictionary<string, int[]> CkcCourseIds = new() {
 
 **Import**：對「北區」「南區」（南區含左右兩組，col offset 0 / +20）分別走訪分校區塊：
 
-1. 用合併儲存格範圍（`ws.MergedRegions`）找出每個分校名區塊涵蓋的列範圍
-2. 區塊內逐列讀取「年級」欄，比對 `PsjGradeOrder` 取得 `gradeIdx`；列值為「小計」則跳過
+1. 用合併儲存格範圍（`ws.MergedRegions`）找出每個分校名區塊涵蓋的列範圍，分校名為「總計」的區塊整塊跳過（全區加總，非個別分校資料）
+2. 區塊內逐列讀取「年級」欄，比對 `PsjGradeOrder` 取得 `gradeIdx`；列值為「小計」則跳過該列
 3. 依欄位讀取：
    - CKC 英/國/數：加上欄 → `ClassType.Group`、單上欄 → `ClassType.Personal`，`CourseId = CkcCourseIds["CKC_E"/"CKC_C"/"CKC_M"][gradeIdx]`
    - 數學班一對一 → `ClassType.Personal`，`CourseId = CourseMapping.PsjCourseIds["MP"][現有GradeOrder對應index]`
