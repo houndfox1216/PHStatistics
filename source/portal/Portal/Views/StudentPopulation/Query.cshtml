@@ -21,6 +21,9 @@
             <select class="form-select validate[required]" id="schoolSelect">
                 <option selected disabled>選擇分校</option>
                 @foreach (SchoolAssignment assignment in schools) {
+                    if (assignment.School == null) {
+                        continue;
+                    }
                     <option value=@assignment.School.Id>@assignment.School.Name</option>
                 }
             </select>

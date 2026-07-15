@@ -1,0 +1,118 @@
+2026-07-10 06:06:55.5958[9]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-07-10 06:06:55.5958[9]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-07-10 06:06:55.6871[17]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-07-10 06:06:55.6871[17]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-07-10 06:06:55.7177[7]  INFO MemberController  Member Login account: password: 
+2026-07-10 06:07:02.3801[9]  INFO MemberController  Member Login account: password: 
+2026-07-10 06:07:21.5862[40]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-07-10 06:07:21.6835[40]  INFO MemberController  進行登入 
+2026-07-10 06:07:21.8355[40]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-07-10 06:07:21.9914[41]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-10 06:07:21.9914[41]  INFO HomeController  進入首頁
+2026-07-10 06:08:31.6909[36]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-10 06:08:31.6909[36]  INFO HomeController  進入首頁
+2026-07-10 06:08:47.0462[39]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-10 06:08:47.0462[39]  INFO HomeController  進入首頁
+2026-07-10 06:10:15.9179[23]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-10 06:10:15.9179[23]  INFO HomeController  進入首頁
+2026-07-10 06:10:30.2135[39]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-10 06:10:30.2135[39]  INFO HomeController  進入首頁
+2026-07-10 06:11:50.1386[32]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-10 06:11:50.1386[32]  INFO HomeController  進入首頁
+2026-07-10 06:12:04.9258[23]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-10 06:12:04.9258[23]  INFO HomeController  進入首頁
+2026-07-10 06:14:08.4758[21]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-10 06:14:08.4758[21]  INFO HomeController  進入首頁
+2026-07-10 06:38:07.5365[15]  INFO MemberController  Member Login account: password: 
+2026-07-10 06:38:21.3591[53]  INFO MemberController  Member Login account:longhua password:075589604 
+2026-07-10 06:38:21.3637[53]  INFO MemberController  進行登入 
+2026-07-10 06:38:21.3637[53]  INFO MemberController  進行登入完成 導入 /Member/LogOut False 
+2026-07-10 06:38:21.3794[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-10 06:38:21.3794[11]  INFO HomeController  進入首頁
+2026-07-10 06:38:34.8205[7]  INFO MemberController  Member Login account: password: 
+2026-07-10 06:38:45.7740[52]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-07-10 06:38:45.7740[52]  INFO MemberController  進行登入 
+2026-07-10 06:38:45.7900[52]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-07-10 06:38:45.8117[52]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-10 06:38:45.8117[52]  INFO HomeController  進入首頁
+2026-07-10 06:39:05.2528[7]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-10 06:39:05.2528[7]  INFO HomeController  進入首頁
+2026-07-10 06:39:30.5985[7]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-10 06:39:30.5985[7]  INFO HomeController  進入首頁
+2026-07-10 06:46:39.0545[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-10 06:46:39.0545[11]  INFO HomeController  進入首頁
+2026-07-10 06:48:30.2030[16]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-10 06:48:30.2030[16]  INFO HomeController  進入首頁
+2026-07-10 06:48:42.2282[16]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-10 06:48:42.2282[16]  INFO HomeController  進入首頁
+2026-07-10 07:05:13.6824[100]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-07-10 07:05:13.6824[100]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-07-10 07:05:13.6968[102]  INFO MemberController  Member Login account: password: 
+2026-07-10 07:05:23.6115[100]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-07-10 07:05:23.6405[100]  INFO MemberController  進行登入 
+2026-07-10 07:05:23.6552[100]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-07-10 07:05:23.6699[101]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-10 07:05:23.6699[101]  INFO HomeController  進入首頁
+2026-07-10 07:05:36.8806[100]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-10 07:05:36.8806[100]  INFO HomeController  進入首頁
+2026-07-10 07:06:16.5685[104]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-10 07:06:16.5685[104]  INFO HomeController  進入首頁
+2026-07-10 07:06:41.4096[98]  WARN StudentPopulationDeleteAction  Failure to generate action log
+System.ArgumentException: Object must be of type Int64.
+   at System.Int64.CompareTo(Object value)
+   at System.Framework.FrameworkExtensions.HasValue[TNumber](TNumber number)
+   at System.Framework.FrameworkExtensions.HasValue(Object value)
+   at System.Framework.EntityFrameworkCore.ActionLogCommand`2.A[A](IAction, A, A)
+   at System.Framework.EntityFrameworkCore.ActionLogCommand`2.GenerateXml[TEntity](IAction action, TEntity current, TEntity original)
+   at System.Framework.Application.DeleteActionBase`3.OnExecuting(TDataContext context)
+2026-07-10 07:07:10.5598[16]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-10 07:07:10.5705[16]  INFO HomeController  進入首頁
+2026-07-10 07:07:39.6324[29]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-10 07:07:39.6324[29]  INFO HomeController  進入首頁
+2026-07-10 07:07:42.0255[20]  INFO MemberController  Member Login account: password: 
+2026-07-10 14:30:44.9962[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-07-10 14:30:45.0089[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-07-10 14:30:45.1251[11]  INFO MemberController  Member Login account: password: 
+2026-07-10 14:31:15.4637[43]  INFO MemberController  Member Login account:longhua password:075589604 
+2026-07-10 14:31:15.5981[43]  INFO MemberController  進行登入 
+2026-07-10 14:31:15.8017[43]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-07-10 14:31:15.9084[51]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-10 14:31:15.9084[51]  INFO HomeController  進入首頁
+2026-07-10 14:32:20.9940[44]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-10 14:32:20.9940[44]  INFO HomeController  進入首頁
+2026-07-10 14:32:37.7964[52]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-10 14:32:37.7964[52]  INFO HomeController  進入首頁
+2026-07-10 14:32:50.6536[58]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-10 14:32:50.6536[58]  INFO HomeController  進入首頁
+2026-07-10 14:33:13.0317[58] ERROR StudentPopulationController  UpdateClassItem sId=50226
+System.InvalidOperationException: An exception has been raised that is likely due to a transient failure. Consider enabling transient error resiliency by adding 'EnableRetryOnFailure' to the 'UseSqlServer' call.
+ ---> Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): 交易 (處理序識別碼 102) 在 鎖定 資源上被另一個處理序鎖死並已被選擇作為死結的犧牲者。請重新執行該交易。
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnly(Int32 commandIndex, RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+ClientConnectionId:6156da18-29eb-43e9-9c93-1ecfa384e041
+Error Number:1205,State:51,Class:13
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(StateManager stateManager, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.<>c.<SaveChanges>b__112_0(DbContext _, ValueTuple`2 t)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at System.Framework.EntityFrameworkCore.EntityFrameworkContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at System.Framework.EntityFrameworkCore.EntityFrameworkContext.SaveChanges()
+   at PHStatistics.Portal.Controllers.StudentPopulationController.SumPHPopulation(Int64 spId) in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\StudentPopulationController.cs:line 1673
+   at PHStatistics.Portal.Controllers.StudentPopulationController.UpdateClassItem(Int64 sId, Nullable`1 number, String studentRemark) in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\StudentPopulationController.cs:line 1173

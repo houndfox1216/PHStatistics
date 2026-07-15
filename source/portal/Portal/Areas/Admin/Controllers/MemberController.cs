@@ -13,7 +13,7 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
     [RequirePermission(SystemPermission.Member)]
     public class MemberController : AdminBaseController {
         public IActionResult Index() {
-            ViewBag.Title = "會員管理";
+            ViewBag.Title = "使用者管理";
             return View();
         }
 

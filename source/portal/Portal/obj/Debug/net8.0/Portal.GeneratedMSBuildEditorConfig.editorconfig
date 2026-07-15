@@ -15,6 +15,9 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.TargetFrameworkIdentifier = .NETCoreApp
+build_property.TargetFrameworkVersion = v8.0
+build_property.EntryPointFilePath = 
 build_property.RootNamespace = PHStatistics.Portal
 build_property.RootNamespace = PHStatistics.Portal
 build_property.ProjectDir = C:\Company\PHStatistics.portal\source\portal\Portal\
@@ -62,6 +65,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Company/PHStatistics.portal/source/portal/Portal/Areas/Admin/Views/Shared/_AdminSidebar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXF9BZG1pblNpZGViYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Company/PHStatistics.portal/source/portal/Portal/Areas/Admin/Views/StudentPopulationImport/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU3R1ZGVudFBvcHVsYXRpb25JbXBvcnRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Company/PHStatistics.portal/source/portal/Portal/Areas/Admin/Views/StudentPopulation/Index.cshtml]

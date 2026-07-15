@@ -347,3 +347,4 @@ C:\Company\PHStatistics.portal\source\portal\Portal\obj\Debug\net8.0\rjimswa.dsw
 C:\Company\PHStatistics.portal\source\portal\Portal\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
 C:\Company\PHStatistics.portal\source\portal\Portal\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
 C:\Company\PHStatistics.portal\source\portal\Portal\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\Company\PHStatistics.portal\source\portal\Portal\obj\Debug\net8.0\swae.build.ex.cache

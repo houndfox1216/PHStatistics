@@ -1,0 +1,44 @@
+2026-06-29 18:39:32.1244[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-06-29 18:39:32.1439[13]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-06-29 18:39:32.2793[16]  INFO MemberController  Member Login account: password: 
+2026-06-29 18:40:20.1132[43]  INFO HomeController  ImportAll 50/（百倍速）人數統計表更新版115.6.13).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-29 18:40:40.7815[43]  INFO HomeController  ImportAll 50/2025 07(全國人數表第50週).xlsx [PH] → 11校 340筆 錯誤:0
+2026-06-29 18:40:40.7815[43]  INFO HomeController  ImportAll 50/2025 07(全國人數表第50週).xlsx [GEPT] → 27校 24筆 錯誤:0
+2026-06-29 18:41:09.8864[43]  INFO HomeController  ImportAll 50/百瀚全區課輔人數總表(20260613).xlsx [AS] → 3校 673筆 錯誤:0
+2026-06-29 18:41:12.4358[43]  INFO HomeController  ImportAll 50/PS南區人數統計表 114學年度(50週).xlsx [PS] → 4校 36筆 錯誤:0
+2026-06-29 18:46:46.3430[51]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-06-29 18:46:46.3430[51]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-06-29 18:46:46.3562[3]  INFO MemberController  Member Login account: password: 
+2026-06-29 18:46:55.2749[57]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-06-29 18:46:55.3069[57]  INFO MemberController  進行登入 
+2026-06-29 18:46:55.3321[57]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-06-29 18:46:55.4834[58]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-06-29 18:46:55.4834[58]  INFO HomeController  進入首頁
+2026-06-29 18:46:59.4078[56]  INFO StudentPopulationController  進入首頁(MainMenu)
+2026-06-29 18:46:59.4078[56]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2026-06-29 18:50:19.2068[56]  INFO HomeController  ImportAll 50/（百倍速）人數統計表更新版115.6.13).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-29 18:50:32.6550[56]  INFO HomeController  ImportAll 50/2025 07(全國人數表第50週).xlsx [PH] → 11校 340筆 錯誤:0
+2026-06-29 18:50:32.6550[56]  INFO HomeController  ImportAll 50/2025 07(全國人數表第50週).xlsx [GEPT] → 27校 24筆 錯誤:0
+2026-06-29 18:52:49.5706[56]  INFO HomeController  ImportAll 50/百瀚全區課輔人數總表(20260613).xlsx [AS] → 3校 673筆 錯誤:0
+2026-06-29 18:52:51.5707[56]  INFO HomeController  ImportAll 50/PS南區人數統計表 114學年度(50週).xlsx [PS] → 4校 36筆 錯誤:0
+2026-06-29 18:54:17.3679[60]  INFO HomeController  ImportAll 50/（百倍速）人數統計表更新版115.6.13).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-29 18:54:21.6573[60] ERROR HomeController  ImportAll 例外 ~$百瀚全區課輔人數總表(20260613).xlsx: The process cannot access the file 'C:\Leo\其他\Kuri\人數表匯入A\50\~$百瀚全區課輔人數總表(20260613).xlsx' because it is being used by another process.
+2026-06-29 18:54:21.6573[60]  INFO HomeController  ImportAll 50/~$百瀚全區課輔人數總表(20260613).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-29 18:54:33.0384[60]  INFO HomeController  ImportAll 50/2025 07(全國人數表第50週).xlsx [PH] → 11校 340筆 錯誤:0
+2026-06-29 18:54:33.0384[60]  INFO HomeController  ImportAll 50/2025 07(全國人數表第50週).xlsx [GEPT] → 27校 24筆 錯誤:0
+2026-06-29 18:54:37.3430[60] ERROR HomeController  ImportAll 例外 百瀚全區課輔人數總表(20260613).xlsx: The process cannot access the file 'C:\Leo\其他\Kuri\人數表匯入A\50\百瀚全區課輔人數總表(20260613).xlsx' because it is being used by another process.
+2026-06-29 18:54:37.3430[60]  INFO HomeController  ImportAll 50/百瀚全區課輔人數總表(20260613).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-29 18:54:38.4695[60]  INFO HomeController  ImportAll 50/PS南區人數統計表 114學年度(50週).xlsx [PS] → 4校 36筆 錯誤:0
+2026-06-29 18:55:03.8842[54]  INFO HomeController  ImportAll 50/（百倍速）人數統計表更新版115.6.13).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-29 18:55:03.9047[54] ERROR HomeController  ImportAll 例外 ~$百瀚全區課輔人數總表(20260613).xlsx: The process cannot access the file 'C:\Leo\其他\Kuri\人數表匯入A\50\~$百瀚全區課輔人數總表(20260613).xlsx' because it is being used by another process.
+2026-06-29 18:55:03.9047[54]  INFO HomeController  ImportAll 50/~$百瀚全區課輔人數總表(20260613).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-29 18:55:16.5997[54]  INFO HomeController  ImportAll 50/2025 07(全國人數表第50週).xlsx [PH] → 11校 340筆 錯誤:0
+2026-06-29 18:55:16.5997[54]  INFO HomeController  ImportAll 50/2025 07(全國人數表第50週).xlsx [GEPT] → 27校 24筆 錯誤:0
+2026-06-29 18:55:16.6144[54] ERROR HomeController  ImportAll 例外 百瀚全區課輔人數總表(20260613).xlsx: The process cannot access the file 'C:\Leo\其他\Kuri\人數表匯入A\50\百瀚全區課輔人數總表(20260613).xlsx' because it is being used by another process.
+2026-06-29 18:55:16.6144[54]  INFO HomeController  ImportAll 50/百瀚全區課輔人數總表(20260613).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-29 18:55:17.4656[54]  INFO HomeController  ImportAll 50/PS南區人數統計表 114學年度(50週).xlsx [PS] → 4校 36筆 錯誤:0
+2026-06-29 18:55:30.1829[54]  INFO HomeController  ImportAll 50/（百倍速）人數統計表更新版115.6.13).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-29 18:55:42.0705[54] ERROR HomeController  ImportAll 例外 ~$百瀚全區課輔人數總表(20260613).xlsx: Could not find file 'C:\Leo\其他\Kuri\人數表匯入A\50\~$百瀚全區課輔人數總表(20260613).xlsx'.
+2026-06-29 18:55:42.0705[54]  INFO HomeController  ImportAll 50/~$百瀚全區課輔人數總表(20260613).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-29 18:55:54.9976[54]  INFO HomeController  ImportAll 50/2025 07(全國人數表第50週).xlsx [PH] → 11校 340筆 錯誤:0
+2026-06-29 18:55:54.9976[54]  INFO HomeController  ImportAll 50/2025 07(全國人數表第50週).xlsx [GEPT] → 27校 24筆 錯誤:0

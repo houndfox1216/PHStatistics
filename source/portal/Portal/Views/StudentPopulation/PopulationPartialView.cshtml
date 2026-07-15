@@ -41,6 +41,11 @@
                     //60 本週國文總人 數61 上週國文總人數
                     wNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 60).Number;
                     lwNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 61).Number;
+                }else if (cItem.Id == 90) // 90 英檢(GEPT)
+                {
+                    //88 本週英檢總人數 89 上週英檢總人數
+                    wNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 88).Number;
+                    lwNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 89).Number;
                 }else if (cItem.Id == 19) // 19 國文
                 {
                     try
@@ -86,14 +91,20 @@
                     //33 本週英文總人數 34 上週英文總人數
                     lyNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 33).Number;
                     yNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 34).Number;
-                
+
+                }
+                else if (cItem.Id == 92) // 92 英檢(GEPT)
+                {
+                    //88 本週英檢總人數 89 上週英檢總人數
+                    lyNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 88).Number;
+                    yNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 89).Number;
                 }
                 else // 62 國文
                 {
                     //60 本週國文總人 數61 上週國文總人數
                     lyNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 60).Number;
                     yNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Id == 61).Number;
-                }                
+                }
                 }catch
                 {
                     lyNumber = 0;

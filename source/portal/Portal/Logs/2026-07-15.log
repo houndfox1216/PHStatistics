@@ -1,0 +1,42 @@
+2026-07-15 08:53:38.2876[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-07-15 08:53:38.2876[11]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-07-15 08:53:38.4108[13]  INFO MemberController  Member Login account: password: 
+2026-07-15 09:04:33.5888[21]  INFO MemberController  Member Login account:youchang password:073600525 
+2026-07-15 09:04:33.7617[21]  INFO MemberController  進行登入 
+2026-07-15 09:04:33.9012[21]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-07-15 09:04:33.9805[28]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 09:04:33.9805[28]  INFO HomeController  進入首頁
+2026-07-15 09:06:50.2600[30]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 09:06:50.2600[30]  INFO HomeController  進入首頁
+2026-07-15 09:07:36.6160[30]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 09:07:36.6160[30]  INFO HomeController  進入首頁
+2026-07-15 09:07:53.5294[16]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 09:07:53.5294[16]  INFO HomeController  進入首頁
+2026-07-15 09:08:16.2264[54]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 09:08:16.2264[54]  INFO HomeController  進入首頁
+2026-07-15 09:08:23.8850[17]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 09:08:23.8850[17]  INFO HomeController  進入首頁
+2026-07-15 09:08:48.3104[30]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 09:08:48.3104[30]  INFO HomeController  進入首頁
+2026-07-15 09:09:31.4051[56]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 09:09:31.4051[56]  INFO HomeController  進入首頁
+2026-07-15 09:13:26.8582[82]  INFO MemberController  Member Login account: password: 
+2026-07-15 09:13:26.8688[82]  INFO MemberController  進行Session登入 
+2026-07-15 09:13:26.8688[82]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-07-15 09:13:26.8825[27]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 09:13:26.8825[27]  INFO HomeController  進入首頁
+2026-07-15 09:13:29.7851[89]  INFO MemberController  Member Login account: password: 
+2026-07-15 09:13:29.7851[89]  INFO MemberController  進行Session登入 
+2026-07-15 09:13:29.7851[89]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-07-15 09:13:29.7851[82]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 09:13:29.7851[82]  INFO HomeController  進入首頁
+2026-07-15 09:13:36.2536[94]  INFO MemberController  Member Login account: password: 
+2026-07-15 09:13:36.2536[94]  INFO MemberController  進行Session登入 
+2026-07-15 09:13:36.2536[94]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-07-15 09:13:36.2866[92]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 09:13:36.2866[92]  INFO HomeController  進入首頁
+2026-07-15 09:13:43.9172[102]  INFO MemberController  Member Login account: password: 
+2026-07-15 09:13:43.9172[102]  INFO MemberController  進行Session登入 
+2026-07-15 09:13:43.9285[102]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-07-15 09:13:43.9532[87]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-15 09:13:43.9532[87]  INFO HomeController  進入首頁

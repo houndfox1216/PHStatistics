@@ -1,0 +1,389 @@
+2026-06-18 05:11:16.1708[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-06-18 05:11:16.1834[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-06-18 05:11:16.2963[9]  INFO MemberController  Member Login account: password: 
+2026-06-18 05:13:45.2282[43]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-06-18 05:13:45.3389[43]  INFO MemberController  進行登入 
+2026-06-18 05:13:45.5219[43]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-06-18 05:13:45.7060[43]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-06-18 05:13:45.7060[43]  INFO HomeController  進入首頁
+2026-06-18 05:43:24.0697[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-06-18 05:43:24.0697[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-06-18 05:43:24.1802[18]  INFO MemberController  Member Login account: password: 
+2026-06-18 05:43:29.7187[13]  INFO MemberController  Member Login account: password: 
+2026-06-18 05:43:39.8791[20]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-06-18 05:43:39.9064[20]  INFO MemberController  進行登入 
+2026-06-18 05:43:39.9184[20]  INFO MemberController  進行登入完成 導入 /StudentPopulation/CreatePopulation?schoolId=1 False 
+2026-06-18 05:43:39.9345[20]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-06-18 05:43:39.9345[20]  INFO HomeController  進入首頁
+2026-06-18 05:44:16.9543[20]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-06-18 05:44:16.9543[20]  INFO MemberController  進行登入 
+2026-06-18 05:44:16.9543[20]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-06-18 05:44:16.9781[7]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-06-18 05:44:16.9781[7]  INFO HomeController  進入首頁
+2026-06-18 05:59:52.8396[19]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-06-18 05:59:52.8513[19]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-06-18 05:59:52.8752[13]  INFO MemberController  Member Login account: password: 
+2026-06-18 05:59:52.8759[16]  INFO MemberController  Member Login account: password: 
+2026-06-18 06:00:18.0778[25]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-06-18 06:00:18.1110[25]  INFO MemberController  進行登入 
+2026-06-18 06:00:18.1110[25]  INFO MemberController  進行登入完成 導入 /StudentPopulation/CreatePopulation?schoolId=1 False 
+2026-06-18 06:00:18.1467[16]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-06-18 06:00:18.1467[16]  INFO HomeController  進入首頁
+2026-06-18 06:07:59.9903[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-06-18 06:07:59.9903[11]  INFO HomeController  進入首頁
+2026-06-18 06:08:50.6124[17]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-06-18 06:08:50.6124[17]  INFO HomeController  進入首頁
+2026-06-18 06:09:07.1461[16]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-06-18 06:09:07.1461[16]  INFO HomeController  進入首頁
+2026-06-18 06:09:24.6724[9]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-06-18 06:09:24.6724[9]  INFO HomeController  進入首頁
+2026-06-18 06:23:07.6600[13]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-06-18 06:23:07.6600[13]  INFO HomeController  進入首頁
+2026-06-18 06:24:00.5060[40]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-06-18 06:24:00.5060[40]  INFO HomeController  進入首頁
+2026-06-18 06:24:23.5153[65]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-06-18 06:24:23.5153[65]  INFO HomeController  進入首頁
+2026-06-18 08:20:39.4258[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-06-18 08:20:39.4258[11]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-06-18 08:20:39.5983[17]  INFO MemberController  Member Login account: password: 
+2026-06-18 08:26:19.0813[26]  INFO HomeController  ImportAll 40/（百倍速）人數統計表更新版115.4.04).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 08:27:56.1346[26] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第40週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 08:27:56.1346[26]  INFO HomeController  ImportAll 40/2025 07(全國人數表第40週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 08:28:25.5825[26]  INFO HomeController  ImportAll 40/百瀚全區課輔人數總表(20260404).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 08:28:31.0466[26] ERROR HomeController  ImportAll 例外 PS南區人數統計表 114學年度(40週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 08:28:31.0466[26]  INFO HomeController  ImportAll 40/PS南區人數統計表 114學年度(40週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 08:29:00.7198[26]  INFO HomeController  ImportAll 41/（百倍速）人數統計表更新版115.4.11).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 08:29:10.2370[26] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第41週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 08:29:10.2370[26]  INFO HomeController  ImportAll 41/2025 07(全國人數表第41週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 08:29:42.1858[26]  INFO HomeController  ImportAll 41/百瀚全區課輔人數總表(20260411).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 08:29:47.7779[26] ERROR HomeController  ImportAll 例外 PS南區人數統計表 114學年度(41週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 08:29:47.7779[26]  INFO HomeController  ImportAll 41/PS南區人數統計表 114學年度(41週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 08:30:17.9622[26]  INFO HomeController  ImportAll 42/（百倍速）人數統計表更新版115.4.18).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 08:30:27.5191[26] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第42週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 08:30:27.5191[26]  INFO HomeController  ImportAll 42/2025 07(全國人數表第42週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 08:30:58.0054[26]  INFO HomeController  ImportAll 42/百瀚全區課輔人數總表(20260418).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 08:31:03.4496[26] ERROR HomeController  ImportAll 例外 PS南區人數統計表 114學年度(42週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 08:31:03.4496[26]  INFO HomeController  ImportAll 42/PS南區人數統計表 114學年度(42週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 08:31:35.0955[26]  INFO HomeController  ImportAll 43/（百倍速）人數統計表更新版115.4.25).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 08:31:44.6307[26] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第43週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 08:31:44.6307[26]  INFO HomeController  ImportAll 43/2025 07(全國人數表第43週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 08:32:15.8295[26]  INFO HomeController  ImportAll 43/百瀚全區課輔人數總表(20260425).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 08:32:21.3169[26] ERROR HomeController  ImportAll 例外 PS南區人數統計表 114學年度(43週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 08:32:21.3169[26]  INFO HomeController  ImportAll 43/PS南區人數統計表 114學年度(43週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 08:32:54.3482[26]  INFO HomeController  ImportAll 44/（百倍速）人數統計表更新版115.5.02).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 08:33:03.7543[26] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第44週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 08:33:03.7543[26]  INFO HomeController  ImportAll 44/2025 07(全國人數表第44週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 08:33:35.5059[26]  INFO HomeController  ImportAll 44/百瀚全區課輔人數總表(20260502).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 08:33:40.8445[26] ERROR HomeController  ImportAll 例外 PS南區人數統計表 114學年度(44週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 08:33:40.8445[26]  INFO HomeController  ImportAll 44/PS南區人數統計表 114學年度(44週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 08:34:13.1569[26]  INFO HomeController  ImportAll 45/（百倍速）人數統計表更新版115.5.09).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 08:34:23.0347[26] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第45週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 08:34:23.0347[26]  INFO HomeController  ImportAll 45/2025 07(全國人數表第45週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 08:34:55.8123[26]  INFO HomeController  ImportAll 45/百瀚全區課輔人數總表(20260509).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 08:35:01.2364[26] ERROR HomeController  ImportAll 例外 PS南區人數統計表 114學年度(45週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 08:35:01.2364[26]  INFO HomeController  ImportAll 45/PS南區人數統計表 114學年度(45週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 08:35:34.1782[26]  INFO HomeController  ImportAll 46/（百倍速）人數統計表更新版115.5.16).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 08:35:43.6896[26] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第46週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 08:35:43.6896[26]  INFO HomeController  ImportAll 46/2025 07(全國人數表第46週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 08:36:17.6878[26]  INFO HomeController  ImportAll 46/百瀚全區課輔人數總表(20260516).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 08:36:23.2265[26] ERROR HomeController  ImportAll 例外 PS南區人數統計表 114學年度(46週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 08:36:23.2265[26]  INFO HomeController  ImportAll 46/PS南區人數統計表 114學年度(46週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 08:36:57.3289[26]  INFO HomeController  ImportAll 47/（百倍速）人數統計表更新版115.5.23).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 08:37:07.0239[26] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第47週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 08:37:07.0239[26]  INFO HomeController  ImportAll 47/2025 07(全國人數表第47週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 08:37:40.9856[26]  INFO HomeController  ImportAll 47/百瀚全區課輔人數總表(20260523).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 08:37:46.3186[26] ERROR HomeController  ImportAll 例外 PS南區人數統計表 114學年度(47週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 08:37:46.3186[26]  INFO HomeController  ImportAll 47/PS南區人數統計表 114學年度(47週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 08:38:20.8904[26]  INFO HomeController  ImportAll 48/（百倍速）人數統計表更新版115.5.30).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 08:38:30.3214[26] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第48週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 08:38:30.3214[26]  INFO HomeController  ImportAll 48/2025 07(全國人數表第48週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 08:39:06.9087[26]  INFO HomeController  ImportAll 48/百瀚全區課輔人數總表(20260530).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 08:39:12.3058[26] ERROR HomeController  ImportAll 例外 PS南區人數統計表 114學年度(48週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 08:39:12.3058[26]  INFO HomeController  ImportAll 48/PS南區人數統計表 114學年度(48週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 08:39:47.6277[26]  INFO HomeController  ImportAll 49/（百倍速）人數統計表更新版115.6.06).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 08:39:57.1389[26] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第49週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 08:39:57.1389[26]  INFO HomeController  ImportAll 49/2025 07(全國人數表第49週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 08:40:32.3352[26]  INFO HomeController  ImportAll 49/百瀚全區課輔人數總表(20260606).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 08:40:37.6410[26] ERROR HomeController  ImportAll 例外 PS南區人數統計表 114學年度(49週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 08:40:37.6410[26]  INFO HomeController  ImportAll 49/PS南區人數統計表 114學年度(49週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 08:41:14.2509[26]  INFO HomeController  ImportAll 50/（百倍速）人數統計表更新版115.6.13).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 08:41:23.7005[26] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第50週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 08:41:23.7005[26]  INFO HomeController  ImportAll 50/2025 07(全國人數表第50週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 08:41:59.4633[26]  INFO HomeController  ImportAll 50/百瀚全區課輔人數總表(20260613).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 08:42:05.5052[26] ERROR HomeController  ImportAll 例外 PS南區人數統計表 114學年度(50週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 08:42:05.5052[26]  INFO HomeController  ImportAll 50/PS南區人數統計表 114學年度(50週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 20:13:44.6679[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-06-18 20:13:44.6810[7]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-06-18 20:13:44.8404[17]  INFO MemberController  Member Login account: password: 
+2026-06-18 20:16:18.2068[24]  INFO HomeController  ImportAll 40/（百倍速）人數統計表更新版115.4.04).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 20:20:35.0059[24]  INFO HomeController  ImportAll 40/2025 07(全國人數表第40週).xlsx [PH] → 23校 734筆 錯誤:1
+2026-06-18 20:20:35.0165[24]  INFO HomeController  ImportAll 40/2025 07(全國人數表第40週).xlsx [GEPT] → 27校 27筆 錯誤:0
+2026-06-18 20:21:04.2541[24]  INFO HomeController  ImportAll 40/百瀚全區課輔人數總表(20260404).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 20:21:19.1634[24]  INFO HomeController  ImportAll 40/PS南區人數統計表 114學年度(40週).xlsx [PS] → 4校 35筆 錯誤:0
+2026-06-18 20:21:48.7524[24]  INFO HomeController  ImportAll 41/（百倍速）人數統計表更新版115.4.11).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 20:24:22.2730[24] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第41週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 20:24:22.2730[24]  INFO HomeController  ImportAll 41/2025 07(全國人數表第41週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 20:24:51.7914[24]  INFO HomeController  ImportAll 41/百瀚全區課輔人數總表(20260411).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 20:24:57.5790[24] ERROR HomeController  ImportAll 例外 PS南區人數統計表 114學年度(41週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 20:24:57.5790[24]  INFO HomeController  ImportAll 41/PS南區人數統計表 114學年度(41週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 20:25:27.5810[24]  INFO HomeController  ImportAll 42/（百倍速）人數統計表更新版115.4.18).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 20:25:37.3571[24] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第42週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 20:25:37.3571[24]  INFO HomeController  ImportAll 42/2025 07(全國人數表第42週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 20:26:07.8553[24]  INFO HomeController  ImportAll 42/百瀚全區課輔人數總表(20260418).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 20:26:13.2635[24] ERROR HomeController  ImportAll 例外 PS南區人數統計表 114學年度(42週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 20:26:13.2635[24]  INFO HomeController  ImportAll 42/PS南區人數統計表 114學年度(42週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 20:26:43.7356[24]  INFO HomeController  ImportAll 43/（百倍速）人數統計表更新版115.4.25).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 20:26:53.3549[24] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第43週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 20:26:53.3549[24]  INFO HomeController  ImportAll 43/2025 07(全國人數表第43週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 20:27:24.2038[24]  INFO HomeController  ImportAll 43/百瀚全區課輔人數總表(20260425).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 20:27:29.6979[24] ERROR HomeController  ImportAll 例外 PS南區人數統計表 114學年度(43週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 20:27:29.6979[24]  INFO HomeController  ImportAll 43/PS南區人數統計表 114學年度(43週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 20:28:00.8795[24]  INFO HomeController  ImportAll 44/（百倍速）人數統計表更新版115.5.02).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 20:28:10.4375[24] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第44週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 20:28:10.4375[24]  INFO HomeController  ImportAll 44/2025 07(全國人數表第44週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 20:28:41.8650[24]  INFO HomeController  ImportAll 44/百瀚全區課輔人數總表(20260502).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 20:28:47.4581[24] ERROR HomeController  ImportAll 例外 PS南區人數統計表 114學年度(44週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 20:28:47.4581[24]  INFO HomeController  ImportAll 44/PS南區人數統計表 114學年度(44週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 20:29:19.5279[24]  INFO HomeController  ImportAll 45/（百倍速）人數統計表更新版115.5.09).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 20:29:29.0887[24] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第45週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 20:29:29.0887[24]  INFO HomeController  ImportAll 45/2025 07(全國人數表第45週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 20:30:01.2673[24]  INFO HomeController  ImportAll 45/百瀚全區課輔人數總表(20260509).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 20:30:08.0894[24] ERROR HomeController  ImportAll 例外 PS南區人數統計表 114學年度(45週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 20:30:08.0894[24]  INFO HomeController  ImportAll 45/PS南區人數統計表 114學年度(45週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 20:30:40.8698[24]  INFO HomeController  ImportAll 46/（百倍速）人數統計表更新版115.5.16).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 20:30:50.3921[24] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第46週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 20:30:50.3921[24]  INFO HomeController  ImportAll 46/2025 07(全國人數表第46週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 20:31:23.7447[24]  INFO HomeController  ImportAll 46/百瀚全區課輔人數總表(20260516).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 20:31:29.2669[24] ERROR HomeController  ImportAll 例外 PS南區人數統計表 114學年度(46週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 20:31:29.2669[24]  INFO HomeController  ImportAll 46/PS南區人數統計表 114學年度(46週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 20:32:02.7766[24]  INFO HomeController  ImportAll 47/（百倍速）人數統計表更新版115.5.23).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 20:32:12.3509[24] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第47週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 20:32:12.3509[24]  INFO HomeController  ImportAll 47/2025 07(全國人數表第47週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 20:32:45.8295[24]  INFO HomeController  ImportAll 47/百瀚全區課輔人數總表(20260523).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 20:32:51.4391[24] ERROR HomeController  ImportAll 例外 PS南區人數統計表 114學年度(47週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 20:32:51.4391[24]  INFO HomeController  ImportAll 47/PS南區人數統計表 114學年度(47週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 20:33:25.5844[24]  INFO HomeController  ImportAll 48/（百倍速）人數統計表更新版115.5.30).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 20:33:35.1908[24] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第48週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 20:33:35.1908[24]  INFO HomeController  ImportAll 48/2025 07(全國人數表第48週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 20:34:10.8589[24]  INFO HomeController  ImportAll 48/百瀚全區課輔人數總表(20260530).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 20:34:16.3079[24] ERROR HomeController  ImportAll 例外 PS南區人數統計表 114學年度(48週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 20:34:16.3079[24]  INFO HomeController  ImportAll 48/PS南區人數統計表 114學年度(48週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 20:34:51.4753[24]  INFO HomeController  ImportAll 49/（百倍速）人數統計表更新版115.6.06).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 20:35:01.3764[24] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第49週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 20:35:01.3764[24]  INFO HomeController  ImportAll 49/2025 07(全國人數表第49週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 20:35:36.1691[24]  INFO HomeController  ImportAll 49/百瀚全區課輔人數總表(20260606).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 20:35:41.4502[24] ERROR HomeController  ImportAll 例外 PS南區人數統計表 114學年度(49週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 20:35:41.4502[24]  INFO HomeController  ImportAll 49/PS南區人數統計表 114學年度(49週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 20:36:17.8923[24]  INFO HomeController  ImportAll 50/（百倍速）人數統計表更新版115.6.13).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 20:36:27.5532[24] ERROR HomeController  ImportAll 例外 2025 07(全國人數表第50週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 20:36:27.5532[24]  INFO HomeController  ImportAll 50/2025 07(全國人數表第50週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 20:37:03.1762[24]  INFO HomeController  ImportAll 50/百瀚全區課輔人數總表(20260613).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 20:37:08.5847[24] ERROR HomeController  ImportAll 例外 PS南區人數統計表 114學年度(50週).xlsx: An error occurred while saving the entity changes. See the inner exception for details.
+2026-06-18 20:37:08.5847[24]  INFO HomeController  ImportAll 50/PS南區人數統計表 114學年度(50週).xlsx [Unknown] → 0校 0筆 錯誤:1
+2026-06-18 20:56:15.7888[49]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-06-18 20:56:15.7888[49]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-06-18 20:56:15.8389[49]  INFO MemberController  Member Login account: password: 
+2026-06-18 20:56:25.0552[51]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-06-18 20:56:25.2144[51]  INFO MemberController  進行登入 
+2026-06-18 20:56:25.3289[51]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-06-18 20:56:25.6878[48]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-06-18 20:56:25.6878[48]  INFO HomeController  進入首頁
+2026-06-18 21:00:04.0484[82] ERROR IApplication  目前無法進行相關操作，請聯繫維護人員!
+System.InvalidOperationException: An error was generated for warning 'Microsoft.EntityFrameworkCore.Query.InvalidIncludePathError': Unable to find navigation 'Title' specified in string based include path 'Title.Texts'. This exception can be suppressed or logged by passing event ID 'CoreEventId.InvalidIncludePathError' to the 'ConfigureWarnings' method in 'DbContext.OnConfiguring' or 'AddDbContext'.
+   at Microsoft.EntityFrameworkCore.Diagnostics.EventDefinition`2.Log[TLoggerCategory](IDiagnosticsLogger`1 logger, TParam1 arg1, TParam2 arg2)
+   at Microsoft.EntityFrameworkCore.Diagnostics.CoreLoggerExtensions.InvalidIncludePathError(IDiagnosticsLogger`1 diagnostics, String navigationChain, String navigationName)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.ProcessInclude(NavigationExpansionExpression source, Expression expression, Boolean thenInclude, Boolean setLoaded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.Expand(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryTranslationPreprocessor.Process(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass9_0`1.<Execute>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at System.Framework.EntityFrameworkCore.EntityFrameworkContext.FindById[TEntity](Object id, Boolean trackEnabled, String[] includes)
+   at System.Framework.Application.UpdateActionBase`3.OnExecuting(TDataContext context)
+2026-06-18 21:00:15.4870[81] ERROR IApplication  目前無法進行相關操作，請聯繫維護人員!
+System.InvalidOperationException: An error was generated for warning 'Microsoft.EntityFrameworkCore.Query.InvalidIncludePathError': Unable to find navigation 'Title' specified in string based include path 'Title.Texts'. This exception can be suppressed or logged by passing event ID 'CoreEventId.InvalidIncludePathError' to the 'ConfigureWarnings' method in 'DbContext.OnConfiguring' or 'AddDbContext'.
+   at Microsoft.EntityFrameworkCore.Diagnostics.EventDefinition`2.Log[TLoggerCategory](IDiagnosticsLogger`1 logger, TParam1 arg1, TParam2 arg2)
+   at Microsoft.EntityFrameworkCore.Diagnostics.CoreLoggerExtensions.InvalidIncludePathError(IDiagnosticsLogger`1 diagnostics, String navigationChain, String navigationName)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.ProcessInclude(NavigationExpansionExpression source, Expression expression, Boolean thenInclude, Boolean setLoaded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.Expand(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryTranslationPreprocessor.Process(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass9_0`1.<Execute>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at System.Framework.EntityFrameworkCore.EntityFrameworkContext.FindById[TEntity](Object id, Boolean trackEnabled, String[] includes)
+   at System.Framework.Application.UpdateActionBase`3.OnExecuting(TDataContext context)
+2026-06-18 21:05:23.3804[82] ERROR IApplication  目前無法進行相關操作，請聯繫維護人員!
+System.InvalidOperationException: An error was generated for warning 'Microsoft.EntityFrameworkCore.Query.InvalidIncludePathError': Unable to find navigation 'Title' specified in string based include path 'Title.Texts'. This exception can be suppressed or logged by passing event ID 'CoreEventId.InvalidIncludePathError' to the 'ConfigureWarnings' method in 'DbContext.OnConfiguring' or 'AddDbContext'.
+   at Microsoft.EntityFrameworkCore.Diagnostics.EventDefinition`2.Log[TLoggerCategory](IDiagnosticsLogger`1 logger, TParam1 arg1, TParam2 arg2)
+   at Microsoft.EntityFrameworkCore.Diagnostics.CoreLoggerExtensions.InvalidIncludePathError(IDiagnosticsLogger`1 diagnostics, String navigationChain, String navigationName)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.ProcessInclude(NavigationExpansionExpression source, Expression expression, Boolean thenInclude, Boolean setLoaded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.Expand(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryTranslationPreprocessor.Process(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass9_0`1.<Execute>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at System.Framework.EntityFrameworkCore.EntityFrameworkContext.FindById[TEntity](Object id, Boolean trackEnabled, String[] includes)
+   at System.Framework.Application.UpdateActionBase`3.OnExecuting(TDataContext context)
+2026-06-18 21:06:10.5110[9]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-06-18 21:06:10.5385[9]  INFO HomeController  進入首頁
+2026-06-18 21:09:54.3989[24] ERROR IApplication  目前無法進行相關操作，請聯繫維護人員!
+System.InvalidOperationException: An error was generated for warning 'Microsoft.EntityFrameworkCore.Query.InvalidIncludePathError': Unable to find navigation 'Title' specified in string based include path 'Title.Texts'. This exception can be suppressed or logged by passing event ID 'CoreEventId.InvalidIncludePathError' to the 'ConfigureWarnings' method in 'DbContext.OnConfiguring' or 'AddDbContext'.
+   at Microsoft.EntityFrameworkCore.Diagnostics.EventDefinition`2.Log[TLoggerCategory](IDiagnosticsLogger`1 logger, TParam1 arg1, TParam2 arg2)
+   at Microsoft.EntityFrameworkCore.Diagnostics.CoreLoggerExtensions.InvalidIncludePathError(IDiagnosticsLogger`1 diagnostics, String navigationChain, String navigationName)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.ProcessInclude(NavigationExpansionExpression source, Expression expression, Boolean thenInclude, Boolean setLoaded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.Expand(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryTranslationPreprocessor.Process(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass9_0`1.<Execute>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at System.Framework.EntityFrameworkCore.EntityFrameworkContext.FindById[TEntity](Object id, Boolean trackEnabled, String[] includes)
+   at System.Framework.Application.UpdateActionBase`3.OnExecuting(TDataContext context)
+2026-06-18 21:10:31.2050[38] ERROR IApplication  目前無法進行相關操作，請聯繫維護人員!
+System.InvalidOperationException: An error was generated for warning 'Microsoft.EntityFrameworkCore.Query.InvalidIncludePathError': Unable to find navigation 'Title' specified in string based include path 'Title.Texts'. This exception can be suppressed or logged by passing event ID 'CoreEventId.InvalidIncludePathError' to the 'ConfigureWarnings' method in 'DbContext.OnConfiguring' or 'AddDbContext'.
+   at Microsoft.EntityFrameworkCore.Diagnostics.EventDefinition`2.Log[TLoggerCategory](IDiagnosticsLogger`1 logger, TParam1 arg1, TParam2 arg2)
+   at Microsoft.EntityFrameworkCore.Diagnostics.CoreLoggerExtensions.InvalidIncludePathError(IDiagnosticsLogger`1 diagnostics, String navigationChain, String navigationName)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.ProcessInclude(NavigationExpansionExpression source, Expression expression, Boolean thenInclude, Boolean setLoaded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.Expand(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryTranslationPreprocessor.Process(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass9_0`1.<Execute>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at System.Framework.EntityFrameworkCore.EntityFrameworkContext.FindById[TEntity](Object id, Boolean trackEnabled, String[] includes)
+   at System.Framework.Application.UpdateActionBase`3.OnExecuting(TDataContext context)
+2026-06-18 21:11:06.0345[24] ERROR IApplication  目前無法進行相關操作，請聯繫維護人員!
+System.InvalidOperationException: An error was generated for warning 'Microsoft.EntityFrameworkCore.Query.InvalidIncludePathError': Unable to find navigation 'Title' specified in string based include path 'Title.Texts'. This exception can be suppressed or logged by passing event ID 'CoreEventId.InvalidIncludePathError' to the 'ConfigureWarnings' method in 'DbContext.OnConfiguring' or 'AddDbContext'.
+   at Microsoft.EntityFrameworkCore.Diagnostics.EventDefinition`2.Log[TLoggerCategory](IDiagnosticsLogger`1 logger, TParam1 arg1, TParam2 arg2)
+   at Microsoft.EntityFrameworkCore.Diagnostics.CoreLoggerExtensions.InvalidIncludePathError(IDiagnosticsLogger`1 diagnostics, String navigationChain, String navigationName)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.ProcessInclude(NavigationExpansionExpression source, Expression expression, Boolean thenInclude, Boolean setLoaded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.Expand(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryTranslationPreprocessor.Process(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass9_0`1.<Execute>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at System.Framework.EntityFrameworkCore.EntityFrameworkContext.FindById[TEntity](Object id, Boolean trackEnabled, String[] includes)
+   at System.Framework.Application.UpdateActionBase`3.OnExecuting(TDataContext context)
+2026-06-18 21:17:47.8242[9]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-06-18 21:17:47.8378[9]  INFO HomeController  進入首頁
+2026-06-18 21:18:45.0954[17]  INFO HomeController  ImportAll 40/（百倍速）人數統計表更新版115.4.04).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 21:23:11.8292[17]  INFO HomeController  ImportAll 40/2025 07(全國人數表第40週).xlsx [PH] → 23校 734筆 錯誤:1
+2026-06-18 21:23:11.8292[17]  INFO HomeController  ImportAll 40/2025 07(全國人數表第40週).xlsx [GEPT] → 27校 27筆 錯誤:0
+2026-06-18 21:23:41.4714[17]  INFO HomeController  ImportAll 40/百瀚全區課輔人數總表(20260404).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 21:23:56.8419[17]  INFO HomeController  ImportAll 40/PS南區人數統計表 114學年度(40週).xlsx [PS] → 4校 35筆 錯誤:0
+2026-06-18 21:24:26.8953[17]  INFO HomeController  ImportAll 41/（百倍速）人數統計表更新版115.4.11).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 21:29:33.9644[17]  INFO HomeController  ImportAll 41/2025 07(全國人數表第41週).xlsx [PH] → 23校 732筆 錯誤:1
+2026-06-18 21:29:33.9644[17]  INFO HomeController  ImportAll 41/2025 07(全國人數表第41週).xlsx [GEPT] → 27校 30筆 錯誤:0
+2026-06-18 21:30:04.9513[17]  INFO HomeController  ImportAll 41/百瀚全區課輔人數總表(20260411).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 21:31:49.3311[9]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-06-18 21:31:49.3716[9]  INFO HomeController  進入首頁
+2026-06-18 21:32:21.5109[13]  INFO HomeController  ImportAll 40/（百倍速）人數統計表更新版115.4.04).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 21:36:49.6514[13]  INFO HomeController  ImportAll 40/2025 07(全國人數表第40週).xlsx [PH] → 23校 734筆 錯誤:1
+2026-06-18 21:36:49.6637[13]  INFO HomeController  ImportAll 40/2025 07(全國人數表第40週).xlsx [GEPT] → 27校 27筆 錯誤:0
+2026-06-18 21:37:22.6737[13]  INFO HomeController  ImportAll 40/百瀚全區課輔人數總表(20260404).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 21:37:39.2149[13]  INFO HomeController  ImportAll 40/PS南區人數統計表 114學年度(40週).xlsx [PS] → 4校 35筆 錯誤:0
+2026-06-18 21:38:09.1155[13]  INFO HomeController  ImportAll 41/（百倍速）人數統計表更新版115.4.11).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 21:42:44.2248[13]  INFO HomeController  ImportAll 41/2025 07(全國人數表第41週).xlsx [PH] → 23校 732筆 錯誤:1
+2026-06-18 21:42:44.2248[13]  INFO HomeController  ImportAll 41/2025 07(全國人數表第41週).xlsx [GEPT] → 27校 30筆 錯誤:0
+2026-06-18 21:43:14.5385[13]  INFO HomeController  ImportAll 41/百瀚全區課輔人數總表(20260411).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 21:43:30.8960[13]  INFO HomeController  ImportAll 41/PS南區人數統計表 114學年度(41週).xlsx [PS] → 4校 36筆 錯誤:0
+2026-06-18 21:44:01.4494[13]  INFO HomeController  ImportAll 42/（百倍速）人數統計表更新版115.4.18).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 21:49:35.8479[13]  INFO HomeController  ImportAll 42/2025 07(全國人數表第42週).xlsx [PH] → 23校 732筆 錯誤:1
+2026-06-18 21:49:35.8479[13]  INFO HomeController  ImportAll 42/2025 07(全國人數表第42週).xlsx [GEPT] → 27校 29筆 錯誤:0
+2026-06-18 21:50:06.9974[13]  INFO HomeController  ImportAll 42/百瀚全區課輔人數總表(20260418).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 21:50:27.9452[13]  INFO HomeController  ImportAll 42/PS南區人數統計表 114學年度(42週).xlsx [PS] → 4校 37筆 錯誤:0
+2026-06-18 21:50:59.0578[13]  INFO HomeController  ImportAll 43/（百倍速）人數統計表更新版115.4.25).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 21:56:53.3463[13]  INFO HomeController  ImportAll 43/2025 07(全國人數表第43週).xlsx [PH] → 23校 725筆 錯誤:1
+2026-06-18 21:56:53.3463[13]  INFO HomeController  ImportAll 43/2025 07(全國人數表第43週).xlsx [GEPT] → 27校 28筆 錯誤:0
+2026-06-18 21:57:25.6543[13]  INFO HomeController  ImportAll 43/百瀚全區課輔人數總表(20260425).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 21:57:43.2820[13]  INFO HomeController  ImportAll 43/PS南區人數統計表 114學年度(43週).xlsx [PS] → 4校 37筆 錯誤:0
+2026-06-18 21:58:15.4704[13]  INFO HomeController  ImportAll 44/（百倍速）人數統計表更新版115.5.02).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 22:04:45.9101[13]  INFO HomeController  ImportAll 44/2025 07(全國人數表第44週).xlsx [PH] → 23校 741筆 錯誤:0
+2026-06-18 22:04:45.9101[13]  INFO HomeController  ImportAll 44/2025 07(全國人數表第44週).xlsx [GEPT] → 27校 25筆 錯誤:0
+2026-06-18 22:05:18.1172[13]  INFO HomeController  ImportAll 44/百瀚全區課輔人數總表(20260502).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 22:05:38.7528[13]  INFO HomeController  ImportAll 44/PS南區人數統計表 114學年度(44週).xlsx [PS] → 4校 35筆 錯誤:0
+2026-06-18 22:06:11.6519[13]  INFO HomeController  ImportAll 45/（百倍速）人數統計表更新版115.5.09).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 22:13:26.7599[13]  INFO HomeController  ImportAll 45/2025 07(全國人數表第45週).xlsx [PH] → 23校 733筆 錯誤:0
+2026-06-18 22:13:26.7599[13]  INFO HomeController  ImportAll 45/2025 07(全國人數表第45週).xlsx [GEPT] → 27校 26筆 錯誤:0
+2026-06-18 22:13:59.9193[13]  INFO HomeController  ImportAll 45/百瀚全區課輔人數總表(20260509).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 22:14:18.8992[13]  INFO HomeController  ImportAll 45/PS南區人數統計表 114學年度(45週).xlsx [PS] → 4校 36筆 錯誤:0
+2026-06-18 22:14:51.8531[13]  INFO HomeController  ImportAll 46/（百倍速）人數統計表更新版115.5.16).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 22:22:30.3445[13]  INFO HomeController  ImportAll 46/2025 07(全國人數表第46週).xlsx [PH] → 23校 736筆 錯誤:0
+2026-06-18 22:22:30.3476[13]  INFO HomeController  ImportAll 46/2025 07(全國人數表第46週).xlsx [GEPT] → 27校 25筆 錯誤:0
+2026-06-18 22:23:03.5412[13]  INFO HomeController  ImportAll 46/百瀚全區課輔人數總表(20260516).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 22:23:22.8905[13]  INFO HomeController  ImportAll 46/PS南區人數統計表 114學年度(46週).xlsx [PS] → 4校 35筆 錯誤:0
+2026-06-18 22:23:56.8929[13]  INFO HomeController  ImportAll 47/（百倍速）人數統計表更新版115.5.23).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 22:31:36.5498[13]  INFO HomeController  ImportAll 47/2025 07(全國人數表第47週).xlsx [PH] → 23校 728筆 錯誤:0
+2026-06-18 22:31:36.5521[13]  INFO HomeController  ImportAll 47/2025 07(全國人數表第47週).xlsx [GEPT] → 27校 24筆 錯誤:0
+2026-06-18 22:32:10.7816[13]  INFO HomeController  ImportAll 47/百瀚全區課輔人數總表(20260523).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 22:32:29.9031[13]  INFO HomeController  ImportAll 47/PS南區人數統計表 114學年度(47週).xlsx [PS] → 4校 35筆 錯誤:0
+2026-06-18 22:33:05.1261[13]  INFO HomeController  ImportAll 48/（百倍速）人數統計表更新版115.5.30).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 22:40:05.3125[13]  INFO HomeController  ImportAll 48/2025 07(全國人數表第48週).xlsx [PH] → 23校 718筆 錯誤:0
+2026-06-18 22:40:05.3125[13]  INFO HomeController  ImportAll 48/2025 07(全國人數表第48週).xlsx [GEPT] → 27校 26筆 錯誤:0
+2026-06-18 22:40:40.3497[13]  INFO HomeController  ImportAll 48/百瀚全區課輔人數總表(20260530).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 22:41:06.9498[13]  INFO HomeController  ImportAll 48/PS南區人數統計表 114學年度(48週).xlsx [PS] → 4校 35筆 錯誤:0
+2026-06-18 22:41:43.6647[13]  INFO HomeController  ImportAll 49/（百倍速）人數統計表更新版115.6.06).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 22:49:48.3007[13]  INFO HomeController  ImportAll 49/2025 07(全國人數表第49週).xlsx [PH] → 23校 725筆 錯誤:0
+2026-06-18 22:49:48.3007[13]  INFO HomeController  ImportAll 49/2025 07(全國人數表第49週).xlsx [GEPT] → 27校 25筆 錯誤:0
+2026-06-18 22:50:23.4697[13]  INFO HomeController  ImportAll 49/百瀚全區課輔人數總表(20260606).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 22:50:43.6762[13]  INFO HomeController  ImportAll 49/PS南區人數統計表 114學年度(49週).xlsx [PS] → 4校 36筆 錯誤:0
+2026-06-18 22:51:28.2187[13]  INFO HomeController  ImportAll 50/（百倍速）人數統計表更新版115.6.13).xlsx [PSJ] → 0校 0筆 錯誤:0
+2026-06-18 22:59:58.3041[13]  INFO HomeController  ImportAll 50/2025 07(全國人數表第50週).xlsx [PH] → 23校 717筆 錯誤:0
+2026-06-18 22:59:58.3041[13]  INFO HomeController  ImportAll 50/2025 07(全國人數表第50週).xlsx [GEPT] → 27校 24筆 錯誤:0
+2026-06-18 23:00:35.0933[13]  INFO HomeController  ImportAll 50/百瀚全區課輔人數總表(20260613).xlsx [AS] → 0校 0筆 錯誤:0
+2026-06-18 23:01:10.3812[13]  INFO HomeController  ImportAll 50/PS南區人數統計表 114學年度(50週).xlsx [PS] → 4校 36筆 錯誤:0

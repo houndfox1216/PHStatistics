@@ -1,0 +1,13 @@
+2026-06-13 13:29:46.2300[9]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-06-13 13:29:46.2300[9]  INFO HomeController  進入首頁 讀取 Session account: login:
+2026-06-13 13:29:46.3527[17]  INFO MemberController  Member Login account: password: 
+2026-06-13 13:30:50.4065[44] ERROR HomeController  匯入EXCEL錯誤Value cannot be null. (Parameter 's')
+2026-06-13 13:30:50.4405[44] ERROR HomeController  系統忙碌中，請稍後再試
+System.Exception: 系統忙碌中，請稍後再試
+   at PHStatistics.Portal.Controllers.HomeController.ImportMemberData(String type) in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\HomeController.cs:line 1136
+2026-06-13 13:31:34.7020[50]  INFO MemberController  Member Login account:ncym password:0222526966 
+2026-06-13 13:31:34.7882[50]  INFO MemberController  進行登入 
+2026-06-13 13:31:34.8604[50]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-06-13 13:31:35.0487[51]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-06-13 13:31:35.0487[51]  INFO HomeController  進入首頁
+2026-06-13 13:31:39.0551[55]  INFO MemberController  Member Login account: password: 
