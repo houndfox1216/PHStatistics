@@ -1452,6 +1452,8 @@ namespace PHStatistics.Portal.Controllers {
                         aggregationEngine.Calculate(group, studentPopulationData);
                     }
                     else if (studentPopulationData.Type == StudentPopulationType.PSJ) {
+#if false // 舊 PSJ 加總邏輯，2026-07-16 遷移到 AggregationEngine 時停用保留（不刪除），
+          // 見 docs/superpowers/plans/2026-07-16-psj-as-aggregation-migration.md Task 3
                         if (group.Class.Course.Name.Equals("本周數學人數合計")) {
                             group.Number = studentPopulationData.Items.Where(e => e.Class.Course.Department != null && e.Class.Course.Department.Name.Equals("數學班") && e.Class.Type == group.Class.Type && !e.Class.Course.IsSum).Sum(e => e.Number);
                         }
@@ -1470,6 +1472,8 @@ namespace PHStatistics.Portal.Controllers {
                             group.Number = src.Sum(e => e.Number) - src.Sum(e => e.LastWeekNumber);
                         }
                         // 流失人數／新生人數：分校自填，系統不計算
+#endif
+                        aggregationEngine.Calculate(group, studentPopulationData);
                     }
                     else if (studentPopulationData.Type == StudentPopulationType.GEPT) {
                         aggregationEngine.Calculate(group, studentPopulationData);
