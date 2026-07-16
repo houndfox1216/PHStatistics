@@ -352,6 +352,12 @@
                                 else {
                                     <option value=0>團</option>
                                 }
+                                @if (sItem.Class.Type == ClassType.SubGroup) {
+                                    <option value=4 selected="selected">小</option>
+                                }
+                                else {
+                                    <option value=4>小</option>
+                                }
                             </select>
                         </div>
                     }
