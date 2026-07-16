@@ -1502,6 +1502,8 @@ namespace PHStatistics.Portal.Controllers {
                         aggregationEngine.Calculate(group, studentPopulationData);
                     }
                     else if (studentPopulationData.Type == StudentPopulationType.AfterSchool) {
+#if false // 舊 AS 加總邏輯，2026-07-16 遷移到 AggregationEngine 時停用保留（不刪除），
+          // 見 docs/superpowers/plans/2026-07-16-psj-as-aggregation-migration.md Task 6
                         int asDeptId = group.Class.Course.Department.Id;
                         string asCourseName = group.Class.Course.Name;
                         if (asDeptId == 34) {
@@ -1518,6 +1520,8 @@ namespace PHStatistics.Portal.Controllers {
                             }
                             // 新生人數／流失人數：分校自填，系統不計算
                         }
+#endif
+                        aggregationEngine.Calculate(group, studentPopulationData);
                     }
                         dataContext.StudentPopulationItem.Update(group);
                         dataContext.SaveChanges();
