@@ -1,3 +1,4 @@
+@using PHStatistics.Content
 @{
     ViewBag.Title = "人數表匯入";
 }
@@ -16,6 +17,15 @@
         </select>
     </div>
     <div class="mb-3">
+        <label class="form-label">學年度／週次（百倍速 PSJ 必填，其餘格式沿用檔案內建年份週次即可不選）</label>
+        <select class="form-select" id="importYearWeek" style="max-width:300px">
+            <option value="">（不指定）</option>
+            @foreach (var sy in (System.Collections.Generic.List<SchoolYear>)ViewBag.SchoolYears) {
+                <option value="@sy.Id" data-year="@sy.Year" data-week="@sy.Week">@sy.Year 年第 @sy.Week 週</option>
+            }
+        </select>
+    </div>
+    <div class="mb-3">
         <label class="form-label">Excel 檔案</label>
         <input type="file" class="form-control" id="importFile" accept=".xlsx" style="max-width:400px">
     </div>
@@ -31,10 +41,25 @@
             alert('請選擇檔案');
             return;
         }
+        var type = $('#importType').val();
+        var ywSelect = document.getElementById('importYearWeek');
+        var selectedOption = ywSelect.options[ywSelect.selectedIndex];
+        var year = selectedOption.getAttribute('data-year');
+        var week = selectedOption.getAttribute('data-week');
+
+        if (type === 'PSJ' && !year) {
+            alert('百倍速（PSJ）匯入必須選擇學年度與週次');
+            return;
+        }
+
         var formData = new FormData();
         formData.append('file', fileInput.files[0]);
-        formData.append('type', $('#importType').val());
+        formData.append('type', type);
         formData.append('confirmed', confirmed ? 'true' : 'false');
+        if (year) {
+            formData.append('year', year);
+            formData.append('week', week);
+        }
 
         $('#importResult').html('<div class="text-muted">匯入中...</div>');
 
