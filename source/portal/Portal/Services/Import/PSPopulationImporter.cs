@@ -13,7 +13,7 @@ namespace PHStatistics.Portal.Services.Import;
 public class PSPopulationImporter : IPopulationImporter {
     public StudentPopulationType Type => StudentPopulationType.PS;
 
-    public ImportScanResult Scan(DataContext db, Stream fileStream) {
+    public ImportScanResult Scan(DataContext db, Stream fileStream, int? overrideYear = null, int? overrideWeek = null) {
         var result = new ImportScanResult();
         var sheet = new XSSFWorkbook(fileStream).GetSheetAt(0);
 
@@ -45,7 +45,7 @@ public class PSPopulationImporter : IPopulationImporter {
         return result;
     }
 
-    public ImportResult Import(DataContext db, Stream fileStream, ILogger logger) {
+    public ImportResult Import(DataContext db, Stream fileStream, ILogger logger, int? overrideYear = null, int? overrideWeek = null) {
         var result = new ImportResult { Type = "PS" };
         var sheet = new XSSFWorkbook(fileStream).GetSheetAt(0);
 

@@ -9,7 +9,7 @@ namespace PHStatistics.Portal.Services.Import;
 public class GeptPopulationImporter : IPopulationImporter {
     public StudentPopulationType Type => StudentPopulationType.GEPT;
 
-    public ImportScanResult Scan(DataContext db, Stream fileStream) {
+    public ImportScanResult Scan(DataContext db, Stream fileStream, int? overrideYear = null, int? overrideWeek = null) {
         var wb = new XSSFWorkbook(fileStream);
         if (wb.NumberOfSheets < 3) {
             var r = new ImportScanResult();
@@ -19,7 +19,7 @@ public class GeptPopulationImporter : IPopulationImporter {
         return PHSheetReader.Scan(db, wb.GetSheetAt(2), StudentPopulationType.GEPT, requireTypeIndicator: false);
     }
 
-    public ImportResult Import(DataContext db, Stream fileStream, ILogger logger) {
+    public ImportResult Import(DataContext db, Stream fileStream, ILogger logger, int? overrideYear = null, int? overrideWeek = null) {
         var wb = new XSSFWorkbook(fileStream);
         if (wb.NumberOfSheets < 3)
             return new ImportResult { Type = "GEPT", Errors = { "找不到第3個頁籤（英檢）" } };

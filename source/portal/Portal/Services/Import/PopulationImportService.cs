@@ -22,20 +22,20 @@ public class PopulationImportService {
         };
     }
 
-    public ImportScanResult Scan(DataContext db, StudentPopulationType type, Stream fileStream) {
+    public ImportScanResult Scan(DataContext db, StudentPopulationType type, Stream fileStream, int? overrideYear = null, int? overrideWeek = null) {
         if (!_importers.TryGetValue(type, out var importer)) {
             var r = new ImportScanResult();
             r.Errors.Add($"不支援的匯入類型: {type}");
             return r;
         }
-        return importer.Scan(db, fileStream);
+        return importer.Scan(db, fileStream, overrideYear, overrideWeek);
     }
 
-    public ImportResult Import(DataContext db, StudentPopulationType type, Stream fileStream, string fileName) {
+    public ImportResult Import(DataContext db, StudentPopulationType type, Stream fileStream, string fileName, int? overrideYear = null, int? overrideWeek = null) {
         if (!_importers.TryGetValue(type, out var importer))
             return new ImportResult { Type = type.ToString(), File = fileName, Errors = { $"不支援的匯入類型: {type}" } };
 
-        var result = importer.Import(db, fileStream, _logger);
+        var result = importer.Import(db, fileStream, _logger, overrideYear, overrideWeek);
         result.File = fileName;
 
         foreach (long popId in result.PopulationIds) {
