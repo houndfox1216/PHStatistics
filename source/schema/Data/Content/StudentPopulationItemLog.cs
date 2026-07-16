@@ -8,6 +8,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
+using PHStatistics.Community;
 
 namespace PHStatistics.Content {
     /// <summary>
@@ -143,13 +144,37 @@ namespace PHStatistics.Content {
         /// <summary>
         /// 新增項目
         /// </summary>
-        [Display(Name = "新增項目"), DataMember, NotMapped]
+        [Display(Name = "新增項目"), DataMember]
         public bool IsNew { get; set; }
 
         /// <summary>
-        /// 新增項目
+        /// 刪除項目
         /// </summary>
-        [Display(Name = "新增項目"), DataMember, NotMapped]
-        public bool LastWeekNumber { get; set; }
+        [Display(Name = "刪除項目"), DataMember]
+        public bool IsDeleted { get; set; }
+
+        /// <summary>
+        /// 上週人數
+        /// </summary>
+        [Display(Name = "上週人數"), DataMember]
+        public int? LastWeekNumber { get; set; }
+
+        /// <summary>
+        /// 變更後上週人數
+        /// </summary>
+        [Display(Name = "變更後上週人數"), DataMember]
+        public int? ChangeLastWeekNumber { get; set; }
+
+        /// <summary>
+        /// 操作人員識別碼
+        /// </summary>
+        [Display(Name = "操作人員識別碼"), DataMember]
+        public Guid? MemberId { get; set; }
+
+        /// <summary>
+        /// 操作人員
+        /// </summary>
+        [Display(Name = "操作人員"), DataMember]
+        public Member Member { get; set; }
     }
 }
