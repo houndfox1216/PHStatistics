@@ -118,7 +118,81 @@ public class PSJPopulationImporter : IPopulationImporter {
 
     public ImportResult Import(DataContext db, Stream fileStream, ILogger logger, int? overrideYear = null, int? overrideWeek = null) {
         var result = new ImportResult { Type = "PSJ" };
-        result.Errors.Add("NOT_IMPLEMENTED_YET_TASK_5");
+        if (!overrideYear.HasValue || overrideYear.Value <= 0 || !overrideWeek.HasValue || overrideWeek.Value <= 0) {
+            result.Errors.Add("PSJ 匯入必須指定學年度與週次");
+            return result;
+        }
+        int yearInt = overrideYear.Value, weekInt = overrideWeek.Value;
+
+        SchoolYear schoolYear = db.SchoolYear.FirstOrDefault(e => e.Year == yearInt && e.Week == weekInt);
+        if (schoolYear == null) {
+            result.Errors.Add($"找不到學年週次: {yearInt}第{weekInt}週");
+            return result;
+        }
+
+        var wb = new XSSFWorkbook(fileStream);
+        ISheet north = wb.GetSheet("北區");
+        ISheet south = wb.GetSheet("南區");
+        if (north == null || south == null) {
+            result.Errors.Add("找不到「北區」或「南區」頁籤");
+            return result;
+        }
+
+        ProcessSide(db, north, ColumnLayout.North, yearInt, weekInt, schoolYear, result, logger);
+        ProcessSide(db, south, ColumnLayout.SouthLeft, yearInt, weekInt, schoolYear, result, logger);
+        ProcessSide(db, south, ColumnLayout.SouthLeft.Shift(20), yearInt, weekInt, schoolYear, result, logger);
+
         return result;
+    }
+
+    private static void ProcessSide(DataContext db, ISheet sheet, ColumnLayout layout, int yearInt, int weekInt,
+        SchoolYear schoolYear, ImportResult result, ILogger logger) {
+
+        foreach (var block in FindSchoolBlocks(sheet, layout.NameCol)) {
+            School school = ResolveSchool(db, block.SchoolName);
+            if (school == null) continue;
+
+            StudentPopulation pop = PopulationWriteHelper.GetOrCreatePopulation(db, school.Id, yearInt, weekInt, schoolYear,
+                StudentPopulationType.PSJ, $"{yearInt}第{weekInt}週百倍速人數表", true);
+            result.PopulationIds.Add(pop.Id);
+            result.SchoolCount++;
+
+            for (int rNo = block.FirstRow; rNo <= block.LastRow; rNo++) {
+                IRow row = sheet.GetRow(rNo);
+                if (row == null) continue;
+
+                string grade = row.GetCell(layout.GradeCol - 1)?.ToString()?.Trim() ?? "";
+                if (string.IsNullOrEmpty(grade) || grade == "小計") continue;
+
+                int mathGradeIdx = Array.IndexOf(CourseMapping.GradeOrder, grade);
+                int ckcGradeIdx = Array.IndexOf(CourseMapping.PsjGradeOrder, grade);
+
+                if (ckcGradeIdx >= 0) {
+                    WriteIfPositive(db, school.Id, CourseMapping.CkcCourseIds["CKC_E"][ckcGradeIdx], ClassType.Group, row, layout.CkcEnglishGroupCol, pop.Id, result, logger);
+                    WriteIfPositive(db, school.Id, CourseMapping.CkcCourseIds["CKC_E"][ckcGradeIdx], ClassType.Personal, row, layout.CkcEnglishPersonalCol, pop.Id, result, logger);
+                    WriteIfPositive(db, school.Id, CourseMapping.CkcCourseIds["CKC_C"][ckcGradeIdx], ClassType.Group, row, layout.CkcChineseGroupCol, pop.Id, result, logger);
+                    WriteIfPositive(db, school.Id, CourseMapping.CkcCourseIds["CKC_C"][ckcGradeIdx], ClassType.Personal, row, layout.CkcChinesePersonalCol, pop.Id, result, logger);
+                    WriteIfPositive(db, school.Id, CourseMapping.CkcCourseIds["CKC_M"][ckcGradeIdx], ClassType.Group, row, layout.CkcMathGroupCol, pop.Id, result, logger);
+                    WriteIfPositive(db, school.Id, CourseMapping.CkcCourseIds["CKC_M"][ckcGradeIdx], ClassType.Personal, row, layout.CkcMathPersonalCol, pop.Id, result, logger);
+                }
+
+                if (mathGradeIdx >= 0) {
+                    WriteIfPositive(db, school.Id, CourseMapping.PsjCourseIds["MP"][mathGradeIdx], ClassType.Personal, row, layout.MathPersonalCol, pop.Id, result, logger);
+                    foreach (int col in layout.MathGroupCols)
+                        WriteIfPositive(db, school.Id, CourseMapping.PsjCourseIds["MS"][mathGradeIdx], ClassType.SubGroup, row, col, pop.Id, result, logger);
+
+                    WriteIfPositive(db, school.Id, CourseMapping.PsjCourseIds["SP"][mathGradeIdx], ClassType.Personal, row, layout.SciencePersonalCol, pop.Id, result, logger);
+                    WriteIfPositive(db, school.Id, CourseMapping.PsjCourseIds["SS"][mathGradeIdx], ClassType.SubGroup, row, layout.ScienceGroupCol, pop.Id, result, logger);
+                }
+            }
+        }
+    }
+
+    private static void WriteIfPositive(DataContext db, int schoolId, int courseId, ClassType cType, IRow row, int oneBasedCol, long populationId, ImportResult result, ILogger logger) {
+        int count = CourseMapping.ReadCellNumber(row, oneBasedCol - 1);
+        if (count <= 0) return;
+        Course course = db.Course.Include("Department").FirstOrDefault(e => e.Id == courseId);
+        if (course == null) return;
+        PopulationWriteHelper.AddClassAndItem(db, schoolId, course, cType, populationId, count, result, logger);
     }
 }
