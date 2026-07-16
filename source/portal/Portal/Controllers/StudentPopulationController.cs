@@ -846,7 +846,9 @@ namespace PHStatistics.Portal.Controllers {
             StudentPopulation studentPopulationData = Model.GetStudentPopulation(schoolId, year, week, seleceedType);
             List<Course> courses = Model.DataContext.Course.Where(e => e.Type == studentPopulationData.Type).OrderBy(e => e.Ordinal).ToList();
             ViewBag.Courses = courses;
-            if (studentPopulationData.Status != StudentPopulationStatus.Documented) {
+            bool canEditLocked = User.HasPermission(SystemPermission.PopulationWeekSwitch);
+            ViewBag.CanEditLastWeek = canEditLocked;
+            if (studentPopulationData.Status != StudentPopulationStatus.Documented && !canEditLocked) {
                 var lockedData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").Where(e => e.Id == studentPopulationData.Id).FirstOrDefault();
                 return PartialView("PopulationPartialView", lockedData);
             }
@@ -1125,7 +1127,9 @@ namespace PHStatistics.Portal.Controllers {
                     return Json(new { success = false, message = "找不到項目" });
                 List<Course> courses = Model.DataContext.Course.Where(e => e.Type == item.StudentPopulation.Type).OrderBy(e => e.Ordinal).ToList();
                 ViewBag.Courses = courses;
-                if (item.StudentPopulation.Status != StudentPopulationStatus.Documented) {
+                bool canEditLocked = User.HasPermission(SystemPermission.PopulationWeekSwitch);
+                ViewBag.CanEditLastWeek = canEditLocked;
+                if (item.StudentPopulation.Status != StudentPopulationStatus.Documented && !canEditLocked) {
                     var lockedData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").Where(e => e.Id == item.StudentPopulationId).FirstOrDefault();
                     return PartialView("PopulationPartialView", lockedData);
                 }
@@ -1202,7 +1206,8 @@ namespace PHStatistics.Portal.Controllers {
                 var item = dataContext.StudentPopulationItem.Include("StudentPopulation").Include("Class").FirstOrDefault(e => e.Id == itemId);
                 if (item == null)
                     return Json(new { success = false, message = "找不到項目" });
-                if (item.StudentPopulation.Status != StudentPopulationStatus.Documented)
+                bool canEditLocked = User.HasPermission(SystemPermission.PopulationWeekSwitch);
+                if (item.StudentPopulation.Status != StudentPopulationStatus.Documented && !canEditLocked)
                     return Json(new { success = false, message = "人數表狀態不允許修改" });
 
                 var cls = item.Class;
@@ -1242,7 +1247,8 @@ namespace PHStatistics.Portal.Controllers {
             if (population == null)
                 return Json(new { success = false, message = "找不到人數表" });
 
-            if (population.Status != StudentPopulationStatus.Documented)
+            bool canEditLocked = User.HasPermission(SystemPermission.PopulationWeekSwitch);
+            if (population.Status != StudentPopulationStatus.Documented && !canEditLocked)
                 return Json(new { success = false, message = "人數表狀態不允許修改" });
 
             var cls = dataContext.Class.FirstOrDefault(c => c.Id == classId);
