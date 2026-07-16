@@ -1148,7 +1148,7 @@ namespace PHStatistics.Portal.Controllers {
             }
         }
 
-        public IActionResult UpdateClassItem(long sId, int? number, string studentRemark = null) {
+        public IActionResult UpdateClassItem(long sId, int? number, string studentRemark = null, int? lastWeekNumber = null) {
             DataContext dataContext = new DataContext();
             try {
                 StudentPopulationItem item = dataContext.StudentPopulationItem.Include("Class.Course.Department").Include("StudentPopulation").Where(e => e.Id == sId).FirstOrDefault();
@@ -1156,19 +1156,25 @@ namespace PHStatistics.Portal.Controllers {
                     return Json(new { success = false, message = "找不到項目" });
                 List<Course> courses = Model.DataContext.Course.Where(e => e.Type == item.StudentPopulation.Type).OrderBy(e => e.Ordinal).ToList();
                 ViewBag.Courses = courses;
-                if (item.StudentPopulation.Status != StudentPopulationStatus.Documented) {
+                bool canEditLocked = User.HasPermission(SystemPermission.PopulationWeekSwitch);
+                ViewBag.CanEditLastWeek = canEditLocked;
+                if (item.StudentPopulation.Status != StudentPopulationStatus.Documented && !canEditLocked) {
                     var lockedData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").Where(e => e.Id == item.StudentPopulation.Id).FirstOrDefault();
                     return PartialView("PopulationPartialView", lockedData);
                 }
+                bool lastWeekApplied = lastWeekNumber.HasValue && canEditLocked;
                 if (number.HasValue) {
                     item.Number = number.Value;
                 }
                 if (studentRemark != null) {
                     item.StudentRemark = studentRemark;
                 }
+                if (lastWeekApplied) {
+                    item.LastWeekNumber = lastWeekNumber.Value;
+                }
                 dataContext.StudentPopulationItem.Update(item);
                 dataContext.SaveChanges();
-                if (number.HasValue) {
+                if (number.HasValue || lastWeekApplied) {
                     SumPHPopulation(item.StudentPopulation.Id);
                 }
                 var returnData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").Where(e => e.Id == item.StudentPopulation.Id).FirstOrDefault();
