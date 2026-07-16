@@ -245,7 +245,11 @@
                         <input type="text" class="form-control class-name-input" placeholder="" id="class_@sItem.Id.ToString()" value="@sItem.Name" onblur="updateClassDetail(@sItem.Id)">
                     </div>
                     <div class="col-1 mb-1">
-                        @sItem.LastWeekNumber
+                        @if (ViewBag.CanEditLastWeek != null && (bool)ViewBag.CanEditLastWeek) {
+                            <input type="number" class="form-control" value="@sItem.LastWeekNumber" data-sitem="@sItem.Id" id="class_@sItem.Id.ToString()_lastweek" onchange="lastWeekValueChange('class_@sItem.Id.ToString()_lastweek')">
+                        } else {
+                            @sItem.LastWeekNumber
+                        }
                     </div>
                     <div class="col-1 mb-1">
                         @if (sItem.Class.Course.IsSum) {
@@ -368,7 +372,11 @@
                     <input type="text" class="form-control class-name-input" placeholder="" id="class_@sItem.Id.ToString()" value="@sItem.Name" onblur="updateClassDetail(@sItem.Id)">
                 </div>
                 <div class="col-1 mb-1">
-                    @sItem.LastWeekNumber
+                    @if (ViewBag.CanEditLastWeek != null && (bool)ViewBag.CanEditLastWeek) {
+                        <input type="number" class="form-control" value="@sItem.LastWeekNumber" data-sitem="@sItem.Id" id="class_@sItem.Id.ToString()_lastweek" onchange="lastWeekValueChange('class_@sItem.Id.ToString()_lastweek')">
+                    } else {
+                        @sItem.LastWeekNumber
+                    }
                 </div>
                 <div class="col-1 mb-1">
                     @if (sItem.Class.Course.IsSum) {

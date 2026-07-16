@@ -338,6 +338,24 @@
         });
     }
 
+    function lastWeekValueChange(sId){
+        var updateCourses = document.getElementById(sId);
+        $.ajax({
+            url: '@Url.Action("UpdateClassItem", "StudentPopulation", new { area = "" })',
+            cache: false,
+            data: { 'sId': updateCourses.dataset.sitem, 'lastWeekNumber': updateCourses.value },
+            type: 'POST',
+            dataType: "html",
+            success: function (data) {
+                $("#contentItem").html(data);
+                if (typeof updateSubmitSummary === 'function') updateSubmitSummary();
+            },
+            error: function () {
+
+            }
+        });
+    }
+
     function confirmPopulation(populationId) {
         if (!confirm('確認要送出人數表？送出後本週資料將無法修改，如需調整須由管理人員解鎖並說明原因。')) return;
         $.ajax({

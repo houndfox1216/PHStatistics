@@ -211,6 +211,7 @@ namespace PHStatistics.Portal.Controllers {
                 ViewBag.Courses = courses;
                 ViewBag.CourseDepartment = department;
                 ViewBag.SelectedYear = schoolYear;
+                ViewBag.CanEditLastWeek = User.HasPermission(SystemPermission.PopulationWeekSwitch);
                 if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType)) {
                     returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType);
                     foreach (StudentPopulationItem sItem in returnData.Items) {
@@ -371,6 +372,7 @@ namespace PHStatistics.Portal.Controllers {
             ViewBag.Courses = courses;
             ViewBag.CourseDepartment = department;
             ViewBag.SelectedYear = schoolYear;
+            ViewBag.CanEditLastWeek = User.HasPermission(SystemPermission.PopulationWeekSwitch);
             if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType)) {
                 returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType);
                 foreach (StudentPopulationItem sItem in returnData.Items) {
@@ -536,6 +538,7 @@ namespace PHStatistics.Portal.Controllers {
             ViewBag.Courses = courses;
             ViewBag.CourseDepartment = department;
             ViewBag.SelectedYear = schoolYear;
+            ViewBag.CanEditLastWeek = User.HasPermission(SystemPermission.PopulationWeekSwitch);
             if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType)) {
                 returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType);
                 foreach (StudentPopulationItem sItem in returnData.Items) {
@@ -643,6 +646,7 @@ namespace PHStatistics.Portal.Controllers {
             ViewBag.Courses = courses;
             ViewBag.CourseDepartment = department;
             ViewBag.SelectedYear = schoolYear;
+            ViewBag.CanEditLastWeek = User.HasPermission(SystemPermission.PopulationWeekSwitch);
             if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType)) {
                 returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType);
                 foreach (StudentPopulationItem sItem in returnData.Items) {
@@ -754,6 +758,7 @@ namespace PHStatistics.Portal.Controllers {
             ViewBag.Courses = courses;
             ViewBag.CourseDepartment = department;
             ViewBag.SelectedYear = schoolYear;
+            ViewBag.CanEditLastWeek = User.HasPermission(SystemPermission.PopulationWeekSwitch);
             if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType)) {
                 returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType);
                 foreach (StudentPopulationItem sItem in returnData.Items) {

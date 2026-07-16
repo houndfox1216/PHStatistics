@@ -345,6 +345,24 @@
         });
     }
 
+    function lastWeekValueChange(sId){
+        var updateCourses = document.getElementById(sId);
+        $.ajax({
+            url: '@Url.Action("UpdateClassItem", "StudentPopulation", new { area = "" })',
+            cache: false,
+            data: { 'sId': updateCourses.dataset.sitem, 'lastWeekNumber': updateCourses.value },
+            type: 'POST',
+            dataType: "html",
+            success: function (data) {
+                $("#contentItem").html(data);
+                if (typeof updateSubmitSummary === 'function') updateSubmitSummary();
+            },
+            error: function () {
+
+            }
+        });
+    }
+
     //sumValueChange
     function sumValueChange(sId){
             var updateCourses = document.getElementById(sId);

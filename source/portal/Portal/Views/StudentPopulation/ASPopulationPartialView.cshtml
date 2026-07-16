@@ -98,7 +98,11 @@
                         <input type="text" class="form-control class-name-input" placeholder="" id="class_@sItem.Id.ToString()" value="@sItem.Name" onblur="updateClassDetail(@sItem.Id)">
                     </div>
                     <div class="col-2 mb-3">
-                        @sItem.LastWeekNumber
+                        @if (ViewBag.CanEditLastWeek != null && (bool)ViewBag.CanEditLastWeek) {
+                            <input type="number" class="form-control" value="@sItem.LastWeekNumber" data-sitem="@sItem.Id" id="class_@sItem.Id.ToString()_lastweek" onchange="lastWeekValueChange('class_@sItem.Id.ToString()_lastweek')">
+                        } else {
+                            @sItem.LastWeekNumber
+                        }
                     </div>
                     <div class="col-2 mb-3">
                         <input type="number" class="form-control" placeholder="請輸入人數" name="Items[@itemRowNo].Number" id="class_@sItem.Id.ToString()_count" value="@sItem.Number" data-course="@cItem.Id" data-class="@sItem.Class.Id" data-sitem="@sItem.Id" onchange="valueChange('class_@sItem.Id.ToString()_count')">
