@@ -32,6 +32,7 @@ public class Page {
     /// 測試首頁是否正常呈現
     /// </summary>
     [Test]
+    [Explicit("Requires a running app + local Chrome/ChromeDriver; not available in CI/agent environments — run manually")]
     [SuppressMessage("ReSharper", "UnusedVariable")]
     public void Home() {
         var url = "https://localhost:5001";
