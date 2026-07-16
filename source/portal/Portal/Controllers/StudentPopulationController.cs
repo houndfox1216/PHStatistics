@@ -84,6 +84,32 @@ namespace PHStatistics.Portal.Controllers {
             return dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
         }
 
+        private void WriteItemLog(DataContext dataContext, long studentPopulationId, int? classId, string name,
+                int oldNumber, int newNumber, int oldLastWeekNumber, int newLastWeekNumber,
+                string oldStudentRemark, string newStudentRemark,
+                string oldRemark = null, string newRemark = null,
+                int? changeClassId = null, bool isNew = false, bool isDeleted = false) {
+            StudentPopulationItemLog log = new StudentPopulationItemLog {
+                StudentPopulationId = studentPopulationId,
+                ClassId = classId,
+                ChangeClassId = changeClassId,
+                Name = name,
+                Number = oldNumber,
+                ChangeNumber = newNumber,
+                LastWeekNumber = oldLastWeekNumber,
+                ChangeLastWeekNumber = newLastWeekNumber,
+                StudentRemark = oldStudentRemark,
+                ChangeStudentRemark = newStudentRemark,
+                Remark = oldRemark,
+                ChangeRemark = newRemark,
+                IsNew = isNew,
+                IsDeleted = isDeleted,
+                MemberId = Guid.Parse(User.Id)
+            };
+            dataContext.StudentPopulationItemLog.Add(log);
+            dataContext.SaveChanges();
+        }
+
         [Authorize(typeof(PortalUser))]
         public IActionResult Index(string type) {
             DataContext dataContext = new DataContext();
@@ -1117,7 +1143,10 @@ namespace PHStatistics.Portal.Controllers {
             var returnData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").Where(e => e.Id == studentPopulationData.Id).FirstOrDefault();
             if (newAddedClassId > 0) {
                 var newItem = returnData?.Items?.FirstOrDefault(i => i.ClassId == newAddedClassId);
-                if (newItem != null) newItem.IsNew = true;
+                if (newItem != null) {
+                    newItem.IsNew = true;
+                    WriteItemLog(dataContext, newItem.StudentPopulationId, newItem.ClassId, newItem.Name, 0, newItem.Number, 0, newItem.LastWeekNumber, null, newItem.StudentRemark, isNew: true);
+                }
             }
             ViewBag.Warnings = CheckNewLostConsistency(returnData);
             return PartialView("PopulationPartialView", returnData);
@@ -1141,6 +1170,7 @@ namespace PHStatistics.Portal.Controllers {
                 spId = item.StudentPopulationId;
                 dataContext.StudentPopulationItem.Remove(item);
                 dataContext.SaveChanges();
+                WriteItemLog(dataContext, spId, item.ClassId, item.Name, item.Number, 0, item.LastWeekNumber, 0, item.StudentRemark, null, isDeleted: true);
                 SumPHPopulation(spId);
                 var returnData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").Where(e => e.Id == spId).FirstOrDefault();
                 ViewBag.Warnings = CheckNewLostConsistency(returnData);
@@ -1168,6 +1198,9 @@ namespace PHStatistics.Portal.Controllers {
                     return PartialView("PopulationPartialView", lockedData);
                 }
                 bool lastWeekApplied = lastWeekNumber.HasValue && canEditLocked;
+                int oldNumber = item.Number;
+                int oldLastWeekNumber = item.LastWeekNumber;
+                string oldStudentRemark = item.StudentRemark;
                 if (number.HasValue) {
                     item.Number = number.Value;
                 }
@@ -1179,6 +1212,9 @@ namespace PHStatistics.Portal.Controllers {
                 }
                 dataContext.StudentPopulationItem.Update(item);
                 dataContext.SaveChanges();
+                if (number.HasValue || studentRemark != null || lastWeekApplied) {
+                    WriteItemLog(dataContext, item.StudentPopulationId, item.ClassId, item.Name, oldNumber, item.Number, oldLastWeekNumber, item.LastWeekNumber, oldStudentRemark, item.StudentRemark);
+                }
                 if (number.HasValue || lastWeekApplied) {
                     SumPHPopulation(item.StudentPopulation.Id);
                 }
@@ -1226,6 +1262,7 @@ namespace PHStatistics.Portal.Controllers {
                     return Json(new { success = false, message = "找不到班級" });
 
                 bool classTypeChanged = (int)cls.Type != classType;
+                string oldDetail = string.Format("名稱:{0} 班別:{1}", cls.Name, cls.Type);
                 if (!string.IsNullOrWhiteSpace(name))
                     cls.Name = name;
                 cls.Type = (ClassType)classType;
@@ -1237,6 +1274,9 @@ namespace PHStatistics.Portal.Controllers {
                     dataContext.StudentPopulationItem.Update(item);
                     dataContext.SaveChanges();
                 }
+
+                string newDetail = string.Format("名稱:{0} 班別:{1}", cls.Name, cls.Type);
+                WriteItemLog(dataContext, item.StudentPopulationId, item.ClassId, item.Name, item.Number, item.Number, item.LastWeekNumber, item.LastWeekNumber, item.StudentRemark, item.StudentRemark, oldRemark: oldDetail, newRemark: newDetail);
 
                 if (classTypeChanged)
                     SumPHPopulation(item.StudentPopulationId);
@@ -1267,6 +1307,7 @@ namespace PHStatistics.Portal.Controllers {
                 return Json(new { success = false, message = "找不到班級" });
 
             bool classTypeChanged = (int)cls.Type != classType;
+            string oldDetail = string.Format("名稱:{0} 班別:{1}", cls.Name, cls.Type);
 
             if (!string.IsNullOrWhiteSpace(name))
                 cls.Name = name;
@@ -1274,12 +1315,15 @@ namespace PHStatistics.Portal.Controllers {
             cls.Type = (ClassType)classType;
             dataContext.SaveChanges();
 
-            if (!string.IsNullOrWhiteSpace(name)) {
-                var item = dataContext.StudentPopulationItem.FirstOrDefault(e => e.ClassId == classId && e.StudentPopulationId == populationId);
-                if (item != null) {
-                    item.Name = name;
-                    dataContext.SaveChanges();
-                }
+            var item = dataContext.StudentPopulationItem.FirstOrDefault(e => e.ClassId == classId && e.StudentPopulationId == populationId);
+            if (!string.IsNullOrWhiteSpace(name) && item != null) {
+                item.Name = name;
+                dataContext.SaveChanges();
+            }
+
+            if (item != null) {
+                string newDetail = string.Format("名稱:{0} 班別:{1}", cls.Name, cls.Type);
+                WriteItemLog(dataContext, populationId, classId, item.Name, item.Number, item.Number, item.LastWeekNumber, item.LastWeekNumber, item.StudentRemark, item.StudentRemark, oldRemark: oldDetail, newRemark: newDetail);
             }
 
             if (classTypeChanged)
