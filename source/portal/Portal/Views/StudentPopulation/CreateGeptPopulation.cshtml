@@ -356,6 +356,20 @@
         });
     }
 
+    function revertToAuto(sId) {
+        $.ajax({
+            url: '@Url.Action("RevertToAutoCalculation", "StudentPopulation", new { area = "" })',
+            type: 'POST',
+            data: { sId: sId },
+            success: function (data) {
+                location.reload();
+            },
+            error: function () {
+                alert('回復自動計算失敗，請重試');
+            }
+        });
+    }
+
     function confirmPopulation(populationId) {
         if (!confirm('確認要送出人數表？送出後本週資料將無法修改，如需調整須由管理人員解鎖並說明原因。')) return;
         $.ajax({

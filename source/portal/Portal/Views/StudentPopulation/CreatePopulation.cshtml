@@ -363,6 +363,20 @@
         });
     }
 
+    function revertToAuto(sId) {
+        $.ajax({
+            url: '@Url.Action("RevertToAutoCalculation", "StudentPopulation", new { area = "" })',
+            type: 'POST',
+            data: { sId: sId },
+            success: function (data) {
+                location.reload();
+            },
+            error: function () {
+                alert('回復自動計算失敗，請重試');
+            }
+        });
+    }
+
     //sumValueChange
     function sumValueChange(sId){
             var updateCourses = document.getElementById(sId);
