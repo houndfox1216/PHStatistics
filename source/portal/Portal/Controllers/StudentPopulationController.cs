@@ -1198,11 +1198,19 @@ namespace PHStatistics.Portal.Controllers {
                     return PartialView("PopulationPartialView", lockedData);
                 }
                 bool lastWeekApplied = lastWeekNumber.HasValue && canEditLocked;
+                bool isAutoComputedSum = item.IsSum
+                    && item.Class?.Course?.StatisticsType != null
+                    && item.Class.Course.StatisticsType != StatisticsType.None
+                    && item.Class.Course.StatisticsType != StatisticsType.ManualInput;
+                bool numberApplied = number.HasValue && (!isAutoComputedSum || canEditLocked);
                 int oldNumber = item.Number;
                 int oldLastWeekNumber = item.LastWeekNumber;
                 string oldStudentRemark = item.StudentRemark;
-                if (number.HasValue) {
+                if (numberApplied) {
                     item.Number = number.Value;
+                    if (isAutoComputedSum) {
+                        item.IsManual = true;
+                    }
                 }
                 if (studentRemark != null) {
                     item.StudentRemark = studentRemark;
@@ -1212,10 +1220,10 @@ namespace PHStatistics.Portal.Controllers {
                 }
                 dataContext.StudentPopulationItem.Update(item);
                 dataContext.SaveChanges();
-                if (number.HasValue || studentRemark != null || lastWeekApplied) {
+                if (numberApplied || studentRemark != null || lastWeekApplied) {
                     WriteItemLog(dataContext, item.StudentPopulationId, item.ClassId, item.Name, oldNumber, item.Number, oldLastWeekNumber, item.LastWeekNumber, oldStudentRemark, item.StudentRemark);
                 }
-                if (number.HasValue || lastWeekApplied) {
+                if (numberApplied || lastWeekApplied) {
                     SumPHPopulation(item.StudentPopulation.Id);
                 }
                 var returnData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").Where(e => e.Id == item.StudentPopulation.Id).FirstOrDefault();
