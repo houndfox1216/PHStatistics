@@ -257,6 +257,18 @@
                             sItem.Class.Course.Name.Equals("本週總詢問(填單)人數")) {
                                 <input type="number" class="form-control" placeholder="請輸入人數" name="Items[@itemRowNo].Number" id="class_@sItem.Id.ToString()_count" value="@sItem.Number" data-course="@cItem.Id" data-class="@sItem.Class.Id" data-sitem="@sItem.Id" onchange="valueChange('class_@sItem.Id.ToString()_count')">
                             }
+                            else if (ViewBag.CanEditLastWeek != null && (bool)ViewBag.CanEditLastWeek) {
+                                <input type="number" class="form-control" value="@sItem.Number" data-sitem="@sItem.Id" id="class_@sItem.Id.ToString()_count" onchange="valueChange('class_@sItem.Id.ToString()_count')">
+                                @if (sItem.IsManual) {
+                                    <div class="small text-muted">(手動)</div>
+                                    @if (sItem.PreviewNumber.HasValue && sItem.PreviewNumber.Value != sItem.Number) {
+                                        <div class="small text-warning">
+                                            系統試算：@sItem.PreviewNumber
+                                            <a href="javascript:void(0)" onclick="revertToAuto(@sItem.Id)">改用系統試算值</a>
+                                        </div>
+                                    }
+                                }
+                            }
                             else {
                                 @sItem.Number
                             }
@@ -383,6 +395,18 @@
                         if (sItem.Class.Course.Name.Contains("新生") || sItem.Class.Course.Name.Contains("流失") ||
                         sItem.Class.Course.Name.Equals("本週總詢問(填單)人數")) {
                             <input type="number" class="form-control" placeholder="請輸入人數" name="Items[@itemRowNo].Number" id="class_@sItem.Id.ToString()_count" value="@sItem.Number" data-course="@cItem.Id" data-class="@sItem.Class.Id" data-sitem="@sItem.Id" onchange="valueChange('class_@sItem.Id.ToString()_count')">
+                        }
+                        else if (ViewBag.CanEditLastWeek != null && (bool)ViewBag.CanEditLastWeek) {
+                            <input type="number" class="form-control" value="@sItem.Number" data-sitem="@sItem.Id" id="class_@sItem.Id.ToString()_count" onchange="valueChange('class_@sItem.Id.ToString()_count')">
+                            @if (sItem.IsManual) {
+                                <div class="small text-muted">(手動)</div>
+                                @if (sItem.PreviewNumber.HasValue && sItem.PreviewNumber.Value != sItem.Number) {
+                                    <div class="small text-warning">
+                                        系統試算：@sItem.PreviewNumber
+                                        <a href="javascript:void(0)" onclick="revertToAuto(@sItem.Id)">改用系統試算值</a>
+                                    </div>
+                                }
+                            }
                         }
                         else {
                             @sItem.Number

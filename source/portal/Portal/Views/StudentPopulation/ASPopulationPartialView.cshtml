@@ -21,10 +21,30 @@
             <div class="col-12 mb-3">
                 @if (cItem.IsSum) {
                     StudentPopulationItem sumItem = Model.Items.Where(e => e.Class.Course.Id == cItem.Id).FirstOrDefault();
-                    string displayStr = string.Format("{0} {1} 人", cItem.Name, (sumItem != null ? sumItem.Number : 0).ToString());
-                    <label>
-                        <h2>@displayStr</h2>                        
-                    </label>
+                    @if (sumItem != null && ViewBag.CanEditLastWeek != null && (bool)ViewBag.CanEditLastWeek && !cItem.Name.Contains("新生") && !cItem.Name.Contains("流失")) {
+                        <label>
+                            <h2>
+                                @cItem.Name
+                                <input type="number" class="form-control d-inline-block" style="width:100px" value="@sumItem.Number" data-sitem="@sumItem.Id" id="class_@sumItem.Id.ToString()_count" onchange="valueChange('class_@sumItem.Id.ToString()_count')">
+                                人
+                            </h2>
+                            @if (sumItem.IsManual) {
+                                <div class="small text-muted">(手動)</div>
+                                @if (sumItem.PreviewNumber.HasValue && sumItem.PreviewNumber.Value != sumItem.Number) {
+                                    <div class="small text-warning">
+                                        系統試算：@sumItem.PreviewNumber
+                                        <a href="javascript:void(0)" onclick="revertToAuto(@sumItem.Id)">改用系統試算值</a>
+                                    </div>
+                                }
+                            }
+                        </label>
+                    }
+                    else {
+                        string displayStr = string.Format("{0} {1} 人", cItem.Name, (sumItem != null ? sumItem.Number : 0).ToString());
+                        <label>
+                            <h2>@displayStr</h2>
+                        </label>
+                    }
                 }
                 else {
                     <label>
