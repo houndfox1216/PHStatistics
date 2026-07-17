@@ -436,4 +436,73 @@ public class AggregationEngineTests {
         Assert.That(sumItemA.Number, Is.EqualTo(9));
         Assert.That(sumItemB.Number, Is.EqualTo(3)); // ManualInput must stay untouched
     }
+
+    [Test]
+    public void Calculate_ItemMarkedIsManual_LeavesNumberUnchangedRegardlessOfSourceData() {
+        var course1 = MakeCourse(101, departmentId: 1);
+        var sumCourse = MakeCourse(199, departmentId: 1, isSum: true, statisticsType: StatisticsType.SumByDepartment);
+        var sumItem = MakeItem(sumCourse, ClassType.General, 42);
+        sumItem.IsManual = true;
+
+        var population = new StudentPopulation {
+            Year = 2026, Week = 10, SchoolId = 1, Type = StudentPopulationType.PH,
+            Items = new List<StudentPopulationItem> {
+                MakeItem(course1, ClassType.General, 999), // would sum to 999 if not pinned
+                sumItem,
+            },
+        };
+
+        MakeEngine().Calculate(sumItem, population);
+
+        Assert.That(sumItem.Number, Is.EqualTo(42));
+    }
+
+    [Test]
+    public void Preview_SumByDepartment_ReturnsComputedValueWithoutMutatingItemNumber() {
+        var course1 = MakeCourse(101, departmentId: 1);
+        var sumCourse = MakeCourse(199, departmentId: 1, isSum: true, statisticsType: StatisticsType.SumByDepartment);
+        var sumItem = MakeItem(sumCourse, ClassType.General, 42);
+        sumItem.IsManual = true;
+
+        var population = new StudentPopulation {
+            Year = 2026, Week = 10, SchoolId = 1, Type = StudentPopulationType.PH,
+            Items = new List<StudentPopulationItem> {
+                MakeItem(course1, ClassType.General, 999),
+                sumItem,
+            },
+        };
+
+        int? preview = MakeEngine().Preview(sumItem, population);
+
+        Assert.That(preview, Is.EqualTo(999));
+        Assert.That(sumItem.Number, Is.EqualTo(42)); // Preview 不寫入
+    }
+
+    [Test]
+    public void Preview_NonSumCourse_ReturnsNull() {
+        var course = MakeCourse(101, isSum: false);
+        var item = MakeItem(course, ClassType.General, 8);
+        var population = new StudentPopulation {
+            Year = 2026, Week = 10, SchoolId = 1, Type = StudentPopulationType.PH,
+            Items = new List<StudentPopulationItem> { item },
+        };
+
+        int? preview = MakeEngine().Preview(item, population);
+
+        Assert.That(preview, Is.Null);
+    }
+
+    [Test]
+    public void Preview_ManualInputStatisticsType_ReturnsNull() {
+        var sumCourse = MakeCourse(199, isSum: true, statisticsType: StatisticsType.ManualInput);
+        var sumItem = MakeItem(sumCourse, ClassType.General, 42);
+        var population = new StudentPopulation {
+            Year = 2026, Week = 10, SchoolId = 1, Type = StudentPopulationType.GEPT,
+            Items = new List<StudentPopulationItem> { sumItem },
+        };
+
+        int? preview = MakeEngine().Preview(sumItem, population);
+
+        Assert.That(preview, Is.Null);
+    }
 }

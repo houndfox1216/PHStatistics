@@ -21,48 +21,56 @@ public class AggregationEngine {
     }
 
     public void Calculate(StudentPopulationItem item, StudentPopulation population) {
+        if (item.IsManual) return;
         var course = item.Class?.Course;
         if (course == null || !course.IsSum) return;
 
         var type = course.StatisticsType;
         if (type == null || type == StatisticsType.None || type == StatisticsType.ManualInput) return;
 
-        switch (type.Value) {
+        item.Number = Compute(item, population, type.Value, course);
+    }
+
+    public int? Preview(StudentPopulationItem item, StudentPopulation population) {
+        var course = item.Class?.Course;
+        if (course == null || !course.IsSum) return null;
+
+        var type = course.StatisticsType;
+        if (type == null || type == StatisticsType.None || type == StatisticsType.ManualInput) return null;
+
+        return Compute(item, population, type.Value, course);
+    }
+
+    private int Compute(StudentPopulationItem item, StudentPopulation population, StatisticsType type, Course course) {
+        switch (type) {
             case StatisticsType.SumByDepartment:
             case StatisticsType.SumByDepartmentAndClassType:
             case StatisticsType.SumBySourceDepartments:
             case StatisticsType.SumBySourceCourses:
-                item.Number = GetSourceItems(course, item, population.Items).Sum(i => i.Number);
-                break;
+                return GetSourceItems(course, item, population.Items).Sum(i => i.Number);
             case StatisticsType.CountClasses:
             case StatisticsType.CountClassesByClassType:
-                item.Number = GetSourceItems(course, item, population.Items).Count(i => i.Number > 0);
-                break;
+                return GetSourceItems(course, item, population.Items).Count(i => i.Number > 0);
             case StatisticsType.LastWeekValue:
-                item.Number = GetSourceItems(course, item, population.Items).Sum(i => i.LastWeekNumber);
-                break;
+                return GetSourceItems(course, item, population.Items).Sum(i => i.LastWeekNumber);
             case StatisticsType.DiffWithLastWeek: {
                 var src = GetSourceItems(course, item, population.Items);
-                item.Number = src.Sum(i => i.Number) - src.Sum(i => i.LastWeekNumber);
-                break;
+                return src.Sum(i => i.Number) - src.Sum(i => i.LastWeekNumber);
             }
             case StatisticsType.LastYearValue:
-                item.Number = SumLastYear(course, item, population);
-                break;
+                return SumLastYear(course, item, population);
             case StatisticsType.DiffWithLastYear: {
                 int thisWeek = GetSourceItems(course, item, population.Items).Sum(i => i.Number);
-                item.Number = thisWeek - SumLastYear(course, item, population);
-                break;
+                return thisWeek - SumLastYear(course, item, population);
             }
             case StatisticsType.Average: {
                 var src = GetSourceItems(course, item, population.Items).ToList();
                 int count = src.Count(i => i.Number > 0);
-                item.Number = count > 0 ? src.Sum(i => i.Number) / count : 0;
-                break;
+                return count > 0 ? src.Sum(i => i.Number) / count : 0;
             }
             default:
                 throw new NotSupportedException(
-                    $"AggregationEngine 尚未支援 StatisticsType.{type.Value}（課程 {course.Id} {course.Name}）。");
+                    $"AggregationEngine 尚未支援 StatisticsType.{type}（課程 {course.Id} {course.Name}）。");
         }
     }
 
