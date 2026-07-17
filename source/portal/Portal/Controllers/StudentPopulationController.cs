@@ -1249,6 +1249,40 @@ namespace PHStatistics.Portal.Controllers {
         }
 
         [HttpPost]
+        public IActionResult RevertToAutoCalculation(long sId) {
+            try {
+                DataContext dataContext = new DataContext();
+                StudentPopulationItem item = dataContext.StudentPopulationItem.Include("StudentPopulation").Include("Class.Course").FirstOrDefault(e => e.Id == sId);
+                if (item == null)
+                    return Json(new { success = false, message = "找不到項目" });
+                if (!User.HasPermission(SystemPermission.PopulationWeekSwitch))
+                    return Json(new { success = false, message = "沒有權限" });
+
+                long spId = item.StudentPopulationId;
+                int? classId = item.ClassId;
+                string name = item.Name;
+                int oldNumber = item.Number;
+                int oldLastWeekNumber = item.LastWeekNumber;
+                string oldStudentRemark = item.StudentRemark;
+
+                item.IsManual = false;
+                dataContext.SaveChanges();
+                SumPHPopulation(spId);
+
+                dataContext.ChangeTracker.Clear();
+                var updated = dataContext.StudentPopulationItem.FirstOrDefault(e => e.Id == sId);
+                int newNumber = updated?.Number ?? oldNumber;
+
+                WriteItemLog(dataContext, spId, classId, name, oldNumber, newNumber, oldLastWeekNumber, updated?.LastWeekNumber ?? oldLastWeekNumber, oldStudentRemark, updated?.StudentRemark ?? oldStudentRemark, oldRemark: "手動覆蓋", newRemark: "回復自動計算");
+
+                return Json(new { success = true, number = newNumber });
+            }
+            catch (Exception ex) {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
+        [HttpPost]
         public IActionResult UpdateRemark(long sId, string studentRemark) {
             try {
                 using var db = new DataContext();
