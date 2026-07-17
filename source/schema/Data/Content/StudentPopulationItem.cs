@@ -133,5 +133,11 @@ namespace PHStatistics.Content {
         /// </summary>
         [Display(Name = "手動調整"), DataMember]
         public bool IsManual { get; set; }
+
+        /// <summary>
+        /// 系統試算值（僅在 IsManual 時由 AttachManualPreviews 填入，不落地）
+        /// </summary>
+        [Display(Name = "系統試算值"), DataMember, NotMapped]
+        public int? PreviewNumber { get; set; }
     }
 }

@@ -361,6 +361,7 @@ namespace PHStatistics.Portal.Controllers {
                     dataContext.ChangeTracker.Clear();
                     returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.Id == returnData.Id);
                 }
+                AttachManualPreviews(dataContext, returnData);
                 return View(returnData);
             }
             return View();
@@ -528,6 +529,7 @@ namespace PHStatistics.Portal.Controllers {
                     dataContext.SaveChanges();
                 }
             }
+            AttachManualPreviews(dataContext, returnData);
             return View(returnData);
         }
 
@@ -637,6 +639,7 @@ namespace PHStatistics.Portal.Controllers {
             if (Request.Method == "POST") {
                 //進行人數表新增或更新
             }
+            AttachManualPreviews(dataContext, returnData);
             return View(returnData);
         }
         //百世
@@ -745,6 +748,7 @@ namespace PHStatistics.Portal.Controllers {
             if (Request.Method == "POST") {
                 //進行人數表新增或更新
             }
+            AttachManualPreviews(dataContext, returnData);
             return View(returnData);
         }
 
@@ -857,6 +861,7 @@ namespace PHStatistics.Portal.Controllers {
             if (Request.Method == "POST") {
                 //進行人數表新增或更新
             }
+            AttachManualPreviews(dataContext, returnData);
             return View(returnData);
         }
 
@@ -881,6 +886,7 @@ namespace PHStatistics.Portal.Controllers {
             ViewBag.CanEditLastWeek = canEditLocked;
             if (studentPopulationData.Status != StudentPopulationStatus.Documented && !canEditLocked) {
                 var lockedData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").Where(e => e.Id == studentPopulationData.Id).FirstOrDefault();
+                AttachManualPreviews(dataContext, lockedData);
                 return PartialView("PopulationPartialView", lockedData);
             }
             //更新人數表資料
@@ -1149,6 +1155,7 @@ namespace PHStatistics.Portal.Controllers {
                 }
             }
             ViewBag.Warnings = CheckNewLostConsistency(returnData);
+            AttachManualPreviews(dataContext, returnData);
             return PartialView("PopulationPartialView", returnData);
         }
 
@@ -1165,6 +1172,7 @@ namespace PHStatistics.Portal.Controllers {
                 ViewBag.CanEditLastWeek = canEditLocked;
                 if (item.StudentPopulation.Status != StudentPopulationStatus.Documented && !canEditLocked) {
                     var lockedData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").Where(e => e.Id == item.StudentPopulationId).FirstOrDefault();
+                    AttachManualPreviews(dataContext, lockedData);
                     return PartialView("PopulationPartialView", lockedData);
                 }
                 spId = item.StudentPopulationId;
@@ -1174,6 +1182,7 @@ namespace PHStatistics.Portal.Controllers {
                 SumPHPopulation(spId);
                 var returnData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").Where(e => e.Id == spId).FirstOrDefault();
                 ViewBag.Warnings = CheckNewLostConsistency(returnData);
+                AttachManualPreviews(dataContext, returnData);
                 return PartialView("PopulationPartialView", returnData);
             }
             catch (Exception ex) {
@@ -1195,6 +1204,7 @@ namespace PHStatistics.Portal.Controllers {
                 ViewBag.CanEditLastWeek = canEditLocked;
                 if (item.StudentPopulation.Status != StudentPopulationStatus.Documented && !canEditLocked) {
                     var lockedData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").Where(e => e.Id == item.StudentPopulation.Id).FirstOrDefault();
+                    AttachManualPreviews(dataContext, lockedData);
                     return PartialView("PopulationPartialView", lockedData);
                 }
                 bool lastWeekApplied = lastWeekNumber.HasValue && canEditLocked;
@@ -1228,6 +1238,7 @@ namespace PHStatistics.Portal.Controllers {
                 }
                 var returnData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").Where(e => e.Id == item.StudentPopulation.Id).FirstOrDefault();
                 ViewBag.Warnings = CheckNewLostConsistency(returnData);
+                AttachManualPreviews(dataContext, returnData);
                 return PartialView("PopulationPartialView", returnData);
             }
             catch (Exception ex) {
@@ -1419,6 +1430,17 @@ namespace PHStatistics.Portal.Controllers {
             StudentPopulation studentPopulationData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").Where(e => e.School.Id == schoolId && e.Year == year && e.Week == week && e.Type == seleceedType).FirstOrDefault();
             return PartialView("QueryPopulationPartialView", studentPopulationData);
         }
+
+        private void AttachManualPreviews(DataContext dataContext, StudentPopulation population) {
+            if (population?.Items == null) return;
+            var previewEngine = new AggregationEngine((year, week, schoolId, type) =>
+                dataContext.StudentPopulation.Include("Items.Class.Course")
+                    .FirstOrDefault(p => p.Year == year && p.Week == week && p.SchoolId == schoolId && p.Type == type));
+            foreach (var item in population.Items.Where(i => i.IsManual)) {
+                item.PreviewNumber = previewEngine.Preview(item, population);
+            }
+        }
+
         public StudentPopulation SumPHPopulation(long spId) {
             DataContext dataContext = new DataContext();
             dataContext.ChangeTracker.Clear();
