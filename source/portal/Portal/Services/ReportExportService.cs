@@ -423,6 +423,26 @@ public class ReportExportService {
         }
     }
 
+    // 依 School.Region.Name 分組，維持組內原有排序（LoadPopulations 已依 Region.Ordinal, School.Ordinal 排序）
+    // 查無 Region 的分校統一歸入「未分區」，永遠排在最後
+    private static List<(string RegionName, List<StudentPopulation> Populations)> GroupByRegion(
+        List<StudentPopulation> populations) {
+
+        var withRegion = populations.Where(p => p.School?.Region != null).ToList();
+        var withoutRegion = populations.Where(p => p.School?.Region == null).ToList();
+
+        var groups = withRegion
+            .GroupBy(p => (Name: p.School.Region.Name, Ordinal: p.School.Region.Ordinal))
+            .OrderBy(g => g.Key.Ordinal)
+            .Select(g => (RegionName: g.Key.Name, Populations: g.ToList()))
+            .ToList();
+
+        if (withoutRegion.Count > 0)
+            groups.Add(("未分區", withoutRegion));
+
+        return groups;
+    }
+
     // ── 資料查詢 ──────────────────────────────────────────────────────────────
 
     private List<StudentPopulation> LoadPopulations(StudentPopulationType type,
