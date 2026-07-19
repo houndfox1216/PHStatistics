@@ -52,4 +52,24 @@ public class ReportExportServiceStructureTests {
         Assert.That(groups.Last().RegionName, Is.EqualTo("未分區"));
         Assert.That(groups.Last().Populations.Single().School.Name, Is.EqualTo("查無分區學校"));
     }
+
+    [Explicit("需要本機 dev DB 連線，且假設 115年第1週已有 PH 資料與南區/中北區分區設定")]
+    [Test]
+    public void Export_PH_ProducesOneSheetPerRegion() {
+        var service = new ReportExportService();
+        byte[] bytes = service.Export(StudentPopulationType.PH, 115, 1);
+
+        Assert.That(bytes, Is.Not.Empty);
+
+        using var ms = new System.IO.MemoryStream(bytes);
+        var wb = new NPOI.XSSF.UserModel.XSSFWorkbook(ms);
+
+        var sheetNames = Enumerable.Range(0, wb.NumberOfSheets)
+            .Select(i => wb.GetSheetAt(i).SheetName)
+            .ToList();
+
+        Assert.That(sheetNames, Does.Contain("南區"));
+        Assert.That(sheetNames, Does.Contain("中北區"));
+        Assert.That(sheetNames, Has.No.Member("Sheet1"));
+    }
 }

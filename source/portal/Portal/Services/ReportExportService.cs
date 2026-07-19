@@ -65,8 +65,7 @@ public class ReportExportService {
         var populations = LoadPopulations(type, year, week, schoolIds);
         if (populations.Count == 0) return Array.Empty<byte>();
 
-        var wb    = new XSSFWorkbook();
-        var sheet = wb.CreateSheet("Sheet1");
+        var wb = new XSSFWorkbook();
 
         var courses = (type == StudentPopulationType.PSJ || type == StudentPopulationType.AfterSchool)
             ? null
@@ -74,21 +73,33 @@ public class ReportExportService {
 
         switch (type) {
             case StudentPopulationType.PH:
-                BuildSheetPH(sheet, populations, courses, year, week,
-                    $"{year}年第{week}週百瀚英語全國人數表");
+                foreach (var (regionName, regionPopulations) in GroupByRegion(populations)) {
+                    var sheet = wb.CreateSheet(regionName);
+                    BuildSheetPH(sheet, regionPopulations, courses, year, week,
+                        $"{year}年第{week}週百瀚英語{regionName}分校人數統計表");
+                }
                 break;
-            case StudentPopulationType.GEPT:
+            case StudentPopulationType.GEPT: {
+                var sheet = wb.CreateSheet("英檢");
                 BuildSheetGEPT(sheet, populations, courses, year, week);
                 break;
-            case StudentPopulationType.PS:
+            }
+            case StudentPopulationType.PS: {
+                var sheet = wb.CreateSheet("Sheet1");
                 BuildSheetPS(sheet, populations, courses, year, week);
                 break;
+            }
             case StudentPopulationType.PSJ:
-                BuildSheetPSJ(sheet, populations, year, week);
+                foreach (var (regionName, regionPopulations) in GroupByRegion(populations)) {
+                    var sheet = wb.CreateSheet(regionName);
+                    BuildSheetPSJ(sheet, regionPopulations, year, week);
+                }
                 break;
-            case StudentPopulationType.AfterSchool:
+            case StudentPopulationType.AfterSchool: {
+                var sheet = wb.CreateSheet("Sheet1");
                 BuildSheetAS(sheet, populations, year, week);
                 break;
+            }
         }
 
         using var ms = new MemoryStream();
