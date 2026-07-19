@@ -123,8 +123,8 @@ public class ReportExportService {
         sheet.CreateRow(0).CreateCell(0).SetCellValue(title);
 
         var r1 = sheet.CreateRow(1);
-        sheet.CreateRow(2);
-        var r3 = sheet.CreateRow(3);
+        var r2 = sheet.CreateRow(2);
+        sheet.CreateRow(3);
         r1.CreateCell(0).SetCellValue("分校");
         r1.CreateCell(1).SetCellValue("類型");
         try { sheet.AddMergedRegion(new CellRangeAddress(1, 3, 0, 0)); } catch { }
@@ -136,16 +136,16 @@ public class ReportExportService {
             .Select(g => (dept: g.First().Department, list: g.ToList()))
             .ToList();
 
-        // 表頭：Row 1 = 班系名稱（含合計欄合併），Row 3 = 課程名稱 + "合計"
+        // 表頭：Row 1 = 班系名稱（含合計欄合併），Row 2 = 課程名稱 + "合計"，Row 3 保留給未來子欄位細分用
         int col = 2;
         foreach (var (dept, list) in deptGroups) {
             int deptStart = col;
             foreach (var c in list) {
-                r3.CreateCell(col).SetCellValue(c.Name);
+                r2.CreateCell(col).SetCellValue(c.Name);
                 sheet.SetColumnWidth(col, 4 * 256);
                 col++;
             }
-            r3.CreateCell(col).SetCellValue("合計");
+            r2.CreateCell(col).SetCellValue("合計");
             sheet.SetColumnWidth(col, 4 * 256);
             col++;
             r1.CreateCell(deptStart).SetCellValue(dept.Name);
@@ -192,8 +192,8 @@ public class ReportExportService {
         sheet.CreateRow(0).CreateCell(0).SetCellValue($"{year}年第{week}週英檢人數表");
 
         var r1 = sheet.CreateRow(1);
-        sheet.CreateRow(2);
-        var r3 = sheet.CreateRow(3);
+        var r2 = sheet.CreateRow(2);
+        sheet.CreateRow(3);
         r1.CreateCell(0).SetCellValue("分校");
         try { sheet.AddMergedRegion(new CellRangeAddress(1, 3, 0, 0)); } catch { }
 
@@ -207,11 +207,11 @@ public class ReportExportService {
         foreach (var (dept, list) in deptGroups) {
             int deptStart = col;
             foreach (var c in list) {
-                r3.CreateCell(col).SetCellValue(c.Name);
+                r2.CreateCell(col).SetCellValue(c.Name);
                 sheet.SetColumnWidth(col, 4 * 256);
                 col++;
             }
-            r3.CreateCell(col).SetCellValue("合計");
+            r2.CreateCell(col).SetCellValue("合計");
             sheet.SetColumnWidth(col, 4 * 256);
             col++;
             r1.CreateCell(deptStart).SetCellValue(dept.Name);

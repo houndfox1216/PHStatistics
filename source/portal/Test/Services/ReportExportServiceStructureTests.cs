@@ -117,4 +117,19 @@ public class ReportExportServiceStructureTests {
         int regionDataRows = (southSheet.LastRowNum - 2) + (northSheet.LastRowNum - 2);
         Assert.That(totalDataRows, Is.EqualTo(regionDataRows));
     }
+
+    [Explicit("需要本機 dev DB 連線")]
+    [Test]
+    public void Export_PH_CourseNamesAppearInRow2NotRow3() {
+        var service = new ReportExportService();
+        byte[] bytes = service.Export(StudentPopulationType.PH, 115, 1);
+
+        using var ms = new System.IO.MemoryStream(bytes);
+        var wb = new NPOI.XSSF.UserModel.XSSFWorkbook(ms);
+        var sheet = wb.GetSheetAt(0);
+
+        var row2Text = string.Join("|", Enumerable.Range(0, sheet.GetRow(2).LastCellNum)
+            .Select(c => sheet.GetRow(2).GetCell(c)?.StringCellValue ?? ""));
+        Assert.That(row2Text, Does.Contain("P1-初階"));
+    }
 }
