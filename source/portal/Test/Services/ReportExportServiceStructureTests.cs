@@ -95,4 +95,26 @@ public class ReportExportServiceStructureTests {
             .Select(c => sheet.GetRow(2).GetCell(c)?.StringCellValue ?? ""));
         Assert.That(headerRow2Text, Does.Contain("一年級"));
     }
+
+    [Explicit("需要本機 dev DB 連線")]
+    [Test]
+    public void Export_PSJ_IncludesTotalSheetWithAllSchools() {
+        var service = new ReportExportService();
+        byte[] bytes = service.Export(StudentPopulationType.PSJ, 115, 1);
+
+        using var ms = new System.IO.MemoryStream(bytes);
+        var wb = new NPOI.XSSF.UserModel.XSSFWorkbook(ms);
+
+        var sheetNames = Enumerable.Range(0, wb.NumberOfSheets)
+            .Select(i => wb.GetSheetAt(i).SheetName).ToList();
+        Assert.That(sheetNames, Does.Contain("總表"));
+
+        var totalSheet = wb.GetSheet("總表");
+        var southSheet = wb.GetSheet("南區");
+        var northSheet = wb.GetSheet("中北區");
+
+        int totalDataRows = totalSheet.LastRowNum - 2; // 扣除標題+表頭2列
+        int regionDataRows = (southSheet.LastRowNum - 2) + (northSheet.LastRowNum - 2);
+        Assert.That(totalDataRows, Is.EqualTo(regionDataRows));
+    }
 }

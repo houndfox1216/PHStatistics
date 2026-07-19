@@ -91,6 +91,8 @@ public class ReportExportService {
             }
             case StudentPopulationType.PSJ: {
                 var psjCourses = LoadCourses(StudentPopulationType.PSJ);
+                var totalSheet = wb.CreateSheet("總表");
+                BuildSheetPSJ(totalSheet, populations, psjCourses, year, week);
                 foreach (var (regionName, regionPopulations) in GroupByRegion(populations)) {
                     var sheet = wb.CreateSheet(regionName);
                     BuildSheetPSJ(sheet, regionPopulations, psjCourses, year, week);
