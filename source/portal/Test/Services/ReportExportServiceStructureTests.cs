@@ -72,4 +72,27 @@ public class ReportExportServiceStructureTests {
         Assert.That(sheetNames, Does.Contain("中北區"));
         Assert.That(sheetNames, Has.No.Member("Sheet1"));
     }
+
+    [Explicit("需要本機 dev DB 連線，且假設 115年第1週已有 PSJ 資料")]
+    [Test]
+    public void Export_PSJ_HeaderMatchesCourseOrdinalOrder() {
+        var service = new ReportExportService();
+        byte[] bytes = service.Export(StudentPopulationType.PSJ, 115, 1);
+
+        Assert.That(bytes, Is.Not.Empty);
+
+        using var ms = new System.IO.MemoryStream(bytes);
+        var wb = new NPOI.XSSF.UserModel.XSSFWorkbook(ms);
+        var sheet = wb.GetSheetAt(0);
+
+        // Row 1 應該出現「數學班」部門名稱（來源：CourseDepartment.Name，非寫死字串）
+        var headerRow1Text = string.Join("", Enumerable.Range(0, sheet.GetRow(1).LastCellNum)
+            .Select(c => sheet.GetRow(1).GetCell(c)?.StringCellValue ?? ""));
+        Assert.That(headerRow1Text, Does.Contain("數學班"));
+
+        // Row 2（課程名稱列）應該出現「一年級」（Course.Name，來自資料庫 Course.Id=145 等）
+        var headerRow2Text = string.Join("|", Enumerable.Range(0, sheet.GetRow(2).LastCellNum)
+            .Select(c => sheet.GetRow(2).GetCell(c)?.StringCellValue ?? ""));
+        Assert.That(headerRow2Text, Does.Contain("一年級"));
+    }
 }
