@@ -306,9 +306,8 @@ public class ReportExportService {
         // 欄位規格：(course, classType) —— classType 為 null 表示不分班別
         var columns = new List<(Course course, ClassType? classType)>();
         int col = 1;
-        var deptColStart = new Dictionary<int, int>();
         foreach (var (dept, list) in deptGroups) {
-            deptColStart[dept.Id] = col;
+            int deptStart = col;
             foreach (var c in list) {
                 if (c.GroupByClassType) {
                     r2.CreateCell(col).SetCellValue($"{c.Name}(EM1)");
@@ -328,12 +327,9 @@ public class ReportExportService {
             sheet.SetColumnWidth(col, 4 * 256);
             columns.Add((null, null)); // 合計欄佔位，資料列時特別處理
             col++;
-        }
-        foreach (var (deptId, startCol) in deptColStart) {
-            var dept = deptGroups.First(g => g.dept.Id == deptId).dept;
-            r1.CreateCell(startCol).SetCellValue(dept.Name);
-            if (col - 1 > startCol)
-                try { sheet.AddMergedRegion(new CellRangeAddress(1, 1, startCol, col - 1)); } catch { }
+            r1.CreateCell(deptStart).SetCellValue(dept.Name);
+            if (col - 1 > deptStart)
+                try { sheet.AddMergedRegion(new CellRangeAddress(1, 1, deptStart, col - 1)); } catch { }
         }
 
         // 資料列：每分校一列
