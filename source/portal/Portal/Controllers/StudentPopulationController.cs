@@ -57,6 +57,10 @@ namespace PHStatistics.Portal.Controllers {
             ["N"]  = new[]{271,272,273,274,275,276,277,278,279,280,281,282},
             ["L"]  = new[]{283,284,285,286,287,288,289,290,291,292,293,294},
             ["W"]  = new[]{259,260,261,262,263,264,265,266,267,268,269,270},
+            ["MP"] = new[]{378,379,380,381,382,383,384,385,386,387,388,389},
+            ["MG"] = new[]{378,379,380,381,382,383,384,385,386,387,388,389},
+            ["SP"] = new[]{428,429,430,431,432,433,434,435,436,437,438,439},
+            ["SG"] = new[]{428,429,430,431,432,433,434,435,436,437,438,439},
         };
 
         private static readonly HashSet<int> _em1CourseIds = new() { 23, 24, 25, 26, 50, 51, 52, 53 };
@@ -1812,6 +1816,8 @@ namespace PHStatistics.Portal.Controllers {
                 case StudentPopulationType.AfterSchool:
                     CheckByDiffItem("安親課輔", "安親課輔班班分析");
                     CheckByDiffItem("英文班", "英文班分析");
+                    CheckByDiffItem("數學班", "數學班分析");
+                    CheckByDiffItem("理化班", "理化班分析");
                     break;
                 case StudentPopulationType.PS: {
                     int thisWeek = NumberOf("PS數學總人數") + NumberOf("PSJ總人數");
@@ -1930,7 +1936,7 @@ namespace PHStatistics.Portal.Controllers {
                     Func<string, ClassType> colTypeFn = isPsj ? PsjColType : AsColType;
                     string[] codes = isPsj
                         ? new[] { "T", "MP", "MS", "SP", "SS", "N", "L", "W" }
-                        : new[] { "T", "AS", "EP", "EG", "N", "L", "W" };
+                        : new[] { "T", "AS", "EP", "EG", "MP", "MG", "SP", "SG", "N", "L", "W" };
 
                     ws.CreateRow(0).CreateCell(0).SetCellValue(isPsj ? $"{year}年第{week}週百倍速人數表" : $"{year}年第{week}週課輔人數表");
 
