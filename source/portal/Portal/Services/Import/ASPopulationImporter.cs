@@ -112,6 +112,10 @@ public class ASPopulationImporter : IPopulationImporter {
                 (col: 3, code: "AS", cType: ClassType.General),
                 (col: 4, code: "EP", cType: ClassType.Personal),
                 (col: 5, code: "EG", cType: ClassType.General),
+                (col: 6, code: "MP", cType: ClassType.Personal),
+                (col: 7, code: "MG", cType: ClassType.General),
+                (col: 8, code: "SP", cType: ClassType.Personal),
+                (col: 9, code: "SG", cType: ClassType.General),
             };
 
             // col 0 的週次只出現在每週第一列，後續同週的列 col 0 為空
