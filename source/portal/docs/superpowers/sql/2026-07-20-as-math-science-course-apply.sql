@@ -1,6 +1,9 @@
 -- Create AS(課輔) 數學班/理化班 CourseDepartment triads + 100 Course rows.
 -- See docs/superpowers/specs/2026-07-20-as-math-science-course-model-design.md for the full rationale.
 -- Verified live against the dev DB before writing this script: Course max Id = 377, CourseDepartment max Id = 39.
+-- NOTE: this file is UTF-8 without BOM. `sqlcmd -i` on this machine silently no-ops on it (0 rows
+-- affected, no error) unless you pass -f 65001 to force UTF-8 codepage decoding. Always verify with an
+-- independent SELECT afterward regardless — see 2026-07-20-as-math-science-course-model.md Task 1.
 
 SET IDENTITY_INSERT CourseDepartment ON;
 
