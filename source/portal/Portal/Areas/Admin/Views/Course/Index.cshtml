@@ -40,6 +40,24 @@
                     .Width(600)
                     .Height("auto")
                 )
+                .Form(form => form
+                    .ColCount(1)
+                    .Items(items => {
+                        items.AddSimple().DataField("Id").Label(l => l.Text("識別碼"));
+                        items.AddSimple().DataField("Name").Label(l => l.Text("名稱"));
+                        items.AddSimple().DataField("DepartmentId").Label(l => l.Text("班系"));
+                        items.AddSimple().DataField("ClassType").Label(l => l.Text("適用班別"));
+                        items.AddSimple().DataField("Ordinal").Label(l => l.Text("排列順序"));
+                        items.AddSimple().DataField("IsSum").Label(l => l.Text("加總"));
+                        items.AddSimple().DataField("Published").Label(l => l.Text("已發佈"));
+                        items.AddSimple().DataField("Type").Label(l => l.Text("所屬單位"));
+                        items.AddSimple().DataField("StatisticsType").Label(l => l.Text("加總類型"));
+                        items.AddSimple().DataField("SourceDepartmentIds").Label(l => l.Text("來源班系Id (JSON陣列，如 [14,15,16])"));
+                        items.AddSimple().DataField("SourceCourseIds").Label(l => l.Text("來源課程Id (JSON陣列)"));
+                        items.AddSimple().DataField("ApplicableClassType").Label(l => l.Text("適用班別"));
+                        items.AddSimple().DataField("GroupByClassType").Label(l => l.Text("依班別分組"));
+                    })
+                )
             )
             .FilterRow(f => f.Visible(true))
             .SearchPanel(s => s.Visible(true).Width(240).Placeholder("搜尋..."))

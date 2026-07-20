@@ -1,0 +1,28 @@
+2026-07-18 19:53:00.8303[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-07-18 19:53:00.8418[13]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-07-18 19:53:00.9329[14]  INFO MemberController  Member Login account: password: 
+2026-07-18 19:54:14.1682[21]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-07-18 19:54:14.2526[21]  INFO MemberController  進行登入 
+2026-07-18 19:54:14.4000[21]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-07-18 19:54:14.5660[21]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-18 19:54:14.5660[21]  INFO HomeController  進入首頁
+2026-07-18 19:55:44.3597[36]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-18 19:55:44.3597[36]  INFO HomeController  進入首頁
+2026-07-18 20:32:43.0821[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-07-18 20:32:43.0991[13]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-07-18 20:32:43.2063[11]  INFO MemberController  Member Login account: password: 
+2026-07-18 20:34:00.8556[20]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-07-18 20:34:00.9626[20]  INFO MemberController  進行登入 
+2026-07-18 20:34:01.1398[20]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-07-18 20:34:01.3250[25]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-18 20:34:01.3250[25]  INFO HomeController  進入首頁
+2026-07-18 20:35:27.1436[33]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-18 20:35:27.1436[33]  INFO HomeController  進入首頁
+2026-07-18 20:35:57.5016[29]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-18 20:35:57.5016[29]  INFO HomeController  進入首頁
+2026-07-18 20:43:20.1938[38]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-18 20:43:20.1938[38]  INFO HomeController  進入首頁
+2026-07-18 20:44:36.7176[37]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-18 20:44:36.7176[37]  INFO HomeController  進入首頁
+2026-07-18 20:48:42.3168[45]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-18 20:48:42.3168[45]  INFO HomeController  進入首頁

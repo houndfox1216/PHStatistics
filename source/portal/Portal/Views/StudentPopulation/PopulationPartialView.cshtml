@@ -21,7 +21,7 @@
         else {
             color = "#93f3a6";
         }
-        @if (cItem.Name.Equals("上週英語文總人數") || cItem.Name.Equals("本週英語文總人數") || cItem.Name.Equals("上週英語文總人數") || cItem.Name.Equals("與上週相比") ||
+        @if (cItem.Name.Equals("上週英語文總人數") || cItem.Name.Equals("本週英語文總人數") || cItem.Name.Equals("本週國語文總人數") || cItem.Name.Equals("上週國語文總人數") || cItem.Name.Equals("與上週相比") ||
                 cItem.Name.Equals("去年同期/比"))
         {
             if (cItem.Name.Equals("與上週相比"))
@@ -65,9 +65,24 @@
                 <div class="col-12 mb-3">
                     @if (cItem.IsSum) {
                         StudentPopulationItem sumItem = Model.Items.Where(e => e.Class.Course.Id == cItem.Id).FirstOrDefault();
-                        string displayStr = string.Empty;
                         <label>
-                            <h2>@cItem.Name  上週 @lwNumber 本週 @wNumber 相比 @sumItem.Number</h2>
+                            <h2>
+                                @cItem.Name  上週 @lwNumber 本週 @wNumber 相比
+                                @if (sumItem != null && ViewBag.CanEditLastWeek != null && (bool)ViewBag.CanEditLastWeek) {
+                                    <input type="number" class="form-control d-inline-block" style="width:100px" value="@sumItem.Number" data-sitem="@sumItem.Id" id="class_@sumItem.Id.ToString()_count" onchange="valueChange('class_@sumItem.Id.ToString()_count')">
+                                } else {
+                                    @(sumItem != null ? sumItem.Number : 0)
+                                }
+                            </h2>
+                            @if (sumItem != null && sumItem.IsManual) {
+                                <div class="small text-muted">(手動)</div>
+                                @if (sumItem.PreviewNumber.HasValue && sumItem.PreviewNumber.Value != sumItem.Number) {
+                                    <div class="small text-warning">
+                                        系統試算：@sumItem.PreviewNumber
+                                        <a href="javascript:void(0)" onclick="revertToAuto(@sumItem.Id)">改用系統試算值</a>
+                                    </div>
+                                }
+                            }
                         </label>
                     }
                     else {
@@ -75,7 +90,7 @@
                             <h2>課程：@cItem.Name</h2>
                         </label>
                     }
-            
+
                 </div>
                 </div>
             }else if (cItem.Name.Equals("去年同期/比"))
@@ -117,9 +132,24 @@
                 <div class="col-12 mb-3">
                     @if (cItem.IsSum) {
                         StudentPopulationItem sumItem = Model.Items.Where(e => e.Class.Course.Id == cItem.Id).FirstOrDefault();
-                        string displayStr = string.Empty;
                         <label>
-                            <h2>@cItem.Name  @sumItem.Number</h2>
+                            <h2>
+                                @cItem.Name
+                                @if (sumItem != null && ViewBag.CanEditLastWeek != null && (bool)ViewBag.CanEditLastWeek) {
+                                    <input type="number" class="form-control d-inline-block" style="width:100px" value="@sumItem.Number" data-sitem="@sumItem.Id" id="class_@sumItem.Id.ToString()_count" onchange="valueChange('class_@sumItem.Id.ToString()_count')">
+                                } else {
+                                    @(sumItem != null ? sumItem.Number : 0)
+                                }
+                            </h2>
+                            @if (sumItem != null && sumItem.IsManual) {
+                                <div class="small text-muted">(手動)</div>
+                                @if (sumItem.PreviewNumber.HasValue && sumItem.PreviewNumber.Value != sumItem.Number) {
+                                    <div class="small text-warning">
+                                        系統試算：@sumItem.PreviewNumber
+                                        <a href="javascript:void(0)" onclick="revertToAuto(@sumItem.Id)">改用系統試算值</a>
+                                    </div>
+                                }
+                            }
                         </label>
                     }
                     else {
@@ -127,19 +157,33 @@
                             <h2>課程：@cItem.Name</h2>
                         </label>
                     }
-            
+
                 </div>
-            </div>   
+            </div>
             }else
             {
-            int wNumber = Model.Items.FirstOrDefault(e => e.Class.Course.Name.Equals("上週英語文總人數")).Number;
             <div class="row mx-0" style="background-color:@color">
                 <div class="col-12 mb-3">
                     @if (cItem.IsSum) {
                         StudentPopulationItem sumItem = Model.Items.Where(e => e.Class.Course.Id == cItem.Id).FirstOrDefault();
-                        string displayStr = string.Empty;
                         <label>
-                            <h2>@cItem.Name  @wNumber</h2>
+                            <h2>
+                                @cItem.Name
+                                @if (sumItem != null && ViewBag.CanEditLastWeek != null && (bool)ViewBag.CanEditLastWeek) {
+                                    <input type="number" class="form-control d-inline-block" style="width:100px" value="@sumItem.Number" data-sitem="@sumItem.Id" id="class_@sumItem.Id.ToString()_count" onchange="valueChange('class_@sumItem.Id.ToString()_count')">
+                                } else {
+                                    @(sumItem != null ? sumItem.Number : 0)
+                                }
+                            </h2>
+                            @if (sumItem != null && sumItem.IsManual) {
+                                <div class="small text-muted">(手動)</div>
+                                @if (sumItem.PreviewNumber.HasValue && sumItem.PreviewNumber.Value != sumItem.Number) {
+                                    <div class="small text-warning">
+                                        系統試算：@sumItem.PreviewNumber
+                                        <a href="javascript:void(0)" onclick="revertToAuto(@sumItem.Id)">改用系統試算值</a>
+                                    </div>
+                                }
+                            }
                         </label>
                     }
                     else {
@@ -147,7 +191,7 @@
                             <h2>課程：@cItem.Name</h2>
                         </label>
                     }
-            
+
                 </div>
             </div>
             }
@@ -240,6 +284,13 @@
                 else
                     rowStateClass = "";
                 <div class="row mx-0 @rowStateClass">
+                    @if (Model.Type == StudentPopulationType.PH || Model.Type == StudentPopulationType.PSJ) {
+                        <div class="col-1 mb-1">
+                            <select class="form-select validate[required]" id="class_type_@sItem.Id.ToString()" data-live-search="true">
+                                <option value=1 selected="selected">-</option>
+                            </select>
+                        </div>
+                    }
                     <div class="col-3 mb-3">
                         @* <input type="text" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.Id.ToString() @sItem.Name"> *@
                         <input type="text" class="form-control class-name-input" placeholder="" id="class_@sItem.Id.ToString()" value="@sItem.Name" onblur="updateClassDetail(@sItem.Id)">
