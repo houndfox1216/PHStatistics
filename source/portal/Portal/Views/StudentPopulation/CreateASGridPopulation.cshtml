@@ -37,8 +37,117 @@
     </div>
 </section>
 
+<div class="modal fade" id="gridAddClassModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">新增班級</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="grid_new_course_id" value="">
+                <input type="hidden" id="grid_new_class_type" value="">
+                <div class="mb-3">
+                    <label class="form-label">班級名稱</label>
+                    <input type="text" class="form-control" id="grid_new_class_name" value="">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">本週人數</label>
+                    <input type="number" class="form-control" id="grid_new_number" value="0" min="0">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="gridAddClassSubmitBtn" onclick="submitGridAddClass()">新增</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="~/js/studentPopulationLoading.js"></script>
 <script>
+    var gridAddClassModal = new bootstrap.Modal(document.getElementById('gridAddClassModal'));
+
+    function openGridAddClassModal(courseId, classType) {
+        $('#grid_new_course_id').val(courseId);
+        $('#grid_new_class_type').val(classType);
+        $('#grid_new_class_name').val('');
+        $('#grid_new_number').val(0);
+        gridAddClassModal.show();
+    }
+
+    function submitGridAddClass() {
+        var submitBtn = document.getElementById('gridAddClassSubmitBtn');
+        submitBtn.disabled = true;
+        $.ajax({
+            url: '@Url.Action("AddNewClassGrid", "StudentPopulation", new { area = "" })',
+            type: 'POST',
+            data: {
+                populationId: $('#PopulationId').val(),
+                courseId: $('#grid_new_course_id').val(),
+                classType: $('#grid_new_class_type').val(),
+                newClassName: $('#grid_new_class_name').val(),
+                newNumber: $('#grid_new_number').val()
+            },
+            dataType: 'html',
+            success: function (data) {
+                $('#gridContentItem').html(data);
+                gridAddClassModal.hide();
+                submitBtn.disabled = false;
+            },
+            error: function () {
+                alert('新增班級失敗!!');
+                submitBtn.disabled = false;
+            }
+        });
+    }
+
+    function gridRemoveClassItem(sId) {
+        if (!confirm('確認要刪除班級資料!?')) return;
+        $.ajax({
+            url: '@Url.Action("RemoveClassItemGrid", "StudentPopulation", new { area = "" })',
+            type: 'POST',
+            data: { sId: sId },
+            dataType: 'html',
+            success: function (data) {
+                $('#gridContentItem').html(data);
+            },
+            error: function () {
+                alert('刪除失敗，請稍後再試');
+            }
+        });
+    }
+
+    function gridValueChange(elementId) {
+        var input = document.getElementById(elementId);
+        $.ajax({
+            url: '@Url.Action("UpdateClassItemGrid", "StudentPopulation", new { area = "" })',
+            type: 'POST',
+            data: { sId: input.dataset.sitem, number: input.value },
+            dataType: 'html',
+            success: function (data) {
+                $('#gridContentItem').html(data);
+            },
+            error: function () {
+                alert('儲存失敗，請稍後再試');
+            }
+        });
+    }
+
+    function revertToAuto(sId) {
+        $.ajax({
+            url: '@Url.Action("RevertToAutoCalculation", "StudentPopulation", new { area = "" })',
+            type: 'POST',
+            data: { sId: sId },
+            success: function (data) {
+                location.reload();
+            },
+            error: function () {
+                alert('回復自動計算失敗，請重試');
+            }
+        });
+    }
+
     function confirmGridPopulation(populationId) {
         if (!confirm('確認要送出人數表？送出後本週資料將無法修改，如需調整須由管理人員解鎖並說明原因。')) return;
         $.ajax({

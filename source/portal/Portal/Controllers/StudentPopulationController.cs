@@ -1262,6 +1262,145 @@ namespace PHStatistics.Portal.Controllers {
             }
         }
 
+        [Authorize(typeof(PortalUser))]
+        [HttpPost("AddNewClassGrid")]
+        public IActionResult AddNewClassGrid(long populationId, int courseId, int classType, string newClassName, int newNumber) {
+            DataContext dataContext = new DataContext();
+            StudentPopulation studentPopulationData = dataContext.StudentPopulation.Include("Items.Class.Course").Include("School").FirstOrDefault(e => e.Id == populationId);
+            if (studentPopulationData == null)
+                return Json(new { success = false, message = "找不到人數表" });
+
+            bool canEditLocked = User.HasPermission(SystemPermission.PopulationWeekSwitch);
+            ViewBag.CanEditLastWeek = canEditLocked;
+            ViewBag.Courses = dataContext.Course.Where(e => e.Type == StudentPopulationType.AfterSchool).OrderBy(e => e.Ordinal).ToList();
+            if (studentPopulationData.Status != StudentPopulationStatus.Documented && !canEditLocked) {
+                AttachManualPreviews(dataContext, studentPopulationData);
+                return PartialView("ASGridPopulationPartialView", studentPopulationData);
+            }
+
+            try {
+                Course course = dataContext.Course.Find(courseId);
+                int classCount = studentPopulationData.Items.Count(e => e.Class.Course.Id == courseId && e.Class.Type == (ClassType)classType);
+                Class newClass = new Class {
+                    SchoolId = studentPopulationData.School.Id,
+                    CourseId = courseId,
+                    Type = (ClassType)classType,
+                    Name = string.IsNullOrEmpty(newClassName) ? string.Format("{0}_{1}", course.Name, (classCount + 1).ToString("00")) : newClassName,
+                };
+                dataContext.Class.Add(newClass);
+                dataContext.SaveChanges();
+
+                StudentPopulationItem addItem = new StudentPopulationItem {
+                    ClassId = newClass.Id,
+                    Name = newClass.Name,
+                    Number = newNumber,
+                    SchoolName = newClass.Name,
+                    LastWeekNumber = 0,
+                    StudentPopulationId = studentPopulationData.Id,
+                };
+                dataContext.StudentPopulationItem.Add(addItem);
+                dataContext.SaveChanges();
+                WriteItemLog(dataContext, studentPopulationData.Id, newClass.Id, addItem.Name, 0, addItem.Number, 0, addItem.LastWeekNumber, null, addItem.StudentRemark, isNew: true);
+                SumPHPopulation(studentPopulationData.Id);
+            }
+            catch (Exception ex) {
+                Logger.LogError(ex, "AddNewClassGrid populationId={populationId} courseId={courseId}", populationId, courseId);
+            }
+
+            dataContext.ChangeTracker.Clear();
+            var returnData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").FirstOrDefault(e => e.Id == populationId);
+            AttachManualPreviews(dataContext, returnData);
+            return PartialView("ASGridPopulationPartialView", returnData);
+        }
+
+        [Authorize(typeof(PortalUser))]
+        [HttpPost("RemoveClassItemGrid")]
+        public IActionResult RemoveClassItemGrid(long sId) {
+            DataContext dataContext = new DataContext();
+            try {
+                StudentPopulationItem item = dataContext.StudentPopulationItem.Include("StudentPopulation").FirstOrDefault(e => e.Id == sId);
+                if (item == null)
+                    return Json(new { success = false, message = "找不到項目" });
+
+                bool canEditLocked = User.HasPermission(SystemPermission.PopulationWeekSwitch);
+                ViewBag.CanEditLastWeek = canEditLocked;
+                ViewBag.Courses = dataContext.Course.Where(e => e.Type == StudentPopulationType.AfterSchool).OrderBy(e => e.Ordinal).ToList();
+                if (item.StudentPopulation.Status != StudentPopulationStatus.Documented && !canEditLocked) {
+                    var lockedData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").FirstOrDefault(e => e.Id == item.StudentPopulationId);
+                    AttachManualPreviews(dataContext, lockedData);
+                    return PartialView("ASGridPopulationPartialView", lockedData);
+                }
+
+                long spId = item.StudentPopulationId;
+                dataContext.StudentPopulationItem.Remove(item);
+                dataContext.SaveChanges();
+                WriteItemLog(dataContext, spId, item.ClassId, item.Name, item.Number, 0, item.LastWeekNumber, 0, item.StudentRemark, null, isDeleted: true);
+                SumPHPopulation(spId);
+
+                var returnData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").FirstOrDefault(e => e.Id == spId);
+                AttachManualPreviews(dataContext, returnData);
+                return PartialView("ASGridPopulationPartialView", returnData);
+            }
+            catch (Exception ex) {
+                ViewBag.Courses = new List<Course>();
+                Logger.LogError(ex, "RemoveClassItemGrid sId={sId}", sId);
+                return PartialView("ASGridPopulationPartialView", new StudentPopulation());
+            }
+        }
+
+        [Authorize(typeof(PortalUser))]
+        [HttpPost("UpdateClassItemGrid")]
+        public IActionResult UpdateClassItemGrid(long sId, int? number, int? lastWeekNumber = null) {
+            DataContext dataContext = new DataContext();
+            try {
+                StudentPopulationItem item = dataContext.StudentPopulationItem.Include("Class.Course.Department").Include("StudentPopulation").FirstOrDefault(e => e.Id == sId);
+                if (item == null)
+                    return Json(new { success = false, message = "找不到項目" });
+
+                bool canEditLocked = User.HasPermission(SystemPermission.PopulationWeekSwitch);
+                ViewBag.CanEditLastWeek = canEditLocked;
+                ViewBag.Courses = dataContext.Course.Where(e => e.Type == StudentPopulationType.AfterSchool).OrderBy(e => e.Ordinal).ToList();
+                if (item.StudentPopulation.Status != StudentPopulationStatus.Documented && !canEditLocked) {
+                    var lockedData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").FirstOrDefault(e => e.Id == item.StudentPopulation.Id);
+                    AttachManualPreviews(dataContext, lockedData);
+                    return PartialView("ASGridPopulationPartialView", lockedData);
+                }
+
+                bool lastWeekApplied = lastWeekNumber.HasValue && canEditLocked;
+                bool isAutoComputedSum = item.IsSum
+                    && item.Class?.Course?.StatisticsType != null
+                    && item.Class.Course.StatisticsType != StatisticsType.None
+                    && item.Class.Course.StatisticsType != StatisticsType.ManualInput;
+                bool numberApplied = number.HasValue && (!isAutoComputedSum || canEditLocked);
+                int oldNumber = item.Number;
+                int oldLastWeekNumber = item.LastWeekNumber;
+                if (numberApplied) {
+                    item.Number = number.Value;
+                    if (isAutoComputedSum) {
+                        item.IsManual = true;
+                    }
+                }
+                if (lastWeekApplied) {
+                    item.LastWeekNumber = lastWeekNumber.Value;
+                }
+                dataContext.StudentPopulationItem.Update(item);
+                dataContext.SaveChanges();
+                if (numberApplied || lastWeekApplied) {
+                    WriteItemLog(dataContext, item.StudentPopulationId, item.ClassId, item.Name, oldNumber, item.Number, oldLastWeekNumber, item.LastWeekNumber, item.StudentRemark, item.StudentRemark);
+                    SumPHPopulation(item.StudentPopulation.Id);
+                }
+
+                var returnData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").FirstOrDefault(e => e.Id == item.StudentPopulation.Id);
+                AttachManualPreviews(dataContext, returnData);
+                return PartialView("ASGridPopulationPartialView", returnData);
+            }
+            catch (Exception ex) {
+                ViewBag.Courses = new List<Course>();
+                Logger.LogError(ex, "UpdateClassItemGrid sId={sId}", sId);
+                return PartialView("ASGridPopulationPartialView", new StudentPopulation());
+            }
+        }
+
         [HttpPost]
         public IActionResult RevertToAutoCalculation(long sId) {
             try {
