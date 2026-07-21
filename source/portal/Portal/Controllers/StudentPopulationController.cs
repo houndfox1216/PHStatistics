@@ -818,6 +818,34 @@ namespace PHStatistics.Portal.Controllers {
                     }
                 }
                 dataContext.SaveChanges();
+                //補上此人數表建立之後才新增的固定總計項目（例如這次新增的共用分析課程 478-525），避免舊人數表開啟網格版時分析欄空白
+                bool backfilledAny = false;
+                foreach (Course course in dataContext.Course.Include("Department").Where(e => e.IsSum == true && e.Type == StudentPopulationType.AfterSchool).OrderBy(e => e.Ordinal).ToList()) {
+                    if (!dataContext.StudentPopulationItem.Any(e => e.Class.Course.Id == course.Id && e.Class.Type == ClassType.General && e.StudentPopulation.Id == returnData.Id)) {
+                        StudentPopulationItem item = new StudentPopulationItem();
+                        Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == course.Id && e.Type == ClassType.General);
+                        if (classItem == null) {
+                            classItem = new Class() { SchoolId = schoolId, CourseId = course.Id, Name = course.Name, Type = ClassType.General };
+                            dataContext.Class.Add(classItem);
+                            dataContext.SaveChanges();
+                        }
+                        item.Name = course.Name;
+                        item.SchoolName = course.Name;
+                        item.Class = classItem;
+                        item.Number = 0;
+                        item.LastWeekNumber = lastWeekData?.Items?.FirstOrDefault(e => e.Class.Course.Id == course.Id && e.Class.Type == ClassType.General)?.Number ?? 0;
+                        item.IsSum = true;
+                        item.StudentPopulationId = returnData.Id;
+                        dataContext.StudentPopulationItem.Add(item);
+                        backfilledAny = true;
+                    }
+                }
+                if (backfilledAny) {
+                    dataContext.SaveChanges();
+                    SumPHPopulation(returnData.Id);
+                    dataContext.ChangeTracker.Clear();
+                    returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.Id == returnData.Id);
+                }
             }
             else {
                 returnData = new StudentPopulation();
