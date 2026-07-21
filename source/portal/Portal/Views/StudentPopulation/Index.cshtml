@@ -66,6 +66,11 @@
                         開始輸入 <i class="fas fa-paper-plane"></i>
                     </button>
                 }
+                else if (addType.Equals("ASGrid")) {
+                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addASGridBtn">
+                        開始輸入 <i class="fas fa-paper-plane"></i>
+                    </button>
+                }
                 else {
                     <button type="button" class="btn btn-primary btn-lg btn-round" id="addPHBtn">
                         開始輸入 <i class="fas fa-paper-plane"></i>
@@ -103,6 +108,10 @@
         });
         $('#addASBtn').on('click', function () {
             var location = "/StudentPopulation/CreateASPopulation?schoolId=" + $('#schoolSelect').val() + "&type=AS" + weekParam();
+            window.location.href = location;
+        });
+        $('#addASGridBtn').on('click', function () {
+            var location = "/StudentPopulation/CreateASGridPopulation?schoolId=" + $('#schoolSelect').val() + "&type=ASGrid" + weekParam();
             window.location.href = location;
         });
     })
