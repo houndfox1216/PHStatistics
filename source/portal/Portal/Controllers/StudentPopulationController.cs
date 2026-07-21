@@ -1818,6 +1818,7 @@ namespace PHStatistics.Portal.Controllers {
                     CheckByDiffItem("英文班", "英文班分析");
                     CheckByDiffItem("數學班", "數學班分析");
                     CheckByDiffItem("理化班", "理化班分析");
+                    CheckByDiffItem("課輔(新網格)", "課輔分析總覽");
                     break;
                 case StudentPopulationType.PS: {
                     int thisWeek = NumberOf("PS數學總人數") + NumberOf("PSJ總人數");
