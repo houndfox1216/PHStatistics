@@ -1,0 +1,100 @@
+@using PHStatistics.Content
+@using PHStatistics.Portal.Services.Import.ImportSupport
+@model StudentPopulation
+@{
+    string[] grades = CourseMapping.GradeOrder;
+
+    var mainColumns = new (string Label, int[] CourseIds, ClassType Type)[] {
+        ("數學-一對一", new[]{145,146,147,148,149,150,151,152,153,154,155,156}, ClassType.Personal),
+        ("數學-團體",   new[]{145,146,147,148,149,150,151,152,153,154,155,156}, ClassType.General),
+        ("理化-一對一", new[]{195,196,197,198,199,200,201,202,203,204,205,206}, ClassType.Personal),
+        ("理化-團體",   new[]{195,196,197,198,199,200,201,202,203,204,205,206}, ClassType.General),
+    };
+    var analysisColumns = new (string Label, int[] CourseIds)[] {
+        ("上週比", new[]{526,527,528,529,530,531,532,533,534,535,536,537}),
+        ("新生",   new[]{538,539,540,541,542,543,544,545,546,547,548,549}),
+        ("流失",   new[]{550,551,552,553,554,555,556,557,558,559,560,561}),
+        ("總人數", new[]{562,563,564,565,566,567,568,569,570,571,572,573}),
+    };
+
+    // 每個主要欄位群組跨 12 年級的最大重複班級數，決定要渲染幾個子欄
+    int[] maxRepeat = new int[mainColumns.Length];
+    for (int c = 0; c < mainColumns.Length; c++) {
+        int max = 1;
+        for (int g = 0; g < grades.Length; g++) {
+            int count = Model.Items.Count(i => i.Class.CourseId == mainColumns[c].CourseIds[g] && i.Class.Type == mainColumns[c].Type);
+            if (count > max) max = count;
+        }
+        maxRepeat[c] = max;
+    }
+}
+<table class="table table-bordered table-sm align-middle" id="psjGridTable">
+    <thead>
+        <tr>
+            <th rowspan="2">年級</th>
+            @for (int c = 0; c < mainColumns.Length; c++) {
+                <th colspan="@maxRepeat[c]">@mainColumns[c].Label</th>
+            }
+            <th colspan="4">分析</th>
+        </tr>
+        <tr>
+            @for (int c = 0; c < mainColumns.Length; c++) {
+                for (int k = 0; k < maxRepeat[c]; k++) {
+                    <th>@(k == 0 ? mainColumns[c].Label : $"{mainColumns[c].Label}({k + 1})")</th>
+                }
+            }
+            @foreach (var a in analysisColumns) {
+                <th>@a.Label</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @for (int g = 0; g < grades.Length; g++) {
+            <tr>
+                <td>@grades[g]</td>
+                @for (int c = 0; c < mainColumns.Length; c++) {
+                    var cellItems = Model.Items.Where(i => i.Class.CourseId == mainColumns[c].CourseIds[g] && i.Class.Type == mainColumns[c].Type).OrderBy(i => i.Id).ToList();
+                    for (int k = 0; k < maxRepeat[c]; k++) {
+                        <td>
+                            @if (k < cellItems.Count) {
+                                StudentPopulationItem item = cellItems[k];
+                                <input type="number" class="form-control form-control-sm" style="width:70px;display:inline-block"
+                                       value="@item.Number" data-sitem="@item.Id" id="grid_@(item.Id)_count"
+                                       onchange="gridValueChange('grid_@(item.Id)_count')">
+                                @if (k == cellItems.Count - 1) {
+                                    <button type="button" class="btn btn-sm btn-outline-primary" title="新增班級"
+                                            onclick="openGridAddClassModal(@mainColumns[c].CourseIds[g], @((int)mainColumns[c].Type))">＋</button>
+                                }
+                                <button type="button" class="btn btn-sm btn-outline-danger" title="刪除班級"
+                                        onclick="gridRemoveClassItem(@item.Id)">×</button>
+                            }
+                            else if (k == 0) {
+                                <button type="button" class="btn btn-sm btn-outline-primary" title="新增班級"
+                                        onclick="openGridAddClassModal(@mainColumns[c].CourseIds[g], @((int)mainColumns[c].Type))">＋</button>
+                            }
+                        </td>
+                    }
+                }
+                @foreach (var a in analysisColumns) {
+                    StudentPopulationItem aItem = Model.Items.FirstOrDefault(i => i.Class.CourseId == a.CourseIds[g]);
+                    <td>
+                        @if (aItem != null) {
+                            <input type="number" class="form-control form-control-sm" style="width:70px;display:inline-block"
+                                   value="@aItem.Number" data-sitem="@aItem.Id" id="grid_@(aItem.Id)_count"
+                                   onchange="gridValueChange('grid_@(aItem.Id)_count')">
+                            @if (aItem.IsManual) {
+                                <div class="small text-muted">(手動)</div>
+                                @if (aItem.PreviewNumber.HasValue && aItem.PreviewNumber.Value != aItem.Number) {
+                                    <div class="small text-warning">
+                                        試算：@aItem.PreviewNumber
+                                        <a href="javascript:void(0)" onclick="revertToAuto(@aItem.Id)">改用系統試算值</a>
+                                    </div>
+                                }
+                            }
+                        }
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
