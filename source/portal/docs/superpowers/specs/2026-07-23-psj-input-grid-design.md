@@ -163,6 +163,7 @@ case StudentPopulationType.PSJ:
 - **舊清單頁與新網格頁的資料是否會顯示不一致**：新生/流失/上週比/總人數改成跨科共用一組課程（526–573）後，舊清單頁（`CreatePSJPopulation`）仍然只認舊的 2 科分開分析課程（171–194/221–244），兩邊會呈現不同的數字，兩者從新網格上線那週起不會再同步更新。跟 AS phase2 完全相同的預期過渡狀態，需要在瀏覽器驗證階段明確記錄「兩邊分析數字不同步是預期現象」，不是 bug。
 - **重複欄的欄位寬度/版面**：同 AS 網格的已知風險，實作時需注意欄寬設定。
 - **`CheckByDiffItem` 一致性檢查**：已列入本次實作範圍（見第 6 節），非風險，僅在此提醒驗證階段需一併測試。
+- **一致性檢查警示目前只會顯示在舊清單頁，不會出現在新網格頁**（2026-07-23 whole-branch review 發現）：3 個網格 AJAX action（`AddNewClassGridPsj`/`RemoveClassItemGridPsj`/`UpdateClassItemGridPsj`）未設定 `ViewBag.Warnings`，`PSJGridPopulationPartialView.cshtml` 也未渲染警示，因此 `CheckByDiffItem("百倍速(新網格)", "百倍速分析總覽")` 產生的警示只能在 `CreatePSJPopulation` 舊頁面看到，看不到於實際編輯新生/流失/上週比的網格頁。此限制與已上線的 AS 網格完全相同（AS 網格的 3 個 Grid action 也有一樣的缺口），非本次新增的回歸，使用者已決定維持現狀，列入下一輪驗證的已知事項，之後若要修正需與 AS 網格一起處理。
 
 ## 測試計畫
 
