@@ -1250,7 +1250,7 @@ namespace PHStatistics.Portal.Controllers {
                     return PartialView("PopulationPartialView", lockedData);
                 }
                 bool lastWeekApplied = lastWeekNumber.HasValue && canEditLocked;
-                bool isAutoComputedSum = item.IsSum
+                bool isAutoComputedSum = item.Class?.Course?.IsSum == true
                     && item.Class?.Course?.StatisticsType != null
                     && item.Class.Course.StatisticsType != StatisticsType.None
                     && item.Class.Course.StatisticsType != StatisticsType.ManualInput;
@@ -1395,7 +1395,7 @@ namespace PHStatistics.Portal.Controllers {
                 }
 
                 bool lastWeekApplied = lastWeekNumber.HasValue && canEditLocked;
-                bool isAutoComputedSum = item.IsSum
+                bool isAutoComputedSum = item.Class?.Course?.IsSum == true
                     && item.Class?.Course?.StatisticsType != null
                     && item.Class.Course.StatisticsType != StatisticsType.None
                     && item.Class.Course.StatisticsType != StatisticsType.ManualInput;
