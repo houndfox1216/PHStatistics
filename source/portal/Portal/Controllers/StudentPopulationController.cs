@@ -2065,6 +2065,7 @@ namespace PHStatistics.Portal.Controllers {
                 case StudentPopulationType.PSJ:
                     CheckByDiffItem("數學", "數學班分析");
                     CheckByDiffItem("理化", "理化班分析");
+                    CheckByDiffItem("百倍速(新網格)", "百倍速分析總覽");
                     break;
                 case StudentPopulationType.AfterSchool:
                     CheckByDiffItem("安親課輔", "安親課輔班班分析");
