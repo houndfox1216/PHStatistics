@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
@@ -18,8 +19,19 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
         [HttpGet]
         public object GetCourses(DataSourceLoadOptions loadOptions) {
             var readAction = new CourseReadAction(User, Model.DataContext);
-            var query = readAction.Query(new Condition(), (Sorting[])null, "Department");
+            // 先載入實體再轉為記憶體查詢，確保 NotMapped 的 SourceDepartmentIdValues/SourceCourseIdValues 能正確計算
+            var query = readAction.Query(new Condition(), (Sorting[])null, "Department").ToList().AsQueryable();
             return DataSourceLoader.Load(query, loadOptions);
+        }
+
+        [HttpGet]
+        public IActionResult GetCourseOptions() {
+            var readAction = new CourseReadAction(User, Model.DataContext);
+            var options = readAction.Query(new Condition(), (Sorting[])null)
+                .OrderBy(e => e.Ordinal).ThenBy(e => e.Id)
+                .Select(e => new { e.Id, e.Name })
+                .ToList();
+            return Json(options);
         }
 
         [HttpPost]

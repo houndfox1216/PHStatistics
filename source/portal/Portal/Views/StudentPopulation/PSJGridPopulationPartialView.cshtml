@@ -6,14 +6,14 @@
 
     var mainColumns = new (string Label, int[] CourseIds, ClassType Type)[] {
         ("數學-一對一", new[]{145,146,147,148,149,150,151,152,153,154,155,156}, ClassType.Personal),
-        ("數學-團體",   new[]{145,146,147,148,149,150,151,152,153,154,155,156}, ClassType.General),
+        ("數學-團體",   new[]{145,146,147,148,149,150,151,152,153,154,155,156}, ClassType.SubGroup),
         ("理化-一對一", new[]{195,196,197,198,199,200,201,202,203,204,205,206}, ClassType.Personal),
-        ("理化-團體",   new[]{195,196,197,198,199,200,201,202,203,204,205,206}, ClassType.General),
+        ("理化-團體",   new[]{195,196,197,198,199,200,201,202,203,204,205,206}, ClassType.SubGroup),
     };
     var analysisColumns = new (string Label, int[] CourseIds)[] {
-        ("上週比", new[]{526,527,528,529,530,531,532,533,534,535,536,537}),
         ("新生",   new[]{538,539,540,541,542,543,544,545,546,547,548,549}),
         ("流失",   new[]{550,551,552,553,554,555,556,557,558,559,560,561}),
+        ("上週比", new[]{526,527,528,529,530,531,532,533,534,535,536,537}),
         ("總人數", new[]{562,563,564,565,566,567,568,569,570,571,572,573}),
     };
 
@@ -26,6 +26,12 @@
             if (count > max) max = count;
         }
         maxRepeat[c] = max;
+    }
+
+    // 分析欄位（上週比/新生/流失/總人數）跨 12 年級輸入數字的加總，顯示在表頭
+    int[] analysisTotals = new int[analysisColumns.Length];
+    for (int a = 0; a < analysisColumns.Length; a++) {
+        analysisTotals[a] = Model.Items.Where(i => analysisColumns[a].CourseIds.Contains(i.Class.CourseId ?? 0)).Sum(i => i.Number);
     }
 }
 <table class="table table-bordered table-sm align-middle" id="psjGridTable">
@@ -43,8 +49,8 @@
                     <th>@(k == 0 ? mainColumns[c].Label : $"{mainColumns[c].Label}({k + 1})")</th>
                 }
             }
-            @foreach (var a in analysisColumns) {
-                <th>@a.Label</th>
+            @for (int a = 0; a < analysisColumns.Length; a++) {
+                <th>@analysisColumns[a].Label<br /><span class="small text-muted fw-normal">合計：@analysisTotals[a]</span></th>
             }
         </tr>
     </thead>

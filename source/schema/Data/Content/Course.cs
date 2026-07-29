@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel;
 using System.Framework.Data;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace PHStatistics.Content {
     /// <summary>
@@ -117,6 +119,34 @@ namespace PHStatistics.Content {
         [Display(Name = "統計來源課程Id"), DataMember]
         [MaxLength(500)]
         public string SourceCourseIds { get; set; }
+
+        /// <summary>
+        /// 統計來源班系Id（供介面以勾選標籤方式編輯，實際仍儲存於 SourceDepartmentIds）
+        /// </summary>
+        [Display(Name = "統計來源班系"), DataMember]
+        [NotMapped]
+        public int[] SourceDepartmentIdValues {
+            get {
+                if (string.IsNullOrEmpty(SourceDepartmentIds)) return Array.Empty<int>();
+                try { return JsonConvert.DeserializeObject<int[]>(SourceDepartmentIds) ?? Array.Empty<int>(); }
+                catch { return Array.Empty<int>(); }
+            }
+            set => SourceDepartmentIds = (value == null || value.Length == 0) ? null : JsonConvert.SerializeObject(value);
+        }
+
+        /// <summary>
+        /// 統計來源課程Id（供介面以勾選標籤方式編輯，實際仍儲存於 SourceCourseIds）
+        /// </summary>
+        [Display(Name = "統計來源課程"), DataMember]
+        [NotMapped]
+        public int[] SourceCourseIdValues {
+            get {
+                if (string.IsNullOrEmpty(SourceCourseIds)) return Array.Empty<int>();
+                try { return JsonConvert.DeserializeObject<int[]>(SourceCourseIds) ?? Array.Empty<int>(); }
+                catch { return Array.Empty<int>(); }
+            }
+            set => SourceCourseIds = (value == null || value.Length == 0) ? null : JsonConvert.SerializeObject(value);
+        }
 
         /// <summary>
         /// 是否依班別分組計算

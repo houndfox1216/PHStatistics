@@ -21,6 +21,13 @@
                 };
             }
             <fieldset class="center"><span class="badge @statusBadgeClass fs-6">@statusText</span></fieldset>
+            @if (Model.Status == StudentPopulationStatus.Documented) {
+                <fieldset class="center mb-3">
+                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="manualBackfillLastWeekGrid(@Model.Id)">
+                        補上上週資料
+                    </button>
+                </fieldset>
+            }
             <input type="hidden" id="PopulationId" value="@Model.Id" />
             <input type="hidden" id="SchoolId" value="@Model.School.Id" />
             <div id="gridContentItem" class="table-responsive">
@@ -144,6 +151,22 @@
             },
             error: function () {
                 alert('回復自動計算失敗，請重試');
+            }
+        });
+    }
+
+    function manualBackfillLastWeekGrid(populationId) {
+        if (!confirm('確認要重新比對上週資料，補上目前缺少的班級嗎？')) return;
+        $.ajax({
+            url: '@Url.Action("ManualBackfillLastWeekGrid", "StudentPopulation", new { area = "" })',
+            type: 'POST',
+            data: { populationId: populationId },
+            dataType: 'html',
+            success: function (data) {
+                $('#gridContentItem').html(data);
+            },
+            error: function () {
+                alert('補上上週資料失敗，請稍後再試');
             }
         });
     }

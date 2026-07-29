@@ -2,6 +2,95 @@
     ViewBag.Title = "課程管理";
 }
 
+<script>
+    var courseDepartmentsStore = new DevExpress.data.CustomStore({
+        key: "Id",
+        loadMode: "raw",
+        load: function () {
+            return $.getJSON("@Url.Action("GetDepartments", "Course", new { area = "Admin" })")
+                .then(function (r) { return r.data || r; });
+        }
+    });
+
+    var courseOptionsStore = new DevExpress.data.CustomStore({
+        key: "Id",
+        loadMode: "raw",
+        load: function () {
+            return $.getJSON("@Url.Action("GetCourseOptions", "Course", new { area = "Admin" })")
+                .then(function (r) { return r.data || r; });
+        }
+    });
+
+    function onCourseEditorPreparing(e) {
+        if (e.parentType !== "dataRow") return;
+
+        if (e.dataField === "SourceDepartmentIdValues") {
+            var currentDepartmentValue = e.value ? e.value.slice() : [];
+            e.editorName = "dxTagBox";
+            e.editorOptions = {
+                dataSource: courseDepartmentsStore,
+                valueExpr: "Id",
+                displayExpr: "Name",
+                value: currentDepartmentValue,
+                showSelectionControls: true,
+                searchEnabled: true,
+                multiline: true,
+                onValueChanged: function (args) {
+                    e.setValue(args.value);
+                }
+            };
+        }
+
+        if (e.dataField === "SourceCourseIdValues") {
+            var currentCourseValue = e.value ? e.value.slice() : [];
+            e.editorName = "dxTagBox";
+            e.editorOptions = {
+                dataSource: courseOptionsStore,
+                valueExpr: "Id",
+                displayExpr: "Name",
+                value: currentCourseValue,
+                showSelectionControls: true,
+                searchEnabled: true,
+                multiline: true,
+                onValueChanged: function (args) {
+                    e.setValue(args.value);
+                }
+            };
+        }
+    }
+
+    function renderIdTagsCell(container, values, store) {
+        if (!values || values.length === 0) {
+            $("<span>").text("（無）").css("color", "#999").appendTo(container);
+            return;
+        }
+        var $wrap = $("<div>").css({ display: "flex", flexWrap: "wrap", gap: "4px", padding: "2px 0" });
+        values.forEach(function (v) {
+            store.byKey(v).then(function (item) {
+                $("<span>")
+                    .text(item ? item.Name : v)
+                    .css({
+                        display: "inline-block",
+                        padding: "1px 8px",
+                        borderRadius: "12px",
+                        background: "#e9ecef",
+                        fontSize: "12px"
+                    })
+                    .appendTo($wrap);
+            });
+        });
+        $wrap.appendTo(container);
+    }
+
+    function departmentIdsCellTemplate(container, options) {
+        renderIdTagsCell(container, options.value, courseDepartmentsStore);
+    }
+
+    function courseIdsCellTemplate(container, options) {
+        renderIdTagsCell(container, options.value, courseOptionsStore);
+    }
+</script>
+
 <div class="card">
     <div class="card-body">
         @(Html.DevExtreme().DataGrid<Course>()
@@ -52,8 +141,8 @@
                         items.AddSimple().DataField("Published").Label(l => l.Text("已發佈"));
                         items.AddSimple().DataField("Type").Label(l => l.Text("所屬單位"));
                         items.AddSimple().DataField("StatisticsType").Label(l => l.Text("加總類型"));
-                        items.AddSimple().DataField("SourceDepartmentIds").Label(l => l.Text("來源班系Id (JSON陣列，如 [14,15,16])"));
-                        items.AddSimple().DataField("SourceCourseIds").Label(l => l.Text("來源課程Id (JSON陣列)"));
+                        items.AddSimple().DataField("SourceDepartmentIdValues").Label(l => l.Text("來源班系"));
+                        items.AddSimple().DataField("SourceCourseIdValues").Label(l => l.Text("來源課程"));
                         items.AddSimple().DataField("ApplicableClassType").Label(l => l.Text("適用班別"));
                         items.AddSimple().DataField("GroupByClassType").Label(l => l.Text("依班別分組"));
                     })
@@ -62,6 +151,7 @@
             .FilterRow(f => f.Visible(true))
             .SearchPanel(s => s.Visible(true).Width(240).Placeholder("搜尋..."))
             .HeaderFilter(h => h.Visible(true))
+            .OnEditorPreparing("onCourseEditorPreparing")
             .Columns(columns => {
                 columns.AddFor(m => m.Id).Width(80).AllowEditing(false);
                 columns.AddFor(m => m.Name).Caption("名稱");
@@ -102,8 +192,20 @@
                         .ValueExpr("Id")
                         .DisplayExpr("Name")
                     );
-                columns.AddFor(m => m.SourceDepartmentIds).Caption("來源班系Id (JSON陣列，如 [14,15,16])").Width(220);
-                columns.AddFor(m => m.SourceCourseIds).Caption("來源課程Id (JSON陣列)").Width(180);
+                columns.Add()
+                    .DataField("SourceDepartmentIdValues")
+                    .Caption("來源班系")
+                    .AllowSorting(false)
+                    .AllowFiltering(false)
+                    .CellTemplate("departmentIdsCellTemplate")
+                    .Width(220);
+                columns.Add()
+                    .DataField("SourceCourseIdValues")
+                    .Caption("來源課程")
+                    .AllowSorting(false)
+                    .AllowFiltering(false)
+                    .CellTemplate("courseIdsCellTemplate")
+                    .Width(220);
                 columns.AddFor(m => m.ApplicableClassType)
                     .Caption("適用班別")
                     .Lookup(lookup => lookup

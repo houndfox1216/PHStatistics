@@ -3344,88 +3344,48 @@ namespace PHStatistics.Portal.Controllers {
             return Json(new { success = true, results = results });
         }
 
+        // dryRun=true：只計算並列出會被改動的筆數與新舊值，完全不寫入資料庫，可安全在正式環境上先跑一次確認範圍。
         [HttpGet("FillLastWeekNumbers")]
-        public IActionResult FillLastWeekNumbers(string rootPath = @"C:\Leo\其他\Kuri\人數表匯入A") {
-            if (!Directory.Exists(rootPath))
+        public IActionResult FillLastWeekNumbers(string rootPath = @"C:\Leo\其他\Kuri\人數表匯入A", bool allPopulations = false, bool dryRun = false, int? year = null) {
+            if (!allPopulations && !Directory.Exists(rootPath))
                 return Json(new { success = false, message = $"路徑不存在: {rootPath}" });
 
-            var weekNos = Directory.GetDirectories(rootPath)
-                .Select(d => Path.GetFileName(d))
-                .Where(n => int.TryParse(n, out _))
-                .Select(n => int.Parse(n))
-                .ToHashSet();
-
             using var db = new DataContext();
-            var allSchoolYears = db.SchoolYear.OrderBy(sy => sy.Id).ToList();
+
+            IQueryable<StudentPopulation> query = db.StudentPopulation;
+            if (!allPopulations) {
+                var weekNos = Directory.GetDirectories(rootPath)
+                    .Select(d => Path.GetFileName(d))
+                    .Where(n => int.TryParse(n, out _))
+                    .Select(n => int.Parse(n))
+                    .ToHashSet();
+                query = query.Where(p => weekNos.Contains(p.Week));
+            }
+            if (year.HasValue) query = query.Where(p => p.Year == year.Value);
+            var populations = query.OrderBy(p => p.Year).ThenBy(p => p.Week).ToList();
 
             int totalUpdated = 0;
             var log = new List<object>();
 
-            var populations = db.StudentPopulation
-                .Where(p => weekNos.Contains(p.Week))
-                .OrderBy(p => p.Year).ThenBy(p => p.Week)
-                .ToList();
-
+            // 實際校正邏輯與匯入後自動執行的 PopulationImportService.CorrectLastWeekNumbers 共用同一份，
+            // 這裡只負責找出要重跑的人數表範圍，並統計每張表被改動了幾筆供人工檢視。
             foreach (var pop in populations) {
-                var schoolYear = allSchoolYears
-                    .FirstOrDefault(sy => sy.Year == pop.Year && sy.Week == pop.Week);
-                if (schoolYear == null) continue;
+                var changes = PHStatistics.Portal.Services.Import.PopulationImportService.CorrectLastWeekNumbers(db, pop.Id, dryRun);
+                if (dryRun) db.ChangeTracker.Clear(); // dryRun 下有異動但未儲存，清掉追蹤避免殘留影響下一筆查詢
+                if (changes.Count == 0) continue;
 
-                var prevSY = allSchoolYears
-                    .Where(sy => sy.Id < schoolYear.Id)
-                    .OrderByDescending(sy => sy.Id)
-                    .FirstOrDefault();
-                if (prevSY == null) continue;
-
-                var prevPop = db.StudentPopulation
-                    .FirstOrDefault(p => p.SchoolId == pop.SchoolId
-                                      && p.Year == prevSY.Year
-                                      && p.Week == prevSY.Week
-                                      && p.Type == pop.Type);
-                if (prevPop == null) continue;
-
-                var prevItems = db.StudentPopulationItem
-                    .Include("Class")
-                    .Where(i => i.StudentPopulationId == prevPop.Id && i.ClassId != null)
-                    .ToList();
-
-                // (CourseId, ClassType) → 上週人數總和
-                var prevLookup = prevItems
-                    .GroupBy(i => (i.Class.CourseId, i.Class.Type))
-                    .ToDictionary(g => g.Key, g => g.Sum(i => i.Number));
-
-                var currentItems = db.StudentPopulationItem
-                    .Include("Class")
-                    .Where(i => i.StudentPopulationId == pop.Id && i.ClassId != null)
-                    .ToList();
-
-                // 同一 (CourseId, ClassType) 群組：第一筆填入上週總數，其餘填 0
-                // 對 EM1 等多筆課程，Sum(LastWeekNumber) 仍等於上週總數，統計正確
-                int updated = 0;
-                foreach (var grp in currentItems.GroupBy(i => (i.Class.CourseId, i.Class.Type))) {
-                    prevLookup.TryGetValue(grp.Key, out int prevTotal);
-                    bool isFirst = true;
-                    foreach (var item in grp) {
-                        item.LastWeekNumber = isFirst ? prevTotal : 0;
-                        isFirst = false;
-                        updated++;
-                    }
-                }
-
-                if (updated > 0)
-                    db.SaveChanges();
-
-                totalUpdated += updated;
+                totalUpdated += changes.Count;
                 log.Add(new {
                     week = pop.Week,
                     year = pop.Year,
                     schoolId = pop.SchoolId,
                     type = pop.Type.ToString(),
-                    updated
+                    updated = changes.Count,
+                    changes = dryRun ? changes.Select(c => new { c.ItemId, c.OldValue, c.NewValue }) : null
                 });
             }
 
-            return Json(new { success = true, totalUpdated, log });
+            return Json(new { success = true, dryRun, totalUpdated, log });
         }
 
         [HttpGet("FixLastWeekData")]

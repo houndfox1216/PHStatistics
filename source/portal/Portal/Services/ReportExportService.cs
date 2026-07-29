@@ -553,13 +553,12 @@ public class ReportExportService {
         var courses = LoadCourses(StudentPopulationType.PH);
         var nonSumCourses = courses.Where(c => !c.IsSum).ToList();
 
-        var targetTypes = new[] { ClassType.SubGroup, ClassType.V3 };
-
-        // 計算各 courseId 的全區最大班數（SubGroup 與 V3 取其中較大值）
+        // 計算各 courseId 的全區最大班數（小班（含個別指導 Personal）與 V3 取其中較大值）
         var maxSlots = new Dictionary<int, int>();
         foreach (var pop in populations) {
             foreach (var courseId in nonSumCourses.Select(c => c.Id)) {
-                int sg = pop.Items.Count(i => i.Class?.CourseId == courseId && i.Class?.Type == ClassType.SubGroup);
+                int sg = pop.Items.Count(i => i.Class?.CourseId == courseId &&
+                    (i.Class?.Type == ClassType.SubGroup || i.Class?.Type == ClassType.Personal));
                 int v3 = pop.Items.Count(i => i.Class?.CourseId == courseId && i.Class?.Type == ClassType.V3);
                 int mx = Math.Max(sg, v3);
                 if (!maxSlots.TryGetValue(courseId, out int ex) || mx > ex)
@@ -631,7 +630,8 @@ public class ReportExportService {
                 foreach (var c in list) {
                     int slots = maxSlots[c.Id];
                     var sgItems = pop.Items
-                        .Where(i => i.Class?.CourseId == c.Id && i.Class?.Type == ClassType.SubGroup)
+                        .Where(i => i.Class?.CourseId == c.Id &&
+                            (i.Class?.Type == ClassType.SubGroup || i.Class?.Type == ClassType.Personal))
                         .OrderBy(i => i.Class.Ordinal).ThenBy(i => i.Class.Id).ToList();
                     var v3Items = pop.Items
                         .Where(i => i.Class?.CourseId == c.Id && i.Class?.Type == ClassType.V3)

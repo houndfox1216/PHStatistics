@@ -29,6 +29,13 @@
                     };
                 }
                 <fieldset class="center"><span class="badge @statusBadgeClass fs-6">@statusText</span></fieldset>
+                @if (Model.Status == StudentPopulationStatus.Documented) {
+                    <fieldset class="center mb-3">
+                        <button type="button" class="btn btn-outline-primary btn-sm" onclick="manualBackfillLastWeek(@Model.Id)">
+                            補上上週資料
+                        </button>
+                    </fieldset>
+                }
                 <input type="hidden" name="SchoolId" id="SchoolId" value="@Model.School.Id" />
                 <input type="hidden" name="Week" id="Week" value="@Model.Week" />
                 <input type="hidden" name="Name" id="Name" value="@Model.Name" />
@@ -55,8 +62,8 @@
                     </div>
                 </div>
                 @if (Model.Status == StudentPopulationStatus.Documented) {
-                <div class="mb-3">
-                    <button type="button" class="btn btn-success btn-sm btn-round"
+                <div class="mb-3 position-fixed" style="top: 50%; right: 20px; transform: translateY(-50%); z-index: 1050;">
+                    <button type="button" class="btn btn-success btn-sm btn-round shadow"
                             data-bs-toggle="modal" data-bs-target="#addClassModal">
                         ＋ 新增班級
                     </button>
@@ -367,6 +374,23 @@
             },
             error: function () {
                 alert('回復自動計算失敗，請重試');
+            }
+        });
+    }
+
+    function manualBackfillLastWeek(populationId) {
+        if (!confirm('確認要重新比對上週資料，補上目前缺少的班級與合計欄位嗎？')) return;
+        $.ajax({
+            url: '@Url.Action("ManualBackfillLastWeek", "StudentPopulation", new { area = "" })',
+            type: 'POST',
+            data: { populationId: populationId },
+            dataType: 'html',
+            success: function (data) {
+                $("#contentItem").html(data);
+                if (typeof updateSubmitSummary === 'function') updateSubmitSummary();
+            },
+            error: function () {
+                alert('補上上週資料失敗，請稍後再試');
             }
         });
     }

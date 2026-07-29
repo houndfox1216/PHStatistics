@@ -21,6 +21,10 @@
         else {
             color = "#93f3a6";
         }
+        bool isPersonalCourse = Model.Type == StudentPopulationType.PH && cItem.Department != null &&
+            (cItem.Department.Name.Equals("英文個別指導") || cItem.Department.Name.Equals("國語文個別指導"));
+        int courseWeekTotal = Model.Items.Where(e => e.Class.Course.Id == cItem.Id).Sum(e => e.Number);
+        string courseHeaderText = isPersonalCourse ? string.Format("課程：{0}　本週人數合計：{1}", cItem.Name, courseWeekTotal) : "課程：" + cItem.Name;
         @if (cItem.Name.Equals("上週英語文總人數") || cItem.Name.Equals("本週英語文總人數") || cItem.Name.Equals("本週國語文總人數") || cItem.Name.Equals("上週國語文總人數") || cItem.Name.Equals("與上週相比") ||
                 cItem.Name.Equals("去年同期/比"))
         {
@@ -87,7 +91,7 @@
                     }
                     else {
                         <label>
-                            <h2>課程：@cItem.Name</h2>
+                            <h2>@courseHeaderText</h2>
                         </label>
                     }
 
@@ -154,7 +158,7 @@
                     }
                     else {
                         <label>
-                            <h2>課程：@cItem.Name</h2>
+                            <h2>@courseHeaderText</h2>
                         </label>
                     }
 
@@ -188,7 +192,7 @@
                     }
                     else {
                         <label>
-                            <h2>課程：@cItem.Name</h2>
+                            <h2>@courseHeaderText</h2>
                         </label>
                     }
 
@@ -210,7 +214,7 @@
                     }
                     else {
                         <label>
-                            <h2>課程：@cItem.Name</h2>
+                            <h2>@courseHeaderText</h2>
                         </label>
                     }
             
@@ -256,10 +260,10 @@
                     本週人數
                 </div>
                 <div class="col-4 mb-4">
-                    學生備註
+                    @(cItem.Name.Equals("本週總詢問(填單)人數") ? "累計" : "學生備註")
                 </div>
                 <div class="col-2 mb-3">
-                </div>                    
+                </div>
                 }
 
             </div> 
@@ -330,7 +334,11 @@
 
                     </div>
                     <div class="col-4 mb-4">
-                        <input type="text" class="form-control" placeholder="" name="Items[@itemRowNo].StudentRemark" id="class_@sItem.Id.ToString()_remark" value="@sItem.StudentRemark" data-sitem="@sItem.Id" onblur="remarkChange('class_@sItem.Id.ToString()_remark')">
+                        @if (sItem.Class.Course.Name.Equals("本週總詢問(填單)人數")) {
+                            <input type="text" class="form-control" placeholder="" value="@sItem.YearToDateNumber" readonly>
+                        } else {
+                            <input type="text" class="form-control" placeholder="" name="Items[@itemRowNo].StudentRemark" id="class_@sItem.Id.ToString()_remark" value="@sItem.StudentRemark" data-sitem="@sItem.Id" onblur="remarkChange('class_@sItem.Id.ToString()_remark')">
+                        }
                     </div>
                     @if (!sItem.Class.Course.IsSum) {
                         <div class="col-2 mb-2">
