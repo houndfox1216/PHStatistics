@@ -86,12 +86,14 @@
                                    value="@aItem.Number" data-sitem="@aItem.Id" id="grid_@(aItem.Id)_count"
                                    onchange="gridValueChange('grid_@(aItem.Id)_count')">
                             @if (aItem.IsManual) {
-                                <div class="small text-muted">(手動)</div>
-                                @if (aItem.PreviewNumber.HasValue && aItem.PreviewNumber.Value != aItem.Number) {
-                                    <div class="small text-warning">
-                                        試算：@aItem.PreviewNumber
-                                        <a href="javascript:void(0)" onclick="revertToAuto(@aItem.Id)">改用系統試算值</a>
-                                    </div>
+                                bool hasPreview = aItem.PreviewNumber.HasValue && aItem.PreviewNumber.Value != aItem.Number;
+                                if (hasPreview) {
+                                    <i class="fa fa-exclamation-circle text-warning small ms-1" style="cursor:pointer"
+                                       title="手動輸入（系統試算：@aItem.PreviewNumber，點擊改用系統試算值）"
+                                       onclick="revertToAuto(@aItem.Id)"></i>
+                                }
+                                else {
+                                    <i class="fa fa-info-circle text-muted small ms-1" title="手動輸入"></i>
                                 }
                             }
                         }

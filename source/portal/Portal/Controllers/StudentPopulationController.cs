@@ -268,7 +268,7 @@ namespace PHStatistics.Portal.Controllers {
                     //增加上週資料
                     if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
                         foreach (StudentPopulationItem lItem in lastWeekData.Items) {
-                            if (!lItem.Class.Course.IsSum && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
+                            if (!lItem.Class.Course.IsSum && lItem.Number != 0 && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                                 StudentPopulationItem item = new StudentPopulationItem();
                                 Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type && e.Name == lItem.Class.Name);
                                 if (classItem == null) {
@@ -387,7 +387,7 @@ namespace PHStatistics.Portal.Controllers {
                 //增加上週資料
                 if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
                     foreach (StudentPopulationItem lItem in lastWeekData.Items) {
-                        if (!lItem.Class.Course.IsSum && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
+                        if (!lItem.Class.Course.IsSum && lItem.Number != 0 && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                             StudentPopulationItem item = new StudentPopulationItem();
                             Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type && e.Name == lItem.Class.Name);
                             if (classItem == null) {
@@ -521,7 +521,7 @@ namespace PHStatistics.Portal.Controllers {
                 //增加上週資料
                 if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
                     foreach (StudentPopulationItem lItem in lastWeekData.Items) {
-                        if (!lItem.Class.Course.IsSum && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
+                        if (!lItem.Class.Course.IsSum && lItem.Number != 0 && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                             StudentPopulationItem item = new StudentPopulationItem();
                             Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type && e.Name == lItem.Class.Name);
                             if (classItem == null) {
@@ -630,7 +630,7 @@ namespace PHStatistics.Portal.Controllers {
                 //增加上週資料
                 if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
                     foreach (StudentPopulationItem lItem in lastWeekData.Items) {
-                        if (!lItem.Class.Course.IsSum && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
+                        if (!lItem.Class.Course.IsSum && lItem.Number != 0 && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                             StudentPopulationItem item = new StudentPopulationItem();
                             Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type && e.Name == lItem.Class.Name);
                             if (classItem == null) {
@@ -743,7 +743,7 @@ namespace PHStatistics.Portal.Controllers {
                 //增加上週資料
                 if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
                     foreach (StudentPopulationItem lItem in lastWeekData.Items) {
-                        if (!lItem.Class.Course.IsSum && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
+                        if (!lItem.Class.Course.IsSum && lItem.Number != 0 && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                             StudentPopulationItem item = new StudentPopulationItem();
                             Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type && e.Name == lItem.Class.Name);
                             if (classItem == null) {
@@ -861,7 +861,7 @@ namespace PHStatistics.Portal.Controllers {
                 dataContext.SaveChanges();
                 if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
                     foreach (StudentPopulationItem lItem in lastWeekData.Items) {
-                        if (!lItem.Class.Course.IsSum && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
+                        if (!lItem.Class.Course.IsSum && lItem.Number != 0 && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                             StudentPopulationItem item = new StudentPopulationItem();
                             Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type && e.Name == lItem.Class.Name);
                             if (classItem == null) {
@@ -976,7 +976,7 @@ namespace PHStatistics.Portal.Controllers {
                 dataContext.SaveChanges();
                 if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
                     foreach (StudentPopulationItem lItem in lastWeekData.Items) {
-                        if (!lItem.Class.Course.IsSum && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
+                        if (!lItem.Class.Course.IsSum && lItem.Number != 0 && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                             StudentPopulationItem item = new StudentPopulationItem();
                             Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type && e.Name == lItem.Class.Name);
                             if (classItem == null) {
@@ -1913,7 +1913,7 @@ namespace PHStatistics.Portal.Controllers {
                 .ToHashSet();
             bool backfilledAny = false;
             foreach (StudentPopulationItem lItem in lastWeekData.Items) {
-                if (!lItem.Class.Course.IsSum && !deletedClassIds.Contains(lItem.Class.Id)
+                if (!lItem.Class.Course.IsSum && lItem.Number != 0 && !deletedClassIds.Contains(lItem.Class.Id)
                     && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                     Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type && e.Name == lItem.Class.Name);
                     if (classItem == null) {
@@ -2247,13 +2247,13 @@ namespace PHStatistics.Portal.Controllers {
                         aggregationEngine.Calculate(group, studentPopulationData);
                     }
                         dataContext.StudentPopulationItem.Update(group);
-                        dataContext.SaveChanges();
                     }
                 catch (Exception ex) {
                     string e = ex.Message;
                 }
 
             }
+            dataContext.SaveChanges();
 
             if (studentPopulationData.Type == StudentPopulationType.PH) {
 #if false // 舊 PH 後處理邏輯，已併入 AggregationEngine（classGroup 迴圈內的單一呼叫已涵蓋這 24 個課程），

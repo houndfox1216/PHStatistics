@@ -6,9 +6,9 @@
 
     var mainColumns = new (string Label, int[] CourseIds, ClassType Type)[] {
         ("數學-一對一", new[]{145,146,147,148,149,150,151,152,153,154,155,156}, ClassType.Personal),
-        ("數學-團體",   new[]{145,146,147,148,149,150,151,152,153,154,155,156}, ClassType.SubGroup),
+        ("數學-小組班", new[]{145,146,147,148,149,150,151,152,153,154,155,156}, ClassType.SubGroup),
         ("理化-一對一", new[]{195,196,197,198,199,200,201,202,203,204,205,206}, ClassType.Personal),
-        ("理化-團體",   new[]{195,196,197,198,199,200,201,202,203,204,205,206}, ClassType.SubGroup),
+        ("理化-小組班", new[]{195,196,197,198,199,200,201,202,203,204,205,206}, ClassType.SubGroup),
     };
     var analysisColumns = new (string Label, int[] CourseIds)[] {
         ("新生",   new[]{538,539,540,541,542,543,544,545,546,547,548,549}),
@@ -89,12 +89,14 @@
                                    value="@aItem.Number" data-sitem="@aItem.Id" id="grid_@(aItem.Id)_count"
                                    onchange="gridValueChange('grid_@(aItem.Id)_count')">
                             @if (aItem.IsManual) {
-                                <div class="small text-muted">(手動)</div>
-                                @if (aItem.PreviewNumber.HasValue && aItem.PreviewNumber.Value != aItem.Number) {
-                                    <div class="small text-warning">
-                                        試算：@aItem.PreviewNumber
-                                        <a href="javascript:void(0)" onclick="revertToAuto(@aItem.Id)">改用系統試算值</a>
-                                    </div>
+                                bool hasPreview = aItem.PreviewNumber.HasValue && aItem.PreviewNumber.Value != aItem.Number;
+                                if (hasPreview) {
+                                    <i class="fa fa-exclamation-circle text-warning small ms-1" style="cursor:pointer"
+                                       title="手動輸入（系統試算：@aItem.PreviewNumber，點擊改用系統試算值）"
+                                       onclick="revertToAuto(@aItem.Id)"></i>
+                                }
+                                else {
+                                    <i class="fa fa-info-circle text-muted small ms-1" title="手動輸入"></i>
                                 }
                             }
                         }

@@ -37,3 +37,98 @@
 2026-07-29 08:45:08.7580[18]  INFO MemberController  進行登入完成 導入 /Index False 
 2026-07-29 08:45:08.9381[20]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
 2026-07-29 08:45:08.9381[20]  INFO HomeController  進入首頁
+2026-07-29 09:39:26.4799[15]  INFO MemberController  Member Login account: password: 
+2026-07-29 09:39:42.5599[3]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-07-29 09:39:42.6089[3]  INFO MemberController  進行登入 
+2026-07-29 09:39:42.6592[3]  INFO MemberController  進行登入完成 導入 /StudentPopulation/Index?type=PH False 
+2026-07-29 09:39:42.7151[20]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 09:39:42.7151[20]  INFO HomeController  進入首頁
+2026-07-29 09:40:10.1691[3]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 09:40:10.1691[3]  INFO HomeController  進入首頁
+2026-07-29 09:46:08.6711[46]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 09:46:08.6711[46]  INFO HomeController  進入首頁
+2026-07-29 10:30:51.2802[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-07-29 10:30:51.2896[13]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-07-29 10:30:51.3794[13]  INFO MemberController  Member Login account: password: 
+2026-07-29 10:31:56.6912[20]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-07-29 10:31:56.7588[20]  INFO MemberController  進行登入 
+2026-07-29 10:31:56.8092[20]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-07-29 10:31:56.8640[20]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 10:31:56.8640[20]  INFO HomeController  進入首頁
+2026-07-29 10:32:17.4662[27]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 10:32:17.4662[27]  INFO HomeController  進入首頁
+2026-07-29 13:45:49.2931[58]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-07-29 13:45:49.2931[58]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-07-29 13:45:49.3897[15]  INFO MemberController  Member Login account: password: 
+2026-07-29 13:45:59.3665[27]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-07-29 13:45:59.4684[27]  INFO MemberController  進行登入 
+2026-07-29 13:45:59.5197[27]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-07-29 13:45:59.5819[38]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 13:45:59.5819[38]  INFO HomeController  進入首頁
+2026-07-29 13:49:25.5567[27]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 13:49:25.5567[27]  INFO HomeController  進入首頁
+2026-07-29 13:54:51.8045[55]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 13:54:51.8045[55]  INFO HomeController  進入首頁
+2026-07-29 13:54:53.3940[67]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 13:54:53.3940[67]  INFO HomeController  進入首頁
+2026-07-29 14:17:34.3750[28]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 14:17:34.3750[28]  INFO HomeController  進入首頁
+2026-07-29 15:09:20.6776[46] ERROR StudentPopulationController  UpdateClassItem sId=70081
+System.FormatException: Unrecognized Guid format.
+   at System.Guid.GuidResult.SetFailure(ParseFailure failureKind)
+   at System.Guid.TryParseGuid(ReadOnlySpan`1 guidString, GuidResult& result)
+   at PHStatistics.Portal.Controllers.StudentPopulationController.WriteItemLog(DataContext dataContext, Int64 studentPopulationId, Nullable`1 classId, String name, Int32 oldNumber, Int32 newNumber, Int32 oldLastWeekNumber, Int32 newLastWeekNumber, String oldStudentRemark, String newStudentRemark, String oldRemark, String newRemark, Nullable`1 changeClassId, Boolean isNew, Boolean isDeleted) in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\StudentPopulationController.cs:line 96
+   at PHStatistics.Portal.Controllers.StudentPopulationController.UpdateClassItem(Int64 sId, Nullable`1 number, String studentRemark, Nullable`1 lastWeekNumber) in C:\Company\PHStatistics.portal\source\portal\Portal\Controllers\StudentPopulationController.cs:line 1391
+2026-07-29 15:09:25.3094[38]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-07-29 15:09:25.3094[38]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-07-29 15:09:25.3355[61]  INFO MemberController  Member Login account: password: 
+2026-07-29 15:09:34.5671[38]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-07-29 15:09:34.6180[38]  INFO MemberController  進行登入 
+2026-07-29 15:09:34.6684[38]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-07-29 15:09:34.7234[61]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 15:09:34.7234[61]  INFO HomeController  進入首頁
+2026-07-29 15:21:51.8436[60]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 15:21:51.8436[60]  INFO HomeController  進入首頁
+2026-07-29 15:39:52.9339[58]  INFO MemberController  Member Login account: password: 
+2026-07-29 15:39:52.9900[58]  INFO MemberController  進行Session登入 
+2026-07-29 15:39:53.0404[58]  INFO MemberController  進行登入完成 導入 /StudentPopulation/CreatePSJGridPopulation?schoolId=8 False 
+2026-07-29 15:39:53.0962[49]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 15:39:53.0962[49]  INFO HomeController  進入首頁
+2026-07-29 15:40:18.9381[49]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 15:40:18.9381[49]  INFO HomeController  進入首頁
+2026-07-29 15:40:59.7796[27]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 15:40:59.7796[27]  INFO HomeController  進入首頁
+2026-07-29 15:42:05.0429[38]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 15:42:05.0429[38]  INFO HomeController  進入首頁
+2026-07-29 15:42:39.4789[38]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 15:42:39.4789[38]  INFO HomeController  進入首頁
+2026-07-29 15:46:12.3024[62]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 15:46:12.3024[62]  INFO HomeController  進入首頁
+2026-07-29 15:47:12.5753[62]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 15:47:12.5753[62]  INFO HomeController  進入首頁
+2026-07-29 15:48:38.8102[48]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 15:48:38.8102[48]  INFO HomeController  進入首頁
+2026-07-29 15:49:28.7590[29]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 15:49:28.7590[29]  INFO HomeController  進入首頁
+2026-07-29 15:49:54.4523[45]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 15:49:54.4523[45]  INFO HomeController  進入首頁
+2026-07-29 15:55:58.3063[11]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 15:55:58.3212[11]  INFO HomeController  進入首頁
+2026-07-29 17:09:03.4502[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-07-29 17:09:03.4612[13]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-07-29 17:09:03.5510[13]  INFO MemberController  Member Login account: password: 
+2026-07-29 17:09:32.6353[19]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-07-29 17:09:32.7114[19]  INFO MemberController  進行登入 
+2026-07-29 17:09:32.7668[19]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-07-29 17:09:32.8317[19]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 17:09:32.8317[19]  INFO HomeController  進入首頁
+2026-07-29 17:10:03.2404[18]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 17:10:03.2404[18]  INFO HomeController  進入首頁
+2026-07-29 17:11:32.2564[32]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 17:11:32.2564[32]  INFO HomeController  進入首頁
+2026-07-29 17:11:54.6018[18]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 17:11:54.6018[18]  INFO HomeController  進入首頁
+2026-07-29 17:30:39.0098[21]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 17:30:39.0098[21]  INFO HomeController  進入首頁
+2026-07-29 17:34:45.4866[62]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-07-29 17:34:45.4866[62]  INFO HomeController  進入首頁
