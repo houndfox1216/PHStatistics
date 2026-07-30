@@ -204,7 +204,7 @@ namespace PHStatistics.Portal.Controllers {
 
         //百瀚
         [Authorize(typeof(PortalUser))]
-        public IActionResult CreatePopulation(StudentPopulation data, int schoolId, string type, int? schoolYearId = null) {
+        public IActionResult CreatePopulation(StudentPopulation data, int schoolId, string type, int? schoolYearId = null, bool confirmed = false) {
             if (Request.Method == "POST") {
                 //進行人數表新增或更新
                 SumPHPopulation(data.Id);
@@ -254,6 +254,9 @@ namespace PHStatistics.Portal.Controllers {
                     dataContext.SaveChanges();
                 }
                 else {
+                    if (!confirmed && IsLastWeekDataMissing(lastWeekData)) {
+                        return BuildMissingLastWeekWarning(nameof(CreatePopulation), type, schoolId, schoolYear, lastschoolYear);
+                    }
                     returnData = new StudentPopulation();
                     returnData.School = dataContext.School.Find(schoolId);
                     returnData.Year = schoolYear.Year.Value;
@@ -329,7 +332,7 @@ namespace PHStatistics.Portal.Controllers {
         }
         //百倍速
         [Authorize(typeof(PortalUser))]
-        public IActionResult CreatePSJPopulation(StudentPopulation data, int schoolId, string type, int? schoolYearId = null) {
+        public IActionResult CreatePSJPopulation(StudentPopulation data, int schoolId, string type, int? schoolYearId = null, bool confirmed = false) {
             DataContext dataContext = new DataContext();
             StudentPopulationType populationType = new StudentPopulationType();
             if (type.Equals("PH")) {
@@ -373,6 +376,9 @@ namespace PHStatistics.Portal.Controllers {
                 dataContext.SaveChanges();
             }
             else {
+                if (!confirmed && IsLastWeekDataMissing(lastWeekData)) {
+                    return BuildMissingLastWeekWarning(nameof(CreatePSJPopulation), type, schoolId, schoolYear, lastschoolYear);
+                }
                 returnData = new StudentPopulation();
                 returnData.School = dataContext.School.Find(schoolId);
                 returnData.Year = schoolYear.Year.Value;
@@ -463,7 +469,7 @@ namespace PHStatistics.Portal.Controllers {
 
         //英檢
         [Authorize(typeof(PortalUser))]
-        public IActionResult CreateGeptPopulation(StudentPopulation data, int schoolId, string type, int? schoolYearId = null) {
+        public IActionResult CreateGeptPopulation(StudentPopulation data, int schoolId, string type, int? schoolYearId = null, bool confirmed = false) {
             DataContext dataContext = new DataContext();
             StudentPopulationType populationType = new StudentPopulationType();
             if (type.Equals("PH")) {
@@ -507,6 +513,9 @@ namespace PHStatistics.Portal.Controllers {
                 dataContext.SaveChanges();
             }
             else {
+                if (!confirmed && IsLastWeekDataMissing(lastWeekData)) {
+                    return BuildMissingLastWeekWarning(nameof(CreateGeptPopulation), type, schoolId, schoolYear, lastschoolYear);
+                }
                 returnData = new StudentPopulation();
                 returnData.School = dataContext.School.Find(schoolId);
                 returnData.Year = schoolYear.Year.Value;
@@ -572,7 +581,7 @@ namespace PHStatistics.Portal.Controllers {
         }
         //百世
         [Authorize(typeof(PortalUser))]
-        public IActionResult CreatePSPopulation(StudentPopulation data, int schoolId, string type, int? schoolYearId = null) {
+        public IActionResult CreatePSPopulation(StudentPopulation data, int schoolId, string type, int? schoolYearId = null, bool confirmed = false) {
             DataContext dataContext = new DataContext();
             StudentPopulationType populationType = new StudentPopulationType();
             if (type.Equals("PH")) {
@@ -616,6 +625,9 @@ namespace PHStatistics.Portal.Controllers {
                 dataContext.SaveChanges();
             }
             else {
+                if (!confirmed && IsLastWeekDataMissing(lastWeekData)) {
+                    return BuildMissingLastWeekWarning(nameof(CreatePSPopulation), type, schoolId, schoolYear, lastschoolYear);
+                }
                 returnData = new StudentPopulation();
                 returnData.School = dataContext.School.Find(schoolId);
                 returnData.Year = schoolYear.Year.Value;
@@ -682,7 +694,7 @@ namespace PHStatistics.Portal.Controllers {
 
         //課輔
         [Authorize(typeof(PortalUser))]
-        public IActionResult CreateASPopulation(StudentPopulation data, int schoolId, string type, int? schoolYearId = null) {
+        public IActionResult CreateASPopulation(StudentPopulation data, int schoolId, string type, int? schoolYearId = null, bool confirmed = false) {
             DataContext dataContext = new DataContext();
             StudentPopulationType populationType = new StudentPopulationType();
             if (type.Equals("PH")) {
@@ -729,6 +741,9 @@ namespace PHStatistics.Portal.Controllers {
                 dataContext.SaveChanges();
             }
             else {
+                if (!confirmed && IsLastWeekDataMissing(lastWeekData)) {
+                    return BuildMissingLastWeekWarning(nameof(CreateASPopulation), type, schoolId, schoolYear, lastschoolYear);
+                }
                 returnData = new StudentPopulation();
                 returnData.School = dataContext.School.Find(schoolId);
                 returnData.Year = schoolYear.Year.Value;
@@ -795,7 +810,7 @@ namespace PHStatistics.Portal.Controllers {
 
         //課輔(新網格)
         [Authorize(typeof(PortalUser))]
-        public IActionResult CreateASGridPopulation(int schoolId, string type, int? schoolYearId = null) {
+        public IActionResult CreateASGridPopulation(int schoolId, string type, int? schoolYearId = null, bool confirmed = false) {
             DataContext dataContext = new DataContext();
             SchoolYear schoolYear = ResolveSchoolYear(dataContext, schoolYearId);
             SchoolYear lastschoolYear = schoolYear.Week > 1
@@ -848,6 +863,9 @@ namespace PHStatistics.Portal.Controllers {
                 }
             }
             else {
+                if (!confirmed && IsLastWeekDataMissing(lastWeekData)) {
+                    return BuildMissingLastWeekWarning(nameof(CreateASGridPopulation), type, schoolId, schoolYear, lastschoolYear);
+                }
                 returnData = new StudentPopulation();
                 returnData.School = dataContext.School.Find(schoolId);
                 returnData.Year = schoolYear.Year.Value;
@@ -910,7 +928,7 @@ namespace PHStatistics.Portal.Controllers {
 
         //百倍速(新網格)
         [Authorize(typeof(PortalUser))]
-        public IActionResult CreatePSJGridPopulation(int schoolId, string type, int? schoolYearId = null) {
+        public IActionResult CreatePSJGridPopulation(int schoolId, string type, int? schoolYearId = null, bool confirmed = false) {
             DataContext dataContext = new DataContext();
             SchoolYear schoolYear = ResolveSchoolYear(dataContext, schoolYearId);
             SchoolYear lastschoolYear = schoolYear.Week > 1
@@ -963,6 +981,9 @@ namespace PHStatistics.Portal.Controllers {
                 }
             }
             else {
+                if (!confirmed && IsLastWeekDataMissing(lastWeekData)) {
+                    return BuildMissingLastWeekWarning(nameof(CreatePSJGridPopulation), type, schoolId, schoolYear, lastschoolYear);
+                }
                 returnData = new StudentPopulation();
                 returnData.School = dataContext.School.Find(schoolId);
                 returnData.Year = schoolYear.Year.Value;
@@ -2003,6 +2024,29 @@ namespace PHStatistics.Portal.Controllers {
                     : new ClassType[] { ClassType.General };
             }
             return course => new ClassType[] { ClassType.General };
+        }
+
+        //上週人數表不存在、或存在但沒有任何非合計班級項目(實質空白)，都視為「上週資料缺失」——
+        //這種情況下「首次建立」分支的覆抄邏輯完全沒東西可以抄，使用者會被迫從頭手動新增每一個班級。
+        private static bool IsLastWeekDataMissing(StudentPopulation lastWeekData) {
+            return lastWeekData?.Items == null
+                || !lastWeekData.Items.Any(i => i.Class?.Course != null && !i.Class.Course.IsSum);
+        }
+
+        //建立「上週資料缺失，是否仍要建立本週人數表」的確認頁。只有具備PopulationWeekSwitch權限的使用者
+        //才能透過schoolYearId切換到上週(見ResolveSchoolYear)，一般使用者只會看到「繼續」或「返回」兩個選項。
+        private IActionResult BuildMissingLastWeekWarning(string actionName, string type, int schoolId, SchoolYear schoolYear, SchoolYear lastSchoolYear) {
+            ViewBag.WarningActionName = actionName;
+            ViewBag.WarningType = type;
+            ViewBag.WarningSchoolId = schoolId;
+            ViewBag.WarningSchoolYearId = schoolYear.Id;
+            ViewBag.WarningYear = schoolYear.Year;
+            ViewBag.WarningWeek = schoolYear.Week;
+            ViewBag.WarningLastYear = lastSchoolYear?.Year;
+            ViewBag.WarningLastWeek = lastSchoolYear?.Week;
+            ViewBag.WarningLastSchoolYearId = lastSchoolYear?.Id;
+            ViewBag.WarningCanGoToLastWeek = lastSchoolYear != null && User.HasPermission(SystemPermission.PopulationWeekSwitch);
+            return View("MissingLastWeekWarning");
         }
 
         //手動觸發「補上上週資料」：使用者按鈕點擊才執行，不再於每次開啟頁面時自動執行

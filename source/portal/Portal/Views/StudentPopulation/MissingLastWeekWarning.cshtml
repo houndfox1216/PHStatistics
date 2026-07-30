@@ -1,0 +1,43 @@
+@{
+    string actionName = (string)ViewBag.WarningActionName;
+    string type = (string)ViewBag.WarningType;
+    int schoolId = (int)ViewBag.WarningSchoolId;
+    int schoolYearId = (int)ViewBag.WarningSchoolYearId;
+    int? year = (int?)ViewBag.WarningYear;
+    int? week = (int?)ViewBag.WarningWeek;
+    int? lastYear = (int?)ViewBag.WarningLastYear;
+    int? lastWeek = (int?)ViewBag.WarningLastWeek;
+    int? lastSchoolYearId = (int?)ViewBag.WarningLastSchoolYearId;
+    bool canGoToLastWeek = (bool)ViewBag.WarningCanGoToLastWeek;
+    string lastWeekLabel = (lastYear.HasValue && lastWeek.HasValue) ? $"{lastYear}第{lastWeek}週" : "上一週";
+}
+
+<section>
+    <div class="py-5 bg-lightbg">
+        <div class="container mb-3" style="max-width:640px;">
+            <div class="alert alert-warning">
+                <h4 class="alert-heading">⚠ 上週資料缺失</h4>
+                <p class="mb-2">
+                    系統偵測到<strong>@lastWeekLabel</strong>沒有任何班級資料。
+                </p>
+                <p class="mb-0">
+                    如果現在建立 @year 第 @week 週人數表，將無法自動繼承上週班級，需要從頭手動新增每一個班級。
+                    建議先確認上週資料是否遺漏填寫，再決定是否要繼續。
+                </p>
+            </div>
+            <div class="d-flex flex-wrap gap-2 justify-content-center">
+                @if (canGoToLastWeek && lastSchoolYearId.HasValue) {
+                    <a class="btn btn-primary" href="@Url.Action(actionName, "StudentPopulation", new { area = "", schoolId, type, schoolYearId = lastSchoolYearId })">
+                        前往補上週資料
+                    </a>
+                }
+                <a class="btn btn-outline-secondary" href="@Url.Action("Index", "StudentPopulation", new { area = "", type })">
+                    返回，先不建立
+                </a>
+                <a class="btn btn-danger" href="@Url.Action(actionName, "StudentPopulation", new { area = "", schoolId, type, schoolYearId, confirmed = true })">
+                    仍要繼續建立本週人數表
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
