@@ -18,11 +18,18 @@ public class PSPopulationImporter : IPopulationImporter {
         var sheet = new XSSFWorkbook(fileStream).GetSheetAt(0);
 
         string title = sheet.GetRow(0)?.GetCell(0)?.ToString()?.Trim() ?? "";
-        var (yearInt, weekInt) = TitleParser.ParseYearWeek(title);
-        if (yearInt == 0 || weekInt == 0) {
-            result.Errors.Add($"無法從標題解析年份週次: {title}");
+        var (weekInt, titleDate) = TitleParser.ParseWeekAndDate(title);
+        if (weekInt == 0 || titleDate == null) {
+            result.Errors.Add($"無法從標題解析週次或日期: {title}");
             return result;
         }
+        SchoolYear scanSchoolYear = db.SchoolYear.FirstOrDefault(e =>
+            e.Week == weekInt && e.WeekStartDate <= titleDate.Value && titleDate.Value <= e.WeekEndDate);
+        if (scanSchoolYear == null) {
+            result.Errors.Add($"找不到符合的學年週次: 第{weekInt}週 日期{titleDate:yyyy-MM-dd}");
+            return result;
+        }
+        int yearInt = scanSchoolYear.Year.Value;
 
         for (int rNo = 2; rNo <= sheet.LastRowNum; rNo++) {
             IRow row = sheet.GetRow(rNo);
@@ -51,16 +58,18 @@ public class PSPopulationImporter : IPopulationImporter {
 
         // Parse year/week from row 0 title
         string title = sheet.GetRow(0)?.GetCell(0)?.ToString()?.Trim() ?? "";
-        var (yearInt, weekInt) = TitleParser.ParseYearWeek(title);
-        if (yearInt == 0 || weekInt == 0) {
-            result.Errors.Add($"無法從標題解析年份週次: {title}");
+        var (weekInt, titleDate) = TitleParser.ParseWeekAndDate(title);
+        if (weekInt == 0 || titleDate == null) {
+            result.Errors.Add($"無法從標題解析週次或日期: {title}");
             return result;
         }
-        SchoolYear schoolYear = db.SchoolYear.FirstOrDefault(e => e.Year == yearInt && e.Week == weekInt);
+        SchoolYear schoolYear = db.SchoolYear.FirstOrDefault(e =>
+            e.Week == weekInt && e.WeekStartDate <= titleDate.Value && titleDate.Value <= e.WeekEndDate);
         if (schoolYear == null) {
-            result.Errors.Add($"找不到學年週次: {yearInt}第{weekInt}週");
+            result.Errors.Add($"找不到符合的學年週次: 第{weekInt}週 日期{titleDate:yyyy-MM-dd}");
             return result;
         }
+        int yearInt = schoolYear.Year.Value;
 
         // Build col→course map from row 1 headers; fallback to alias dict when Course.Name doesn't match
         IRow headerRow = sheet.GetRow(1);

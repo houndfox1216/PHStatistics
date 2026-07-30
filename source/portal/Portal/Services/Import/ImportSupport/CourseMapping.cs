@@ -112,6 +112,7 @@ public static class CourseMapping {
         ["八資"]=123, ["八特"]=124, ["八特1"]=124, ["八特2"]=124, ["八特3"]=124, ["八課內"]=124,
         ["九資"]=125, ["九特"]=126, ["九資1"]=125, ["九資2"]=125,
         ["高一特"]=128, ["高二特"]=129, ["高三特"]=130,
+        ["累積新生詢問"]=143,
     };
 
     // CourseIds that use EM1 logic: count = # individual students, each gets its own class record of 1
