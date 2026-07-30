@@ -149,6 +149,27 @@ namespace PHStatistics.Content {
         }
 
         /// <summary>
+        /// 統計扣除來源課程Id，JSON陣列格式
+        /// </summary>
+        [Display(Name = "統計扣除來源課程Id"), DataMember]
+        [MaxLength(500)]
+        public string NegativeSourceCourseIds { get; set; }
+
+        /// <summary>
+        /// 統計扣除來源課程Id（供介面以勾選標籤方式編輯，實際仍儲存於 NegativeSourceCourseIds）
+        /// </summary>
+        [Display(Name = "扣除來源課程"), DataMember]
+        [NotMapped]
+        public int[] NegativeSourceCourseIdValues {
+            get {
+                if (string.IsNullOrEmpty(NegativeSourceCourseIds)) return Array.Empty<int>();
+                try { return JsonConvert.DeserializeObject<int[]>(NegativeSourceCourseIds) ?? Array.Empty<int>(); }
+                catch { return Array.Empty<int>(); }
+            }
+            set => NegativeSourceCourseIds = (value == null || value.Length == 0) ? null : JsonConvert.SerializeObject(value);
+        }
+
+        /// <summary>
         /// 是否依班別分組計算
         /// </summary>
         [Display(Name = "是否依班別分組計算"), DataMember]

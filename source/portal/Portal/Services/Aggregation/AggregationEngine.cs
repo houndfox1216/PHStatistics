@@ -63,6 +63,13 @@ public class AggregationEngine {
                 int thisWeek = GetSourceItems(course, item, population.Items).Sum(i => i.Number);
                 return thisWeek - SumLastYear(course, item, population);
             }
+            case StatisticsType.DiffBetweenCourses: {
+                var positiveIds = ParseIntArray(course.SourceCourseIds);
+                var negativeIds = ParseIntArray(course.NegativeSourceCourseIds);
+                int positive = GetItemsByCourseIds(course, item, population.Items, positiveIds).Sum(i => i.Number);
+                int negative = GetItemsByCourseIds(course, item, population.Items, negativeIds).Sum(i => i.Number);
+                return positive - negative;
+            }
             case StatisticsType.Average: {
                 var src = GetSourceItems(course, item, population.Items).ToList();
                 int count = src.Count(i => i.Number > 0);
@@ -108,6 +115,23 @@ public class AggregationEngine {
             query = query.Where(i => i.Class?.Type == course.ApplicableClassType.Value);
         }
         else if (course.GroupByClassType) {
+            var classType = contextItem.Class?.Type;
+            query = query.Where(i => i.Class?.Type == classType);
+        }
+
+        return query;
+    }
+
+    // DiffBetweenCourses 專用：直接依課程Id清單篩選（不經 SourceDepartmentIds／課程自身 DepartmentId 那條路徑），
+    // 刻意不排除 IsSum 項目——來源課程本身可能就是 IsSum=true（例如 PSJ 的新生/流失手動輸入欄位）。
+    // 班別篩選規則沿用 GetSourceItems：ApplicableClassType 優先，其次 GroupByClassType。
+    private static IEnumerable<StudentPopulationItem> GetItemsByCourseIds(
+        Course course, StudentPopulationItem contextItem, IEnumerable<StudentPopulationItem> items, List<int> courseIds) {
+        var query = items.Where(i => i.Class?.CourseId != null && courseIds.Contains(i.Class.CourseId.Value));
+
+        if (course.ApplicableClassType.HasValue) {
+            query = query.Where(i => i.Class?.Type == course.ApplicableClassType.Value);
+        } else if (course.GroupByClassType) {
             var classType = contextItem.Class?.Type;
             query = query.Where(i => i.Class?.Type == classType);
         }

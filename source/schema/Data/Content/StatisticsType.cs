@@ -72,6 +72,13 @@ public enum StatisticsType : short
     DiffWithLastYear = 11,
 
     /// <summary>
+    /// 指定來源課程相減（正－負）
+    /// </summary>
+    [Display(Name = "指定來源課程相減")]
+    [Description("指定來源課程相減")]
+    DiffBetweenCourses = 12,
+
+    /// <summary>
     /// 新生人數
     /// </summary>
     [Display(Name = "新生人數")]

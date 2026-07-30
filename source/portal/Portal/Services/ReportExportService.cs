@@ -409,6 +409,19 @@ public class ReportExportService {
     private static int ComputeIsumValue(Course course,
         IEnumerable<StudentPopulationItem> allItems, ClassType? rowClassType) {
 
+        var statsTypeEarly = course.StatisticsType ?? InferStatisticsType(course.Name);
+        if (statsTypeEarly == StatisticsType.DiffBetweenCourses) {
+            // 來源課程本身可能是 IsSum=true（例如新生/流失手動輸入欄位），不能套用下方排除 IsSum 的 src 管線
+            var ct2 = course.ApplicableClassType ?? (course.GroupByClassType ? rowClassType : null);
+            var posIds = TryParseIntArray(course.SourceCourseIds);
+            var negIds = TryParseIntArray(course.NegativeSourceCourseIds);
+            int positive = allItems.Where(i => i.Class?.CourseId != null && posIds.Contains(i.Class.CourseId.Value))
+                                    .Where(i => !ct2.HasValue || i.Class?.Type == ct2.Value).Sum(i => i.Number);
+            int negative = allItems.Where(i => i.Class?.CourseId != null && negIds.Contains(i.Class.CourseId.Value))
+                                    .Where(i => !ct2.HasValue || i.Class?.Type == ct2.Value).Sum(i => i.Number);
+            return positive - negative;
+        }
+
         // 排除 IsSum 課程本身的項目，只用真實班級資料計算
         var src = allItems.Where(i => i.Class?.Course?.IsSum != true);
 

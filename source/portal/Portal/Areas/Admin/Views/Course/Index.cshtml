@@ -57,6 +57,23 @@
                 }
             };
         }
+
+        if (e.dataField === "NegativeSourceCourseIdValues") {
+            var currentNegCourseValue = e.value ? e.value.slice() : [];
+            e.editorName = "dxTagBox";
+            e.editorOptions = {
+                dataSource: courseOptionsStore,
+                valueExpr: "Id",
+                displayExpr: "Name",
+                value: currentNegCourseValue,
+                showSelectionControls: true,
+                searchEnabled: true,
+                multiline: true,
+                onValueChanged: function (args) {
+                    e.setValue(args.value);
+                }
+            };
+        }
     }
 
     function renderIdTagsCell(container, values, store) {
@@ -87,6 +104,10 @@
     }
 
     function courseIdsCellTemplate(container, options) {
+        renderIdTagsCell(container, options.value, courseOptionsStore);
+    }
+
+    function negativeCourseIdsCellTemplate(container, options) {
         renderIdTagsCell(container, options.value, courseOptionsStore);
     }
 </script>
@@ -143,6 +164,7 @@
                         items.AddSimple().DataField("StatisticsType").Label(l => l.Text("加總類型"));
                         items.AddSimple().DataField("SourceDepartmentIdValues").Label(l => l.Text("來源班系"));
                         items.AddSimple().DataField("SourceCourseIdValues").Label(l => l.Text("來源課程"));
+                        items.AddSimple().DataField("NegativeSourceCourseIdValues").Label(l => l.Text("扣除來源課程"));
                         items.AddSimple().DataField("ApplicableClassType").Label(l => l.Text("適用班別"));
                         items.AddSimple().DataField("GroupByClassType").Label(l => l.Text("依班別分組"));
                     })
@@ -183,6 +205,7 @@
                             new { Id = 4,  Name = "指定來源課程人數加總" },
                             new { Id = 10, Name = "與上週相比" },
                             new { Id = 11, Name = "去年同期比較" },
+                            new { Id = 12, Name = "指定來源課程相減" },
                             new { Id = 30, Name = "班級數量統計" },
                             new { Id = 31, Name = "班級數量統計依班別" },
                             new { Id = 40, Name = "上週數值" },
@@ -205,6 +228,13 @@
                     .AllowSorting(false)
                     .AllowFiltering(false)
                     .CellTemplate("courseIdsCellTemplate")
+                    .Width(220);
+                columns.Add()
+                    .DataField("NegativeSourceCourseIdValues")
+                    .Caption("扣除來源課程")
+                    .AllowSorting(false)
+                    .AllowFiltering(false)
+                    .CellTemplate("negativeCourseIdsCellTemplate")
                     .Width(220);
                 columns.AddFor(m => m.ApplicableClassType)
                     .Caption("適用班別")
