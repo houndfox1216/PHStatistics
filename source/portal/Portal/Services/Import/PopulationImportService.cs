@@ -43,6 +43,17 @@ public class PopulationImportService {
         foreach (long popId in result.PopulationIds) {
             CorrectLastWeekNumbers(db, popId);
         }
+        // 匯入用deleteExisting=true整批重建人數表時，IsSum合計/分析課程的項目列會被一併砍掉，
+        // 但Excel欄位對照表只負責原始輸入欄位，不會重新建立這些列——沒有列，畫面就不會顯示、
+        // 也無法編輯。BackfillMissingSumItems靠(Course.Id, ClassType)判斷是否已存在，是冪等操作，
+        // 沒有BackfillMissingLastWeekItems那種靠班級名稱字串比對、07-25出過重複建列bug的風險。
+        foreach (long popId in result.PopulationIds) {
+            try {
+                BackfillMissingSumItemsForPopulation(db, popId);
+            } catch (System.Exception ex) {
+                _logger.LogWarning(ex, "匯入後補齊合計欄位失敗: populationId={PopId}", popId);
+            }
+        }
         // 匯入完成後立即計算IsSum合計欄位，不必等分校人員打開頁面存檔才觸發重算
         // （跟StudentPopulationController各Action呼叫的是同一套邏輯，SumPHPopulation依Type自行分支）。
         foreach (long popId in result.PopulationIds) {
@@ -53,6 +64,28 @@ public class PopulationImportService {
             }
         }
         return result;
+    }
+
+    private static void BackfillMissingSumItemsForPopulation(DataContext db, long populationId) {
+        var pop = db.StudentPopulation.Include("Items.Class.Course").FirstOrDefault(e => e.Id == populationId);
+        if (pop == null || pop.SchoolId == null) return;
+
+        var schoolYear = db.SchoolYear.FirstOrDefault(sy => sy.Year == pop.Year && sy.Week == pop.Week);
+        StudentPopulation lastWeekData = null;
+        if (schoolYear != null) {
+            SchoolYear prevSY = schoolYear.Week > 1
+                ? db.SchoolYear.Where(sy => sy.Year == schoolYear.Year && sy.Week == schoolYear.Week - 1)
+                               .OrderBy(sy => sy.Id).FirstOrDefault()
+                : db.SchoolYear.Where(sy => sy.Year == schoolYear.Year - 1)
+                               .OrderByDescending(sy => sy.Week).ThenByDescending(sy => sy.Id).FirstOrDefault();
+            if (prevSY != null) {
+                lastWeekData = db.StudentPopulation.Include("Items.Class.Course")
+                    .FirstOrDefault(p => p.SchoolId == pop.SchoolId && p.Year == prevSY.Year && p.Week == prevSY.Week && p.Type == pop.Type);
+            }
+        }
+
+        StudentPopulationController.BackfillMissingSumItems(db, pop.SchoolId.Value, pop, lastWeekData, pop.Type,
+            StudentPopulationController.GetSumTargetTypesSelector(pop.Type));
     }
 
     // 校正上週資料：HomeController.FillLastWeekNumbers 共用同一份邏輯（不可各自維護一份，

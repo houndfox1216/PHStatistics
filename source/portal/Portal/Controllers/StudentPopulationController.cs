@@ -1945,11 +1945,23 @@ namespace PHStatistics.Portal.Controllers {
 
         //已存在該週人數表時，補上該表建立之後才在 Admin 新增的固定總計/分析課程（IsSum），避免既有週次的合計欄空白
         //（ASGrid/PSJGrid 原本就有這段邏輯，這裡把同樣的邏輯套用到 PH/GEPT/PS/PSJ舊頁/AS舊頁）
-        private StudentPopulation BackfillMissingSumItems(DataContext dataContext, int schoolId, StudentPopulation returnData, StudentPopulation lastWeekData, StudentPopulationType populationType, Func<Course, IEnumerable<ClassType>> targetTypesSelector) {
+        // 2026-07-30：改為 public static（本來就不依賴controller實例狀態，純用傳入的dataContext操作），
+        // 讓PopulationImportService匯入完成後也能呼叫，補回被deleteExisting=true整批砍掉的IsSum合計列。
+        // 注意：這裡跟BackfillMissingLastWeekItems不同，靠(Course.Id, ClassType)判斷「是否已存在」，
+        // 不靠班級名稱字串比對，所以沒有07-25那次「同名班級判斷不出已補過」的重複建列風險，可以安全自動化。
+        public static StudentPopulation BackfillMissingSumItems(DataContext dataContext, int schoolId, StudentPopulation returnData, StudentPopulation lastWeekData, StudentPopulationType populationType, Func<Course, IEnumerable<ClassType>> targetTypesSelector) {
             bool backfilledAny = false;
             foreach (Course course in dataContext.Course.Include("Department").Where(e => e.IsSum == true && e.Type == populationType).OrderBy(e => e.Ordinal).ToList()) {
                 foreach (ClassType targetType in targetTypesSelector(course)) {
-                    if (!dataContext.StudentPopulationItem.Any(e => e.Class.Course.Id == course.Id && e.Class.Type == targetType && e.StudentPopulation.Id == returnData.Id)) {
+                    // 非依班別分組的課程（GroupByClassType=false）只該有「一筆」代表整體數值的項目——
+                    // 但Excel原始匯入若剛好靠Name比對命中這類「統計/分析」總表欄位，會被寫進當時那一列
+                    // 的班別(小=SubGroup/三=V3)，不是這裡預期補列要用的班別(General/Personal)。若只比對
+                    // 「這個班別是否已存在」會誤判成沒有，另外補一筆造成同課程兩筆重複資料；改成不分班別，
+                    // 只要這個課程在這張人數表底下已經有任何一筆，就不重複建立。
+                    bool alreadyExists = course.GroupByClassType
+                        ? dataContext.StudentPopulationItem.Any(e => e.Class.Course.Id == course.Id && e.Class.Type == targetType && e.StudentPopulation.Id == returnData.Id)
+                        : dataContext.StudentPopulationItem.Any(e => e.Class.Course.Id == course.Id && e.StudentPopulation.Id == returnData.Id);
+                    if (!alreadyExists) {
                         Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == course.Id && e.Type == targetType);
                         if (classItem == null) {
                             classItem = new Class() { SchoolId = schoolId, CourseId = course.Id, Name = course.Name, Type = targetType };
@@ -1979,7 +1991,7 @@ namespace PHStatistics.Portal.Controllers {
         }
 
         //各型別「合計欄補列」時要建立的班別清單，跟各自「首次建立」分支的 GroupByClassType 判斷保持一致
-        private Func<Course, IEnumerable<ClassType>> GetSumTargetTypesSelector(StudentPopulationType type) {
+        public static Func<Course, IEnumerable<ClassType>> GetSumTargetTypesSelector(StudentPopulationType type) {
             if (type == StudentPopulationType.PH) {
                 return course => course.GroupByClassType
                     ? new ClassType[] { ClassType.SubGroup, ClassType.V3 }
