@@ -2073,14 +2073,18 @@ namespace PHStatistics.Portal.Controllers {
                 .Sum(e => (int?)e.Number) ?? 0;
         }
 
-        public StudentPopulation SumPHPopulation(long spId) {
+        // 2026-07-30：改為 static，不再依賴 Model（本來就只用來取本週資料，改用本方法自建的 dataContext 直接查詢），
+        // 讓匯入流程（PopulationImportService）也能在沒有HTTP請求情境下呼叫同一套加總邏輯，不必另外複製一份。
+        public static StudentPopulation SumPHPopulation(long spId) {
             DataContext dataContext = new DataContext();
             dataContext.ChangeTracker.Clear();
             var aggregationEngine = new AggregationEngine((year, week, schoolId, type) =>
                 dataContext.StudentPopulation.Include("Items.Class.Course")
                     .FirstOrDefault(p => p.Year == year && p.Week == week && p.SchoolId == schoolId && p.Type == type));
             //取得本週資料
-            StudentPopulation studentPopulationData = Model.GetStudentPopulationById(spId);
+            StudentPopulation studentPopulationData = dataContext.StudentPopulation
+                .Include("Submitter").Include("School").Include("Items.Class.Course.Department")
+                .FirstOrDefault(e => e.Id == spId);
             //加總說明
             //新增英文合計
             //國小班 P1~P6 SAT Juior AB  

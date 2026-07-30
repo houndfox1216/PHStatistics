@@ -75,15 +75,21 @@ public static class PHSheetReader {
             row2Prop[c] = lastR2;
         }
 
+        var phForceMap = CourseMapping.GetPhColCourseIdForce(sheet.SheetName);
+        var phFallbackMap = CourseMapping.GetPhColCourseIdFallback(sheet.SheetName);
+
         var colCourseMap = new Dictionary<int, Course>();
         for (int c = 2; c < maxHdrCol; c++) {
             var r3Cell = sheet.GetRow(3)?.GetCell(c);
             string r3Val = (r3Cell?.CellType == CellType.String) ? (r3Cell.StringCellValue?.Trim() ?? "") : "";
             string label = !string.IsNullOrEmpty(r3Val) ? r3Val : row2Prop[c];
             Course course = null;
-            if (!string.IsNullOrEmpty(label))
+            // 強制覆蓋優先：這幾欄的Name+Type比對永遠會撞到另一個部門的同名課程，不能信任Name比對
+            if (popType == StudentPopulationType.PH && phForceMap.TryGetValue(c, out int forceId))
+                course = db.Course.Include("Department").FirstOrDefault(e => e.Id == forceId);
+            if (course == null && !string.IsNullOrEmpty(label))
                 course = db.Course.Include("Department").FirstOrDefault(e => e.Name == label && e.Type == popType);
-            if (course == null && CourseMapping.PhColCourseId.TryGetValue(c, out int fallbackId))
+            if (course == null && phFallbackMap.TryGetValue(c, out int fallbackId))
                 course = db.Course.Include("Department").FirstOrDefault(e => e.Id == fallbackId);
             if (course != null) colCourseMap[c] = course;
         }

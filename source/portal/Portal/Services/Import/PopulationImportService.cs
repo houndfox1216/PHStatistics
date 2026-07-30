@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using PHStatistics.Content;
+using PHStatistics.Portal.Controllers;
 using PHStatistics.Portal.Services.Import.ImportSupport;
 
 namespace PHStatistics.Portal.Services.Import;
@@ -41,6 +42,15 @@ public class PopulationImportService {
 
         foreach (long popId in result.PopulationIds) {
             CorrectLastWeekNumbers(db, popId);
+        }
+        // 匯入完成後立即計算IsSum合計欄位，不必等分校人員打開頁面存檔才觸發重算
+        // （跟StudentPopulationController各Action呼叫的是同一套邏輯，SumPHPopulation依Type自行分支）。
+        foreach (long popId in result.PopulationIds) {
+            try {
+                StudentPopulationController.SumPHPopulation(popId);
+            } catch (System.Exception ex) {
+                _logger.LogWarning(ex, "匯入後計算合計欄位失敗: populationId={PopId}", popId);
+            }
         }
         return result;
     }
