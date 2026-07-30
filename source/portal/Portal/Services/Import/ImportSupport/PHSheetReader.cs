@@ -27,16 +27,18 @@ public static class PHSheetReader {
                 if (!string.IsNullOrEmpty(v)) { title = v; break; }
             }
         }
-        var (yearInt, weekInt) = TitleParser.ParseYearWeek(title);
-        if (yearInt == 0 || weekInt == 0) {
-            result.Errors.Add($"無法從標題解析年份週次: {title}");
+        var (weekInt, titleDate) = TitleParser.ParseWeekAndDate(title);
+        if (weekInt == 0 || titleDate == null) {
+            result.Errors.Add($"無法從標題解析週次或日期: {title}");
             return result;
         }
-        SchoolYear schoolYear = db.SchoolYear.FirstOrDefault(e => e.Year == yearInt && e.Week == weekInt);
+        SchoolYear schoolYear = db.SchoolYear.FirstOrDefault(e =>
+            e.Week == weekInt && e.WeekStartDate <= titleDate.Value && titleDate.Value <= e.WeekEndDate);
         if (schoolYear == null) {
-            result.Errors.Add($"找不到學年週次: {yearInt}第{weekInt}週");
+            result.Errors.Add($"找不到符合的學年週次: 第{weekInt}週 日期{titleDate:yyyy-MM-dd}");
             return result;
         }
+        int yearInt = schoolYear.Year.Value;
 
         int maxHdrCol = 0;
         for (int r = 1; r <= 3; r++) {
@@ -44,12 +46,32 @@ public static class PHSheetReader {
             if (rw != null && (int)rw.LastCellNum > maxHdrCol) maxHdrCol = (int)rw.LastCellNum;
         }
 
+        // row1Prop：頂層科別標題（Row 1）往右繼承，用來判斷 row2Prop 的中層標題是否還在同一個頂層區塊內，
+        // 避免像「累積詢問(填單)人數／{分區}總人數／系統資料快照」這種只有頂層、中層是空白的尾端統計欄，
+        // 被誤判成沿用左邊最後一個中層標題（例如全部被併入「本週國語文流失人數」）。
+        var row1Prop = new string[maxHdrCol + 1];
+        string lastR1 = "";
+        for (int c = 0; c <= maxHdrCol; c++) {
+            var cell = sheet.GetRow(1)?.GetCell(c);
+            string v = (cell?.CellType == CellType.String) ? (cell.StringCellValue?.Trim() ?? "") : "";
+            if (!string.IsNullOrEmpty(v)) lastR1 = v;
+            row1Prop[c] = lastR1;
+        }
+
         var row2Prop = new string[maxHdrCol + 1];
         string lastR2 = "";
+        string lastR2Section = null;
         for (int c = 0; c <= maxHdrCol; c++) {
             var cell = sheet.GetRow(2)?.GetCell(c);
             string v = (cell?.CellType == CellType.String) ? (cell.StringCellValue?.Trim() ?? "") : "";
-            if (!string.IsNullOrEmpty(v)) lastR2 = v;
+            if (!string.IsNullOrEmpty(v)) {
+                lastR2 = v;
+                lastR2Section = row1Prop[c];
+            } else if (row1Prop[c] != lastR2Section) {
+                // 中層本身沒有標籤，且已經進入跟上一個中層標籤不同的頂層區塊，不能沿用舊標籤
+                lastR2 = "";
+                lastR2Section = row1Prop[c];
+            }
             row2Prop[c] = lastR2;
         }
 
@@ -94,6 +116,8 @@ public static class PHSheetReader {
             }
 
             School school = db.School.FirstOrDefault(e => e.Name == currentSchoolName);
+            if (school == null && CourseMapping.PhSchoolNameAliases.TryGetValue(currentSchoolName, out string schoolAlias))
+                school = db.School.FirstOrDefault(e => e.Name == schoolAlias);
             if (school == null) continue;
 
             StudentPopulation pop = PopulationWriteHelper.GetOrCreatePopulation(db, school.Id, yearInt, weekInt, schoolYear,
@@ -128,11 +152,18 @@ public static class PHSheetReader {
                 if (!string.IsNullOrEmpty(v)) { title = v; break; }
             }
         }
-        var (yearInt, weekInt) = TitleParser.ParseYearWeek(title);
-        if (yearInt == 0 || weekInt == 0) {
-            result.Errors.Add($"無法從標題解析年份週次: {title}");
+        var (weekInt, titleDate) = TitleParser.ParseWeekAndDate(title);
+        if (weekInt == 0 || titleDate == null) {
+            result.Errors.Add($"無法從標題解析週次或日期: {title}");
             return result;
         }
+        SchoolYear scanSchoolYear = db.SchoolYear.FirstOrDefault(e =>
+            e.Week == weekInt && e.WeekStartDate <= titleDate.Value && titleDate.Value <= e.WeekEndDate);
+        if (scanSchoolYear == null) {
+            result.Errors.Add($"找不到符合的學年週次: 第{weekInt}週 日期{titleDate:yyyy-MM-dd}");
+            return result;
+        }
+        int yearInt = scanSchoolYear.Year.Value;
 
         string currentSchoolName = "";
         string lastCountedSchool = "";

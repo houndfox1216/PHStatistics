@@ -16,8 +16,12 @@ public static class PopulationWriteHelper {
             var classIds = delItems.Select(e => e.ClassId).Distinct().ToList();
             db.StudentPopulationItem.RemoveRange(delItems);
             db.SaveChanges();
+            // 稽核紀錄(StudentPopulationItemLog)可能還引用著這個Class，刪除會撞FK違反；
+            // 這類Class留著當孤兒即可(AddClassAndItem本來就每次都建新Class，不會重用)，不影響匯入正確性。
             var orphanClasses = db.Class
-                .Where(e => classIds.Contains(e.Id) && !db.StudentPopulationItem.Any(i => i.ClassId == e.Id))
+                .Where(e => classIds.Contains(e.Id)
+                    && !db.StudentPopulationItem.Any(i => i.ClassId == e.Id)
+                    && !db.StudentPopulationItemLog.Any(l => l.ClassId == e.Id))
                 .ToList();
             if (orphanClasses.Count > 0) {
                 db.Class.RemoveRange(orphanClasses);

@@ -41,6 +41,15 @@ public static class CourseMapping {
         ["高美"] = "高美館",
     };
 
+    // PH 全國人數表分校名用簡稱，資料庫 School.Name 是全名，精確比對會找不到分校而靜默漏掉整週資料。
+    // 2026-07-30 比對第1/3週Excel發現，確認DB對應全名後修正。
+    public static readonly Dictionary<string, string> PhSchoolNameAliases = new() {
+        ["板忠"] = "板橋忠孝",
+        ["板陽"] = "板橋陽明",
+        ["農16"] = "農十六",
+        ["天母"] = "天母忠誠",
+    };
+
     public static readonly Dictionary<string, int[]> AsCourseIds = new() {
         ["AS"] = new[]{245,246,247,248,249,250,251,252,253,254,255,256},
         ["EP"] = new[]{295,296,297,298,299,300,301,302,303,305,306,307},
