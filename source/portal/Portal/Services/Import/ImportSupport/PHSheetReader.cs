@@ -82,7 +82,7 @@ public static class PHSheetReader {
             string label = !string.IsNullOrEmpty(r3Val) ? r3Val : row2Prop[c];
             Course course = null;
             if (!string.IsNullOrEmpty(label))
-                course = db.Course.Include("Department").FirstOrDefault(e => e.Name == label);
+                course = db.Course.Include("Department").FirstOrDefault(e => e.Name == label && e.Type == popType);
             if (course == null && CourseMapping.PhColCourseId.TryGetValue(c, out int fallbackId))
                 course = db.Course.Include("Department").FirstOrDefault(e => e.Id == fallbackId);
             if (course != null) colCourseMap[c] = course;

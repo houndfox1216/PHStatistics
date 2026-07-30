@@ -80,7 +80,7 @@ public class PSPopulationImporter : IPopulationImporter {
                 if (hCell == null || hCell.CellType != CellType.String) continue;
                 string hdr = hCell.StringCellValue?.Trim() ?? "";
                 if (string.IsNullOrEmpty(hdr)) continue;
-                Course course = db.Course.Include("Department").FirstOrDefault(e => e.Name == hdr);
+                Course course = db.Course.Include("Department").FirstOrDefault(e => e.Name == hdr && e.Type == StudentPopulationType.PS);
                 if (course == null && CourseMapping.PsHeaderCourseId.TryGetValue(hdr, out int fallbackId))
                     course = db.Course.Include("Department").FirstOrDefault(e => e.Id == fallbackId);
                 if (course != null) colCourseMap[c] = course;
