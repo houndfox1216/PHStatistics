@@ -250,7 +250,7 @@ namespace PHStatistics.Portal.Controllers {
                         }
                     }
                     returnData.Type = StudentPopulationType.PH;
-                    returnData.Name = string.Format("{0}第{1}週人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
+                    returnData.Name = string.Format("{0}第{1}週百瀚人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
                     dataContext.SaveChanges();
                 }
                 else {
