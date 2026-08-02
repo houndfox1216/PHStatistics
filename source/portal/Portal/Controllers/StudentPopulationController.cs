@@ -2789,14 +2789,21 @@ namespace PHStatistics.Portal.Controllers {
             if (bytes.Length == 0)
                 return NotFound("查無符合條件的資料");
 
-            string title = reportType switch {
-                "PH"   => $"{year}年第{week}週百瀚英語全國人數表",
-                "GEPT" => $"{year}年第{week}週英檢人數表",
-                "PS"   => $"{year}年第{week}週百世人數表",
-                "PSJ"  => $"{year}年第{week}週百倍速人數表",
-                "AS"   => $"{year}年第{week}週課輔人數表",
-                _      => $"{year}年第{week}週人數表"
-            };
+            string title;
+            if (type == StudentPopulationType.PH && schoolIds?.Count == 1) {
+                // 單一分校：改成「每週一列」格式，檔名比照改用分校名稱＋涵蓋週次
+                string schoolName = new DataContext().School.Find(schoolIds[0])?.Name ?? "";
+                title = $"{year}年第{week}週{schoolName}分校人數統計表";
+            } else {
+                title = reportType switch {
+                    "PH"   => $"{year}年第{week}週百瀚英語全國人數表",
+                    "GEPT" => $"{year}年第{week}週英檢人數表",
+                    "PS"   => $"{year}年第{week}週百世人數表",
+                    "PSJ"  => $"{year}年第{week}週百倍速人數表",
+                    "AS"   => $"{year}年第{week}週課輔人數表",
+                    _      => $"{year}年第{week}週人數表"
+                };
+            }
             string fileName = $"{title}.xlsx";
             return File(bytes,
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -2820,7 +2827,13 @@ namespace PHStatistics.Portal.Controllers {
             if (bytes.Length == 0)
                 return NotFound("查無符合條件的資料");
 
-            string fileName = $"PH明細_{year}年第{week}週.xlsx";
+            string fileName;
+            if (schoolIds?.Count == 1) {
+                string schoolName = new DataContext().School.Find(schoolIds[0])?.Name ?? "";
+                fileName = $"{year}年第{week}週{schoolName}分校人數統計表（班級明細）.xlsx";
+            } else {
+                fileName = $"PH明細_{year}年第{week}週.xlsx";
+            }
             return File(bytes,
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 fileName);
