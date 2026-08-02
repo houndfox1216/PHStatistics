@@ -8,9 +8,13 @@ namespace PHStatistics.Portal.Services.Aggregation;
 
 public class AggregationEngine {
     private readonly Func<int, int, int, StudentPopulationType, StudentPopulation> _lookupPopulation;
+    private readonly Func<StudentPopulation, StudentPopulation> _lookupLastWeekPopulation;
 
-    public AggregationEngine(Func<int, int, int, StudentPopulationType, StudentPopulation> lookupPopulation) {
+    public AggregationEngine(
+        Func<int, int, int, StudentPopulationType, StudentPopulation> lookupPopulation,
+        Func<StudentPopulation, StudentPopulation> lookupLastWeekPopulation) {
         _lookupPopulation = lookupPopulation;
+        _lookupLastWeekPopulation = lookupLastWeekPopulation;
     }
 
     public void CalculateAll(StudentPopulation population) {
@@ -52,10 +56,10 @@ public class AggregationEngine {
             case StatisticsType.CountClassesByClassType:
                 return GetSourceItems(course, item, population.Items).Count(i => i.Number > 0);
             case StatisticsType.LastWeekValue:
-                return GetSourceItems(course, item, population.Items).Sum(i => i.LastWeekNumber);
+                return SumLastWeek(course, item, population);
             case StatisticsType.DiffWithLastWeek: {
-                var src = GetSourceItems(course, item, population.Items);
-                return src.Sum(i => i.Number) - src.Sum(i => i.LastWeekNumber);
+                int thisWeek = GetSourceItems(course, item, population.Items).Sum(i => i.Number);
+                return thisWeek - SumLastWeek(course, item, population);
             }
             case StatisticsType.LastYearValue:
                 return SumLastYear(course, item, population);
@@ -79,6 +83,14 @@ public class AggregationEngine {
                 throw new NotSupportedException(
                     $"AggregationEngine 尚未支援 StatisticsType.{type}（課程 {course.Id} {course.Name}）。");
         }
+    }
+
+    // 直接讀上週實際存的 StudentPopulation 現場加總，不依賴本週項目上快取的 LastWeekNumber 欄位——
+    // 該欄位只在建表時複製一次，分校若把本週人數0的班級整列刪除，快取值會跟著消失，導致上週總數失真。
+    private int SumLastWeek(Course course, StudentPopulationItem item, StudentPopulation population) {
+        var lastWeekPopulation = _lookupLastWeekPopulation(population);
+        if (lastWeekPopulation?.Items == null) return 0;
+        return GetSourceItems(course, item, lastWeekPopulation.Items).Sum(i => i.Number);
     }
 
     private int SumLastYear(Course course, StudentPopulationItem item, StudentPopulation population) {

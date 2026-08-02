@@ -2106,9 +2106,11 @@ namespace PHStatistics.Portal.Controllers {
 
         private void AttachManualPreviews(DataContext dataContext, StudentPopulation population) {
             if (population?.Items == null) return;
-            var previewEngine = new AggregationEngine((year, week, schoolId, type) =>
-                dataContext.StudentPopulation.Include("Items.Class.Course")
-                    .FirstOrDefault(p => p.Year == year && p.Week == week && p.SchoolId == schoolId && p.Type == type));
+            var previewEngine = new AggregationEngine(
+                (year, week, schoolId, type) =>
+                    dataContext.StudentPopulation.Include("Items.Class.Course")
+                        .FirstOrDefault(p => p.Year == year && p.Week == week && p.SchoolId == schoolId && p.Type == type),
+                p => LookupLastWeekPopulation(dataContext, p));
             foreach (var item in population.Items.Where(i => i.IsManual)) {
                 item.PreviewNumber = previewEngine.Preview(item, population);
             }
@@ -2129,14 +2131,28 @@ namespace PHStatistics.Portal.Controllers {
                 .Sum(e => (int?)e.Number) ?? 0;
         }
 
+        // 上週人數/與上週相比 專用：解析上一週的實際 StudentPopulation（處理跨學年週次交界），
+        // 沿用 CreatePopulation 等處已驗證過的 SchoolYear.Week-1 / 跨年取上年度最後一週 邏輯。
+        private static StudentPopulation LookupLastWeekPopulation(DataContext dataContext, StudentPopulation population) {
+            if (population?.SchoolId == null) return null;
+            SchoolYear lastSchoolYear = population.Week > 1
+                ? dataContext.SchoolYear.Where(e => e.Year == population.Year && e.Week == population.Week - 1).OrderBy(e => e.Id).FirstOrDefault()
+                : dataContext.SchoolYear.Where(e => e.Year == population.Year - 1).OrderByDescending(e => e.Week).ThenByDescending(e => e.Id).FirstOrDefault();
+            if (lastSchoolYear == null) return null;
+            return dataContext.StudentPopulation.Include("Items.Class.Course")
+                .FirstOrDefault(p => p.Year == lastSchoolYear.Year && p.Week == lastSchoolYear.Week && p.SchoolId == population.SchoolId && p.Type == population.Type);
+        }
+
         // 2026-07-30：改為 static，不再依賴 Model（本來就只用來取本週資料，改用本方法自建的 dataContext 直接查詢），
         // 讓匯入流程（PopulationImportService）也能在沒有HTTP請求情境下呼叫同一套加總邏輯，不必另外複製一份。
         public static StudentPopulation SumPHPopulation(long spId) {
             DataContext dataContext = new DataContext();
             dataContext.ChangeTracker.Clear();
-            var aggregationEngine = new AggregationEngine((year, week, schoolId, type) =>
-                dataContext.StudentPopulation.Include("Items.Class.Course")
-                    .FirstOrDefault(p => p.Year == year && p.Week == week && p.SchoolId == schoolId && p.Type == type));
+            var aggregationEngine = new AggregationEngine(
+                (year, week, schoolId, type) =>
+                    dataContext.StudentPopulation.Include("Items.Class.Course")
+                        .FirstOrDefault(p => p.Year == year && p.Week == week && p.SchoolId == schoolId && p.Type == type),
+                p => LookupLastWeekPopulation(dataContext, p));
             //取得本週資料
             StudentPopulation studentPopulationData = dataContext.StudentPopulation
                 .Include("Submitter").Include("School").Include("Items.Class.Course.Department")

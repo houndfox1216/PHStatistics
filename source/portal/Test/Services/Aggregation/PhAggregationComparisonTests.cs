@@ -29,10 +29,23 @@ public class PhAggregationComparisonTests {
             .Where(p => p.Type == StudentPopulationType.PH && p.DataMode == DataMode.Normal)
             .ToList();
 
-        var engine = new AggregationEngine((year, week, schoolId, type) =>
-            context.StudentPopulation
-                .Include(p => p.Items).ThenInclude(i => i.Class).ThenInclude(c => c.Course)
-                .FirstOrDefault(p => p.Year == year && p.Week == week && p.SchoolId == schoolId && p.Type == type));
+        StudentPopulation LookupLastWeek(StudentPopulation p) {
+            if (p?.SchoolId == null) return null;
+            var lastSchoolYear = p.Week > 1
+                ? context.SchoolYear.Where(e => e.Year == p.Year && e.Week == p.Week - 1).OrderBy(e => e.Id).FirstOrDefault()
+                : context.SchoolYear.Where(e => e.Year == p.Year - 1).OrderByDescending(e => e.Week).ThenByDescending(e => e.Id).FirstOrDefault();
+            if (lastSchoolYear == null) return null;
+            return context.StudentPopulation
+                .Include(x => x.Items).ThenInclude(i => i.Class).ThenInclude(c => c.Course)
+                .FirstOrDefault(x => x.Year == lastSchoolYear.Year && x.Week == lastSchoolYear.Week && x.SchoolId == p.SchoolId && x.Type == p.Type);
+        }
+
+        var engine = new AggregationEngine(
+            (year, week, schoolId, type) =>
+                context.StudentPopulation
+                    .Include(p => p.Items).ThenInclude(i => i.Class).ThenInclude(c => c.Course)
+                    .FirstOrDefault(p => p.Year == year && p.Week == week && p.SchoolId == schoolId && p.Type == type),
+            LookupLastWeek);
 
         var unexpectedMismatches = new List<string>();
         var expectedChanges = new List<string>();

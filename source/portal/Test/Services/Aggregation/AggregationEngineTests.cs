@@ -33,8 +33,11 @@ public class AggregationEngineTests {
     }
 
     private static AggregationEngine MakeEngine(
-        System.Func<int, int, int, StudentPopulationType, StudentPopulation> lookupLastYearPopulation = null) {
-        return new AggregationEngine(lookupLastYearPopulation ?? ((y, w, s, t) => null));
+        System.Func<int, int, int, StudentPopulationType, StudentPopulation> lookupLastYearPopulation = null,
+        System.Func<StudentPopulation, StudentPopulation> lookupLastWeekPopulation = null) {
+        return new AggregationEngine(
+            lookupLastYearPopulation ?? ((y, w, s, t) => null),
+            lookupLastWeekPopulation ?? (p => null));
     }
 
     [Test]
@@ -132,7 +135,7 @@ public class AggregationEngineTests {
     }
 
     [Test]
-    public void Calculate_DiffWithLastWeek_SubtractsLastWeekSumFromThisWeekSum() {
+    public void Calculate_DiffWithLastWeek_SubtractsLastWeekPopulationSumFromThisWeekSum() {
         var course1 = MakeCourse(101, departmentId: 1);
         var sumCourse = MakeCourse(199, departmentId: 1, isSum: true, statisticsType: StatisticsType.DiffWithLastWeek);
         var sumItem = MakeItem(sumCourse, ClassType.General, 0);
@@ -140,18 +143,23 @@ public class AggregationEngineTests {
         var population = new StudentPopulation {
             Year = 2026, Week = 10, SchoolId = 1, Type = StudentPopulationType.PH,
             Items = new List<StudentPopulationItem> {
-                MakeItem(course1, ClassType.General, 15, lastWeekNumber: 10),
+                MakeItem(course1, ClassType.General, 15),
                 sumItem,
             },
         };
+        var lastWeekPopulation = new StudentPopulation {
+            Year = 2026, Week = 9, SchoolId = 1, Type = StudentPopulationType.PH,
+            Items = new List<StudentPopulationItem> { MakeItem(course1, ClassType.General, 10) },
+        };
 
-        MakeEngine().Calculate(sumItem, population);
+        var engine = MakeEngine(lookupLastWeekPopulation: p => lastWeekPopulation);
+        engine.Calculate(sumItem, population);
 
         Assert.That(sumItem.Number, Is.EqualTo(5));
     }
 
     [Test]
-    public void Calculate_LastWeekValue_SumsLastWeekNumberOnly() {
+    public void Calculate_LastWeekValue_ReturnsRawLastWeekSumViaLookupDelegate() {
         var course1 = MakeCourse(101, departmentId: 1);
         var sumCourse = MakeCourse(199, departmentId: 1, isSum: true, statisticsType: StatisticsType.LastWeekValue);
         var sumItem = MakeItem(sumCourse, ClassType.General, 0);
@@ -159,12 +167,55 @@ public class AggregationEngineTests {
         var population = new StudentPopulation {
             Year = 2026, Week = 10, SchoolId = 1, Type = StudentPopulationType.GEPT,
             Items = new List<StudentPopulationItem> {
-                MakeItem(course1, ClassType.General, 999, lastWeekNumber: 42),
+                MakeItem(course1, ClassType.General, 999),
                 sumItem,
             },
         };
+        var lastWeekPopulation = new StudentPopulation {
+            Year = 2026, Week = 9, SchoolId = 1, Type = StudentPopulationType.GEPT,
+            Items = new List<StudentPopulationItem> { MakeItem(course1, ClassType.General, 42) },
+        };
+
+        var engine = MakeEngine(lookupLastWeekPopulation: p => lastWeekPopulation);
+        engine.Calculate(sumItem, population);
+
+        Assert.That(sumItem.Number, Is.EqualTo(42));
+    }
+
+    [Test]
+    public void Calculate_LastWeekValue_ReturnsZeroWhenNoLastWeekPopulationExists() {
+        var sumCourse = MakeCourse(199, departmentId: 1, isSum: true, statisticsType: StatisticsType.LastWeekValue);
+        var sumItem = MakeItem(sumCourse, ClassType.General, 5);
+        var population = new StudentPopulation {
+            Year = 2026, Week = 10, SchoolId = 1, Type = StudentPopulationType.GEPT,
+            Items = new List<StudentPopulationItem> { sumItem },
+        };
 
         MakeEngine().Calculate(sumItem, population);
+
+        Assert.That(sumItem.Number, Is.EqualTo(0));
+    }
+
+    // 迴歸測試：分校本週把上週有人數的班級整列刪除（非改成0人）後，「上週人數」不能跟著消失——
+    // 這正是本次修復要根治的 production bug：改成直接讀上週實際存的population，不再依賴本週項目的LastWeekNumber快取。
+    [Test]
+    public void Calculate_LastWeekValue_UnaffectedByThisWeekItemBeingDeleted() {
+        var course1 = MakeCourse(101, departmentId: 1);
+        var sumCourse = MakeCourse(199, departmentId: 1, isSum: true, statisticsType: StatisticsType.LastWeekValue);
+        var sumItem = MakeItem(sumCourse, ClassType.General, 0);
+
+        // 本週該班級已被使用者整列刪除，population.Items 裡完全沒有 course1 的項目
+        var population = new StudentPopulation {
+            Year = 2026, Week = 10, SchoolId = 1, Type = StudentPopulationType.GEPT,
+            Items = new List<StudentPopulationItem> { sumItem },
+        };
+        var lastWeekPopulation = new StudentPopulation {
+            Year = 2026, Week = 9, SchoolId = 1, Type = StudentPopulationType.GEPT,
+            Items = new List<StudentPopulationItem> { MakeItem(course1, ClassType.General, 42) },
+        };
+
+        var engine = MakeEngine(lookupLastWeekPopulation: p => lastWeekPopulation);
+        engine.Calculate(sumItem, population);
 
         Assert.That(sumItem.Number, Is.EqualTo(42));
     }
