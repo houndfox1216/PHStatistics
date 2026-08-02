@@ -132,4 +132,24 @@ public class ReportExportServiceStructureTests {
             .Select(c => sheet.GetRow(2).GetCell(c)?.StringCellValue ?? ""));
         Assert.That(row2Text, Does.Contain("P1-初階"));
     }
+
+    // 2026-08-02：總表（全分校/多分校）改成包含IsSum合計/分析欄位，這些課程在DB裡幾乎全部Published=0，
+    // 迴歸測試鎖住「不能被Published過濾掉」這件事。
+    [Explicit("需要本機 dev DB 連線")]
+    [Test]
+    public void Export_PH_IncludesIsSumAggregateColumns() {
+        var service = new ReportExportService();
+        byte[] bytes = service.Export(StudentPopulationType.PH, 115, 1);
+
+        using var ms = new System.IO.MemoryStream(bytes);
+        var wb = new NPOI.XSSF.UserModel.XSSFWorkbook(ms);
+        var sheet = wb.GetSheetAt(0);
+
+        var row2Text = string.Join("|", Enumerable.Range(0, sheet.GetRow(2).LastCellNum)
+            .Select(c => sheet.GetRow(2).GetCell(c)?.StringCellValue ?? ""));
+        Assert.That(row2Text, Does.Contain("英文國小人數合計"));
+        Assert.That(row2Text, Does.Contain("上週英語文總人數"));
+        Assert.That(row2Text, Does.Contain("與上週相比"));
+        Assert.That(row2Text, Does.Contain("總人數"));
+    }
 }

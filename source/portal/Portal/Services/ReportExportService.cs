@@ -77,9 +77,12 @@ public class ReportExportService {
 
         var wb = new XSSFWorkbook();
 
-        var courses = (type == StudentPopulationType.PSJ || type == StudentPopulationType.AfterSchool)
-            ? null
-            : LoadCourses(type);
+        var courses = type switch {
+            StudentPopulationType.PSJ or StudentPopulationType.AfterSchool => null,
+            // PH的IsSum合計/分析課程在DB裡幾乎全部Published=0，總表現在要把它們一併列出，需繞過Published過濾
+            StudentPopulationType.PH => LoadCourses(type, publishedOnly: false),
+            _ => LoadCourses(type)
+        };
 
         switch (type) {
             case StudentPopulationType.PH:
@@ -126,6 +129,9 @@ public class ReportExportService {
     // Rows 1-3: col 0=分校(合併3列)、col 1=類型(合併3列)、col 2+=科別→課程，每科末尾加「合計」欄
     // Row 4+: 每校兩列（小=SubGroup、三=V3），各科末自動加總
 
+    // 2026-08-02：欄位改成完整Course清單（含IsSum合計/上週人數/與上週相比/去年同期比/新生/流失/總班數等），
+    // 比照 BuildSheetPHBySchool 的做法——這些課程本身就在正確的Ordinal位置上，不用再自行合成部門「合計」欄。
+    // 呼叫端(Export())需傳入 LoadCourses(PH, publishedOnly:false)，否則這些課程幾乎全部Published=0會被濾光。
     private static void BuildSheetPH(ISheet sheet,
         List<StudentPopulation> populations, List<Course> courses,
         int year, int week, string title) {
@@ -140,13 +146,9 @@ public class ReportExportService {
         try { sheet.AddMergedRegion(new CellRangeAddress(1, 3, 0, 0)); } catch { }
         try { sheet.AddMergedRegion(new CellRangeAddress(1, 3, 1, 1)); } catch { }
 
-        var deptGroups = courses
-            .Where(c => !c.IsSum)
-            .GroupBy(c => c.Department.Id)
-            .Select(g => (dept: g.First().Department, list: g.ToList()))
-            .ToList();
+        var deptGroups = GroupConsecutiveByDepartment(courses);
 
-        // 表頭：Row 1 = 班系名稱（含合計欄合併），Row 2 = 課程名稱 + "合計"，Row 3 保留給未來子欄位細分用
+        // 表頭：Row 1 = 班系名稱（合併），Row 2 = 課程名稱，Row 3 保留給未來子欄位細分用
         int col = 2;
         foreach (var (dept, list) in deptGroups) {
             int deptStart = col;
@@ -155,15 +157,13 @@ public class ReportExportService {
                 sheet.SetColumnWidth(col, 4 * 256);
                 col++;
             }
-            r2.CreateCell(col).SetCellValue("合計");
-            sheet.SetColumnWidth(col, 4 * 256);
-            col++;
             r1.CreateCell(deptStart).SetCellValue(dept.Name);
             if (col - 1 > deptStart)
                 try { sheet.AddMergedRegion(new CellRangeAddress(1, 1, deptStart, col - 1)); } catch { }
         }
 
-        // 資料列：每校兩列（小/三），每班系末附加小計
+        // 資料列：每校兩列（小=SubGroup+Personal、三=V3）。GroupByClassType/ApplicableClassType的課程依班別
+        // 分別計算；其餘單一值課程（上週人數/與上週相比/新生/流失/個別指導合計/合作開班合計等）只寫在小列。
         int rowIdx = 4;
         foreach (var pop in populations) {
             var sgRow = sheet.CreateRow(rowIdx);
@@ -175,17 +175,19 @@ public class ReportExportService {
             try { sheet.AddMergedRegion(new CellRangeAddress(rowIdx, rowIdx + 1, 0, 0)); } catch { }
 
             col = 2;
-            foreach (var (dept, list) in deptGroups) {
-                int sgTotal = 0, v3Total = 0;
-                foreach (var c in list) {
-                    int sg = pop.Items.Where(i => i.Class?.CourseId == c.Id && i.Class?.Type == ClassType.SubGroup).Sum(i => i.Number);
+            foreach (var c in courses) {
+                bool splitByClassType = c.ApplicableClassType.HasValue || c.GroupByClassType;
+                if (splitByClassType) {
+                    int sg = pop.Items.Where(i => i.Class?.CourseId == c.Id &&
+                        (i.Class?.Type == ClassType.SubGroup || i.Class?.Type == ClassType.Personal)).Sum(i => i.Number);
                     int v3 = pop.Items.Where(i => i.Class?.CourseId == c.Id && i.Class?.Type == ClassType.V3).Sum(i => i.Number);
-                    if (sg > 0) { sgRow.CreateCell(col).SetCellValue(sg); sgTotal += sg; }
-                    if (v3 > 0) { v3Row.CreateCell(col).SetCellValue(v3); v3Total += v3; }
-                    col++;
+                    if (sg != 0) sgRow.CreateCell(col).SetCellValue(sg);
+                    if (v3 != 0) v3Row.CreateCell(col).SetCellValue(v3);
                 }
-                if (sgTotal > 0) sgRow.CreateCell(col).SetCellValue(sgTotal);
-                if (v3Total > 0) v3Row.CreateCell(col).SetCellValue(v3Total);
+                else {
+                    int total = pop.Items.Where(i => i.Class?.CourseId == c.Id).Sum(i => i.Number);
+                    if (total != 0) sgRow.CreateCell(col).SetCellValue(total);
+                }
                 col++;
             }
             rowIdx += 2;
