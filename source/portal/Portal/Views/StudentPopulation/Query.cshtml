@@ -72,7 +72,7 @@
         </button>
         <div class="dropdown d-inline-block">
             <button type="button" class="btn btn-success btn-lg btn-round dropdown-toggle" id="exportMenuBtn"
-                    data-bs-toggle="dropdown" aria-expanded="false">
+                    aria-expanded="false">
                 匯出報表 <i class="fas fa-file-excel"></i>
             </button>
             <ul class="dropdown-menu" aria-labelledby="exportMenuBtn">
@@ -101,6 +101,17 @@
     </div>
 </div>
 <script>
+
+            // 手動綁定下拉選單開關，不依賴 Bootstrap 的 data-bs-toggle 自動偵測——
+            // 這個頁面同時載入了 DevExtreme 的全域事件處理，會蓋掉 Bootstrap 原生的
+            // data-api 委派監聽，導致 data-bs-toggle="dropdown" 完全沒反應。
+            // 直接綁在按鈕本身的 click 事件、手動呼叫 Bootstrap 的 Dropdown API 可以繞開這個問題。
+            $('#exportMenuBtn').on('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var dd = bootstrap.Dropdown.getOrCreateInstance(this);
+                dd.toggle();
+            });
 
             $('#queryPHBtn').on('click', function () {
              console.log('schoolSelect', $('#schoolSelect').val());
