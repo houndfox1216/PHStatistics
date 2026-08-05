@@ -48,7 +48,7 @@ public static class PopulationWriteHelper {
         return pop;
     }
 
-    public static void AddClassAndItem(DataContext db, int schoolId, Course course, ClassType cType, long populationId, int number, ImportResult result, ILogger logger) {
+    public static void AddClassAndItem(DataContext db, int schoolId, Course course, ClassType cType, long populationId, int number, ImportResult result, ILogger logger, string className = null) {
         var newClass = new Class();
         try {
             int classCount = db.StudentPopulationItem.Count(e => e.Class.Course.Id == course.Id);
@@ -56,7 +56,7 @@ public static class PopulationWriteHelper {
             newClass.CourseId = course.Id;
             newClass.SchoolId = schoolId;
             newClass.Type = cType;
-            newClass.Name = $"{course.Name}_{(classCount + 1):00}";
+            newClass.Name = !string.IsNullOrWhiteSpace(className) ? className : $"{course.Name}_{(classCount + 1):00}";
             db.Class.Add(newClass);
             db.SaveChanges();
         }

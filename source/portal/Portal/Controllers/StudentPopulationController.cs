@@ -2810,9 +2810,10 @@ namespace PHStatistics.Portal.Controllers {
                 fileName);
         }
 
+        /// <param name="reportType">PH / PS，目前僅這兩種類型有明細匯出</param>
         [HttpGet]
         [Authorize(typeof(PortalUser))]
-        public IActionResult ExportReportDetail(int year, int week, bool allSchools = false, int? schoolId = null) {
+        public IActionResult ExportReportDetail(int year, int week, string reportType = "PH", bool allSchools = false, int? schoolId = null) {
             IList<int> schoolIds = null;
             if (schoolId.HasValue) {
                 var accessible = Model.GetAccessibleSchools(User).Select(s => s.Id).ToList();
@@ -2823,7 +2824,19 @@ namespace PHStatistics.Portal.Controllers {
                 schoolIds = Model.GetAccessibleSchools(User).Select(s => s.Id).ToList();
             }
 
-            var bytes = _reportExport.ExportPHDetail(year, week, schoolIds);
+            byte[] bytes;
+            string typeLabel;
+            switch (reportType) {
+                case "PS":
+                    bytes = _reportExport.ExportPSDetail(year, week, schoolIds);
+                    typeLabel = "百世";
+                    break;
+                case "PH":
+                default:
+                    bytes = _reportExport.ExportPHDetail(year, week, schoolIds);
+                    typeLabel = "PH";
+                    break;
+            }
             if (bytes.Length == 0)
                 return NotFound("查無符合條件的資料");
 
@@ -2832,7 +2845,7 @@ namespace PHStatistics.Portal.Controllers {
                 string schoolName = new DataContext().School.Find(schoolIds[0])?.Name ?? "";
                 fileName = $"{year}年第{week}週{schoolName}分校人數統計表（班級明細）.xlsx";
             } else {
-                fileName = $"PH明細_{year}年第{week}週.xlsx";
+                fileName = $"{typeLabel}明細_{year}年第{week}週.xlsx";
             }
             return File(bytes,
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",

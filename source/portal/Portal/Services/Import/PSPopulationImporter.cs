@@ -71,9 +71,11 @@ public class PSPopulationImporter : IPopulationImporter {
         }
         int yearInt = schoolYear.Year.Value;
 
-        // Build col→course map from row 1 headers; fallback to alias dict when Course.Name doesn't match
+        // Build col→(course, 原始欄位標籤) map from row 1 headers；fallback to alias dict when Course.Name doesn't match。
+        // 分校常直接把班名（如「四ps特」「四特1」）打進欄位標籤，對照表只負責找出正確課程，
+        // 原始標籤文字保留下來當真實班名使用（見下方 AddClassAndItem 呼叫）。
         IRow headerRow = sheet.GetRow(1);
-        var colCourseMap = new Dictionary<int, Course>();
+        var colCourseMap = new Dictionary<int, (Course course, string header)>();
         if (headerRow != null) {
             for (int c = 1; c < (int)headerRow.LastCellNum; c++) {
                 var hCell = headerRow.GetCell(c);
@@ -83,7 +85,7 @@ public class PSPopulationImporter : IPopulationImporter {
                 Course course = db.Course.Include("Department").FirstOrDefault(e => e.Name == hdr && e.Type == StudentPopulationType.PS);
                 if (course == null && CourseMapping.PsHeaderCourseId.TryGetValue(hdr, out int fallbackId))
                     course = db.Course.Include("Department").FirstOrDefault(e => e.Id == fallbackId);
-                if (course != null) colCourseMap[c] = course;
+                if (course != null) colCourseMap[c] = (course, hdr);
             }
         }
         if (colCourseMap.Count == 0) {
@@ -107,12 +109,12 @@ public class PSPopulationImporter : IPopulationImporter {
             result.PopulationIds.Add(pop.Id);
             result.SchoolCount++;
 
-            foreach (var (col, course) in colCourseMap) {
+            foreach (var (col, mapping) in colCourseMap) {
                 var cell = row.GetCell(col);
                 if (cell == null || cell.CellType != CellType.Numeric) continue;
                 int count = (int)System.Math.Round(cell.NumericCellValue, System.MidpointRounding.AwayFromZero);
                 if (count <= 0) continue;
-                PopulationWriteHelper.AddClassAndItem(db, school.Id, course, ClassType.General, pop.Id, count, result, logger);
+                PopulationWriteHelper.AddClassAndItem(db, school.Id, mapping.course, ClassType.General, pop.Id, count, result, logger, mapping.header);
             }
         }
         return result;

@@ -82,14 +82,14 @@
                 }
                 <li><hr class="dropdown-divider"></li>
                 <li>
-                    <a class="dropdown-item" href="#" id="exportDetailBtn" title="僅支援百瀚(PH)班級明細">
-                        匯出 PH 班級明細（本校）
+                    <a class="dropdown-item" href="#" id="exportDetailBtn" title="僅支援百瀚(PH)/百世(PS)班級明細">
+                        匯出班級明細（本校）
                     </a>
                 </li>
                 @if (ViewBag.CanExportAll == true) {
                     <li>
-                        <a class="dropdown-item" href="#" id="exportAllDetailBtn" title="僅支援百瀚(PH)班級明細">
-                            匯出 PH 班級明細（全區）
+                        <a class="dropdown-item" href="#" id="exportAllDetailBtn" title="僅支援百瀚(PH)/百世(PS)班級明細">
+                            匯出班級明細（全區）
                         </a>
                     </li>
                 }
@@ -147,35 +147,38 @@
                 window.location.href = url;
             });
 
-            // PH 班級明細只支援百瀚(PH)類型，其他類型選擇時提醒使用者
-            function confirmPHDetailType() {
-                if ($('#reportType').val() !== 'PH') {
-                    alert('「PH 班級明細」僅支援百瀚(PH)類型，請先將上方「類型」切換為百瀚後再匯出');
+            // 班級明細只支援百瀚(PH)/百世(PS)類型，其他類型選擇時提醒使用者
+            function confirmDetailType() {
+                var type = $('#reportType').val();
+                if (type !== 'PH' && type !== 'PS') {
+                    alert('「班級明細」僅支援百瀚(PH)或百世(PS)類型，請先將上方「類型」切換後再匯出');
                     return false;
                 }
                 return true;
             }
 
-            // 匯出本校 PH 明細
+            // 匯出本校班級明細
             $('#exportDetailBtn').on('click', function () {
-                if (!confirmPHDetailType()) { return; }
+                if (!confirmDetailType()) { return; }
                 var year = $('#queryYear').val();
                 var week = $('#queryWeek').val();
+                var type = $('#reportType').val();
                 if (!year || !week) { alert('請先選擇年度與週次'); return; }
                 var url = '@Url.Action("ExportReportDetail", "StudentPopulation", new { area = "" })'
-                    + '?year=' + year + '&week=' + week + '&allSchools=false';
+                    + '?year=' + year + '&week=' + week + '&reportType=' + type + '&allSchools=false';
                 window.location.href = url;
             });
 
-            // 匯出全區 PH 明細
+            // 匯出全區班級明細
             if ($('#exportAllDetailBtn').length) {
                 $('#exportAllDetailBtn').on('click', function () {
-                    if (!confirmPHDetailType()) { return; }
+                    if (!confirmDetailType()) { return; }
                     var year = $('#queryYear').val();
                     var week = $('#queryWeek').val();
+                    var type = $('#reportType').val();
                     if (!year || !week) { alert('請先選擇年度與週次'); return; }
                     var url = '@Url.Action("ExportReportDetail", "StudentPopulation", new { area = "" })'
-                        + '?year=' + year + '&week=' + week + '&allSchools=true';
+                        + '?year=' + year + '&week=' + week + '&reportType=' + type + '&allSchools=true';
                     window.location.href = url;
                 });
             }
