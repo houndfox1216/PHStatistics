@@ -1,0 +1,92 @@
+@{
+    ViewBag.Title = "分校管理";
+}
+
+<div class="card">
+    <div class="card-body">
+        @(Html.DevExtreme().DataGrid<School>()
+            .ID("gridSchools")
+            .DataSource(ds => ds.Mvc()
+                .Controller("School")
+                .Area("Admin")
+                .LoadAction("GetSchools")
+                .InsertAction("Create")
+                .UpdateAction("Update")
+                .DeleteAction("Delete")
+                .Key("Id")
+            )
+            .RemoteOperations(true)
+            .ShowBorders(true)
+            .ShowRowLines(true)
+            .AllowColumnResizing(true)
+            .ColumnAutoWidth(true)
+            .RowAlternationEnabled(true)
+            .Paging(paging => paging.PageSize(20))
+            .Pager(pager => pager
+                .Visible(true)
+                .ShowPageSizeSelector(true)
+                .AllowedPageSizes(new[] { 10, 20, 50, 100 })
+                .ShowInfo(true)
+            )
+            .Editing(editing => editing
+                .Mode(GridEditMode.Popup)
+                .AllowAdding(true)
+                .AllowUpdating(true)
+                .AllowDeleting(true)
+                .UseIcons(true)
+                .Popup(popup => popup
+                    .Title("分校資料")
+                    .ShowTitle(true)
+                    .Width(600)
+                    .Height("auto")
+                )
+                .Form(form => form
+                    .ColCount(1)
+                    .Items(items => {
+                        items.AddSimple().DataField("Id").Label(l => l.Text("識別碼"));
+                        items.AddSimple().DataField("Name").Label(l => l.Text("名稱"));
+                        items.AddSimple().DataField("Number").Label(l => l.Text("分校編號"));
+                        items.AddSimple().DataField("Code").Label(l => l.Text("分校代碼"));
+                        items.AddSimple().DataField("RegionId").Label(l => l.Text("所屬區域"));
+                        items.AddSimple().DataField("Ordinal").Label(l => l.Text("排列順序"));
+                        items.AddSimple().DataField("Published").Label(l => l.Text("已發佈"));
+                        items.AddSimple().DataField("StartDate").Label(l => l.Text("發佈開始日"));
+                        items.AddSimple().DataField("EndDate").Label(l => l.Text("發佈結束日"));
+                        items.AddSimple().DataField("Remark").Label(l => l.Text("備註"));
+                    })
+                )
+            )
+            .FilterRow(f => f.Visible(true))
+            .SearchPanel(s => s.Visible(true).Width(240).Placeholder("搜尋..."))
+            .HeaderFilter(h => h.Visible(true))
+            .Columns(columns => {
+                columns.AddFor(m => m.Id).Width(80).AllowEditing(false);
+                columns.AddFor(m => m.Name).Caption("名稱");
+                columns.AddFor(m => m.Number).Caption("分校編號").Width(100);
+                columns.AddFor(m => m.Code).Caption("分校代碼").Width(100);
+                columns.AddFor(m => m.RegionId)
+                    .Caption("所屬區域")
+                    .Width(120)
+                    .Lookup(lookup => lookup
+                        .DataSource(ds => ds.Mvc()
+                            .Controller("School")
+                            .Area("Admin")
+                            .LoadAction("GetRegions")
+                            .Key("Id")
+                        )
+                        .ValueExpr("Id")
+                        .DisplayExpr("Name")
+                    );
+                columns.AddFor(m => m.Ordinal).Caption("排列順序").Width(100);
+                columns.AddFor(m => m.Published).Caption("已發佈").Width(80);
+                columns.AddFor(m => m.StartDate).Caption("發佈開始日").Width(110).DataType(GridColumnDataType.Date);
+                columns.AddFor(m => m.EndDate).Caption("發佈結束日").Width(110).DataType(GridColumnDataType.Date);
+                columns.AddFor(m => m.Remark).Caption("備註");
+            })
+            .Toolbar(toolbar => toolbar.Items(items => {
+                items.Add().Name("addRowButton");
+                items.Add().Name("searchPanel");
+            }))
+        )
+    </div>
+</div>

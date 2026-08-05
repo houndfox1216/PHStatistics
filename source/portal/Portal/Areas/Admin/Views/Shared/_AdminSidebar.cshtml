@@ -16,6 +16,13 @@
         <li class="sidebar-section">資料管理</li>
 
         <li class="sidebar-item">
+            <a href="@Url.Action("Index", "School", new { area = "Admin" })" class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "School" ? "active" : "")">
+                <i class="dx-icon-home"></i>
+                <span>分校管理</span>
+            </a>
+        </li>
+
+        <li class="sidebar-item">
             <a href="@Url.Action("Index", "Course", new { area = "Admin" })" class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Course" ? "active" : "")">
                 <i class="dx-icon-bookmark"></i>
                 <span>課程管理</span>
