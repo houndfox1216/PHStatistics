@@ -70,22 +70,31 @@
         <button type="button" class="btn btn-primary btn-lg btn-round" id="queryPHBtn">
             查詢 <i class="fas fa-paper-plane"></i>
         </button>
-        <button type="button" class="btn btn-success btn-lg btn-round" id="exportBtn">
-            匯出本校報表 <i class="fas fa-file-excel"></i>
-        </button>
-        @if (ViewBag.CanExportAll == true) {
-            <button type="button" class="btn btn-warning btn-lg btn-round" id="exportAllBtn">
-                匯出全區報表 <i class="fas fa-file-excel"></i>
+        <div class="dropdown d-inline-block">
+            <button type="button" class="btn btn-success btn-lg btn-round dropdown-toggle" id="exportMenuBtn"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                匯出報表 <i class="fas fa-file-excel"></i>
             </button>
-        }
-        <button type="button" class="btn btn-info btn-lg btn-round" id="exportDetailBtn">
-            匯出 PH 明細 <i class="fas fa-file-excel"></i>
-        </button>
-        @if (ViewBag.CanExportAll == true) {
-            <button type="button" class="btn btn-warning btn-lg btn-round" id="exportAllDetailBtn">
-                匯出全區 PH 明細 <i class="fas fa-file-excel"></i>
-            </button>
-        }
+            <ul class="dropdown-menu" aria-labelledby="exportMenuBtn">
+                <li><a class="dropdown-item" href="#" id="exportBtn">匯出本校報表</a></li>
+                @if (ViewBag.CanExportAll == true) {
+                    <li><a class="dropdown-item" href="#" id="exportAllBtn">匯出全區報表</a></li>
+                }
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <a class="dropdown-item" href="#" id="exportDetailBtn" title="僅支援百瀚(PH)班級明細">
+                        匯出 PH 班級明細（本校）
+                    </a>
+                </li>
+                @if (ViewBag.CanExportAll == true) {
+                    <li>
+                        <a class="dropdown-item" href="#" id="exportAllDetailBtn" title="僅支援百瀚(PH)班級明細">
+                            匯出 PH 班級明細（全區）
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
     </div>
     <div id="contentItem">
         @await Html.PartialAsync("QueryPopulationPartialView", Model)
@@ -138,8 +147,18 @@
                 window.location.href = url;
             });
 
+            // PH 班級明細只支援百瀚(PH)類型，其他類型選擇時提醒使用者
+            function confirmPHDetailType() {
+                if ($('#reportType').val() !== 'PH') {
+                    alert('「PH 班級明細」僅支援百瀚(PH)類型，請先將上方「類型」切換為百瀚後再匯出');
+                    return false;
+                }
+                return true;
+            }
+
             // 匯出本校 PH 明細
             $('#exportDetailBtn').on('click', function () {
+                if (!confirmPHDetailType()) { return; }
                 var year = $('#queryYear').val();
                 var week = $('#queryWeek').val();
                 if (!year || !week) { alert('請先選擇年度與週次'); return; }
@@ -151,6 +170,7 @@
             // 匯出全區 PH 明細
             if ($('#exportAllDetailBtn').length) {
                 $('#exportAllDetailBtn').on('click', function () {
+                    if (!confirmPHDetailType()) { return; }
                     var year = $('#queryYear').val();
                     var week = $('#queryWeek').val();
                     if (!year || !week) { alert('請先選擇年度與週次'); return; }

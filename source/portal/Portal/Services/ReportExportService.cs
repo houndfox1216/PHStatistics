@@ -79,8 +79,8 @@ public class ReportExportService {
 
         var courses = type switch {
             StudentPopulationType.PSJ or StudentPopulationType.AfterSchool => null,
-            // PH的IsSum合計/分析課程在DB裡幾乎全部Published=0，總表現在要把它們一併列出，需繞過Published過濾
-            StudentPopulationType.PH => LoadCourses(type, publishedOnly: false),
+            // PH/GEPT的IsSum合計/分析課程在DB裡幾乎全部Published=0，總表現在要把它們一併列出，需繞過Published過濾
+            StudentPopulationType.PH or StudentPopulationType.GEPT => LoadCourses(type, publishedOnly: false),
             _ => LoadCourses(type)
         };
 
