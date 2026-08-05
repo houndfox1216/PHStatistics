@@ -79,8 +79,8 @@ public class ReportExportService {
 
         var courses = type switch {
             StudentPopulationType.PSJ or StudentPopulationType.AfterSchool => null,
-            // PH/GEPT的IsSum合計/分析課程在DB裡幾乎全部Published=0，總表現在要把它們一併列出，需繞過Published過濾
-            StudentPopulationType.PH or StudentPopulationType.GEPT => LoadCourses(type, publishedOnly: false),
+            // PH/GEPT/PS的IsSum合計/分析課程在DB裡幾乎全部Published=0，總表現在要把它們一併列出，需繞過Published過濾
+            StudentPopulationType.PH or StudentPopulationType.GEPT or StudentPopulationType.PS => LoadCourses(type, publishedOnly: false),
             _ => LoadCourses(type)
         };
 
@@ -325,8 +325,9 @@ public class ReportExportService {
         r1.CreateCell(0).SetCellValue("分校");
         try { sheet.AddMergedRegion(new CellRangeAddress(1, 3, 0, 0)); } catch { }
 
+        // 不排除 IsSum：這些是官方表格要看的統計/分析欄位（上週人數、與上週相比…），
+        // 本來就該一併列出，只是不計入下面自己合成的「合計」欄，避免跟課程自身數字重複相加。
         var deptGroups = courses
-            .Where(c => !c.IsSum)
             .GroupBy(c => c.Department.Id)
             .Select(g => (dept: g.First().Department, list: g.ToList()))
             .ToList();
@@ -356,7 +357,7 @@ public class ReportExportService {
                 int total = 0;
                 foreach (var c in list) {
                     int sum = pop.Items.Where(i => i.Class?.CourseId == c.Id).Sum(i => i.Number);
-                    if (sum > 0) { row.CreateCell(col).SetCellValue(sum); total += sum; }
+                    if (sum > 0) { row.CreateCell(col).SetCellValue(sum); if (!c.IsSum) total += sum; }
                     col++;
                 }
                 if (total > 0) row.CreateCell(col).SetCellValue(total);
@@ -374,8 +375,9 @@ public class ReportExportService {
 
         sheet.CreateRow(0).CreateCell(0).SetCellValue($"{year}年第{week}週百世人數表");
 
+        // 不排除 IsSum：這些是官方表格要看的統計/分析欄位（PS數學總人數、上週人數、新生/流失…），
+        // 本來就該一併列出，只是不計入下面自己合成的「合計」欄，避免跟課程自身數字重複相加。
         var deptGroups = courses
-            .Where(c => !c.IsSum)
             .GroupBy(c => c.Department.Id)
             .Select(g => (dept: g.First().Department, list: g.ToList()))
             .ToList();
@@ -403,7 +405,7 @@ public class ReportExportService {
                 int total = 0;
                 foreach (var c in list) {
                     int sum = pop.Items.Where(i => i.Class?.CourseId == c.Id).Sum(i => i.Number);
-                    if (sum > 0) { row.CreateCell(col).SetCellValue(sum); total += sum; }
+                    if (sum > 0) { row.CreateCell(col).SetCellValue(sum); if (!c.IsSum) total += sum; }
                     col++;
                 }
                 if (total > 0) row.CreateCell(col).SetCellValue(total);
