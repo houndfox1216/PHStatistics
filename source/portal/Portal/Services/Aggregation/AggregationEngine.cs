@@ -85,19 +85,41 @@ public class AggregationEngine {
         }
     }
 
+    // 歷史資料缺口的年度上限：114學年度及更早的資料只打算補「本週XX總人數」合計，
+    // 不會補回逐班明細，所以只有查到這個年度以前的資料時，才允許退回讀合計欄位（見下方 WithLegacyFallback）。
+    private const int LegacyDataCutoffYear = 114;
+
     // 直接讀上週實際存的 StudentPopulation 現場加總，不依賴本週項目上快取的 LastWeekNumber 欄位——
     // 該欄位只在建表時複製一次，分校若把本週人數0的班級整列刪除，快取值會跟著消失，導致上週總數失真。
     private int SumLastWeek(Course course, StudentPopulationItem item, StudentPopulation population) {
         var lastWeekPopulation = _lookupLastWeekPopulation(population);
         if (lastWeekPopulation?.Items == null) return 0;
-        return GetSourceItems(course, item, lastWeekPopulation.Items).Sum(i => i.Number);
+        var sourceItems = GetSourceItems(course, item, lastWeekPopulation.Items);
+        return WithLegacyFallback(sourceItems, course, lastWeekPopulation.Items, lastWeekPopulation.Year).Sum(i => i.Number);
     }
 
     private int SumLastYear(Course course, StudentPopulationItem item, StudentPopulation population) {
         if (population.SchoolId == null) return 0;
         var lastYearPopulation = _lookupPopulation(population.Year - 1, population.Week, population.SchoolId.Value, population.Type);
         if (lastYearPopulation?.Items == null) return 0;
-        return GetSourceItems(course, item, lastYearPopulation.Items).Sum(i => i.Number);
+        var sourceItems = GetSourceItems(course, item, lastYearPopulation.Items);
+        return WithLegacyFallback(sourceItems, course, lastYearPopulation.Items, lastYearPopulation.Year).Sum(i => i.Number);
+    }
+
+    // 備援規則：只有當查詢對象是 114學年度及更早（LegacyDataCutoffYear）、且該次 SourceDepartmentIds
+    // 篩選完全找不到任何原始明細、且課程也設定了 SourceCourseIds 時，才改用 SourceCourseIds 直接讀合計欄位。
+    // 刻意只限定「查詢對象年度」而非任何一次查不到就退回，
+    // 因為同一年度內某週某班系明細為空是常見情況（例如當週該班系剛好沒有任何學生），
+    // 直接退回去讀合計欄位反而會讀到跟目前明細不同步的舊值，這不是我們要解決的問題範圍。
+    private static IEnumerable<StudentPopulationItem> WithLegacyFallback(
+        IEnumerable<StudentPopulationItem> sourceItems, Course course, IEnumerable<StudentPopulationItem> allItems, int sourceYear) {
+        if (sourceYear > LegacyDataCutoffYear) return sourceItems;
+        if (string.IsNullOrEmpty(course.SourceCourseIds)) return sourceItems;
+        var materialized = sourceItems.ToList();
+        if (materialized.Any()) return materialized;
+
+        var fallbackCourseIds = ParseIntArray(course.SourceCourseIds);
+        return allItems.Where(i => i.Class?.CourseId != null && fallbackCourseIds.Contains(i.Class.CourseId.Value));
     }
 
     // 篩選優先序：SourceDepartmentIds > SourceCourseIds > 課程自身 DepartmentId；
