@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Framework;
 using System.Framework.Application;
+using System.Framework.Data;
 using System.Framework.EntityFrameworkCore;
 using System.Framework.Globalization;
 using System.Framework.Logging;
@@ -111,6 +112,48 @@ namespace PHStatistics.Portal.Controllers {
                 MemberId = Guid.Parse(User.Id)
             };
             dataContext.StudentPopulationItemLog.Add(log);
+            dataContext.SaveChanges();
+        }
+
+        private void WriteActionLog(DataContext dataContext, string actionType, string actionName, long entityId, string entityName) {
+            string userName = Guid.TryParse(User.Id, out Guid uid) ? dataContext.Member.Find(uid)?.Nickname : null;
+            dataContext.ActionLog.Add(new ActionLog {
+                CreatedTime = DateTime.UtcNow.ToTaipeiTime(),
+                ActionType = actionType,
+                ActionName = actionName,
+                UserType = "Member",
+                UserId = User.Id,
+                UserName = userName,
+                EntityType = nameof(StudentPopulation),
+                EntityTypeName = "人數表",
+                EntityId = entityId.ToString(),
+                EntityName = entityName
+            });
+            dataContext.SaveChanges();
+        }
+
+        // 送出當下對整張人數表的項目做一次快照，供事後稽核「送出時的實際數字」
+        private void WriteSubmitItemSnapshot(DataContext dataContext, StudentPopulation population) {
+            List<StudentPopulationItem> items = dataContext.StudentPopulationItem
+                .Where(e => e.StudentPopulationId == population.Id && e.DataMode == DataMode.Normal)
+                .ToList();
+            if (items.Count == 0) return;
+            Guid? memberId = Guid.TryParse(User.Id, out Guid uid) ? uid : (Guid?)null;
+            List<StudentPopulationItemLog> logs = items.Select(item => new StudentPopulationItemLog {
+                StudentPopulationId = population.Id,
+                ClassId = item.ClassId,
+                Name = item.Name,
+                Number = item.Number,
+                ChangeNumber = item.Number,
+                LastWeekNumber = item.LastWeekNumber,
+                ChangeLastWeekNumber = item.LastWeekNumber,
+                StudentRemark = item.StudentRemark,
+                ChangeStudentRemark = item.StudentRemark,
+                Remark = item.Remark,
+                ChangeRemark = "確認送出快照",
+                MemberId = memberId
+            }).ToList();
+            dataContext.StudentPopulationItemLog.AddRange(logs);
             dataContext.SaveChanges();
         }
 
@@ -268,6 +311,7 @@ namespace PHStatistics.Portal.Controllers {
                     returnData.Name = string.Format("{0}第{1}週百瀚人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
                     dataContext.StudentPopulation.Add(returnData);
                     dataContext.SaveChanges();
+                    WriteActionLog(dataContext, "StudentPopulationCreate", "第一次輸入建立人數表", returnData.Id, returnData.Name);
                     //增加上週資料
                     if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
                         foreach (StudentPopulationItem lItem in lastWeekData.Items) {
@@ -390,6 +434,7 @@ namespace PHStatistics.Portal.Controllers {
                 returnData.Name = string.Format("{0}第{1}週百倍速人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
                 dataContext.StudentPopulation.Add(returnData);
                 dataContext.SaveChanges();
+                WriteActionLog(dataContext, "StudentPopulationCreate", "第一次輸入建立人數表", returnData.Id, returnData.Name);
                 //增加上週資料
                 if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
                     foreach (StudentPopulationItem lItem in lastWeekData.Items) {
@@ -527,6 +572,7 @@ namespace PHStatistics.Portal.Controllers {
                 returnData.Name = string.Format("{0}第{1}週英檢人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
                 dataContext.StudentPopulation.Add(returnData);
                 dataContext.SaveChanges();
+                WriteActionLog(dataContext, "StudentPopulationCreate", "第一次輸入建立人數表", returnData.Id, returnData.Name);
                 //增加上週資料
                 if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
                     foreach (StudentPopulationItem lItem in lastWeekData.Items) {
@@ -639,6 +685,7 @@ namespace PHStatistics.Portal.Controllers {
                 returnData.Name = string.Format("{0}第{1}週百世人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
                 dataContext.StudentPopulation.Add(returnData);
                 dataContext.SaveChanges();
+                WriteActionLog(dataContext, "StudentPopulationCreate", "第一次輸入建立人數表", returnData.Id, returnData.Name);
                 //增加上週資料
                 if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
                     foreach (StudentPopulationItem lItem in lastWeekData.Items) {
@@ -755,6 +802,7 @@ namespace PHStatistics.Portal.Controllers {
                 returnData.Name = string.Format("{0}第{1}週課輔人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
                 dataContext.StudentPopulation.Add(returnData);
                 dataContext.SaveChanges();
+                WriteActionLog(dataContext, "StudentPopulationCreate", "第一次輸入建立人數表", returnData.Id, returnData.Name);
                 //增加上週資料
                 if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
                     foreach (StudentPopulationItem lItem in lastWeekData.Items) {
@@ -877,6 +925,7 @@ namespace PHStatistics.Portal.Controllers {
                 returnData.Name = string.Format("{0}第{1}週課輔人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
                 dataContext.StudentPopulation.Add(returnData);
                 dataContext.SaveChanges();
+                WriteActionLog(dataContext, "StudentPopulationCreate", "第一次輸入建立人數表", returnData.Id, returnData.Name);
                 if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
                     foreach (StudentPopulationItem lItem in lastWeekData.Items) {
                         if (!lItem.Class.Course.IsSum && lItem.Number != 0 && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
@@ -995,6 +1044,7 @@ namespace PHStatistics.Portal.Controllers {
                 returnData.Name = string.Format("{0}第{1}週百倍速人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
                 dataContext.StudentPopulation.Add(returnData);
                 dataContext.SaveChanges();
+                WriteActionLog(dataContext, "StudentPopulationCreate", "第一次輸入建立人數表", returnData.Id, returnData.Name);
                 if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
                     foreach (StudentPopulationItem lItem in lastWeekData.Items) {
                         if (!lItem.Class.Course.IsSum && lItem.Number != 0 && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
@@ -1854,6 +1904,8 @@ namespace PHStatistics.Portal.Controllers {
             sp.SubmitterTime = DateTime.UtcNow.ToTaipeiTime();
             sp.SubmitterId = Guid.Parse(User.Id);
             dataContext.SaveChanges();
+            WriteSubmitItemSnapshot(dataContext, sp);
+            WriteActionLog(dataContext, "StudentPopulationSubmit", "確認送出人數表", sp.Id, sp.Name);
             return Json(new { success = true });
         }
 

@@ -17,6 +17,9 @@
         <div class="container mb-3">
             <form action="/StudentPopulation/CreatePopulation" method="post" role="form" id="formPopulation">
                 <fieldset class="center"><h1>@Model.School.Name @yearStr 年第 @weekStr 週人百世數表輸入</h1></fieldset>
+                @if (schoolYear != null) {
+                    <fieldset class="center"><h1>@schoolYear.WeekStartDate.ToString("yyyy/MM/dd") ~ @schoolYear.WeekEndDate.ToString("yyyy/MM/dd")</h1></fieldset>
+                }
                 @{
                     string statusBadgeClass = Model.Status == StudentPopulationStatus.Documented ? "bg-secondary" : "bg-success";
                     string statusText = Model.Status switch {
