@@ -67,6 +67,13 @@
         <li class="sidebar-section">系統</li>
 
         <li class="sidebar-item">
+            <a href="@Url.Action("Index", "OperationLog", new { area = "Admin" })" class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "OperationLog" ? "active" : "")">
+                <i class="dx-icon-doc"></i>
+                <span>操作紀錄</span>
+            </a>
+        </li>
+
+        <li class="sidebar-item">
             <a href="@Url.Action("Index", "Role", new { area = "Admin" })" class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Role" ? "active" : "")">
                 <i class="dx-icon-key"></i>
                 <span>角色管理</span>

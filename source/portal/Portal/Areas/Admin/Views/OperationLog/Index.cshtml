@@ -1,0 +1,112 @@
+@using PHStatistics.Portal.Areas.Admin.Controllers
+@{
+    ViewBag.Title = "操作紀錄";
+}
+
+<script>
+    var populationTypes = [
+        { id: 0, name: "百瀚 (PH)" },
+        { id: 1, name: "百倍速 (PSJ)" },
+        { id: 2, name: "英檢班 (GEPT)" },
+        { id: 3, name: "百世 (PS)" },
+        { id: 4, name: "安親課輔 (AfterSchool)" }
+    ];
+</script>
+
+<div class="card mb-3">
+    <div class="card-header">操作紀錄（ActionLog）— 第一次輸入建立 / 確認送出等系統事件</div>
+    <div class="card-body">
+        @(Html.DevExtreme().DataGrid<ActionLog>()
+            .ID("gridActionLog")
+            .DataSource(ds => ds.Mvc()
+                .Controller("OperationLog")
+                .Area("Admin")
+                .LoadAction("GetActionLogs")
+                .Key("Id")
+            )
+            .RemoteOperations(true)
+            .ShowBorders(true)
+            .ShowRowLines(true)
+            .AllowColumnResizing(true)
+            .ColumnAutoWidth(true)
+            .RowAlternationEnabled(true)
+            .Paging(paging => paging.PageSize(20))
+            .Pager(pager => pager
+                .Visible(true)
+                .ShowPageSizeSelector(true)
+                .AllowedPageSizes(new[] { 10, 20, 50, 100 })
+                .ShowInfo(true)
+            )
+            .FilterRow(f => f.Visible(true))
+            .SearchPanel(s => s.Visible(true).Width(240).Placeholder("搜尋..."))
+            .HeaderFilter(h => h.Visible(true))
+            .Columns(columns => {
+                columns.AddFor(m => m.Id).Width(80);
+                columns.AddFor(m => m.CreatedTime).Caption("時間").Width(150)
+                    .DataType(GridColumnDataType.DateTime)
+                    .Format("yyyy/MM/dd HH:mm:ss");
+                columns.AddFor(m => m.ActionName).Caption("操作");
+                columns.AddFor(m => m.UserName).Caption("操作人員").Width(120);
+                columns.AddFor(m => m.EntityTypeName).Caption("資料類型").Width(120);
+                columns.AddFor(m => m.EntityId).Caption("資料編號").Width(100);
+                columns.AddFor(m => m.EntityName).Caption("資料名稱");
+            })
+        )
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">人數表項目異動記錄（StudentPopulationItemLog）— 逐筆數值變更與送出快照</div>
+    <div class="card-body">
+        @(Html.DevExtreme().DataGrid<OperationLogController.ItemLogRow>()
+            .ID("gridItemLog")
+            .DataSource(ds => ds.Mvc()
+                .Controller("OperationLog")
+                .Area("Admin")
+                .LoadAction("GetItemLogs")
+                .Key("Id")
+            )
+            .RemoteOperations(true)
+            .ShowBorders(true)
+            .ShowRowLines(true)
+            .AllowColumnResizing(true)
+            .ColumnAutoWidth(true)
+            .RowAlternationEnabled(true)
+            .Paging(paging => paging.PageSize(20))
+            .Pager(pager => pager
+                .Visible(true)
+                .ShowPageSizeSelector(true)
+                .AllowedPageSizes(new[] { 10, 20, 50, 100 })
+                .ShowInfo(true)
+            )
+            .FilterRow(f => f.Visible(true))
+            .SearchPanel(s => s.Visible(true).Width(240).Placeholder("搜尋..."))
+            .HeaderFilter(h => h.Visible(true))
+            .Columns(columns => {
+                columns.AddFor(m => m.Id).Caption("識別碼").Width(80);
+                columns.AddFor(m => m.SchoolName).Caption("分校").Width(110);
+                columns.AddFor(m => m.Year).Caption("學年度").Width(90);
+                columns.AddFor(m => m.Week).Caption("週次").Width(70);
+                columns.AddFor(m => m.Type)
+                    .Caption("類型")
+                    .Width(140)
+                    .Lookup(lookup => lookup
+                        .DataSource(new JS("populationTypes"))
+                        .ValueExpr("id")
+                        .DisplayExpr("name")
+                    );
+                columns.AddFor(m => m.ClassName).Caption("班級/項目名稱");
+                columns.AddFor(m => m.Number).Caption("原人數").Width(80);
+                columns.AddFor(m => m.ChangeNumber).Caption("異動後人數").Width(90);
+                columns.AddFor(m => m.LastWeekNumber).Caption("原上週人數").Width(90);
+                columns.AddFor(m => m.ChangeLastWeekNumber).Caption("異動後上週人數").Width(100);
+                columns.AddFor(m => m.StudentRemark).Caption("原學生備註");
+                columns.AddFor(m => m.ChangeStudentRemark).Caption("異動後學生備註");
+                columns.AddFor(m => m.ChangeRemark).Caption("備註/事件標記").Width(140);
+                columns.AddFor(m => m.IsNew).Caption("新增").Width(70);
+                columns.AddFor(m => m.IsDeleted).Caption("刪除").Width(70);
+                columns.AddFor(m => m.MemberName).Caption("操作人員").Width(110);
+            })
+        )
+    </div>
+</div>
