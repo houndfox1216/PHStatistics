@@ -24,7 +24,7 @@ public class MemberUpdateAction : UpdateActionBase<Member, DataContext, SystemPe
     /// <param name="user">請求操作的用戶</param>
     public MemberUpdateAction(IUser user, DataContext dbContext = null) : base("更新新聞資料", user, dbContext) {
             SetActionLog<ActionLogCommand<ActionLog, DataContext>>(dbContext);
-            RequiredIncludes = ["Title.Texts", "Introduction.Texts", "Content.Texts", "Picture.Images", "MemberTags"];
+            RequiredIncludes = ["Person", "Photo"];
         }
 
     protected override void OnUpdating(DataContext context, Member data, Member current) {

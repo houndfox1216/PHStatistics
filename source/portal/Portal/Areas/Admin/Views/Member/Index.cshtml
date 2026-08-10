@@ -144,9 +144,16 @@
 
         var $content = $(e.component.content());
         // scrollingEnabled 預設 false → content 為 overflow:hidden，需手動啟用捲動
-        // 同時將 DevExtreme 自動生成的 form 改為 auto 高度，消除下方大片空白
         $content.css("overflow-y", "auto");
-        $content.find(".dx-form").first().css("height", "auto");
+
+        // DevExtreme 自動產生的 form 會被 popup content 撐開至滿版高度（含中間所有包覆容器），
+        // 導致下方分校指派/角色指派區塊被推到需大幅捲動才看得到；清除 form 本身及其「中間」
+        // 包覆容器的固定高度/最小高度即可。注意：$content 本身的高度/捲動設定不能動，
+        // 否則 popup 對話框的固定高度會被撐破，導致下方 Save/Cancel 按鈕列被推出可視範圍外
+        var $form = $content.find(".dx-form").first();
+        $form.parentsUntil($content).addBack().css({ height: "auto", "min-height": "0" });
+        var formInstance = $form.data("dxForm");
+        if (formInstance) formInstance.option("height", "auto");
 
         // 第一次開啟時建立容器
         if (!$content.find("#popupAssignmentSection").length) {
