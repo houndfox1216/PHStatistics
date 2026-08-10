@@ -43,6 +43,8 @@ public class ReportExportServiceAsMathScienceTests {
         if (pop != null) { db.StudentPopulation.Remove(pop); db.SaveChanges(); }
     }
 
+    // 2026-08-05：AS 匯出改為比照「百瀚全區課輔人數總表」原始格式（每校一個 Sheet、
+    // 數學班一對一/團體班為固定欄位 col 6/7），不再是舊版 code 表頭（MP/MG...）格式。
     [Test]
     public void Export_AfterSchool_IncludesMpColumnWithSeededValue() {
         var service = new ReportExportService();
@@ -52,22 +54,15 @@ public class ReportExportServiceAsMathScienceTests {
 
         using var ms = new System.IO.MemoryStream(bytes);
         var wb = new XSSFWorkbook(ms);
-        var sheet = wb.GetSheetAt(0);
+        var sheet = wb.GetSheet($"{Year}東湖");
+        Assert.That(sheet, Is.Not.Null, "應該有一個以校名命名（前綴年度）的 Sheet");
 
-        var hdrRow = sheet.GetRow(4);
-        var headers = Enumerable.Range(0, hdrRow.LastCellNum).Select(c => hdrRow.GetCell(c)?.ToString() ?? "").ToList();
-        int mpCol = headers.IndexOf("MP");
-        Assert.That(mpCol, Is.GreaterThan(-1), "MP header column should exist in the exported code-header row");
+        var deptHeaderRow = sheet.GetRow(1);
+        Assert.That(deptHeaderRow.GetCell(6)?.ToString(), Is.EqualTo("數學班"));
+        Assert.That(sheet.GetRow(2).GetCell(6)?.ToString(), Is.EqualTo("一對一"));
 
-        bool found = false;
-        for (int r = 5; r <= sheet.LastRowNum; r++) {
-            var row = sheet.GetRow(r);
-            if (row?.GetCell(2)?.ToString() == "東湖" && row.GetCell(3)?.ToString() == "一年級") {
-                Assert.That((int)row.GetCell(mpCol).NumericCellValue, Is.EqualTo(7));
-                found = true;
-                break;
-            }
-        }
-        Assert.That(found, Is.True, "Expected a 東湖/一年級 row in the exported sheet");
+        var firstGradeRow = sheet.GetRow(4);
+        Assert.That(firstGradeRow.GetCell(2)?.ToString(), Is.EqualTo("一年級"));
+        Assert.That((int)firstGradeRow.GetCell(6).NumericCellValue, Is.EqualTo(7));
     }
 }

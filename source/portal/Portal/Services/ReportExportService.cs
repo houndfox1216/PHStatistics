@@ -112,11 +112,9 @@ public class ReportExportService {
                 }
                 break;
             }
-            case StudentPopulationType.AfterSchool: {
-                var sheet = wb.CreateSheet("Sheet1");
-                BuildSheetAS(sheet, populations, year, week);
+            case StudentPopulationType.AfterSchool:
+                BuildSheetAS(wb, populations, year, week);
                 break;
-            }
         }
 
         using var ms = new MemoryStream();
@@ -496,35 +494,127 @@ public class ReportExportService {
     }
 
     // ── AS ───────────────────────────────────────────────────────────────────
+    // 比照百瀚實際填報格式「百瀚全區課輔人數總表」：每校一個 Sheet。
+    // Row 0: 標題；Row 1-3: 三層合併表頭；Row 4+: 12 個年級各一列 + 小計列
+    // 週次/日期/總人數（單一合計值）合併整個資料區塊（含小計列）
 
-    private static void BuildSheetAS(ISheet sheet,
+    private static readonly (string OneOnOne, string Group, string Label)[] _asSubjectGroups = {
+        ("EP", "EG", "英文班"),
+        ("MP", "MG", "數學班"),
+        ("SP", "SG", "理化班"),
+    };
+
+    private static void BuildSheetAS(XSSFWorkbook wb,
         List<StudentPopulation> populations, int year, int week) {
 
-        sheet.CreateRow(0).CreateCell(0).SetCellValue($"{year}年第{week}週課輔人數表");
-
-        string[] codes = { "T", "AS", "EP", "EG", "MP", "MG", "SP", "SG", "N", "L", "W" };
-        WriteGradeHeader(sheet, 4, codes);
-
-        int rowIdx = 5;
         foreach (var pop in populations) {
+            string schoolName = pop.School?.Name ?? "";
+            var sheet = wb.CreateSheet($"{year}{schoolName}");
+
+            sheet.CreateRow(0).CreateCell(0).SetCellValue(
+                $"{schoolName} 教室{year}學年度7-6月課輔班人數統計表(請於每週六下班回傳)");
+
+            var r1 = sheet.CreateRow(1);
+            var r2 = sheet.CreateRow(2);
+            sheet.CreateRow(3);
+
+            r1.CreateCell(0).SetCellValue("週次");
+            r1.CreateCell(1).SetCellValue("日期");
+            r1.CreateCell(2).SetCellValue("課程");
+            r1.CreateCell(3).SetCellValue("安親課輔班");
+            r2.CreateCell(2).SetCellValue("年級  班別");
+
+            int col = 4;
+            foreach (var (_, _, label) in _asSubjectGroups) {
+                r1.CreateCell(col).SetCellValue(label);
+                try { sheet.AddMergedRegion(new CellRangeAddress(1, 1, col, col + 1)); } catch { }
+                r2.CreateCell(col).SetCellValue("一對一");
+                r2.CreateCell(col + 1).SetCellValue("團體班");
+                col += 2;
+            }
+            int analysisCol = col;
+            r1.CreateCell(analysisCol).SetCellValue("分析");
+            try { sheet.AddMergedRegion(new CellRangeAddress(1, 1, analysisCol, analysisCol + 3)); } catch { }
+            r2.CreateCell(analysisCol).SetCellValue("新生");
+            r2.CreateCell(analysisCol + 1).SetCellValue("流失");
+            r2.CreateCell(analysisCol + 2).SetCellValue("上週比");
+            r2.CreateCell(analysisCol + 3).SetCellValue("總人數");
+
+            try { sheet.AddMergedRegion(new CellRangeAddress(1, 3, 0, 0)); } catch { }
+            try { sheet.AddMergedRegion(new CellRangeAddress(1, 3, 1, 1)); } catch { }
+            try { sheet.AddMergedRegion(new CellRangeAddress(1, 3, 3, 3)); } catch { }
+            try { sheet.AddMergedRegion(new CellRangeAddress(2, 3, 2, 2)); } catch { }
+            for (int c = 4; c < analysisCol + 4; c++) {
+                try { sheet.AddMergedRegion(new CellRangeAddress(2, 3, c, c)); } catch { }
+            }
+
+            var dateStyle = wb.CreateCellStyle();
+            dateStyle.DataFormat = wb.CreateDataFormat().GetFormat("yyyy/m/d");
+
+            const int dataStart = 4;
             int tTotal = pop.Items.Where(i => i.Class?.CourseId == 258).Sum(i => i.Number);
-            bool tWritten = false;
+
+            int sumAS = 0, sumN = 0, sumL = 0, sumW = 0;
+            var sumSubj = new int[_asSubjectGroups.Length * 2];
 
             for (int gi = 0; gi < _gradeOrder.Length; gi++) {
-                var vals = new int[codes.Length];
-                vals[0] = (!tWritten && tTotal > 0) ? tTotal : 0;
+                var row = sheet.CreateRow(dataStart + gi);
+                row.CreateCell(2).SetCellValue(_gradeOrder[gi]);
 
-                for (int ci = 1; ci < codes.Length; ci++) {
-                    if (!_asCourseIds.TryGetValue(codes[ci], out var ids)) continue;
-                    var ct = AsColType(codes[ci]);
-                    vals[ci] = pop.Items.Where(i => i.Class?.CourseId == ids[gi] && i.Class?.Type == ct).Sum(i => i.Number);
+                int asVal = pop.Items.Where(i => i.Class?.CourseId == _asCourseIds["AS"][gi] && i.Class?.Type == AsColType("AS")).Sum(i => i.Number);
+                if (asVal != 0) row.CreateCell(3).SetCellValue(asVal);
+                sumAS += asVal;
+
+                col = 4;
+                for (int s = 0; s < _asSubjectGroups.Length; s++) {
+                    var (oneCode, groupCode, _) = _asSubjectGroups[s];
+                    int oneVal = pop.Items.Where(i => i.Class?.CourseId == _asCourseIds[oneCode][gi] && i.Class?.Type == AsColType(oneCode)).Sum(i => i.Number);
+                    int groupVal = pop.Items.Where(i => i.Class?.CourseId == _asCourseIds[groupCode][gi] && i.Class?.Type == AsColType(groupCode)).Sum(i => i.Number);
+                    if (oneVal != 0) row.CreateCell(col).SetCellValue(oneVal);
+                    if (groupVal != 0) row.CreateCell(col + 1).SetCellValue(groupVal);
+                    sumSubj[s * 2] += oneVal;
+                    sumSubj[s * 2 + 1] += groupVal;
+                    col += 2;
                 }
 
-                if (vals.All(v => v == 0)) continue;
-                if (vals[0] > 0) tWritten = true;
+                int nVal = pop.Items.Where(i => i.Class?.CourseId == _asCourseIds["N"][gi] && i.Class?.Type == AsColType("N")).Sum(i => i.Number);
+                int lVal = pop.Items.Where(i => i.Class?.CourseId == _asCourseIds["L"][gi] && i.Class?.Type == AsColType("L")).Sum(i => i.Number);
+                int wVal = pop.Items.Where(i => i.Class?.CourseId == _asCourseIds["W"][gi] && i.Class?.Type == AsColType("W")).Sum(i => i.Number);
+                if (nVal != 0) row.CreateCell(analysisCol).SetCellValue(nVal);
+                if (lVal != 0) row.CreateCell(analysisCol + 1).SetCellValue(lVal);
+                if (wVal != 0) row.CreateCell(analysisCol + 2).SetCellValue(wVal);
+                sumN += nVal; sumL += lVal; sumW += wVal;
 
-                WriteGradeRow(sheet.CreateRow(rowIdx++), year, week, pop.School?.Name ?? "", _gradeOrder[gi], vals);
+                if (gi == 0) {
+                    row.CreateCell(0).SetCellValue(week);
+                    var dateCell = row.CreateCell(1);
+                    dateCell.SetCellValue(pop.WeekDate);
+                    dateCell.CellStyle = dateStyle;
+                    if (tTotal != 0) row.CreateCell(analysisCol + 3).SetCellValue(tTotal);
+                }
             }
+
+            int subtotalRow = dataStart + _gradeOrder.Length;
+            var subRow = sheet.CreateRow(subtotalRow);
+            subRow.CreateCell(2).SetCellValue("小計");
+            subRow.CreateCell(3).SetCellValue(sumAS);
+            col = 4;
+            for (int s = 0; s < _asSubjectGroups.Length; s++) {
+                subRow.CreateCell(col).SetCellValue(sumSubj[s * 2]);
+                subRow.CreateCell(col + 1).SetCellValue(sumSubj[s * 2 + 1]);
+                col += 2;
+            }
+            subRow.CreateCell(analysisCol).SetCellValue(sumN);
+            subRow.CreateCell(analysisCol + 1).SetCellValue(sumL);
+            subRow.CreateCell(analysisCol + 2).SetCellValue(sumW);
+
+            try { sheet.AddMergedRegion(new CellRangeAddress(dataStart, subtotalRow, 0, 0)); } catch { }
+            try { sheet.AddMergedRegion(new CellRangeAddress(dataStart, subtotalRow, 1, 1)); } catch { }
+            try { sheet.AddMergedRegion(new CellRangeAddress(dataStart, subtotalRow, analysisCol + 3, analysisCol + 3)); } catch { }
+
+            sheet.SetColumnWidth(0, 6 * 256);
+            sheet.SetColumnWidth(1, 10 * 256);
+            sheet.SetColumnWidth(2, 8 * 256);
         }
     }
 
@@ -603,27 +693,6 @@ public class ReportExportService {
     private static int[] TryParseIntArray(string json) {
         try { return JsonSerializer.Deserialize<int[]>(json) ?? Array.Empty<int>(); }
         catch { return Array.Empty<int>(); }
-    }
-
-    private static void WriteGradeHeader(ISheet sheet, int rowIdx, string[] codes) {
-        var hdr = sheet.CreateRow(rowIdx);
-        hdr.CreateCell(0).SetCellValue("年");
-        hdr.CreateCell(1).SetCellValue("週");
-        hdr.CreateCell(2).SetCellValue("分校");
-        hdr.CreateCell(3).SetCellValue("年級");
-        for (int i = 0; i < codes.Length; i++) hdr.CreateCell(4 + i).SetCellValue(codes[i]);
-    }
-
-    private static void WriteGradeRow(IRow row, int year, int week,
-        string school, string grade, int[] vals) {
-
-        row.CreateCell(0).SetCellValue(year);
-        row.CreateCell(1).SetCellValue(week);
-        row.CreateCell(2).SetCellValue(school);
-        row.CreateCell(3).SetCellValue(grade);
-        for (int ci = 0; ci < vals.Length; ci++) {
-            if (vals[ci] > 0) row.CreateCell(4 + ci).SetCellValue(vals[ci]);
-        }
     }
 
     // 依 School.Region.Name 分組，維持組內原有排序（LoadPopulations 已依 Region.Ordinal, School.Ordinal 排序）
