@@ -223,7 +223,7 @@
         }
 
         @if (!cItem.Name.Equals("本週英語文總人數") && !cItem.Name.Equals("上週英語文總人數") && !cItem.Name.Equals("與上週相比") && 
-             !cItem.Name.Equals("去年同期/比") && !cItem.Name.Equals("上週英語文總人數"))
+             !cItem.Name.Equals("去年同期/比") && !cItem.Name.Equals("上週英語文總人數") && !cItem.Name.Equals("本週國語文總人數")&& !cItem.Name.Equals("上週國語文總人數"))
         {
             <div class="row mx-0">
                 @if (Model.Type == StudentPopulationType.PH || Model.Type == StudentPopulationType.PSJ) {
@@ -270,13 +270,13 @@
         }
         foreach (StudentPopulationItem sItem in Model.Items.Where(e => e.Class.Course.Id == cItem.Id).OrderBy(e => e.Id)) {
             if (sItem.Class.Course.Name.Equals("本週英語文總人數") || sItem.Class.Course.Name.Equals("上週英語文總人數") || sItem.Class.Course.Name.Equals("與上週相比") ||
-                sItem.Class.Course.Name.Equals("去年同期/比"))
+                sItem.Class.Course.Name.Equals("去年同期/比") || sItem.Class.Course.Name.Equals("本週國語文總人數") || sItem.Class.Course.Name.Equals("上週國語文總人數"))
             {
                 itemRowNo++;
                 continue;
             }
             if (sItem.Class.Course.Name.Equals("本週英語文總人數") || sItem.Class.Course.Name.Equals("上週英語文總人數") || sItem.Class.Course.Name.Equals("與上週相比") ||
-                sItem.Class.Course.Name.Equals("去年同期/比") || sItem.Class.Course.Name.Equals("本週總詢問(填單)人數"))
+                sItem.Class.Course.Name.Equals("去年同期/比") || sItem.Class.Course.Name.Equals("本週總詢問(填單)人數")|| sItem.Class.Course.Name.Equals("本週國語文總人數") || sItem.Class.Course.Name.Equals("上週國語文總人數"))
             {
                 string rowStateClass;
                 if (sItem.Number == 0)
