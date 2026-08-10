@@ -216,7 +216,7 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
 
             static string TypeName(StudentPopulationType t) => t switch {
                 StudentPopulationType.PH          => "百瀚 (PH)",
-                StudentPopulationType.PSJ         => "百倍數 (PSJ)",
+                StudentPopulationType.PSJ         => "百倍速 (PSJ)",
                 StudentPopulationType.GEPT        => "英檢班 (GEPT)",
                 StudentPopulationType.PS          => "百世 (PS)",
                 StudentPopulationType.AfterSchool => "安親課輔 (AfterSchool)",

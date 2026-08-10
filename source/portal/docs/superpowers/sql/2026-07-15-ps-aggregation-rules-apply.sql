@@ -23,7 +23,7 @@ UPDATE Course SET StatisticsType = 60, SourceDepartmentIds = '[22,23,24]' WHERE 
 -- PS上週人數：LastWeekValue，跟132同源 (修正原本永遠只能靠人工填寫維持正確的欄位)
 UPDATE Course SET StatisticsType = 40, SourceDepartmentIds = '[22,23,24]' WHERE Id = 138;
 
--- 本週變更(PS+百倍數) / 總人數(PS+百倍數)：來源直接指向另外兩個加總課程 132(可計算) + 135(人工填寫)
+-- 本週變更(PS+百倍速) / 總人數(PS+百倍速)：來源直接指向另外兩個加總課程 132(可計算) + 135(人工填寫)
 UPDATE Course SET StatisticsType = 10, SourceCourseIds = '[132,135]' WHERE Id = 142;
 UPDATE Course SET StatisticsType = 4, SourceCourseIds = '[132,135]' WHERE Id = 144;
 

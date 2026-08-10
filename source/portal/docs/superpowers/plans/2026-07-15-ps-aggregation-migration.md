@@ -265,12 +265,12 @@ The rule mapping below is copied from the approved design spec (`docs/superpower
 | 133 | PS數學開班數 | PS統計 (25) | `CountClasses` (30) | `[22,23,24]` |
 | 134 | PS數學班平均人數 | PS統計 (25) | `Average` (60) | `[22,23,24]` |
 | 138 | PS上週人數 | 分析 (26) | `LastWeekValue` (40) | `[22,23,24]` |
-| 142 | 本週變更(PS+百倍數) | 分析 (26) | `DiffWithLastWeek` (10) | `[132,135]` (SourceCourseIds) |
-| 144 | 總人數(PS+百倍數) | 統計 (13) | `SumBySourceCourses` (4) | `[132,135]` (SourceCourseIds) |
-| 135 | 百倍數總人數 | 分析 (26) | `ManualInput` (50) | — |
+| 142 | 本週變更(PS+百倍速) | 分析 (26) | `DiffWithLastWeek` (10) | `[132,135]` (SourceCourseIds) |
+| 144 | 總人數(PS+百倍速) | 統計 (13) | `SumBySourceCourses` (4) | `[132,135]` (SourceCourseIds) |
+| 135 | 百倍速總人數 | 分析 (26) | `ManualInput` (50) | — |
 | 136 | 百世數學去年同期 | 分析 (26) | `ManualInput` (50) | — |
-| 137 | 百倍數去年同期 | 分析 (26) | `ManualInput` (50) | — |
-| 139 | 百倍數上週人數 | 分析 (26) | `ManualInput` (50) | — |
+| 137 | 百倍速去年同期 | 分析 (26) | `ManualInput` (50) | — |
+| 139 | 百倍速上週人數 | 分析 (26) | `ManualInput` (50) | — |
 | 140 | 本週PS新生人數 | 分析 (26) | `ManualInput` (50) | — |
 | 141 | 本週PS流失人數 | 分析 (26) | `ManualInput` (50) | — |
 | 143 | 本週總詢問人數 | 統計 (13) | `ManualInput` (50) | — |
@@ -307,7 +307,7 @@ UPDATE Course SET StatisticsType = 60, SourceDepartmentIds = '[22,23,24]' WHERE 
 -- PS上週人數：LastWeekValue，跟132同源 (修正原本永遠只能靠人工填寫維持正確的欄位)
 UPDATE Course SET StatisticsType = 40, SourceDepartmentIds = '[22,23,24]' WHERE Id = 138;
 
--- 本週變更(PS+百倍數) / 總人數(PS+百倍數)：來源直接指向另外兩個加總課程 132(可計算) + 135(人工填寫)
+-- 本週變更(PS+百倍速) / 總人數(PS+百倍速)：來源直接指向另外兩個加總課程 132(可計算) + 135(人工填寫)
 UPDATE Course SET StatisticsType = 10, SourceCourseIds = '[132,135]' WHERE Id = 142;
 UPDATE Course SET StatisticsType = 4, SourceCourseIds = '[132,135]' WHERE Id = 144;
 
@@ -559,9 +559,9 @@ This changes a live save-path for PS populations. Note this alongside the other 
 - Open a PS population for a real school, edit a regular (non-summary) grade class's number (e.g. one of the 一資/一特/二資 classes), save
 - Confirm 國小班/國中班/高中班人數合計、PS數學總人數、PS數學開班數、PS數學班平均人數 all recompute to the expected values
 - Confirm PS上週人數 shows the correct prior week's PS數學總人數 (not a stale/manually-typed value)
-- Confirm 總人數(PS+百倍數) equals PS數學總人數 + 百倍數總人數 (i.e., changing the raw grade classes updates 144 correctly, and it still reflects whatever is currently in 百倍數總人數)
-- Confirm 本週變更(PS+百倍數) reflects the difference between this week's and last week's 總人數(PS+百倍數)
-- Confirm 百倍數總人數、百世/百倍數去年同期、百倍數上週人數、本週PS新生/流失人數、本週總詢問人數 are NOT reset when other fields are saved (same class of bug already fixed once for PH/GEPT earlier — verify it holds for PS too)
+- Confirm 總人數(PS+百倍速) equals PS數學總人數 + 百倍速總人數 (i.e., changing the raw grade classes updates 144 correctly, and it still reflects whatever is currently in 百倍速總人數)
+- Confirm 本週變更(PS+百倍速) reflects the difference between this week's and last week's 總人數(PS+百倍速)
+- Confirm 百倍速總人數、百世/百倍速去年同期、百倍速上週人數、本週PS新生/流失人數、本週總詢問人數 are NOT reset when other fields are saved (same class of bug already fixed once for PH/GEPT earlier — verify it holds for PS too)
 
 - [ ] **Step 6: Commit**
 
