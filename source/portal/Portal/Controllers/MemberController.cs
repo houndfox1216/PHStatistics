@@ -2,6 +2,7 @@
 using System.Framework;
 using System.Framework.Logging;
 using System.Framework.Web;
+using PHStatistics.Community;
 using PHStatistics.Portal.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Framework.Application;
@@ -19,6 +20,7 @@ namespace PHStatistics.Portal.Controllers {
                     try {
                         var entity = Model.Authorize(account, password);
                         var user = new PortalUser(entity);
+                        WriteMemberActionLog(entity, "MemberLogin", "會員登入");
                         Logger.LogInformation($"進行登入 ");
                         user.Login();
                         // 設定 Session
@@ -65,6 +67,7 @@ namespace PHStatistics.Portal.Controllers {
                         try {
                             var entity = Model.SessionAuthorizationAction(sAccount);
                             var user = new PortalUser(entity);
+                            WriteMemberActionLog(entity, "MemberLogin", "會員登入（Session續登）");
                             Logger.LogInformation($"進行Session登入 ");
                             user.Login();
                             // 設定 Session
@@ -122,6 +125,7 @@ namespace PHStatistics.Portal.Controllers {
         }
         [Authorize(typeof(PortalUser))]
         public IActionResult LogOut() {
+            if (User.Data is Member member) WriteMemberActionLog(member, "MemberLogout", "會員登出");
             User.Logout();
             HttpContext.Session.SetString("Account", string.Empty);
             HttpContext.Session.SetString("UserLogin", "0");
@@ -132,6 +136,25 @@ namespace PHStatistics.Portal.Controllers {
 
         public IActionResult Contact() {
             return View();
+        }
+
+        // 記錄登入/登出事件（只記錄操作人員與時間），不走SaveChanges自動稽核攔截器——
+        // 因為登入本身不會產生資料庫寫入，需要在這裡明確補一筆ActionLog。
+        private void WriteMemberActionLog(Member member, string actionType, string actionName) {
+            if (member == null) return;
+            Model.DataContext.ActionLog.Add(new ActionLog {
+                CreatedTime = DateTime.Now,
+                ActionType = actionType,
+                ActionName = actionName,
+                UserType = "Member",
+                UserId = member.Id.ToString(),
+                UserName = member.Nickname,
+                EntityType = nameof(Member),
+                EntityTypeName = "會員",
+                EntityId = member.Id.ToString(),
+                EntityName = member.Nickname,
+            });
+            Model.DataContext.SaveChanges();
         }
     }
 }

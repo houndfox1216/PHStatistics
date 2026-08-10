@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Framework.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using PHStatistics.Audit;
 
 namespace PHStatistics {
     /// <summary>
@@ -21,6 +22,15 @@ namespace PHStatistics {
         /// </summary>
         /// <param name="options">選項</param>
         public DataContext(DbContextOptions<DataContext> options) : base(options) => UtcOffset = new TimeSpan(8, 0, 0);
+
+        /// <summary>
+        /// 掛載全域稽核攔截器：不管是 new DataContext() 或透過 DI 建立，
+        /// 只要呼叫 SaveChanges 就會自動記錄核心業務表的異動，見 PHStatistics.Audit.AuditSaveChangesInterceptor。
+        /// </summary>
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.AddInterceptors(new AuditSaveChangesInterceptor());
+        }
 
         #region OnModelCreating methods
 

@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
+using PHStatistics.Portal.Filters;
 using PHStatistics.Portal.Services;
 
 namespace PHStatistics.Portal {
@@ -27,7 +28,7 @@ namespace PHStatistics.Portal {
             }));
 
             // 設定 MVC 與 JSON 序列化
-            services.AddControllersWithViews()
+            services.AddControllersWithViews(options => options.Filters.Add<AuditActorFilter>())
                     .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null)
                     .AddNewtonsoftJson(options => {
                         options.SerializerSettings.ContractResolver = new DefaultContractResolver();

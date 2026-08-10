@@ -11,6 +11,36 @@
         { id: 3, name: "百世 (PS)" },
         { id: 4, name: "安親課輔 (AfterSchool)" }
     ];
+
+    // 展開列顯示 ActionLog.Xml 的欄位級diff（自動稽核攔截器產生的內容），逐一用 .text() 組DOM避免XSS
+    function renderActionLogDetail(container, options) {
+        var xml = options.data.Xml;
+        var $container = $(container).addClass("p-2");
+        if (!xml) { $container.text("（無詳細資料）"); return; }
+        var fields;
+        try {
+            fields = $($.parseXML(xml)).find("Field");
+        } catch (e) {
+            $container.text(xml);
+            return;
+        }
+        if (fields.length === 0) { $container.text("（無欄位變化）"); return; }
+        var $table = $("<table class='table table-sm table-bordered mb-0 bg-white'></table>");
+        var $headRow = $("<tr>");
+        ["欄位", "原值", "新值"].forEach(function (h) { $headRow.append($("<th>").text(h)); });
+        $table.append($("<thead>").append($headRow));
+        var $tbody = $("<tbody>");
+        fields.each(function () {
+            var $f = $(this);
+            var $row = $("<tr>");
+            $row.append($("<td>").text($f.attr("Name") || ""));
+            $row.append($("<td>").text($f.attr("Old") || ""));
+            $row.append($("<td>").text($f.attr("New") || ""));
+            $tbody.append($row);
+        });
+        $table.append($tbody);
+        $container.empty().append($table);
+    }
 </script>
 
 <div class="card mb-3">
@@ -40,16 +70,19 @@
             .FilterRow(f => f.Visible(true))
             .SearchPanel(s => s.Visible(true).Width(240).Placeholder("搜尋..."))
             .HeaderFilter(h => h.Visible(true))
+            .MasterDetail(md => md.Enabled(true).Template(new JS("renderActionLogDetail")))
             .Columns(columns => {
                 columns.AddFor(m => m.Id).Width(80);
                 columns.AddFor(m => m.CreatedTime).Caption("時間").Width(150)
                     .DataType(GridColumnDataType.DateTime)
                     .Format("yyyy/MM/dd HH:mm:ss");
+                columns.AddFor(m => m.ActionType).Caption("類型").Width(110);
                 columns.AddFor(m => m.ActionName).Caption("操作");
                 columns.AddFor(m => m.UserName).Caption("操作人員").Width(120);
                 columns.AddFor(m => m.EntityTypeName).Caption("資料類型").Width(120);
                 columns.AddFor(m => m.EntityId).Caption("資料編號").Width(100);
                 columns.AddFor(m => m.EntityName).Caption("資料名稱");
+                columns.AddFor(m => m.Xml).Visible(false);
             })
         )
     </div>
