@@ -3,12 +3,14 @@
 }
 
 <script>
+    // MemberStatus enum底層數值（非字串名稱）：JSON序列化沒有掛StringEnumConverter，
+    // Status欄位在前端拿到的是數字，Lookup的value必須對應這個數值才能正確顯示中文。
     var memberStatusOptions = [
-        { value: "Confirming", text: "確認中" },
-        { value: "Enabled",    text: "已啟用" },
-        { value: "Disabled",   text: "已禁用" },
-        { value: "Expired",    text: "已失效" },
-        { value: "Other",      text: "其他"   }
+        { value: 0,     text: "確認中" },
+        { value: 10,    text: "已啟用" },
+        { value: 20,    text: "已禁用" },
+        { value: 30,    text: "已失效" },
+        { value: 32767, text: "其他"   }
     ];
 
     var schoolsStore = new DevExpress.data.CustomStore({

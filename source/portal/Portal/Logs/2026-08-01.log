@@ -1,0 +1,10 @@
+2026-08-01 08:30:00.9116[56]  INFO MemberController  Member Login account: password: 
+2026-08-01 08:31:16.8804[37]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-08-01 08:31:16.9324[37]  INFO MemberController  進行登入 
+2026-08-01 08:31:16.9870[37]  INFO MemberController  進行登入完成 導入 /Member/LogOut False 
+2026-08-01 08:31:17.1505[53]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-01 08:31:17.1505[53]  INFO HomeController  進入首頁
+2026-08-01 08:33:52.8480[13]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-01 08:33:52.8480[13]  INFO HomeController  進入首頁
+2026-08-01 08:34:47.6576[9]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-01 08:34:47.6705[9]  INFO HomeController  進入首頁

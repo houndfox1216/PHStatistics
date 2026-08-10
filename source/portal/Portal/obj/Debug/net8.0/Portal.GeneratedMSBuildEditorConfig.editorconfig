@@ -47,12 +47,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWVtYmVyXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Company/PHStatistics.portal/source/portal/Portal/Areas/Admin/Views/OperationLog/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcT3BlcmF0aW9uTG9nXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Company/PHStatistics.portal/source/portal/Portal/Areas/Admin/Views/Role/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUm9sZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Company/PHStatistics.portal/source/portal/Portal/Areas/Admin/Views/SchoolYear/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2Nob29sWWVhclxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Company/PHStatistics.portal/source/portal/Portal/Areas/Admin/Views/School/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2Nob29sXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Company/PHStatistics.portal/source/portal/Portal/Areas/Admin/Views/Shared/_AdminHeader.cshtml]
@@ -189,6 +197,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Company/PHStatistics.portal/source/portal/Portal/Views/StudentPopulation/MainMenu.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFBvcHVsYXRpb25cTWFpbk1lbnUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Company/PHStatistics.portal/source/portal/Portal/Views/StudentPopulation/MissingLastWeekWarning.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFBvcHVsYXRpb25cTWlzc2luZ0xhc3RXZWVrV2FybmluZy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Company/PHStatistics.portal/source/portal/Portal/Views/StudentPopulation/PopulationPartialView.cshtml]

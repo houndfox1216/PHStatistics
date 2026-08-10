@@ -1,0 +1,173 @@
+2026-08-04 11:28:32.9103[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-04 11:28:32.9290[13]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-08-04 11:28:33.1011[13]  INFO MemberController  Member Login account: password: 
+2026-08-04 11:32:07.2477[29]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-08-04 11:32:07.3563[29]  INFO MemberController  進行登入 
+2026-08-04 11:32:07.5439[29]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-08-04 11:32:07.7398[29]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-04 11:32:07.7398[29]  INFO HomeController  進入首頁
+2026-08-04 11:33:20.3212[39] ERROR IApplication  目前無法進行相關操作，請聯繫維護人員!
+System.InvalidOperationException: An error was generated for warning 'Microsoft.EntityFrameworkCore.Query.InvalidIncludePathError': Unable to find navigation 'Title' specified in string based include path 'Title.Texts'. This exception can be suppressed or logged by passing event ID 'CoreEventId.InvalidIncludePathError' to the 'ConfigureWarnings' method in 'DbContext.OnConfiguring' or 'AddDbContext'.
+   at Microsoft.EntityFrameworkCore.Diagnostics.EventDefinition`2.Log[TLoggerCategory](IDiagnosticsLogger`1 logger, TParam1 arg1, TParam2 arg2)
+   at Microsoft.EntityFrameworkCore.Diagnostics.CoreLoggerExtensions.InvalidIncludePathError(IDiagnosticsLogger`1 diagnostics, String navigationChain, String navigationName)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.ProcessInclude(NavigationExpansionExpression source, Expression expression, Boolean thenInclude, Boolean setLoaded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.Expand(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryTranslationPreprocessor.Process(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass9_0`1.<Execute>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at System.Framework.EntityFrameworkCore.EntityFrameworkContext.FindById[TEntity](Object id, Boolean trackEnabled, String[] includes)
+   at System.Framework.Application.UpdateActionBase`3.OnExecuting(TDataContext context)
+2026-08-04 11:33:34.7126[27] ERROR IApplication  目前無法進行相關操作，請聯繫維護人員!
+System.InvalidOperationException: An error was generated for warning 'Microsoft.EntityFrameworkCore.Query.InvalidIncludePathError': Unable to find navigation 'Title' specified in string based include path 'Title.Texts'. This exception can be suppressed or logged by passing event ID 'CoreEventId.InvalidIncludePathError' to the 'ConfigureWarnings' method in 'DbContext.OnConfiguring' or 'AddDbContext'.
+   at Microsoft.EntityFrameworkCore.Diagnostics.EventDefinition`2.Log[TLoggerCategory](IDiagnosticsLogger`1 logger, TParam1 arg1, TParam2 arg2)
+   at Microsoft.EntityFrameworkCore.Diagnostics.CoreLoggerExtensions.InvalidIncludePathError(IDiagnosticsLogger`1 diagnostics, String navigationChain, String navigationName)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.ProcessInclude(NavigationExpansionExpression source, Expression expression, Boolean thenInclude, Boolean setLoaded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.Expand(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryTranslationPreprocessor.Process(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass9_0`1.<Execute>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at System.Framework.EntityFrameworkCore.EntityFrameworkContext.FindById[TEntity](Object id, Boolean trackEnabled, String[] includes)
+   at System.Framework.Application.UpdateActionBase`3.OnExecuting(TDataContext context)
+2026-08-04 12:00:46.1999[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-04 12:00:46.2137[11]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-08-04 12:00:46.3171[18]  INFO MemberController  Member Login account: password: 
+2026-08-04 12:01:05.3730[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-04 12:01:05.3838[11]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-08-04 12:01:05.4937[17]  INFO MemberController  Member Login account: password: 
+2026-08-04 12:01:48.0830[19]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-08-04 12:01:48.2099[19]  INFO MemberController  進行登入 
+2026-08-04 12:01:48.4053[19]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-08-04 12:01:48.6524[22]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-04 12:01:48.6524[22]  INFO HomeController  進入首頁
+2026-08-04 12:04:16.7940[9]  INFO MemberController  Member Login account: password: 
+2026-08-04 12:14:22.4541[13]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-04 12:14:22.4667[13]  INFO HomeController  進入首頁
+2026-08-04 12:17:27.1401[36]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-04 12:17:27.1401[36]  INFO HomeController  進入首頁
+2026-08-04 12:17:30.1942[33]  INFO StudentPopulationController  進入首頁(MainMenu)
+2026-08-04 12:17:30.1942[33]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2026-08-04 17:20:00.4627[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-04 17:20:00.4949[11]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-08-04 17:20:00.6299[18]  INFO MemberController  Member Login account: password: 
+2026-08-04 17:25:15.4258[30]  INFO MemberController  Member Login account:earringmeiz password:0953200294 
+2026-08-04 17:25:15.4791[30]  INFO MemberController  進行登入 
+2026-08-04 17:25:15.6423[30]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-08-04 17:25:15.6763[30]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-04 17:25:15.6763[30]  INFO HomeController  進入首頁 讀取 Session account:earringmeiz login:1
+2026-08-04 17:25:15.6763[30]  INFO HomeController  進入首頁
+2026-08-04 17:25:21.2752[27]  INFO MemberController  Member Login account: password: 
+2026-08-04 17:25:21.2752[27]  INFO MemberController  進行Session登入 
+2026-08-04 17:25:21.3076[27]  INFO MemberController  進行登入完成 導入 /StudentPopulation/Index?type=PH False 
+2026-08-04 17:25:21.3210[32]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-04 17:25:21.3210[32]  INFO HomeController  進入首頁 讀取 Session account:earringmeiz login:1
+2026-08-04 17:25:21.3210[32]  INFO HomeController  進入首頁
+2026-08-04 17:25:25.3022[27]  INFO MemberController  Member Login account: password: 
+2026-08-04 17:25:25.3022[27]  INFO MemberController  進行Session登入 
+2026-08-04 17:25:25.3096[27]  INFO MemberController  進行登入完成 導入 /StudentPopulation/Index?type=PH False 
+2026-08-04 17:25:25.3276[39]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-04 17:25:25.3276[39]  INFO HomeController  進入首頁 讀取 Session account:earringmeiz login:1
+2026-08-04 17:25:25.3276[39]  INFO HomeController  進入首頁
+2026-08-04 17:25:27.6287[33]  INFO MemberController  Member Login account: password: 
+2026-08-04 17:25:27.6287[33]  INFO MemberController  進行Session登入 
+2026-08-04 17:25:27.6287[33]  INFO MemberController  進行登入完成 導入 /StudentPopulation/Index?type=PH False 
+2026-08-04 17:25:27.6458[27]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-04 17:25:27.6458[27]  INFO HomeController  進入首頁 讀取 Session account:earringmeiz login:1
+2026-08-04 17:25:27.6458[27]  INFO HomeController  進入首頁
+2026-08-04 17:25:38.2430[29]  INFO MemberController  Member Login account: password: 
+2026-08-04 17:25:38.2430[29]  INFO MemberController  進行Session登入 
+2026-08-04 17:25:38.2430[29]  INFO MemberController  進行登入完成 導入 /StudentPopulation/Index?type=PS False 
+2026-08-04 17:25:38.2571[29]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-04 17:25:38.2571[29]  INFO HomeController  進入首頁 讀取 Session account:earringmeiz login:1
+2026-08-04 17:25:38.2571[29]  INFO HomeController  進入首頁
+2026-08-04 17:25:39.7840[32]  INFO MemberController  Member Login account: password: 
+2026-08-04 17:25:39.7840[32]  INFO MemberController  進行Session登入 
+2026-08-04 17:25:39.7840[32]  INFO MemberController  進行登入完成 導入 /StudentPopulation/Index?type=PSJGrid False 
+2026-08-04 17:25:39.8002[30]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-04 17:25:39.8002[30]  INFO HomeController  進入首頁 讀取 Session account:earringmeiz login:1
+2026-08-04 17:25:39.8002[30]  INFO HomeController  進入首頁
+2026-08-04 17:25:41.1637[39]  INFO MemberController  Member Login account: password: 
+2026-08-04 17:25:41.1637[39]  INFO MemberController  進行Session登入 
+2026-08-04 17:25:41.1637[39]  INFO MemberController  進行登入完成 導入 /StudentPopulation/Index?type=Gept False 
+2026-08-04 17:25:41.1637[30]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-04 17:25:41.1637[30]  INFO HomeController  進入首頁 讀取 Session account:earringmeiz login:1
+2026-08-04 17:25:41.1637[30]  INFO HomeController  進入首頁
+2026-08-04 17:25:42.2593[29]  INFO MemberController  Member Login account: password: 
+2026-08-04 17:25:42.2593[29]  INFO MemberController  進行Session登入 
+2026-08-04 17:25:42.2593[29]  INFO MemberController  進行登入完成 導入 /StudentPopulation/Index?type=ASGrid False 
+2026-08-04 17:25:42.2593[39]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-04 17:25:42.2593[39]  INFO HomeController  進入首頁 讀取 Session account:earringmeiz login:1
+2026-08-04 17:25:42.2593[39]  INFO HomeController  進入首頁
+2026-08-04 17:25:44.0473[27]  INFO StudentPopulationController  進入首頁(MainMenu)
+2026-08-04 17:25:44.0473[27]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest True User.Id System
+2026-08-04 17:26:21.6766[33]  INFO StudentPopulationController  進入首頁(MainMenu)
+2026-08-04 17:26:21.6766[33]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest True User.Id System
+2026-08-04 17:26:36.2706[49]  INFO MemberController  Member Login account: password: 
+2026-08-04 17:26:36.2746[49]  INFO MemberController  進行Session登入 
+2026-08-04 17:26:36.2746[49]  INFO MemberController  進行登入完成 導入 /Member/LogOut False 
+2026-08-04 17:26:36.3049[39]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-04 17:26:36.3049[39]  INFO HomeController  進入首頁 讀取 Session account:earringmeiz login:1
+2026-08-04 17:26:36.3049[39]  INFO HomeController  進入首頁
+2026-08-04 17:26:39.3035[47]  INFO MemberController  Member Login account: password: 
+2026-08-04 17:26:39.3035[47]  INFO MemberController  進行Session登入 
+2026-08-04 17:26:39.3035[47]  INFO MemberController  進行登入完成 導入 /Member/LogOut False 
+2026-08-04 17:26:39.3383[31]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-04 17:26:39.3383[31]  INFO HomeController  進入首頁 讀取 Session account:earringmeiz login:1
+2026-08-04 17:26:39.3383[31]  INFO HomeController  進入首頁
+2026-08-04 17:26:46.9229[48]  INFO MemberController  Member Login account: password: 
+2026-08-04 17:26:46.9229[48]  INFO MemberController  進行Session登入 
+2026-08-04 17:26:46.9327[48]  INFO MemberController  進行登入完成 導入 /Member/LogOut False 
+2026-08-04 17:26:46.9534[49]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-04 17:26:46.9534[49]  INFO HomeController  進入首頁 讀取 Session account:earringmeiz login:1
+2026-08-04 17:26:46.9534[49]  INFO HomeController  進入首頁
+2026-08-04 17:27:49.9912[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-04 17:27:49.9912[13]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-08-04 17:27:50.0939[17]  INFO MemberController  Member Login account: password: 
+2026-08-04 17:28:13.9827[18]  INFO MemberController  Member Login account:earringmeiz password:0953200294 
+2026-08-04 17:28:14.0275[18]  INFO MemberController  進行登入 
+2026-08-04 17:28:14.3487[18]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-08-04 17:28:14.3677[18]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-04 17:28:14.3677[18]  INFO HomeController  進入首頁 讀取 Session account:earringmeiz login:1
+2026-08-04 17:28:14.3677[18]  INFO HomeController  進入首頁
+2026-08-04 17:28:19.6293[19]  INFO MemberController  Member Login account: password: 
+2026-08-04 17:28:19.6390[19]  INFO MemberController  進行Session登入 
+2026-08-04 17:28:19.6471[19]  INFO MemberController  進行登入完成 導入 /Member/LogOut False 
+2026-08-04 17:28:19.6471[18]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-04 17:28:19.6471[18]  INFO HomeController  進入首頁 讀取 Session account:earringmeiz login:1
+2026-08-04 17:28:19.6471[18]  INFO HomeController  進入首頁
+2026-08-04 17:28:22.8874[13]  INFO MemberController  Member Login account: password: 
+2026-08-04 17:28:22.8874[13]  INFO MemberController  進行Session登入 
+2026-08-04 17:28:22.8977[13]  INFO MemberController  進行登入完成 導入 /Member/LogOut False 
+2026-08-04 17:28:22.8977[17]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-04 17:28:22.8977[17]  INFO HomeController  進入首頁 讀取 Session account:earringmeiz login:1
+2026-08-04 17:28:22.8977[17]  INFO HomeController  進入首頁
+2026-08-04 17:28:24.0015[19]  INFO MemberController  Member Login account: password: 
+2026-08-04 17:28:24.0015[19]  INFO MemberController  進行Session登入 
+2026-08-04 17:28:24.0097[19]  INFO MemberController  進行登入完成 導入 /Member/LogOut False 
+2026-08-04 17:28:24.0372[19]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-04 17:28:24.0372[19]  INFO HomeController  進入首頁 讀取 Session account:earringmeiz login:1
+2026-08-04 17:28:24.0372[19]  INFO HomeController  進入首頁
+2026-08-04 18:04:04.2625[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-04 18:04:04.2760[13]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-08-04 18:04:04.3981[11]  INFO MemberController  Member Login account: password: 

@@ -1,0 +1,47 @@
+2026-08-08 14:34:18.2652[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-08 14:34:18.2652[11]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-08-08 14:34:18.3738[13]  INFO MemberController  Member Login account: password: 
+2026-08-08 14:41:26.3699[34]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-08-08 14:41:27.6324[34]  INFO MemberController  進行登入 
+2026-08-08 14:41:27.8433[34]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-08-08 14:41:28.1647[30]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-08 14:41:28.1647[30]  INFO HomeController  進入首頁
+2026-08-08 14:49:40.9090[20]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-08 14:49:40.9090[20]  INFO HomeController  進入首頁
+2026-08-08 14:51:55.7644[39]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-08 14:51:55.7644[39]  INFO HomeController  進入首頁
+2026-08-08 14:52:04.7789[40]  INFO MemberController  Member Login account: password: 
+2026-08-08 14:52:38.6109[41]  INFO MemberController  Member Login account:fusing password:075375170 
+2026-08-08 14:52:38.6821[41]  INFO MemberController  進行登入 
+2026-08-08 14:52:38.8864[41]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-08-08 14:52:38.9559[39]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-08 14:52:38.9559[39]  INFO HomeController  進入首頁
+2026-08-08 14:53:29.8603[41]  INFO MemberController  Member Login account: password: 
+2026-08-08 14:53:38.7046[48]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-08-08 14:53:38.8049[48]  INFO MemberController  進行登入 
+2026-08-08 14:53:38.9280[48]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-08-08 14:53:39.4486[41]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-08 14:53:39.4486[41]  INFO HomeController  進入首頁
+2026-08-08 14:54:33.1455[42]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-08 14:54:33.1455[42]  INFO HomeController  進入首頁
+2026-08-08 14:54:37.2086[47]  INFO MemberController  Member Login account: password: 
+2026-08-08 14:54:53.0669[47]  INFO MemberController  Member Login account:hetu password:3423593 
+2026-08-08 14:54:53.1388[47]  INFO MemberController  進行登入 
+2026-08-08 14:54:53.1993[47]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-08-08 14:54:53.2706[49]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-08 14:54:53.2706[49]  INFO HomeController  進入首頁
+2026-08-08 14:55:43.3902[47]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-08 14:55:43.3902[47]  INFO HomeController  進入首頁
+2026-08-08 14:56:45.3468[56]  INFO MemberController  Member Login account: password: 
+2026-08-08 14:56:54.4871[57]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-08-08 14:56:54.5319[57]  INFO MemberController  進行登入 
+2026-08-08 14:56:54.5852[57]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-08-08 14:56:54.6521[55]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-08 14:56:54.6521[55]  INFO HomeController  進入首頁
+2026-08-08 15:15:10.8196[49]  INFO MemberController  Member Login account: password: 
+2026-08-08 15:15:10.8994[49]  INFO MemberController  進行Session登入 
+2026-08-08 15:15:10.9583[49]  INFO MemberController  進行登入完成 導入 /Admin/StudentPopulation/GetStudentPopulations?group=[{"selector":"Status","isExpanded":false}] False 
+2026-08-08 15:15:11.0335[53]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-08 15:15:11.0335[53]  INFO HomeController  進入首頁
+2026-08-08 15:19:32.0588[14]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-08 15:19:32.0588[14]  INFO HomeController  進入首頁

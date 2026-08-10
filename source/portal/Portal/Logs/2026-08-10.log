@@ -1,0 +1,71 @@
+2026-08-10 13:56:50.4606[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-10 13:56:50.4606[11]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-08-10 13:56:50.6294[16]  INFO MemberController  Member Login account: password: 
+2026-08-10 13:57:21.0829[9]  INFO MemberController  Member Login account:earringmeiz password:0953200294 
+2026-08-10 13:57:21.6271[9]  INFO MemberController  進行登入 
+2026-08-10 13:57:21.8387[9]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-08-10 13:57:22.0022[11]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-10 13:57:22.0022[11]  INFO HomeController  進入首頁 讀取 Session account:earringmeiz login:1
+2026-08-10 13:57:22.0022[11]  INFO HomeController  進入首頁
+2026-08-10 13:58:11.6698[18]  INFO MemberController  Member Login account: password: 
+2026-08-10 13:58:11.8079[18]  INFO MemberController  進行Session登入 
+2026-08-10 13:58:11.9778[18]  INFO MemberController  進行登入完成 導入 /StudentPopulation/Index?type=PH False 
+2026-08-10 13:58:12.0374[28]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-10 13:58:12.0374[28]  INFO HomeController  進入首頁 讀取 Session account:earringmeiz login:1
+2026-08-10 13:58:12.0374[28]  INFO HomeController  進入首頁
+2026-08-10 13:58:24.8236[28]  INFO MemberController  Member Login account: password: 
+2026-08-10 13:58:24.9202[28]  INFO MemberController  進行Session登入 
+2026-08-10 13:58:25.2750[28]  INFO MemberController  進行登入完成 導入 /StudentPopulation/Index?type=PH False 
+2026-08-10 13:58:25.4049[27]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-10 13:58:25.4049[27]  INFO HomeController  進入首頁 讀取 Session account:earringmeiz login:1
+2026-08-10 13:58:25.4049[27]  INFO HomeController  進入首頁
+2026-08-10 13:58:28.0196[19]  INFO StudentPopulationController  進入首頁(MainMenu)
+2026-08-10 13:58:28.0196[19]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest True User.Id System
+2026-08-10 13:58:39.9703[33]  INFO MemberController  Member Login account: password: 
+2026-08-10 13:58:40.0549[33]  INFO MemberController  進行Session登入 
+2026-08-10 13:58:40.2139[33]  INFO MemberController  進行登入完成 導入 /Member/LogOut False 
+2026-08-10 13:58:40.3379[28]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-10 13:58:40.3379[28]  INFO HomeController  進入首頁 讀取 Session account:earringmeiz login:1
+2026-08-10 13:58:40.3379[28]  INFO HomeController  進入首頁
+2026-08-10 13:59:46.7467[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-10 13:59:46.7610[13]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-08-10 13:59:46.9235[13]  INFO MemberController  Member Login account: password: 
+2026-08-10 14:00:04.7436[13]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-08-10 14:00:05.1820[13]  INFO MemberController  進行登入 
+2026-08-10 14:00:06.0230[13]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-08-10 14:00:06.5938[21]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-10 14:00:06.5938[21]  INFO HomeController  進入首頁
+2026-08-10 17:34:25.1854[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-10 17:34:25.2004[13]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-08-10 17:34:25.3484[17]  INFO MemberController  Member Login account: password: 
+2026-08-10 17:35:58.0187[28]  INFO MemberController  Member Login account:earringmeiz password:0953200294 
+2026-08-10 17:36:10.0500[30]  INFO MemberController  Member Login account:earringmeiz password:0953200294 
+2026-08-10 17:36:30.0202[28]  INFO MemberController  Member Login account:earringmeiz password:0953200294 
+2026-08-10 17:36:40.0974[30]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-08-10 17:36:40.5020[30]  INFO MemberController  進行登入 
+2026-08-10 17:36:40.8046[30]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-08-10 17:36:40.8641[31]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-10 17:36:40.8641[31]  INFO HomeController  進入首頁
+2026-08-10 17:37:58.2102[39]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-10 17:37:58.2102[39]  INFO HomeController  進入首頁
+2026-08-10 17:38:00.0030[38]  INFO MemberController  Member Login account: password: 
+2026-08-10 17:38:08.5157[31]  INFO MemberController  Member Login account:earringmeiz password:0953200294 
+2026-08-10 17:38:08.9206[31]  INFO MemberController  進行登入 
+2026-08-10 17:38:09.2098[31]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-08-10 17:38:09.4719[42]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-10 17:38:09.4719[42]  INFO HomeController  進入首頁
+2026-08-10 17:38:17.1367[28]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-10 17:38:17.1367[28]  INFO HomeController  進入首頁
+2026-08-10 17:38:19.4783[42]  INFO StudentPopulationController  進入首頁(MainMenu)
+2026-08-10 17:38:19.4783[42]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 85a49ea6-9fed-47c8-c05e-08def1e79352
+2026-08-10 17:38:37.5624[42]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-10 17:38:37.5624[42]  INFO HomeController  進入首頁
+2026-08-10 17:38:43.9620[38]  INFO MemberController  Member Login account: password: 
+2026-08-10 17:38:54.2047[39]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-08-10 17:38:54.2909[39]  INFO MemberController  進行登入 
+2026-08-10 17:38:54.4143[39]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-08-10 17:38:54.4667[38]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-10 17:38:54.4667[38]  INFO HomeController  進入首頁
+2026-08-10 17:40:36.1668[27]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-10 17:40:36.1668[27]  INFO HomeController  進入首頁
+2026-08-10 17:40:38.8185[13]  INFO MemberController  Member Login account: password: 

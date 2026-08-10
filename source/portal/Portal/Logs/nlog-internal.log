@@ -7187,3 +7187,558 @@
 2026-07-30 08:17:28.1633 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
 2026-07-30 08:17:28.1633 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
 2026-07-30 08:17:28.2065 Info Configuration initialized.
+2026-07-30 09:22:31.0888 Info Loading assembly name: NLog.Web.AspNetCore
+2026-07-30 09:22:31.1248 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-07-30 09:22:31.2419 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-07-30 09:22:31.2419 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-07-30 09:22:31.2702 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-07-30 09:22:31.2885 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-07-30 09:22:31.3175 Info Configuration initialized.
+2026-07-30 09:26:21.2196 Info Loading assembly name: NLog.Web.AspNetCore
+2026-07-30 09:26:21.2311 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-07-30 09:26:21.2738 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-07-30 09:26:21.2738 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-07-30 09:26:21.3062 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-07-30 09:26:21.3274 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-07-30 09:26:21.3491 Info Configuration initialized.
+2026-07-30 09:31:19.2257 Info AppDomain Shutting down. LogFactory closing...
+2026-07-30 09:31:19.2257 Info LogFactory has been closed.
+2026-07-30 10:35:42.0266 Info Loading assembly name: NLog.Web.AspNetCore
+2026-07-30 10:35:42.0578 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-07-30 10:35:42.1471 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-07-30 10:35:42.1643 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-07-30 10:35:42.1827 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-07-30 10:35:42.1992 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-07-30 10:35:42.2271 Info Configuration initialized.
+2026-07-30 19:00:51.7508 Info Loading assembly name: NLog.Web.AspNetCore
+2026-07-30 19:00:51.7716 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-07-30 19:00:51.8481 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-07-30 19:00:51.8481 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-07-30 19:00:51.8702 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-07-30 19:00:51.8825 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-07-30 19:00:51.9091 Info Configuration initialized.
+2026-07-30 19:41:02.2424 Info Loading assembly name: NLog.Web.AspNetCore
+2026-07-30 19:41:02.2617 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-07-30 19:41:02.3243 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-07-30 19:41:02.3357 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-07-30 19:41:02.3540 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-07-30 19:41:02.3540 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Debug\net8.0\NLog.config
+2026-07-30 19:41:02.3860 Info Configuration initialized.
+2026-07-30 19:41:18.6033 Warn FileTarget(Name=log_wrapped): Failed to create file appender: C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log Exception: System.IO.IOException: The process cannot access the file 'C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateDirectoryFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.CreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender..ctor(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender.Factory.NLog.Internal.FileAppenders.IFileAppenderFactory.Open(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.FileAppenderCache.CreateAppender(String fileName, Int32 freeSpot)
+2026-07-30 19:41:18.6033 Error AsyncWrapper_FileTarget(Name=log): Error in lazy writer timer procedure. Exception: System.IO.IOException: The process cannot access the file 'C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateDirectoryFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.CreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender..ctor(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender.Factory.NLog.Internal.FileAppenders.IFileAppenderFactory.Open(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.FileAppenderCache.CreateAppender(String fileName, Int32 freeSpot)
+   at NLog.Internal.FileAppenders.FileAppenderCache.AllocateAppender(String fileName)
+   at NLog.Targets.FileTarget.WriteToFile(String fileName, ArraySegment`1 bytes, Boolean initializedNewFile)
+   at NLog.Targets.FileTarget.ProcessLogEvent(LogEventInfo logEvent, String fileName, ArraySegment`1 bytesToWrite)
+   at NLog.Targets.FileTarget.AppendMemoryStreamToFile(String currentFileName, LogEventInfo firstLogEvent, MemoryStream ms, Exception& lastException)
+   at NLog.Targets.FileTarget.Write(IList`1 logEvents)
+   at NLog.Targets.Target.WriteAsyncThreadSafe(IList`1 logEvents)
+   at NLog.Targets.Target.WriteAsyncLogEvents(IList`1 logEvents)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.WriteLogEventsToTarget(IList`1 logEvents, String reason)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.WriteLogEventsInQueue(Int32 batchSize, String reason)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.ProcessPendingEvents(Object state)
+2026-07-30 19:43:58.7622 Warn FileTarget(Name=log_wrapped): Failed to create file appender: C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log Exception: System.IO.IOException: The process cannot access the file 'C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateDirectoryFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.CreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender..ctor(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender.Factory.NLog.Internal.FileAppenders.IFileAppenderFactory.Open(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.FileAppenderCache.CreateAppender(String fileName, Int32 freeSpot)
+2026-07-30 19:43:58.7622 Error AsyncWrapper_FileTarget(Name=log): Error in lazy writer timer procedure. Exception: System.IO.IOException: The process cannot access the file 'C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateDirectoryFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.CreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender..ctor(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender.Factory.NLog.Internal.FileAppenders.IFileAppenderFactory.Open(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.FileAppenderCache.CreateAppender(String fileName, Int32 freeSpot)
+   at NLog.Internal.FileAppenders.FileAppenderCache.AllocateAppender(String fileName)
+   at NLog.Targets.FileTarget.WriteToFile(String fileName, ArraySegment`1 bytes, Boolean initializedNewFile)
+   at NLog.Targets.FileTarget.ProcessLogEvent(LogEventInfo logEvent, String fileName, ArraySegment`1 bytesToWrite)
+   at NLog.Targets.FileTarget.AppendMemoryStreamToFile(String currentFileName, LogEventInfo firstLogEvent, MemoryStream ms, Exception& lastException)
+   at NLog.Targets.FileTarget.Write(IList`1 logEvents)
+   at NLog.Targets.Target.WriteAsyncThreadSafe(IList`1 logEvents)
+   at NLog.Targets.Target.WriteAsyncLogEvents(IList`1 logEvents)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.WriteLogEventsToTarget(IList`1 logEvents, String reason)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.WriteLogEventsInQueue(Int32 batchSize, String reason)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.ProcessPendingEvents(Object state)
+2026-07-30 19:46:08.9744 Warn FileTarget(Name=log_wrapped): Failed to create file appender: C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log Exception: System.IO.IOException: The process cannot access the file 'C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateDirectoryFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.CreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender..ctor(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender.Factory.NLog.Internal.FileAppenders.IFileAppenderFactory.Open(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.FileAppenderCache.CreateAppender(String fileName, Int32 freeSpot)
+2026-07-30 19:46:08.9744 Error AsyncWrapper_FileTarget(Name=log): Error in lazy writer timer procedure. Exception: System.IO.IOException: The process cannot access the file 'C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateDirectoryFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.CreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender..ctor(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender.Factory.NLog.Internal.FileAppenders.IFileAppenderFactory.Open(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.FileAppenderCache.CreateAppender(String fileName, Int32 freeSpot)
+   at NLog.Internal.FileAppenders.FileAppenderCache.AllocateAppender(String fileName)
+   at NLog.Targets.FileTarget.WriteToFile(String fileName, ArraySegment`1 bytes, Boolean initializedNewFile)
+   at NLog.Targets.FileTarget.ProcessLogEvent(LogEventInfo logEvent, String fileName, ArraySegment`1 bytesToWrite)
+   at NLog.Targets.FileTarget.AppendMemoryStreamToFile(String currentFileName, LogEventInfo firstLogEvent, MemoryStream ms, Exception& lastException)
+   at NLog.Targets.FileTarget.Write(IList`1 logEvents)
+   at NLog.Targets.Target.WriteAsyncThreadSafe(IList`1 logEvents)
+   at NLog.Targets.Target.WriteAsyncLogEvents(IList`1 logEvents)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.WriteLogEventsToTarget(IList`1 logEvents, String reason)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.WriteLogEventsInQueue(Int32 batchSize, String reason)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.ProcessPendingEvents(Object state)
+2026-07-30 19:54:28.0903 Info Loading assembly name: NLog.Web.AspNetCore
+2026-07-30 19:54:28.1103 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-07-30 19:54:28.1866 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-07-30 19:54:28.1947 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-07-30 19:54:28.2151 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-07-30 19:54:28.2296 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-07-30 19:54:28.2573 Info Configuration initialized.
+2026-07-30 20:04:17.5651 Info Loading assembly name: NLog.Web.AspNetCore
+2026-07-30 20:04:17.5854 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-07-30 20:04:17.6320 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-07-30 20:04:17.6320 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-07-30 20:04:17.6580 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-07-30 20:04:17.6727 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Debug\net8.0\NLog.config
+2026-07-30 20:04:17.6999 Info Configuration initialized.
+2026-07-30 20:09:15.9915 Warn FileTarget(Name=log_wrapped): Failed to create file appender: C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log Exception: System.IO.IOException: The process cannot access the file 'C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateDirectoryFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.CreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender..ctor(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender.Factory.NLog.Internal.FileAppenders.IFileAppenderFactory.Open(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.FileAppenderCache.CreateAppender(String fileName, Int32 freeSpot)
+2026-07-30 20:09:16.0046 Error AsyncWrapper_FileTarget(Name=log): Error in lazy writer timer procedure. Exception: System.IO.IOException: The process cannot access the file 'C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateDirectoryFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.CreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender..ctor(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender.Factory.NLog.Internal.FileAppenders.IFileAppenderFactory.Open(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.FileAppenderCache.CreateAppender(String fileName, Int32 freeSpot)
+   at NLog.Internal.FileAppenders.FileAppenderCache.AllocateAppender(String fileName)
+   at NLog.Targets.FileTarget.WriteToFile(String fileName, ArraySegment`1 bytes, Boolean initializedNewFile)
+   at NLog.Targets.FileTarget.ProcessLogEvent(LogEventInfo logEvent, String fileName, ArraySegment`1 bytesToWrite)
+   at NLog.Targets.FileTarget.AppendMemoryStreamToFile(String currentFileName, LogEventInfo firstLogEvent, MemoryStream ms, Exception& lastException)
+   at NLog.Targets.FileTarget.Write(IList`1 logEvents)
+   at NLog.Targets.Target.WriteAsyncThreadSafe(IList`1 logEvents)
+   at NLog.Targets.Target.WriteAsyncLogEvents(IList`1 logEvents)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.WriteLogEventsToTarget(IList`1 logEvents, String reason)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.WriteLogEventsInQueue(Int32 batchSize, String reason)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.ProcessPendingEvents(Object state)
+2026-07-30 20:13:39.3069 Warn FileTarget(Name=log_wrapped): Failed to create file appender: C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log Exception: System.IO.IOException: The process cannot access the file 'C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateDirectoryFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.CreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender..ctor(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender.Factory.NLog.Internal.FileAppenders.IFileAppenderFactory.Open(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.FileAppenderCache.CreateAppender(String fileName, Int32 freeSpot)
+2026-07-30 20:13:39.3069 Error AsyncWrapper_FileTarget(Name=log): Error in lazy writer timer procedure. Exception: System.IO.IOException: The process cannot access the file 'C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateDirectoryFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.CreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender..ctor(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender.Factory.NLog.Internal.FileAppenders.IFileAppenderFactory.Open(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.FileAppenderCache.CreateAppender(String fileName, Int32 freeSpot)
+   at NLog.Internal.FileAppenders.FileAppenderCache.AllocateAppender(String fileName)
+   at NLog.Targets.FileTarget.WriteToFile(String fileName, ArraySegment`1 bytes, Boolean initializedNewFile)
+   at NLog.Targets.FileTarget.ProcessLogEvent(LogEventInfo logEvent, String fileName, ArraySegment`1 bytesToWrite)
+   at NLog.Targets.FileTarget.AppendMemoryStreamToFile(String currentFileName, LogEventInfo firstLogEvent, MemoryStream ms, Exception& lastException)
+   at NLog.Targets.FileTarget.Write(IList`1 logEvents)
+   at NLog.Targets.Target.WriteAsyncThreadSafe(IList`1 logEvents)
+   at NLog.Targets.Target.WriteAsyncLogEvents(IList`1 logEvents)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.WriteLogEventsToTarget(IList`1 logEvents, String reason)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.WriteLogEventsInQueue(Int32 batchSize, String reason)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.ProcessPendingEvents(Object state)
+2026-07-30 20:17:18.6991 Info Loading assembly name: NLog.Web.AspNetCore
+2026-07-30 20:17:18.7149 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-07-30 20:17:18.7396 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-07-30 20:17:18.7396 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-07-30 20:17:18.7556 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-07-30 20:17:18.7556 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Debug\net8.0\NLog.config
+2026-07-30 20:17:18.7556 Info Configuration initialized.
+2026-07-30 20:22:17.4444 Warn FileTarget(Name=log_wrapped): Failed to create file appender: C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log Exception: System.IO.IOException: The process cannot access the file 'C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateDirectoryFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.CreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender..ctor(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender.Factory.NLog.Internal.FileAppenders.IFileAppenderFactory.Open(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.FileAppenderCache.CreateAppender(String fileName, Int32 freeSpot)
+2026-07-30 20:22:17.4444 Error AsyncWrapper_FileTarget(Name=log): Error in lazy writer timer procedure. Exception: System.IO.IOException: The process cannot access the file 'C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateDirectoryFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.CreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender..ctor(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender.Factory.NLog.Internal.FileAppenders.IFileAppenderFactory.Open(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.FileAppenderCache.CreateAppender(String fileName, Int32 freeSpot)
+   at NLog.Internal.FileAppenders.FileAppenderCache.AllocateAppender(String fileName)
+   at NLog.Targets.FileTarget.WriteToFile(String fileName, ArraySegment`1 bytes, Boolean initializedNewFile)
+   at NLog.Targets.FileTarget.ProcessLogEvent(LogEventInfo logEvent, String fileName, ArraySegment`1 bytesToWrite)
+   at NLog.Targets.FileTarget.AppendMemoryStreamToFile(String currentFileName, LogEventInfo firstLogEvent, MemoryStream ms, Exception& lastException)
+   at NLog.Targets.FileTarget.Write(IList`1 logEvents)
+   at NLog.Targets.Target.WriteAsyncThreadSafe(IList`1 logEvents)
+   at NLog.Targets.Target.WriteAsyncLogEvents(IList`1 logEvents)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.WriteLogEventsToTarget(IList`1 logEvents, String reason)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.WriteLogEventsInQueue(Int32 batchSize, String reason)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.ProcessPendingEvents(Object state)
+2026-07-30 20:26:40.8866 Warn FileTarget(Name=log_wrapped): Failed to create file appender: C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log Exception: System.IO.IOException: The process cannot access the file 'C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateDirectoryFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.CreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender..ctor(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender.Factory.NLog.Internal.FileAppenders.IFileAppenderFactory.Open(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.FileAppenderCache.CreateAppender(String fileName, Int32 freeSpot)
+2026-07-30 20:26:40.8866 Error AsyncWrapper_FileTarget(Name=log): Error in lazy writer timer procedure. Exception: System.IO.IOException: The process cannot access the file 'C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateDirectoryFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.CreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender..ctor(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender.Factory.NLog.Internal.FileAppenders.IFileAppenderFactory.Open(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.FileAppenderCache.CreateAppender(String fileName, Int32 freeSpot)
+   at NLog.Internal.FileAppenders.FileAppenderCache.AllocateAppender(String fileName)
+   at NLog.Targets.FileTarget.WriteToFile(String fileName, ArraySegment`1 bytes, Boolean initializedNewFile)
+   at NLog.Targets.FileTarget.ProcessLogEvent(LogEventInfo logEvent, String fileName, ArraySegment`1 bytesToWrite)
+   at NLog.Targets.FileTarget.AppendMemoryStreamToFile(String currentFileName, LogEventInfo firstLogEvent, MemoryStream ms, Exception& lastException)
+   at NLog.Targets.FileTarget.Write(IList`1 logEvents)
+   at NLog.Targets.Target.WriteAsyncThreadSafe(IList`1 logEvents)
+   at NLog.Targets.Target.WriteAsyncLogEvents(IList`1 logEvents)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.WriteLogEventsToTarget(IList`1 logEvents, String reason)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.WriteLogEventsInQueue(Int32 batchSize, String reason)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.ProcessPendingEvents(Object state)
+2026-07-30 20:47:59.6342 Info Loading assembly name: NLog.Web.AspNetCore
+2026-07-30 20:47:59.6486 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-07-30 20:47:59.6785 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-07-30 20:47:59.6785 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-07-30 20:47:59.6785 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-07-30 20:47:59.6929 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Debug\net8.0\NLog.config
+2026-07-30 20:47:59.6929 Info Configuration initialized.
+2026-07-30 20:52:27.7321 Warn FileTarget(Name=log_wrapped): Failed to create file appender: C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log Exception: System.IO.IOException: The process cannot access the file 'C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateDirectoryFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.CreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender..ctor(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender.Factory.NLog.Internal.FileAppenders.IFileAppenderFactory.Open(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.FileAppenderCache.CreateAppender(String fileName, Int32 freeSpot)
+2026-07-30 20:52:27.7414 Error AsyncWrapper_FileTarget(Name=log): Error in lazy writer timer procedure. Exception: System.IO.IOException: The process cannot access the file 'C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateDirectoryFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.CreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender..ctor(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender.Factory.NLog.Internal.FileAppenders.IFileAppenderFactory.Open(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.FileAppenderCache.CreateAppender(String fileName, Int32 freeSpot)
+   at NLog.Internal.FileAppenders.FileAppenderCache.AllocateAppender(String fileName)
+   at NLog.Targets.FileTarget.WriteToFile(String fileName, ArraySegment`1 bytes, Boolean initializedNewFile)
+   at NLog.Targets.FileTarget.ProcessLogEvent(LogEventInfo logEvent, String fileName, ArraySegment`1 bytesToWrite)
+   at NLog.Targets.FileTarget.AppendMemoryStreamToFile(String currentFileName, LogEventInfo firstLogEvent, MemoryStream ms, Exception& lastException)
+   at NLog.Targets.FileTarget.Write(IList`1 logEvents)
+   at NLog.Targets.Target.WriteAsyncThreadSafe(IList`1 logEvents)
+   at NLog.Targets.Target.WriteAsyncLogEvents(IList`1 logEvents)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.WriteLogEventsToTarget(IList`1 logEvents, String reason)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.WriteLogEventsInQueue(Int32 batchSize, String reason)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.ProcessPendingEvents(Object state)
+2026-07-30 20:56:38.1415 Warn FileTarget(Name=log_wrapped): Failed to create file appender: C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log Exception: System.IO.IOException: The process cannot access the file 'C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateDirectoryFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.CreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender..ctor(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender.Factory.NLog.Internal.FileAppenders.IFileAppenderFactory.Open(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.FileAppenderCache.CreateAppender(String fileName, Int32 freeSpot)
+2026-07-30 20:56:38.1486 Error AsyncWrapper_FileTarget(Name=log): Error in lazy writer timer procedure. Exception: System.IO.IOException: The process cannot access the file 'C:\Company\PHStatistics.portal\source\portal\Portal\Logs\2026-07-30.log' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.TryCreateDirectoryFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.BaseFileAppender.CreateFileStream(Boolean allowFileSharedWriting, Int32 overrideBufferSize)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender..ctor(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.SingleProcessFileAppender.Factory.NLog.Internal.FileAppenders.IFileAppenderFactory.Open(String fileName, ICreateFileParameters parameters)
+   at NLog.Internal.FileAppenders.FileAppenderCache.CreateAppender(String fileName, Int32 freeSpot)
+   at NLog.Internal.FileAppenders.FileAppenderCache.AllocateAppender(String fileName)
+   at NLog.Targets.FileTarget.WriteToFile(String fileName, ArraySegment`1 bytes, Boolean initializedNewFile)
+   at NLog.Targets.FileTarget.ProcessLogEvent(LogEventInfo logEvent, String fileName, ArraySegment`1 bytesToWrite)
+   at NLog.Targets.FileTarget.AppendMemoryStreamToFile(String currentFileName, LogEventInfo firstLogEvent, MemoryStream ms, Exception& lastException)
+   at NLog.Targets.FileTarget.Write(IList`1 logEvents)
+   at NLog.Targets.Target.WriteAsyncThreadSafe(IList`1 logEvents)
+   at NLog.Targets.Target.WriteAsyncLogEvents(IList`1 logEvents)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.WriteLogEventsToTarget(IList`1 logEvents, String reason)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.WriteLogEventsInQueue(Int32 batchSize, String reason)
+   at NLog.Targets.Wrappers.AsyncTargetWrapper.ProcessPendingEvents(Object state)
+2026-07-30 21:31:01.2530 Info Loading assembly name: NLog.Web.AspNetCore
+2026-07-30 21:31:01.2694 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-07-30 21:31:01.2934 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-07-30 21:31:01.3036 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-07-30 21:31:01.3036 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-07-30 21:31:01.3036 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Debug\net8.0\NLog.config
+2026-07-30 21:31:01.3208 Info Configuration initialized.
+2026-07-31 08:33:35.5907 Info Loading assembly name: NLog.Web.AspNetCore
+2026-07-31 08:33:35.6314 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-07-31 08:33:35.7392 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-07-31 08:33:35.7392 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-07-31 08:33:35.7572 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-07-31 08:33:35.7572 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-07-31 08:33:35.7808 Info Configuration initialized.
+2026-07-31 08:40:28.7197 Info Loading assembly name: NLog.Web.AspNetCore
+2026-07-31 08:40:28.7398 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-07-31 08:40:28.8041 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-07-31 08:40:28.8041 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-07-31 08:40:28.8196 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-07-31 08:40:28.8196 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-07-31 08:40:28.8423 Info Configuration initialized.
+2026-07-31 09:03:39.5773 Info Loading assembly name: NLog.Web.AspNetCore
+2026-07-31 09:03:39.5996 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-07-31 09:03:39.6762 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-07-31 09:03:39.6762 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-07-31 09:03:39.6953 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-07-31 09:03:39.6953 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-07-31 09:03:39.7216 Info Configuration initialized.
+2026-07-31 09:08:23.5440 Info Loading assembly name: NLog.Web.AspNetCore
+2026-07-31 09:08:23.5652 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-07-31 09:08:23.6369 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-07-31 09:08:23.6482 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-07-31 09:08:23.6586 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-07-31 09:08:23.6586 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-07-31 09:08:23.6862 Info Configuration initialized.
+2026-07-31 10:26:39.6526 Info Loading assembly name: NLog.Web.AspNetCore
+2026-07-31 10:26:39.6728 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-07-31 10:26:39.7380 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-07-31 10:26:39.7594 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-07-31 10:26:39.7594 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-07-31 10:26:39.7727 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-07-31 10:26:39.7924 Info Configuration initialized.
+2026-07-31 15:33:14.3228 Info Loading assembly name: NLog.Web.AspNetCore
+2026-07-31 15:33:14.3497 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-07-31 15:33:14.4300 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-07-31 15:33:14.4300 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-07-31 15:33:14.4478 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-07-31 15:33:14.4478 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-07-31 15:33:14.4713 Info Configuration initialized.
+2026-07-31 21:32:48.3513 Info Loading assembly name: NLog.Web.AspNetCore
+2026-07-31 21:32:48.3769 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-07-31 21:32:48.4627 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-07-31 21:32:48.4714 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-07-31 21:32:48.4714 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-07-31 21:32:48.4878 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-07-31 21:32:48.5120 Info Configuration initialized.
+2026-07-31 23:42:19.0980 Info Loading assembly name: NLog.Web.AspNetCore
+2026-07-31 23:42:19.1185 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-07-31 23:42:19.1920 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-07-31 23:42:19.1920 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-07-31 23:42:19.2088 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-07-31 23:42:19.2088 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-07-31 23:42:19.2304 Info Configuration initialized.
+2026-08-01 08:33:48.8276 Info Loading assembly name: NLog.Web.AspNetCore
+2026-08-01 08:33:48.8602 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-08-01 08:33:48.9481 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-08-01 08:33:48.9608 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-08-01 08:33:48.9608 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-08-01 08:33:48.9608 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-08-01 08:33:48.9843 Info Configuration initialized.
+2026-08-01 08:34:45.1860 Info Loading assembly name: NLog.Web.AspNetCore
+2026-08-01 08:34:45.2027 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-08-01 08:34:45.2543 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-08-01 08:34:45.2543 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-08-01 08:34:45.2543 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-08-01 08:34:45.2726 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-08-01 08:34:45.2726 Info Configuration initialized.
+2026-08-04 11:28:28.0399 Info Loading assembly name: NLog.Web.AspNetCore
+2026-08-04 11:28:28.1167 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-08-04 11:28:28.3704 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-08-04 11:28:28.3909 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-08-04 11:28:28.4129 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-08-04 11:28:28.4307 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-08-04 11:28:28.4724 Info Configuration initialized.
+2026-08-04 12:00:41.9327 Info Loading assembly name: NLog.Web.AspNetCore
+2026-08-04 12:00:41.9772 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-08-04 12:00:42.1307 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-08-04 12:00:42.1417 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-08-04 12:00:42.1533 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-08-04 12:00:42.1533 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-08-04 12:00:42.1922 Info Configuration initialized.
+2026-08-04 12:01:03.1010 Info Loading assembly name: NLog.Web.AspNetCore
+2026-08-04 12:01:03.1253 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-08-04 12:01:03.2382 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-08-04 12:01:03.2466 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-08-04 12:01:03.2594 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-08-04 12:01:03.2594 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-08-04 12:01:03.2890 Info Configuration initialized.
+2026-08-04 12:14:17.3950 Info Loading assembly name: NLog.Web.AspNetCore
+2026-08-04 12:14:17.4390 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-08-04 12:14:17.5832 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-08-04 12:14:17.5937 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-08-04 12:14:17.6047 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-08-04 12:14:17.6047 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-08-04 12:14:17.6371 Info Configuration initialized.
+2026-08-04 17:19:55.0821 Info Loading assembly name: NLog.Web.AspNetCore
+2026-08-04 17:19:55.1367 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-08-04 17:19:55.2995 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-08-04 17:19:55.3099 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-08-04 17:19:55.3210 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-08-04 17:19:55.3210 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-08-04 17:19:55.3719 Info Configuration initialized.
+2026-08-04 17:27:48.2152 Info Loading assembly name: NLog.Web.AspNetCore
+2026-08-04 17:27:48.2324 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-08-04 17:27:48.2913 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-08-04 17:27:48.2913 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-08-04 17:27:48.3067 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-08-04 17:27:48.3067 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-08-04 17:27:48.3240 Info Configuration initialized.
+2026-08-04 18:04:00.8327 Info Loading assembly name: NLog.Web.AspNetCore
+2026-08-04 18:04:00.8526 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-08-04 18:04:00.9229 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-08-04 18:04:00.9315 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-08-04 18:04:00.9315 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-08-04 18:04:00.9471 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-08-04 18:04:00.9660 Info Configuration initialized.
+2026-08-05 10:46:33.8361 Info Loading assembly name: NLog.Web.AspNetCore
+2026-08-05 10:46:33.8782 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-08-05 10:46:33.9880 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-08-05 10:46:33.9880 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-08-05 10:46:34.0025 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-08-05 10:46:34.0025 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-08-05 10:46:34.0249 Info Configuration initialized.
+2026-08-05 11:08:06.2533 Info Loading assembly name: NLog.Web.AspNetCore
+2026-08-05 11:08:06.2754 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-08-05 11:08:06.3326 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-08-05 11:08:06.3520 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-08-05 11:08:06.3632 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-08-05 11:08:06.3632 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-08-05 11:08:06.3886 Info Configuration initialized.
+2026-08-08 14:34:15.0623 Info Loading assembly name: NLog.Web.AspNetCore
+2026-08-08 14:34:15.0971 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-08-08 14:34:15.1917 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-08-08 14:34:15.1989 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-08-08 14:34:15.1989 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-08-08 14:34:15.1989 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-08-08 14:34:15.2284 Info Configuration initialized.
+2026-08-08 15:19:29.7618 Info Loading assembly name: NLog.Web.AspNetCore
+2026-08-08 15:19:29.7795 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-08-08 15:19:29.8323 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-08-08 15:19:29.8395 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-08-08 15:19:29.8395 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-08-08 15:19:29.8395 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-08-08 15:19:29.8640 Info Configuration initialized.
+2026-08-10 13:41:44.5370 Info Loading assembly name: NLog.Web.AspNetCore
+2026-08-10 13:41:44.5640 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-08-10 13:41:44.6502 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-08-10 13:41:44.6502 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-08-10 13:41:44.6502 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-08-10 13:41:44.6672 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-08-10 13:41:44.6814 Info Configuration initialized.
+2026-08-10 13:46:38.5342 Info AppDomain Shutting down. LogFactory closing...
+2026-08-10 13:46:38.5445 Info LogFactory has been closed.
+2026-08-10 13:56:45.9051 Info Loading assembly name: NLog.Web.AspNetCore
+2026-08-10 13:56:45.9362 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-08-10 13:56:46.0282 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-08-10 13:56:46.0394 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-08-10 13:56:46.0394 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-08-10 13:56:46.0566 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-08-10 13:56:46.0843 Info Configuration initialized.
+2026-08-10 13:59:43.5774 Info Loading assembly name: NLog.Web.AspNetCore
+2026-08-10 13:59:43.5944 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-08-10 13:59:43.6483 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-08-10 13:59:43.6483 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-08-10 13:59:43.6483 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-08-10 13:59:43.6702 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-08-10 13:59:43.6838 Info Configuration initialized.
+2026-08-10 17:34:16.7129 Info Loading assembly name: NLog.Web.AspNetCore
+2026-08-10 17:34:16.7421 Info NLog.Web.AspNetCore, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.3.8.1035. Product version: 5.3.8+0c5db2371c65c25905734b0335fd0c593ee61ad6. GlobalAssemblyCache: False
+2026-08-10 17:34:16.8484 Info Registered target NLog.Targets.Wrappers.AsyncTargetWrapper(Name=log)
+2026-08-10 17:34:16.8598 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2026-08-10 17:34:16.8720 Info LogManager.ThrowExceptions = true can crash the application! Use only for unit-testing and last resort troubleshooting.
+2026-08-10 17:34:16.8720 Info Validating config: TargetNames=log, ConfigItems=30, FilePath=C:\Company\PHStatistics.portal\binary\Release\net8.0\NLog.config
+2026-08-10 17:34:16.9035 Info Configuration initialized.
