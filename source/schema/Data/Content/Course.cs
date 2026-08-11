@@ -86,6 +86,14 @@ namespace PHStatistics.Content {
         [Display(Name = "所屬單位"), DefaultValue(StudentPopulationType.PH), DataMember]
         public StudentPopulationType Type { get; set; }
 
+        /// <summary>
+        /// 顯示名稱（名稱＋所屬單位＋班系，供下拉選單/介面顯示避免同名課程混淆——同單位下常有多個班系用同樣的年級/課程名稱）
+        /// </summary>
+        [Display(Name = "顯示名稱"), DataMember]
+        [NotMapped]
+        public string DisplayName => string.IsNullOrEmpty(Department?.Name)
+            ? $"{Name}［{Type.GetDisplayName()}］"
+            : $"{Name}［{Type.GetDisplayName()}-{Department.Name}］";
 
         /// <summary>
         /// 適用班別

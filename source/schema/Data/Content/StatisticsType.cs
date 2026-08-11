@@ -79,6 +79,20 @@ public enum StatisticsType : short
     DiffBetweenCourses = 12,
 
     /// <summary>
+    /// 指定來源課程相除（分子÷分母），來源課程為分子、扣除來源課程為分母
+    /// </summary>
+    [Display(Name = "指定來源課程相除")]
+    [Description("指定來源課程相除")]
+    DivideBySourceCourses = 13,
+
+    /// <summary>
+    /// 本年度累計加總：來源課程從本學年度第1週加總到目前週次
+    /// </summary>
+    [Display(Name = "本年度累計加總")]
+    [Description("本年度累計加總")]
+    YearToDateSum = 14,
+
+    /// <summary>
     /// 新生人數
     /// </summary>
     [Display(Name = "新生人數")]

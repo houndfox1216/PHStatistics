@@ -30,7 +30,7 @@
             e.editorOptions = {
                 dataSource: courseDepartmentsStore,
                 valueExpr: "Id",
-                displayExpr: "Name",
+                displayExpr: "DisplayName",
                 value: currentDepartmentValue,
                 showSelectionControls: true,
                 searchEnabled: true,
@@ -47,7 +47,7 @@
             e.editorOptions = {
                 dataSource: courseOptionsStore,
                 valueExpr: "Id",
-                displayExpr: "Name",
+                displayExpr: "DisplayName",
                 value: currentCourseValue,
                 showSelectionControls: true,
                 searchEnabled: true,
@@ -64,7 +64,7 @@
             e.editorOptions = {
                 dataSource: courseOptionsStore,
                 valueExpr: "Id",
-                displayExpr: "Name",
+                displayExpr: "DisplayName",
                 value: currentNegCourseValue,
                 showSelectionControls: true,
                 searchEnabled: true,
@@ -85,7 +85,7 @@
         values.forEach(function (v) {
             store.byKey(v).then(function (item) {
                 $("<span>")
-                    .text(item ? item.Name : v)
+                    .text(item ? item.DisplayName : v)
                     .css({
                         display: "inline-block",
                         padding: "1px 8px",
@@ -164,7 +164,7 @@
                         items.AddSimple().DataField("StatisticsType").Label(l => l.Text("加總類型"));
                         items.AddSimple().DataField("SourceDepartmentIdValues").Label(l => l.Text("來源班系"));
                         items.AddSimple().DataField("SourceCourseIdValues").Label(l => l.Text("來源課程"));
-                        items.AddSimple().DataField("NegativeSourceCourseIdValues").Label(l => l.Text("扣除來源課程"));
+                        items.AddSimple().DataField("NegativeSourceCourseIdValues").Label(l => l.Text("扣除來源課程（相除時為分母）"));
                         items.AddSimple().DataField("ApplicableClassType").Label(l => l.Text("適用班別"));
                         items.AddSimple().DataField("GroupByClassType").Label(l => l.Text("依班別分組"));
                     })
@@ -187,7 +187,7 @@
                             .Key("Id")
                         )
                         .ValueExpr("Id")
-                        .DisplayExpr("Name")
+                        .DisplayExpr("DisplayName")
                     );
                 columns.AddFor(m => m.ClassType).Caption("適用班別");
                 columns.AddFor(m => m.Ordinal).Caption("排列順序").Width(100);
@@ -206,6 +206,8 @@
                             new { Id = 10, Name = "與上週相比" },
                             new { Id = 11, Name = "去年同期比較" },
                             new { Id = 12, Name = "指定來源課程相減" },
+                            new { Id = 13, Name = "指定來源課程相除" },
+                            new { Id = 14, Name = "本年度累計加總" },
                             new { Id = 30, Name = "班級數量統計" },
                             new { Id = 31, Name = "班級數量統計依班別" },
                             new { Id = 40, Name = "上週數值" },
@@ -231,7 +233,7 @@
                     .Width(220);
                 columns.Add()
                     .DataField("NegativeSourceCourseIdValues")
-                    .Caption("扣除來源課程")
+                    .Caption("扣除來源課程（相除時為分母）")
                     .AllowSorting(false)
                     .AllowFiltering(false)
                     .CellTemplate("negativeCourseIdsCellTemplate")

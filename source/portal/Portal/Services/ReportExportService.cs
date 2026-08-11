@@ -637,6 +637,17 @@ public class ReportExportService {
                                     .Where(i => !ct2.HasValue || i.Class?.Type == ct2.Value).Sum(i => i.Number);
             return positive - negative;
         }
+        if (statsTypeEarly == StatisticsType.DivideBySourceCourses) {
+            // 來源課程（分子）／扣除來源課程（分母）本身可能是 IsSum=true（例如 PS 的總人數/開班數合計欄位），不能套用下方排除 IsSum 的 src 管線
+            var ct3 = course.ApplicableClassType ?? (course.GroupByClassType ? rowClassType : null);
+            var numIds = TryParseIntArray(course.SourceCourseIds);
+            var denIds = TryParseIntArray(course.NegativeSourceCourseIds);
+            int numerator = allItems.Where(i => i.Class?.CourseId != null && numIds.Contains(i.Class.CourseId.Value))
+                                    .Where(i => !ct3.HasValue || i.Class?.Type == ct3.Value).Sum(i => i.Number);
+            int denominator = allItems.Where(i => i.Class?.CourseId != null && denIds.Contains(i.Class.CourseId.Value))
+                                    .Where(i => !ct3.HasValue || i.Class?.Type == ct3.Value).Sum(i => i.Number);
+            return denominator > 0 ? numerator / denominator : 0;
+        }
 
         // 排除 IsSum 課程本身的項目，只用真實班級資料計算
         var src = allItems.Where(i => i.Class?.Course?.IsSum != true);

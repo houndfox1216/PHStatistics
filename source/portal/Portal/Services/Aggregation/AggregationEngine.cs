@@ -74,11 +74,20 @@ public class AggregationEngine {
                 int negative = GetItemsByCourseIds(course, item, population.Items, negativeIds).Sum(i => i.Number);
                 return positive - negative;
             }
+            case StatisticsType.DivideBySourceCourses: {
+                var numeratorIds = ParseIntArray(course.SourceCourseIds);
+                var denominatorIds = ParseIntArray(course.NegativeSourceCourseIds);
+                int numerator = GetItemsByCourseIds(course, item, population.Items, numeratorIds).Sum(i => i.Number);
+                int denominator = GetItemsByCourseIds(course, item, population.Items, denominatorIds).Sum(i => i.Number);
+                return denominator > 0 ? numerator / denominator : 0;
+            }
             case StatisticsType.Average: {
                 var src = GetSourceItems(course, item, population.Items).ToList();
                 int count = src.Count(i => i.Number > 0);
                 return count > 0 ? src.Sum(i => i.Number) / count : 0;
             }
+            case StatisticsType.YearToDateSum:
+                return SumYearToDate(course, item, population);
             default:
                 throw new NotSupportedException(
                     $"AggregationEngine 尚未支援 StatisticsType.{type}（課程 {course.Id} {course.Name}）。");
@@ -104,6 +113,25 @@ public class AggregationEngine {
         if (lastYearPopulation?.Items == null) return 0;
         var sourceItems = GetSourceItems(course, item, lastYearPopulation.Items);
         return WithLegacyFallback(sourceItems, course, lastYearPopulation.Items, lastYearPopulation.Year).Sum(i => i.Number);
+    }
+
+    // 本年度累計加總：本學年度第1週加總到目前週次，來源課程(SourceCourseIds)逐週 Number 加總——
+    // 目前週用傳入的 population（可能含未存檔的最新編輯值），其餘週次透過 _lookupPopulation 查歷史資料；
+    // 走 GetItemsByCourseIds（不排除 IsSum 項目），跟 DiffBetweenCourses/DivideBySourceCourses 用同一套規則。
+    private int SumYearToDate(Course course, StudentPopulationItem item, StudentPopulation population) {
+        if (population.SchoolId == null) return 0;
+        var sourceIds = ParseIntArray(course.SourceCourseIds);
+        if (sourceIds.Count == 0) return 0;
+
+        int total = 0;
+        for (int week = 1; week <= population.Week; week++) {
+            var weekPopulation = week == population.Week
+                ? population
+                : _lookupPopulation(population.Year, week, population.SchoolId.Value, population.Type);
+            if (weekPopulation?.Items == null) continue;
+            total += GetItemsByCourseIds(course, item, weekPopulation.Items, sourceIds).Sum(i => i.Number);
+        }
+        return total;
     }
 
     // 備援規則：只有當查詢對象是 114學年度及更早（LegacyDataCutoffYear）、且該次 SourceDepartmentIds
@@ -156,8 +184,8 @@ public class AggregationEngine {
         return query;
     }
 
-    // DiffBetweenCourses 專用：直接依課程Id清單篩選（不經 SourceDepartmentIds／課程自身 DepartmentId 那條路徑），
-    // 刻意不排除 IsSum 項目——來源課程本身可能就是 IsSum=true（例如 PSJ 的新生/流失手動輸入欄位）。
+    // DiffBetweenCourses／DivideBySourceCourses 專用：直接依課程Id清單篩選（不經 SourceDepartmentIds／課程自身 DepartmentId 那條路徑），
+    // 刻意不排除 IsSum 項目——來源課程本身可能就是 IsSum=true（例如 PSJ 的新生/流失手動輸入欄位、PS 的總人數/開班數合計欄位）。
     // 班別篩選規則沿用 GetSourceItems：ApplicableClassType 優先，其次 GroupByClassType。
     private static IEnumerable<StudentPopulationItem> GetItemsByCourseIds(
         Course course, StudentPopulationItem contextItem, IEnumerable<StudentPopulationItem> items, List<int> courseIds) {

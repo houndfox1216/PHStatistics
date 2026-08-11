@@ -25,6 +25,8 @@
             (cItem.Department.Name.Equals("英文個別指導") || cItem.Department.Name.Equals("國語文個別指導"));
         int courseWeekTotal = Model.Items.Where(e => e.Class.Course.Id == cItem.Id).Sum(e => e.Number);
         string courseHeaderText = isPersonalCourse ? string.Format("課程：{0}　本週人數合計：{1}", cItem.Name, courseWeekTotal) : "課程：" + cItem.Name;
+        // PS「分析」欄位裡的 PS上週人數/PSJ上週人數 本身就是「上週」的參考數字，再顯示一組獨立的上週/本週人數欄位會混淆，只留本週人數欄位
+        bool hideLastWeekColumn = Model.Type == StudentPopulationType.PS && (cItem.Name.Equals("PS上週人數") || cItem.Name.Equals("PSJ上週人數"));
         @if (cItem.Name.Equals("上週英語文總人數") || cItem.Name.Equals("本週英語文總人數") || cItem.Name.Equals("本週國語文總人數") || cItem.Name.Equals("上週國語文總人數") || cItem.Name.Equals("與上週相比") ||
                 cItem.Name.Equals("去年同期/比"))
         {
@@ -253,20 +255,22 @@
                 <div class="col-3 mb-3">
                     分校班級名稱
                 </div>
+                @if (!hideLastWeekColumn) {
                 <div class="col-1 mb-1">
                     上週人數
                 </div>
+                }
                 <div class="col-1 mb-1">
                     本週人數
                 </div>
                 <div class="col-4 mb-4">
-                    @(cItem.Name.Equals("本週總詢問(填單)人數") ? "累計" : "學生備註")
+                    學生備註
                 </div>
                 <div class="col-2 mb-3">
                 </div>
                 }
 
-            </div> 
+            </div>
         }
         foreach (StudentPopulationItem sItem in Model.Items.Where(e => e.Class.Course.Id == cItem.Id).OrderBy(e => e.Id)) {
             if (sItem.Class.Course.Name.Equals("本週英語文總人數") || sItem.Class.Course.Name.Equals("上週英語文總人數") || sItem.Class.Course.Name.Equals("與上週相比") ||
@@ -334,11 +338,7 @@
 
                     </div>
                     <div class="col-4 mb-4">
-                        @if (sItem.Class.Course.Name.Equals("本週總詢問(填單)人數")) {
-                            <input type="text" class="form-control" placeholder="" value="@sItem.YearToDateNumber" readonly>
-                        } else {
-                            <input type="text" class="form-control" placeholder="" name="Items[@itemRowNo].StudentRemark" id="class_@sItem.Id.ToString()_remark" value="@sItem.StudentRemark" data-sitem="@sItem.Id" onblur="remarkChange('class_@sItem.Id.ToString()_remark')">
-                        }
+                        <input type="text" class="form-control" placeholder="" name="Items[@itemRowNo].StudentRemark" id="class_@sItem.Id.ToString()_remark" value="@sItem.StudentRemark" data-sitem="@sItem.Id" onblur="remarkChange('class_@sItem.Id.ToString()_remark')">
                     </div>
                     @if (!sItem.Class.Course.IsSum) {
                         <div class="col-2 mb-2">
@@ -442,6 +442,7 @@
                     @* <input type="text" class="form-control" placeholder="" id="class_@sItem.Class.Id.ToString()" value="@sItem.Id.ToString() @sItem.Name"> *@
                     <input type="text" class="form-control class-name-input" placeholder="" id="class_@sItem.Id.ToString()" value="@sItem.Name" onblur="updateClassDetail(@sItem.Id)">
                 </div>
+                @if (!hideLastWeekColumn) {
                 <div class="col-1 mb-1">
                     @if (ViewBag.CanEditLastWeek != null && (bool)ViewBag.CanEditLastWeek) {
                         <input type="number" class="form-control" value="@sItem.LastWeekNumber" data-sitem="@sItem.Id" id="class_@sItem.Id.ToString()_lastweek" onchange="lastWeekValueChange('class_@sItem.Id.ToString()_lastweek')">
@@ -449,6 +450,7 @@
                         @sItem.LastWeekNumber
                     }
                 </div>
+                }
                 <div class="col-1 mb-1">
                     @if (sItem.Class.Course.IsSum) {
                         if (sItem.Class.Course.Name.Contains("新生") || sItem.Class.Course.Name.Contains("流失") ||

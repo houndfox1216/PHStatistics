@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel;
 using System.Framework.Data;
 using System.Linq;
@@ -83,6 +84,13 @@ namespace PHStatistics.Content {
         /// </summary>
         [Display(Name = "所屬單位"), DefaultValue(StudentPopulationType.PH), DataMember]
         public StudentPopulationType Type { get; set; }
+
+        /// <summary>
+        /// 顯示名稱（名稱＋所屬單位，供下拉選單/介面顯示避免同名班系混淆）
+        /// </summary>
+        [Display(Name = "顯示名稱"), DataMember]
+        [NotMapped]
+        public string DisplayName => $"{Name}［{Type.GetDisplayName()}］";
 
         /// <summary>
         /// 已發佈

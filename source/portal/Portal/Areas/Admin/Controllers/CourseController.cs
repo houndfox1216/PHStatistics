@@ -27,9 +27,11 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
         [HttpGet]
         public IActionResult GetCourseOptions() {
             var readAction = new CourseReadAction(User, Model.DataContext);
-            var options = readAction.Query(new Condition(), (Sorting[])null)
+            // 先具現化再投影，DisplayName 是 NotMapped 計算屬性（依賴 Department 導覽屬性），無法轉譯成 SQL
+            var options = readAction.Query(new Condition(), (Sorting[])null, "Department")
                 .OrderBy(e => e.Ordinal).ThenBy(e => e.Id)
-                .Select(e => new { e.Id, e.Name })
+                .ToList()
+                .Select(e => new { e.Id, e.Name, e.DisplayName })
                 .ToList();
             return Json(options);
         }
@@ -76,7 +78,8 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
         [HttpGet]
         public object GetDepartments(DataSourceLoadOptions loadOptions) {
             var readAction = new CourseDepartmentReadAction(User, Model.DataContext);
-            var query = readAction.Query(new Condition(), (Sorting[])null);
+            // 先具現化，DisplayName 是 NotMapped 計算屬性，無法轉譯成 SQL
+            var query = readAction.Query(new Condition(), (Sorting[])null).ToList();
             return DataSourceLoader.Load(query, loadOptions);
         }
     }

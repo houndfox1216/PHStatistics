@@ -139,11 +139,5 @@ namespace PHStatistics.Content {
         /// </summary>
         [Display(Name = "系統試算值"), DataMember, NotMapped]
         public int? PreviewNumber { get; set; }
-
-        /// <summary>
-        /// 本年度累計值（僅在渲染「本週總詢問(填單)人數」列時由 AttachManualPreviews 填入，不落地）
-        /// </summary>
-        [Display(Name = "本年度累計"), DataMember, NotMapped]
-        public int? YearToDateNumber { get; set; }
     }
 }

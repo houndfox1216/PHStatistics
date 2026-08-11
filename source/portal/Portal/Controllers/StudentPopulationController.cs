@@ -2166,21 +2166,6 @@ namespace PHStatistics.Portal.Controllers {
             foreach (var item in population.Items.Where(i => i.IsManual)) {
                 item.PreviewNumber = previewEngine.Preview(item, population);
             }
-            AttachYearToDateInquiryTotal(dataContext, population);
-        }
-
-        //百瀚「本週總詢問(填單)人數」列的「累計」欄＝本年度至該週為止，該分校各週此課程人數的總和
-        private void AttachYearToDateInquiryTotal(DataContext dataContext, StudentPopulation population) {
-            if (population.Type != StudentPopulationType.PH) return;
-            StudentPopulationItem inquiryItem = population.Items.FirstOrDefault(e => e.Class.Course.Name == "本週總詢問(填單)人數");
-            if (inquiryItem == null) return;
-            inquiryItem.YearToDateNumber = dataContext.StudentPopulationItem
-                .Where(e => e.Class.Course.Name == "本週總詢問(填單)人數"
-                    && e.StudentPopulation.SchoolId == population.SchoolId
-                    && e.StudentPopulation.Year == population.Year
-                    && e.StudentPopulation.Type == StudentPopulationType.PH
-                    && e.StudentPopulation.Week <= population.Week)
-                .Sum(e => (int?)e.Number) ?? 0;
         }
 
         // 上週人數/與上週相比 專用：解析上一週的實際 StudentPopulation（處理跨學年週次交界），
