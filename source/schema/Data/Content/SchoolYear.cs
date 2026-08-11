@@ -91,6 +91,12 @@ namespace PHStatistics.Content {
         public DateTime ImportEndDate { get; set; }
 
         /// <summary>
+        /// 開始輸入時間，留空時沿用週次起始日
+        /// </summary>
+        [Display(Name = "開始輸入時間"), DataMember]
+        public DateTime? InputStartDate { get; set; }
+
+        /// <summary>
         /// 備註
         /// </summary>
         [Display(Name = "備註"), DataMember]

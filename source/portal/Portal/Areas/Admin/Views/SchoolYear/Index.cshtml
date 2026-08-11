@@ -54,6 +54,9 @@
                 columns.AddFor(m => m.WeekStartDate).Caption("週起始日").Width(120)
                     .DataType(GridColumnDataType.Date)
                     .Format("yyyy/MM/dd");
+                columns.AddFor(m => m.InputStartDate).Caption("開始輸入時間").Width(155)
+                    .DataType(GridColumnDataType.DateTime)
+                    .Format("yyyy/MM/dd HH:mm");
                 columns.AddFor(m => m.WeekEndDate).Caption("週結束日").Width(120)
                     .DataType(GridColumnDataType.Date)
                     .Format("yyyy/MM/dd");

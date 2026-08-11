@@ -12,7 +12,7 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
 
             DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
             var schoolYear = Model.DataContext.SchoolYear
-                .Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime)
+                .Where(e => (e.InputStartDate ?? e.WeekStartDate) <= dateTime && e.ImportEndDate >= dateTime)
                 .FirstOrDefault();
 
             if (schoolYear != null) {

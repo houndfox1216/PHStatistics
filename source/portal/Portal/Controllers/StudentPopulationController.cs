@@ -86,7 +86,7 @@ namespace PHStatistics.Portal.Controllers {
                 }
             }
             DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
-            return dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
+            return dataContext.SchoolYear.Where(e => (e.InputStartDate ?? e.WeekStartDate) <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
         }
 
         private void WriteItemLog(DataContext dataContext, long studentPopulationId, int? classId, string name,
@@ -180,7 +180,7 @@ namespace PHStatistics.Portal.Controllers {
             #endregion
             //取得維護年度週次
             DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
-            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
+            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => (e.InputStartDate ?? e.WeekStartDate) <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
             List<SchoolAssignment> schools = Model.GetMemberSchool(User.Id);
             ViewBag.Schools = schools;
             ViewBag.CanEdit = schoolYear != null;
@@ -207,7 +207,7 @@ namespace PHStatistics.Portal.Controllers {
             DataContext dataContext = new DataContext();
             //取得維護年度週次
             DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
-            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
+            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => (e.InputStartDate ?? e.WeekStartDate) <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
             ViewBag.CanEdit = schoolYear != null;
             ViewBag.Title = "Home Page".ToI18n(Culture.GetCode());
             ViewBag.BannerPositions = new List<BannerPosition>();
@@ -226,7 +226,7 @@ namespace PHStatistics.Portal.Controllers {
             DataContext dataContext = new DataContext();
             //取得維護年度週次
             DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
-            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => e.WeekStartDate <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
+            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => (e.InputStartDate ?? e.WeekStartDate) <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
             List<SchoolAssignment> schools = Model.GetMemberSchool(User.Id);
             int[] years = dataContext.StudentPopulation.GroupBy(e => e.Year).Select(e => e.Key).ToArray();
             int[] weeks = dataContext.StudentPopulation.GroupBy(e => e.Week).Select(e => e.Key).OrderBy(e => e).ToArray();
