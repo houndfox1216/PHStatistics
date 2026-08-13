@@ -775,13 +775,9 @@ public class ReportExportService {
             .ToList();
 
     // ── PH 班級明細 ───────────────────────────────────────────────────────────
-    // 格式：每校 2 列（小班 / 三人班），每課程展開為 N 個子欄位（甲班、乙班…）
+    // 格式：每校 2 列（小班 / 三人班），每課程展開為 N 個子欄位（1班、2班…）
 
-    private static readonly string[] _chineseOrdinals =
-        { "甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸" };
-
-    private static string GetOrdinalLabel(int zeroIdx) =>
-        zeroIdx < _chineseOrdinals.Length ? $"{_chineseOrdinals[zeroIdx]}班" : $"第{zeroIdx + 1}班";
+    private static string GetOrdinalLabel(int zeroIdx) => $"{zeroIdx + 1}班";
 
     public byte[] ExportPHDetail(int year, int week, IList<int> schoolIds = null) {
         // 單一分校：改成「每週一列」明細格式，比照 ExportPHBySchool 的作法
@@ -792,10 +788,12 @@ public class ReportExportService {
         var populations = LoadPopulations(StudentPopulationType.PH, year, week, schoolIds);
         if (populations.Count == 0) return Array.Empty<byte>();
 
-        var courses = LoadCourses(StudentPopulationType.PH);
+        // publishedOnly:false —— 班級明細比照本校/全區報表，也要帶出IsSum合計/分析統計欄位
+        // （各班系合計、總班數、上週人數、與上週相比、去年同期比、新生/流失等），這些課程幾乎全部Published=0。
+        var courses = LoadCourses(StudentPopulationType.PH, publishedOnly: false);
         var nonSumCourses = courses.Where(c => !c.IsSum).ToList();
 
-        // 計算各 courseId 的全區最大班數（小班（含個別指導 Personal）與 V3 取其中較大值）
+        // 計算各 courseId 的全區最大班數（小班（含個別指導 Personal）與 V3 取其中較大值），只對非合計課程展開子欄位
         var maxSlots = new Dictionary<int, int>();
         foreach (var pop in populations) {
             foreach (var courseId in nonSumCourses.Select(c => c.Id)) {
@@ -808,15 +806,14 @@ public class ReportExportService {
             }
         }
 
-        // 只保留有資料的課程欄
-        var activeCourses = nonSumCourses.Where(c => maxSlots.TryGetValue(c.Id, out int s) && s > 0).ToList();
-        var deptGroups = activeCourses
-            .GroupBy(c => c.Department.Id)
-            .Select(g => (dept: g.First().Department, list: g.ToList()))
+        // 顯示欄位：有實際班級資料的一般課程（展開子欄位）＋ 全部IsSum合計/分析統計課程（單一欄位，跟本校/全區報表一致）
+        var displayCourses = courses
+            .Where(c => c.IsSum || (maxSlots.TryGetValue(c.Id, out int s) && s > 0))
             .ToList();
+        var deptGroups = GroupConsecutiveByDepartment(displayCourses);
 
         int fixedCols = 2;
-        int totalCols = fixedCols + activeCourses.Sum(c => maxSlots[c.Id]) + deptGroups.Count;
+        int totalCols = fixedCols + displayCourses.Sum(c => c.IsSum ? 1 : maxSlots[c.Id]);
 
         var wb    = new XSSFWorkbook();
         var sheet = wb.CreateSheet("Sheet1");
@@ -833,27 +830,29 @@ public class ReportExportService {
         try { sheet.AddMergedRegion(new CellRangeAddress(1, 3, 0, 0)); } catch { }
         try { sheet.AddMergedRegion(new CellRangeAddress(1, 3, 1, 1)); } catch { }
 
-        // Rows 1-3: 班系 → 課程 → 子欄位
+        // Rows 1-3: 班系 → 課程 → 子欄位（一般課程展開甲/乙班；IsSum合計/分析課程只佔一欄，標籤放row2、row3留空）
         int col = fixedCols;
         foreach (var (dept, list) in deptGroups) {
             int deptStart = col;
+            var row2 = sheet.GetRow(2) ?? sheet.CreateRow(2);
             foreach (var c in list) {
-                int slots = maxSlots[c.Id];
-                var row2 = sheet.GetRow(2) ?? sheet.CreateRow(2);
-                row2.CreateCell(col).SetCellValue(c.Name);
-                if (slots > 1)
-                    try { sheet.AddMergedRegion(new CellRangeAddress(2, 2, col, col + slots - 1)); } catch { }
-                for (int si = 0; si < slots; si++)
-                    r3.CreateCell(col + si).SetCellValue(GetOrdinalLabel(si));
-                col += slots;
+                if (c.IsSum) {
+                    row2.CreateCell(col).SetCellValue(c.Name);
+                    col++;
+                }
+                else {
+                    int slots = maxSlots[c.Id];
+                    row2.CreateCell(col).SetCellValue(c.Name);
+                    if (slots > 1)
+                        try { sheet.AddMergedRegion(new CellRangeAddress(2, 2, col, col + slots - 1)); } catch { }
+                    for (int si = 0; si < slots; si++)
+                        r3.CreateCell(col + si).SetCellValue(GetOrdinalLabel(si));
+                    col += slots;
+                }
             }
-            // 部門合計欄
             r1.CreateCell(deptStart).SetCellValue(dept.Name);
-            int deptEnd = col;
-            if (deptEnd > deptStart)
-                try { sheet.AddMergedRegion(new CellRangeAddress(1, 1, deptStart, deptEnd)); } catch { }
-            r3.CreateCell(col).SetCellValue("合計");
-            col++;
+            if (col - 1 > deptStart)
+                try { sheet.AddMergedRegion(new CellRangeAddress(1, 1, deptStart, col - 1)); } catch { }
         }
 
         // Row 4+: 每校 2 列（小班 / 三人班）
@@ -868,31 +867,40 @@ public class ReportExportService {
 
             col = fixedCols;
             foreach (var (_, list) in deptGroups) {
-                int sgDeptTotal = 0, v3DeptTotal = 0;
                 foreach (var c in list) {
-                    int slots = maxSlots[c.Id];
-                    var sgItems = pop.Items
-                        .Where(i => i.Class?.CourseId == c.Id &&
-                            (i.Class?.Type == ClassType.SubGroup || i.Class?.Type == ClassType.Personal))
-                        .OrderBy(i => i.Class.Ordinal).ThenBy(i => i.Class.Id).ToList();
-                    var v3Items = pop.Items
-                        .Where(i => i.Class?.CourseId == c.Id && i.Class?.Type == ClassType.V3)
-                        .OrderBy(i => i.Class.Ordinal).ThenBy(i => i.Class.Id).ToList();
-                    for (int si = 0; si < slots; si++) {
-                        if (si < sgItems.Count && sgItems[si].Number > 0) {
-                            sgRow.CreateCell(col + si).SetCellValue(sgItems[si].Number);
-                            sgDeptTotal += sgItems[si].Number;
+                    if (c.IsSum) {
+                        bool splitByClassType = c.ApplicableClassType.HasValue || c.GroupByClassType;
+                        if (splitByClassType) {
+                            int sg = pop.Items.Where(i => i.Class?.CourseId == c.Id &&
+                                (i.Class?.Type == ClassType.SubGroup || i.Class?.Type == ClassType.Personal)).Sum(i => i.Number);
+                            int v3 = pop.Items.Where(i => i.Class?.CourseId == c.Id && i.Class?.Type == ClassType.V3).Sum(i => i.Number);
+                            if (sg != 0) sgRow.CreateCell(col).SetCellValue(sg);
+                            if (v3 != 0) v3Row.CreateCell(col).SetCellValue(v3);
                         }
-                        if (si < v3Items.Count && v3Items[si].Number > 0) {
-                            v3Row.CreateCell(col + si).SetCellValue(v3Items[si].Number);
-                            v3DeptTotal += v3Items[si].Number;
+                        else {
+                            int total = pop.Items.Where(i => i.Class?.CourseId == c.Id).Sum(i => i.Number);
+                            if (total != 0) sgRow.CreateCell(col).SetCellValue(total);
                         }
+                        col++;
                     }
-                    col += slots;
+                    else {
+                        int slots = maxSlots[c.Id];
+                        var sgItems = pop.Items
+                            .Where(i => i.Class?.CourseId == c.Id &&
+                                (i.Class?.Type == ClassType.SubGroup || i.Class?.Type == ClassType.Personal))
+                            .OrderBy(i => i.Class.Ordinal).ThenBy(i => i.Class.Id).ToList();
+                        var v3Items = pop.Items
+                            .Where(i => i.Class?.CourseId == c.Id && i.Class?.Type == ClassType.V3)
+                            .OrderBy(i => i.Class.Ordinal).ThenBy(i => i.Class.Id).ToList();
+                        for (int si = 0; si < slots; si++) {
+                            if (si < sgItems.Count && sgItems[si].Number > 0)
+                                sgRow.CreateCell(col + si).SetCellValue(sgItems[si].Number);
+                            if (si < v3Items.Count && v3Items[si].Number > 0)
+                                v3Row.CreateCell(col + si).SetCellValue(v3Items[si].Number);
+                        }
+                        col += slots;
+                    }
                 }
-                if (sgDeptTotal > 0) sgRow.CreateCell(col).SetCellValue(sgDeptTotal);
-                if (v3DeptTotal > 0) v3Row.CreateCell(col).SetCellValue(v3DeptTotal);
-                col++;
             }
             rowIdx += 2;
         }
@@ -1020,10 +1028,11 @@ public class ReportExportService {
         if (weeklyPopulations.Count == 0) return Array.Empty<byte>();
 
         var school = weeklyPopulations[0].School ?? _context.School.Find(schoolId);
-        var courses = LoadCourses(StudentPopulationType.PH);
+        // publishedOnly:false —— 班級明細比照本校/全區報表，也要帶出IsSum合計/分析統計欄位
+        var courses = LoadCourses(StudentPopulationType.PH, publishedOnly: false);
         var nonSumCourses = courses.Where(c => !c.IsSum).ToList();
 
-        // 計算該分校各courseId橫跨這些週次的最大班數（小班（含個別指導Personal）與V3取其中較大值）
+        // 計算該分校各courseId橫跨這些週次的最大班數（小班（含個別指導Personal）與V3取其中較大值），只對非合計課程展開子欄位
         var maxSlots = new Dictionary<int, int>();
         foreach (var pop in weeklyPopulations) {
             foreach (var courseId in nonSumCourses.Select(c => c.Id)) {
@@ -1036,14 +1045,14 @@ public class ReportExportService {
             }
         }
 
-        var activeCourses = nonSumCourses.Where(c => maxSlots.TryGetValue(c.Id, out int s) && s > 0).ToList();
-        var deptGroups = activeCourses
-            .GroupBy(c => c.Department.Id)
-            .Select(g => (dept: g.First().Department, list: g.ToList()))
+        // 顯示欄位：有實際班級資料的一般課程（展開子欄位）＋ 全部IsSum合計/分析統計課程（單一欄位，跟本校/全區報表一致）
+        var displayCourses = courses
+            .Where(c => c.IsSum || (maxSlots.TryGetValue(c.Id, out int s) && s > 0))
             .ToList();
+        var deptGroups = GroupConsecutiveByDepartment(displayCourses);
 
         int fixedCols = 3;
-        int totalCols = fixedCols + activeCourses.Sum(c => maxSlots[c.Id]) + deptGroups.Count;
+        int totalCols = fixedCols + displayCourses.Sum(c => c.IsSum ? 1 : maxSlots[c.Id]);
 
         var wb    = new XSSFWorkbook();
         var sheet = wb.CreateSheet(school?.Name ?? "Sheet1");
@@ -1065,22 +1074,25 @@ public class ReportExportService {
         int col = fixedCols;
         foreach (var (dept, list) in deptGroups) {
             int deptStart = col;
+            var row2 = sheet.GetRow(2) ?? sheet.CreateRow(2);
             foreach (var c in list) {
-                int slots = maxSlots[c.Id];
-                var row2 = sheet.GetRow(2) ?? sheet.CreateRow(2);
-                row2.CreateCell(col).SetCellValue(c.Name);
-                if (slots > 1)
-                    try { sheet.AddMergedRegion(new CellRangeAddress(2, 2, col, col + slots - 1)); } catch { }
-                for (int si = 0; si < slots; si++)
-                    r3.CreateCell(col + si).SetCellValue(GetOrdinalLabel(si));
-                col += slots;
+                if (c.IsSum) {
+                    row2.CreateCell(col).SetCellValue(c.Name);
+                    col++;
+                }
+                else {
+                    int slots = maxSlots[c.Id];
+                    row2.CreateCell(col).SetCellValue(c.Name);
+                    if (slots > 1)
+                        try { sheet.AddMergedRegion(new CellRangeAddress(2, 2, col, col + slots - 1)); } catch { }
+                    for (int si = 0; si < slots; si++)
+                        r3.CreateCell(col + si).SetCellValue(GetOrdinalLabel(si));
+                    col += slots;
+                }
             }
             r1.CreateCell(deptStart).SetCellValue(dept.Name);
-            int deptEnd = col;
-            if (deptEnd > deptStart)
-                try { sheet.AddMergedRegion(new CellRangeAddress(1, 1, deptStart, deptEnd)); } catch { }
-            r3.CreateCell(col).SetCellValue("合計");
-            col++;
+            if (col - 1 > deptStart)
+                try { sheet.AddMergedRegion(new CellRangeAddress(1, 1, deptStart, col - 1)); } catch { }
         }
 
         // Row 4+: 每週兩列（小班 / 三人班，無團）
@@ -1102,31 +1114,40 @@ public class ReportExportService {
 
             col = fixedCols;
             foreach (var (_, list) in deptGroups) {
-                int sgDeptTotal = 0, v3DeptTotal = 0;
                 foreach (var c in list) {
-                    int slots = maxSlots[c.Id];
-                    var sgItems = pop.Items
-                        .Where(i => i.Class?.CourseId == c.Id &&
-                            (i.Class?.Type == ClassType.SubGroup || i.Class?.Type == ClassType.Personal))
-                        .OrderBy(i => i.Class.Ordinal).ThenBy(i => i.Class.Id).ToList();
-                    var v3Items = pop.Items
-                        .Where(i => i.Class?.CourseId == c.Id && i.Class?.Type == ClassType.V3)
-                        .OrderBy(i => i.Class.Ordinal).ThenBy(i => i.Class.Id).ToList();
-                    for (int si = 0; si < slots; si++) {
-                        if (si < sgItems.Count && sgItems[si].Number > 0) {
-                            sgRow.CreateCell(col + si).SetCellValue(sgItems[si].Number);
-                            sgDeptTotal += sgItems[si].Number;
+                    if (c.IsSum) {
+                        bool splitByClassType = c.ApplicableClassType.HasValue || c.GroupByClassType;
+                        if (splitByClassType) {
+                            int sg = pop.Items.Where(i => i.Class?.CourseId == c.Id &&
+                                (i.Class?.Type == ClassType.SubGroup || i.Class?.Type == ClassType.Personal)).Sum(i => i.Number);
+                            int v3 = pop.Items.Where(i => i.Class?.CourseId == c.Id && i.Class?.Type == ClassType.V3).Sum(i => i.Number);
+                            if (sg != 0) sgRow.CreateCell(col).SetCellValue(sg);
+                            if (v3 != 0) v3Row.CreateCell(col).SetCellValue(v3);
                         }
-                        if (si < v3Items.Count && v3Items[si].Number > 0) {
-                            v3Row.CreateCell(col + si).SetCellValue(v3Items[si].Number);
-                            v3DeptTotal += v3Items[si].Number;
+                        else {
+                            int total = pop.Items.Where(i => i.Class?.CourseId == c.Id).Sum(i => i.Number);
+                            if (total != 0) sgRow.CreateCell(col).SetCellValue(total);
                         }
+                        col++;
                     }
-                    col += slots;
+                    else {
+                        int slots = maxSlots[c.Id];
+                        var sgItems = pop.Items
+                            .Where(i => i.Class?.CourseId == c.Id &&
+                                (i.Class?.Type == ClassType.SubGroup || i.Class?.Type == ClassType.Personal))
+                            .OrderBy(i => i.Class.Ordinal).ThenBy(i => i.Class.Id).ToList();
+                        var v3Items = pop.Items
+                            .Where(i => i.Class?.CourseId == c.Id && i.Class?.Type == ClassType.V3)
+                            .OrderBy(i => i.Class.Ordinal).ThenBy(i => i.Class.Id).ToList();
+                        for (int si = 0; si < slots; si++) {
+                            if (si < sgItems.Count && sgItems[si].Number > 0)
+                                sgRow.CreateCell(col + si).SetCellValue(sgItems[si].Number);
+                            if (si < v3Items.Count && v3Items[si].Number > 0)
+                                v3Row.CreateCell(col + si).SetCellValue(v3Items[si].Number);
+                        }
+                        col += slots;
+                    }
                 }
-                if (sgDeptTotal > 0) sgRow.CreateCell(col).SetCellValue(sgDeptTotal);
-                if (v3DeptTotal > 0) v3Row.CreateCell(col).SetCellValue(v3DeptTotal);
-                col++;
             }
             rowIdx += 2;
         }
