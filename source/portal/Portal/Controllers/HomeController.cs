@@ -15,6 +15,7 @@ using NPOI.XSSF.UserModel;
 using PHStatistics.Community;
 using PHStatistics.Content;
 using PHStatistics.Portal.Models;
+using PHStatistics.Portal.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -75,7 +76,7 @@ namespace PHStatistics.Portal.Controllers {
             DataContext dataContext = new DataContext();
             //取得維護年度週次
             DateTime dateTime = DateTime.UtcNow.ToTaipeiTime();
-            SchoolYear schoolYear = dataContext.SchoolYear.Where(e => (e.InputStartDate ?? e.WeekStartDate) <= dateTime && e.ImportEndDate >= dateTime).OrderBy(e => e.Id).FirstOrDefault();
+            SchoolYear schoolYear = SchoolYearResolver.ResolveCurrent(dataContext.SchoolYear, dateTime, User.HasPermission(SystemPermission.Administrator));
             ViewBag.CanEdit = schoolYear != null;
             ViewBag.IsAdmin = User.HasPermission(SystemPermission.Administrator);
             ViewBag.Title = "Home Page".ToI18n(Culture.GetCode());
