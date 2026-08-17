@@ -46,11 +46,6 @@
                         開始輸入 <i class="fas fa-paper-plane"></i>
                     </button>
                 }
-                else if (addType.Equals("PSJ")) {
-                    <button type="button" class="btn btn-primary btn-lg btn-round" id="addPSJBtn">
-                        開始輸入 <i class="fas fa-paper-plane"></i>
-                    </button>
-                }
                 else if (addType.Equals("PSJGrid")) {
                     <button type="button" class="btn btn-primary btn-lg btn-round" id="addPSJGridBtn">
                         開始輸入 <i class="fas fa-paper-plane"></i>
@@ -97,10 +92,6 @@
     $(function () {
         $('#addPHBtn').on('click', function () {
             var location = "/StudentPopulation/CreatePopulation?schoolId=" + $('#schoolSelect').val() + "&type=PH" + weekParam();
-            window.location.href = location;
-        });
-        $('#addPSJBtn').on('click', function () {
-            var location = "/StudentPopulation/CreatePSJPopulation?schoolId=" + $('#schoolSelect').val() + "&type=PSJ" + weekParam();
             window.location.href = location;
         });
         $('#addPSJGridBtn').on('click', function () {
