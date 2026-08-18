@@ -195,5 +195,11 @@ namespace PHStatistics.Content {
         [Display(Name = "統計來源學科"), DataMember]
         public CourseSubject? SourceSubject { get; set; }
 
+        /// <summary>
+        /// 統計來源報表類型（跨Type抓值專用，例如PS抓PSJ當週/上週資料）
+        /// </summary>
+        [Display(Name = "統計來源報表類型"), DataMember]
+        public StudentPopulationType? SourceStudentPopulationType { get; set; }
+
     }
 }
