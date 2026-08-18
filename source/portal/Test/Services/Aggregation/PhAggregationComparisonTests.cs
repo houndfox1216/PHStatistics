@@ -29,7 +29,7 @@ public class PhAggregationComparisonTests {
             .Where(p => p.Type == StudentPopulationType.PH && p.DataMode == DataMode.Normal)
             .ToList();
 
-        StudentPopulation LookupLastWeek(StudentPopulation p) {
+        StudentPopulation LookupLastWeek(StudentPopulation p, StudentPopulationType type) {
             if (p?.SchoolId == null) return null;
             var lastSchoolYear = p.Week > 1
                 ? context.SchoolYear.Where(e => e.Year == p.Year && e.Week == p.Week - 1).OrderBy(e => e.Id).FirstOrDefault()
@@ -37,7 +37,7 @@ public class PhAggregationComparisonTests {
             if (lastSchoolYear == null) return null;
             return context.StudentPopulation
                 .Include(x => x.Items).ThenInclude(i => i.Class).ThenInclude(c => c.Course)
-                .FirstOrDefault(x => x.Year == lastSchoolYear.Year && x.Week == lastSchoolYear.Week && x.SchoolId == p.SchoolId && x.Type == p.Type);
+                .FirstOrDefault(x => x.Year == lastSchoolYear.Year && x.Week == lastSchoolYear.Week && x.SchoolId == p.SchoolId && x.Type == type);
         }
 
         var engine = new AggregationEngine(
