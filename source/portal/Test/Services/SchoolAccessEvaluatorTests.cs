@@ -39,6 +39,17 @@ public class SchoolAccessEvaluatorTests {
     }
 
     [Test]
+    public void CanEditSchool_ReturnsTrue_WhenAdministrator_AndRestrictedToPrimarySchoolAlsoTrue() {
+        // Administrator 的 HasPermission 對所有權限一律回 true，所以正式環境上管理員傳進來的
+        // isRestrictedToPrimarySchool 必定是 true；這個組合才是實際會跑到的路徑。
+        bool result = SchoolAccessEvaluator.CanEditSchool(
+            isAdministrator: true, isRestrictedToPrimarySchool: true, primarySchoolId: null,
+            hasViewAllSchools: false, accessibleSchoolIds: new List<int>(), targetSchoolId: 99);
+
+        Assert.That(result, Is.True);
+    }
+
+    [Test]
     public void CanEditSchool_ReturnsTrue_WhenRestricted_AndTargetIsPrimarySchool() {
         bool result = SchoolAccessEvaluator.CanEditSchool(
             isAdministrator: false, isRestrictedToPrimarySchool: true, primarySchoolId: 5,
