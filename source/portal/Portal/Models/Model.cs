@@ -10,6 +10,7 @@ using PHStatistics.Community;
 using PHStatistics.Content;
 using PHStatistics.Models;
 using PHStatistics.Portal.Actions;
+using PHStatistics.Portal.Services;
 
 // ReSharper disable once CheckNamespace
 namespace PHStatistics.Portal.Models {
@@ -116,6 +117,31 @@ namespace PHStatistics.Portal.Models {
             return DataContext.SchoolAssignment.Include("School").Include("Member").Where(e => e.Member.Id == checkId).ToList();
         }
 
+        /// <summary>
+        /// 瀏覽/匯出是否可存取指定分校（總監角色的全部轄校都算）
+        /// </summary>
+        public bool CanAccessSchool(PortalUser user, int schoolId) {
+            return SchoolAccessEvaluator.CanAccessSchool(
+                user.HasPermission(SystemPermission.ViewAllSchools),
+                GetAccessibleSchools(user).Select(s => s.Id),
+                schoolId);
+        }
+
+        /// <summary>
+        /// 寫入是否可編輯指定分校（總監角色只能編輯主要轄校）
+        /// </summary>
+        public bool CanEditSchool(PortalUser user, int schoolId) {
+            // PortalUser.Data 登入時就是完整的 Member 實體（見 PortalUser.cs 的 Id setter），
+            // 不需要幫 PortalUser 額外開欄位或查表
+            int? primarySchoolId = (user.Data as Member)?.PrimarySchoolId;
+            return SchoolAccessEvaluator.CanEditSchool(
+                user.HasPermission(SystemPermission.Administrator),
+                user.HasPermission(SystemPermission.RestrictedToPrimarySchool),
+                primarySchoolId,
+                user.HasPermission(SystemPermission.ViewAllSchools),
+                GetAccessibleSchools(user).Select(s => s.Id),
+                schoolId);
+        }
 
         /// <summary>
         /// 取得人數表資料
