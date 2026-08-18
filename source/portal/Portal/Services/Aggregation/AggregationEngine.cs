@@ -88,6 +88,20 @@ public class AggregationEngine {
             }
             case StatisticsType.YearToDateSum:
                 return SumYearToDate(course, item, population);
+            case StatisticsType.SumFromOtherType: {
+                if (population.SchoolId == null || course.SourceStudentPopulationType == null) return 0;
+                var sourcePopulation = _lookupPopulation(population.Year, population.Week, population.SchoolId.Value, course.SourceStudentPopulationType.Value);
+                if (sourcePopulation?.Items == null) return 0;
+                var ids = ParseIntArray(course.SourceCourseIds);
+                return GetItemsByCourseIds(course, item, sourcePopulation.Items, ids).Sum(i => i.Number);
+            }
+            case StatisticsType.LastWeekValueFromOtherType: {
+                if (population.SchoolId == null || course.SourceStudentPopulationType == null) return 0;
+                var sourceLastWeekPopulation = _lookupLastWeekPopulationOfType(population, course.SourceStudentPopulationType.Value);
+                if (sourceLastWeekPopulation?.Items == null) return 0;
+                var ids = ParseIntArray(course.SourceCourseIds);
+                return GetItemsByCourseIds(course, item, sourceLastWeekPopulation.Items, ids).Sum(i => i.Number);
+            }
             default:
                 throw new NotSupportedException(
                     $"AggregationEngine 尚未支援 StatisticsType.{type}（課程 {course.Id} {course.Name}）。");
