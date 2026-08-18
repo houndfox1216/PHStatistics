@@ -215,5 +215,17 @@ namespace PHStatistics.Community {
         /// </summary>
         [Display(Name = "角色關聯"), DataMember]
         public ICollection<MemberRole> MemberRoles { get; set; }
+
+        /// <summary>
+        /// 主要轄校（總監角色僅能編輯此分校，其餘被指派分校唯讀）
+        /// </summary>
+        [Display(Name = "主要轄校"), DataMember]
+        public int? PrimarySchoolId { get; set; }
+
+        /// <summary>
+        /// 主要轄校資料
+        /// </summary>
+        [Display(Name = "主要轄校資料"), DataMember]
+        public School PrimarySchool { get; set; }
     }
 }

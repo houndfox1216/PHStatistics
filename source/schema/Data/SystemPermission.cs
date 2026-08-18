@@ -159,4 +159,10 @@ public enum SystemPermission : short {
     /// </summary>
     [Display(Name = "人數表匯入")]
     StudentPopulationImport,
+
+    /// <summary>
+    /// 總監（主要轄校可編輯，其餘轄校唯讀）
+    /// </summary>
+    [Display(Name = "總監（僅主要轄校可編輯，其餘轄校唯讀）")]
+    RestrictedToPrimarySchool,
 }
