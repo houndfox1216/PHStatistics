@@ -1810,6 +1810,8 @@ namespace PHStatistics.Portal.Controllers {
         [HttpPost("QueryPopulationPartial")]
         // data: { 'schoolId': schoolId, 'courseId': newCourses.value, 'week': week, 'year': year, 'newClassType': newClassType, 'newClassName': newClassName, 'newNumber': newNumber, 'newStudentremark':newStudentremark },
         public IActionResult QueryPopulationPartial(int schoolId, int year, int week, string reportType) {
+            if (!Model.CanAccessSchool(User, schoolId))
+                return Forbid();
 
             List<Course> courses = Model.DataContext.Course.OrderBy(e => e.Ordinal).ToList();
             ViewBag.Courses = courses;
@@ -2477,6 +2479,8 @@ namespace PHStatistics.Portal.Controllers {
 
         [HttpGet("ExportPopulationPartial")]
         public IActionResult ExportPopulationPartial(int schoolId, int year, int week, string reportType) {
+            if (!Model.CanAccessSchool(User, schoolId))
+                return Forbid();
             var seleceedType = reportType switch {
                 "PH"   => StudentPopulationType.PH,
                 "PS"   => StudentPopulationType.PS,
