@@ -360,6 +360,8 @@ namespace PHStatistics.Portal.Controllers {
         //英檢
         [Authorize(typeof(PortalUser))]
         public IActionResult CreateGeptPopulation(StudentPopulation data, int schoolId, string type, int? schoolYearId = null, bool confirmed = false) {
+            if (!Model.CanEditSchool(User, schoolId))
+                return Forbid();
             DataContext dataContext = new DataContext();
             StudentPopulationType populationType = new StudentPopulationType();
             if (type.Equals("PH")) {
@@ -473,6 +475,8 @@ namespace PHStatistics.Portal.Controllers {
         //百世
         [Authorize(typeof(PortalUser))]
         public IActionResult CreatePSPopulation(StudentPopulation data, int schoolId, string type, int? schoolYearId = null, bool confirmed = false) {
+            if (!Model.CanEditSchool(User, schoolId))
+                return Forbid();
             DataContext dataContext = new DataContext();
             StudentPopulationType populationType = new StudentPopulationType();
             if (type.Equals("PH")) {
@@ -587,6 +591,8 @@ namespace PHStatistics.Portal.Controllers {
         //課輔
         [Authorize(typeof(PortalUser))]
         public IActionResult CreateASPopulation(StudentPopulation data, int schoolId, string type, int? schoolYearId = null, bool confirmed = false) {
+            if (!Model.CanEditSchool(User, schoolId))
+                return Forbid();
             DataContext dataContext = new DataContext();
             StudentPopulationType populationType = new StudentPopulationType();
             if (type.Equals("PH")) {
@@ -704,6 +710,8 @@ namespace PHStatistics.Portal.Controllers {
         //課輔(新網格)
         [Authorize(typeof(PortalUser))]
         public IActionResult CreateASGridPopulation(int schoolId, string type, int? schoolYearId = null, bool confirmed = false) {
+            if (!Model.CanEditSchool(User, schoolId))
+                return Forbid();
             DataContext dataContext = new DataContext();
             SchoolYear schoolYear = ResolveSchoolYear(dataContext, schoolYearId);
             SchoolYear lastschoolYear = schoolYear.Week > 1
@@ -823,6 +831,8 @@ namespace PHStatistics.Portal.Controllers {
         //百倍速(新網格)
         [Authorize(typeof(PortalUser))]
         public IActionResult CreatePSJGridPopulation(int schoolId, string type, int? schoolYearId = null, bool confirmed = false) {
+            if (!Model.CanEditSchool(User, schoolId))
+                return Forbid();
             DataContext dataContext = new DataContext();
             SchoolYear schoolYear = ResolveSchoolYear(dataContext, schoolYearId);
             SchoolYear lastschoolYear = schoolYear.Week > 1
@@ -944,7 +954,7 @@ namespace PHStatistics.Portal.Controllers {
         // data: { 'schoolId': schoolId, 'courseId': newCourses.value, 'week': week, 'year': year, 'newClassType': newClassType, 'newClassName': newClassName, 'newNumber': newNumber, 'newStudentremark':newStudentremark },
         public IActionResult AddNewClass(int courseId, int schoolId, int year, int week, string[][] itemArr, int newClassType, string newClassName, int newNumber, string newStudentremark, string type) {
             if (!Model.CanEditSchool(User, schoolId))
-                return Forbid();
+                return Json(new { success = false, message = "沒有權限異動此分校資料" });
             DataContext dataContext = new DataContext();
             var seleceedType = type switch {
                 "PH" => StudentPopulationType.PH,
@@ -1242,7 +1252,7 @@ namespace PHStatistics.Portal.Controllers {
                 if (item == null)
                     return Json(new { success = false, message = "找不到項目" });
                 if (!Model.CanEditSchool(User, item.StudentPopulation.SchoolId ?? 0))
-                    return Forbid();
+                    return Json(new { success = false, message = "沒有權限異動此分校資料" });
                 List<Course> courses = Model.DataContext.Course.Where(e => e.Type == item.StudentPopulation.Type).OrderBy(e => e.Ordinal).ToList();
                 ViewBag.Courses = courses;
                 bool canEditLocked = User.HasPermission(SystemPermission.PopulationWeekSwitch);
@@ -1276,7 +1286,7 @@ namespace PHStatistics.Portal.Controllers {
                 if (item == null)
                     return Json(new { success = false, message = "找不到項目" });
                 if (!Model.CanEditSchool(User, item.StudentPopulation.SchoolId ?? 0))
-                    return Forbid();
+                    return Json(new { success = false, message = "沒有權限異動此分校資料" });
                 List<Course> courses = Model.DataContext.Course.Where(e => e.Type == item.StudentPopulation.Type).OrderBy(e => e.Ordinal).ToList();
                 ViewBag.Courses = courses;
                 bool canEditLocked = User.HasPermission(SystemPermission.PopulationWeekSwitch);
@@ -1334,6 +1344,8 @@ namespace PHStatistics.Portal.Controllers {
             StudentPopulation studentPopulationData = dataContext.StudentPopulation.Include("Items.Class.Course").Include("School").FirstOrDefault(e => e.Id == populationId);
             if (studentPopulationData == null)
                 return Json(new { success = false, message = "找不到人數表" });
+            if (!Model.CanEditSchool(User, studentPopulationData.SchoolId ?? 0))
+                return Json(new { success = false, message = "沒有權限異動此分校資料" });
 
             bool canEditLocked = User.HasPermission(SystemPermission.PopulationWeekSwitch);
             ViewBag.CanEditLastWeek = canEditLocked;
@@ -1386,6 +1398,8 @@ namespace PHStatistics.Portal.Controllers {
                 StudentPopulationItem item = dataContext.StudentPopulationItem.Include("StudentPopulation").FirstOrDefault(e => e.Id == sId);
                 if (item == null)
                     return Json(new { success = false, message = "找不到項目" });
+                if (!Model.CanEditSchool(User, item.StudentPopulation.SchoolId ?? 0))
+                    return Json(new { success = false, message = "沒有權限異動此分校資料" });
 
                 bool canEditLocked = User.HasPermission(SystemPermission.PopulationWeekSwitch);
                 ViewBag.CanEditLastWeek = canEditLocked;
@@ -1421,6 +1435,8 @@ namespace PHStatistics.Portal.Controllers {
                 StudentPopulationItem item = dataContext.StudentPopulationItem.Include("Class.Course.Department").Include("StudentPopulation").FirstOrDefault(e => e.Id == sId);
                 if (item == null)
                     return Json(new { success = false, message = "找不到項目" });
+                if (!Model.CanEditSchool(User, item.StudentPopulation.SchoolId ?? 0))
+                    return Json(new { success = false, message = "沒有權限異動此分校資料" });
 
                 bool canEditLocked = User.HasPermission(SystemPermission.PopulationWeekSwitch);
                 ViewBag.CanEditLastWeek = canEditLocked;
@@ -1473,6 +1489,8 @@ namespace PHStatistics.Portal.Controllers {
             StudentPopulation studentPopulationData = dataContext.StudentPopulation.Include("Items.Class.Course").Include("School").FirstOrDefault(e => e.Id == populationId);
             if (studentPopulationData == null)
                 return Json(new { success = false, message = "找不到人數表" });
+            if (!Model.CanEditSchool(User, studentPopulationData.SchoolId ?? 0))
+                return Json(new { success = false, message = "沒有權限異動此分校資料" });
 
             bool canEditLocked = User.HasPermission(SystemPermission.PopulationWeekSwitch);
             ViewBag.CanEditLastWeek = canEditLocked;
@@ -1525,6 +1543,8 @@ namespace PHStatistics.Portal.Controllers {
                 StudentPopulationItem item = dataContext.StudentPopulationItem.Include("StudentPopulation").FirstOrDefault(e => e.Id == sId);
                 if (item == null)
                     return Json(new { success = false, message = "找不到項目" });
+                if (!Model.CanEditSchool(User, item.StudentPopulation.SchoolId ?? 0))
+                    return Json(new { success = false, message = "沒有權限異動此分校資料" });
 
                 bool canEditLocked = User.HasPermission(SystemPermission.PopulationWeekSwitch);
                 ViewBag.CanEditLastWeek = canEditLocked;
@@ -1560,6 +1580,8 @@ namespace PHStatistics.Portal.Controllers {
                 StudentPopulationItem item = dataContext.StudentPopulationItem.Include("Class.Course.Department").Include("StudentPopulation").FirstOrDefault(e => e.Id == sId);
                 if (item == null)
                     return Json(new { success = false, message = "找不到項目" });
+                if (!Model.CanEditSchool(User, item.StudentPopulation.SchoolId ?? 0))
+                    return Json(new { success = false, message = "沒有權限異動此分校資料" });
 
                 bool canEditLocked = User.HasPermission(SystemPermission.PopulationWeekSwitch);
                 ViewBag.CanEditLastWeek = canEditLocked;
@@ -1612,6 +1634,8 @@ namespace PHStatistics.Portal.Controllers {
                 StudentPopulationItem item = dataContext.StudentPopulationItem.Include("StudentPopulation").Include("Class.Course").FirstOrDefault(e => e.Id == sId);
                 if (item == null)
                     return Json(new { success = false, message = "找不到項目" });
+                if (!Model.CanEditSchool(User, item.StudentPopulation.SchoolId ?? 0))
+                    return Json(new { success = false, message = "沒有權限異動此分校資料" });
                 if (!User.HasPermission(SystemPermission.PopulationWeekSwitch))
                     return Json(new { success = false, message = "沒有權限" });
 
@@ -1647,7 +1671,7 @@ namespace PHStatistics.Portal.Controllers {
                 if (item == null)
                     return Json(new { success = false, message = "找不到項目" });
                 if (!Model.CanEditSchool(User, item.StudentPopulation.SchoolId ?? 0))
-                    return Forbid();
+                    return Json(new { success = false, message = "沒有權限異動此分校資料" });
                 item.StudentRemark = studentRemark ?? "";
                 db.SaveChanges();
                 return Json(new { success = true });
@@ -1666,7 +1690,7 @@ namespace PHStatistics.Portal.Controllers {
                 if (item == null)
                     return Json(new { success = false, message = "找不到項目" });
                 if (!Model.CanEditSchool(User, item.StudentPopulation.SchoolId ?? 0))
-                    return Forbid();
+                    return Json(new { success = false, message = "沒有權限異動此分校資料" });
                 bool canEditLocked = User.HasPermission(SystemPermission.PopulationWeekSwitch);
                 if (item.StudentPopulation.Status != StudentPopulationStatus.Documented && !canEditLocked)
                     return Json(new { success = false, message = "人數表狀態不允許修改" });
@@ -1711,6 +1735,8 @@ namespace PHStatistics.Portal.Controllers {
 
             if (population == null)
                 return Json(new { success = false, message = "找不到人數表" });
+            if (!Model.CanEditSchool(User, population.SchoolId ?? 0))
+                return Json(new { success = false, message = "沒有權限異動此分校資料" });
 
             bool canEditLocked = User.HasPermission(SystemPermission.PopulationWeekSwitch);
             if (population.Status != StudentPopulationStatus.Documented && !canEditLocked)
@@ -1753,6 +1779,8 @@ namespace PHStatistics.Portal.Controllers {
             StudentPopulation sp = dataContext.StudentPopulation.Find(populationId);
             if (sp == null)
                 return Json(new { success = false, message = "找不到人數表資料" });
+            if (!Model.CanEditSchool(User, sp.SchoolId ?? 0))
+                return Json(new { success = false, message = "沒有權限異動此分校資料" });
             if (sp.Status != StudentPopulationStatus.Documented)
                 return Json(new { success = false, message = "人數表已送出，無法重複確認" });
             sp.Status = StudentPopulationStatus.Pending;
@@ -1810,8 +1838,10 @@ namespace PHStatistics.Portal.Controllers {
         [HttpPost("QueryPopulationPartial")]
         // data: { 'schoolId': schoolId, 'courseId': newCourses.value, 'week': week, 'year': year, 'newClassType': newClassType, 'newClassName': newClassName, 'newNumber': newNumber, 'newStudentremark':newStudentremark },
         public IActionResult QueryPopulationPartial(int schoolId, int year, int week, string reportType) {
+            // 這支是 AJAX（dataType: html）載入到 #contentItem 的區塊，回 403 會讓前端 success 不觸發、
+            // 畫面完全沒反應，所以改回一段可直接顯示的 HTML 訊息，維持「回 HTML 片段」的既有慣例。
             if (!Model.CanAccessSchool(User, schoolId))
-                return Forbid();
+                return Content("<div class=\"alert alert-warning\">沒有權限檢視此分校資料</div>", "text/html");
 
             List<Course> courses = Model.DataContext.Course.OrderBy(e => e.Ordinal).ToList();
             ViewBag.Courses = courses;
@@ -1967,6 +1997,9 @@ namespace PHStatistics.Portal.Controllers {
             if (returnData == null) {
                 return Json(new { success = false, message = "找不到人數表" });
             }
+            if (!Model.CanEditSchool(User, returnData.SchoolId ?? 0)) {
+                return Json(new { success = false, message = "沒有權限異動此分校資料" });
+            }
             if (returnData.Status != StudentPopulationStatus.Documented && !User.HasPermission(SystemPermission.PopulationWeekSwitch)) {
                 return Json(new { success = false, message = "此人數表已鎖定，無法執行" });
             }
@@ -1994,6 +2027,9 @@ namespace PHStatistics.Portal.Controllers {
             StudentPopulation returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.Id == populationId);
             if (returnData == null) {
                 return Json(new { success = false, message = "找不到人數表" });
+            }
+            if (!Model.CanEditSchool(User, returnData.SchoolId ?? 0)) {
+                return Json(new { success = false, message = "沒有權限異動此分校資料" });
             }
             if (returnData.Status != StudentPopulationStatus.Documented && !User.HasPermission(SystemPermission.PopulationWeekSwitch)) {
                 return Json(new { success = false, message = "此人數表已鎖定，無法執行" });
