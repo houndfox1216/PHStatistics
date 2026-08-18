@@ -168,7 +168,8 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
         [HttpGet]
         public object GetAssignedSchools(Guid memberId, DataSourceLoadOptions loadOptions) {
             var query = Model.DataContext.SchoolAssignment
-                .Where(e => e.MemberId == memberId)
+                .Where(e => e.MemberId == memberId && e.SchoolId != null)
+                .OrderBy(e => e.School.Ordinal)
                 .Select(e => new { Id = e.SchoolId, Name = e.School.Name });
             return DataSourceLoader.Load(query, loadOptions);
         }

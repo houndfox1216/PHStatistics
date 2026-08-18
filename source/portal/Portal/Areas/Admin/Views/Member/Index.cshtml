@@ -142,6 +142,13 @@
         currentIsNew = !e.data || !e.data.Id;
     }
 
+    // 新增使用者時 DevExtreme 不會觸發 onEditingStart，若不清掉這兩個狀態，
+    // 會沿用上一位被編輯者的 Id，導致「主要轄校」下拉選單列出別人的分校指派。
+    function onMemberInitNewRow(e) {
+        currentEditMemberId = null;
+        currentIsNew = true;
+    }
+
     function onMemberPopupShown(e) {
         memberEditPopup = e.component;
 
@@ -280,6 +287,7 @@
         @(Html.DevExtreme().DataGrid<Member>()
             .ID("gridMembers")
             .OnEditingStart("onMemberEditingStart")
+            .OnInitNewRow("onMemberInitNewRow")
             .OnEditorPreparing("onMemberEditorPreparing")
             .DataSource(ds => ds.Mvc()
                 .Controller("Member")
