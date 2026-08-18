@@ -31,6 +31,29 @@
         }
     });
 
+    // 主要轄校下拉選單資料源：只列出該成員已被指派的分校
+    function createAssignedSchoolsStore(memberId) {
+        return new DevExpress.data.CustomStore({
+            key: "Id",
+            loadMode: "raw",
+            load: function() {
+                if (!memberId) return [];
+                return $.getJSON(
+                    "@Url.Action("GetAssignedSchools", "Member", new { area = "Admin" })",
+                    { memberId: memberId }
+                ).then(function(r) { return r.data || r; });
+            }
+        });
+    }
+
+    function onMemberEditorPreparing(e) {
+        if (e.parentType !== "dataRow") return;
+        if (e.dataField === "PrimarySchoolId") {
+            e.editorOptions.dataSource = createAssignedSchoolsStore(currentEditMemberId);
+            e.editorOptions.searchEnabled = true;
+        }
+    }
+
     // 建立分校指派的 DataSource（供編輯 Popup 使用）
     function createSchoolAssignmentSource() {
         var memberId = currentEditMemberId;
@@ -257,6 +280,7 @@
         @(Html.DevExtreme().DataGrid<Member>()
             .ID("gridMembers")
             .OnEditingStart("onMemberEditingStart")
+            .OnEditorPreparing("onMemberEditorPreparing")
             .DataSource(ds => ds.Mvc()
                 .Controller("Member")
                 .Area("Admin")
@@ -306,6 +330,12 @@
                         .DataSource(new JS("memberStatusOptions"))
                         .ValueExpr("value")
                         .DisplayExpr("text")
+                    );
+                columns.AddFor(m => m.PrimarySchoolId).Caption("主要轄校")
+                    .Lookup(lookup => lookup
+                        .DataSource(new JS("schoolsStore"))
+                        .ValueExpr("Id")
+                        .DisplayExpr("Name")
                     );
                 columns.AddFor(m => m.CreatedTime).Caption("建立時間").Width(150)
                     .DataType(GridColumnDataType.DateTime)
