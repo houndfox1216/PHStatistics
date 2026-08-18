@@ -165,6 +165,14 @@ namespace PHStatistics.Portal.Areas.Admin.Controllers {
             return DataSourceLoader.Load(query, loadOptions);
         }
 
+        [HttpGet]
+        public object GetAssignedSchools(Guid memberId, DataSourceLoadOptions loadOptions) {
+            var query = Model.DataContext.SchoolAssignment
+                .Where(e => e.MemberId == memberId)
+                .Select(e => new { Id = e.SchoolId, Name = e.School.Name });
+            return DataSourceLoader.Load(query, loadOptions);
+        }
+
         #endregion
     }
 }
