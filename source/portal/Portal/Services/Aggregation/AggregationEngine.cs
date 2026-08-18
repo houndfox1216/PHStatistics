@@ -8,13 +8,13 @@ namespace PHStatistics.Portal.Services.Aggregation;
 
 public class AggregationEngine {
     private readonly Func<int, int, int, StudentPopulationType, StudentPopulation> _lookupPopulation;
-    private readonly Func<StudentPopulation, StudentPopulation> _lookupLastWeekPopulation;
+    private readonly Func<StudentPopulation, StudentPopulationType, StudentPopulation> _lookupLastWeekPopulationOfType;
 
     public AggregationEngine(
         Func<int, int, int, StudentPopulationType, StudentPopulation> lookupPopulation,
-        Func<StudentPopulation, StudentPopulation> lookupLastWeekPopulation) {
+        Func<StudentPopulation, StudentPopulationType, StudentPopulation> lookupLastWeekPopulationOfType) {
         _lookupPopulation = lookupPopulation;
-        _lookupLastWeekPopulation = lookupLastWeekPopulation;
+        _lookupLastWeekPopulationOfType = lookupLastWeekPopulationOfType;
     }
 
     public void CalculateAll(StudentPopulation population) {
@@ -101,7 +101,7 @@ public class AggregationEngine {
     // 直接讀上週實際存的 StudentPopulation 現場加總，不依賴本週項目上快取的 LastWeekNumber 欄位——
     // 該欄位只在建表時複製一次，分校若把本週人數0的班級整列刪除，快取值會跟著消失，導致上週總數失真。
     private int SumLastWeek(Course course, StudentPopulationItem item, StudentPopulation population) {
-        var lastWeekPopulation = _lookupLastWeekPopulation(population);
+        var lastWeekPopulation = _lookupLastWeekPopulationOfType(population, population.Type);
         if (lastWeekPopulation?.Items == null) return 0;
         var sourceItems = GetSourceItems(course, item, lastWeekPopulation.Items);
         return WithLegacyFallback(sourceItems, course, lastWeekPopulation.Items, lastWeekPopulation.Year).Sum(i => i.Number);

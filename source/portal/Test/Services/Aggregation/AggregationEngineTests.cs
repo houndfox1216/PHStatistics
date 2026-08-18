@@ -34,10 +34,10 @@ public class AggregationEngineTests {
 
     private static AggregationEngine MakeEngine(
         System.Func<int, int, int, StudentPopulationType, StudentPopulation> lookupLastYearPopulation = null,
-        System.Func<StudentPopulation, StudentPopulation> lookupLastWeekPopulation = null) {
+        System.Func<StudentPopulation, StudentPopulationType, StudentPopulation> lookupLastWeekPopulation = null) {
         return new AggregationEngine(
             lookupLastYearPopulation ?? ((y, w, s, t) => null),
-            lookupLastWeekPopulation ?? (p => null));
+            lookupLastWeekPopulation ?? ((p, t) => null));
     }
 
     [Test]
@@ -152,7 +152,7 @@ public class AggregationEngineTests {
             Items = new List<StudentPopulationItem> { MakeItem(course1, ClassType.General, 10) },
         };
 
-        var engine = MakeEngine(lookupLastWeekPopulation: p => lastWeekPopulation);
+        var engine = MakeEngine(lookupLastWeekPopulation: (p, t) => lastWeekPopulation);
         engine.Calculate(sumItem, population);
 
         Assert.That(sumItem.Number, Is.EqualTo(5));
@@ -176,7 +176,7 @@ public class AggregationEngineTests {
             Items = new List<StudentPopulationItem> { MakeItem(course1, ClassType.General, 42) },
         };
 
-        var engine = MakeEngine(lookupLastWeekPopulation: p => lastWeekPopulation);
+        var engine = MakeEngine(lookupLastWeekPopulation: (p, t) => lastWeekPopulation);
         engine.Calculate(sumItem, population);
 
         Assert.That(sumItem.Number, Is.EqualTo(42));
@@ -214,7 +214,7 @@ public class AggregationEngineTests {
             Items = new List<StudentPopulationItem> { MakeItem(course1, ClassType.General, 42) },
         };
 
-        var engine = MakeEngine(lookupLastWeekPopulation: p => lastWeekPopulation);
+        var engine = MakeEngine(lookupLastWeekPopulation: (p, t) => lastWeekPopulation);
         engine.Calculate(sumItem, population);
 
         Assert.That(sumItem.Number, Is.EqualTo(42));
