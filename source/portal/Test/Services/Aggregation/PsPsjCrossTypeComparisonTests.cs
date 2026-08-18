@@ -67,6 +67,17 @@ public class PsPsjCrossTypeComparisonTests {
                 mismatches.Add($"Population {population.Id} (School {population.SchoolId}, {population.Year}/{population.Week}): " +
                     $"course 135 expected={expected135} (直接加總PSJ課程562-573) engine={engine135}");
             }
+
+            var psjLastWeek = LookupLastWeek(population, StudentPopulationType.PSJ);
+            int expected139 = psjLastWeek?.Items
+                .Where(i => i.Class?.CourseId != null && new[] { 562, 563, 564, 565, 566, 567, 568, 569, 570, 571, 572, 573 }.Contains(i.Class.CourseId.Value))
+                .Sum(i => i.Number) ?? 0;
+
+            int engine139 = engine.Preview(course139Item, population) ?? -1;
+            if (engine139 != expected139) {
+                mismatches.Add($"Population {population.Id} (School {population.SchoolId}, {population.Year}/{population.Week}): " +
+                    $"course 139 expected={expected139} (PSJ上週資料，課程562-573加總) engine={engine139}");
+            }
             psjCoursesChecked++;
         }
 
