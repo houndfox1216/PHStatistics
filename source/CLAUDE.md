@@ -238,24 +238,12 @@ private static readonly Dictionary<string, int[]> _asCourseIds
 | PSJ | 標題 | — | Row 4 = code 表頭、Row 5+ 資料 | 格式：年/週/分校/年級/T/MP/MS/... |
 | AS | 標題 | — | Row 4 = code 表頭、Row 5+ 資料 | 格式：年/週/分校/年級/T/AS/EP/... |
 
-#### IsSum 欄位計算（`ComputeIsumValue`）
+#### 欄位數值來源 —— 匯出不做任何計算
 
-匯出時對 `Course.IsSum = true` 的欄位（合計欄）不讀取已存項目，而是即時從非 IsSum 項目計算：
+匯出時所有欄位（包含 `Course.IsSum = true` 的合計/分析欄）一律直接讀取已存的 `StudentPopulationItem.Number`，**匯出當下不重新計算**。真正的計算發生在存檔時，由 `AggregationEngine.CalculateAll` 執行並把結果寫回 `Number`；匯出程式只負責讀取與排版（`BuildSheetPS` 等 `BuildSheetXXX` 方法內對 IsSum 欄位頂多做「不要重複計入自己合成的部門合計欄」這類排版判斷，不會重算數值本身）。
 
-1. **來源篩選**：`SourceDepartmentIds` > `SourceCourseIds` > 同班系（DepartmentId）
-2. **班別篩選**：`ApplicableClassType` 優先；次之若 `GroupByClassType=true` 則用列的班別（PH 的小/三）
-3. **計算方式**（`Course.StatisticsType`，無設定時從課程名稱推斷）：
-
-| StatisticsType | 計算 |
-|---|---|
-| `SumByDepartment` / `SumBySourceX` / `SumAll` / 預設 | `Sum(Number)` |
-| `CountClasses` / `CountClassesByClassType` | `Count(Number > 0)` |
-| `LastWeekValue` | `Sum(LastWeekNumber)` |
-| `DiffWithLastWeek` | `Sum(Number) - Sum(LastWeekNumber)` |
-| `NewStudents` | `Max(Sum(Number) - Sum(LastWeekNumber), 0)` |
-| `LostStudents` | `Max(Sum(LastWeekNumber) - Sum(Number), 0)` |
-
-名稱推斷規則：含「班數」→ CountClasses；含「上週」→ LastWeekValue；含「新增/新生」→ NewStudents；含「流失」→ LostStudents；含「與上週相比」→ DiffWithLastWeek；其餘 → SumByDepartment。
+- `ReportExportService.ComputeIsumValue`（舊版 StatisticsType→計算方式對照表）目前已無任何呼叫點，是死碼，勿再依此描述匯出行為。
+- 若匯出出來的 IsSum 欄位數字看起來不對，應排查 `AggregationEngine`（存檔時）或該筆 `StudentPopulationItem.IsManual` 是否被凍結，而不是懷疑匯出程式做了錯的計算。
 
 #### `ExportReport` endpoint（StudentPopulationController）
 
@@ -269,13 +257,14 @@ GET /StudentPopulation/ExportReport?year=&week=&reportType=&allSchools=&schoolId
 
 ---
 
-### StatisticsCalculationService
+### AggregationEngine（`Portal/Services/Aggregation/AggregationEngine.cs`）
 
-計算 `StudentPopulation.Items` 中 `IsSum=true` 項目的值，由各 save/recalculate 流程主動呼叫：
+實際負責計算 `StudentPopulation.Items` 中 `IsSum=true` 項目數值的元件，由存檔/重算流程呼叫（`StudentPopulationController`）：
 
-- `CalculateAll(population)` — 計算該人數表所有 IsSum 項目
-- `Calculate(item, population)` — 計算單一 IsSum 項目
-- 若 `Course.StatisticsType` 為 null 且 `IsSum=true`，fallback 到 `DetermineStatisticsTypeByName`
-- 若 `item.IsManual=true`，跳過自動計算
+- `CalculateAll(population)` — 計算該人數表所有 IsSum 項目，寫回 `item.Number`
+- `Calculate(item, population)` — 計算單一 IsSum 項目；`item.IsManual=true` 時直接跳過（凍結值不覆蓋）
+- `Preview(item, population)` — 邏輯同 `Calculate` 但不寫回，供「改用系統試算值」等預覽功能使用
+- 依 `Course.StatisticsType` 分派計算方式：`SumByDepartment` / `CountClasses` / `LastWeekValue` / `DiffWithLastWeek` / `LastYearValue` / `DiffWithLastYear` / `DiffBetweenCourses` / `DivideBySourceCourses` / `Average` / `YearToDateSum` / `SumFromOtherType` / `LastWeekValueFromOtherType` 等；未支援的型別會 throw `NotSupportedException`
+- `Course.SourceCourseIds` / `NegativeSourceCourseIds` 決定來源課程（相除的分子/分母、相減的加項/減項）；`SourceStudentPopulationType` 用於跨報表類型取值（例如 PS 課程 142 取 PSJ 資料）
 
-`ReportExportService.ComputeIsumValue` 是匯出時的平行實作，邏輯與此服務保持一致，但不依賴儲存的 IsSum 項目（直接從來源項目即時計算）。
+`StatisticsCalculationService.cs` 是同名邏輯的舊版實作，目前未被注入或呼叫（死碼），勿再參考。**`ReportExportService.ComputeIsumValue` 同樣是死碼** —— 匯出不重算，只讀已由 `AggregationEngine` 算好並持久化的 `Number`。

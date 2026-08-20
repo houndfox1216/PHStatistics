@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using NPOI.SS.UserModel;
 using NPOI.SS.Util;
@@ -619,92 +618,6 @@ public class ReportExportService {
     }
 
     // ── 共用 helper ───────────────────────────────────────────────────────────
-
-    // 計算 IsSum 課程的合計值（對應 StatisticsCalculationService 邏輯）
-    // rowClassType：本列的班別（PH 的 SubGroup/V3；GEPT/PS 傳 null）
-    private static int ComputeIsumValue(Course course,
-        IEnumerable<StudentPopulationItem> allItems, ClassType? rowClassType) {
-
-        var statsTypeEarly = course.StatisticsType ?? InferStatisticsType(course.Name);
-        if (statsTypeEarly == StatisticsType.DiffBetweenCourses) {
-            // 來源課程本身可能是 IsSum=true（例如新生/流失手動輸入欄位），不能套用下方排除 IsSum 的 src 管線
-            var ct2 = course.ApplicableClassType ?? (course.GroupByClassType ? rowClassType : null);
-            var posIds = TryParseIntArray(course.SourceCourseIds);
-            var negIds = TryParseIntArray(course.NegativeSourceCourseIds);
-            int positive = allItems.Where(i => i.Class?.CourseId != null && posIds.Contains(i.Class.CourseId.Value))
-                                    .Where(i => !ct2.HasValue || i.Class?.Type == ct2.Value).Sum(i => i.Number);
-            int negative = allItems.Where(i => i.Class?.CourseId != null && negIds.Contains(i.Class.CourseId.Value))
-                                    .Where(i => !ct2.HasValue || i.Class?.Type == ct2.Value).Sum(i => i.Number);
-            return positive - negative;
-        }
-        if (statsTypeEarly == StatisticsType.DivideBySourceCourses) {
-            // 來源課程（分子）／扣除來源課程（分母）本身可能是 IsSum=true（例如 PS 的總人數/開班數合計欄位），不能套用下方排除 IsSum 的 src 管線
-            var ct3 = course.ApplicableClassType ?? (course.GroupByClassType ? rowClassType : null);
-            var numIds = TryParseIntArray(course.SourceCourseIds);
-            var denIds = TryParseIntArray(course.NegativeSourceCourseIds);
-            int numerator = allItems.Where(i => i.Class?.CourseId != null && numIds.Contains(i.Class.CourseId.Value))
-                                    .Where(i => !ct3.HasValue || i.Class?.Type == ct3.Value).Sum(i => i.Number);
-            int denominator = allItems.Where(i => i.Class?.CourseId != null && denIds.Contains(i.Class.CourseId.Value))
-                                    .Where(i => !ct3.HasValue || i.Class?.Type == ct3.Value).Sum(i => i.Number);
-            return denominator > 0 ? numerator / denominator : 0;
-        }
-
-        // 排除 IsSum 課程本身的項目，只用真實班級資料計算
-        var src = allItems.Where(i => i.Class?.Course?.IsSum != true);
-
-        // 來源篩選：SourceDepartmentIds > SourceCourseIds > 同班系
-        if (!string.IsNullOrEmpty(course.SourceDepartmentIds)) {
-            var ids = TryParseIntArray(course.SourceDepartmentIds);
-            if (ids.Length > 0)
-                src = src.Where(i => i.Class?.Course?.DepartmentId != null &&
-                                     ids.Contains(i.Class.Course.DepartmentId.Value));
-        } else if (!string.IsNullOrEmpty(course.SourceCourseIds)) {
-            var ids = TryParseIntArray(course.SourceCourseIds);
-            if (ids.Length > 0)
-                src = src.Where(i => i.Class?.CourseId != null &&
-                                     ids.Contains(i.Class.CourseId.Value));
-        } else {
-            src = src.Where(i => i.Class?.Course?.DepartmentId == course.DepartmentId);
-        }
-
-        // 班別篩選：ApplicableClassType 優先，其次 GroupByClassType 使用列班別
-        var ct = course.ApplicableClassType
-                 ?? (course.GroupByClassType ? rowClassType : null);
-        if (ct.HasValue)
-            src = src.Where(i => i.Class?.Type == ct.Value);
-
-        // 決定統計類型（db 設定 > 名稱推斷）
-        var statsType = course.StatisticsType ?? InferStatisticsType(course.Name);
-
-        return statsType switch {
-            StatisticsType.CountClasses or StatisticsType.CountClassesByClassType
-                => src.Count(i => i.Number > 0),
-            StatisticsType.LastWeekValue
-                => src.Sum(i => i.LastWeekNumber),
-            StatisticsType.DiffWithLastWeek
-                => src.Sum(i => i.Number) - src.Sum(i => i.LastWeekNumber),
-            StatisticsType.NewStudents
-                => Math.Max(src.Sum(i => i.Number) - src.Sum(i => i.LastWeekNumber), 0),
-            StatisticsType.LostStudents
-                => Math.Max(src.Sum(i => i.LastWeekNumber) - src.Sum(i => i.Number), 0),
-            _ => src.Sum(i => i.Number),   // SumByDepartment / SumBySourceX / SumAll / 預設
-        };
-    }
-
-    private static StatisticsType? InferStatisticsType(string name) {
-        if (string.IsNullOrEmpty(name)) return null;
-        if (name.Contains("班級數") || name.Contains("班數")) return StatisticsType.CountClasses;
-        if (name.Contains("上週"))                               return StatisticsType.LastWeekValue;
-        if (name.Contains("新增") || name.Contains("新生"))      return StatisticsType.NewStudents;
-        if (name.Contains("流失"))                               return StatisticsType.LostStudents;
-        if (name.Contains("與上週相比"))                         return StatisticsType.DiffWithLastWeek;
-        return StatisticsType.SumByDepartment;
-    }
-
-    private static int[] TryParseIntArray(string json) {
-        try { return JsonSerializer.Deserialize<int[]>(json) ?? Array.Empty<int>(); }
-        catch { return Array.Empty<int>(); }
-    }
 
     // 依 School.Region.Name 分組，維持組內原有排序（LoadPopulations 已依 Region.Ordinal, School.Ordinal 排序）
     // 查無 Region 的分校統一歸入「未分區」，永遠排在最後
