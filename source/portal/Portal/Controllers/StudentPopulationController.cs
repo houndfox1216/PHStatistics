@@ -2076,7 +2076,11 @@ namespace PHStatistics.Portal.Controllers {
 
         // 2026-07-30：改為 static，不再依賴 Model（本來就只用來取本週資料，改用本方法自建的 dataContext 直接查詢），
         // 讓匯入流程（PopulationImportService）也能在沒有HTTP請求情境下呼叫同一套加總邏輯，不必另外複製一份。
-        public static StudentPopulation SumPHPopulation(long spId) {
+        public static StudentPopulation SumPHPopulation(long spId) => SumPHPopulation(spId, new HashSet<long>());
+
+        // visited：防止跨類型連動重算（見下方 CascadeRecalculateDependents）形成循環時無限遞迴
+        private static StudentPopulation SumPHPopulation(long spId, HashSet<long> visited) {
+            if (!visited.Add(spId)) return null;
             DataContext dataContext = new DataContext();
             dataContext.ChangeTracker.Clear();
             var aggregationEngine = new AggregationEngine(
@@ -2436,7 +2440,30 @@ namespace PHStatistics.Portal.Controllers {
 
             }
             dataContext.SaveChanges();
+
+            CascadeRecalculateDependents(dataContext, studentPopulationData, visited);
             return studentPopulationData;
+        }
+
+        // 存檔後檢查是否有其他型別的 IsSum 課程設定 SourceStudentPopulationType 指向本型別
+        // （例如 PS 課程135/139/142 讀 PSJ 資料），若同校同學年週次已建立該型別人數表，一併重算並存檔，
+        // 避免「PS 先存檔、PSJ 之後才被異動」造成 PS 的跨類型欄位停留在舊值。
+        private static void CascadeRecalculateDependents(DataContext dataContext, StudentPopulation population, HashSet<long> visited) {
+            if (population?.SchoolId == null) return;
+
+            var dependentTypes = dataContext.Course
+                .Where(c => c.SourceStudentPopulationType == population.Type)
+                .Select(c => c.Type)
+                .Distinct()
+                .ToList();
+
+            foreach (var depType in dependentTypes) {
+                var sibling = dataContext.StudentPopulation
+                    .FirstOrDefault(p => p.Year == population.Year && p.Week == population.Week &&
+                                          p.SchoolId == population.SchoolId && p.Type == depType);
+                if (sibling != null && !visited.Contains(sibling.Id))
+                    SumPHPopulation(sibling.Id, visited);
+            }
         }
 
         private static readonly string[] _gradeTokens = {

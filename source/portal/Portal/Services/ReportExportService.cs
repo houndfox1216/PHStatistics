@@ -831,7 +831,7 @@ public class ReportExportService {
     // ── PS 班級明細 ───────────────────────────────────────────────────────────
     // 格式：每校 1 列（PS 只有 ClassType.General，無小班/三人班區分）；
     // 跟 PH 明細不同的地方——PS 各校打的班名不一樣，欄位表頭沿用通用序號「第N班」，
-    // 真實班名寫進儲存格內文字（"班名:人數"），代價是該欄位不再是純數字、Excel公式加總會受影響。
+    // 儲存格只放人數（純數字），不放班名。
 
     public byte[] ExportPSDetail(int year, int week, IList<int> schoolIds = null) {
         var populations = LoadPopulations(StudentPopulationType.PS, year, week, schoolIds);
@@ -910,8 +910,7 @@ public class ReportExportService {
                         .OrderBy(i => i.Class.Ordinal).ThenBy(i => i.Class.Id).ToList();
                     for (int si = 0; si < slots; si++) {
                         if (si < items.Count && items[si].Number > 0) {
-                            string className = items[si].Class?.Name ?? items[si].Name ?? "";
-                            row.CreateCell(col + si).SetCellValue($"{className}:{items[si].Number}");
+                            row.CreateCell(col + si).SetCellValue(items[si].Number);
                             deptTotal += items[si].Number;
                         }
                     }
