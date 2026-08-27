@@ -87,7 +87,6 @@ body {
 }
 .input-card.disabled {
     background-color: #adb5bd;
-    pointer-events: none;
     cursor: not-allowed;
 }
 .utility-card {
