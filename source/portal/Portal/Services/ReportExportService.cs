@@ -84,13 +84,18 @@ public class ReportExportService {
         };
 
         switch (type) {
-            case StudentPopulationType.PH:
-                foreach (var (regionName, regionPopulations) in GroupByRegion(populations)) {
+            case StudentPopulationType.PH: {
+                var regionGroups = GroupByRegion(populations);
+                for (int i = 0; i < regionGroups.Count; i++) {
+                    var (regionName, regionPopulations) = regionGroups[i];
                     var sheet = wb.CreateSheet(regionName);
+                    bool isLastRegion = i == regionGroups.Count - 1;
                     BuildSheetPH(sheet, regionPopulations, courses, year, week,
-                        $"{year}年第{week}週百瀚英語{regionName}分校人數統計表");
+                        $"{year}年第{week}週百瀚英語{regionName}分校人數統計表",
+                        isLastRegion ? populations : null);
                 }
                 break;
+            }
             case StudentPopulationType.GEPT: {
                 var sheet = wb.CreateSheet("英檢");
                 BuildSheetGEPT(sheet, populations, courses, year, week);
@@ -109,6 +114,8 @@ public class ReportExportService {
                     var sheet = wb.CreateSheet(regionName);
                     BuildSheetPSJ(sheet, regionPopulations, psjCourses, year, week);
                 }
+                var summarySheet = wb.CreateSheet("總計");
+                BuildSheetPSJTotal(summarySheet, populations, psjCourses, year, week);
                 break;
             }
             case StudentPopulationType.AfterSchool:
@@ -129,9 +136,13 @@ public class ReportExportService {
     // 2026-08-02：欄位改成完整Course清單（含IsSum合計/上週人數/與上週相比/去年同期比/新生/流失/總班數等），
     // 比照 BuildSheetPHBySchool 的做法——這些課程本身就在正確的Ordinal位置上，不用再自行合成部門「合計」欄。
     // 呼叫端(Export())需傳入 LoadCourses(PH, publishedOnly:false)，否則這些課程幾乎全部Published=0會被濾光。
+    // allPopulationsForGrandTotal：非null時代表這是最後一個分區頁籤，除了自己的「小計」外，
+    // 還要加上跨區「合計」（南區+中北區加總）以及「去年同期／總計／分析」欄位標籤（比照115年第4週參考檔案的中北區頁籤）。
+    // 「去年同期／總計／分析」的算法與資料來源（114學年度歷史資料）尚待與客戶確認，目前只保留版面，數值刻意留空。
     private static void BuildSheetPH(ISheet sheet,
         List<StudentPopulation> populations, List<Course> courses,
-        int year, int week, string title) {
+        int year, int week, string title,
+        List<StudentPopulation> allPopulationsForGrandTotal = null) {
 
         sheet.CreateRow(0).CreateCell(0).SetCellValue(title);
 
@@ -161,6 +172,9 @@ public class ReportExportService {
 
         // 資料列：每校兩列（小=SubGroup+Personal、三=V3）。GroupByClassType/ApplicableClassType的課程依班別
         // 分別計算；其餘單一值課程（上週人數/與上週相比/新生/流失/個別指導合計/合作開班合計等）只寫在小列。
+        int totalCols = 2 + courses.Count;
+        var colTotals = new int[totalCols];
+
         int rowIdx = 4;
         foreach (var pop in populations) {
             var sgRow = sheet.CreateRow(rowIdx);
@@ -180,14 +194,62 @@ public class ReportExportService {
                     int v3 = pop.Items.Where(i => i.Class?.CourseId == c.Id && i.Class?.Type == ClassType.V3).Sum(i => i.Number);
                     if (sg != 0) sgRow.CreateCell(col).SetCellValue(sg);
                     if (v3 != 0) v3Row.CreateCell(col).SetCellValue(v3);
+                    colTotals[col] += sg + v3;
                 }
                 else {
                     int total = pop.Items.Where(i => i.Class?.CourseId == c.Id).Sum(i => i.Number);
                     if (total != 0) sgRow.CreateCell(col).SetCellValue(total);
+                    colTotals[col] += total;
                 }
                 col++;
             }
             rowIdx += 2;
+        }
+
+        // 小計：這個分區自己跨分校的欄位加總（含IsSum合計/分析欄——差值型欄位加總後仍等於差值總和，數學上成立）
+        var subtotalRow = sheet.CreateRow(rowIdx);
+        subtotalRow.CreateCell(0).SetCellValue("小計");
+        try { sheet.AddMergedRegion(new CellRangeAddress(rowIdx, rowIdx, 0, 1)); } catch { }
+        for (int c = 2; c < totalCols; c++)
+            if (colTotals[c] != 0) subtotalRow.CreateCell(c).SetCellValue(colTotals[c]);
+        rowIdx++;
+
+        if (allPopulationsForGrandTotal != null) {
+            var grandTotals = new int[totalCols];
+            foreach (var pop in allPopulationsForGrandTotal) {
+                int gCol = 2;
+                foreach (var c in courses) {
+                    grandTotals[gCol] += pop.Items.Where(i => i.Class?.CourseId == c.Id).Sum(i => i.Number);
+                    gCol++;
+                }
+            }
+
+            var combinedRow = sheet.CreateRow(rowIdx);
+            combinedRow.CreateCell(0).SetCellValue("合計");
+            try { sheet.AddMergedRegion(new CellRangeAddress(rowIdx, rowIdx, 0, 1)); } catch { }
+            for (int c = 2; c < totalCols; c++)
+                if (grandTotals[c] != 0) combinedRow.CreateCell(c).SetCellValue(grandTotals[c]);
+            rowIdx++;
+
+            foreach (var label in new[] { "去年同期", "總計", "分析" }) {
+                var row = sheet.CreateRow(rowIdx);
+                row.CreateCell(0).SetCellValue(label);
+                try { sheet.AddMergedRegion(new CellRangeAddress(rowIdx, rowIdx, 0, 1)); } catch { }
+                rowIdx++;
+            }
+
+            // 跨報表(PH+GEPT+PSJ) 114年/115年比較區塊：資料來源涉及另外兩種報表類型及去年歷史資料，
+            // 本次匯出只留版面標籤，儲存格刻意留空，待確認算法與資料來源後再補（不做跨Export()呼叫組合匯出）。
+            rowIdx++;
+            var yearHeaderRow = sheet.CreateRow(rowIdx);
+            yearHeaderRow.CreateCell(1).SetCellValue("英+國");
+            yearHeaderRow.CreateCell(2).SetCellValue("英檢");
+            yearHeaderRow.CreateCell(3).SetCellValue("百倍速");
+            rowIdx++;
+            foreach (var yearLabel in new[] { "114年", "115年" }) {
+                sheet.CreateRow(rowIdx).CreateCell(0).SetCellValue(yearLabel);
+                rowIdx++;
+            }
         }
     }
 
@@ -345,22 +407,44 @@ public class ReportExportService {
                 try { sheet.AddMergedRegion(new CellRangeAddress(1, 1, deptStart, col - 1)); } catch { }
         }
 
+        int totalColsGept = col;
+        var grandTotals = new int[totalColsGept];
+
         int rowIdx = 4;
-        foreach (var pop in populations) {
-            var row = sheet.CreateRow(rowIdx++);
-            row.CreateCell(0).SetCellValue(pop.School?.Name ?? "");
-            col = 2;
-            foreach (var (dept, list) in deptGroups) {
-                int total = 0;
-                foreach (var c in list) {
-                    int sum = pop.Items.Where(i => i.Class?.CourseId == c.Id).Sum(i => i.Number);
-                    if (sum > 0) { row.CreateCell(col).SetCellValue(sum); if (!c.IsSum) total += sum; }
+        // 依南區/中北區分組寫資料列，每區結束後補一列「OO小計」，最後再補一列「全國總計」
+        // （比照115年第4週參考檔案「英檢」頁籤：南區小計/中北區小計/全國總計皆為單純加總，不涉及人工資料）。
+        foreach (var (regionName, regionPopulations) in GroupByRegion(populations)) {
+            var regionTotals = new int[totalColsGept];
+            foreach (var pop in regionPopulations) {
+                var row = sheet.CreateRow(rowIdx++);
+                row.CreateCell(0).SetCellValue(pop.School?.Name ?? "");
+                col = 2;
+                foreach (var (dept, list) in deptGroups) {
+                    int total = 0;
+                    foreach (var c in list) {
+                        int sum = pop.Items.Where(i => i.Class?.CourseId == c.Id).Sum(i => i.Number);
+                        if (sum > 0) { row.CreateCell(col).SetCellValue(sum); if (!c.IsSum) total += sum; }
+                        regionTotals[col] += sum;
+                        col++;
+                    }
+                    if (total > 0) row.CreateCell(col).SetCellValue(total);
+                    regionTotals[col] += total;
                     col++;
                 }
-                if (total > 0) row.CreateCell(col).SetCellValue(total);
-                col++;
+            }
+
+            var subtotalRow = sheet.CreateRow(rowIdx++);
+            subtotalRow.CreateCell(0).SetCellValue($"{regionName}小計");
+            for (int c = 2; c < totalColsGept; c++) {
+                if (regionTotals[c] != 0) subtotalRow.CreateCell(c).SetCellValue(regionTotals[c]);
+                grandTotals[c] += regionTotals[c];
             }
         }
+
+        var grandTotalRow = sheet.CreateRow(rowIdx);
+        grandTotalRow.CreateCell(0).SetCellValue("全國總計");
+        for (int c = 2; c < totalColsGept; c++)
+            if (grandTotals[c] != 0) grandTotalRow.CreateCell(c).SetCellValue(grandTotals[c]);
     }
 
     // ── PS ───────────────────────────────────────────────────────────────────
@@ -490,6 +574,88 @@ public class ReportExportService {
                 ci++;
             }
         }
+    }
+
+    // ── PSJ 總計（依區加總，非逐校）────────────────────────────────────────────
+    // 115年第4週參考檔案「百倍速」活頁簿多一個獨立「總計」分頁（南區/北區合計）。這裡用我們系統自己的
+    // 彙整方式（依 GroupByRegion 分區加總全部分校）產生，不逐儲存格複製參考檔案裡那種跨分頁公式結構。
+    private static void BuildSheetPSJTotal(ISheet sheet,
+        List<StudentPopulation> populations, List<Course> courses, int year, int week) {
+
+        sheet.CreateRow(0).CreateCell(0).SetCellValue($"{year}年第{week}週百倍速人數表（總計）");
+
+        var r1 = sheet.CreateRow(1);
+        var r2 = sheet.CreateRow(2);
+        r1.CreateCell(0).SetCellValue("分區");
+        try { sheet.AddMergedRegion(new CellRangeAddress(1, 2, 0, 0)); } catch { }
+
+        var deptGroups = courses
+            .Where(c => !c.IsSum)
+            .GroupBy(c => c.Department.Id)
+            .Select(g => (dept: g.First().Department, list: g.ToList()))
+            .ToList();
+
+        int col = 1;
+        foreach (var (dept, list) in deptGroups) {
+            int deptStart = col;
+            foreach (var c in list) {
+                if (c.GroupByClassType) {
+                    r2.CreateCell(col).SetCellValue($"{c.Name}(EM1)");
+                    col++;
+                    r2.CreateCell(col).SetCellValue($"{c.Name}(小組班)");
+                    col++;
+                } else {
+                    r2.CreateCell(col).SetCellValue(c.Name);
+                    col++;
+                }
+            }
+            r2.CreateCell(col).SetCellValue("合計");
+            col++;
+            r1.CreateCell(deptStart).SetCellValue(dept.Name);
+            if (col - 1 > deptStart)
+                try { sheet.AddMergedRegion(new CellRangeAddress(1, 1, deptStart, col - 1)); } catch { }
+        }
+
+        int totalCols = col;
+        var grandTotals = new int[totalCols];
+
+        int rowIdx = 3;
+        foreach (var (regionName, regionPopulations) in GroupByRegion(populations)) {
+            var row = sheet.CreateRow(rowIdx++);
+            row.CreateCell(0).SetCellValue($"{regionName}合計");
+
+            int ci = 1;
+            foreach (var (dept, list) in deptGroups) {
+                int deptTotal = 0;
+                foreach (var c in list) {
+                    if (c.GroupByClassType) {
+                        int em1 = regionPopulations.Sum(p => p.Items.Where(i => i.Class?.CourseId == c.Id && i.Class?.Type == ClassType.Personal).Sum(i => i.Number));
+                        int sub = regionPopulations.Sum(p => p.Items.Where(i => i.Class?.CourseId == c.Id && i.Class?.Type == ClassType.SubGroup).Sum(i => i.Number));
+                        if (em1 > 0) row.CreateCell(ci).SetCellValue(em1);
+                        grandTotals[ci] += em1;
+                        ci++;
+                        if (sub > 0) row.CreateCell(ci).SetCellValue(sub);
+                        grandTotals[ci] += sub;
+                        ci++;
+                        deptTotal += em1 + sub;
+                    } else {
+                        int sum = regionPopulations.Sum(p => p.Items.Where(i => i.Class?.CourseId == c.Id).Sum(i => i.Number));
+                        if (sum > 0) row.CreateCell(ci).SetCellValue(sum);
+                        grandTotals[ci] += sum;
+                        ci++;
+                        deptTotal += sum;
+                    }
+                }
+                if (deptTotal > 0) row.CreateCell(ci).SetCellValue(deptTotal);
+                grandTotals[ci] += deptTotal;
+                ci++;
+            }
+        }
+
+        var grandRow = sheet.CreateRow(rowIdx);
+        grandRow.CreateCell(0).SetCellValue("全國合計");
+        for (int c = 1; c < totalCols; c++)
+            if (grandTotals[c] != 0) grandRow.CreateCell(c).SetCellValue(grandTotals[c]);
     }
 
     // ── AS ───────────────────────────────────────────────────────────────────
@@ -728,11 +894,26 @@ public class ReportExportService {
         int fixedCols = 2;
         int totalCols = fixedCols + displayCourses.Sum(c => c.IsSum ? 1 : maxSlots[c.Id]);
 
-        var wb    = new XSSFWorkbook();
-        var sheet = wb.CreateSheet("Sheet1");
+        // 分校已依南區/北區分組，一區一個Sheet；表頭欄位（班系/課程/子欄位）沿用全體分校的共同版面，
+        // 確保各Sheet欄位一致，方便跨Sheet比對。
+        var wb = new XSSFWorkbook();
+        foreach (var (regionName, regionPopulations) in GroupByRegion(populations)) {
+            var sheet = wb.CreateSheet(regionName);
+            BuildSheetPHDetail(sheet, regionPopulations, deptGroups, maxSlots, fixedCols, totalCols,
+                $"{year}年第{week}週百瀚人數表（班級明細）{regionName}");
+        }
+
+        using var ms = new MemoryStream();
+        wb.Write(ms);
+        return ms.ToArray();
+    }
+
+    private static void BuildSheetPHDetail(ISheet sheet, List<StudentPopulation> populations,
+        List<(CourseDepartment dept, List<Course> list)> deptGroups, Dictionary<int, int> maxSlots,
+        int fixedCols, int totalCols, string title) {
 
         // Row 0: 標題
-        sheet.CreateRow(0).CreateCell(0).SetCellValue($"{year}年第{week}週百瀚人數表（班級明細）");
+        sheet.CreateRow(0).CreateCell(0).SetCellValue(title);
         try { sheet.AddMergedRegion(new CellRangeAddress(0, 0, 0, totalCols - 1)); } catch { }
 
         var r1 = sheet.CreateRow(1);
@@ -769,6 +950,7 @@ public class ReportExportService {
         }
 
         // Row 4+: 每校 2 列（小班 / 三人班）
+        var colTotals = new int[totalCols];
         int rowIdx = 4;
         foreach (var pop in populations) {
             var sgRow = sheet.CreateRow(rowIdx);
@@ -789,10 +971,12 @@ public class ReportExportService {
                             int v3 = pop.Items.Where(i => i.Class?.CourseId == c.Id && i.Class?.Type == ClassType.V3).Sum(i => i.Number);
                             if (sg != 0) sgRow.CreateCell(col).SetCellValue(sg);
                             if (v3 != 0) v3Row.CreateCell(col).SetCellValue(v3);
+                            colTotals[col] += sg + v3;
                         }
                         else {
                             int total = pop.Items.Where(i => i.Class?.CourseId == c.Id).Sum(i => i.Number);
                             if (total != 0) sgRow.CreateCell(col).SetCellValue(total);
+                            colTotals[col] += total;
                         }
                         col++;
                     }
@@ -806,10 +990,14 @@ public class ReportExportService {
                             .Where(i => i.Class?.CourseId == c.Id && i.Class?.Type == ClassType.V3)
                             .OrderBy(i => i.Class.Ordinal).ThenBy(i => i.Class.Id).ToList();
                         for (int si = 0; si < slots; si++) {
-                            if (si < sgItems.Count && sgItems[si].Number > 0)
+                            if (si < sgItems.Count && sgItems[si].Number > 0) {
                                 sgRow.CreateCell(col + si).SetCellValue(sgItems[si].Number);
-                            if (si < v3Items.Count && v3Items[si].Number > 0)
+                                colTotals[col + si] += sgItems[si].Number;
+                            }
+                            if (si < v3Items.Count && v3Items[si].Number > 0) {
                                 v3Row.CreateCell(col + si).SetCellValue(v3Items[si].Number);
+                                colTotals[col + si] += v3Items[si].Number;
+                            }
                         }
                         col += slots;
                     }
@@ -818,14 +1006,17 @@ public class ReportExportService {
             rowIdx += 2;
         }
 
+        // 最後一列：跨該Sheet(區)所有分校的欄位加總
+        var totalRow = sheet.CreateRow(rowIdx);
+        totalRow.CreateCell(0).SetCellValue("總計");
+        try { sheet.AddMergedRegion(new CellRangeAddress(rowIdx, rowIdx, 0, 1)); } catch { }
+        for (int c = fixedCols; c < totalCols; c++)
+            if (colTotals[c] != 0) totalRow.CreateCell(c).SetCellValue(colTotals[c]);
+
         sheet.SetColumnWidth(0, 20 * 256);
         sheet.SetColumnWidth(1, 9 * 256);
         for (int c = fixedCols; c < totalCols; c++)
             sheet.SetColumnWidth(c, 7 * 256);
-
-        using var ms = new MemoryStream();
-        wb.Write(ms);
-        return ms.ToArray();
     }
 
     // ── PS 班級明細 ───────────────────────────────────────────────────────────
