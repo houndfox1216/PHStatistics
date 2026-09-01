@@ -897,10 +897,14 @@ public class ReportExportService {
         // 分校已依南區/北區分組，一區一個Sheet；表頭欄位（班系/課程/子欄位）沿用全體分校的共同版面，
         // 確保各Sheet欄位一致，方便跨Sheet比對。
         var wb = new XSSFWorkbook();
-        foreach (var (regionName, regionPopulations) in GroupByRegion(populations)) {
+        var regionGroups = GroupByRegion(populations);
+        for (int i = 0; i < regionGroups.Count; i++) {
+            var (regionName, regionPopulations) = regionGroups[i];
             var sheet = wb.CreateSheet(regionName);
+            bool isLastRegion = i == regionGroups.Count - 1;
             BuildSheetPHDetail(sheet, regionPopulations, deptGroups, maxSlots, fixedCols, totalCols,
-                $"{year}年第{week}週百瀚人數表（班級明細）{regionName}");
+                $"{year}年第{week}週百瀚人數表（班級明細）{regionName}",
+                isLastRegion ? populations : null);
         }
 
         using var ms = new MemoryStream();
@@ -908,9 +912,14 @@ public class ReportExportService {
         return ms.ToArray();
     }
 
+    // allPopulationsForGrandTotal：非null時代表這是最後一個分區頁籤，比照 BuildSheetPH 加上跨區「合計」列
+    // 及「去年同期／總計／分析」欄位標籤／114-115年比較區塊版面（算法/資料來源待確認，數值刻意留空）。
+    // 「合計」列只加總IsSum欄位（各班系合計/統計欄，語意上可以跨區相加）；非IsSum的班級展開欄位（第1班/
+    // 第2班…）不同分區代表不同實體班級，跨區加總沒有意義，維持留空。
     private static void BuildSheetPHDetail(ISheet sheet, List<StudentPopulation> populations,
         List<(CourseDepartment dept, List<Course> list)> deptGroups, Dictionary<int, int> maxSlots,
-        int fixedCols, int totalCols, string title) {
+        int fixedCols, int totalCols, string title,
+        List<StudentPopulation> allPopulationsForGrandTotal = null) {
 
         // Row 0: 標題
         sheet.CreateRow(0).CreateCell(0).SetCellValue(title);
@@ -1006,12 +1015,56 @@ public class ReportExportService {
             rowIdx += 2;
         }
 
-        // 最後一列：跨該Sheet(區)所有分校的欄位加總
-        var totalRow = sheet.CreateRow(rowIdx);
-        totalRow.CreateCell(0).SetCellValue("總計");
+        // 小計：這個分區(Sheet)自己跨分校的欄位加總
+        var subtotalRow = sheet.CreateRow(rowIdx);
+        subtotalRow.CreateCell(0).SetCellValue("小計");
         try { sheet.AddMergedRegion(new CellRangeAddress(rowIdx, rowIdx, 0, 1)); } catch { }
         for (int c = fixedCols; c < totalCols; c++)
-            if (colTotals[c] != 0) totalRow.CreateCell(c).SetCellValue(colTotals[c]);
+            if (colTotals[c] != 0) subtotalRow.CreateCell(c).SetCellValue(colTotals[c]);
+        rowIdx++;
+
+        if (allPopulationsForGrandTotal != null) {
+            var grandTotals = new int[totalCols];
+            foreach (var pop in allPopulationsForGrandTotal) {
+                int gCol = fixedCols;
+                foreach (var (_, list) in deptGroups) {
+                    foreach (var c in list) {
+                        if (c.IsSum) {
+                            grandTotals[gCol] += pop.Items.Where(i => i.Class?.CourseId == c.Id).Sum(i => i.Number);
+                            gCol++;
+                        }
+                        else {
+                            gCol += maxSlots[c.Id];
+                        }
+                    }
+                }
+            }
+
+            var combinedRow = sheet.CreateRow(rowIdx);
+            combinedRow.CreateCell(0).SetCellValue("合計");
+            try { sheet.AddMergedRegion(new CellRangeAddress(rowIdx, rowIdx, 0, 1)); } catch { }
+            for (int c = fixedCols; c < totalCols; c++)
+                if (grandTotals[c] != 0) combinedRow.CreateCell(c).SetCellValue(grandTotals[c]);
+            rowIdx++;
+
+            foreach (var label in new[] { "去年同期", "總計", "分析" }) {
+                var row = sheet.CreateRow(rowIdx);
+                row.CreateCell(0).SetCellValue(label);
+                try { sheet.AddMergedRegion(new CellRangeAddress(rowIdx, rowIdx, 0, 1)); } catch { }
+                rowIdx++;
+            }
+
+            rowIdx++;
+            var yearHeaderRow = sheet.CreateRow(rowIdx);
+            yearHeaderRow.CreateCell(1).SetCellValue("英+國");
+            yearHeaderRow.CreateCell(2).SetCellValue("英檢");
+            yearHeaderRow.CreateCell(3).SetCellValue("百倍速");
+            rowIdx++;
+            foreach (var yearLabel in new[] { "114年", "115年" }) {
+                sheet.CreateRow(rowIdx).CreateCell(0).SetCellValue(yearLabel);
+                rowIdx++;
+            }
+        }
 
         sheet.SetColumnWidth(0, 20 * 256);
         sheet.SetColumnWidth(1, 9 * 256);
