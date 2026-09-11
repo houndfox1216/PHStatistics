@@ -48,33 +48,38 @@ public static class PopulationWriteHelper {
         return pop;
     }
 
-    public static void AddClassAndItem(DataContext db, int schoolId, Course course, ClassType cType, long populationId, int number, ImportResult result, ILogger logger, string className = null) {
+    // classCountCache：呼叫端在整個匯入過程中共用同一個dictionary，用來取代每筆都查一次DB的
+    // classCount（курс現有班級數，用於預設班名編號）。呼叫端現在會延後SaveChanges以批次處理多筆，
+    // 若不快取，同一批尚未存檔的呼叫會重複查到同一個舊count，導致預設班名衝突。
+    public static void AddClassAndItem(DataContext db, int schoolId, Course course, ClassType cType, long populationId, int number, ImportResult result, ILogger logger, string className = null, Dictionary<int, int> classCountCache = null) {
         var newClass = new Class();
         try {
-            int classCount = db.StudentPopulationItem.Count(e => e.Class.Course.Id == course.Id);
+            int classCount = 0;
+            if (string.IsNullOrWhiteSpace(className)) {
+                if (classCountCache == null || !classCountCache.TryGetValue(course.Id, out classCount))
+                    classCount = db.StudentPopulationItem.Count(e => e.Class.Course.Id == course.Id);
+                if (classCountCache != null)
+                    classCountCache[course.Id] = classCount + 1;
+            }
             newClass.Course = null;
             newClass.CourseId = course.Id;
             newClass.SchoolId = schoolId;
             newClass.Type = cType;
             newClass.Name = !string.IsNullOrWhiteSpace(className) ? className : $"{course.Name}_{(classCount + 1):00}";
             db.Class.Add(newClass);
-            db.SaveChanges();
         }
         catch (Exception ex) {
             logger?.LogError("ImportAll 新增班級錯誤: {msg}", ex.Message);
             return;
         }
         db.StudentPopulationItem.Add(new StudentPopulationItem {
-            Class = null,
-            ClassId = newClass.Id,
+            Class = newClass,
             Name = newClass.Name,
             Number = number,
             SchoolName = newClass.Name,
             LastWeekNumber = 0,
-            StudentPopulation = null,
             StudentPopulationId = (int)populationId,
         });
-        db.SaveChanges();
         result.ItemCount++;
     }
 }

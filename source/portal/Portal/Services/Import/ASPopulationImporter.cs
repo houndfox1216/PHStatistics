@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -64,6 +65,7 @@ public class ASPopulationImporter : IPopulationImporter {
     public ImportResult Import(DataContext db, Stream fileStream, ILogger logger, int? overrideYear = null, int? overrideWeek = null) {
         var result = new ImportResult { Type = "AS" };
         var workbook = new XSSFWorkbook(fileStream);
+        var classCountCache = new Dictionary<int, int>();
 
         for (int sheetIdx = 0; sheetIdx < workbook.NumberOfSheets; sheetIdx++) {
             var sheet = workbook.GetSheetAt(sheetIdx);
@@ -141,10 +143,18 @@ public class ASPopulationImporter : IPopulationImporter {
                         Course course = db.Course.Include("Department").FirstOrDefault(e => e.Id == courseId);
                         int count = CourseMapping.ReadCellNumber(row, col);
                         if (course == null || count <= 0) continue;
-                        PopulationWriteHelper.AddClassAndItem(db, school.Id, course, cType, pop.Id, count, result, logger);
+                        PopulationWriteHelper.AddClassAndItem(db, school.Id, course, cType, pop.Id, count, result, logger, classCountCache: classCountCache);
                     }
                     catch { continue; }
                 }
+            }
+
+            try {
+                db.SaveChanges();
+            }
+            catch (Exception ex) {
+                result.Errors.Add($"存檔失敗（{schoolName}）: {ex.Message}");
+                logger?.LogError(ex, "AS 匯入存檔失敗: {school}", schoolName);
             }
         }
         return result;

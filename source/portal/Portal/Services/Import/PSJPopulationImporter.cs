@@ -138,15 +138,16 @@ public class PSJPopulationImporter : IPopulationImporter {
             return result;
         }
 
-        ProcessSide(db, north, ColumnLayout.North, yearInt, weekInt, schoolYear, result, logger);
-        ProcessSide(db, south, ColumnLayout.SouthLeft, yearInt, weekInt, schoolYear, result, logger);
-        ProcessSide(db, south, ColumnLayout.SouthLeft.Shift(20), yearInt, weekInt, schoolYear, result, logger);
+        var classCountCache = new Dictionary<int, int>();
+        ProcessSide(db, north, ColumnLayout.North, yearInt, weekInt, schoolYear, result, logger, classCountCache);
+        ProcessSide(db, south, ColumnLayout.SouthLeft, yearInt, weekInt, schoolYear, result, logger, classCountCache);
+        ProcessSide(db, south, ColumnLayout.SouthLeft.Shift(20), yearInt, weekInt, schoolYear, result, logger, classCountCache);
 
         return result;
     }
 
     private static void ProcessSide(DataContext db, ISheet sheet, ColumnLayout layout, int yearInt, int weekInt,
-        SchoolYear schoolYear, ImportResult result, ILogger logger) {
+        SchoolYear schoolYear, ImportResult result, ILogger logger, Dictionary<int, int> classCountCache) {
 
         foreach (var block in FindSchoolBlocks(sheet, layout.NameCol)) {
             School school = ResolveSchool(db, block.SchoolName);
@@ -168,31 +169,39 @@ public class PSJPopulationImporter : IPopulationImporter {
                 int ckcGradeIdx = Array.IndexOf(CourseMapping.PsjGradeOrder, grade);
 
                 if (ckcGradeIdx >= 0) {
-                    WriteIfPositive(db, school.Id, CourseMapping.CkcCourseIds["CKC_E"][ckcGradeIdx], ClassType.Group, row, layout.CkcEnglishGroupCol, pop.Id, result, logger);
-                    WriteIfPositive(db, school.Id, CourseMapping.CkcCourseIds["CKC_E"][ckcGradeIdx], ClassType.Personal, row, layout.CkcEnglishPersonalCol, pop.Id, result, logger);
-                    WriteIfPositive(db, school.Id, CourseMapping.CkcCourseIds["CKC_C"][ckcGradeIdx], ClassType.Group, row, layout.CkcChineseGroupCol, pop.Id, result, logger);
-                    WriteIfPositive(db, school.Id, CourseMapping.CkcCourseIds["CKC_C"][ckcGradeIdx], ClassType.Personal, row, layout.CkcChinesePersonalCol, pop.Id, result, logger);
-                    WriteIfPositive(db, school.Id, CourseMapping.CkcCourseIds["CKC_M"][ckcGradeIdx], ClassType.Group, row, layout.CkcMathGroupCol, pop.Id, result, logger);
-                    WriteIfPositive(db, school.Id, CourseMapping.CkcCourseIds["CKC_M"][ckcGradeIdx], ClassType.Personal, row, layout.CkcMathPersonalCol, pop.Id, result, logger);
+                    WriteIfPositive(db, school.Id, CourseMapping.CkcCourseIds["CKC_E"][ckcGradeIdx], ClassType.Group, row, layout.CkcEnglishGroupCol, pop.Id, result, logger, classCountCache);
+                    WriteIfPositive(db, school.Id, CourseMapping.CkcCourseIds["CKC_E"][ckcGradeIdx], ClassType.Personal, row, layout.CkcEnglishPersonalCol, pop.Id, result, logger, classCountCache);
+                    WriteIfPositive(db, school.Id, CourseMapping.CkcCourseIds["CKC_C"][ckcGradeIdx], ClassType.Group, row, layout.CkcChineseGroupCol, pop.Id, result, logger, classCountCache);
+                    WriteIfPositive(db, school.Id, CourseMapping.CkcCourseIds["CKC_C"][ckcGradeIdx], ClassType.Personal, row, layout.CkcChinesePersonalCol, pop.Id, result, logger, classCountCache);
+                    WriteIfPositive(db, school.Id, CourseMapping.CkcCourseIds["CKC_M"][ckcGradeIdx], ClassType.Group, row, layout.CkcMathGroupCol, pop.Id, result, logger, classCountCache);
+                    WriteIfPositive(db, school.Id, CourseMapping.CkcCourseIds["CKC_M"][ckcGradeIdx], ClassType.Personal, row, layout.CkcMathPersonalCol, pop.Id, result, logger, classCountCache);
                 }
 
                 if (mathGradeIdx >= 0) {
-                    WriteIfPositive(db, school.Id, CourseMapping.PsjCourseIds["MP"][mathGradeIdx], ClassType.Personal, row, layout.MathPersonalCol, pop.Id, result, logger);
+                    WriteIfPositive(db, school.Id, CourseMapping.PsjCourseIds["MP"][mathGradeIdx], ClassType.Personal, row, layout.MathPersonalCol, pop.Id, result, logger, classCountCache);
                     foreach (int col in layout.MathGroupCols)
-                        WriteIfPositive(db, school.Id, CourseMapping.PsjCourseIds["MS"][mathGradeIdx], ClassType.SubGroup, row, col, pop.Id, result, logger);
+                        WriteIfPositive(db, school.Id, CourseMapping.PsjCourseIds["MS"][mathGradeIdx], ClassType.SubGroup, row, col, pop.Id, result, logger, classCountCache);
 
-                    WriteIfPositive(db, school.Id, CourseMapping.PsjCourseIds["SP"][mathGradeIdx], ClassType.Personal, row, layout.SciencePersonalCol, pop.Id, result, logger);
-                    WriteIfPositive(db, school.Id, CourseMapping.PsjCourseIds["SS"][mathGradeIdx], ClassType.SubGroup, row, layout.ScienceGroupCol, pop.Id, result, logger);
+                    WriteIfPositive(db, school.Id, CourseMapping.PsjCourseIds["SP"][mathGradeIdx], ClassType.Personal, row, layout.SciencePersonalCol, pop.Id, result, logger, classCountCache);
+                    WriteIfPositive(db, school.Id, CourseMapping.PsjCourseIds["SS"][mathGradeIdx], ClassType.SubGroup, row, layout.ScienceGroupCol, pop.Id, result, logger, classCountCache);
                 }
+            }
+
+            try {
+                db.SaveChanges();
+            }
+            catch (Exception ex) {
+                result.Errors.Add($"存檔失敗（{block.SchoolName}）: {ex.Message}");
+                logger?.LogError(ex, "PSJ 匯入存檔失敗: {school}", block.SchoolName);
             }
         }
     }
 
-    private static void WriteIfPositive(DataContext db, int schoolId, int courseId, ClassType cType, IRow row, int oneBasedCol, long populationId, ImportResult result, ILogger logger) {
+    private static void WriteIfPositive(DataContext db, int schoolId, int courseId, ClassType cType, IRow row, int oneBasedCol, long populationId, ImportResult result, ILogger logger, Dictionary<int, int> classCountCache) {
         int count = CourseMapping.ReadCellNumber(row, oneBasedCol - 1);
         if (count <= 0) return;
         Course course = db.Course.Include("Department").FirstOrDefault(e => e.Id == courseId);
         if (course == null) return;
-        PopulationWriteHelper.AddClassAndItem(db, schoolId, course, cType, populationId, count, result, logger);
+        PopulationWriteHelper.AddClassAndItem(db, schoolId, course, cType, populationId, count, result, logger, classCountCache: classCountCache);
     }
 }

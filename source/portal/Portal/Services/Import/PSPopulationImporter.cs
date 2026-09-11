@@ -116,6 +116,13 @@ public class PSPopulationImporter : IPopulationImporter {
                 if (count <= 0) continue;
                 PopulationWriteHelper.AddClassAndItem(db, school.Id, mapping.course, ClassType.General, pop.Id, count, result, logger, mapping.header);
             }
+            try {
+                db.SaveChanges();
+            }
+            catch (System.Exception ex) {
+                result.Errors.Add($"存檔失敗（{schoolName}）: {ex.Message}");
+                logger?.LogError(ex, "PS 匯入存檔失敗: {school}", schoolName);
+            }
         }
         return result;
     }

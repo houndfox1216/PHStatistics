@@ -96,6 +96,7 @@ public static class PHSheetReader {
 
         string currentSchoolName = "";
         string lastCountedSchool = "";
+        var classCountCache = new Dictionary<int, int>();
         for (int rNo = 4; rNo <= sheet.LastRowNum; rNo++) {
             IRow row = sheet.GetRow(rNo);
             if (row == null) continue;
@@ -138,10 +139,17 @@ public static class PHSheetReader {
                 if (count <= 0) continue;
                 if (CourseMapping.Em1CourseIds.Contains(course.Id)) {
                     for (int i = 0; i < count; i++)
-                        PopulationWriteHelper.AddClassAndItem(db, school.Id, course, cType, pop.Id, 1, result, logger);
+                        PopulationWriteHelper.AddClassAndItem(db, school.Id, course, cType, pop.Id, 1, result, logger, classCountCache: classCountCache);
                 } else {
-                    PopulationWriteHelper.AddClassAndItem(db, school.Id, course, cType, pop.Id, count, result, logger);
+                    PopulationWriteHelper.AddClassAndItem(db, school.Id, course, cType, pop.Id, count, result, logger, classCountCache: classCountCache);
                 }
+            }
+            try {
+                db.SaveChanges();
+            }
+            catch (Exception ex) {
+                result.Errors.Add($"存檔失敗（{currentSchoolName}，第{rNo}列）: {ex.Message}");
+                logger?.LogError(ex, "PH/GEPT 匯入存檔失敗: {school} row{row}", currentSchoolName, rNo);
             }
         }
         return result;
