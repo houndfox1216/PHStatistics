@@ -22,8 +22,8 @@ public class ASPopulationImporter : IPopulationImporter {
         for (int sheetIdx = 0; sheetIdx < workbook.NumberOfSheets; sheetIdx++) {
             var sheet = workbook.GetSheetAt(sheetIdx);
             string schoolName = Regex.Replace(sheet.SheetName, @"^\d+", "").Trim();
-            School school = db.School.FirstOrDefault(e => e.Name == schoolName)
-                ?? db.School.FirstOrDefault(e => e.Name == CourseMapping.AsChineseNumerals(schoolName));
+            School school = ImportEntityCache.FindSchoolByName(db, schoolName)
+                ?? ImportEntityCache.FindSchoolByName(db, CourseMapping.AsChineseNumerals(schoolName));
             if (school == null) {
                 result.Errors.Add($"找不到分校: {sheet.SheetName} (解析為 {schoolName})");
                 continue;
@@ -71,8 +71,8 @@ public class ASPopulationImporter : IPopulationImporter {
             var sheet = workbook.GetSheetAt(sheetIdx);
             string schoolName = Regex.Replace(sheet.SheetName, @"^\d+", "").Trim();
             // 嘗試完全比對，失敗時轉換阿拉伯數字為中文（農16 → 農十六）
-            School school = db.School.FirstOrDefault(e => e.Name == schoolName)
-                ?? db.School.FirstOrDefault(e => e.Name == CourseMapping.AsChineseNumerals(schoolName));
+            School school = ImportEntityCache.FindSchoolByName(db, schoolName)
+                ?? ImportEntityCache.FindSchoolByName(db, CourseMapping.AsChineseNumerals(schoolName));
             if (school == null) {
                 result.Errors.Add($"找不到分校: {sheet.SheetName} (解析為 {schoolName})");
                 continue;
@@ -140,7 +140,7 @@ public class ASPopulationImporter : IPopulationImporter {
                 foreach (var (col, code, cType) in colDefs) {
                     try {
                         int courseId = CourseMapping.AsCourseIds[code][gradeIdx];
-                        Course course = db.Course.Include("Department").FirstOrDefault(e => e.Id == courseId);
+                        Course course = ImportEntityCache.FindCourseById(db, courseId);
                         int count = CourseMapping.ReadCellNumber(row, col);
                         if (course == null || count <= 0) continue;
                         PopulationWriteHelper.AddClassAndItem(db, school.Id, course, cType, pop.Id, count, result, logger, classCountCache: classCountCache);

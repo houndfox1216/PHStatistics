@@ -86,11 +86,11 @@ public static class PHSheetReader {
             Course course = null;
             // 強制覆蓋優先：這幾欄的Name+Type比對永遠會撞到另一個部門的同名課程，不能信任Name比對
             if (popType == StudentPopulationType.PH && phForceMap.TryGetValue(c, out int forceId))
-                course = db.Course.Include("Department").FirstOrDefault(e => e.Id == forceId);
+                course = ImportEntityCache.FindCourseById(db, forceId);
             if (course == null && !string.IsNullOrEmpty(label))
-                course = db.Course.Include("Department").FirstOrDefault(e => e.Name == label && e.Type == popType);
+                course = ImportEntityCache.FindCourseByName(db, label, popType);
             if (course == null && phFallbackMap.TryGetValue(c, out int fallbackId))
-                course = db.Course.Include("Department").FirstOrDefault(e => e.Id == fallbackId);
+                course = ImportEntityCache.FindCourseById(db, fallbackId);
             if (course != null) colCourseMap[c] = course;
         }
 
@@ -122,9 +122,9 @@ public static class PHSheetReader {
                 continue;
             }
 
-            School school = db.School.FirstOrDefault(e => e.Name == currentSchoolName);
+            School school = ImportEntityCache.FindSchoolByName(db, currentSchoolName);
             if (school == null && CourseMapping.PhSchoolNameAliases.TryGetValue(currentSchoolName, out string schoolAlias))
-                school = db.School.FirstOrDefault(e => e.Name == schoolAlias);
+                school = ImportEntityCache.FindSchoolByName(db, schoolAlias);
             if (school == null) continue;
 
             StudentPopulation pop = PopulationWriteHelper.GetOrCreatePopulation(db, school.Id, yearInt, weekInt, schoolYear,
@@ -206,7 +206,7 @@ public static class PHSheetReader {
             seen.Add(currentSchoolName);
             lastCountedSchool = currentSchoolName;
 
-            School school = db.School.FirstOrDefault(e => e.Name == currentSchoolName);
+            School school = ImportEntityCache.FindSchoolByName(db, currentSchoolName);
             bool exists = school != null && db.StudentPopulation.Any(e =>
                 e.School.Id == school.Id && e.Year == yearInt && e.Week == weekInt && e.Type == popType);
             result.Items.Add(new ImportScanItem {

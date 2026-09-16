@@ -38,7 +38,7 @@ public class PSPopulationImporter : IPopulationImporter {
             string schoolName = row.GetCell(0)?.ToString()?.Trim() ?? "";
             if (string.IsNullOrEmpty(schoolName) || schoolName == "總計") continue;
 
-            School school = db.School.FirstOrDefault(e => e.Name == schoolName);
+            School school = ImportEntityCache.FindSchoolByName(db, schoolName);
             bool exists = school != null && db.StudentPopulation.Any(e =>
                 e.School.Id == school.Id && e.Year == yearInt && e.Week == weekInt && e.Type == StudentPopulationType.PS);
             result.Items.Add(new ImportScanItem {
@@ -82,9 +82,9 @@ public class PSPopulationImporter : IPopulationImporter {
                 if (hCell == null || hCell.CellType != CellType.String) continue;
                 string hdr = hCell.StringCellValue?.Trim() ?? "";
                 if (string.IsNullOrEmpty(hdr)) continue;
-                Course course = db.Course.Include("Department").FirstOrDefault(e => e.Name == hdr && e.Type == StudentPopulationType.PS);
+                Course course = ImportEntityCache.FindCourseByName(db, hdr, StudentPopulationType.PS);
                 if (course == null && CourseMapping.PsHeaderCourseId.TryGetValue(hdr, out int fallbackId))
-                    course = db.Course.Include("Department").FirstOrDefault(e => e.Id == fallbackId);
+                    course = ImportEntityCache.FindCourseById(db, fallbackId);
                 if (course != null) colCourseMap[c] = (course, hdr);
             }
         }
@@ -101,7 +101,7 @@ public class PSPopulationImporter : IPopulationImporter {
             string schoolName = row.GetCell(0)?.ToString()?.Trim() ?? "";
             if (string.IsNullOrEmpty(schoolName) || schoolName == "總計") continue;
 
-            School school = db.School.FirstOrDefault(e => e.Name == schoolName);
+            School school = ImportEntityCache.FindSchoolByName(db, schoolName);
             if (school == null) continue;
 
             StudentPopulation pop = PopulationWriteHelper.GetOrCreatePopulation(db, school.Id, yearInt, weekInt, schoolYear,

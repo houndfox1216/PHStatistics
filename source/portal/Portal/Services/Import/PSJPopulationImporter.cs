@@ -73,9 +73,9 @@ public class PSJPopulationImporter : IPopulationImporter {
 
     internal static School ResolveSchool(DataContext db, string schoolName) {
         if (string.IsNullOrEmpty(schoolName) || schoolName == "總計") return null;
-        School school = db.School.FirstOrDefault(e => e.Name == schoolName);
+        School school = ImportEntityCache.FindSchoolByName(db, schoolName);
         if (school == null && CourseMapping.PsjSchoolNameAliases.TryGetValue(schoolName, out string alias))
-            school = db.School.FirstOrDefault(e => e.Name == alias);
+            school = ImportEntityCache.FindSchoolByName(db, alias);
         return school;
     }
 
@@ -200,7 +200,7 @@ public class PSJPopulationImporter : IPopulationImporter {
     private static void WriteIfPositive(DataContext db, int schoolId, int courseId, ClassType cType, IRow row, int oneBasedCol, long populationId, ImportResult result, ILogger logger, Dictionary<int, int> classCountCache) {
         int count = CourseMapping.ReadCellNumber(row, oneBasedCol - 1);
         if (count <= 0) return;
-        Course course = db.Course.Include("Department").FirstOrDefault(e => e.Id == courseId);
+        Course course = ImportEntityCache.FindCourseById(db, courseId);
         if (course == null) return;
         PopulationWriteHelper.AddClassAndItem(db, schoolId, course, cType, populationId, count, result, logger, classCountCache: classCountCache);
     }
