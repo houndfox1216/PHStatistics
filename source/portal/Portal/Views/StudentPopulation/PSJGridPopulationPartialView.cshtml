@@ -33,6 +33,10 @@
     for (int a = 0; a < analysisColumns.Length; a++) {
         analysisTotals[a] = Model.Items.Where(i => analysisColumns[a].CourseIds.Contains(i.Class.CourseId ?? 0)).Sum(i => i.Number);
     }
+    List<string> warnings = ViewBag.Warnings as List<string> ?? new List<string>();
+}
+@if (warnings.Any()) {
+    <div id="ntw-warnings" style="display:none">@string.Join("\n", warnings)</div>
 }
 <table class="table table-bordered table-sm align-middle" id="psjGridTable">
     <thead>

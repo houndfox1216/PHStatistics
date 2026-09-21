@@ -353,6 +353,7 @@ namespace PHStatistics.Portal.Controllers {
                     returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.Id == returnData.Id);
                 }
                 AttachManualPreviews(dataContext, returnData);
+                ViewBag.Warnings = CheckNewLostConsistency(returnData);
                 return View(returnData);
             }
             return View();
@@ -470,6 +471,7 @@ namespace PHStatistics.Portal.Controllers {
                 //進行人數表新增或更新
             }
             AttachManualPreviews(dataContext, returnData);
+            ViewBag.Warnings = CheckNewLostConsistency(returnData);
             return View(returnData);
         }
         //百世
@@ -704,6 +706,7 @@ namespace PHStatistics.Portal.Controllers {
                 //進行人數表新增或更新
             }
             AttachManualPreviews(dataContext, returnData);
+            ViewBag.Warnings = CheckNewLostConsistency(returnData);
             return View(returnData);
         }
 
@@ -825,6 +828,7 @@ namespace PHStatistics.Portal.Controllers {
                 returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.Id == returnData.Id);
             }
             AttachManualPreviews(dataContext, returnData);
+            ViewBag.Warnings = CheckNewLostConsistency(returnData);
             return View(returnData);
         }
 
@@ -946,6 +950,7 @@ namespace PHStatistics.Portal.Controllers {
                 returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.Id == returnData.Id);
             }
             AttachManualPreviews(dataContext, returnData);
+            ViewBag.Warnings = CheckNewLostConsistency(returnData);
             return View(returnData);
         }
 
@@ -1387,6 +1392,7 @@ namespace PHStatistics.Portal.Controllers {
             dataContext.ChangeTracker.Clear();
             var returnData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").FirstOrDefault(e => e.Id == populationId);
             AttachManualPreviews(dataContext, returnData);
+            ViewBag.Warnings = CheckNewLostConsistency(returnData);
             return PartialView("ASGridPopulationPartialView", returnData);
         }
 
@@ -1418,6 +1424,7 @@ namespace PHStatistics.Portal.Controllers {
 
                 var returnData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").FirstOrDefault(e => e.Id == spId);
                 AttachManualPreviews(dataContext, returnData);
+                ViewBag.Warnings = CheckNewLostConsistency(returnData);
                 return PartialView("ASGridPopulationPartialView", returnData);
             }
             catch (Exception ex) {
@@ -1473,6 +1480,7 @@ namespace PHStatistics.Portal.Controllers {
 
                 var returnData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").FirstOrDefault(e => e.Id == item.StudentPopulation.Id);
                 AttachManualPreviews(dataContext, returnData);
+                ViewBag.Warnings = CheckNewLostConsistency(returnData);
                 return PartialView("ASGridPopulationPartialView", returnData);
             }
             catch (Exception ex) {
@@ -1532,6 +1540,7 @@ namespace PHStatistics.Portal.Controllers {
             dataContext.ChangeTracker.Clear();
             var returnData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").FirstOrDefault(e => e.Id == populationId);
             AttachManualPreviews(dataContext, returnData);
+            ViewBag.Warnings = CheckNewLostConsistency(returnData);
             return PartialView("PSJGridPopulationPartialView", returnData);
         }
 
@@ -1563,6 +1572,7 @@ namespace PHStatistics.Portal.Controllers {
 
                 var returnData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").FirstOrDefault(e => e.Id == spId);
                 AttachManualPreviews(dataContext, returnData);
+                ViewBag.Warnings = CheckNewLostConsistency(returnData);
                 return PartialView("PSJGridPopulationPartialView", returnData);
             }
             catch (Exception ex) {
@@ -1618,6 +1628,7 @@ namespace PHStatistics.Portal.Controllers {
 
                 var returnData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").FirstOrDefault(e => e.Id == item.StudentPopulation.Id);
                 AttachManualPreviews(dataContext, returnData);
+                ViewBag.Warnings = CheckNewLostConsistency(returnData);
                 return PartialView("PSJGridPopulationPartialView", returnData);
             }
             catch (Exception ex) {
@@ -1776,13 +1787,19 @@ namespace PHStatistics.Portal.Controllers {
         [HttpPost("ConfirmPopulation")]
         public IActionResult ConfirmPopulation(long populationId) {
             DataContext dataContext = new DataContext();
-            StudentPopulation sp = dataContext.StudentPopulation.Find(populationId);
+            StudentPopulation sp = dataContext.StudentPopulation.Include("Items.Class.Course.Department").FirstOrDefault(e => e.Id == populationId);
             if (sp == null)
                 return Json(new { success = false, message = "找不到人數表資料" });
             if (!Model.CanEditSchool(User, sp.SchoolId ?? 0))
                 return Json(new { success = false, message = "沒有權限異動此分校資料" });
             if (sp.Status != StudentPopulationStatus.Documented)
                 return Json(new { success = false, message = "人數表已送出，無法重複確認" });
+            if (sp.Type == StudentPopulationType.PH || sp.Type == StudentPopulationType.GEPT ||
+                sp.Type == StudentPopulationType.AfterSchool || sp.Type == StudentPopulationType.PSJ) {
+                List<string> warnings = CheckNewLostConsistency(sp);
+                if (warnings.Any())
+                    return Json(new { success = false, message = "本週總人數與新生流失人數不一致，請確認後再送出：\n" + string.Join("\n", warnings) });
+            }
             sp.Status = StudentPopulationStatus.Pending;
             sp.SubmitterTime = DateTime.UtcNow.ToTaipeiTime();
             sp.SubmitterId = Guid.Parse(User.Id);
@@ -2044,6 +2061,7 @@ namespace PHStatistics.Portal.Controllers {
             dataContext.ChangeTracker.Clear();
             returnData = dataContext.StudentPopulation.Include("Items").Include("Submitter").Include("School").Include("Items.Class.Course.Department").FirstOrDefault(e => e.Id == returnData.Id);
             AttachManualPreviews(dataContext, returnData);
+            ViewBag.Warnings = CheckNewLostConsistency(returnData);
 
             string partialName = returnData.Type == StudentPopulationType.PSJ ? "PSJGridPopulationPartialView" : "ASGridPopulationPartialView";
             return PartialView(partialName, returnData);

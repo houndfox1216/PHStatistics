@@ -8,6 +8,10 @@
     List<Course> courses = (List<Course>)ViewBag.Courses;
     int itemRowNo = 0;
     string color = "#75b6e1";
+    List<string> warnings = ViewBag.Warnings as List<string> ?? new List<string>();
+}
+@if (warnings.Any()) {
+    <div id="ntw-warnings" style="display:none">@string.Join("\n", warnings)</div>
 }
 @foreach (Course cItem in courses) {
     if (Model.Items.Any(e => e.Class.Course.Id == cItem.Id)) {
