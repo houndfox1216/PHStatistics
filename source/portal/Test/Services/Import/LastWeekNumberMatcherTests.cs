@@ -293,12 +293,46 @@ public class LastWeekNumberMatcherTests {
             MakeLinked(101, 5, 0, previousItemId: 1),
             MakeLinked(102, 5, 0), // 本週才新增的同名班級，上週沒有
         };
+        cur[1].LastWeekNumber = 5; // 舊的殘留值，必須被歸 0，不能原封不動
 
         LastWeekNumberMatcher.SyncFromLastWeek(cur, prev);
 
         Assert.That(cur[0].LastWeekNumber, Is.EqualTo(8));
         Assert.That(cur[1].LastWeekNumber, Is.EqualTo(0));
         Assert.That(cur[1].PreviousItemId, Is.Null);
+    }
+
+    [Test]
+    public void SyncFromLastWeek_DanglingLinkWhenRestOfGroupAlreadyClaimed_GetsZeroNotStaleValue() {
+        // 上週該 Class 有 A、B，本週 X 連到 A、Y 連到 B；B 之後被刪除，Y 的連結失效，
+        // 而 A 已被 X 認領，Y 沒有可配對的對象，必須歸 0 而不是永遠留著舊值。
+        var prev = new List<StudentPopulationItem> { MakeLinked(1, 1967, 6) };
+        var cur = new List<StudentPopulationItem> {
+            MakeLinked(101, 1967, 0, previousItemId: 1),
+            MakeLinked(102, 1967, 0, previousItemId: 2), // 上週 Id 2 已不存在
+        };
+        cur[1].LastWeekNumber = 3;
+
+        LastWeekNumberMatcher.SyncFromLastWeek(cur, prev);
+
+        Assert.That(cur[0].LastWeekNumber, Is.EqualTo(6));
+        Assert.That(cur[1].LastWeekNumber, Is.EqualTo(0));
+        Assert.That(cur[1].PreviousItemId, Is.Null);
+    }
+
+    [Test]
+    public void SyncFromLastWeek_DuplicateClaimWhenGroupFullyClaimed_DuplicateGetsZero() {
+        var prev = new List<StudentPopulationItem> { MakeLinked(1, 5, 6) };
+        var cur = new List<StudentPopulationItem> {
+            MakeLinked(101, 5, 0, previousItemId: 1),
+            MakeLinked(102, 5, 0, previousItemId: 1), // 重複認領同一筆，且上週沒有其他項目可配
+        };
+        cur[1].LastWeekNumber = 6;
+
+        LastWeekNumberMatcher.SyncFromLastWeek(cur, prev);
+
+        Assert.That(cur[0].LastWeekNumber, Is.EqualTo(6));
+        Assert.That(cur[1].LastWeekNumber, Is.EqualTo(0), "上週人數不可被重複計入");
     }
 
     [Test]

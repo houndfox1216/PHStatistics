@@ -41,8 +41,18 @@ public static class LastWeekNumberMatcher {
         }
 
         var remainingPrev = prevList.Where(p => !claimed.Contains(p.Id)).ToList();
-        foreach (var pair in PairByClassId(unlinked, remainingPrev)) {
+        var pairs = PairByClassId(unlinked, remainingPrev);
+        foreach (var pair in pairs) {
             if (pair.Certain) pair.Current.PreviousItemId = pair.Previous.Id;
+        }
+
+        // 上週該 Class 的項目已全被其他本週項目認領完（或連結失效後沒有剩餘可配），
+        // 這些本週項目沒有對象可配，必須歸 0，不能留著舊值造成上週人數重複計入。
+        // 上週完全沒有該 Class 的項目才維持原值不動。
+        var pairedCurrent = pairs.Select(p => p.Current).ToHashSet();
+        var prevClassIds = prevList.Select(p => p.Class.Id).ToHashSet();
+        foreach (var cur in unlinked) {
+            if (!pairedCurrent.Contains(cur) && prevClassIds.Contains(cur.Class.Id)) cur.LastWeekNumber = 0;
         }
     }
 
