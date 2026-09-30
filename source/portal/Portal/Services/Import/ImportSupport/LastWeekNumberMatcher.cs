@@ -11,6 +11,44 @@ namespace PHStatistics.Portal.Services.Import.ImportSupport;
 //      對應 Excel 匯入時由上而下的列順序）依序配對上週分組內剩餘未配對的項目
 //   3) 上週分組人數不足以配對的（例如本週新增班級），LastWeekNumber 維持 0
 public static class LastWeekNumberMatcher {
+    // 人數表開頁時同步上週人數用：本週與上週同一個 Class.Id 底下可能有多筆 Item（小組班共用同一筆 Class），
+    // 不能一律取上週第一筆，改成同 Class.Id 分組內先比備註、再依 Id 順序配對。
+    // 上週完全沒有該 Class 的項目維持原值不動；同組內上週人數不足以配對的多出項目設為 0。
+    public static void ApplyByClassId(IEnumerable<StudentPopulationItem> currentItems, IEnumerable<StudentPopulationItem> previousItems) {
+        var prevGroups = previousItems
+            .Where(i => i.Class != null)
+            .GroupBy(i => i.Class.Id)
+            .ToDictionary(g => g.Key, g => g.OrderBy(i => i.Id).ToList());
+
+        foreach (var grp in currentItems.Where(i => i.Class != null).GroupBy(i => i.Class.Id)) {
+            if (!prevGroups.TryGetValue(grp.Key, out var prevList)) continue;
+            PairGroup(grp.OrderBy(i => i.Id).ToList(), prevList);
+        }
+    }
+
+    private static void PairGroup(List<StudentPopulationItem> current, List<StudentPopulationItem> previous) {
+        var available = new List<StudentPopulationItem>(previous);
+        var unmatched = new List<StudentPopulationItem>();
+
+        foreach (var cur in current) {
+            StudentPopulationItem match = null;
+            if (!string.IsNullOrWhiteSpace(cur.StudentRemark)) {
+                match = available.FirstOrDefault(p => p.StudentRemark == cur.StudentRemark);
+            }
+            if (match != null) {
+                cur.LastWeekNumber = match.Number;
+                available.Remove(match);
+            }
+            else {
+                unmatched.Add(cur);
+            }
+        }
+
+        for (int i = 0; i < unmatched.Count; i++) {
+            unmatched[i].LastWeekNumber = i < available.Count ? available[i].Number : 0;
+        }
+    }
+
     public static void Apply(IEnumerable<StudentPopulationItem> currentItems, IEnumerable<StudentPopulationItem> previousItems) {
         var prevGroups = previousItems
             .Where(i => i.Class != null)
@@ -23,26 +61,7 @@ public static class LastWeekNumberMatcher {
                 continue;
             }
 
-            var available = new List<StudentPopulationItem>(prevList);
-            var unmatched = new List<StudentPopulationItem>();
-
-            foreach (var cur in grp.OrderBy(i => i.Id)) {
-                StudentPopulationItem match = null;
-                if (!string.IsNullOrWhiteSpace(cur.StudentRemark)) {
-                    match = available.FirstOrDefault(p => p.StudentRemark == cur.StudentRemark);
-                }
-                if (match != null) {
-                    cur.LastWeekNumber = match.Number;
-                    available.Remove(match);
-                }
-                else {
-                    unmatched.Add(cur);
-                }
-            }
-
-            for (int i = 0; i < unmatched.Count; i++) {
-                unmatched[i].LastWeekNumber = i < available.Count ? available[i].Number : 0;
-            }
+            PairGroup(grp.OrderBy(i => i.Id).ToList(), prevList);
         }
     }
 }

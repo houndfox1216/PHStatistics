@@ -16,6 +16,7 @@ using PHStatistics.Community;
 using PHStatistics.Content;
 using PHStatistics.Portal.Models;
 using PHStatistics.Portal.Services;
+using PHStatistics.Portal.Services.Import.ImportSupport;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -3430,20 +3431,28 @@ namespace PHStatistics.Portal.Controllers {
                         pop.Id, pop.Year, pop.Week, pop.Type, pop.SchoolId, currentItems.Count);
 
                     var prevItems = db.StudentPopulationItem
+                        .Include("Class")
                         .Where(i => i.StudentPopulationId == prevPop.Id && i.ClassId != null)
                         .ToList();
-                    var dupClassIds = prevItems.GroupBy(i => i.ClassId!.Value).Where(g => g.Count() > 1).Select(g => g.Key).ToList();
-                    if (dupClassIds.Any())
-                        Logger.LogWarning("FixLastWeekData prevPop.Id={prevId} 有重複 ClassId: {ids}", prevPop.Id, string.Join(",", dupClassIds));
 
-                    var prevByClassId = prevItems
-                        .GroupBy(i => i.ClassId!.Value)
-                        .ToDictionary(g => g.Key, g => g.First().Number);
+                    // 同一個 Class 底下可能有多筆 Item（小組班共用 Class），必須整組一起配對，不能各自取上週第一筆。
+                    // 配對以本週該人數表全部非合計項目為範圍，之後只保留原本 LastWeekNumber==0 的項目的結果。
+                    var zeroIds = currentItems.Select(i => i.Id).ToHashSet();
+                    var candidates = db.StudentPopulationItem
+                        .Include("Class.Course")
+                        .Where(i => i.StudentPopulationId == pop.Id && i.ClassId != null)
+                        .ToList()
+                        .Where(i => i.Class?.Course?.IsSum != true)
+                        .ToList();
+                    var originalLastWeek = candidates.ToDictionary(i => i.Id, i => i.LastWeekNumber);
+                    LastWeekNumberMatcher.ApplyByClassId(candidates, prevItems);
 
                     int updated = 0;
-                    foreach (var item in currentItems) {
-                        if (item.ClassId.HasValue && prevByClassId.TryGetValue(item.ClassId.Value, out int prevNum)) {
-                            item.LastWeekNumber = prevNum;
+                    foreach (var item in candidates) {
+                        if (!zeroIds.Contains(item.Id)) {
+                            item.LastWeekNumber = originalLastWeek[item.Id];
+                        }
+                        else if (item.LastWeekNumber != 0) {
                             updated++;
                         }
                     }

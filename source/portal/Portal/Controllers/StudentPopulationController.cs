@@ -2,6 +2,7 @@
 using DevExpress.XtraReports.Native;
 using FluentFTP.Helpers;
 using Humanizer;
+using PHStatistics.Portal.Services.Import.ImportSupport;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Nest;
@@ -270,10 +271,9 @@ namespace PHStatistics.Portal.Controllers {
                 ViewBag.CanEditLastWeek = User.HasPermission(SystemPermission.PopulationWeekSwitch);
                 if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType)) {
                     returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType);
-                    foreach (StudentPopulationItem sItem in returnData.Items) {
-                        if (lastWeekData != null && lastWeekData.Items.Any(e => e.Class.Id == sItem.Class.Id)) {
-                            sItem.LastWeekNumber = lastWeekData.Items.FirstOrDefault(e => e.Class.Id == sItem.Class.Id).Number;
-                        }
+                    // 同一個 Class 底下可能有多筆 Item（小組班共用 Class），不可全部覆寫成同一個上週值
+                    if (lastWeekData != null) {
+                        LastWeekNumberMatcher.ApplyByClassId(returnData.Items, lastWeekData.Items);
                     }
                     returnData.Type = StudentPopulationType.PH;
                     returnData.Name = string.Format("{0}第{1}週百瀚人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
@@ -297,7 +297,7 @@ namespace PHStatistics.Portal.Controllers {
                     WriteActionLog(dataContext, "StudentPopulationCreate", "第一次輸入建立人數表", returnData.Id, returnData.Name);
                     //增加上週資料
                     if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
-                        foreach (StudentPopulationItem lItem in lastWeekData.Items) {
+                        foreach (StudentPopulationItem lItem in lastWeekData.Items.OrderBy(e => e.Id)) {
                             if (!lItem.Class.Course.IsSum && lItem.Number != 0 && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                                 StudentPopulationItem item = new StudentPopulationItem();
                                 Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type && e.Name == lItem.Class.Name);
@@ -396,10 +396,9 @@ namespace PHStatistics.Portal.Controllers {
             ViewBag.CanEditLastWeek = User.HasPermission(SystemPermission.PopulationWeekSwitch);
             if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType)) {
                 returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType);
-                foreach (StudentPopulationItem sItem in returnData.Items) {
-                    if (lastWeekData != null && lastWeekData.Items.Any(e => e.Class.Id == sItem.Class.Id)) {
-                        sItem.LastWeekNumber = lastWeekData.Items.FirstOrDefault(e => e.Class.Id == sItem.Class.Id).Number;
-                    }
+                // 同一個 Class 底下可能有多筆 Item（小組班共用 Class），不可全部覆寫成同一個上週值
+                if (lastWeekData != null) {
+                    LastWeekNumberMatcher.ApplyByClassId(returnData.Items, lastWeekData.Items);
                 }
                 returnData.Type = StudentPopulationType.GEPT;
                 returnData.Name = string.Format("{0}第{1}週英檢人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
@@ -423,7 +422,7 @@ namespace PHStatistics.Portal.Controllers {
                 WriteActionLog(dataContext, "StudentPopulationCreate", "第一次輸入建立人數表", returnData.Id, returnData.Name);
                 //增加上週資料
                 if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
-                    foreach (StudentPopulationItem lItem in lastWeekData.Items) {
+                    foreach (StudentPopulationItem lItem in lastWeekData.Items.OrderBy(e => e.Id)) {
                         if (!lItem.Class.Course.IsSum && lItem.Number != 0 && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                             StudentPopulationItem item = new StudentPopulationItem();
                             Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type && e.Name == lItem.Class.Name);
@@ -512,10 +511,9 @@ namespace PHStatistics.Portal.Controllers {
             ViewBag.CanEditLastWeek = User.HasPermission(SystemPermission.PopulationWeekSwitch);
             if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType)) {
                 returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType);
-                foreach (StudentPopulationItem sItem in returnData.Items) {
-                    if (lastWeekData != null && lastWeekData.Items.Any(e => e.Class.Id == sItem.Class.Id)) {
-                        sItem.LastWeekNumber = lastWeekData.Items.FirstOrDefault(e => e.Class.Id == sItem.Class.Id).Number;
-                    }
+                // 同一個 Class 底下可能有多筆 Item（小組班共用 Class），不可全部覆寫成同一個上週值
+                if (lastWeekData != null) {
+                    LastWeekNumberMatcher.ApplyByClassId(returnData.Items, lastWeekData.Items);
                 }
                 returnData.Type = StudentPopulationType.PS;
                 returnData.Name = string.Format("{0}第{1}週百世人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
@@ -539,7 +537,7 @@ namespace PHStatistics.Portal.Controllers {
                 WriteActionLog(dataContext, "StudentPopulationCreate", "第一次輸入建立人數表", returnData.Id, returnData.Name);
                 //增加上週資料
                 if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
-                    foreach (StudentPopulationItem lItem in lastWeekData.Items) {
+                    foreach (StudentPopulationItem lItem in lastWeekData.Items.OrderBy(e => e.Id)) {
                         if (!lItem.Class.Course.IsSum && lItem.Number != 0 && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                             StudentPopulationItem item = new StudentPopulationItem();
                             Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type && e.Name == lItem.Class.Name);
@@ -631,10 +629,9 @@ namespace PHStatistics.Portal.Controllers {
             ViewBag.CanEditLastWeek = User.HasPermission(SystemPermission.PopulationWeekSwitch);
             if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType)) {
                 returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType);
-                foreach (StudentPopulationItem sItem in returnData.Items) {
-                    if (lastWeekData != null && lastWeekData.Items.Any(e => e.Class.Id == sItem.Class.Id)) {
-                        sItem.LastWeekNumber = lastWeekData.Items.FirstOrDefault(e => e.Class.Id == sItem.Class.Id).Number;
-                    }
+                // 同一個 Class 底下可能有多筆 Item（小組班共用 Class），不可全部覆寫成同一個上週值
+                if (lastWeekData != null) {
+                    LastWeekNumberMatcher.ApplyByClassId(returnData.Items, lastWeekData.Items);
                 }
                 returnData.Type = StudentPopulationType.AfterSchool;
                 returnData.Name = string.Format("{0}第{1}週課輔人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
@@ -658,7 +655,7 @@ namespace PHStatistics.Portal.Controllers {
                 WriteActionLog(dataContext, "StudentPopulationCreate", "第一次輸入建立人數表", returnData.Id, returnData.Name);
                 //增加上週資料
                 if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
-                    foreach (StudentPopulationItem lItem in lastWeekData.Items) {
+                    foreach (StudentPopulationItem lItem in lastWeekData.Items.OrderBy(e => e.Id)) {
                         if (!lItem.Class.Course.IsSum && lItem.Number != 0 && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                             StudentPopulationItem item = new StudentPopulationItem();
                             Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type && e.Name == lItem.Class.Name);
@@ -731,10 +728,9 @@ namespace PHStatistics.Portal.Controllers {
             ViewBag.CanEditLastWeek = User.HasPermission(SystemPermission.PopulationWeekSwitch);
             if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == StudentPopulationType.AfterSchool)) {
                 returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == StudentPopulationType.AfterSchool);
-                foreach (StudentPopulationItem sItem in returnData.Items) {
-                    if (lastWeekData != null && lastWeekData.Items.Any(e => e.Class.Id == sItem.Class.Id)) {
-                        sItem.LastWeekNumber = lastWeekData.Items.FirstOrDefault(e => e.Class.Id == sItem.Class.Id).Number;
-                    }
+                // 同一個 Class 底下可能有多筆 Item（小組班共用 Class），不可全部覆寫成同一個上週值
+                if (lastWeekData != null) {
+                    LastWeekNumberMatcher.ApplyByClassId(returnData.Items, lastWeekData.Items);
                 }
                 dataContext.SaveChanges();
                 //補上此人數表建立之後才新增的固定總計項目（例如這次新增的共用分析課程 478-525），避免舊人數表開啟網格版時分析欄空白
@@ -783,7 +779,7 @@ namespace PHStatistics.Portal.Controllers {
                 dataContext.SaveChanges();
                 WriteActionLog(dataContext, "StudentPopulationCreate", "第一次輸入建立人數表", returnData.Id, returnData.Name);
                 if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
-                    foreach (StudentPopulationItem lItem in lastWeekData.Items) {
+                    foreach (StudentPopulationItem lItem in lastWeekData.Items.OrderBy(e => e.Id)) {
                         if (!lItem.Class.Course.IsSum && lItem.Number != 0 && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                             StudentPopulationItem item = new StudentPopulationItem();
                             Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type && e.Name == lItem.Class.Name);
@@ -853,10 +849,9 @@ namespace PHStatistics.Portal.Controllers {
             ViewBag.CanEditLastWeek = User.HasPermission(SystemPermission.PopulationWeekSwitch);
             if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == StudentPopulationType.PSJ)) {
                 returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == StudentPopulationType.PSJ);
-                foreach (StudentPopulationItem sItem in returnData.Items) {
-                    if (lastWeekData != null && lastWeekData.Items.Any(e => e.Class.Id == sItem.Class.Id)) {
-                        sItem.LastWeekNumber = lastWeekData.Items.FirstOrDefault(e => e.Class.Id == sItem.Class.Id).Number;
-                    }
+                // 同一個 Class 底下可能有多筆 Item（小組班共用 Class），不可全部覆寫成同一個上週值
+                if (lastWeekData != null) {
+                    LastWeekNumberMatcher.ApplyByClassId(returnData.Items, lastWeekData.Items);
                 }
                 dataContext.SaveChanges();
                 //補上此人數表建立之後才新增的固定總計項目（例如這次新增的共用分析課程 526-573），避免舊人數表開啟網格版時分析欄空白
@@ -905,7 +900,7 @@ namespace PHStatistics.Portal.Controllers {
                 dataContext.SaveChanges();
                 WriteActionLog(dataContext, "StudentPopulationCreate", "第一次輸入建立人數表", returnData.Id, returnData.Name);
                 if (lastWeekData != null && lastWeekData.Items != null && lastWeekData.Items.Count > 0) {
-                    foreach (StudentPopulationItem lItem in lastWeekData.Items) {
+                    foreach (StudentPopulationItem lItem in lastWeekData.Items.OrderBy(e => e.Id)) {
                         if (!lItem.Class.Course.IsSum && lItem.Number != 0 && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                             StudentPopulationItem item = new StudentPopulationItem();
                             Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type && e.Name == lItem.Class.Name);
@@ -1889,7 +1884,7 @@ namespace PHStatistics.Portal.Controllers {
                 .Select(e => e.ClassId.Value)
                 .ToHashSet();
             bool backfilledAny = false;
-            foreach (StudentPopulationItem lItem in lastWeekData.Items) {
+            foreach (StudentPopulationItem lItem in lastWeekData.Items.OrderBy(e => e.Id)) {
                 if (!lItem.Class.Course.IsSum && lItem.Number != 0 && !deletedClassIds.Contains(lItem.Class.Id)
                     && !dataContext.StudentPopulationItem.Any(e => e.Class.Id == lItem.Class.Id && e.StudentPopulation.Id == returnData.Id)) {
                     Class classItem = dataContext.Class.FirstOrDefault(e => e.School.Id == schoolId && e.Course.Id == lItem.Class.Course.Id && e.Type == lItem.Class.Type && e.Name == lItem.Class.Name);
