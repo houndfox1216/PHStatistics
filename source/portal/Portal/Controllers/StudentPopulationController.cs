@@ -311,6 +311,7 @@ namespace PHStatistics.Portal.Controllers {
                                 item.Class = classItem;
                                 item.Number = lItem.Class.Course.IsSum ? 0 : lItem.Number;
                                 item.LastWeekNumber = lItem.Number;
+                                item.PreviousItemId = lItem.Id;
                                 item.IsSum = lItem.Class.Course.IsSum;
                                 item.StudentRemark = lItem.StudentRemark;
                                 returnData.Items.Add(item);
@@ -436,6 +437,7 @@ namespace PHStatistics.Portal.Controllers {
                             item.Class = classItem;
                             item.Number = lItem.Class.Course.IsSum ? 0 : lItem.Number;
                             item.LastWeekNumber = lItem.Number;
+                            item.PreviousItemId = lItem.Id;
                             item.IsSum = lItem.Class.Course.IsSum;
                             returnData.Items.Add(item);
                         }
@@ -551,6 +553,7 @@ namespace PHStatistics.Portal.Controllers {
                             item.Class = classItem;
                             item.Number = lItem.Class.Course.IsSum ? 0 : lItem.Number;
                             item.LastWeekNumber = lItem.Number;
+                            item.PreviousItemId = lItem.Id;
                             item.IsSum = lItem.Class.Course.IsSum;
                             returnData.Items.Add(item);
                         }
@@ -669,6 +672,7 @@ namespace PHStatistics.Portal.Controllers {
                             item.Class = classItem;
                             item.Number = lItem.Class.Course.IsSum ? 0 : lItem.Number;
                             item.LastWeekNumber = lItem.Number;
+                            item.PreviousItemId = lItem.Id;
                             item.IsSum = lItem.Class.Course.IsSum;
                             returnData.Items.Add(item);
                         }
@@ -793,6 +797,7 @@ namespace PHStatistics.Portal.Controllers {
                             item.Class = classItem;
                             item.Number = lItem.Class.Course.IsSum ? 0 : lItem.Number;
                             item.LastWeekNumber = lItem.Number;
+                            item.PreviousItemId = lItem.Id;
                             item.IsSum = lItem.Class.Course.IsSum;
                             returnData.Items.Add(item);
                         }
@@ -914,6 +919,7 @@ namespace PHStatistics.Portal.Controllers {
                             item.Class = classItem;
                             item.Number = lItem.Class.Course.IsSum ? 0 : lItem.Number;
                             item.LastWeekNumber = lItem.Number;
+                            item.PreviousItemId = lItem.Id;
                             item.IsSum = lItem.Class.Course.IsSum;
                             returnData.Items.Add(item);
                         }
@@ -1899,6 +1905,7 @@ namespace PHStatistics.Portal.Controllers {
                     item.Class = classItem;
                     item.Number = lItem.Number;
                     item.LastWeekNumber = lItem.Number;
+                    item.PreviousItemId = lItem.Id;
                     item.IsSum = false;
                     item.StudentRemark = lItem.StudentRemark;
                     item.StudentPopulationId = returnData.Id;
