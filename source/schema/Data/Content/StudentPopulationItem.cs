@@ -117,6 +117,13 @@ namespace PHStatistics.Content {
         public int LastWeekNumber { get; set; }
 
         /// <summary>
+        /// 上週對應項目識別碼（跨週固定身分，用來取得上週人數）。
+        /// 刻意不建外鍵：上週項目可能被匯入重建或刪除，指向不存在的項目時視為未連結，退回 Class 配對。
+        /// </summary>
+        [Display(Name = "上週對應項目識別碼"), DataMember]
+        public long? PreviousItemId { get; set; }
+
+        /// <summary>
         /// 加總項目
         /// </summary>
         [Display(Name = "加總項目"), DataMember]
