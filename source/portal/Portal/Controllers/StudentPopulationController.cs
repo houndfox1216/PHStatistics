@@ -271,9 +271,9 @@ namespace PHStatistics.Portal.Controllers {
                 ViewBag.CanEditLastWeek = User.HasPermission(SystemPermission.PopulationWeekSwitch);
                 if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType)) {
                     returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType);
-                    // 同一個 Class 底下可能有多筆 Item（小組班共用 Class），不可全部覆寫成同一個上週值
+                    // 以 PreviousItemId 取上週對應項目；沒有連結的才退回 Class 配對（同 Class 多筆時不可全部取同一個上週值）
                     if (lastWeekData != null) {
-                        LastWeekNumberMatcher.ApplyByClassId(returnData.Items, lastWeekData.Items);
+                        LastWeekNumberMatcher.SyncFromLastWeek(returnData.Items, lastWeekData.Items);
                     }
                     returnData.Type = StudentPopulationType.PH;
                     returnData.Name = string.Format("{0}第{1}週百瀚人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
@@ -397,9 +397,9 @@ namespace PHStatistics.Portal.Controllers {
             ViewBag.CanEditLastWeek = User.HasPermission(SystemPermission.PopulationWeekSwitch);
             if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType)) {
                 returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType);
-                // 同一個 Class 底下可能有多筆 Item（小組班共用 Class），不可全部覆寫成同一個上週值
+                // 以 PreviousItemId 取上週對應項目；沒有連結的才退回 Class 配對（同 Class 多筆時不可全部取同一個上週值）
                 if (lastWeekData != null) {
-                    LastWeekNumberMatcher.ApplyByClassId(returnData.Items, lastWeekData.Items);
+                    LastWeekNumberMatcher.SyncFromLastWeek(returnData.Items, lastWeekData.Items);
                 }
                 returnData.Type = StudentPopulationType.GEPT;
                 returnData.Name = string.Format("{0}第{1}週英檢人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
@@ -513,9 +513,9 @@ namespace PHStatistics.Portal.Controllers {
             ViewBag.CanEditLastWeek = User.HasPermission(SystemPermission.PopulationWeekSwitch);
             if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType)) {
                 returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType);
-                // 同一個 Class 底下可能有多筆 Item（小組班共用 Class），不可全部覆寫成同一個上週值
+                // 以 PreviousItemId 取上週對應項目；沒有連結的才退回 Class 配對（同 Class 多筆時不可全部取同一個上週值）
                 if (lastWeekData != null) {
-                    LastWeekNumberMatcher.ApplyByClassId(returnData.Items, lastWeekData.Items);
+                    LastWeekNumberMatcher.SyncFromLastWeek(returnData.Items, lastWeekData.Items);
                 }
                 returnData.Type = StudentPopulationType.PS;
                 returnData.Name = string.Format("{0}第{1}週百世人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
@@ -632,9 +632,9 @@ namespace PHStatistics.Portal.Controllers {
             ViewBag.CanEditLastWeek = User.HasPermission(SystemPermission.PopulationWeekSwitch);
             if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType)) {
                 returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == populationType);
-                // 同一個 Class 底下可能有多筆 Item（小組班共用 Class），不可全部覆寫成同一個上週值
+                // 以 PreviousItemId 取上週對應項目；沒有連結的才退回 Class 配對（同 Class 多筆時不可全部取同一個上週值）
                 if (lastWeekData != null) {
-                    LastWeekNumberMatcher.ApplyByClassId(returnData.Items, lastWeekData.Items);
+                    LastWeekNumberMatcher.SyncFromLastWeek(returnData.Items, lastWeekData.Items);
                 }
                 returnData.Type = StudentPopulationType.AfterSchool;
                 returnData.Name = string.Format("{0}第{1}週課輔人數表", schoolYear.Year.ToString(), schoolYear.Week.ToString());
@@ -732,9 +732,9 @@ namespace PHStatistics.Portal.Controllers {
             ViewBag.CanEditLastWeek = User.HasPermission(SystemPermission.PopulationWeekSwitch);
             if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == StudentPopulationType.AfterSchool)) {
                 returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == StudentPopulationType.AfterSchool);
-                // 同一個 Class 底下可能有多筆 Item（小組班共用 Class），不可全部覆寫成同一個上週值
+                // 以 PreviousItemId 取上週對應項目；沒有連結的才退回 Class 配對（同 Class 多筆時不可全部取同一個上週值）
                 if (lastWeekData != null) {
-                    LastWeekNumberMatcher.ApplyByClassId(returnData.Items, lastWeekData.Items);
+                    LastWeekNumberMatcher.SyncFromLastWeek(returnData.Items, lastWeekData.Items);
                 }
                 dataContext.SaveChanges();
                 //補上此人數表建立之後才新增的固定總計項目（例如這次新增的共用分析課程 478-525），避免舊人數表開啟網格版時分析欄空白
@@ -854,9 +854,9 @@ namespace PHStatistics.Portal.Controllers {
             ViewBag.CanEditLastWeek = User.HasPermission(SystemPermission.PopulationWeekSwitch);
             if (dataContext.StudentPopulation.Any(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == StudentPopulationType.PSJ)) {
                 returnData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course").FirstOrDefault(e => e.School.Id == schoolId && e.Year == schoolYear.Year.Value && e.Week == schoolYear.Week.Value && e.Type == StudentPopulationType.PSJ);
-                // 同一個 Class 底下可能有多筆 Item（小組班共用 Class），不可全部覆寫成同一個上週值
+                // 以 PreviousItemId 取上週對應項目；沒有連結的才退回 Class 配對（同 Class 多筆時不可全部取同一個上週值）
                 if (lastWeekData != null) {
-                    LastWeekNumberMatcher.ApplyByClassId(returnData.Items, lastWeekData.Items);
+                    LastWeekNumberMatcher.SyncFromLastWeek(returnData.Items, lastWeekData.Items);
                 }
                 dataContext.SaveChanges();
                 //補上此人數表建立之後才新增的固定總計項目（例如這次新增的共用分析課程 526-573），避免舊人數表開啟網格版時分析欄空白

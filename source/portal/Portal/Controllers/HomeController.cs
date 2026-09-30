@@ -3444,13 +3444,13 @@ namespace PHStatistics.Portal.Controllers {
                         .ToList()
                         .Where(i => i.Class?.Course?.IsSum != true)
                         .ToList();
-                    var originalLastWeek = candidates.ToDictionary(i => i.Id, i => i.LastWeekNumber);
-                    LastWeekNumberMatcher.ApplyByClassId(candidates, prevItems);
+                    var originalLastWeek = candidates.ToDictionary(i => i.Id, i => (i.LastWeekNumber, i.PreviousItemId));
+                    LastWeekNumberMatcher.SyncFromLastWeek(candidates, prevItems);
 
                     int updated = 0;
                     foreach (var item in candidates) {
                         if (!zeroIds.Contains(item.Id)) {
-                            item.LastWeekNumber = originalLastWeek[item.Id];
+                            (item.LastWeekNumber, item.PreviousItemId) = originalLastWeek[item.Id];
                         }
                         else if (item.LastWeekNumber != 0) {
                             updated++;
