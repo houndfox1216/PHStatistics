@@ -184,6 +184,134 @@ public class LastWeekNumberMatcherTests {
         Assert.That(cur[1].LastWeekNumber, Is.EqualTo(0));
     }
 
+    private static StudentPopulationItem MakeLinked(long id, int classId, int number, long? previousItemId = null, string studentRemark = null) {
+        var item = MakeItemWithClassId(id, classId, number, studentRemark);
+        item.PreviousItemId = previousItemId;
+        return item;
+    }
+
+    [Test]
+    public void SyncFromLastWeek_LinkedItems_TakeOwnPreviousNumberEvenWhenOrderAndRemarksCannotTell() {
+        // 備註空白、本週 Id 順序與上週相反：只有連結能配對正確。
+        var prev = new List<StudentPopulationItem> {
+            MakeLinked(1, 1967, 6), MakeLinked(2, 1967, 3), MakeLinked(3, 1967, 4),
+        };
+        var cur = new List<StudentPopulationItem> {
+            MakeLinked(101, 1967, 0, previousItemId: 3),
+            MakeLinked(102, 1967, 0, previousItemId: 1),
+            MakeLinked(103, 1967, 0, previousItemId: 2),
+        };
+
+        LastWeekNumberMatcher.SyncFromLastWeek(cur, prev);
+
+        Assert.That(cur[0].LastWeekNumber, Is.EqualTo(4));
+        Assert.That(cur[1].LastWeekNumber, Is.EqualTo(6));
+        Assert.That(cur[2].LastWeekNumber, Is.EqualTo(3));
+    }
+
+    [Test]
+    public void SyncFromLastWeek_LinkBeatsRemarkMatch() {
+        var prev = new List<StudentPopulationItem> {
+            MakeLinked(1, 5, 10, studentRemark: "甲"), MakeLinked(2, 5, 20, studentRemark: "乙"),
+        };
+        // 備註寫「甲」，但連結明確指向上週的 Id 2。
+        var cur = new List<StudentPopulationItem> { MakeLinked(101, 5, 0, previousItemId: 2, studentRemark: "甲") };
+
+        LastWeekNumberMatcher.SyncFromLastWeek(cur, prev);
+
+        Assert.That(cur[0].LastWeekNumber, Is.EqualTo(20));
+    }
+
+    [Test]
+    public void SyncFromLastWeek_DanglingLink_FallsBackToClassPairingAndRelinks() {
+        // 上週人數表被重新匯入，舊的上週 Item(Id 999) 已不存在。
+        var prev = new List<StudentPopulationItem> { MakeLinked(50, 5, 8) };
+        var cur = new List<StudentPopulationItem> { MakeLinked(101, 5, 0, previousItemId: 999) };
+
+        LastWeekNumberMatcher.SyncFromLastWeek(cur, prev);
+
+        Assert.That(cur[0].LastWeekNumber, Is.EqualTo(8));
+        Assert.That(cur[0].PreviousItemId, Is.EqualTo(50), "1:1 配對確定，應改連到新的上週項目");
+    }
+
+    [Test]
+    public void SyncFromLastWeek_UnlinkedOneToOne_PersistsLink() {
+        var prev = new List<StudentPopulationItem> { MakeLinked(1, 5, 8) };
+        var cur = new List<StudentPopulationItem> { MakeLinked(101, 5, 0) };
+
+        LastWeekNumberMatcher.SyncFromLastWeek(cur, prev);
+
+        Assert.That(cur[0].LastWeekNumber, Is.EqualTo(8));
+        Assert.That(cur[0].PreviousItemId, Is.EqualTo(1));
+    }
+
+    [Test]
+    public void SyncFromLastWeek_UnlinkedAmbiguousOrderPairing_SetsNumberButDoesNotPersistLink() {
+        // 同 Class 多筆、備註空白：依 Id 順序配對只是推測，不可固化成連結。
+        var prev = new List<StudentPopulationItem> { MakeLinked(1, 5, 6), MakeLinked(2, 5, 3) };
+        var cur = new List<StudentPopulationItem> { MakeLinked(101, 5, 0), MakeLinked(102, 5, 0) };
+
+        LastWeekNumberMatcher.SyncFromLastWeek(cur, prev);
+
+        Assert.That(cur[0].LastWeekNumber, Is.EqualTo(6));
+        Assert.That(cur[1].LastWeekNumber, Is.EqualTo(3));
+        Assert.That(cur[0].PreviousItemId, Is.Null);
+        Assert.That(cur[1].PreviousItemId, Is.Null);
+    }
+
+    [Test]
+    public void SyncFromLastWeek_TwoItemsLinkedToSamePrevious_SecondFallsBack() {
+        var prev = new List<StudentPopulationItem> { MakeLinked(1, 5, 6), MakeLinked(2, 5, 3) };
+        var cur = new List<StudentPopulationItem> {
+            MakeLinked(101, 5, 0, previousItemId: 1),
+            MakeLinked(102, 5, 0, previousItemId: 1), // 重複認領
+        };
+
+        LastWeekNumberMatcher.SyncFromLastWeek(cur, prev);
+
+        Assert.That(cur[0].LastWeekNumber, Is.EqualTo(6));
+        Assert.That(cur[1].LastWeekNumber, Is.EqualTo(3), "第二筆退回配對，取上週剩下的那筆");
+    }
+
+    [Test]
+    public void SyncFromLastWeek_AdminEditedLastWeekNumber_IsPickedUp() {
+        var previous = MakeLinked(1, 5, 6);
+        var cur = new List<StudentPopulationItem> { MakeLinked(101, 5, 0, previousItemId: 1) };
+        LastWeekNumberMatcher.SyncFromLastWeek(cur, new List<StudentPopulationItem> { previous });
+        Assert.That(cur[0].LastWeekNumber, Is.EqualTo(6));
+
+        previous.Number = 9; // 管理員事後修改上週人數
+        LastWeekNumberMatcher.SyncFromLastWeek(cur, new List<StudentPopulationItem> { previous });
+
+        Assert.That(cur[0].LastWeekNumber, Is.EqualTo(9));
+    }
+
+    [Test]
+    public void SyncFromLastWeek_ExtraNewSameNameClassThisWeek_GetsZero() {
+        var prev = new List<StudentPopulationItem> { MakeLinked(1, 5, 8) };
+        var cur = new List<StudentPopulationItem> {
+            MakeLinked(101, 5, 0, previousItemId: 1),
+            MakeLinked(102, 5, 0), // 本週才新增的同名班級，上週沒有
+        };
+
+        LastWeekNumberMatcher.SyncFromLastWeek(cur, prev);
+
+        Assert.That(cur[0].LastWeekNumber, Is.EqualTo(8));
+        Assert.That(cur[1].LastWeekNumber, Is.EqualTo(0));
+        Assert.That(cur[1].PreviousItemId, Is.Null);
+    }
+
+    [Test]
+    public void SyncFromLastWeek_ClassMissingLastWeek_LeavesValueUntouched() {
+        var prev = new List<StudentPopulationItem> { MakeLinked(1, 5, 8) };
+        var cur = new List<StudentPopulationItem> { MakeLinked(101, 99, 0) };
+        cur[0].LastWeekNumber = 7;
+
+        LastWeekNumberMatcher.SyncFromLastWeek(cur, prev);
+
+        Assert.That(cur[0].LastWeekNumber, Is.EqualTo(7));
+    }
+
     [Test]
     public void Apply_DifferentClassTypeSameCourse_TreatedAsSeparateGroups() {
         var prev = new List<StudentPopulationItem> {
