@@ -1,0 +1,8 @@
+2026-09-10 15:54:20.6041[9]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-09-10 15:54:20.6115[9]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-09-10 15:54:20.7227[18]  INFO MemberController  Member Login account: password: 
+2026-09-10 16:04:23.9943[45]  INFO MemberController  Member Login account: password: 
+2026-09-10 16:33:55.8274[23]  INFO HomeController  ImportAll 1/（百倍速）人數統計表更新版114.07.05.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-10 16:46:34.0781[23]  INFO HomeController  ImportAll 1/2025 07(全國人數表第01週).xlsx [PH] → 33校 883筆 錯誤:0
+2026-09-10 16:46:34.0781[23]  INFO HomeController  ImportAll 1/2025 07(全國人數表第01週).xlsx [GEPT] → 10校 1017筆 錯誤:0
+2026-09-10 16:47:00.5596[23]  INFO HomeController  ImportAll 1/PS南區人數統計表 114學年度(01週).xlsx [PS] → 4校 33筆 錯誤:0

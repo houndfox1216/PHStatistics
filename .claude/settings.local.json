@@ -263,7 +263,17 @@
       "Bash(unzip -o \"/c/Users/hound/Downloads/百倍速加總有錯.docx\" -d .)",
       "Bash(tee audit_output.tsv)",
       "Bash(awk 'NR==2200,NR==2450' source/portal/Portal/Controllers/StudentPopulationController.cs)",
-      "Bash(xargs -I{} basename {})"
+      "Bash(xargs -I{} basename {})",
+      "Bash(iconv -f UTF-8 -t UTF-8)",
+      "Bash(awk '-F|' '{print $9}' 'C:\\\\Users\\\\hound\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Company-PHStatistics-portal\\\\2a2d41e8-3802-4fd4-b6f8-5bc7e55d80a6\\\\scratchpad/all_isSum_courses.txt')",
+      "Bash(awk *)",
+      "Bash(echo \"EXIT:$?\")",
+      "PowerShell(sqlcmd -S \"20.188.19.77,52056\" -U \"pcmdba\" -P \"Phpcm539@6@52\" -d \"NewPAS\" -f 65001 -Q $q)",
+      "PowerShell($q = \"SET NOCOUNT ON; SELECT sp.Week, cl.CourseId, co.Name, co.DepartmentId, cl.Type as ClassType, cl.Name as ClassName, spi.Number, spi.LastWeekNumber, spi.IsManual FROM StudentPopulation sp JOIN StudentPopulationItem spi ON spi.StudentPopulationId=sp.Id JOIN Class cl ON cl.Id=spi.ClassId JOIN Course co ON co.Id=cl.CourseId WHERE sp.SchoolId=17 AND sp.Year=115 AND sp.Week IN \\(5,6\\) AND sp.Type=2 AND cl.CourseId IN \\(68,72,75,79,88,89,90\\) ORDER BY sp.Week, cl.CourseId;\")",
+      "PowerShell($q = \"SET NOCOUNT ON; SELECT spi.Id, sc.Name AS School, sp.Week, cl.CourseId, co.Name AS CourseName, spi.Number, spi.IsManual FROM StudentPopulation sp JOIN StudentPopulationItem spi ON spi.StudentPopulationId=sp.Id JOIN Class cl ON cl.Id=spi.ClassId JOIN Course co ON co.Id=cl.CourseId JOIN School sc ON sc.Id=sp.SchoolId WHERE sp.Year=115 AND sp.Week=6 AND \\(\\(sp.SchoolId=17 AND sp.Type=2 AND cl.CourseId IN \\(89,90\\)\\) OR \\(sp.Type=3 AND cl.CourseId=134 AND sc.Name IN \\(N'中正',N'東安'\\)\\)\\);\")",
+      "Artifact",
+      "Bash(git show *)",
+      "Skill(update-config)"
     ]
   }
 }

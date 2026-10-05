@@ -1,0 +1,228 @@
+2026-09-09 09:01:16.1064[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-09-09 09:01:16.1064[13]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-09-09 09:01:23.0277[10]  INFO HomeController  ImportAll 1/（百倍速）人數統計表更新版114.07.05.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:03:26.4900[10]  INFO HomeController  ImportAll 1/2025 07(全國人數表第01週).xlsx [PH] → 33校 883筆 錯誤:0
+2026-09-09 09:03:26.4900[10]  INFO HomeController  ImportAll 1/2025 07(全國人數表第01週).xlsx [GEPT] → 10校 1017筆 錯誤:0
+2026-09-09 09:03:27.8351[10]  INFO HomeController  ImportAll 1/PS南區人數統計表 114學年度(01週).xlsx [PS] → 4校 33筆 錯誤:0
+2026-09-09 09:03:27.8351[10]  INFO HomeController  ImportAll 2/（百倍速）人數統計表更新版114.07.12.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:05:45.3915[10]  INFO HomeController  ImportAll 2/2025 07(全國人數表第02週).xlsx [PH] → 33校 978筆 錯誤:0
+2026-09-09 09:05:45.3915[10]  INFO HomeController  ImportAll 2/2025 07(全國人數表第02週).xlsx [GEPT] → 10校 1028筆 錯誤:0
+2026-09-09 09:05:47.4029[10]  INFO HomeController  ImportAll 2/PS南區人數統計表 114學年度(02週).xlsx [PS] → 4校 37筆 錯誤:0
+2026-09-09 09:05:47.4122[10]  INFO HomeController  ImportAll 3/（百倍速）人數統計表更新版114.07.19.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:08:36.2631[10]  INFO HomeController  ImportAll 3/2025 07(全國人數表第03週).xlsx [PH] → 33校 1069筆 錯誤:0
+2026-09-09 09:08:36.2631[10]  INFO HomeController  ImportAll 3/2025 07(全國人數表第03週).xlsx [GEPT] → 10校 1037筆 錯誤:0
+2026-09-09 09:08:37.4345[10]  INFO HomeController  ImportAll 3/PS南區人數統計表 114學年度(03週).xlsx [PS] → 4校 35筆 錯誤:0
+2026-09-09 09:08:37.4450[10]  INFO HomeController  ImportAll 4/（百倍速）人數統計表更新版114.07.26.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:09:35.5090[10]  INFO HomeController  ImportAll 4/2025 07(全國人數表第04週).xlsx [PH] → 26校 906筆 錯誤:0
+2026-09-09 09:09:35.5090[10]  INFO HomeController  ImportAll 4/2025 07(全國人數表第04週).xlsx [GEPT] → 31校 54筆 錯誤:0
+2026-09-09 09:09:38.2455[10]  INFO HomeController  ImportAll 4/PS南區人數統計表 114學年度(04週).xlsx [PS] → 4校 37筆 錯誤:0
+2026-09-09 09:09:38.2556[10]  INFO HomeController  ImportAll 5/（百倍速）人數統計表更新版114.08.02.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:11:06.0329[10]  INFO HomeController  ImportAll 5/2025 07(全國人數表第05週).xlsx [PH] → 26校 921筆 錯誤:0
+2026-09-09 09:11:06.0329[10]  INFO HomeController  ImportAll 5/2025 07(全國人數表第05週).xlsx [GEPT] → 31校 63筆 錯誤:0
+2026-09-09 09:11:08.1765[10]  INFO HomeController  ImportAll 5/PS南區人數統計表 114學年度(05週).xlsx [PS] → 4校 38筆 錯誤:0
+2026-09-09 09:11:08.1765[10]  INFO HomeController  ImportAll 6/（百倍速）人數統計表更新版114.08.09.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:12:45.2436[10]  INFO HomeController  ImportAll 6/2025 07(全國人數表第06週).xlsx [PH] → 26校 982筆 錯誤:0
+2026-09-09 09:12:45.2436[10]  INFO HomeController  ImportAll 6/2025 07(全國人數表第06週).xlsx [GEPT] → 31校 60筆 錯誤:0
+2026-09-09 09:12:47.4285[10]  INFO HomeController  ImportAll 6/PS南區人數統計表 114學年度(06週).xlsx [PS] → 4校 38筆 錯誤:0
+2026-09-09 09:12:47.4285[10]  INFO HomeController  ImportAll 7/（百倍速）人數統計表更新版114.08.16.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:14:03.9073[10]  INFO HomeController  ImportAll 7/2025 07(全國人數表第07週).xlsx [PH] → 26校 731筆 錯誤:0
+2026-09-09 09:14:03.9073[10]  INFO HomeController  ImportAll 7/2025 07(全國人數表第07週).xlsx [GEPT] → 31校 58筆 錯誤:0
+2026-09-09 09:14:05.4761[10]  INFO HomeController  ImportAll 7/PS南區人數統計表 114學年度(07週).xlsx [PS] → 4校 36筆 錯誤:0
+2026-09-09 09:14:05.4761[10]  INFO HomeController  ImportAll 8/（百倍速）人數統計表更新版114.08.23.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:15:23.8782[10]  INFO HomeController  ImportAll 8/2025 07(全國人數表第08週).xlsx [PH] → 26校 733筆 錯誤:0
+2026-09-09 09:15:23.8782[10]  INFO HomeController  ImportAll 8/2025 07(全國人數表第08週).xlsx [GEPT] → 31校 57筆 錯誤:0
+2026-09-09 09:15:26.4060[10]  INFO HomeController  ImportAll 8/PS南區人數統計表 114學年度(08週).xlsx [PS] → 4校 36筆 錯誤:0
+2026-09-09 09:15:26.4173[10]  INFO HomeController  ImportAll 9/（百倍速）人數統計表更新版114.08.30.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:16:45.8527[10]  INFO HomeController  ImportAll 9/2025 07(全國人數表第09週).xlsx [PH] → 26校 738筆 錯誤:0
+2026-09-09 09:16:45.8527[10]  INFO HomeController  ImportAll 9/2025 07(全國人數表第09週).xlsx [GEPT] → 31校 53筆 錯誤:0
+2026-09-09 09:16:48.4374[10]  INFO HomeController  ImportAll 9/PS南區人數統計表 114學年度(09週).xlsx [PS] → 4校 37筆 錯誤:0
+2026-09-09 09:16:48.4474[10]  INFO HomeController  ImportAll 10/（百倍速）人數統計表更新版114.09.06.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:18:10.5648[10]  INFO HomeController  ImportAll 10/2025 07(全國人數表第10週).xlsx [PH] → 26校 758筆 錯誤:0
+2026-09-09 09:18:10.5648[10]  INFO HomeController  ImportAll 10/2025 07(全國人數表第10週).xlsx [GEPT] → 31校 49筆 錯誤:0
+2026-09-09 09:18:12.9763[10]  INFO HomeController  ImportAll 10/PS南區人數統計表 114學年度(10週).xlsx [PS] → 4校 38筆 錯誤:0
+2026-09-09 09:18:12.9763[10]  INFO HomeController  ImportAll 11/（百倍速）人數統計表更新版114.09.13.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:19:28.6929[10]  INFO HomeController  ImportAll 11/2025 07(全國人數表第11週).xlsx [PH] → 26校 747筆 錯誤:0
+2026-09-09 09:19:28.6929[10]  INFO HomeController  ImportAll 11/2025 07(全國人數表第11週).xlsx [GEPT] → 31校 48筆 錯誤:0
+2026-09-09 09:19:31.4578[10]  INFO HomeController  ImportAll 11/PS南區人數統計表 114學年度(11週).xlsx [PS] → 4校 40筆 錯誤:0
+2026-09-09 09:19:31.4578[10]  INFO HomeController  ImportAll 12/（百倍速）人數統計表更新版114.09.20.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:20:44.4771[10]  INFO HomeController  ImportAll 12/2025 07(全國人數表第12週).xlsx [PH] → 26校 751筆 錯誤:0
+2026-09-09 09:20:44.4771[10]  INFO HomeController  ImportAll 12/2025 07(全國人數表第12週).xlsx [GEPT] → 31校 48筆 錯誤:0
+2026-09-09 09:20:45.9636[10]  INFO HomeController  ImportAll 12/PS南區人數統計表 114學年度(12週).xlsx [PS] → 4校 40筆 錯誤:0
+2026-09-09 09:20:45.9724[10]  INFO HomeController  ImportAll 13/（百倍速）人數統計表更新版114.09.27.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:21:37.2552[10]  INFO HomeController  ImportAll 13/2025 07(全國人數表第13週).xlsx [PH] → 26校 756筆 錯誤:0
+2026-09-09 09:21:37.2552[10]  INFO HomeController  ImportAll 13/2025 07(全國人數表第13週).xlsx [GEPT] → 31校 44筆 錯誤:0
+2026-09-09 09:21:38.2342[10]  INFO HomeController  ImportAll 13/PS南區人數統計表 114學年度(13週).xlsx [PS] → 4校 38筆 錯誤:0
+2026-09-09 09:21:38.2417[10]  INFO HomeController  ImportAll 14/（百倍速）人數統計表更新版114.10.04.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:22:32.8925[10]  INFO HomeController  ImportAll 14/2025 07(全國人數表第14週).xlsx [PH] → 26校 739筆 錯誤:0
+2026-09-09 09:22:32.8925[10]  INFO HomeController  ImportAll 14/2025 07(全國人數表第14週).xlsx [GEPT] → 31校 42筆 錯誤:0
+2026-09-09 09:22:35.4759[10]  INFO HomeController  ImportAll 14/PS南區人數統計表 114學年度(14週).xlsx [PS] → 4校 41筆 錯誤:0
+2026-09-09 09:22:35.4759[10]  INFO HomeController  ImportAll 15/（百倍速）人數統計表更新版114.10.11.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:23:46.1344[10]  INFO HomeController  ImportAll 15/2025 07(全國人數表第15週).xlsx [PH] → 26校 726筆 錯誤:0
+2026-09-09 09:23:46.1344[10]  INFO HomeController  ImportAll 15/2025 07(全國人數表第15週).xlsx [GEPT] → 31校 42筆 錯誤:0
+2026-09-09 09:23:48.5323[10]  INFO HomeController  ImportAll 15/PS南區人數統計表 114學年度(15週).xlsx [PS] → 4校 40筆 錯誤:0
+2026-09-09 09:23:48.5417[10]  INFO HomeController  ImportAll 16/（百倍速）人數統計表更新版114.10.18.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:24:54.9638[10]  INFO HomeController  ImportAll 16/2025 07(全國人數表第16週).xlsx [PH] → 26校 728筆 錯誤:0
+2026-09-09 09:24:54.9638[10]  INFO HomeController  ImportAll 16/2025 07(全國人數表第16週).xlsx [GEPT] → 31校 41筆 錯誤:0
+2026-09-09 09:24:55.9059[10]  INFO HomeController  ImportAll 16/PS南區人數統計表 114學年度(16週).xlsx [PS] → 4校 39筆 錯誤:0
+2026-09-09 09:24:55.9151[10]  INFO HomeController  ImportAll 17/（百倍速）人數統計表更新版114.10.25.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:25:56.3862[10]  INFO HomeController  ImportAll 17/2025 07(全國人數表第17週).xlsx [PH] → 26校 733筆 錯誤:0
+2026-09-09 09:25:56.3862[10]  INFO HomeController  ImportAll 17/2025 07(全國人數表第17週).xlsx [GEPT] → 31校 42筆 錯誤:0
+2026-09-09 09:25:57.4465[10]  INFO HomeController  ImportAll 17/PS南區人數統計表 114學年度(17週).xlsx [PS] → 4校 39筆 錯誤:0
+2026-09-09 09:25:57.4465[10]  INFO HomeController  ImportAll 18/（百倍速）人數統計表更新版114.11.01.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:27:11.2022[10]  INFO HomeController  ImportAll 18/2025 07(全國人數表第18週).xlsx [PH] → 26校 737筆 錯誤:0
+2026-09-09 09:27:11.2022[10]  INFO HomeController  ImportAll 18/2025 07(全國人數表第18週).xlsx [GEPT] → 31校 41筆 錯誤:0
+2026-09-09 09:27:14.2366[10]  INFO HomeController  ImportAll 18/PS南區人數統計表 114學年度(18週).xlsx [PS] → 4校 39筆 錯誤:0
+2026-09-09 09:27:14.2447[10]  INFO HomeController  ImportAll 19/（百倍速）人數統計表更新版114.11.08.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:28:42.4198[10]  INFO HomeController  ImportAll 19/2025 07(全國人數表第19週).xlsx [PH] → 26校 744筆 錯誤:0
+2026-09-09 09:28:42.4198[10]  INFO HomeController  ImportAll 19/2025 07(全國人數表第19週).xlsx [GEPT] → 31校 41筆 錯誤:0
+2026-09-09 09:28:43.9622[10]  INFO HomeController  ImportAll 19/PS南區人數統計表 114學年度(19週).xlsx [PS] → 4校 41筆 錯誤:0
+2026-09-09 09:28:43.9622[10]  INFO HomeController  ImportAll 20/（百倍速）人數統計表更新版114.11.15.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:30:07.7014[10]  INFO HomeController  ImportAll 20/2025 07(全國人數表第20週).xlsx [PH] → 26校 731筆 錯誤:0
+2026-09-09 09:30:07.7014[10]  INFO HomeController  ImportAll 20/2025 07(全國人數表第20週).xlsx [GEPT] → 31校 36筆 錯誤:0
+2026-09-09 09:30:08.9748[10]  INFO HomeController  ImportAll 20/PS南區人數統計表 114學年度(20週).xlsx [PS] → 4校 39筆 錯誤:0
+2026-09-09 09:30:08.9748[10]  INFO HomeController  ImportAll 21/（百倍速）人數統計表更新版114.11.22.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:31:24.9670[10]  INFO HomeController  ImportAll 21/2025 07(全國人數表第21週)1203update.xlsx [PH] → 26校 735筆 錯誤:0
+2026-09-09 09:31:24.9670[10]  INFO HomeController  ImportAll 21/2025 07(全國人數表第21週)1203update.xlsx [GEPT] → 31校 33筆 錯誤:0
+2026-09-09 09:31:26.1845[10]  INFO HomeController  ImportAll 21/PS南區人數統計表 114學年度(21週).xlsx [PS] → 4校 42筆 錯誤:0
+2026-09-09 09:31:26.1845[10]  INFO HomeController  ImportAll 22/（百倍速）人數統計表更新版114.11.29.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:32:37.5888[10]  INFO HomeController  ImportAll 22/2025 07(全國人數表第22週).xlsx [PH] → 26校 743筆 錯誤:0
+2026-09-09 09:32:37.5888[10]  INFO HomeController  ImportAll 22/2025 07(全國人數表第22週).xlsx [GEPT] → 31校 31筆 錯誤:0
+2026-09-09 09:32:38.7858[10]  INFO HomeController  ImportAll 22/PS南區人數統計表 114學年度(22週).xlsx [PS] → 4校 40筆 錯誤:0
+2026-09-09 09:32:38.7858[10]  INFO HomeController  ImportAll 23/（百倍速）人數統計表更新版114.12.06.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:33:58.7736[10]  INFO HomeController  ImportAll 23/2025 07(全國人數表第23週).xlsx [PH] → 26校 751筆 錯誤:0
+2026-09-09 09:33:58.7736[10]  INFO HomeController  ImportAll 23/2025 07(全國人數表第23週).xlsx [GEPT] → 31校 29筆 錯誤:0
+2026-09-09 09:34:00.2201[10]  INFO HomeController  ImportAll 23/PS南區人數統計表 114學年度(23週).xlsx [PS] → 4校 45筆 錯誤:0
+2026-09-09 09:34:00.2201[10]  INFO HomeController  ImportAll 24/（百倍速）人數統計表更新版114.12.13.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:34:52.3784[10]  INFO HomeController  ImportAll 24/2025 07(全國人數表第24週).xlsx [PH] → 26校 743筆 錯誤:0
+2026-09-09 09:34:52.3784[10]  INFO HomeController  ImportAll 24/2025 07(全國人數表第24週).xlsx [GEPT] → 31校 32筆 錯誤:0
+2026-09-09 09:34:53.5651[10]  INFO HomeController  ImportAll 24/PS南區人數統計表 114學年度(24週).xlsx [PS] → 4校 44筆 錯誤:0
+2026-09-09 09:34:53.5651[10]  INFO HomeController  ImportAll 25/（百倍速）人數統計表更新版114.12.20.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:35:33.5568[10]  INFO HomeController  ImportAll 25/2025 07(全國人數表第25週).xlsx [PH] → 26校 748筆 錯誤:0
+2026-09-09 09:35:33.5568[10]  INFO HomeController  ImportAll 25/2025 07(全國人數表第25週).xlsx [GEPT] → 31校 31筆 錯誤:0
+2026-09-09 09:35:34.7084[10]  INFO HomeController  ImportAll 25/PS南區人數統計表 114學年度(25週).xlsx [PS] → 4校 45筆 錯誤:0
+2026-09-09 09:35:34.7084[10]  INFO HomeController  ImportAll 26/（百倍速）人數統計表更新版114.12.27.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:36:18.5336[10]  INFO HomeController  ImportAll 26/2025 07(全國人數表第26週).xlsx [PH] → 26校 752筆 錯誤:0
+2026-09-09 09:36:18.5336[10]  INFO HomeController  ImportAll 26/2025 07(全國人數表第26週).xlsx [GEPT] → 31校 32筆 錯誤:0
+2026-09-09 09:36:19.5982[10]  INFO HomeController  ImportAll 26/PS南區人數統計表 114學年度(26週).xlsx [PS] → 4校 45筆 錯誤:0
+2026-09-09 09:36:19.5982[10]  INFO HomeController  ImportAll 27/（百倍速）人數統計表更新版115.1.03.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:36:57.4394[10]  INFO HomeController  ImportAll 27/2025 07(全國人數表第27週).xlsx [PH] → 26校 756筆 錯誤:0
+2026-09-09 09:36:57.4394[10]  INFO HomeController  ImportAll 27/2025 07(全國人數表第27週).xlsx [GEPT] → 31校 28筆 錯誤:0
+2026-09-09 09:36:58.5392[10]  INFO HomeController  ImportAll 27/PS南區人數統計表 114學年度(27週).xlsx [PS] → 4校 45筆 錯誤:0
+2026-09-09 09:36:58.5392[10]  INFO HomeController  ImportAll 28/（百倍速）人數統計表更新版115.1.10.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:37:36.2897[10]  INFO HomeController  ImportAll 28/2025 07(全國人數表第28週).xlsx [PH] → 26校 751筆 錯誤:0
+2026-09-09 09:37:36.2897[10]  INFO HomeController  ImportAll 28/2025 07(全國人數表第28週).xlsx [GEPT] → 31校 24筆 錯誤:0
+2026-09-09 09:37:37.7242[10]  INFO HomeController  ImportAll 28/PS南區人數統計表 114學年度(28週).xlsx [PS] → 4校 42筆 錯誤:0
+2026-09-09 09:37:37.7242[10]  INFO HomeController  ImportAll 29/（百倍速）人數統計表更新版115.1.17.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:38:16.7481[10]  INFO HomeController  ImportAll 29/2025 07(全國人數表第29週).xlsx [PH] → 26校 746筆 錯誤:0
+2026-09-09 09:38:16.7481[10]  INFO HomeController  ImportAll 29/2025 07(全國人數表第29週).xlsx [GEPT] → 31校 24筆 錯誤:0
+2026-09-09 09:38:17.9527[10]  INFO HomeController  ImportAll 29/PS南區人數統計表 114學年度(29週).xlsx [PS] → 4校 44筆 錯誤:0
+2026-09-09 09:38:17.9527[10]  INFO HomeController  ImportAll 30/（百倍速）人數統計表更新版115.1.24.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:38:58.0097[10]  INFO HomeController  ImportAll 30/2025 07(全國人數表第30週).xlsx [PH] → 26校 734筆 錯誤:0
+2026-09-09 09:38:58.0097[10]  INFO HomeController  ImportAll 30/2025 07(全國人數表第30週).xlsx [GEPT] → 31校 32筆 錯誤:0
+2026-09-09 09:38:59.1462[10]  INFO HomeController  ImportAll 30/PS南區人數統計表 114學年度(30週).xlsx [PS] → 4校 42筆 錯誤:0
+2026-09-09 09:38:59.1462[10]  INFO HomeController  ImportAll 31/（百倍速）人數統計表更新版115.1.31.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:39:37.4890[10]  INFO HomeController  ImportAll 31/2025 07(全國人數表第31週).xlsx [PH] → 26校 732筆 錯誤:1
+2026-09-09 09:39:37.4890[10]  INFO HomeController  ImportAll 31/2025 07(全國人數表第31週).xlsx [GEPT] → 31校 39筆 錯誤:0
+2026-09-09 09:39:39.0304[10]  INFO HomeController  ImportAll 31/PS南區人數統計表 114學年度(31週).xlsx [PS] → 4校 44筆 錯誤:0
+2026-09-09 09:39:39.0304[10]  INFO HomeController  ImportAll 32/（百倍速）人數統計表更新版115.2.07.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:41:17.4770[10]  INFO HomeController  ImportAll 32/2025 07(全國人數表第32週).xlsx [PH] → 26校 733筆 錯誤:1
+2026-09-09 09:41:17.4770[10]  INFO HomeController  ImportAll 32/2025 07(全國人數表第32週).xlsx [GEPT] → 31校 39筆 錯誤:0
+2026-09-09 09:41:22.2727[10]  INFO HomeController  ImportAll 32/PS南區人數統計表 114學年度(32週).xlsx [PS] → 4校 43筆 錯誤:0
+2026-09-09 09:41:22.2727[10]  INFO HomeController  ImportAll 33/（百倍速）人數統計表更新版115.2.14).xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:43:42.7678[10]  INFO HomeController  ImportAll 33/2025 07(全國人數表第33週).xlsx [PH] → 26校 712筆 錯誤:1
+2026-09-09 09:43:42.7678[10]  INFO HomeController  ImportAll 33/2025 07(全國人數表第33週).xlsx [GEPT] → 31校 40筆 錯誤:0
+2026-09-09 09:43:48.5968[10]  INFO HomeController  ImportAll 33/PS南區人數統計表 114學年度(33週).xlsx [PS] → 4校 43筆 錯誤:0
+2026-09-09 09:43:48.5974[10]  INFO HomeController  ImportAll 34/（百倍速）人數統計表更新版115.2.21).xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:46:01.2098[10]  INFO HomeController  ImportAll 34/2025 07(全國人數表第34週).xlsx [PH] → 26校 709筆 錯誤:1
+2026-09-09 09:46:01.2098[10]  INFO HomeController  ImportAll 34/2025 07(全國人數表第34週).xlsx [GEPT] → 31校 38筆 錯誤:0
+2026-09-09 09:46:05.4476[10]  INFO HomeController  ImportAll 34/PS南區人數統計表 114學年度(34週).xlsx [PS] → 4校 42筆 錯誤:0
+2026-09-09 09:46:05.4476[10]  INFO HomeController  ImportAll 35/（百倍速）人數統計表更新版115.2.28).xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:47:31.8282[10]  INFO HomeController  ImportAll 35/2025 07(全國人數表第35週).xlsx [PH] → 26校 723筆 錯誤:1
+2026-09-09 09:47:31.8282[10]  INFO HomeController  ImportAll 35/2025 07(全國人數表第35週).xlsx [GEPT] → 31校 38筆 錯誤:0
+2026-09-09 09:47:38.2451[10]  INFO HomeController  ImportAll 35/PS南區人數統計表 114學年度(35週).xlsx [PS] → 4校 43筆 錯誤:0
+2026-09-09 09:47:38.2451[10]  INFO HomeController  ImportAll 36/（百倍速）人數統計表更新版115.3.07).xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:49:40.3677[10]  INFO HomeController  ImportAll 36/2025 07(全國人數表第36週).xlsx [PH] → 26校 732筆 錯誤:1
+2026-09-09 09:49:40.3677[10]  INFO HomeController  ImportAll 36/2025 07(全國人數表第36週).xlsx [GEPT] → 31校 38筆 錯誤:0
+2026-09-09 09:49:44.0771[10]  INFO HomeController  ImportAll 36/PS南區人數統計表 114學年度(36週).xlsx [PS] → 4校 46筆 錯誤:0
+2026-09-09 09:49:44.0771[10]  INFO HomeController  ImportAll 37/（百倍速）人數統計表更新版115.3.14).xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:50:56.5414[10]  INFO HomeController  ImportAll 37/2025 07(全國人數表第37週).xlsx [PH] → 26校 719筆 錯誤:1
+2026-09-09 09:50:56.5414[10]  INFO HomeController  ImportAll 37/2025 07(全國人數表第37週).xlsx [GEPT] → 31校 39筆 錯誤:0
+2026-09-09 09:50:59.1168[10]  INFO HomeController  ImportAll 37/PS南區人數統計表 114學年度(37週).xlsx [PS] → 4校 43筆 錯誤:0
+2026-09-09 09:50:59.1168[10]  INFO HomeController  ImportAll 38/（百倍速）人數統計表更新版115.3.21).xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:52:05.2336[10]  INFO HomeController  ImportAll 38/2025 07(全國人數表第38週).xlsx [PH] → 26校 735筆 錯誤:1
+2026-09-09 09:52:05.2336[10]  INFO HomeController  ImportAll 38/2025 07(全國人數表第38週).xlsx [GEPT] → 31校 38筆 錯誤:0
+2026-09-09 09:52:07.2146[10]  INFO HomeController  ImportAll 38/PS南區人數統計表 114學年度(38週).xlsx [PS] → 4校 42筆 錯誤:0
+2026-09-09 09:52:07.2146[10]  INFO HomeController  ImportAll 39/（百倍速）人數統計表更新版115.3.28).xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:52:56.9012[10]  INFO HomeController  ImportAll 39/2025 07(全國人數表第39週)修正.xlsx [PH] → 26校 710筆 錯誤:1
+2026-09-09 09:52:56.9012[10]  INFO HomeController  ImportAll 39/2025 07(全國人數表第39週)修正.xlsx [GEPT] → 31校 32筆 錯誤:0
+2026-09-09 09:52:58.3960[10]  INFO HomeController  ImportAll 39/PS南區人數統計表 114學年度(39週).xlsx [PS] → 4校 43筆 錯誤:0
+2026-09-09 09:52:58.3960[10]  INFO HomeController  ImportAll 40/（百倍速）人數統計表更新版115.4.04).xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:54:49.0139[10]  INFO HomeController  ImportAll 40/2025 07(全國人數表第40週).xlsx [PH] → 26校 710筆 錯誤:1
+2026-09-09 09:54:49.0139[10]  INFO HomeController  ImportAll 40/2025 07(全國人數表第40週).xlsx [GEPT] → 31校 31筆 錯誤:0
+2026-09-09 09:54:51.5019[10]  INFO HomeController  ImportAll 40/PS南區人數統計表 114學年度(40週).xlsx [PS] → 4校 42筆 錯誤:0
+2026-09-09 09:54:51.5019[10]  INFO HomeController  ImportAll 41/（百倍速）人數統計表更新版115.4.11).xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 09:59:38.8753[10]  INFO HomeController  ImportAll 41/2025 07(全國人數表第41週).xlsx [PH] → 26校 706筆 錯誤:1
+2026-09-09 09:59:38.8753[10]  INFO HomeController  ImportAll 41/2025 07(全國人數表第41週).xlsx [GEPT] → 31校 36筆 錯誤:0
+2026-09-09 09:59:42.1424[10]  INFO HomeController  ImportAll 41/PS南區人數統計表 114學年度(41週).xlsx [PS] → 4校 43筆 錯誤:0
+2026-09-09 09:59:42.1424[10]  INFO HomeController  ImportAll 42/（百倍速）人數統計表更新版115.4.18).xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 10:02:04.7116[10]  INFO HomeController  ImportAll 42/2025 07(全國人數表第42週).xlsx [PH] → 26校 711筆 錯誤:1
+2026-09-09 10:02:04.7116[10]  INFO HomeController  ImportAll 42/2025 07(全國人數表第42週).xlsx [GEPT] → 31校 35筆 錯誤:0
+2026-09-09 10:02:07.8302[10]  INFO HomeController  ImportAll 42/PS南區人數統計表 114學年度(42週).xlsx [PS] → 4校 44筆 錯誤:0
+2026-09-09 10:02:07.8312[10]  INFO HomeController  ImportAll 43/（百倍速）人數統計表更新版115.4.25).xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 10:03:58.3757[10]  INFO HomeController  ImportAll 43/2025 07(全國人數表第43週).xlsx [PH] → 26校 700筆 錯誤:1
+2026-09-09 10:03:58.3757[10]  INFO HomeController  ImportAll 43/2025 07(全國人數表第43週).xlsx [GEPT] → 31校 36筆 錯誤:0
+2026-09-09 10:04:07.0429[10]  INFO HomeController  ImportAll 43/PS南區人數統計表 114學年度(43週).xlsx [PS] → 4校 44筆 錯誤:0
+2026-09-09 10:04:07.0429[10]  INFO HomeController  ImportAll 44/（百倍速）人數統計表更新版115.5.02).xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 10:06:54.2936[10]  INFO HomeController  ImportAll 44/2025 07(全國人數表第44週).xlsx [PH] → 26校 712筆 錯誤:0
+2026-09-09 10:06:54.2936[10]  INFO HomeController  ImportAll 44/2025 07(全國人數表第44週).xlsx [GEPT] → 31校 34筆 錯誤:0
+2026-09-09 10:07:01.2412[10]  INFO HomeController  ImportAll 44/PS南區人數統計表 114學年度(44週).xlsx [PS] → 4校 42筆 錯誤:0
+2026-09-09 10:07:01.2412[10]  INFO HomeController  ImportAll 45/（百倍速）人數統計表更新版115.5.09).xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 10:09:33.0221[10]  INFO HomeController  ImportAll 45/2025 07(全國人數表第45週).xlsx [PH] → 26校 709筆 錯誤:0
+2026-09-09 10:09:33.0221[10]  INFO HomeController  ImportAll 45/2025 07(全國人數表第45週).xlsx [GEPT] → 31校 35筆 錯誤:0
+2026-09-09 10:09:38.0782[10]  INFO HomeController  ImportAll 45/PS南區人數統計表 114學年度(45週).xlsx [PS] → 4校 43筆 錯誤:0
+2026-09-09 10:09:38.0782[10]  INFO HomeController  ImportAll 46/（百倍速）人數統計表更新版115.5.16).xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 10:12:46.9464[10]  INFO HomeController  ImportAll 46/2025 07(全國人數表第46週).xlsx [PH] → 26校 717筆 錯誤:0
+2026-09-09 10:12:46.9464[10]  INFO HomeController  ImportAll 46/2025 07(全國人數表第46週).xlsx [GEPT] → 31校 33筆 錯誤:0
+2026-09-09 10:12:50.4143[10]  INFO HomeController  ImportAll 46/PS南區人數統計表 114學年度(46週).xlsx [PS] → 4校 42筆 錯誤:0
+2026-09-09 10:12:50.4143[10]  INFO HomeController  ImportAll 47/（百倍速）人數統計表更新版115.5.23).xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 10:15:30.4288[10]  INFO HomeController  ImportAll 47/2025 07(全國人數表第47週).xlsx [PH] → 26校 781筆 錯誤:0
+2026-09-09 10:15:30.4288[10]  INFO HomeController  ImportAll 47/2025 07(全國人數表第47週).xlsx [GEPT] → 31校 32筆 錯誤:0
+2026-09-09 10:15:33.3501[10]  INFO HomeController  ImportAll 47/PS南區人數統計表 114學年度(47週).xlsx [PS] → 4校 42筆 錯誤:0
+2026-09-09 10:15:33.3733[10]  INFO HomeController  ImportAll 48/（百倍速）人數統計表更新版115.5.30).xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 10:15:33.8534[10]  INFO HomeController  ImportAll 48/2025 07(全國人數表第48週).xlsx [PH] → 0校 0筆 錯誤:2
+2026-09-09 10:15:33.8534[10]  INFO HomeController  ImportAll 48/2025 07(全國人數表第48週).xlsx [GEPT] → 0校 0筆 錯誤:1
+2026-09-09 10:15:33.9447[10]  INFO HomeController  ImportAll 48/PS南區人數統計表 114學年度(48週).xlsx [PS] → 0校 0筆 錯誤:1
+2026-09-09 10:15:33.9447[10]  INFO HomeController  ImportAll 49/（百倍速）人數統計表更新版115.6.06).xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 10:17:21.4656[10]  INFO HomeController  ImportAll 49/2025 07(全國人數表第49週).xlsx [PH] → 26校 774筆 錯誤:0
+2026-09-09 10:17:21.4656[10]  INFO HomeController  ImportAll 49/2025 07(全國人數表第49週).xlsx [GEPT] → 31校 33筆 錯誤:0
+2026-09-09 10:17:25.3308[10]  INFO HomeController  ImportAll 49/PS南區人數統計表 114學年度(49週).xlsx [PS] → 4校 43筆 錯誤:0
+2026-09-09 10:17:25.3484[10]  INFO HomeController  ImportAll 50/（百倍速）人數統計表更新版115.6.13).xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 10:19:56.7294[10]  INFO HomeController  ImportAll 50/2025 07(全國人數表第50週).xlsx [PH] → 26校 763筆 錯誤:0
+2026-09-09 10:19:56.7294[10]  INFO HomeController  ImportAll 50/2025 07(全國人數表第50週).xlsx [GEPT] → 31校 30筆 錯誤:0
+2026-09-09 10:19:59.5891[10]  INFO HomeController  ImportAll 50/PS南區人數統計表 114學年度(50週).xlsx [PS] → 4校 42筆 錯誤:0
+2026-09-09 10:19:59.6000[10]  INFO HomeController  ImportAll 51/（百倍速）人數統計表更新版115.6.20).xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 10:21:52.8152[10]  INFO HomeController  ImportAll 51/2025 07(全國人數表第51週).xlsx [PH] → 26校 758筆 錯誤:0
+2026-09-09 10:21:52.8152[10]  INFO HomeController  ImportAll 51/2025 07(全國人數表第51週).xlsx [GEPT] → 31校 23筆 錯誤:0
+2026-09-09 10:21:58.4026[10]  INFO HomeController  ImportAll 51/PS南區人數統計表 114學年度(51週).xlsx [PS] → 3校 39筆 錯誤:0
+2026-09-09 10:21:58.4118[10]  INFO HomeController  ImportAll 52/（百倍速）人數統計表更新版115.6.27).xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 10:24:12.3054[10]  INFO HomeController  ImportAll 52/2025 07(全國人數表第52週).xlsx [PH] → 26校 748筆 錯誤:0
+2026-09-09 10:24:12.3054[10]  INFO HomeController  ImportAll 52/2025 07(全國人數表第52週).xlsx [GEPT] → 31校 20筆 錯誤:0
+2026-09-09 10:24:14.9767[10]  INFO HomeController  ImportAll 52/PS南區人數統計表 114學年度(52週).xlsx [PS] → 4校 40筆 錯誤:0
+2026-09-09 10:25:23.9374[15]  INFO HomeController  ImportAll 31/（百倍速）人數統計表更新版115.1.31.xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 10:27:52.5073[15]  INFO HomeController  ImportAll 31/2025 07(全國人數表第31週).xlsx [PH] → 26校 732筆 錯誤:1
+2026-09-09 10:27:52.5073[15]  INFO HomeController  ImportAll 31/2025 07(全國人數表第31週).xlsx [GEPT] → 31校 39筆 錯誤:0
+2026-09-09 10:27:55.6732[15]  INFO HomeController  ImportAll 31/PS南區人數統計表 114學年度(31週).xlsx [PS] → 4校 44筆 錯誤:0
+2026-09-09 10:27:55.6732[15]  INFO HomeController  ImportAll 48/（百倍速）人數統計表更新版115.5.30).xlsx [PSJ] → 0校 0筆 錯誤:1
+2026-09-09 10:30:15.4828[15]  INFO HomeController  ImportAll 48/2025 07(全國人數表第48週).xlsx [PH] → 26校 770筆 錯誤:0
+2026-09-09 10:30:15.4828[15]  INFO HomeController  ImportAll 48/2025 07(全國人數表第48週).xlsx [GEPT] → 31校 32筆 錯誤:0
+2026-09-09 10:30:21.6491[15]  INFO HomeController  ImportAll 48/PS南區人數統計表 114學年度(48週).xlsx [PS] → 4校 42筆 錯誤:0
+2026-09-09 10:32:09.7805[37]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-09-09 10:32:09.7805[37]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-09-09 13:47:25.1939[17]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-09-09 13:47:25.2095[17]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-09-09 13:47:29.5791[16]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-09-09 13:47:29.5791[16]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-09-09 16:05:58.5615[17]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-09-09 16:05:58.5615[17]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-09-09 22:58:13.8216[14]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-09-09 22:58:13.8216[14]  INFO HomeController  進入首頁 讀取 Session account: login:0

@@ -1,0 +1,18 @@
+2026-08-20 13:52:12.4428[13]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-20 13:52:12.4540[13]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-08-20 13:52:12.5747[9]  INFO MemberController  Member Login account: password: 
+2026-08-20 13:54:15.2330[25]  INFO MemberController  Member Login account:dongan password:062745984 
+2026-08-20 13:54:15.5719[25]  INFO MemberController  進行登入 
+2026-08-20 13:54:15.6426[25]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-08-20 13:54:15.7232[26]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-20 13:54:15.7232[26]  INFO HomeController  進入首頁
+2026-08-20 13:54:41.9083[25]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-20 13:54:41.9083[25]  INFO HomeController  進入首頁
+2026-08-20 13:55:14.4086[33]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-20 13:55:14.4086[33]  INFO HomeController  進入首頁
+2026-08-20 13:55:39.9044[36]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-20 13:55:39.9044[36]  INFO HomeController  進入首頁
+2026-08-20 13:59:14.9836[36]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-20 13:59:14.9836[36]  INFO HomeController  進入首頁
+2026-08-20 13:59:17.6266[20]  INFO StudentPopulationController  進入首頁(MainMenu)
+2026-08-20 13:59:17.6266[20]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 7957e779-6afe-4474-8257-08dd20ca2364

@@ -69,3 +69,21 @@
 2026-08-10 17:40:36.1668[27]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
 2026-08-10 17:40:36.1668[27]  INFO HomeController  進入首頁
 2026-08-10 17:40:38.8185[13]  INFO MemberController  Member Login account: password: 
+2026-08-10 21:10:23.8601[7]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-10 21:10:23.8690[7]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-08-10 21:10:23.9809[17]  INFO MemberController  Member Login account: password: 
+2026-08-10 21:19:27.5401[20]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-08-10 21:19:29.4614[20]  INFO MemberController  進行登入 
+2026-08-10 21:19:29.7260[20]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-08-10 21:19:30.0648[30]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-10 21:19:30.0648[30]  INFO HomeController  進入首頁
+2026-08-10 21:19:34.1657[30]  INFO StudentPopulationController  進入首頁(MainMenu)
+2026-08-10 21:19:34.1657[30]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd
+2026-08-10 21:56:53.6096[3]  INFO MemberController  Member Login account: password: 
+2026-08-10 21:57:06.3638[25]  INFO MemberController  Member Login account:admin password:cloudfun 
+2026-08-10 21:57:06.4772[25]  INFO MemberController  進行登入 
+2026-08-10 21:57:06.6245[25]  INFO MemberController  進行登入完成 導入 /StudentPopulation/ExportReport?year=115 False 
+2026-08-10 21:57:06.6895[42]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-10 21:57:06.6895[42]  INFO HomeController  進入首頁
+2026-08-10 21:57:10.3283[45]  INFO StudentPopulationController  進入首頁(MainMenu)
+2026-08-10 21:57:10.3283[45]  INFO StudentPopulationController  進入首頁確認使用者 User.IsGuest False User.Id 23858d7e-f622-4d15-4a74-08dc7a5137dd

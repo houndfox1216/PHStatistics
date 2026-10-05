@@ -1,0 +1,8 @@
+2026-08-13 09:08:58.7708[15]  INFO HomeController  進入首頁 IsGuest:True IsAuthenticated:True
+2026-08-13 09:08:58.7708[15]  INFO HomeController  進入首頁 讀取 Session account: login:0
+2026-08-13 09:08:58.8690[11]  INFO MemberController  Member Login account: password: 
+2026-08-13 09:10:00.8072[7]  INFO MemberController  Member Login account:sysadmin password:53906052 
+2026-08-13 09:10:01.1551[7]  INFO MemberController  進行登入 
+2026-08-13 09:10:01.3342[7]  INFO MemberController  進行登入完成 導入 /Index False 
+2026-08-13 09:10:01.5282[7]  INFO HomeController  進入首頁 IsGuest:False IsAuthenticated:True
+2026-08-13 09:10:01.5282[7]  INFO HomeController  進入首頁
