@@ -69,13 +69,10 @@ public class PsjImportTests {
         var zhongzheng = db.StudentPopulation.First(p => p.School.Name == "中正" && p.Year == Year && p.Week == Week && p.Type == StudentPopulationType.PSJ);
         Assert.That(NumberFor(db, zhongzheng.Id, CourseMapping.PsjCourseIds["SS"][7], ClassType.SubGroup), Is.EqualTo(2));
 
-        // CKC 英/國/數：這份真實檔案裡三科「加上」「單上」欄位全部是 0/空白，
-        // 所以這裡只驗證流程沒有例外、沒有寫入任何 CKC Class（未驗證非零情境——之後若有含 CKC 真實數字的檔案，應補測）。
-        var ckcCourseIds = CourseMapping.CkcCourseIds["CKC_E"]
-            .Concat(CourseMapping.CkcCourseIds["CKC_C"])
-            .Concat(CourseMapping.CkcCourseIds["CKC_M"]);
+        // CKC自立自學班已廢除（課程 345~377）：匯入不再讀取其欄位，不應寫入任何 CKC Class
+        var ckcCourseIds = Enumerable.Range(345, 33).ToList();
         int ckcClassCount = db.Class.Count(c => ckcCourseIds.Contains(c.CourseId ?? 0));
-        Assert.That(ckcClassCount, Is.EqualTo(0), "本次真實檔案 CKC 欄位全為 0，若此斷言失敗代表檔案已更新為含真實 CKC 資料，請改寫本測試改為驗證實際數字");
+        Assert.That(ckcClassCount, Is.EqualTo(0), "CKC自立自學班已廢除，匯入不應建立 CKC 班級");
 
         TestContext.WriteLine($"Schools imported: {result.SchoolCount}, items: {result.ItemCount}");
     }

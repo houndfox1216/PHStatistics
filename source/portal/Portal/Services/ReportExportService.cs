@@ -107,7 +107,9 @@ public class ReportExportService {
                 break;
             }
             case StudentPopulationType.PSJ: {
-                var psjCourses = LoadCourses(StudentPopulationType.PSJ);
+                // CKC自立自學班已廢除、不會再有數值輸入，匯出表不再列出該班系(Department 39)的欄位
+                var psjCourses = LoadCourses(StudentPopulationType.PSJ)
+                    .Where(c => c.Department?.Name != "CKC自立自學班").ToList();
                 var totalSheet = wb.CreateSheet("總表");
                 BuildSheetPSJ(totalSheet, populations, psjCourses, year, week);
                 foreach (var (regionName, regionPopulations) in GroupByRegion(populations)) {

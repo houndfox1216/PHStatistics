@@ -22,19 +22,6 @@ public static class CourseMapping {
         ["W"]  = new[]{159,160,161,162,163,164,165,166,167,168,169,170},
     };
 
-    // PSJ/CKC 專用年級順序：11 個年級，不含「一年級」（Excel 北區資料列從未出現這個年級；
-    // 南區資料列雖然有「一年級」，但 CKC 三科本身就未涵蓋這個年級，查不到時呼叫端會直接跳過該欄）
-    public static readonly string[] PsjGradeOrder = {
-        "二年級","三年級","四年級","五年級","六年級",
-        "國一","國二","國三","高一","高二","高三"
-    };
-
-    public static readonly Dictionary<string, int[]> CkcCourseIds = new() {
-        ["CKC_E"] = new[]{345,346,347,348,349,350,351,352,353,354,355},
-        ["CKC_C"] = new[]{356,357,358,359,360,361,362,363,364,365,366},
-        ["CKC_M"] = new[]{367,368,369,370,371,372,373,374,375,376,377},
-    };
-
     // 南區右半頁籤分校名寫「高美」，但資料庫 School.Name 是「高美館」，精確比對會找不到分校
     // 而靜默漏掉整週資料——比照 AsChineseNumerals 的 fallback 慣例修正。
     public static readonly Dictionary<string, string> PsjSchoolNameAliases = new() {

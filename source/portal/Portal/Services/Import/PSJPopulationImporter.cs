@@ -20,18 +20,12 @@ public class PSJPopulationImporter : IPopulationImporter {
     // 導致南區理化班/分析欄位往後多推 1 格——這是兩份頁籤唯一的欄位配置差異。
     internal sealed class ColumnLayout {
         public int NameCol, GradeCol;
-        public int CkcEnglishGroupCol, CkcEnglishPersonalCol;
-        public int CkcChineseGroupCol, CkcChinesePersonalCol;
-        public int CkcMathGroupCol, CkcMathPersonalCol;
         public int MathPersonalCol;
         public int[] MathGroupCols;
         public int SciencePersonalCol, ScienceGroupCol;
 
         public ColumnLayout Shift(int offset) => new ColumnLayout {
             NameCol = NameCol + offset, GradeCol = GradeCol + offset,
-            CkcEnglishGroupCol = CkcEnglishGroupCol + offset, CkcEnglishPersonalCol = CkcEnglishPersonalCol + offset,
-            CkcChineseGroupCol = CkcChineseGroupCol + offset, CkcChinesePersonalCol = CkcChinesePersonalCol + offset,
-            CkcMathGroupCol = CkcMathGroupCol + offset, CkcMathPersonalCol = CkcMathPersonalCol + offset,
             MathPersonalCol = MathPersonalCol + offset,
             MathGroupCols = MathGroupCols.Select(c => c + offset).ToArray(),
             SciencePersonalCol = SciencePersonalCol + offset, ScienceGroupCol = ScienceGroupCol + offset,
@@ -39,18 +33,12 @@ public class PSJPopulationImporter : IPopulationImporter {
 
         public static readonly ColumnLayout North = new ColumnLayout {
             NameCol = 1, GradeCol = 2,
-            CkcEnglishGroupCol = 3, CkcEnglishPersonalCol = 4,
-            CkcChineseGroupCol = 5, CkcChinesePersonalCol = 6,
-            CkcMathGroupCol = 7, CkcMathPersonalCol = 8,
             MathPersonalCol = 9, MathGroupCols = new[] { 10, 11, 12, 13 },
             SciencePersonalCol = 14, ScienceGroupCol = 15,
         };
 
         public static readonly ColumnLayout SouthLeft = new ColumnLayout {
             NameCol = 1, GradeCol = 2,
-            CkcEnglishGroupCol = 3, CkcEnglishPersonalCol = 4,
-            CkcChineseGroupCol = 5, CkcChinesePersonalCol = 6,
-            CkcMathGroupCol = 7, CkcMathPersonalCol = 8,
             MathPersonalCol = 9, MathGroupCols = new[] { 10, 11, 12, 13, 14 },
             SciencePersonalCol = 15, ScienceGroupCol = 16,
         };
@@ -166,16 +154,7 @@ public class PSJPopulationImporter : IPopulationImporter {
                 if (string.IsNullOrEmpty(grade) || grade == "小計") continue;
 
                 int mathGradeIdx = Array.IndexOf(CourseMapping.GradeOrder, grade);
-                int ckcGradeIdx = Array.IndexOf(CourseMapping.PsjGradeOrder, grade);
-
-                if (ckcGradeIdx >= 0) {
-                    WriteIfPositive(db, school.Id, CourseMapping.CkcCourseIds["CKC_E"][ckcGradeIdx], ClassType.Group, row, layout.CkcEnglishGroupCol, pop.Id, result, logger, classCountCache);
-                    WriteIfPositive(db, school.Id, CourseMapping.CkcCourseIds["CKC_E"][ckcGradeIdx], ClassType.Personal, row, layout.CkcEnglishPersonalCol, pop.Id, result, logger, classCountCache);
-                    WriteIfPositive(db, school.Id, CourseMapping.CkcCourseIds["CKC_C"][ckcGradeIdx], ClassType.Group, row, layout.CkcChineseGroupCol, pop.Id, result, logger, classCountCache);
-                    WriteIfPositive(db, school.Id, CourseMapping.CkcCourseIds["CKC_C"][ckcGradeIdx], ClassType.Personal, row, layout.CkcChinesePersonalCol, pop.Id, result, logger, classCountCache);
-                    WriteIfPositive(db, school.Id, CourseMapping.CkcCourseIds["CKC_M"][ckcGradeIdx], ClassType.Group, row, layout.CkcMathGroupCol, pop.Id, result, logger, classCountCache);
-                    WriteIfPositive(db, school.Id, CourseMapping.CkcCourseIds["CKC_M"][ckcGradeIdx], ClassType.Personal, row, layout.CkcMathPersonalCol, pop.Id, result, logger, classCountCache);
-                }
+                // CKC自立自學班已廢除（Excel 第3~8欄為其欄位，不再讀取），不會再寫入 CKC 項目
 
                 if (mathGradeIdx >= 0) {
                     WriteIfPositive(db, school.Id, CourseMapping.PsjCourseIds["MP"][mathGradeIdx], ClassType.Personal, row, layout.MathPersonalCol, pop.Id, result, logger, classCountCache);
