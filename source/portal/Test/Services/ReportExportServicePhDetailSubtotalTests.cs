@@ -26,11 +26,12 @@ public class ReportExportServicePhDetailSubtotalTests {
     private const int TotalCols = FixedCols + 1 /* ClassCourse 1 slot */ + 1 /* SumCourse */;
 
     private static void InvokeBuildSheetPHDetail(NPOI.SS.UserModel.ISheet sheet,
-        List<StudentPopulation> populations, List<StudentPopulation> allPopulationsForGrandTotal, string title) {
+        List<StudentPopulation> populations, List<StudentPopulation> allPopulationsForGrandTotal, string title,
+        ReportExportService.PhSummaryData summaryData = null) {
         var method = typeof(ReportExportService).GetMethod("BuildSheetPHDetail",
             BindingFlags.NonPublic | BindingFlags.Static);
         method.Invoke(null, new object[] {
-            sheet, populations, DeptGroups, MaxSlots, FixedCols, TotalCols, title, allPopulationsForGrandTotal
+            sheet, populations, DeptGroups, MaxSlots, FixedCols, TotalCols, title, allPopulationsForGrandTotal, summaryData
         });
     }
 
@@ -99,5 +100,31 @@ public class ReportExportServicePhDetailSubtotalTests {
         Assert.That(lastYearRow.GetCell(0).StringCellValue, Is.EqualTo("去年同期"));
         Assert.That(totalRow.GetCell(0).StringCellValue, Is.EqualTo("總計"));
         Assert.That(analysisRow.GetCell(0).StringCellValue, Is.EqualTo("分析"));
+    }
+
+    [Test]
+    public void LastRegionSheet_SummaryBlockSpansExpandedClassColumns() {
+        // 國小區塊(課程1~9)：班級課程(Id1)展開2欄(col 2~3)＋合計課程(Id9)1欄(col 4)，區塊橫跨col 2~4
+        var dept = new CourseDepartment { Id = 1, Name = "英文國小班" };
+        var classCourse = new Course { Id = 1, Name = "P1-初階", Department = dept, IsSum = false };
+        var sumCourse = new Course { Id = 9, Name = "英文國小人數合計", Department = dept, IsSum = true };
+        var groups = new List<(CourseDepartment dept, List<Course> list)> { (dept, new List<Course> { classCourse, sumCourse }) };
+        var slots = new Dictionary<int, int> { [1] = 2 };
+        var data = new ReportExportService.PhSummaryData();
+        data.PhThis[9] = 467; data.PhLast[9] = 551;
+
+        var sheet = new NPOI.XSSF.UserModel.XSSFWorkbook().CreateSheet("Sheet1");
+        var pops = new List<StudentPopulation> { MakePopulation("向上", 5, 5) };
+        var method = typeof(ReportExportService).GetMethod("BuildSheetPHDetail", BindingFlags.NonPublic | BindingFlags.Static);
+        method.Invoke(null, new object[] { sheet, pops, groups, slots, 2, 5, "title", pops, data });
+
+        int subtotalRowIdx = 4 + pops.Count * 2;
+        var lastYearRow = sheet.GetRow(subtotalRowIdx + 2);
+        var totalRow = sheet.GetRow(subtotalRowIdx + 3);
+        var analysisRow = sheet.GetRow(subtotalRowIdx + 4);
+        Assert.That(lastYearRow.GetCell(2).NumericCellValue, Is.EqualTo(551));
+        Assert.That(totalRow.GetCell(2).NumericCellValue, Is.EqualTo(467));
+        Assert.That(analysisRow.GetCell(2).NumericCellValue, Is.EqualTo((467.0 - 551) / 551).Within(1e-9));
+        Assert.That(sheet.MergedRegions.Any(m => m.FirstRow == subtotalRowIdx + 3 && m.FirstColumn == 2 && m.LastColumn == 4), Is.True);
     }
 }

@@ -86,13 +86,15 @@ public class ReportExportService {
         switch (type) {
             case StudentPopulationType.PH: {
                 var regionGroups = GroupByRegion(populations);
+                // 去年同期/總計/分析 與 114年/115年 比較區塊只出現在最後一個分區頁籤，需要114年同週與跨報表資料
+                var summaryData = LoadPhSummaryData(year, week, schoolIds, populations);
                 for (int i = 0; i < regionGroups.Count; i++) {
                     var (regionName, regionPopulations) = regionGroups[i];
                     var sheet = wb.CreateSheet(regionName);
                     bool isLastRegion = i == regionGroups.Count - 1;
                     BuildSheetPH(sheet, regionPopulations, courses, year, week,
                         $"{year}年第{week}週百瀚英語{regionName}分校人數統計表",
-                        isLastRegion ? populations : null);
+                        isLastRegion ? populations : null, isLastRegion ? summaryData : null);
                 }
                 break;
             }
@@ -144,7 +146,7 @@ public class ReportExportService {
     private static void BuildSheetPH(ISheet sheet,
         List<StudentPopulation> populations, List<Course> courses,
         int year, int week, string title,
-        List<StudentPopulation> allPopulationsForGrandTotal = null) {
+        List<StudentPopulation> allPopulationsForGrandTotal = null, PhSummaryData summaryData = null) {
 
         sheet.CreateRow(0).CreateCell(0).SetCellValue(title);
 
@@ -233,26 +235,143 @@ public class ReportExportService {
                 if (grandTotals[c] != 0) combinedRow.CreateCell(c).SetCellValue(grandTotals[c]);
             rowIdx++;
 
-            foreach (var label in new[] { "去年同期", "總計", "分析" }) {
-                var row = sheet.CreateRow(rowIdx);
-                row.CreateCell(0).SetCellValue(label);
-                try { sheet.AddMergedRegion(new CellRangeAddress(rowIdx, rowIdx, 0, 1)); } catch { }
-                rowIdx++;
-            }
-
-            // 跨報表(PH+GEPT+PSJ) 114年/115年比較區塊：資料來源涉及另外兩種報表類型及去年歷史資料，
-            // 本次匯出只留版面標籤，儲存格刻意留空，待確認算法與資料來源後再補（不做跨Export()呼叫組合匯出）。
-            rowIdx++;
-            var yearHeaderRow = sheet.CreateRow(rowIdx);
-            yearHeaderRow.CreateCell(1).SetCellValue("英+國");
-            yearHeaderRow.CreateCell(2).SetCellValue("英檢");
-            yearHeaderRow.CreateCell(3).SetCellValue("百倍速");
-            rowIdx++;
-            foreach (var yearLabel in new[] { "114年", "115年" }) {
-                sheet.CreateRow(rowIdx).CreateCell(0).SetCellValue(yearLabel);
-                rowIdx++;
-            }
+            // 分區報表：資料列 col = 2 + 課程在 courses 的索引，每課程1欄
+            var spanOf = new Dictionary<int, (int start, int end)>();
+            for (int i = 0; i < courses.Count; i++) spanOf[courses[i].Id] = (2 + i, 2 + i);
+            WritePhSummaryRows(sheet, ref rowIdx, spanOf, summaryData);
         }
+    }
+
+    // ── PH 總計區塊：去年同期／總計／分析 與 114年/115年 比較 ─────────────────────────────────
+    // 比照客戶「全國人數表」中北區頁籤最下方（公式取自 2026 07(全國人數表第4週).xlsx）：
+    //  - 總計 = 該區塊「合計」課程的全國加總（本週）
+    //  - 去年同期 = 同一區塊在114學年度「相同週次」的全國加總（客戶原檔為手填，這裡改讀系統內114年資料）
+    //  - 分析 = (總計 − 去年同期) ÷ 去年同期（去年同期為0時留白，原檔會顯示 #DIV/0!）
+    //  - 英文總人數 = 國小+國中+高中(不含Elite)+個別指導+合作開班 各區塊總計相加；英+國 = 英文總人數 + 國語文
+    // 區塊以 Course.Id 指定欄位範圍（需連續）；原檔的 Elite/SAT 欄(BB)獨立於高中區塊，且不計入英文總人數，
+    // 但資料庫「英文高中人數合計」含 Elite，所以高中區塊要扣掉 Elite。
+    public sealed class PhSummaryData {
+        public Dictionary<int, int> PhThis = new(), PhLast = new();
+        public int GeptThis, GeptLast, GeptOtherThis, GeptOtherLast;
+        public int PsThis, PsLast, PsjThis, PsjLast, AsThis, AsLast;
+    }
+
+    private const int PhEliteCourseId = 17;
+    private static readonly int[] PhPsjGradeTotalCourseIds = Enumerable.Range(562, 12).ToArray();
+    private static readonly int[] PhAsGradeTotalCourseIds = Enumerable.Range(514, 12).ToArray();
+
+    private static Dictionary<int, int> SumByCourse(IEnumerable<StudentPopulation> pops) =>
+        pops.SelectMany(p => p.Items)
+            .Where(i => i.Class?.CourseId != null)
+            .GroupBy(i => i.Class.CourseId.Value)
+            .ToDictionary(g => g.Key, g => g.Sum(i => i.Number));
+
+    private static int SumOf(Dictionary<int, int> totals, IEnumerable<int> courseIds) =>
+        courseIds.Sum(id => totals.TryGetValue(id, out var v) ? v : 0);
+
+    private PhSummaryData LoadPhSummaryData(int year, int week, IList<int> schoolIds, List<StudentPopulation> phThisWeek) {
+        var d = new PhSummaryData { PhThis = SumByCourse(phThisWeek) };
+        d.PhLast = SumByCourse(LoadPopulations(StudentPopulationType.PH, year - 1, week, schoolIds));
+
+        var geptThis = SumByCourse(LoadPopulations(StudentPopulationType.GEPT, year, week, schoolIds));
+        var geptLast = SumByCourse(LoadPopulations(StudentPopulationType.GEPT, year - 1, week, schoolIds));
+        var psThis = SumByCourse(LoadPopulations(StudentPopulationType.PS, year, week, schoolIds));
+        var psLast = SumByCourse(LoadPopulations(StudentPopulationType.PS, year - 1, week, schoolIds));
+        var psjThis = SumByCourse(LoadPopulations(StudentPopulationType.PSJ, year, week, schoolIds));
+        var psjLast = SumByCourse(LoadPopulations(StudentPopulationType.PSJ, year - 1, week, schoolIds));
+        var asThis = SumByCourse(LoadPopulations(StudentPopulationType.AfterSchool, year, week, schoolIds));
+        var asLast = SumByCourse(LoadPopulations(StudentPopulationType.AfterSchool, year - 1, week, schoolIds));
+
+        // 英檢=本週英檢總人數(88)；其他=GEPT其他班系合計(107)；ps=PS數學總人數(132)；
+        // 百倍速=PSJ 12個年級本週總人數(562~573)加總；課輔=AS 12個年級本週總人數(514~525)加總
+        d.GeptThis = SumOf(geptThis, new[] { 88 }); d.GeptLast = SumOf(geptLast, new[] { 88 });
+        d.GeptOtherThis = SumOf(geptThis, new[] { 107 }); d.GeptOtherLast = SumOf(geptLast, new[] { 107 });
+        d.PsThis = SumOf(psThis, new[] { 132 }); d.PsLast = SumOf(psLast, new[] { 132 });
+        d.PsjThis = SumOf(psjThis, PhPsjGradeTotalCourseIds); d.PsjLast = SumOf(psjLast, PhPsjGradeTotalCourseIds);
+        d.AsThis = SumOf(asThis, PhAsGradeTotalCourseIds); d.AsLast = SumOf(asLast, PhAsGradeTotalCourseIds);
+        return d;
+    }
+
+    // spanOf：課程Id → 該課程在工作表上佔用的欄位範圍(起,迄)。分區報表每課程1欄；班級明細的一般課程會展開成多欄。
+    private static void WritePhSummaryRows(ISheet sheet, ref int rowIdx, Dictionary<int, (int start, int end)> spanOf, PhSummaryData data) {
+        data ??= new PhSummaryData();
+
+        var wb = sheet.Workbook;
+        var pctStyle = wb.CreateCellStyle();
+        pctStyle.DataFormat = wb.CreateDataFormat().GetFormat("0%");
+        pctStyle.Alignment = HorizontalAlignment.Center;
+        var centerStyle = wb.CreateCellStyle();
+        centerStyle.Alignment = HorizontalAlignment.Center;
+
+        int startRow = rowIdx;
+        int rowLast = startRow, rowThis = startRow + 1, rowPct = startRow + 2;
+        var lastRow = sheet.CreateRow(rowLast); lastRow.CreateCell(0).SetCellValue("去年同期");
+        var thisRow = sheet.CreateRow(rowThis); thisRow.CreateCell(0).SetCellValue("總計");
+        var pctRow = sheet.CreateRow(rowPct); pctRow.CreateCell(0).SetCellValue("分析");
+        foreach (var r in new[] { rowLast, rowThis, rowPct })
+            try { sheet.AddMergedRegion(new CellRangeAddress(r, r, 0, 1)); } catch { }
+
+        void Put(IRow row, int c1, int c2, double value, ICellStyle style = null) {
+            var cell = row.CreateCell(c1); cell.SetCellValue(value);
+            cell.CellStyle = style ?? centerStyle;
+            if (c2 > c1) try { sheet.AddMergedRegion(new CellRangeAddress(row.RowNum, row.RowNum, c1, c2)); } catch { }
+        }
+        void Block(int[] ids, int totalThis, int totalLast) {
+            var spans = ids.Where(spanOf.ContainsKey).Select(id => spanOf[id]).ToList();
+            if (spans.Count == 0) return;
+            int c1 = spans.Min(x => x.start), c2 = spans.Max(x => x.end);
+            Put(lastRow, c1, c2, totalLast);
+            Put(thisRow, c1, c2, totalThis);
+            // 去年同期為0時留白（客戶原檔會顯示 #DIV/0!）
+            if (totalLast != 0) Put(pctRow, c1, c2, (double)(totalThis - totalLast) / totalLast, pctStyle);
+        }
+
+        int T(int id) => data.PhThis.TryGetValue(id, out var v) ? v : 0;
+        int L(int id) => data.PhLast.TryGetValue(id, out var v) ? v : 0;
+        int[] R(int from, int to) => Enumerable.Range(from, to - from + 1).ToArray();
+
+        // 國小/國中/Elite/高中(不含Elite)/個別指導(含總班數欄)/合作開班
+        int primT = T(9), primL = L(9);
+        int middleT = T(16), middleL = L(16);
+        int eliteT = T(PhEliteCourseId), eliteL = L(PhEliteCourseId);
+        int highT = T(21) - eliteT, highL = L(21) - eliteL;
+        int personalT = T(27), personalL = L(27);
+        int coopT = T(32), coopL = L(32);
+        int engT = primT + middleT + highT + personalT + coopT;
+        int engL = primL + middleL + highL + personalL + coopL;
+        int chiT = T(60), chiL = L(60);
+
+        Block(R(1, 9), primT, primL);
+        Block(R(10, 16), middleT, middleL);
+        Block(new[] { PhEliteCourseId }, eliteT, eliteL);
+        Block(R(18, 21), highT, highL);
+        // 匯出欄位依「班系順序」排列：高中後面接「英文統計」(總班數22/本週33/上週34)，再接個別指導、合作開班、英文分析
+        Block(new[] { 22, 33, 34 }, engT, engL);                 // 英文總人數（本週英語文總人數所在區塊）
+        Block(R(23, 27), personalT, personalL);
+        Block(R(28, 32), coopT, coopL);
+        Block(R(39, 61), chiT, chiL);                            // 國語文班系～本週/上週國語文總人數
+        Block(new[] { 66, 574, 67 }, engT + chiT, engL + chiL);   // 英+國 總人數
+        // 114年／115年 比較區塊：每格橫跨5欄，比照原檔（ref 參數不能用在區域函式內，改用區域變數）
+        int yr = rowPct + 2;
+        string[] labels = { "英+國", "英檢", "百倍速", "ps", "課輔", "其他", "總計" };
+        void YearBlock(string yearLabel, int[] values) {
+            var h = sheet.CreateRow(yr); var v = sheet.CreateRow(yr + 1);
+            var yl = h.CreateCell(2); yl.SetCellValue(yearLabel); yl.CellStyle = centerStyle;
+            try { sheet.AddMergedRegion(new CellRangeAddress(yr, yr + 1, 2, 4)); } catch { }
+            for (int k = 0; k < labels.Length; k++) {
+                int c1 = 5 + k * 5, c2 = c1 + 4;
+                var hc = h.CreateCell(c1); hc.SetCellValue(labels[k]); hc.CellStyle = centerStyle;
+                var vc = v.CreateCell(c1); vc.SetCellValue(values[k]); vc.CellStyle = centerStyle;
+                try { sheet.AddMergedRegion(new CellRangeAddress(yr, yr, c1, c2)); } catch { }
+                try { sheet.AddMergedRegion(new CellRangeAddress(yr + 1, yr + 1, c1, c2)); } catch { }
+            }
+            yr += 2;
+        }
+        int[] Year(int engChi, int gept, int psj, int ps, int asv, int other) =>
+            new[] { engChi, gept, psj, ps, asv, other, engChi + gept + psj + ps + asv + other };
+        YearBlock("114年", Year(engL + chiL, data.GeptLast, data.PsjLast, data.PsLast, data.AsLast, data.GeptOtherLast));
+        YearBlock("115年", Year(engT + chiT, data.GeptThis, data.PsjThis, data.PsThis, data.AsThis, data.GeptOtherThis));
+        rowIdx = yr;
     }
 
     // ── PH（單一分校，每週一列）─────────────────────────────────────────────────
@@ -900,13 +1019,14 @@ public class ReportExportService {
         // 確保各Sheet欄位一致，方便跨Sheet比對。
         var wb = new XSSFWorkbook();
         var regionGroups = GroupByRegion(populations);
+        var summaryData = LoadPhSummaryData(year, week, schoolIds, populations);
         for (int i = 0; i < regionGroups.Count; i++) {
             var (regionName, regionPopulations) = regionGroups[i];
             var sheet = wb.CreateSheet(regionName);
             bool isLastRegion = i == regionGroups.Count - 1;
             BuildSheetPHDetail(sheet, regionPopulations, deptGroups, maxSlots, fixedCols, totalCols,
                 $"{year}年第{week}週百瀚人數表（班級明細）{regionName}",
-                isLastRegion ? populations : null);
+                isLastRegion ? populations : null, isLastRegion ? summaryData : null);
         }
 
         using var ms = new MemoryStream();
@@ -915,13 +1035,13 @@ public class ReportExportService {
     }
 
     // allPopulationsForGrandTotal：非null時代表這是最後一個分區頁籤，比照 BuildSheetPH 加上跨區「合計」列
-    // 及「去年同期／總計／分析」欄位標籤／114-115年比較區塊版面（算法/資料來源待確認，數值刻意留空）。
+    // 及「去年同期／總計／分析」列與114年/115年比較區塊（算法同 BuildSheetPH，見 WritePhSummaryRows）。
     // 「合計」列只加總IsSum欄位（各班系合計/統計欄，語意上可以跨區相加）；非IsSum的班級展開欄位（第1班/
     // 第2班…）不同分區代表不同實體班級，跨區加總沒有意義，維持留空。
     private static void BuildSheetPHDetail(ISheet sheet, List<StudentPopulation> populations,
         List<(CourseDepartment dept, List<Course> list)> deptGroups, Dictionary<int, int> maxSlots,
         int fixedCols, int totalCols, string title,
-        List<StudentPopulation> allPopulationsForGrandTotal = null) {
+        List<StudentPopulation> allPopulationsForGrandTotal = null, PhSummaryData summaryData = null) {
 
         // Row 0: 標題
         sheet.CreateRow(0).CreateCell(0).SetCellValue(title);
@@ -1049,23 +1169,17 @@ public class ReportExportService {
                 if (grandTotals[c] != 0) combinedRow.CreateCell(c).SetCellValue(grandTotals[c]);
             rowIdx++;
 
-            foreach (var label in new[] { "去年同期", "總計", "分析" }) {
-                var row = sheet.CreateRow(rowIdx);
-                row.CreateCell(0).SetCellValue(label);
-                try { sheet.AddMergedRegion(new CellRangeAddress(rowIdx, rowIdx, 0, 1)); } catch { }
-                rowIdx++;
+            // 明細：IsSum課程1欄、一般課程依最大班數展開成多欄，區塊範圍取該課程佔用的欄位起迄
+            var spanOf = new Dictionary<int, (int start, int end)>();
+            int sCol = fixedCols;
+            foreach (var (_, list) in deptGroups) {
+                foreach (var c in list) {
+                    int width = c.IsSum ? 1 : maxSlots[c.Id];
+                    spanOf[c.Id] = (sCol, sCol + width - 1);
+                    sCol += width;
+                }
             }
-
-            rowIdx++;
-            var yearHeaderRow = sheet.CreateRow(rowIdx);
-            yearHeaderRow.CreateCell(1).SetCellValue("英+國");
-            yearHeaderRow.CreateCell(2).SetCellValue("英檢");
-            yearHeaderRow.CreateCell(3).SetCellValue("百倍速");
-            rowIdx++;
-            foreach (var yearLabel in new[] { "114年", "115年" }) {
-                sheet.CreateRow(rowIdx).CreateCell(0).SetCellValue(yearLabel);
-                rowIdx++;
-            }
+            WritePhSummaryRows(sheet, ref rowIdx, spanOf, summaryData);
         }
 
         sheet.SetColumnWidth(0, 20 * 256);
