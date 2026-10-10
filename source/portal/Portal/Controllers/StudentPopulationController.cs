@@ -1986,9 +1986,13 @@ namespace PHStatistics.Portal.Controllers {
 
         //上週人數表不存在、或存在但沒有任何非合計班級項目(實質空白)，都視為「上週資料缺失」——
         //這種情況下「首次建立」分支的覆抄邏輯完全沒東西可以抄，使用者會被迫從頭手動新增每一個班級。
+        //例外：上週人數表已由分校「確認送出」(Status != Documented)就不算缺失——那是分校明確送出的結果，
+        //例如河堤沒有英檢班，英檢表從第12週起只有合計列(班級人數歸0後依規則不再覆抄)，卻每週都正常送出，
+        //不應每次建立新週都被誤判成「上週資料缺失」(2026-10 河堤反映「我上週有送出怎麼會沒有」)。
         private static bool IsLastWeekDataMissing(StudentPopulation lastWeekData) {
-            return lastWeekData?.Items == null
-                || !lastWeekData.Items.Any(i => i.Class?.Course != null && !i.Class.Course.IsSum);
+            if (lastWeekData?.Items == null) return true;
+            if (lastWeekData.Status != StudentPopulationStatus.Documented) return false;
+            return !lastWeekData.Items.Any(i => i.Class?.Course != null && !i.Class.Course.IsSum);
         }
 
         //建立「上週資料缺失，是否仍要建立本週人數表」的確認頁。只有具備PopulationWeekSwitch權限的使用者
