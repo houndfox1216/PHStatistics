@@ -100,9 +100,10 @@ namespace PHStatistics.Audit {
 
         private List<ActionLog> BuildPendingAddedLogs() {
             if (_pendingAdded.Count == 0) return new List<ActionLog>();
-            var logs = _pendingAdded.Select(entry => BuildActionLog(entry, "Added", BuildAddedDiff(entry))).ToList();
+            // 先取出再清空：組稽核內容若丟例外，也不能讓舊的 pending 殘留到下一次 SaveChanges
+            var pending = _pendingAdded.ToList();
             _pendingAdded.Clear();
-            return logs;
+            return pending.Select(entry => BuildActionLog(entry, "Added", BuildAddedDiff(entry))).ToList();
         }
 
         /// <summary>
@@ -118,15 +119,15 @@ namespace PHStatistics.Audit {
                 if (_ignoredProperties.Contains(name)) continue;
 
                 if (entry.State == EntityState.Deleted) {
-                    changes.Add(new XElement("Field", new XAttribute("Name", name), new XAttribute("Old", prop.OriginalValue?.ToString() ?? "")));
+                    changes.Add(new XElement("Field", new XAttribute("Name", name), new XAttribute("Old", XmlSafe(prop.OriginalValue?.ToString()))));
                     continue;
                 }
 
                 if (Equals(prop.OriginalValue, prop.CurrentValue)) continue;
                 changes.Add(new XElement("Field",
                     new XAttribute("Name", name),
-                    new XAttribute("Old", prop.OriginalValue?.ToString() ?? ""),
-                    new XAttribute("New", prop.CurrentValue?.ToString() ?? "")));
+                    new XAttribute("Old", XmlSafe(prop.OriginalValue?.ToString())),
+                    new XAttribute("New", XmlSafe(prop.CurrentValue?.ToString()))));
             }
             return changes.Count == 0 ? null : new XElement("Changes", changes).ToString(SaveOptions.DisableFormatting);
         }
@@ -134,7 +135,7 @@ namespace PHStatistics.Audit {
         private static string BuildAddedDiff(EntityEntry entry) {
             var changes = entry.Properties
                 .Where(p => !_ignoredProperties.Contains(p.Metadata.Name) && p.CurrentValue != null)
-                .Select(p => new XElement("Field", new XAttribute("Name", p.Metadata.Name), new XAttribute("New", p.CurrentValue.ToString())));
+                .Select(p => new XElement("Field", new XAttribute("Name", p.Metadata.Name), new XAttribute("New", XmlSafe(p.CurrentValue.ToString()))));
             return new XElement("Changes", changes).ToString(SaveOptions.DisableFormatting);
         }
 
@@ -153,6 +154,25 @@ namespace PHStatistics.Audit {
                 EntityName = Truncate(GetEntityName(entry), 128),
                 Xml = diffXml,
             };
+        }
+
+        /// <summary>
+        /// 移除 XML 1.0 不允許的字元（例如 U+000B 垂直定位字元，從 Excel/Word 貼上的備註常帶有）。
+        /// 否則 XElement.ToString() 會丟例外，使業務資料已寫入但後續流程（如建立人數表的合計列）被中斷。
+        /// </summary>
+        internal static string XmlSafe(string value) {
+            if (string.IsNullOrEmpty(value)) return value ?? "";
+            var sb = new System.Text.StringBuilder(value.Length);
+            for (int i = 0; i < value.Length; i++) {
+                char c = value[i];
+                if (char.IsHighSurrogate(c) && i + 1 < value.Length && char.IsLowSurrogate(value[i + 1])) {
+                    sb.Append(c).Append(value[++i]);
+                }
+                else if (System.Xml.XmlConvert.IsXmlChar(c)) {
+                    sb.Append(c);
+                }
+            }
+            return sb.ToString();
         }
 
         private static string Truncate(string value, int maxLength) =>
