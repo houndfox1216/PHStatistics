@@ -404,14 +404,27 @@ public class ReportExportService {
     private static List<(CourseDepartment dept, List<Course> list)> GroupConsecutiveByDepartment(List<Course> courses) {
         var groups = new List<(CourseDepartment dept, List<Course> list)>();
         foreach (var c in courses) {
-            if (groups.Count > 0 && groups[^1].dept?.Id == c.Department?.Id) {
+            var dept = DisplayDepartment(c, courses);
+            if (groups.Count > 0 && groups[^1].dept?.Id == dept?.Id) {
                 groups[^1].list.Add(c);
             }
             else {
-                groups.Add((c.Department, new List<Course> { c }));
+                groups.Add((dept, new List<Course> { c }));
             }
         }
         return groups;
+    }
+
+    // 客戶10-27要求：PH「本週/上週 英語文(國語文)總人數」歸到後面的「英文分析/國語文分析」群組（排在「與上週相比」之前），
+    // 只改匯出表頭分組，不動DB課程設定；欄位順序本來就相鄰，不需要重排。
+    private static readonly Dictionary<int, int> PhStatToAnalysisCourse = new() { [33] = 35, [34] = 35, [60] = 62, [61] = 62 };
+
+    private static CourseDepartment DisplayDepartment(Course c, List<Course> courses) {
+        if (PhStatToAnalysisCourse.TryGetValue(c.Id, out var targetId)) {
+            var target = courses.FirstOrDefault(x => x.Id == targetId);
+            if (target?.Department != null) return target.Department;
+        }
+        return c.Department;
     }
 
     private static void BuildSheetPHBySchool(ISheet sheet,
@@ -520,9 +533,12 @@ public class ReportExportService {
                 sheet.SetColumnWidth(col, 4 * 256);
                 col++;
             }
-            r2.CreateCell(col).SetCellValue("合計");
-            sheet.SetColumnWidth(col, 4 * 256);
-            col++;
+            // 班系本身已有「OO人數合計」(IsSum)課程時，自己合成的「合計」欄內容與它重複，不再輸出（客戶10-27要求）
+            if (!list.Any(c => c.IsSum)) {
+                r2.CreateCell(col).SetCellValue("合計");
+                sheet.SetColumnWidth(col, 4 * 256);
+                col++;
+            }
             r1.CreateCell(deptStart).SetCellValue(dept.Name);
             if (col - 1 > deptStart)
                 try { sheet.AddMergedRegion(new CellRangeAddress(1, 1, deptStart, col - 1)); } catch { }
@@ -548,9 +564,11 @@ public class ReportExportService {
                         regionTotals[col] += sum;
                         col++;
                     }
-                    if (total > 0) row.CreateCell(col).SetCellValue(total);
-                    regionTotals[col] += total;
-                    col++;
+                    if (!list.Any(c => c.IsSum)) {
+                        if (total > 0) row.CreateCell(col).SetCellValue(total);
+                        regionTotals[col] += total;
+                        col++;
+                    }
                 }
             }
 
