@@ -560,12 +560,12 @@ public class ReportExportService {
                     int total = 0;
                     foreach (var c in list) {
                         int sum = pop.Items.Where(i => i.Class?.CourseId == c.Id).Sum(i => i.Number);
-                        if (sum > 0) { row.CreateCell(col).SetCellValue(sum); if (!c.IsSum) total += sum; }
+                        if (sum != 0) { row.CreateCell(col).SetCellValue(sum); if (!c.IsSum) total += sum; }
                         regionTotals[col] += sum;
                         col++;
                     }
                     if (!list.Any(c => c.IsSum)) {
-                        if (total > 0) row.CreateCell(col).SetCellValue(total);
+                        if (total != 0) row.CreateCell(col).SetCellValue(total);
                         regionTotals[col] += total;
                         col++;
                     }
@@ -625,10 +625,10 @@ public class ReportExportService {
                 int total = 0;
                 foreach (var c in list) {
                     int sum = pop.Items.Where(i => i.Class?.CourseId == c.Id).Sum(i => i.Number);
-                    if (sum > 0) { row.CreateCell(col).SetCellValue(sum); if (!c.IsSum) total += sum; }
+                    if (sum != 0) { row.CreateCell(col).SetCellValue(sum); if (!c.IsSum) total += sum; }
                     col++;
                 }
-                if (total > 0) row.CreateCell(col).SetCellValue(total);
+                if (total != 0) row.CreateCell(col).SetCellValue(total);
                 col++;
             }
         }
@@ -704,12 +704,12 @@ public class ReportExportService {
                         deptTotal += em1 + sub;
                     } else {
                         int sum = pop.Items.Where(i => i.Class?.CourseId == c.Id).Sum(i => i.Number);
-                        if (sum > 0) row.CreateCell(ci).SetCellValue(sum);
+                        if (sum != 0) row.CreateCell(ci).SetCellValue(sum);
                         ci++;
                         deptTotal += sum;
                     }
                 }
-                if (deptTotal > 0) row.CreateCell(ci).SetCellValue(deptTotal);
+                if (deptTotal != 0) row.CreateCell(ci).SetCellValue(deptTotal);
                 ci++;
             }
         }
@@ -779,13 +779,13 @@ public class ReportExportService {
                         deptTotal += em1 + sub;
                     } else {
                         int sum = regionPopulations.Sum(p => p.Items.Where(i => i.Class?.CourseId == c.Id).Sum(i => i.Number));
-                        if (sum > 0) row.CreateCell(ci).SetCellValue(sum);
+                        if (sum != 0) row.CreateCell(ci).SetCellValue(sum);
                         grandTotals[ci] += sum;
                         ci++;
                         deptTotal += sum;
                     }
                 }
-                if (deptTotal > 0) row.CreateCell(ci).SetCellValue(deptTotal);
+                if (deptTotal != 0) row.CreateCell(ci).SetCellValue(deptTotal);
                 grandTotals[ci] += deptTotal;
                 ci++;
             }
@@ -1294,7 +1294,7 @@ public class ReportExportService {
                     }
                     col += slots;
                 }
-                if (deptTotal > 0) row.CreateCell(col).SetCellValue(deptTotal);
+                if (deptTotal != 0) row.CreateCell(col).SetCellValue(deptTotal);
                 col++;
             }
             rowIdx++;

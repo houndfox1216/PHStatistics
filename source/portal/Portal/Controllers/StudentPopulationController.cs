@@ -2538,16 +2538,26 @@ namespace PHStatistics.Portal.Controllers {
                     CheckByTotal("英檢", "本週英檢總人數", "上週英檢總人數", "本週英檢新生人數", "本週英檢流失人數");
                     break;
                 case StudentPopulationType.PSJ:
-                    CheckByDiffItem("數學", "數學班分析");
-                    CheckByDiffItem("理化", "理化班分析");
-                    CheckByDiffItem("百倍速(新網格)", "百倍速分析總覽");
+                    // 網格版只輸入「分析總覽」的新生/流失，舊班系分析(數學班分析等)的新生/流失永遠是0；
+                    // 人數表已有分析總覽項目時只驗總覽，避免舊班系的「與上週相比」對0誤報（農十六課輔w17案）
+                    if (items.Any(i => i.Class?.Course?.Department?.Name == "百倍速分析總覽")) {
+                        CheckByDiffItem("百倍速(新網格)", "百倍速分析總覽");
+                    }
+                    else {
+                        CheckByDiffItem("數學", "數學班分析");
+                        CheckByDiffItem("理化", "理化班分析");
+                    }
                     break;
                 case StudentPopulationType.AfterSchool:
-                    CheckByDiffItem("安親課輔", "安親課輔班班分析");
-                    CheckByDiffItem("英文班", "英文班分析");
-                    CheckByDiffItem("數學班", "數學班分析");
-                    CheckByDiffItem("理化班", "理化班分析");
-                    CheckByDiffItem("課輔(新網格)", "課輔分析總覽");
+                    if (items.Any(i => i.Class?.Course?.Department?.Name == "課輔分析總覽")) {
+                        CheckByDiffItem("課輔(新網格)", "課輔分析總覽");
+                    }
+                    else {
+                        CheckByDiffItem("安親課輔", "安親課輔班班分析");
+                        CheckByDiffItem("英文班", "英文班分析");
+                        CheckByDiffItem("數學班", "數學班分析");
+                        CheckByDiffItem("理化班", "理化班分析");
+                    }
                     break;
                 case StudentPopulationType.PS: {
                     int thisWeek = NumberOf("PS數學總人數") + NumberOf("PSJ總人數");
