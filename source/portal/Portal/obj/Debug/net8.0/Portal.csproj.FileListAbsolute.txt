@@ -348,3 +348,11 @@ C:\Company\PHStatistics.portal\source\portal\Portal\obj\Debug\net8.0\refint\PHSt
 C:\Company\PHStatistics.portal\source\portal\Portal\obj\Debug\net8.0\PHStatistics.Portal.pdb
 C:\Company\PHStatistics.portal\source\portal\Portal\obj\Debug\net8.0\Portal.genruntimeconfig.cache
 C:\Company\PHStatistics.portal\source\portal\Portal\obj\Debug\net8.0\ref\PHStatistics.Portal.dll
+C:\Company\PHStatistics.portal\binary\Debug\net8.0\PHStatistics.Portal.runtimeconfig.dev.json
+C:\Company\PHStatistics.portal\source\portal\Portal\obj\Debug\net8.0\dotnet-watch\Microsoft.NET.Sdk.BlazorWeb.DotNetWatch.lib.module.js
+C:\Company\PHStatistics.portal\source\portal\Portal\obj\Debug\net8.0\dotnet-watch\Microsoft.NET.Sdk.BlazorWeb.DotNetWatch.BrowserTools.js
+C:\Company\PHStatistics.portal\source\portal\Portal\obj\Debug\net8.0\dotnet-watch\Microsoft.NET.Sdk.BlazorWeb.DotNetWatch.BrowserTools.Config.js
+C:\Company\PHStatistics.portal\source\portal\Portal\obj\Debug\net8.0\dotnet-watch\browser-tools-key.public.json
+C:\Company\PHStatistics.portal\source\portal\Portal\obj\Debug\net8.0\dotnet-watch\browser-tools-key.private.json
+C:\Company\PHStatistics.portal\source\portal\Portal\obj\Debug\net8.0\jsmodules\jsmodules.build.manifest.json
+C:\Company\PHStatistics.portal\source\portal\Portal\obj\Debug\net8.0\scopedcss\scopedcss.cache
