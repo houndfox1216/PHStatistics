@@ -286,6 +286,51 @@ public class AggregationEngineTests {
         Assert.That(sumItem.Number, Is.EqualTo(20));
     }
 
+    // 114學年度(含)以前：去年同週有「本週總人數」合計項目就直接讀它，不加總班級明細（明細匯入不完整）
+    [Test]
+    public void Calculate_DiffWithLastYear_LegacyYear_ReadsLastYearTotalItemInsteadOfClassDetails() {
+        var classCourse = MakeCourse(101, departmentId: 1);
+        var totalCourse = MakeCourse(33, departmentId: 99, isSum: true);
+        var sumCourse = MakeCourse(36, departmentId: 99, isSum: true, statisticsType: StatisticsType.DiffWithLastYear,
+            sourceDepartmentIds: "[1]", sourceCourseIds: "[33]");
+        var sumItem = MakeItem(sumCourse, ClassType.General, 0);
+        var population = new StudentPopulation {
+            Year = 115, Week = 18, SchoolId = 1, Type = StudentPopulationType.PH,
+            Items = new List<StudentPopulationItem> { MakeItem(classCourse, ClassType.General, 16), sumItem },
+        };
+        var lastYearPopulation = new StudentPopulation {
+            Year = 114, Week = 18, SchoolId = 1, Type = StudentPopulationType.PH,
+            Items = new List<StudentPopulationItem> {
+                MakeItem(classCourse, ClassType.General, 16),   // 不完整的班級明細
+                MakeItem(totalCourse, ClassType.General, 17),   // 原檔的本週總人數
+            },
+        };
+
+        MakeEngine((y, w, s, t) => lastYearPopulation).Calculate(sumItem, population);
+
+        Assert.That(sumItem.Number, Is.EqualTo(-1));
+    }
+
+    [Test]
+    public void Calculate_DiffWithLastYear_LegacyYear_FallsBackToClassDetailsWhenNoTotalItem() {
+        var classCourse = MakeCourse(101, departmentId: 1);
+        var sumCourse = MakeCourse(36, departmentId: 99, isSum: true, statisticsType: StatisticsType.DiffWithLastYear,
+            sourceDepartmentIds: "[1]", sourceCourseIds: "[33]");
+        var sumItem = MakeItem(sumCourse, ClassType.General, 0);
+        var population = new StudentPopulation {
+            Year = 115, Week = 18, SchoolId = 1, Type = StudentPopulationType.PH,
+            Items = new List<StudentPopulationItem> { MakeItem(classCourse, ClassType.General, 16), sumItem },
+        };
+        var lastYearPopulation = new StudentPopulation {
+            Year = 114, Week = 18, SchoolId = 1, Type = StudentPopulationType.PH,
+            Items = new List<StudentPopulationItem> { MakeItem(classCourse, ClassType.General, 12) },
+        };
+
+        MakeEngine((y, w, s, t) => lastYearPopulation).Calculate(sumItem, population);
+
+        Assert.That(sumItem.Number, Is.EqualTo(4));
+    }
+
     [Test]
     public void Calculate_ManualInput_LeavesNumberUnchanged() {
         var sumCourse = MakeCourse(199, isSum: true, statisticsType: StatisticsType.ManualInput);

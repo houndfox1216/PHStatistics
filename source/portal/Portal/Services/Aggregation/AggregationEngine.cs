@@ -125,6 +125,17 @@ public class AggregationEngine {
         if (population.SchoolId == null) return 0;
         var lastYearPopulation = _lookupPopulation(population.Year - 1, population.Week, population.SchoolId.Value, population.Type);
         if (lastYearPopulation?.Items == null) return 0;
+
+        // 114學年度(含)以前的逐班明細匯入不完整（個別指導等欄位有缺），但客戶要的是「去年同週的本週總人數」，
+        // 所以課程有設定 SourceCourseIds（指向本週總人數合計欄）時，直接讀去年那一格合計值，不再加總班級明細。
+        // 找不到該合計項目時才走下面原本的明細加總＋備援規則。
+        if (lastYearPopulation.Year <= LegacyDataCutoffYear && !string.IsNullOrEmpty(course.SourceCourseIds)) {
+            var totalIds = ParseIntArray(course.SourceCourseIds);
+            var totalItems = lastYearPopulation.Items
+                .Where(i => i.Class?.CourseId != null && totalIds.Contains(i.Class.CourseId.Value)).ToList();
+            if (totalItems.Count > 0) return totalItems.Sum(i => i.Number);
+        }
+
         var sourceItems = GetSourceItems(course, item, lastYearPopulation.Items);
         return WithLegacyFallback(sourceItems, course, lastYearPopulation.Items, lastYearPopulation.Year).Sum(i => i.Number);
     }
