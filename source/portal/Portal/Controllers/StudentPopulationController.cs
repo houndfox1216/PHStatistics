@@ -219,12 +219,9 @@ namespace PHStatistics.Portal.Controllers {
             ViewBag.CanEdit = schoolYear != null;
             ViewBag.CanExportAll = User.HasPermission(SystemPermission.ViewAllSchools);
             ViewBag.Courses = Model.DataContext.Course.OrderBy(e => e.Ordinal).ToList();
-            int memberSchool = schools.FirstOrDefault().School.Id;
-            int year = years[years.Length - 1];
-            int week = weeks[weeks.Length - 1];
-            StudentPopulation studentPopulationData = dataContext.StudentPopulation.Include("Submitter").Include("School").Include("Items.Class.Course.Department").Where(e => e.School.Id == memberSchool && e.Year == year && e.Week == week).FirstOrDefault();
-
-            return View(studentPopulationData);
+            // 進入頁面時不預載任何人數表，等使用者選好條件按「查詢」才由 QueryPopulationPartial 載入
+            // （原本會預設顯示第一個分校最新年度/週次的資料，使用者誤以為是查詢結果）
+            return View((StudentPopulation)null);
         }
 
         //百瀚
