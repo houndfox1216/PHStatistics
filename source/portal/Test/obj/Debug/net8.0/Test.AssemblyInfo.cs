@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PHStatistics.Portal.Test")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1ff9b6e3315fdc74933f76a4003b08f2285fa753")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5c60cd598201d064b77c722ddfbd9b7591c57a22")]
 [assembly: System.Reflection.AssemblyProductAttribute("PHStatistics.Portal.Test")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PHStatistics.Portal.Test")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0")]

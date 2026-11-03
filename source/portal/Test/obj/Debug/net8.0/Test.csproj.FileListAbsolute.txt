@@ -348,3 +348,5 @@ C:\Company\PHStatistics.portal\binary\Debug\net8.0\refs\System.Xml.XPath.dll
 C:\Company\PHStatistics.portal\binary\Debug\net8.0\refs\System.Xml.XPath.XDocument.dll
 C:\Company\PHStatistics.portal\binary\Debug\net8.0\refs\WindowsBase.dll
 C:\Company\PHStatistics.portal\source\portal\Test\obj\Debug\net8.0\Test.csproj.Up2Date
+C:\Company\PHStatistics.portal\binary\Debug\net8.0\PHStatistics.Portal.runtimeconfig.dev.json
+C:\Company\PHStatistics.portal\binary\Debug\net8.0\PHStatistics.Portal.Test.runtimeconfig.dev.json
