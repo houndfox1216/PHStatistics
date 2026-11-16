@@ -2824,6 +2824,10 @@ namespace PHStatistics.Portal.Controllers {
                     bytes = _reportExport.ExportPSDetail(year, week, schoolIds);
                     typeLabel = "百世";
                     break;
+                case "GEPT":
+                    bytes = _reportExport.ExportGEPTDetail(year, week, schoolIds);
+                    typeLabel = "英檢";
+                    break;
                 case "PH":
                 default:
                     bytes = _reportExport.ExportPHDetail(year, week, schoolIds);

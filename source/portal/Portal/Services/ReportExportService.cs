@@ -1309,6 +1309,106 @@ public class ReportExportService {
         return ms.ToArray();
     }
 
+    // ── GEPT 班級明細 ─────────────────────────────────────────────────────────
+    // 格式：每校 1 列（英檢只有 ClassType.General）；非合計課程依最大班數展開「第N班」，
+    // IsSum 合計/分析欄單一欄位（讀已存值，不重算），依南區/中北區分頁籤。
+
+    public byte[] ExportGEPTDetail(int year, int week, IList<int> schoolIds = null) {
+        var populations = LoadPopulations(StudentPopulationType.GEPT, year, week, schoolIds);
+        if (populations.Count == 0) return Array.Empty<byte>();
+
+        var courses = LoadCourses(StudentPopulationType.GEPT, publishedOnly: false);
+
+        var maxSlots = new Dictionary<int, int>();
+        foreach (var pop in populations) {
+            foreach (var c in courses.Where(c => !c.IsSum)) {
+                int cnt = pop.Items.Count(i => i.Class?.CourseId == c.Id);
+                if (!maxSlots.TryGetValue(c.Id, out int ex) || cnt > ex) maxSlots[c.Id] = cnt;
+            }
+        }
+
+        var displayCourses = courses
+            .Where(c => c.IsSum || (maxSlots.TryGetValue(c.Id, out int s) && s > 0))
+            .ToList();
+        var deptGroups = GroupConsecutiveByDepartment(displayCourses);
+
+        int fixedCols = 1;
+        int totalCols = fixedCols + displayCourses.Sum(c => c.IsSum ? 1 : maxSlots[c.Id]);
+
+        var wb = new XSSFWorkbook();
+        foreach (var (regionName, regionPopulations) in GroupByRegion(populations)) {
+            var sheet = wb.CreateSheet(regionName);
+            sheet.CreateRow(0).CreateCell(0).SetCellValue($"{year}年第{week}週英檢人數表（班級明細）{regionName}");
+            try { sheet.AddMergedRegion(new CellRangeAddress(0, 0, 0, totalCols - 1)); } catch { }
+
+            var r1 = sheet.CreateRow(1);
+            var r2 = sheet.CreateRow(2);
+            var r3 = sheet.CreateRow(3);
+            r1.CreateCell(0).SetCellValue("分校");
+            try { sheet.AddMergedRegion(new CellRangeAddress(1, 3, 0, 0)); } catch { }
+
+            int col = fixedCols;
+            foreach (var (dept, list) in deptGroups) {
+                int deptStart = col;
+                foreach (var c in list) {
+                    r2.CreateCell(col).SetCellValue(c.Name);
+                    if (c.IsSum) { col++; continue; }
+                    int slots = maxSlots[c.Id];
+                    if (slots > 1)
+                        try { sheet.AddMergedRegion(new CellRangeAddress(2, 2, col, col + slots - 1)); } catch { }
+                    for (int si = 0; si < slots; si++)
+                        r3.CreateCell(col + si).SetCellValue(GetOrdinalLabel(si));
+                    col += slots;
+                }
+                r1.CreateCell(deptStart).SetCellValue(dept.Name);
+                if (col - 1 > deptStart)
+                    try { sheet.AddMergedRegion(new CellRangeAddress(1, 1, deptStart, col - 1)); } catch { }
+            }
+
+            var colTotals = new int[totalCols];
+            int rowIdx = 4;
+            foreach (var pop in regionPopulations) {
+                var row = sheet.CreateRow(rowIdx++);
+                row.CreateCell(0).SetCellValue(pop.School?.Name ?? "");
+                col = fixedCols;
+                foreach (var (_, list) in deptGroups) {
+                    foreach (var c in list) {
+                        if (c.IsSum) {
+                            int total = pop.Items.Where(i => i.Class?.CourseId == c.Id).Sum(i => i.Number);
+                            if (total != 0) row.CreateCell(col).SetCellValue(total);
+                            colTotals[col] += total;
+                            col++;
+                        }
+                        else {
+                            int slots = maxSlots[c.Id];
+                            var items = pop.Items.Where(i => i.Class?.CourseId == c.Id)
+                                .OrderBy(i => i.Class.Ordinal).ThenBy(i => i.Class.Id).ToList();
+                            for (int si = 0; si < slots; si++) {
+                                if (si < items.Count && items[si].Number > 0) {
+                                    row.CreateCell(col + si).SetCellValue(items[si].Number);
+                                    colTotals[col + si] += items[si].Number;
+                                }
+                            }
+                            col += slots;
+                        }
+                    }
+                }
+            }
+
+            var subtotal = sheet.CreateRow(rowIdx);
+            subtotal.CreateCell(0).SetCellValue($"{regionName}小計");
+            for (int c = fixedCols; c < totalCols; c++)
+                if (colTotals[c] != 0) subtotal.CreateCell(c).SetCellValue(colTotals[c]);
+
+            sheet.SetColumnWidth(0, 20 * 256);
+            for (int c = fixedCols; c < totalCols; c++) sheet.SetColumnWidth(c, 7 * 256);
+        }
+
+        using var ms = new MemoryStream();
+        wb.Write(ms);
+        return ms.ToArray();
+    }
+
     // ── PH 班級明細（單一分校，每週一列）─────────────────────────────────────────
     // 格式跟 ExportPHDetail 一致（每課程依實際班級數展開N個子欄位，不含IsSum欄），
     // 只是外層迴圈從「每分校2列」改成「每週2列」，前導欄比照 BuildSheetPHBySchool 改成「週次/日期/開班模式」三欄。

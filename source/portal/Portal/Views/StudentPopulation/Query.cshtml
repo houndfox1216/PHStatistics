@@ -82,13 +82,13 @@
                 }
                 <li><hr class="dropdown-divider"></li>
                 <li>
-                    <a class="dropdown-item" href="#" id="exportDetailBtn" title="僅支援百瀚(PH)/百世(PS)班級明細">
+                    <a class="dropdown-item" href="#" id="exportDetailBtn" title="僅支援百瀚(PH)/英檢(GEPT)/百世(PS)班級明細">
                         匯出班級明細（本校）
                     </a>
                 </li>
                 @if (ViewBag.CanExportAll == true) {
                     <li>
-                        <a class="dropdown-item" href="#" id="exportAllDetailBtn" title="僅支援百瀚(PH)/百世(PS)班級明細">
+                        <a class="dropdown-item" href="#" id="exportAllDetailBtn" title="僅支援百瀚(PH)/英檢(GEPT)/百世(PS)班級明細">
                             匯出班級明細（全區）
                         </a>
                     </li>
@@ -161,8 +161,8 @@
             // 班級明細只支援百瀚(PH)/百世(PS)類型，其他類型選擇時提醒使用者
             function confirmDetailType() {
                 var type = $('#reportType').val();
-                if (type !== 'PH' && type !== 'PS') {
-                    alert('「班級明細」僅支援百瀚(PH)或百世(PS)類型，請先將上方「類型」切換後再匯出');
+                if (type !== 'PH' && type !== 'PS' && type !== 'GEPT') {
+                    alert('「班級明細」僅支援百瀚(PH)、英檢(GEPT)或百世(PS)類型，請先將上方「類型」切換後再匯出');
                     return false;
                 }
                 return true;
