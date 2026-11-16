@@ -2557,13 +2557,15 @@ namespace PHStatistics.Portal.Controllers {
                     }
                     break;
                 case StudentPopulationType.PS: {
-                    int thisWeek = NumberOf("PS數學總人數") + NumberOf("PSJ總人數");
-                    int lastWeek = NumberOf("PS上週人數") + NumberOf("PSJ上週人數");
+                    // 「總人數(PS+PSJ)」是 PS+PSJ 合計，但「本週PS新生/流失人數」只統計到 PS（客戶 11/15 確認），
+                    // 所以驗算只比 PS 自己的本週/上週，不可把 PSJ 人數增減算進來，否則 PSJ 有變動就會誤報。
+                    int thisWeek = NumberOf("PS數學總人數");
+                    int lastWeek = NumberOf("PS上週人數");
                     int diff = thisWeek - lastWeek;
                     int newC = NumberOf("本週PS新生人數");
                     int lostC = NumberOf("本週PS流失人數");
                     if (diff != newC - lostC) {
-                        warnings.Add($"PS/百倍速：本週總人數({thisWeek}) − 上週總人數({lastWeek}) = {diff}，與 新生人數({newC}) − 流失人數({lostC}) = {newC - lostC} 不相符，請確認。");
+                        warnings.Add($"PS：本週PS總人數({thisWeek}) − 上週PS人數({lastWeek}) = {diff}，與 新生人數({newC}) − 流失人數({lostC}) = {newC - lostC} 不相符，請確認。（新生/流失僅計算PS，不含百倍速）");
                     }
                     break;
                 }
