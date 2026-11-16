@@ -107,6 +107,13 @@ public enum StatisticsType : short
     LastWeekValueFromOtherType = 16,
 
     /// <summary>
+    /// 指定來源課程加總（來自另一種報表類型、上一學年度「相同週次」的資料）
+    /// </summary>
+    [Display(Name = "指定來源課程加總（跨報表類型，去年同期）")]
+    [Description("指定來源課程加總（跨報表類型，去年同期）")]
+    LastYearValueFromOtherType = 17,
+
+    /// <summary>
     /// 新生人數
     /// </summary>
     [Display(Name = "新生人數")]

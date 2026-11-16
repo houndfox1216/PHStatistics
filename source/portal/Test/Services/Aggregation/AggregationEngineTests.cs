@@ -683,6 +683,55 @@ public class AggregationEngineTests {
     }
 
     [Test]
+    public void Calculate_LastYearValueFromOtherType_SumsSourceCoursesFromAnotherTypeSameWeekLastYear() {
+        var psjCourse1 = MakeCourse(562, departmentId: 47);
+        var psjCourse2 = MakeCourse(563, departmentId: 47);
+        var sumCourse = MakeCourse(137, departmentId: 26, isSum: true,
+            statisticsType: StatisticsType.LastYearValueFromOtherType, sourceCourseIds: "[562,563]");
+        sumCourse.SourceStudentPopulationType = StudentPopulationType.PSJ;
+        var sumItem = MakeItem(sumCourse, ClassType.General, 0);
+
+        var population = new StudentPopulation {
+            Year = 115, Week = 20, SchoolId = 1, Type = StudentPopulationType.PS,
+            Items = new List<StudentPopulationItem> { sumItem },
+        };
+        var lastYearPsj = new StudentPopulation {
+            Year = 114, Week = 20, SchoolId = 1, Type = StudentPopulationType.PSJ,
+            Items = new List<StudentPopulationItem> {
+                MakeItem(psjCourse1, ClassType.General, 3),
+                MakeItem(psjCourse2, ClassType.General, 2),
+            },
+        };
+
+        var engine = MakeEngine(lookupLastYearPopulation: (year, week, schoolId, type) => {
+            Assert.That(year, Is.EqualTo(114));
+            Assert.That(week, Is.EqualTo(20));
+            Assert.That(schoolId, Is.EqualTo(1));
+            Assert.That(type, Is.EqualTo(StudentPopulationType.PSJ));
+            return lastYearPsj;
+        });
+        engine.Calculate(sumItem, population);
+
+        Assert.That(sumItem.Number, Is.EqualTo(5));
+    }
+
+    [Test]
+    public void Calculate_LastYearValueFromOtherType_ReturnsZeroWhenLastYearPopulationDoesNotExist() {
+        var sumCourse = MakeCourse(137, departmentId: 26, isSum: true,
+            statisticsType: StatisticsType.LastYearValueFromOtherType, sourceCourseIds: "[562,563]");
+        sumCourse.SourceStudentPopulationType = StudentPopulationType.PSJ;
+        var sumItem = MakeItem(sumCourse, ClassType.General, 5);
+        var population = new StudentPopulation {
+            Year = 115, Week = 20, SchoolId = 1, Type = StudentPopulationType.PS,
+            Items = new List<StudentPopulationItem> { sumItem },
+        };
+
+        MakeEngine(lookupLastYearPopulation: (y, w, s, t) => null).Calculate(sumItem, population);
+
+        Assert.That(sumItem.Number, Is.EqualTo(0));
+    }
+
+    [Test]
     public void Calculate_LastWeekValueFromOtherType_ReturnsZeroWhenSourcePopulationDoesNotExist() {
         var sumCourse = MakeCourse(139, departmentId: 26, isSum: true,
             statisticsType: StatisticsType.LastWeekValueFromOtherType, sourceCourseIds: "[562,563]");

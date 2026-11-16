@@ -102,6 +102,14 @@ public class AggregationEngine {
                 var ids = ParseIntArray(course.SourceCourseIds);
                 return GetItemsByCourseIds(course, item, sourceLastWeekPopulation.Items, ids).Sum(i => i.Number);
             }
+            case StatisticsType.LastYearValueFromOtherType: {
+                // 例如 PS 表的「百倍數去年同期」：讀去年同週、同分校「百倍速(PSJ)」表的各年級本週總人數合計
+                if (population.SchoolId == null || course.SourceStudentPopulationType == null) return 0;
+                var sourceLastYearPopulation = _lookupPopulation(population.Year - 1, population.Week, population.SchoolId.Value, course.SourceStudentPopulationType.Value);
+                if (sourceLastYearPopulation?.Items == null) return 0;
+                var ids = ParseIntArray(course.SourceCourseIds);
+                return GetItemsByCourseIds(course, item, sourceLastYearPopulation.Items, ids).Sum(i => i.Number);
+            }
             default:
                 throw new NotSupportedException(
                     $"AggregationEngine 尚未支援 StatisticsType.{type}（課程 {course.Id} {course.Name}）。");
