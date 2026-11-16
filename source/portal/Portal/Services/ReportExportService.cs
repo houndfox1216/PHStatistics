@@ -1319,24 +1319,23 @@ public class ReportExportService {
 
         var courses = LoadCourses(StudentPopulationType.GEPT, publishedOnly: false);
 
-        var maxSlots = new Dictionary<int, int>();
-        foreach (var pop in populations) {
-            foreach (var c in courses.Where(c => !c.IsSum)) {
-                int cnt = pop.Items.Count(i => i.Class?.CourseId == c.Id);
-                if (!maxSlots.TryGetValue(c.Id, out int ex) || cnt > ex) maxSlots[c.Id] = cnt;
-            }
-        }
-
-        var displayCourses = courses
-            .Where(c => c.IsSum || (maxSlots.TryGetValue(c.Id, out int s) && s > 0))
-            .ToList();
-        var deptGroups = GroupConsecutiveByDepartment(displayCourses);
-
-        int fixedCols = 1;
-        int totalCols = fixedCols + displayCourses.Sum(c => c.IsSum ? 1 : maxSlots[c.Id]);
-
         var wb = new XSSFWorkbook();
         foreach (var (regionName, regionPopulations) in GroupByRegion(populations)) {
+            // 各分區自己計算最大班數與顯示欄位：北區沒有開兩班的分校就不顯示「2班」欄
+            var maxSlots = new Dictionary<int, int>();
+            foreach (var pop in regionPopulations) {
+                foreach (var c in courses.Where(c => !c.IsSum)) {
+                    int cnt = pop.Items.Count(i => i.Class?.CourseId == c.Id);
+                    if (!maxSlots.TryGetValue(c.Id, out int ex) || cnt > ex) maxSlots[c.Id] = cnt;
+                }
+            }
+            var displayCourses = courses
+                .Where(c => c.IsSum || (maxSlots.TryGetValue(c.Id, out int s) && s > 0))
+                .ToList();
+            var deptGroups = GroupConsecutiveByDepartment(displayCourses);
+            int fixedCols = 1;
+            int totalCols = fixedCols + displayCourses.Sum(c => c.IsSum ? 1 : maxSlots[c.Id]);
+
             var sheet = wb.CreateSheet(regionName);
             sheet.CreateRow(0).CreateCell(0).SetCellValue($"{year}年第{week}週英檢人數表（班級明細）{regionName}");
             try { sheet.AddMergedRegion(new CellRangeAddress(0, 0, 0, totalCols - 1)); } catch { }
@@ -1395,10 +1394,21 @@ public class ReportExportService {
                 }
             }
 
+            // 小計列：同一課程的「1班、2班…」欄合併成一格，顯示該課程各班加總（跟表頭課程名稱的合併範圍一致）
             var subtotal = sheet.CreateRow(rowIdx);
             subtotal.CreateCell(0).SetCellValue($"{regionName}小計");
-            for (int c = fixedCols; c < totalCols; c++)
-                if (colTotals[c] != 0) subtotal.CreateCell(c).SetCellValue(colTotals[c]);
+            col = fixedCols;
+            foreach (var (_, list) in deptGroups) {
+                foreach (var c in list) {
+                    int slots = c.IsSum ? 1 : maxSlots[c.Id];
+                    int sum = 0;
+                    for (int si = 0; si < slots; si++) sum += colTotals[col + si];
+                    if (sum != 0) subtotal.CreateCell(col).SetCellValue(sum);
+                    if (slots > 1)
+                        try { sheet.AddMergedRegion(new CellRangeAddress(rowIdx, rowIdx, col, col + slots - 1)); } catch { }
+                    col += slots;
+                }
+            }
 
             sheet.SetColumnWidth(0, 20 * 256);
             for (int c = fixedCols; c < totalCols; c++) sheet.SetColumnWidth(c, 7 * 256);
