@@ -105,7 +105,7 @@ public class ReportExportService {
             }
             case StudentPopulationType.PS: {
                 var sheet = wb.CreateSheet("Sheet1");
-                BuildSheetPS(sheet, populations, courses, year, week);
+                BuildSheetPS(sheet, OrderPsPopulations(populations), courses, year, week);
                 break;
             }
             case StudentPopulationType.PSJ: {
@@ -337,8 +337,10 @@ public class ReportExportService {
         int highT = T(21) - eliteT, highL = L(21) - eliteL;
         int personalT = T(27), personalL = L(27);
         int coopT = T(32), coopL = L(32);
-        int engT = primT + middleT + highT + personalT + coopT;
-        int engL = primL + middleL + highL + personalL + coopL;
+        // 英文總人數：直接用已存的「本週英語文總人數」(33)，跟客戶原檔合計列一致（含Elite）；
+        // 原本由各區塊加總（扣除Elite）會與客戶的英+國/總計對不上（114年第21週 2375 vs 2523）。
+        int engT = T(33);
+        int engL = L(33);
         int chiT = T(60), chiL = L(60);
 
         Block(R(1, 9), primT, primL);
@@ -587,7 +589,19 @@ public class ReportExportService {
     }
 
     // ── PS ───────────────────────────────────────────────────────────────────
-    // Row 0: 標題；Row 1: 課程名稱（每班系末加「合計」）；Row 2+: 資料
+    // Row 0: 標題；Row 1: 課程名稱（每班系末加「合計」）；Row 2+: 資料；最後一列「總計」
+
+    // 客戶百世人數表(PS南區人數統計表)的分校順序：中正、東安、莊敬、鳳甲；其餘分校維持原排序接在後面。
+    // （School.Ordinal 是依百瀚人數表調整的，百世順序不同，所以只在百世匯出重排。）
+    private static readonly string[] _psSchoolOrder = { "中正", "東安", "莊敬", "鳳甲" };
+
+    private static List<StudentPopulation> OrderPsPopulations(List<StudentPopulation> populations) {
+        int Rank(StudentPopulation p) {
+            int i = Array.IndexOf(_psSchoolOrder, p.School?.Name);
+            return i < 0 ? int.MaxValue : i;
+        }
+        return populations.Select((p, idx) => (p, idx)).OrderBy(x => Rank(x.p)).ThenBy(x => x.idx).Select(x => x.p).ToList();
+    }
 
     private static void BuildSheetPS(ISheet sheet,
         List<StudentPopulation> populations, List<Course> courses,
@@ -617,6 +631,7 @@ public class ReportExportService {
         }
 
         int rowIdx = 2;
+        var colTotals = new int[col];
         foreach (var pop in populations) {
             var row = sheet.CreateRow(rowIdx++);
             row.CreateCell(0).SetCellValue(pop.School?.Name ?? "");
@@ -626,12 +641,20 @@ public class ReportExportService {
                 foreach (var c in list) {
                     int sum = pop.Items.Where(i => i.Class?.CourseId == c.Id).Sum(i => i.Number);
                     if (sum != 0) { row.CreateCell(col).SetCellValue(sum); if (!c.IsSum) total += sum; }
+                    colTotals[col] += sum;
                     col++;
                 }
                 if (total != 0) row.CreateCell(col).SetCellValue(total);
+                colTotals[col] += total;
                 col++;
             }
         }
+
+        // 總計列：各欄跨分校加總（比照客戶百世人數表最下方的「總計」）
+        var totalRow = sheet.CreateRow(rowIdx);
+        totalRow.CreateCell(0).SetCellValue("總計");
+        for (int c = 1; c < colTotals.Length; c++)
+            if (colTotals[c] != 0) totalRow.CreateCell(c).SetCellValue(colTotals[c]);
     }
 
     // ── PSJ ──────────────────────────────────────────────────────────────────
@@ -1212,7 +1235,7 @@ public class ReportExportService {
     // 儲存格只放人數（純數字），不放班名。
 
     public byte[] ExportPSDetail(int year, int week, IList<int> schoolIds = null) {
-        var populations = LoadPopulations(StudentPopulationType.PS, year, week, schoolIds);
+        var populations = OrderPsPopulations(LoadPopulations(StudentPopulationType.PS, year, week, schoolIds));
         if (populations.Count == 0) return Array.Empty<byte>();
 
         var courses = LoadCourses(StudentPopulationType.PS);
